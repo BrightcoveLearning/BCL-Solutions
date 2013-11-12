@@ -1,0 +1,15 @@
+
+| Metric                | Player    | Video    | Referrer_domain    | Search_terms | Account Rollup   |
+| -----                 | :----:    | :---:    | :-------------:    | :----------: | :------------:   |
+| player_load           | **x**     |          |     **x**          | **x**        |  **x**           |
+| video_impression      | **x**     |  **x**   |     **x**          | **x**        |  **x**           |
+| video_view            | **x**     |  **x**   |     **x**          | **x**        |  **x**           |
+| video_engagement      | **x**     |  **x**   |                    |              |  **x**           |
+| video_percent_viewed  | **x**     |  **x**   |                    |              |  **x**           |
+| video_seconds_viewed  | **x**     |  **x**   |                    |              |  **x**           |
+| active_media          |           |          |                    |              |  **x**           |
+| bytes_in              |           |          |                    |              |  **x**           |
+| bytes_out             |           |          |                    |              |  **x**           |
+| bytes_overhead        |           |          |                    |              |  **x**           |
+| bytes_stored          |           |          |                    |              |  **x**           |
+| bytes_player          |           |          |                    |              |  **x**           |

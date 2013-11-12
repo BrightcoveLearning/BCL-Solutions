@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Analytics Report for a Playlist</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link href="//docs.brightcove.com/en/scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/bcls/analytics-api/css/most-popular-videos.css" rel="stylesheet" type="text/css">
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+        <script src="/bcls/bootstrap/js/html5shiv.js"></script>
+        <![endif]-->
+
+        <!-- Fav and touch icons -->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/bcls/bootstrap/img/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/bcls/bootstrap/img/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/bcls/bootstrap/img/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="/bcls/bootstrap/img/apple-touch-icon-57-precomposed.png">
+        <link rel="shortcut icon" href="/bcls/bootstrap/img/favicon.ico">
+        <link href="//docs.brightcove.com/en/scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <script src="//use.edgefonts.net/source-code-pro.js"></script>
+        <link href="//files.brightcove.com/proxima-nova/font-faces.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/github.css">
+        <link rel="stylesheet" type="text/css" href="/bcls/analytics-api/css/analytics-for-playlist.css">
+        <style type="text/css">
+            body {
+              padding-left: 40px;
+              padding-top: 120px;
+            }
+            .run-button {
+                color: #f5f5f5;
+                background-color: #666666;
+                border: 1px #000000 solid;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: small;
+                margin-left: 20px;
+                padding: 5px;
+            }
+            .bcls-hidden {
+                opacity: .5;
+            }
+            .bcls-shown {
+                opacity: 1;
+            }
+        </style>
+    </head>
+
+    <body data-spy="scroll" data-target=".sub-menu" data-offset="100">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <!-- header navbar -->
+                    <div id="titleBar" class="navbar-inverse navbar-fixed-top">
+                        <div class="navbar-inner">
+                            <div id="otherSites">
+                                <ul class="nav pull-right small">
+                                    <li>
+                                        <a href="//brightcove.com">BRIGHTCOVE.COM</a>
+                                    </li>
+                                    <li>
+                                        <a href="//support.brightcove.com">SUPPORT</a>
+                                    </li>
+                                    <li>
+                                        <a href="//support.brightcove.com/video-cloud/training-videos">TRAINING VIDEOS</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a class="brand" href="//docs.brightcove.com/en/index.html">BRIGHTCOVE DEVELOPER DOCUMENTATION</a>
+                        </div>
+                    </div>
+                    <!-- end header navbar -->
+                    <!-- nav navbar -->
+                    <div id="navBar" class="navbar-inverse navbar-fixed-top">
+                        <div class="navbar-inner">
+                            <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+                            <a class="btn btn-navbar pull-right" data-toggle="collapse" data-target=".nav-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </a>
+                            <!-- Everything you want hidden at 940px or less, place within here -->
+                            <ul id="sectionNav" class="nav"></ul>
+                        </div>
+                    </div>
+                    <!-- end nav navbar -->
+                </div>
+            </div>
+        </div>
+        <!-- main content starts here -->
+        <h1>Video Analytics for a Playlist</h1>
+            <p class="text-warning">Note that the Analytics API is currently in <strong>Limited Availability</strong>. If you are interested in enabling your account for the beta version of the API, please contact your account manager.</p>
+            <div class="section" id="top">
+              <h2>Introduction</h2>
+              <p>This tool allows you to get video analytics data for all videos in a selected playlist.</p>
+            </div>
+            <div class="section" id="playlistInfo">
+                <h2>Account Information</h2>
+                <fieldset>
+                <div id="basicInfo">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Service URL:</td>
+                                <td>
+                                    <input id="serviceURL" class="required aapi-request" type="text" size="55" value="https://data.brightcove.com/analytics-api/videocloud" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Video Cloud Account (Publisher ID):</td>
+                                <td>
+                                    <input id="accountID" class="required aapi-request" type="text" size="55" value="20318290001"> (default: BC Training Videos)</td>
+                            </tr>
+                            <tr>
+                                <td class="align-top no-wrap">Authorization Token:
+                                    <sup class="red">*</sup>
+                                </td>
+                                <td>
+                                    <input id="token" class="required aapi-request" type="text" size="55" value="15075c51ae4b0af095c9a619a" /> (default: BC Training Videos)
+                                    <p>
+                                        <sup class="red">*</sup>If your account has been enabled for the Analytics API, this token was emailed to the account administrator when you joined the <strong>limited availability</strong> program.</p>
+                                </td>
+                            </tr>
+                             <tr>
+                                <td>Media API READ Token:
+                                <br /> (to retrieve playlists to report on)</td>
+                                <td>
+                                    <input id="mapitoken" type="text" size="60" value="v87kWelIdjUwVm7_Rzv09k-KqtLz-ty8ONbMxVYAI7-Q0eOilegqqg.." /> (default: BC Training Videos)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Media API Location</td>
+                                <td>
+                                    <select id="readApiLocation">
+                                        <option value="http://api.brightcove.com/services/library">http://api.brightcove.com/services/post</option>
+                                        <option value="http://api.brightcove.co.jp/services/library">http://api.brightcove.co.jp/services/post (Japan)</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </fieldset>
+                <h2>Get the playlists</h2>
+                <p>Service URL:
+                    <select id="serviceURL">
+                        <option value="http://api.brightcove.com/services/library">http://api.brightcove.com/services/library</option>
+                        <option value="http://api.brightcove.co.jp/services/library">http://api.brightcove.co.jp/services/library (Japan)</option>
+                    </select>
+                </p>
+                <p>Enter your Media API READ token: <input id="mapitoken" size="60" value="S0la8DZ0Bz4T8EI_doFa2K1acfXKR0pQhZalkWJqM0hqlmI5cLhylA.." /><br />(The default value here points to a sample account - replace it with your own token to see your own playlist)</p>
+                <p><span class="run-button" id="getPlaylists">Get Playlists</span></p>
+                <div class="bcls-hidden" id="playlistSelectWrapper">
+                    <p id="playlists"><select id="playlistSelector"></select></p>
+                    <p><span class="run-button" id="getAnalyticsData">Get Analytics Data</span></p>
+                </div>
+            </div>
+            <div id="aapi_response">
+                <h2>Analytics API Response</h2>
+<pre><code id="analyticsData"></code></pre>
+            </div>
+            <div class="section" id="logic">
+              <h2>How it is done</h2>
+              <h3>The Media API part</h3>
+              <p>Using the video ids from the returned Analytics data (the <code>video</code> metric) and the open source Media API wrapper for JavaScript, we call the <code>find_videos_by_ids</code> method to return the <code>id</code>, <code>name</code>, and the <code>thumbnailURL</code> for each of the most viewed videos. This data is used to populate the Popular Videos list, using the Handlebars templating system to simplify the code.</p>
+              <h3>The Analytics API part</h3>
+              <p>The Analytics API part here is simple: request a report on dimension <code>video</code>, set the <code>limit</code> to the number of videos you want to display, sort the results by <code>video_view</code>, and set the <code>from</code> and <code>to</code> parameters to the appropriate start and end times. In this example we are reporting on the period starting 24 hours before now &mdash; for a very active Video Cloud account, you may want to use a shorter period.</p>
+              <h4>JavaScript code for Media and Smart Player API</h4>
+<pre><code id="js_code"></code></pre>
+        </div>
+        <!-- display the result -->
+<pre><code id="response"></code></pre>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="//docs.brightcove.com/en/scripts/bootstrap/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-smooth-scroll/1.4.10/jquery.smooth-scroll.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.1.2/handlebars.min.js"></script>
+        <script src="//docs.brightcove.com/en/scripts/highlight/highlight.pack.js"></script>
+
+        <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
+        <script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
+        <script src="/bcls/scripts/prefix.js"></script>
+        <script src="/bcls/scripts/format_json.js"></script>
+        <script src="/bcls/scripts/bc-mapi.js"></script>
+        <script id="pageScript">
+          var BCLS = ( function () {
+            var params = {},
+                $serviceURL = $("#serviceURL"),
+                $accountID = $("#accountID"),
+                $token = $("#token"),
+                getPlaylists,
+                page_size = 25,
+                page_number = 0,
+                playlistData = [],
+                analyticsData = {},
+                $playlistInfo = $("#playlistInfo"),
+                $mapitoken = $("#mapitoken"),
+                $readApiLocation = $("#readApiLocation"),
+                $getPlaylists = $("#getPlaylists"),
+                handleBarsTemplate = "<option>Select a Playlist</option>{{#items}}<option value=\"{{id}}\">{{name}}</option>{{/items}}",
+                $playlistSelectWrapper = $("#playlistSelectWrapper"),
+                $playlistSelector = $("#playlistSelector"),
+                playlistSelector = document.getElementById("playlistSelector"),
+                $analyticsData = $("#analyticsData"),
+                videoIds = [],
+                currentVideoIndex = 0,
+                logit,
+                firstRun = true,
+                onPlaylistSelect,
+                onMAPIresponse,
+                removeSpaces,
+                isDefined,
+                addArrayItems,
+                analyticsRequestNumber = 0,
+                totalVideos = 0;
+                // utilities
+                logit = function (message) {
+                    if (console) {
+                        console.log(message);
+                    }
+                }
+                // add items in array b to items in array a
+                addArrayItems = function (a,b) {
+                    var max = a.length,
+                        i;
+                    for (i = 0; i < max; i++) {
+                        a[i] += b[i];
+                    }
+                    return a;
+                }
+                // more robust test for strings "not defined"
+                isDefined =  function (v) {
+                    if(v !== "" && v !== null && v !== "undefined") { return true; }
+                    else { return false; }
+                }
+                removeSpaces = function (str) {
+                    if (isDefined(str)) {
+                        str = str.replace(/\s+/g, '');
+                    return str;
+                    }
+                }
+
+                onMAPIresponse = function(jsonData) {
+                    // merge the data into the html template using Handlebars
+                    var template = Handlebars.compile(handleBarsTemplate),
+                        data = jsonData,
+                        results = template(data);
+                    logit(jsonData);
+                    playlistData = jsonData.items;
+                    // inject the HTML for the video list
+                    $playlistSelector.html(results);
+                    // if first run change the button text
+                    if (firstRun) {
+                        // display the selector and get analytics button
+                        $playlistSelectWrapper.attr("class", "bcls-shown");
+                        $getPlaylists.html("Get next 25 playlists");
+                        // get a reference to the playlist selector
+                        $playlistSelector = $("#playlistSelector");
+                        // add event listener
+                        $playlistSelector.on("change", BCLS.onPlaylistSelect);
+                    } else if (jsonData.total_count <= (page_size * page_number)) {
+                        $getPlaylists.html("No more playlists");
+                        $getPlaylists.attr("class", "bcls-hidden");
+                        $getPlaylists.off("click", getPlaylists);
+                    }
+                    // increment page_number
+                    page_number++;
+                    // turn off firstRun flag
+                    firstRun = false;
+                }
+                onPlaylistSelect = function () {
+                    var selectedPlaylist = playlistData[(playlistSelector.selectedIndex - 1)];
+                    videoIds = selectedPlaylist.videoIds;
+                    totalVideos = videoIds.length;
+                    // set playlist info in analyticsData
+                    analyticsData.playlist_id = selectedPlaylist.id;
+                    analyticsData.playlist_name = selectedPlaylist.name;
+                    analyticsData.average_engagement_score = 0;
+                    analyticsData.average_play_rate = 0;
+                    analyticsData.average_video_engagement_1 = 0;
+                    analyticsData.average_video_engagement_25 = 0;
+                    analyticsData.average_video_engagement_50 = 0;
+                    analyticsData.average_video_engagement_75 = 0;
+                    analyticsData.average_video_engagement_100 = 0;
+                    analyticsData.total_video_impression = 0;
+                    analyticsData.average_video_percent_viewed = 0;
+                    analyticsData.total_video_seconds_viewed = 0;
+                    analyticsData.total_video_view = 0;
+                    analyticsData.individual_video_data = [];
+                    getData();
+                }
+                 // store returned data and do math to sum up playlist totals
+                 processData = function (aapiData) {
+                    logit(aapiData);
+                    // add current data to totals
+                    analyticsData.individual_video_data.push(aapiData);
+                    analyticsData.average_engagement_score += aapiData.items[0].engagement_score;
+                    analyticsData.average_play_rate += aapiData.items[0].play_rate;
+                    analyticsData.average_video_engagement_1 += aapiData.items[0].video_engagement_1
+                    analyticsData.average_video_engagement_25 += aapiData.items[0].video_engagement_25;
+                    analyticsData.average_video_engagement_50 += aapiData.items[0].video_engagement_50;
+                    analyticsData.average_video_engagement_75 += aapiData.items[0].video_engagement_75;
+                    analyticsData.average_video_engagement_100 += aapiData.items[0].video_engagement_100
+                    analyticsData.total_video_impression += aapiData.items[0].video_impression;
+                    analyticsData.average_video_percent_viewed += aapiData.items[0].video_percent_viewed;
+                    analyticsData.total_video_seconds_viewed += aapiData.items[0].video_seconds_viewed;
+                    analyticsData.total_video_view += aapiData.items[0].video_view;
+                    if (analyticsRequestNumber === (totalVideos - 1)) {
+                        // all done; time to compute the averages
+                        analyticsData.average_engagement_score      = analyticsData.average_engagement_score / totalVideos;
+                        analyticsData.average_play_rate             = analyticsData.average_play_rate / totalVideos;
+                        analyticsData.average_video_engagement_1    = analyticsData.average_video_engagement_1 / totalVideos;
+                        analyticsData.average_video_engagement_25   = analyticsData.average_video_engagement_25 / totalVideos;
+                        analyticsData.average_video_engagement_50   = analyticsData.average_video_engagement_50 / totalVideos;
+                        analyticsData.average_video_engagement_75   = analyticsData.average_video_engagement_75 / totalVideos;
+                        analyticsData.average_video_engagement_100  = analyticsData.average_video_engagement_100 / totalVideos;
+                        analyticsData.average_video_percent_viewed  = analyticsData.average_video_percent_viewed / totalVideos;
+                        $analyticsData.append(BCLSformatJSON.formatJSON(analyticsData));
+                        // next line just for this display - remove if reusing this code
+                        $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
+                    } else {
+                        // get the next data set
+                        analyticsRequestNumber++;
+                        currentVideoIndex++;
+                        getData();
+                    }
+                }
+                // submit request
+                getData = function () {
+                    var url = $serviceURL.val() + "/account/" + $accountID.val() + "/report?dimensions=video&where=video==" + videoIds[currentVideoIndex];
+                    logit(url);
+                    $.ajax({
+                        url: url,
+                        headers: {
+                            Authorization : "Bearer " + removeSpaces($token.attr("value"))
+                        },
+                        success : function(data) {
+                            BCLS.processData(data);
+                        }
+                    })
+                }
+               // get a playlist collection
+                getPlaylists = function () {
+                    // set up the Media API call, using data from the Analytics API call
+                    BCMAPI.url = $readApiLocation.val();
+                    BCMAPI.token = $mapitoken.val();
+                    BCMAPI.callback = "BCLS.onMAPIresponse";
+                    params.page_size = page_size;
+                    params.page_number = page_number;
+                    params.get_item_count = true;
+                    params.video_fields = "id,name,thumbnailURL";
+                    BCMAPI.find("find_all_playlists", params);
+                }
+                // set up initial event handlers
+                $getPlaylists.on("click", getPlaylists);
+                // public methods
+                return {
+                  onMAPIresponse : onMAPIresponse,
+                  onPlaylistSelect : onPlaylistSelect,
+                  processData : processData
+                }
+            })();
+        </script>
+        <script>
+          $(document).ready(function(){
+            $("#js_code").html(BCLSpreFix($("#pageScript").html()));
+            // $("#css_code").html(BCLSpreFix($("#pageStyles").html()));
+            $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
+          });
+        </script>
+    </body>
+</html>

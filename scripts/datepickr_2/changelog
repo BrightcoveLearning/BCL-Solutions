@@ -1,0 +1,23 @@
+===================================================
+
+2012-12-20 ::: v2.1
+
+- Moved CSS into a separate file
+- Added ability to localize the months, weekdays and suffixes via the configuration
+- Added minified version of the datepickr code
+- Added ability to escape characters in the dateFormat option, so miscellaneous text can be added now
+
+===================================================
+
+2012-12-03 ::: v2.0
+
+- Rewrote most of the code base
+- Datepickr can now be used more than once on the same page
+- Started to implement functionality to show datepickr by clicking on an icon instead of an input
+- File size is over 10KB now, but releasing anyways. I will work on cutting it down, if possible.
+
+===================================================
+
+2010-07-12 ::: v1.0
+
+- Initial Release

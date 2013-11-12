@@ -1,0 +1,30 @@
+WEBVTT
+
+chapter1
+00:00.000 --> 00:11.050 line:270
+{
+"title" : "Bubbles",
+"thumbnail" : "/bcls/assets/images/wim-chapter-1-thumbnail.png"
+}
+
+chapter2
+00:11.060 --> 00:21.040 line:270
+{
+"title" : "Jets Colliding",
+"thumbnail" : "/bcls/assets/images/wim-chapter-2-thumbnail.png"
+}
+
+chapter3
+00:21.050 --> 00:35.190 line:270
+{
+"title" : "Dropping",
+"thumbnail" : "/bcls/assets/images/wim-chapter-3-thumbnail.png"
+}
+
+chapter4
+00:36.200 --> 00:55.000 line:270
+{
+"title" : "Splashing",
+"thumbnail" : "/bcls/assets/images/wim-chapter-4-thumbnail.png"
+}
+

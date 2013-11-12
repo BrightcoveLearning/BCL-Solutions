@@ -1,0 +1,535 @@
+{
+  "apiVersion": "1",
+  "swaggerVersion": "1.2",
+  "basePath": "https://data.brightcove.com/analytics-api/videocloud",
+  "resourcePath": "/account/{accountId}",
+  "apis": [
+    {
+      "path": "/account/{accountId}",
+      "description": "Account rollup",
+      "operations": [
+        {
+          "httpMethod": "GET",
+          "summary": "Get a summary rollup for the account",
+          "notes": "Returns a rollup based on the account ID",
+          "responseClass": "account",
+          "nickname": "getrollup",
+          "parameters": [
+            {
+              "allowableValues": {
+                "values": [
+                  "active_media",
+                  "bytes_in",
+                  "bytes_out",
+                  "bytes_overhead",
+                  "bytes_stored",
+                  "bytes_player",
+                  "player_load",
+                  "video_impression",
+                  "video_view",
+                  "video_engagement",
+                  "video_percent_viewed"
+                ],
+                "valueType": "LIST"
+              },
+              "allowMultiple": false,
+              "type": "string",
+              "paramType": "query",
+              "description": "The metric to sort the results by",
+              "name": "sort"
+            },
+            {
+              "allowableValues": {
+                "min": 0,
+                "valueType": "RANGE"
+              },
+              "allowMultiple": false,
+              "type": "integer",
+              "paramType": "query",
+              "description": "The number of results to skip",
+              "name": "offset"
+            },
+            {
+              "allowableValues": {
+                "min": 1,
+                "valueType": "RANGE"
+              },
+              "allowMultiple": false,
+              "type": "integer",
+              "paramType": "query",
+              "description": "start of the range in which to return data",
+              "name": "limit"
+            },
+            {
+              "format": "utc-millisec || alltime",
+              "allowMultiple": false,
+              "type": "String",
+              "paramType": "query",
+              "description": "start of the range in which to return data",
+              "name": "from"
+            },
+            {
+              "format": "utc-millisec || now",
+              "allowMultiple": false,
+              "type": "integer",
+              "paramType": "query",
+              "description": "end of the range in which to return data",
+              "name": "to"
+            },
+            {
+              "name": "accountId",
+              "description": "ID of account that needs to be fetched",
+              "paramType": "path",
+              "required": true,
+              "allowMultiple": false,
+              "type": "string"
+            }
+          ],
+          "errorResponses": [
+            {
+              "code": 400,
+              "reason": "Invalid ID supplied"
+            },
+            {
+              "code": 404,
+              "reason": "account not found"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "models": {
+    "active_media": {
+      "type": "object",
+      "id": "active_media",
+
+      "models": {
+        "series": {
+          "type": "object",
+          "id": "active_media$series",
+
+          "properties": {
+            "start": {
+              "type": "number",
+              "id": "active_media$series$start"
+            },
+            "step": {
+              "type": "number",
+              "id": "active_media$series$step"
+            },
+            "type": {
+              "type": "string",
+              "id": "active_media$series$type"
+            },
+            "values": {
+              "type": "array",
+              "id": "active_media$series$values",
+
+              "items": {
+                "type": "number",
+                "id": "active_media$series$values$0"
+              }
+            }
+          }
+        }
+      }
+    },
+    "bytes_in": {
+      "type": "object",
+      "id": "bytes_in",
+
+      "properties": {
+        "series": {
+          "type": "object",
+          "id": "bytes_in$series",
+
+          "properties": {
+            "start": {
+              "type": "number",
+              "id": "bytes_in$series$start"
+            },
+            "step": {
+              "type": "number",
+              "id": "bytes_in$series$step"
+            },
+            "type": {
+              "type": "string",
+              "id": "bytes_in$series$type"
+            },
+            "values": {
+              "type": "array",
+              "id": "bytes_in$series$values",
+
+              "items": {
+                "type": "number",
+                "id": "bytes_in$series$values$0"
+              }
+            }
+          }
+        }
+      }
+    },
+    "bytes_out": {
+      "type": "object",
+      "id": "bytes_out",
+
+      "properties": {
+        "series": {
+          "type": "object",
+          "id": "bytes_out$series",
+
+          "properties": {
+            "start": {
+              "type": "number",
+              "id": "bytes_out$series$start"
+            },
+            "step": {
+              "type": "number",
+              "id": "bytes_out$series$step"
+            },
+            "type": {
+              "type": "string",
+              "id": "bytes_out$series$type"
+            },
+            "values": {
+              "type": "array",
+              "id": "bytes_out$series$values",
+
+              "items": {
+                "type": "number",
+                "id": "bytes_out$series$values$0"
+              }
+            }
+          }
+        }
+      }
+    },
+    "bytes_overhead": {
+      "type": "object",
+      "id": "bytes_overhead",
+
+      "properties": {
+        "series": {
+          "type": "object",
+          "id": "bytes_overhead$series",
+
+          "properties": {
+            "start": {
+              "type": "number",
+              "id": "bytes_overhead$series$start"
+            },
+            "step": {
+              "type": "number",
+              "id": "bytes_overhead$series$step"
+            },
+            "type": {
+              "type": "string",
+              "id": "bytes_overhead$series$type"
+            },
+            "values": {
+              "type": "array",
+              "id": "bytes_overhead$series$values",
+
+              "items": {
+                "type": "number",
+                "id": "bytes_overhead$series$values$0"
+              }
+            }
+          }
+        }
+      }
+    },
+    "bytes_player": {
+      "type": "object",
+      "id": "bytes_player",
+
+      "properties": {
+        "series": {
+          "type": "object",
+          "id": "bytes_player$series",
+
+          "properties": {
+            "start": {
+              "type": "number",
+              "id": "bytes_player$series$start"
+            },
+            "step": {
+              "type": "number",
+              "id": "bytes_player$series$step"
+            },
+            "type": {
+              "type": "string",
+              "id": "bytes_player$series$type"
+            },
+            "values": {
+              "type": "array",
+              "id": "bytes_player$series$values",
+
+              "items": {
+                "type": "number",
+                "id": "bytes_player$series$values$0"
+              }
+            }
+          }
+        }
+      }
+    },
+    "bytes_stored": {
+      "type": "object",
+      "id": "bytes_stored",
+
+      "properties": {
+        "series": {
+          "type": "object",
+          "id": "bytes_stored$series",
+
+          "properties": {
+            "start": {
+              "type": "number",
+              "id": "bytes_stored$series$start"
+            },
+            "step": {
+              "type": "number",
+              "id": "bytes_stored$series$step"
+            },
+            "type": {
+              "type": "string",
+              "id": "bytes_stored$series$type"
+            },
+            "values": {
+              "type": "array",
+              "id": "bytes_stored$series$values",
+
+              "items": {
+                "type": "number",
+                "id": "bytes_stored$series$values$0"
+              }
+            }
+          }
+        }
+      }
+    },
+    "player_load": {
+      "type": "object",
+      "id": "player_load",
+
+      "properties": {
+        "alltime": {
+          "type": "number",
+          "id": "player_load$alltime"
+        },
+        "series": {
+          "type": "object",
+          "id": "player_load$series",
+
+          "properties": {
+            "start": {
+              "type": "number",
+              "id": "player_load$series$start"
+            },
+            "step": {
+              "type": "number",
+              "id": "player_load$series$step"
+            },
+            "type": {
+              "type": "string",
+              "id": "player_load$series$type"
+            },
+            "values": {
+              "type": "array",
+              "id": "player_load$series$values",
+
+              "items": {
+                "type": "number",
+                "id": "player_load$series$values$0"
+              }
+            }
+          }
+        }
+      }
+    },
+    "video_engagement": {
+      "type": "object",
+      "id": "video_engagement",
+
+      "properties": {
+        "series": {
+          "type": "object",
+          "id": "video_engagement$series",
+
+          "properties": {
+            "type": {
+              "type": "string",
+              "id": "video_engagement$series$type"
+            },
+            "values": {
+              "type": "array",
+              "id": "video_engagement$series$values",
+
+              "items": {
+                "type": "number",
+                "id": "video_engagement$series$values$0"
+              }
+            }
+          }
+        }
+      }
+    },
+    "video_impression": {
+      "type": "object",
+      "id": "video_impression",
+
+      "properties": {
+        "alltime": {
+          "type": "number",
+          "id": "video_impression$alltime"
+        },
+        "series": {
+          "type": "object",
+          "id": "video_impression$series",
+
+          "properties": {
+            "start": {
+              "type": "number",
+              "id": "video_impression$series$start"
+            },
+            "step": {
+              "type": "number",
+              "id": "video_impression$series$step"
+            },
+            "type": {
+              "type": "string",
+              "id": "video_impression$series$type"
+            },
+            "values": {
+              "type": "array",
+              "id": "video_impression$series$values",
+
+              "items": {
+                "type": "number",
+                "id": "video_impression$series$values$0"
+              }
+            }
+          }
+        }
+      }
+    },
+    "video_percent_viewed": {
+      "type": "object",
+      "id": "video_percent_viewed",
+
+      "properties": {
+        "alltime": {
+          "type": "number",
+          "id": "video_percent_viewed$alltime"
+        },
+        "series": {
+          "type": "object",
+          "id": "video_percent_viewed$series",
+
+          "properties": {
+            "start": {
+              "type": "number",
+              "id": "video_percent_viewed$series$start"
+            },
+            "step": {
+              "type": "number",
+              "id": "video_percent_viewed$series$step"
+            },
+            "type": {
+              "type": "string",
+              "id": "video_percent_viewed$series$type"
+            },
+            "values": {
+              "type": "array",
+              "id": "video_percent_viewed$series$values",
+
+              "items": {
+                "type": "number",
+                "id": "video_percent_viewed$series$values$0"
+              }
+            }
+          }
+        }
+      }
+    },
+    "video_seconds_viewed": {
+      "type": "object",
+      "id": "video_seconds_viewed",
+
+      "properties": {
+        "alltime": {
+          "type": "number",
+          "id": "video_seconds_viewed$alltime"
+        },
+        "series": {
+          "type": "object",
+          "id": "video_seconds_viewed$series",
+
+          "properties": {
+            "start": {
+              "type": "number",
+              "id": "video_seconds_viewed$series$start"
+            },
+            "step": {
+              "type": "number",
+              "id": "video_seconds_viewed$series$step"
+            },
+            "type": {
+              "type": "string",
+              "id": "video_seconds_viewed$series$type"
+            },
+            "values": {
+              "type": "array",
+              "id": "video_seconds_viewed$series$values",
+
+              "items": {
+                "type": "number",
+                "id": "video_seconds_viewed$series$values$0"
+              }
+            }
+          }
+        }
+      }
+    },
+    "video_view": {
+      "type": "object",
+      "id": "video_view",
+
+      "properties": {
+        "alltime": {
+          "type": "number",
+          "id": "video_view$alltime"
+        },
+        "series": {
+          "type": "object",
+          "id": "video_view$series",
+
+          "properties": {
+            "start": {
+              "type": "number",
+              "id": "video_view$series$start"
+            },
+            "step": {
+              "type": "number",
+              "id": "video_view$series$step"
+            },
+            "type": {
+              "type": "string",
+              "id": "video_view$series$type"
+            },
+            "values": {
+              "type": "array",
+              "id": "video_view$series$values",
+              "items": {
+                "type": "number",
+                "id": "video_view$series$values$0"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

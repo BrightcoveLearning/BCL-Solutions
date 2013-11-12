@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+      body, table {
+        font-family: Menlo, Consolas, Monaco, "Lucida Console", monospace;
+        border-collapse: collapse;
+      }
+      th,td {
+        border-collapse: collapse;
+        border: 1px #666 solid;
+        padding: 10px;
+        margin: 0;
+        text-align: right;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Convert hh:mm:ss.mmm time strings to seconds</h1>
+    <div id="results">
+      
+    </div>
+    <script>
+      var testTime,timeArray = [];
+      /**
+       * timeToSeconds()
+       * arguments: time: hh:mm:ss:mmm string
+       * returns: seconds: float
+       */
+      timeToSeconds = function(hmsm) {
+        var seconds = 0, len = 0, timeArray, secondsArray;
+        // split at :'s
+        timeArray = hmsm.split(":");
+        // split last item at .
+        len = timeArray.length;
+        secondsArray = timeArray[len - 1];
+        if (secondsArray.length == 2) {
+          timeArray[len - 1] = parseFloat(secondsArray[0]) + (secondsArray[1] / 1000)
+        }
+        console.log(timeArray);
+        // for (var i, max = timeArray.length; i < max; i++) {
+        //   timeArray[i] = parseInt(timeArray[i], 10);
+        //   console.log(timeArray);
+        // }
+        if (timeArray.length == 3) {
+          // must have milliseconds
+          seconds = (timeArray[0] * 3660) + (timeArray[1] * 60) + parseFloat(timeArray[2]);
+        }
+        else if (timeArray.length == 2) {
+          seconds = (timeArray[0] * 60) + parseFloat(timeArray[1]);
+        }
+        else if (timeArray.length == 1) {
+          seconds = parseFloat(timeArray[0]);
+        }
+        return seconds;
+      };
+      testTimes = ["01:02:11.060","02:11.060","11.060",".060"];
+      var str = "<table><tbody><tr><th>Time String</th><th>Seconds</th></tr>"
+      for (i = 0, max = testTimes.length; i < max; i++) {
+        str += "<tr><td>" + testTimes[i] + "</td><td>" + timeToSeconds(testTimes[i]) + "</td></tr>";
+      }
+      str += "</tbody></table>";
+      document.getElementById("results").innerHTML = str;
+    </script>
+  </body>
+</html>

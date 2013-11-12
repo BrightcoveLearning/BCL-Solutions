@@ -1,0 +1,66 @@
+body {
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+.btn {
+    background-color: #F5F5F5;
+    border: 1px #999 solid;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: small;
+    margin: 0 5px 5px 5px;
+    padding: 5px;
+}
+.play-pause {
+    vertical-align: middle;
+}
+.time-controls {
+    font-weight: bold;
+}
+.align-right {
+    text-align: right;
+}
+.align-center {
+    text-align: center;
+}
+.align-top {
+    vertical-align: top;
+}
+.no-border {
+    border: none;
+    padding: 2px;
+}
+.chapter-list {
+    border: 1px #CCC solid;
+    border-radius: 5px;
+    padding: 10px;
+}
+.required {
+    border: 2px #900 solid;
+}
+.required-text {
+    color: #900;
+    font-size: xx-small;
+}
+.edit-chapter, .delete-chapter {
+  font-size: xx-small;
+}
+.timelineMarker {
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-image: url('timelineMarker.png');
+}
+.timelineMarker {
+  background-position:0px 0px;
+  width:10px;
+  height:10px;
+}
+table {
+    border: none;
+    border-spacing: 10px;
+}
+td {
+    border: 1px #CCC solid;
+    border-radius: 5px;
+    font-size: small;
+    padding: 10px;
+}

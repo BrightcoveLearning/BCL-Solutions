@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>test for https player load</title>
+    <style>
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+        }
+        .btn {
+            border: 1px solid #999;
+            border-radius: 4px;
+            background-color: #F5F5F5;
+            cursor: pointer;
+            font-size: small;
+            padding: 5px;
+        }
+    </style>
+  </head>
+  <body>
+    <h1>This player uses the JavaScript embed code</h1>
+    <!-- Start of Brightcove Player -->
+    <div style="display:none">
+    </div>
+    <script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
+    <object id="myExperience921449663001" class="BrightcoveExperience">
+      <param name="bgcolor" value="#FFFFFF" />
+      <param name="width" value="480" />
+      <param name="height" value="270" />
+      <param name="playerID" value="921267190001" />
+      <param name="playerKey" value="AQ~~,AAAA1oy1bvE~,ALl2ezBj3WG3MLvDx9F9zkV06cNK00ey" />
+      <param name="isVid" value="true" />
+      <param name="isUI" value="true" />
+      <param name="dynamicStreaming" value="true" /> 
+      <param name="@videoPlayer" value="921449663001" />
+    </object>
+    <script type="text/javascript">brightcove.createExperiences();</script>
+    <!-- End of Brightcove Player -->
+    <p><span id="reloadButton" class="btn">Reload in HTTPS mode</span></p>
+    <script type="text/javascript">
+        var path, newPath,
+        reloadButton = document.getElementById("reloadButton");
+        reloadButton.addEventListener("click", function(evt) {
+            path = window.location.href;
+            newPath = path.replace(/http:/, "https:");
+            window.location = newPath;
+        });
+    </script>
+  </body>
+</html>

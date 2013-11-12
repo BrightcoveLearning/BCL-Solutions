@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Twitter Share Example</title>
+<meta name="twitter:card" content="player" />
+<meta name="twitter:url" content="http://solutions.brightcove.com/bcls/test-bob/twitter.html" />
+<meta name="twitter:title" content="Feeding the Giraffes" />
+<meta name="twitter:description" content="Feeding the giraffes at Taronga Zoo in Sydney." />
+<meta name="twitter:image:src" content="http://solutions.brightcove.com/bcls/test-bob/giraffe.jpg" />
+<meta name="twitter:player" content="https://solutions.brightcove.com/bcls/test-bob/twitter.html?bcpid=2418638553001&bckey=AQ~~,AAABWOeFoCE~,s9prJpgtIb-rp33rQF8W82uxDQ3ltnnY&bctid=1581218232001&secureConnections=true&autoStart=false&height=100%25&width=100%25" />
+<meta name="twitter:player:width" content="480" />
+<meta name="twitter:player:height" content="270" />
+</head>
+
+<body>
+<h2>Twitter Example</h2>
+<!-- Start of Brightcove Player -->
+
+<div style="display:none">
+
+</div>
+
+<!--
+By use of this code snippet, I agree to the Brightcove Publisher T and C 
+found at https://accounts.brightcove.com/en/terms-and-conditions/. 
+-->
+
+<script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
+
+<object id="myExperience1581218232001" class="BrightcoveExperience">
+  <param name="bgcolor" value="#FFFFFF" />
+  <param name="width" value="480" />
+  <param name="height" value="270" />
+  <param name="playerID" value="2418638553001" />
+  <param name="playerKey" value="AQ~~,AAABWOeFoCE~,s9prJpgtIb-rp33rQF8W82uxDQ3ltnnY" />
+  <param name="isVid" value="true" />
+  <param name="isUI" value="true" />
+  <param name="dynamicStreaming" value="true" />
+  
+  <param name="@videoPlayer" value="1581218232001" />
+</object>
+
+<!-- 
+This script tag will cause the Brightcove Players defined above it to be created as soon
+as the line is read by the browser. If you wish to have the player instantiated only after
+the rest of the HTML is processed and the page load is complete, remove the line.
+-->
+<script type="text/javascript">brightcove.createExperiences();</script>
+
+<!-- End of Brightcove Player --></html>

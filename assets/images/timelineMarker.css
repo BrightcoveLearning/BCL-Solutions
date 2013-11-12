@@ -1,0 +1,11 @@
+.timelineMarker{
+	display: inline-block;
+	background-repeat: no-repeat;
+	background-image: url('timelineMarkers.png');
+}
+.timelineMarker
+{
+	background-position:0px 0px;
+	width:10px;
+	height:10px;
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />		
+    <title></title>
+    <style>
+      
+    </style>
+  </head>
+  <body>
+    <h1>Hello</h1>
+    <button id="requestMaker">Make request</button>
+    <script type="text/javascript" src="//docs.brightcove.com/en/scripts/bc-mapi.js"></script>
+    <script>
+    var onGetData, params = {}, i, str="", makeRequest, myButton=document.getElementById("requestMaker");
+    onGetData = function (JSONdata) {
+		// var myData = JSON.parse(JSONdata);
+		console.log(JSONdata);
+		for (i=0; i<JSONdata.items.length; i++) {
+		  // do something
+		  str += '<p id="' + myData.items[i].id + '">' + myData.items[i].name + '</p>';
+		}
+	}
+    BCMAPI.url = "http://api.brightcove.com/services/library";
+    BCMAPI.token = "jskS1rEtQHybQGcuATa1ANGOYjfV2cnmDDnOKoFxnfpyGk59SPILLA..";
+    BCMAPI.callback = "onGetData";
+    myButton.addEventListener("click", function () {
+    	console.log("request time");
+    	BCMAPI.search(params);
+    });
+
+    
+    </script>
+  </body>
+</html>
+
+

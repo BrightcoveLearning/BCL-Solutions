@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />		
+		<title>Chapter Maker</title>
+		<style>
+			body {
+				font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+			}
+		</style>
+		<!-- Change URLs to wherever Video.js files will be hosted -->
+		<link href="/bcls/video-js/video-js.css" rel="stylesheet" type="text/css">
+		<!-- video.js must be in the <head> for older IEs to work. -->
+		<script src="/bcls/video-js/video.js"></script>
+		<!-- Unless using the CDN hosted version, update the URL to the Flash SWF -->
+		<script>
+			_V_.options.flash.swf = "/bcls/video-js/video-js.swf";
+		</script>
+	</head>
+	<body>
+		<h1>Chapter Maker</h1>
+		<p>Start by entering the path to your video below:</p>
+		<p><input id="videoSrc" type="text" size="150"></p>
+		<video id="vjsExperience"
+					 class="video-js vjs-default-skin"
+					 controls
+					 preload="auto"
+					 width="480px"
+					 height="270px"
+					 poster="/bcls/assets/images/Water-In-Motion.png"
+					 data-setup="{"makeChapters" : }">
+			<source src="/bcls/assets/videos/Water-In-Motion.mp4" type="video/mp4" />
+			<source src="/bcls/assets/videos/Water-In-Motion.ogv" type="video/ogg" />
+			<source src="/bcls/assets/videos/Water-In-Motion.webm" type="video/webm" />
+		</video>
+		<!-- include jquery -->
+		<script type="text/javascript" src="/bcls/scripts/jquery-1.9.1.min.js"></script>
+		<script>
+			var BCLS = ( function () {
+				var  
+				return {
+			
+				} 
+			})();
+		</script>
+	</body>
+</html>

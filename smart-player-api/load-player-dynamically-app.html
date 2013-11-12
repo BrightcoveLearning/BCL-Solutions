@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Dynamically Load Player</title>
+</head>
+<body>
+
+  <div id="placeHolder" style="background-color:#64AAB2;width:485px;height:270px;text-align: center;padding:5px;">
+
+  <button onclick="addPlayer()" />Add Player</button>
+
+  <script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.1.2/handlebars.min.js"></script>
+
+  <script type="text/javascript">
+    var player,
+    APIModules,
+    playerData = { "playerID" : "1507808033001",
+                   "playerKey" : "AQ~~,AAABXxBZKsE~,AdU2xXeQoKCatdLR1Pb_eo4UzCFcjSKc",
+                   "width" : "480",
+                   "height" : "270",
+                   "videoID" : "2114345471001" },
+    playerTemplate = "<div style=\"display:none\"></div><object id=\"myExperience\" class=\"BrightcoveExperience\"><param name=\"bgcolor\" value=\"#FFFFFF\" /><param name=\"width\" value=\"{{width}}\" /><param name=\"height\" value=\"{{height}}\" /><param name=\"playerID\" value=\"{{playerID}}\" /><param name=\"playerKey\" value=\"{{playerKey}}\" /><param name=\"isVid\" value=\"true\" /><param name=\"isUI\" value=\"true\" /><param name=\"dynamicStreaming\" value=\"true\" /><param name=\"@videoPlayer\" value=\"{{videoID}}\"; /><param name=\"includeAPI\" value=\"true\" /><param name=\"templateLoadHandler\" value=\"onTemplateLoad\" /><param name=\"templateReadyHandler\" value=\"onTemplateReady\" /></object>";
+
+    var addPlayer = function(){
+      var playerHTML,
+      template;
+      // dynamically build player code using handlebars
+      template = Handlebars.compile(playerTemplate);
+      playerHTML = template(playerData);
+      // inject the player code into the DOM
+      document.getElementById("placeHolder").innerHTML = playerHTML;
+      // instantiate the player
+      brightcove.createExperiences();
+    }
+
+    var onTemplateLoad = function(experienceID){
+      player = brightcove.api.getExperience(experienceID);
+      APIModules = brightcove.api.modules.APIModules;
+    };
+
+    var onTemplateReady = function(evt){
+      videoPlayer = player.getModule(APIModules.VIDEO_PLAYER);
+      videoPlayer.play();
+    };
+
+  </script>
+
+</body>
+</html>

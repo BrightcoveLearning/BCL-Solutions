@@ -1,0 +1,355 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!--
+
+author: nazree bakar
+company: brightcove
+date released: 7th Nov 2011
+version: 0.1.1
+description:
+- html page to generate xml content from Media API.
+- the purpose of this xml file is to simplify the generation of xml content for the purpose of re-encoding
+- enter a valid Media API token and the correct publisher ID for that API.
+- order data by sortBy and sortOrder
+- specify xml parameters by selecting encode-multiple, overwrite-images
+- show the generated Media API call in use which returns the JSON object
+- generates the xml content based on 100 titles in 1 page of JSON object returned.
+- for example, if there are 800 titles, 8 pages of 100 titles each will be returned.
+- ONLY titles WITH reference IDs are returned in the generated xml file content.
+- multiple email notification generation allowed, current version has no email validation
+- 8th Nov 11 - updated a css entry
+-->
+<head>
+    <title>Re-encode XML Generator</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+
+<script>
+function getCheckedValue(radioObj) {
+    if(!radioObj)
+        return "";
+    var radioLength = radioObj.length;
+    if(radioLength == undefined)
+        if(radioObj.checked)
+            return radioObj.value;
+        else
+            return "";
+    for(var i = 0; i < radioLength; i++) {
+        if(radioObj[i].checked) {
+            return radioObj[i].value;
+        }
+    }
+    return "";
+}
+
+function returnEmailAddress(stringCommaArray)
+{
+    var emailOutput = "";
+
+    var emailArray = stringCommaArray.split(",");
+    for (i=0; i<emailArray.length; i++)
+    {
+        emailOutput += "&lt;notify email=\""+emailArray[i].replace(/^\s+|\s+$/g, '')+"\"/&gt;<br/>";
+    }
+    return emailOutput;
+}
+function validateForm(form) {
+    var tokenString = form.token.value;
+    var publisherId = form.publisherId.value;
+    publsiherId = publisherId.replace(/^\s+|\s+$/g, '') ;
+    tokenString = tokenString.replace(/^\s+|\s+$/g, '') ;
+
+    var sortByString = getCheckedValue(document.forms['reencode'].elements['sortBy']);
+    var sortOrderString = getCheckedValue(document.forms['reencode'].elements['sortOrder']);
+    var error_label = document.getElementById("error_label");
+    var message = document.getElementById("message");
+    var encodeTo = getCheckedValue(document.forms['reencode'].elements['encodeTo']);
+    var encodeMultiple = getCheckedValue(document.forms['reencode'].elements['encodeMultiple']);
+    var overwriteImages = getCheckedValue(document.forms['reencode'].elements['overwriteImages']);
+
+    if (tokenString.length == 0)
+    {
+        //alert ("invalid token");
+        error_label.innerHTML = "<span class='error'>Error</span>";
+        message.innerHTML = "<span class='error'>Please specify a token</span>";
+    }
+    else if (tokenString.length != 0 && publisherId.length == 0)
+    {
+
+        error_label.innerHTML = "<span class='error'>Error</span>";
+        message.innerHTML = "<span class='error'>Please specify a valid publisher ID</span>";
+    }
+    else if (tokenString.length != 0 && sortByString.length == 0)
+    {
+
+        error_label.innerHTML = "<span class='error'>Error</span>";
+        message.innerHTML = "<span class='error'>Please specify a sortBy option</span>";
+    }
+    else if (tokenString.length != 0 && sortOrderString.length == 0)
+    {
+
+        error_label.innerHTML = "<span class='error'>Error</span>";
+        message.innerHTML = "<span class='error'>Please specify a sortOrder option</span>";
+    }
+    else if (tokenString.length != 0 && encodeTo.length == 0)
+    {
+
+        error_label.innerHTML = "<span class='error'>Error</span>";
+        message.innerHTML = "<span class='error'>Please specify encode-to option</span>";
+    }
+    else if (tokenString.length != 0 && encodeMultiple.length == 0)
+    {
+
+        error_label.innerHTML = "<span class='error'>Error</span>";
+        message.innerHTML = "<span class='error'>Please specify a encode-multiple option</span>";
+    }
+    else if (tokenString.length != 0 && overwriteImages.length == 0)
+    {
+
+        error_label.innerHTML = "<span class='error'>Error</span>";
+        message.innerHTML = "<span class='error'>Please specify a overwrite-images option</span>";
+    }
+    else
+    {
+        checkValidToken(tokenString);
+    }
+
+}
+
+function addScriptTag(name,id, url, callback) {
+    var scriptTag = document.createElement(name);
+    var noCacheIE = '&noCacheIE=' + (new Date()).getTime();
+
+   // Add script object attributes
+   scriptTag.setAttribute("type", "text/javascript");
+   scriptTag.setAttribute("charset", "utf-8");
+   scriptTag.setAttribute("src", url + "&callback=" + callback + noCacheIE);
+   scriptTag.setAttribute("id", id);
+
+    var head = document.getElementsByTagName("head").item(0);
+    head.appendChild(scriptTag);
+}
+
+function checkValidToken(token) {
+    addScriptTag("script","topVideos", "http://api.brightcove.com/services/library?command=find_all_videos&get_item_count=true&video_fields=id,name&page_size=1&token="+token, "response");
+}
+
+
+function response(jsonData) {
+
+    //output the query
+    var q = document.getElementById("qDiv");
+    var s = document.getElementById("topVideos");
+    //q.innerHTML = s.src; may or may not need this..
+
+    var resp = document.getElementById("message");
+    var jsonSend = document.getElementById("jsonSend");
+    var error_label = document.getElementById("error_label");
+    resp.innerHTML = "";
+
+    if (jsonData["error"] != undefined)
+    {
+        error_label.innerHTML = "<span class='error'>Error</span>";
+        resp.innerHTML = "<span class='error'>Invalid token. Please try again! </span>";
+        return;
+    }
+
+    else
+    {
+        error_label.innerHTML = "<span class='success'>Output</span>";
+        var totalCount = jsonData["total_count"];
+        var loopCount = Math.ceil(totalCount / 100);
+        var remainder = totalCount % 100;
+        //resp.innerHTML = "There will be "+loopCount+" xml files generated..<br/>";
+        var token = document.getElementById('token').value;
+        var sortBy = getCheckedValue(document.forms['reencode'].elements['sortBy']);
+        var sortOrder = getCheckedValue(document.forms['reencode'].elements['sortOrder']);
+        var callbackURL = document.getElementById('callbackURL').value;
+        var notifyEmail = document.getElementById('emailAddress').value;
+        var publisherID = document.getElementById('publisherId').value;
+        var emailAddress = document.getElementById('emailAddress').value;
+        var encodeTo = getCheckedValue(document.forms['reencode'].elements['encodeTo']);
+        var encodeMultiple = getCheckedValue(document.forms['reencode'].elements['encodeMultiple']);
+        var overwriteImages = getCheckedValue(document.forms['reencode'].elements['overwriteImages']);
+        var displayAPI = getCheckedValue(document.forms['reencode'].elements['displayAPI']);
+        callbackURL = callbackURL.replace(/^\s+|\s+$/g, '');
+        notifyEmail = notifyEmail.replace(/^\s+|\s+$/g, '');
+        if (callbackURL != "")
+        {
+            //callbackURL = "test";
+            callbackURL = "&lt;callback entity-url=\""+callbackURL+"\"/&gt;<br/>";
+        }
+        if (notifyEmail != "")
+        {
+            notifyEmail = returnEmailAddress(notifyEmail);
+        }
+
+//      loopCount = 3;
+        for (var i=(loopCount-1); i>-1; i--)
+        {
+            var indexNumber = 1;
+            var counter = 0;
+
+            if (displayAPI == "YES")
+            {
+                resp.innerHTML += "http://api.brightcove.com/services/library?command=find_all_videos&token="+token+"&get_item_count=true&video_fields=id,name,referenceId&page_size=100&sort_by="+sortBy+"&sort_order="+sortOrder+"&page_number="+i+"<br/>";
+            }
+            $.getJSON("http://api.brightcove.com/services/library?command=find_all_videos&token="+token+"&get_item_count=true&video_fields=id,name,referenceId&page_size=100&sort_by="+sortBy+"&sort_order="+sortOrder+"&page_number="+i+"&callback=?",
+
+            function(data) {
+                $.each(data.items, function(j,item){
+
+                if (j == 0)
+                //if(indexNumber == 1)
+                {
+                resp.innerHTML += "<br/><br/>";
+                resp.innerHTML += "&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?><br/>";
+                resp.innerHTML += "&lt;publisher-upload-manifest publisher-id=\""+publisherID+"\" preparer=\"Re-encode XML Generator version 0.1\" report-success=\"TRUE\"><br/>";
+                resp.innerHTML += notifyEmail;
+                resp.innerHTML += callbackURL;
+
+                }
+
+                if (item.referenceId != null)
+                {
+//                  resp.innerHTML += "&lt;!-- "+indexNumber+". "+item.id+" - "+item.name+"--&gt;<br/>";
+                    resp.innerHTML += "&lt;reencode-from-existing-source title-refid=\""+item.referenceId+"\" encode-to=\""+encodeTo+"\" encode-multiple=\""+encodeMultiple+"\" overwrite-images=\""+overwriteImages+"\"/><br/>";
+                    indexNumber++;
+                }
+                if (j == (data.items.length - 1))
+                {
+                    resp.innerHTML += "&lt;/publisher-upload-manifest><br/><br/>";
+
+                    resp.innerHTML += "<br/>";
+                    indexNumber = 1;
+                }
+
+                counter++;
+
+                });
+            });
+        } // for loop
+    }
+}
+
+</script>
+
+<style>
+    body
+{
+background-color:#FFFFFF;
+font-family:"arial";
+font-size:12px;
+
+}
+h1
+{
+color:orange;
+text-align:center;
+}
+p
+{
+font-family:"arial";
+font-size:12pt;
+}
+/*
+input
+{
+font-weight:bold;
+border:2px solid green;
+padding: 3px;
+}
+*/
+.formtext
+{
+font-weight:bold;
+border:2px solid green;
+padding: 3px;
+}
+.error{
+font-weight:bold;
+color:red;
+}
+.success{
+font-weight:bold;
+color:green;
+}
+
+</style>
+<form name="reencode">
+<table width="1100" cellpadding="3">
+    <tr>
+        <td width="150" align="right">Token</td>
+        <td width="950"><input type="text" size="60" name="token" class="formtext" id="token"> <b>(mandatory)</b></td>
+    </tr>
+    <tr>
+        <td width="150" align="right">Callback URL</td>
+        <td width="950"><input type="text" size="60" name="callbackURL" class="formtext" id="callbackURL"></td>
+    </tr>
+    <tr>
+        <td width="150" align="right">Publisher ID</td>
+        <td width="950"><input type="text" size="40" name="publisherId" class="formtext" id="publisherId"> <b>(mandatory)</b></td>
+    </tr>
+    <tr>
+        <td width="150" align="right">Email address</td>
+        <td width="950"><input type="text" size="40" name="emailAddress" class="formtext" id="emailAddress"> (for more than one entry, please use a comma to separate multiple entries)</td>
+    </tr>
+    <tr>
+        <td width="150" align="right">Sort by</td>
+        <td width="950">
+        <input type="radio" name="sortBy" value="PUBLISH_DATE" checked> PUBLISH_DATE
+        <input type="radio" name="sortBy" value="CREATION_DATE"> CREATION_DATE
+        <input type="radio" name="sortBy" value="MODIFIED_DATE"> MODIFIED_DATE
+        <input type="radio" name="sortBy" value="PLAYS_TOTAL"> PLAYS_TOTAL
+        <input type="radio" name="sortBy" value="PLAYS_TRAILING_WEEK"> PLAYS_TRAILING_WEEK
+        </td>
+    </tr>
+    <tr>
+        <td width="150" align="right">Sort order</td>
+        <td width="950">
+        <input type="radio" name="sortOrder" value="ASC" checked> ASCENDING
+        <input type="radio" name="sortOrder" value="DESC"> DESCENDING
+        </td>
+    </tr>
+    <tr>
+        <td width="150" align="right">encode-to</td>
+        <td width="950">
+        <input type="radio" name="encodeTo" value="MP4" checked> MP4 (only MP4 is allowed for now)
+        </td>
+    </tr>
+    <tr>
+        <td width="150" align="right">encode-multiple</td>
+        <td width="950">
+        <input type="radio" name="encodeMultiple" value="TRUE" checked> True
+        <input type="radio" name="encodeMultiple" value="FALSE"> False
+        </td>
+    </tr>
+    <tr>
+        <td width="150" align="right">overwrite-images</td>
+        <td width="950">
+        <input type="radio" name="overwriteImages" value="TRUE"> True
+        <input type="radio" name="overwriteImages" value="FALSE" checked> False
+        </td>
+    </tr>
+    <tr>
+        <td width="150" align="right" valign="top">Display generated API?</td>
+        <td width="950">
+            <input type="radio" name="displayAPI" value="YES"> Yes
+            <input type="radio" name="displayAPI" value="NO" checked> No
+        </td>
+    </tr>
+    <tr>
+        <td width="150" align="right">&nbsp;</td>
+        <td width="950"><input type="button" name="Submit" value="Submit" onClick="validateForm(this.form)"></td>
+    </tr>
+    <tr>
+        <td width="150" align="right" valign="top"><div id="error_label">&nbsp;</div></td>
+        <td width="950"><div id="message">&nbsp;</div></td>
+    </tr>
+</table>
+<p id="qDiv"></p>
+</form>
+</body>
+</html>

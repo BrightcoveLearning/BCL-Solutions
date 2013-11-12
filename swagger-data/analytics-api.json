@@ -1,0 +1,53 @@
+{
+    "apiVersion": "1",
+    "swaggerVersion": "1.2",
+    "apis": [
+        {
+            "path": "/account/{accountId}",
+            "description": "Account rollup"
+        },
+        {
+            "path": "/account/{accountId}/report",
+            "description": "Analytics report"
+        }
+    ],
+    "authorizations": {
+        "oauth2": {
+            "type": "oauth2",
+            "scopes": [
+                "PUBLIC"
+            ],
+            "grantTypes": {
+                "implicit": {
+                    "loginEndpoint": {
+                        "url": "http://localhost:8002/oauth/dialog"
+                    },
+                    "tokenName": "access_code"
+                },
+                "authorization_code": {
+                    "tokenRequestEndpoint": {
+                        "url": "http://localhost:8002/oauth/requestToken",
+                        "clientIdName": "client_id",
+                        "clientSecretName": "client_secret"
+                    },
+                    "tokenEndpoint": {
+                        "url": "http://localhost:8002/oauth/token",
+                        "tokenName": "access_code"
+                    }
+                }
+            }
+        },
+        "apiKey": {
+            "type": "apiKey",
+            "passAs": "header"
+        }
+    },
+    "info": {
+        "title": "Analytics API Reference",
+        "description": "This is a reference for the Brightcove Analytics API",
+        "termsOfServiceUrl": "http://www.brightcove.com/",
+        "contact": "training@brightcove.com",
+        "license": "Apache 2.0",
+        "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+}

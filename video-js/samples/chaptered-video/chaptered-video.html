@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Chaptered Video Sample</title>
+		<style>
+			body {
+				font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+			}
+			table {
+  			border-spacing: 20px;
+			}
+			td {
+				border: 1px #999 solid;
+				border-radius: 5px;
+				padding: 10px;
+				vertical-align: top;
+			}
+			.content-block {
+				display: block;
+			}
+			.btn {
+				background-color: #F5F5F5;
+				border: 1px #999 solid;
+				border-radius: 4px;
+				cursor: pointer;
+				font-size: small;
+				margin: 0 5px 5px 5px;
+				padding: 5px;
+			}
+		</style>
+		<!-- Change URLs to wherever Video.js files will be hosted -->
+		<link href="/bcls/video-js/video-js.css" rel="stylesheet" type="text/css">
+		<!-- video.js must be in the <head> for older IEs to work. -->
+		<script src="/bcls/video-js/video.js"></script>
+		<!-- Unless using the CDN hosted version, update the URL to the Flash SWF -->
+		<script>
+		  videojs.options.flash.swf = "/bcls/video-js/video-js.swf";
+		</script>
+		<!-- plugin script -->
+		<script src="/bcls/video-js-plugins/makeChapters/makeChapters.js"></script>
+		<!-- plugin styles -->
+		<link href="/bcls/video-js-plugins/makeChapters/makeChapters.css" rel="stylesheet" type="text/css">
+		<!-- chapter data script -->
+		<script src="/bcls/video-js/samples/chaptered-video/wim-chapter-data.js"></script>
+		<style>
+		  body {
+		    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+		  }
+		</style>
+  </head>
+  <body>
+		<h1>Chaptered Video Tester for <a href="http://www.videojs.com">video.js</a></h1>
+		<p>You can use the <a href="chaptering-tool.html">chaptering tool</a> to generate chapter data, or just use the test video here.</p>
+		<div class="content-block">
+			<video id="vjsChapterTester"
+						 class="video-js vjs-default-skin"
+						 controls
+						 preload="auto"
+						 width="480px"
+						 height="270px"
+						 poster="/bcls/assets/images/Water-In-Motion.png"
+						 data-setup="{}">
+				<source src="/bcls/assets/videos/Water-In-Motion.mp4" type="video/mp4" />
+				<source src="/bcls/assets/videos/Water-In-Motion.ogv" type="video/ogg" />
+				<source src="/bcls/assets/videos/Water-In-Motion.webm" type="video/webm" />
+				<!-- <track kind="chapters" src="/bcls/video-js/samples/chaptered-video/water-in-motion.vtt" srclang="en" label="Chapters" default="true" /> -->
+			</video>
+		</div>
+		<div class="content-block">
+  		<p>Enter the link to your video and the chapter data below, or just choose the position click the <strong>Show Chapters</strong> button to use the test video:</p>
+  		<p><span id="showChapters" class="btn">Show Chapters</span></p>
+  		<table>
+  		  <tbody>
+  		    <tr>
+  		      <td>
+      				<p>Video URL:<br /><input id="videoSrcInput" size="60" type="text"></p>
+      				<p>Chapter data:<br /><textarea id="chapterDataInput" cols="40" rows="20"></textarea></p>
+  		      </td>
+  		      <td>
+    		      <p>Position for the chapters:</p>
+        				<select id="positionSelect">
+        				  <option value="bottom">bottom</option>
+        				  <option value="right">right</option>
+        				  <option value="top">top</option>
+        				</select>
+  		      </td>
+  		    </tr>
+  		  </tbody>
+  		</table>
+		</div>
+		<!-- logger that logs to console only if it exists -->
+		<script type="text/javascript" src="/bcls/scripts/log.js"></script>
+		<script>
+				var player = videojs("vjsChapterTester"),
+						options = {
+												"position" 		: "right",
+												"chapterData"	: chapterData
+											},
+						showChapters = document.getElementById("showChapters"),
+						positionSelect = document.getElementById("positionSelect"),
+						chapterDataInput = document.getElementById("chapterDataInput"),
+						videoSrcInput = document.getElementById("videoSrcInput");
+				console.log(player);
+				testFunction = function(){};
+				player.on("loadedmetadata", testFunction);
+				showChapters.addEventListener("click", function(evt) {
+  				options.position = positionSelect.options[positionSelect.selectedIndex].value;
+  				if (videoSrcInput.value !== "") {
+    				player.src(videoSrcInput.value);
+    				if (chapterDataInput.value === "") {
+	    				alert("Please enter chapter data for your video");
+	    				return;
+    				} else {
+	    				options.chapterData = JSON.parse(chapterDataInput.value);
+    				}
+  				}
+	    		console.log(options);
+          player.makeChapters(options);
+				});
+		</script>
+  </body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Brightcove Learning Services Solutions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+    <link href="//docs.brightcove.com/en/scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bcls/analytics-api/css/most-popular-videos.css" rel="stylesheet" type="text/css">
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="/bcls/bootstrap/js/html5shiv.js"></script>
+  <![endif]-->
+
+  <!-- Fav and touch icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/bcls/bootstrap/img/apple-touch-icon-144-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/bcls/bootstrap/img/apple-touch-icon-114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/bcls/bootstrap/img/apple-touch-icon-72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="/bcls/bootstrap/img/apple-touch-icon-57-precomposed.png">
+  <link rel="shortcut icon" href="/bcls/bootstrap/img/favicon.ico">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/github.css">
+  <link href="//docs.brightcove.com/en/scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <script src="//use.edgefonts.net/source-code-pro.js"></script>
+  <link href="//files.brightcove.com/proxima-nova/font-faces.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
+  <link rel="stylesheet" type="text/css" href="/bcls/analytics-api/css/most-popular-videos.css">
+  <style type="text/css">
+    body {
+      padding-left: 40px;
+      padding-top: 120px;
+    }
+  </style>
+</head>
+
+<body data-spy="scroll" data-target=".sub-menu" data-offset="100">
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <!-- header navbar -->
+              <div id="titleBar" class="navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                  <div id="otherSites">
+                    <ul class="nav pull-right small">
+                      <li><a href="//brightcove.com">BRIGHTCOVE.COM</a></li>
+                      <li><a href="//support.brightcove.com">SUPPORT</a></li>
+                      <li><a href="//support.brightcove.com/video-cloud/training-videos">TRAINING VIDEOS</a></li>
+                    </ul>
+                  </div>
+                  <a class="brand" href="//docs.brightcove.com/en/index.html">BRIGHTCOVE DEVELOPER DOCUMENTATION</a>
+                 </div>
+               </div>
+               <!-- end header navbar -->
+               <!-- nav navbar -->
+               <div id="navBar" class="navbar-inverse navbar-fixed-top">
+               <div class="navbar-inner">
+                <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+                <a class="btn btn-navbar pull-right" data-toggle="collapse" data-target=".nav-collapse">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </a>
+                <!-- Everything you want hidden at 940px or less, place within here -->
+                <ul id="sectionNav" class="nav">
+                </ul>
+               </div>
+              </div>
+              <!-- end nav navbar -->
+        </div>
+    </div>
+</div>
+<!-- main content starts here -->
+<h1>Most Popular Videos: Analytics API / Media API / Smart Player API</h1>
+    <p class="text-warning">Note that the Analytics API is currently in <strong>Limited Availability</strong>. If you are interested in enabling your account for the beta version of the API, please contact your account manager.</p>
+    <div class="section" id="top">
+      <h2>Introduction</h2>
+      <p>This sample shows the most popular videos of the day and uses the Smart Player API to load them into a player.</p>
+    </div>
+    <div class="section" id="player">
+      <h2>The functional sample</h2>
+      <!-- Start of Brightcove Player -->
+      <script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
+      <object id="myExperience" class="BrightcoveExperience">
+        <param name="bgcolor" value="#FFFFFF" />
+        <param name="width" value="659" />
+        <param name="height" value="371" />
+        <param name="playerID" value="2081645594001" />
+        <param name="playerKey" value="AQ~~,AAAABLsQgFE~,jGXrTxeVLAQAxWWh5tR_yAk4ujie9FeT" />
+        <param name="isVid" value="true" />
+        <param name="isUI" value="true" />
+        <param name="dynamicStreaming" value="true" />
+        <param name="includeAPI" value="true" />
+        <param name="templateLoadHandler" value="BCLS.onTemplateLoad" />
+        <param name="templateReadyHandler" value="BCLS.onTemplateReady" />
+      </object>
+      <!-- End of Brightcove Player -->
+      <div id="playlist" class="playlist">
+        <h4>Most popular videos</h4>
+      </div>
+    </div>
+    <div class="section" id="logic">
+      <h2>How it is done</h2>
+      <h3>The Analytics API part</h3>
+      <p>The Analytics API part here is simple: request a report on dimension <code>video</code>, set the <code>limit</code> to the number of videos you want to display, sort the results by <code>video_view</code>, and set the <code>from</code> and <code>to</code> parameters to the appropriate start and end times. In this example we are reporting on the period starting 24 hours before now &mdash; for a very active Video Cloud account, you may want to use a shorter period.</p>
+      <p class="text-warning">Note that the Analytics API call is made using PHP in a separate page. The returned data is written as the value of a variable called <code>JSONresponse</code>, which we make accessible here via a script tag: <code>&lt;script src="/bcls/analytics-api/get-popular-video-data.php" type="text/javascript"&gt;&lt;/script&gt;</code>. The page is set to refresh every 10 seconds, to maintain real-time data.</p>
+      <h4>PHP Code for the Analytics API request:</h4>
+<pre><code>
+&lt;?php
+  // set this page to refresh every 10 seconds
+  $url=$_SERVER['REQUEST_URI'];
+  header("Refresh: 10; URL=$url");
+  /*!
+  | @ Sends the request
+  | @return string
+  */
+  function SendRequest( $url, $method = "GET", $data = array(), $headers = array("Content-type: application/x-www-form-urlencoded") )
+  {
+    $context = stream_context_create(array
+    (
+      "http" =&gt; array(
+        "method" =&gt; $method,
+        "header" =&gt; $headers,
+        "content" =&gt; http_build_query( $data )
+      )
+    ));
+    return file_get_contents($url, false, $context);
+  }
+  // no data to submit
+  $data = array();
+  // get current time and 24 hours ago in milliseconds
+  $to = time() * 1000;
+  $from = $to - (24 * 60 * 60 * 1000);
+  // get the URL and authorization info from the form data
+  $request = "https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=video&amp;limit=6&amp;sort=video_view" . "&amp;from=" . $from . "&amp;to=" . $to;
+  // add headers
+  $headers = array(1 =&gt; "Authorization: Bearer 15075c51ae4b0af095c9a619a");
+  //send the http request
+  $result = SendRequest($request, $method = "GET", $data, $headers);
+  echo "JSONresponse = " . $result;
+?&gt;
+</code></pre>
+      <h3>The Media API part</h3>
+      <p>Using the video ids from the returned Analytics data (the <code>video</code> metric) and the open source Media API wrapper for JavaScript, we call the <code>find_videos_by_ids</code> method to return the <code>id</code>, <code>name</code>, and the <code>thumbnailURL</code> for each of the most viewed videos. This data is used to populate the Popular Videos list, using the Handlebars templating system to simplify the code.</p>
+      <h3>The Smart Player API part</h3>
+      <p>The Smart Player API is simply used to cue and load videos. In the handler for the <code>templateReady</code> event, we get a reference to the <code>VIDEO_PLAYER</code> module, and then set up a listener for click events on the video items, loading the respective item into the player when it is clicked. We also cue the first the video so that player will not be initially empty.</p>
+      <h4>CSS code for Media and Smart Player API</h4>
+      <iframe src="/bcls/analytics-api/css/most-popular-videos.css" style="width:600px;height:400px;border-radius:px"></iframe>
+      <h4>JavaScript code for Media and Smart Player API</h4>
+<pre><code id="js_code"></code></pre>
+    </div>
+    <!-- display the result -->
+<pre><code id="response"></code></pre>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//docs.brightcove.com/en/scripts/bootstrap/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-smooth-scroll/1.4.10/jquery.smooth-scroll.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.1.2/handlebars.min.js"></script>
+    <script src="//docs.brightcove.com/en/scripts/highlight/highlight.pack.js"></script>
+    
+    <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
+    <script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
+    <script src="/bcls/scripts/prefix.js"></script>
+    <script src="/bcls/scripts/format_json.js"></script>
+    <script src="/bcls/scripts/bc-mapi.js"></script>
+    <script src="/bcls/analytics-api/get-popular-video-data.php" type="text/javascript"></script>
+    <script src="/bcls/scripts/log.js"></script>
+    <script id="pageScript">
+      var BCLS = ( function () {
+        "use strict";
+        var videoArray = [],
+            params = {},
+            player,
+            currentTime = Date.now(),
+            // start time will be 24 hours ago
+            startTime = currentTime - (24 * 60 * 60 * 1000),
+            videoPlayer,
+            APIModules,
+            mediaEvent,
+            request = "",
+            authentication = "",
+            handleBarsTemplate = "{{#items}}<div id=\"{{id}}\" class=\"playlist-item\"><img src=\"{{thumbnailURL}}\" /><p>{{name}}</p></div>{{/items}}",
+            $playlistItems;
+        document.body.addEventListener("load" , function () {
+          // submit request
+        $.ajax({
+            url: request,
+            headers: {
+                Authorization : authentication
+            },
+            success : function(data) {
+                switch ($format.val()) {
+                    case "json":
+                        $responseFrame.html(BCLSformatJSON.formatJSON(data));
+                        break;
+                // else check for CSV
+                    case "csv":
+                        $responseFrame.html(data);
+                        break;
+                // must be XLSX
+                    case "xlsx":
+                        $responseFrame.html("The result is an xlsx binary file and cannot be displayed")
+                }
+            }
+        })
+        })
+        // set up the Media API call, using data from the Analytics API call
+        BCMAPI.token = "v87kWelIdjUwVm7_Rzv09k-KqtLz-ty8ONbMxVYAI7-Q0eOilegqqg..";
+        BCMAPI.callback = "BCLS.onMAPIresponse";
+        // JSONresponse from get-popular-video-data.php
+        for (var i = 0, max = JSONresponse.items.length; i < max; i++) {
+          videoArray.push(JSONresponse.items[i].video);
+        }
+        params.video_ids = videoArray.join();
+        params.video_fields = "id,name,thumbnailURL";
+        BCMAPI.find("find_videos_by_ids", params);
+        // dump the raw response into the page
+        $("#response").html(BCLSformatJSON.formatJSON(JSONresponse));
+        return {
+          onMAPIresponse : function(jsonData) {
+            // merge the data into the html template using Handlebars
+            var template = Handlebars.compile(handleBarsTemplate),
+                data = jsonData,
+                results = template(data);
+            // inject the HTML for the video list
+            $("#playlist").append(results);
+            // get a reference to the collection of video items
+            $playlistItems = $(".playlist-item");
+          },
+          onTemplateLoad : function(experienceID) {
+            player = brightcove.api.getExperience(experienceID);
+            APIModules = brightcove.api.modules.APIModules;
+          },
+          onTemplateReady : function(evt) {
+            videoPlayer = player.getModule(APIModules.VIDEO_PLAYER);
+            // set up the click event handler for the video items
+            $playlistItems.on("click", function(evt) {
+              videoPlayer.loadVideoByID(parseInt($(this).attr("id")));
+            });
+            // cue the first video item
+            videoPlayer.cueVideoByID(parseInt($playlistItems.eq(0).attr("id")));
+          }
+        }
+      })();
+    </script>
+    <script>
+      $(document).ready(function(){
+        $("#js_code").html(BCLSpreFix($("#pageScript").html()));
+        // $("#css_code").html(BCLSpreFix($("#pageStyles").html()));
+        $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
+      });
+    </script>
+</body>
+</html>

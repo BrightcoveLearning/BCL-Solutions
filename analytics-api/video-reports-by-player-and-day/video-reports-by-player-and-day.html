@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Analytics API Solution: Video Report by Player and Day</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Robert Crooks">
+
+    <!--link rel="stylesheet/less" href="less/bootstrap.less" type="text/css" /-->
+    <!--link rel="stylesheet/less" href="less/responsive.less" type="text/css" /-->
+    <!--script src="/bcls/bootstrap/js/less-1.3.3.min.js"></script-->
+    <!--append ‘#!watch’ to the browser URL, then refresh the page. -->
+
+    <link href="/bcls/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bcls/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="/bcls/bootstrap/css/style.css" rel="stylesheet">
+    <!-- for date picker -->
+    <link href="/bcls/scripts/datepickr_2/datepickr.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="/bcls/bootstrap/js/html5shiv.js"></script>
+  <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/bcls/bootstrap/img/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/bcls/bootstrap/img/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/bcls/bootstrap/img/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/bcls/bootstrap/img/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="/bcls/bootstrap/img/favicon.ico">
+    <style type="text/css">
+    body {
+        margin: 40px;
+    }
+    </style>
+
+</head>
+
+<body>
+    <!-- main content starts here -->
+    <div class="row">
+        <div id="sidenav" class="span2"></div>
+        <div id="main" class="span10">
+            <div class="section" id="top">
+                <h1>Analytics API Solution: Video Report by Player and Day</h1>
+                <p>The Analytics UI in Video Cloud Studio offers a number of ready-made reports, but you can create additional reports using he Analytics API that are tailored to your specific needs. In this example, we will create a report on all videos in the account, grouped by player, showing the total views, percentage of views that were complete, and the total viewed seconds for each day in the selected period.</p>
+            </div>
+            <div class="section" id="inputs">
+                <h2>Inputs</h2>
+                <fieldset>
+                    <legend>Basic Information</legend>
+                    <div id="basicInfo">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Video Cloud Account (Publisher ID):</td>
+                                    <td><input id="accountID" class="required aapi-request" type="text" size="55" value="20318290001"> (default: BC Training Videos)</td>
+                                </tr>
+                                <tr>
+                                    <td class="align-top no-wrap">Authorization Token:<sup class="red">*</sup></td>
+                                    <td><input id="token" class="required aapi-request" type="text" size="55" value="15075c51ae4b0af095c9a619a" /> (default: BC Training Videos)<p><sup class="red">*</sup>If your account has been enabled for the Analytics API, this token was emailed to the account administrator when you joined the <strong>limited availability</strong> program.</p></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Date Range for Report</legend>
+                    <p>
+                        Start: <input id="fromDatePicker" size="30" />
+                    </p>
+                    <p>
+                        End: &nbsp;<input id="toDatePicker" size="30" />
+                    </p>
+                    <p>
+                        <span class="bcls-button" id="getData">Get Data</span>
+                    </p>
+                    <p id="gettingDataDisplay"></p>
+                </fieldset>
+
+            </div>
+            <div class="section" id="results">
+                <h2>Video Data</h2>
+                <p>
+                    <select id="playerSelector"></select>
+                    <select id="videoSelector"></select>
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Player</th>
+                            <th>Video</th>
+                            <th>Date</th>
+                            <th>Plays</th>
+                            <th>Completion Rate</th>
+                            <th>Avg viewed seconds</th>
+                            <th>Total viewed seconds</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportTableBody"></tbody>
+                </table>
+                <div id="chartViews" style="width:800px;height:400px"></div>
+                <div id="chartViewsLegend" style="padding:10px 20px;"></div>
+            </div>
+        </div>
+    </div>
+    <!-- jquery used for the AJAX calls -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//docs.brightcove.com/en/scripts/bootstrap/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-smooth-scroll/1.4.10/jquery.smooth-scroll.min.js"></script>
+    <!-- handlebars used to merge data with HTML strings -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.1.2/handlebars.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/highlight.min.js"></script>
+    <!-- chart.js charting package -->
+    <script type="text/javascript" src="//docs.brightcove.com/en/scripts/chartjs/Chart.min.js"></script>
+    <!-- for date picker -->
+    <script type="text/javascript" src="/bcls/scripts/datepickr_2/datepickr.min.js"></script>
+    <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
+    <script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
+    <script id="pageScript" type="text/javascript">
+        var BCLS = (function () {
+            var callNumber = 0,
+                accountID = document.getElementById("accountID"),
+                token = document.getElementById("token"),
+                dateSelector = document.getElementById("dateSelector"),
+                playerSelector = document.getElementById("playerSelector"),
+                videoSelector = document.getElementById("videoSelector"),
+                currentPlayerIndex = 0,
+                currentVideoIndex = 0,
+                currentDayIndex = 0,
+                currentPlayer,
+                currentVideo,
+                currentDay,
+                playerMax,
+                videoMax,
+                dayMax,
+                daysArray = [],
+                dateToMS,
+                dateFromMS,
+                videoData,
+                playerData,
+                analyticsData = {},
+                playerID,
+                videoID,
+                dayMS,
+                fromDate = document.getElementById("fromDatePicker"),
+                toDate = document.getElementById("toDatePicker"),
+                getData = document.getElementById("getData"),
+                gettingDataDisplay = document.getElementById("gettingDataDisplay"),
+                today = new Date(),
+                weekAgo = new Date(today - 604800000),
+                dataDisplayTemplate = "<tr></tr>",
+                playerSelectTemplate = "{{#items}}<option value\"{{player}}\">{{player_name}}</options>{{/items}}",
+                videoSelectTemplate = "{{#items}}<option value\"{{video}}\">{{video_name}}</options>{{/items}}",
+                callType,
+                makeAnalyticsCall = function (callURL) {
+                    gettingDataDisplay.innerHTML = "Getting data..."
+                    $.ajax({
+                    url: callURL,
+                    headers: {
+                        Authorization : "Bearer " + token.value
+                    },
+                    success : function (data) {
+                        var template, results, i, j, player, video;
+                        switch (callType) {
+                            case "players":
+                                callNumber++;
+                                // save the data for getting the analytics
+                                playerData = data;
+                                playerMax = playerData.items.length;
+                                console.log(playerData);
+                                // add players to the analytics data object
+                                for (i = 0; i < playerMax; i++) {
+                                    analyticsData[playerData.items[i].player] = {};
+                                }
+                                // populate the player selector
+                                template = Handlebars.compile(playerSelectTemplate);
+                                playerSelector.innerHTML = template(data);
+                                getVideoData();
+                                break;
+                            case "videos":
+                                callNumber++;
+                                // save the data for getting the analytics
+                                videoData = data;
+                                videoMax = videoData.items.length;
+                                // add videos to the analytics data object
+                                for (player in analyticsData) {
+                                    for (j = 0; j < videoMax; j++) {
+                                        video = videoData.items[j].video;
+                                        analyticsData[player][video] = {};
+                                        analyticsData[player][video].items = [];
+                                        // player[video].items = [];
+                                    }
+                                }
+                                // populate the video selector
+                                template = Handlebars.compile(videoSelectTemplate);
+                                videoSelector.innerHTML = template(data);
+                                getAnalyticsData();
+                                break;
+                            case "analytics":
+                                callNumber++;
+                                analyticsData[currentPlayer][currentVideo].items.push(data);
+                                analyticsData[currentPlayer][currentVideo].day = currentDay.from;
+                                console.log(analyticsData[currentPlayer][currentVideo]);
+                                if (currentDayIndex < dayMax) {
+                                    currentDayIndex++;
+                                    getAnalyticsData();
+                                }
+                        }
+                    },
+                    error : function (XMLHttpRequest, textStatus, errorThrown)
+                        {
+                            gettingDataDisplay.innerHTML = "Sorry, your request was not successful. Here's what the server sent back: " + errorThrown;
+                        }
+                    });
+                }
+                // get the analytics data for the videos
+                getAnalyticsData = function () {
+                    var callURL;
+                        callType = "analytics";
+                        currentPlayer = playerData.items[currentPlayerIndex].player;
+                        currentVideo = videoData.items[currentVideoIndex].video;
+                        currentDay = daysArray[currentDayIndex];
+                        callURL = "https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=video&from=" + currentDay.from + "&to=" + currentDay.to + "&where=player==" + currentPlayer + ";video==" + currentVideo + "&fields=video_view,video_seconds_viewed,video,video_engagement_100";
+                        makeAnalyticsCall(callURL);
+
+                }
+                // get the video analytics data
+                getVideoData = function () {
+                    var callURL = "";
+                    callType = "videos";
+                    callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=video&limit=100&fields=video,video_name&from=" + dateFromMS + "&to=" + dateToMS;
+                    makeAnalyticsCall(callURL);
+                }
+                // get all players for the selected time period
+                getPlayersData = function () {
+                    var callURL = "";
+                    callType = "players";
+                    callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=player&limit=100&fields=player,player_name&from=" + dateFromMS + "&to=" + dateToMS;
+                    makeAnalyticsCall(callURL);
+                }
+            // add date pickers to the date input fields
+            new datepickr('fromDatePicker', {
+                'fullCurrentMonth': false,
+                'dateFormat': 'F j, Y'
+            });
+            new datepickr('toDatePicker', {
+                'fullCurrentMonth': false,
+                'dateFormat': 'F j, Y'
+            });
+            // default date range values
+            toDate.value = today.toDateString(),
+            fromDate.value = weekAgo.toDateString(),
+
+            getData.addEventListener("click", function () {
+                var totalDays, i;
+                dateFromMS = new Date(fromDate.value).valueOf();
+                dateToMS = new Date(toDate.value).valueOf();
+                /**
+                * what follows is just math
+                * to create to and from params for API calls
+                * 86400000 = 1 day in milliseconds
+                */
+                totalDays = Math.round((dateToMS - dateFromMS)/86400000);
+                for (i = 0; i < (totalDays - 1); i++) {
+                    daysArray[i] = {from : dateFromMS + (i * 86400000), to : dateFromMS + ((i + 1) * 86400000) - 1};
+                }
+                dayMax = daysArray.length;
+                getPlayersData();
+            });
+            return {
+
+            }
+        })();
+    </script>
+</body>
+
+</html>

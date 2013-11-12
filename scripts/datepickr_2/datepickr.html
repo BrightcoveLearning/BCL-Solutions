@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+	<head>
+		<title>Testing datepickr</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" href="datepickr.css" />
+	</head>
+
+	<body>
+		<h3>Regular date picker:</h3>
+		<input id="datepick" size="50" />
+		
+		<hr />
+		
+		<h3>Another date picker:</h3>
+		<input id="datepick2" size="50" />
+		
+		<hr />
+		
+		<h3>A third date picker because why not:</h3>
+		<input id="datepick3" size="50" />
+		
+		<hr />
+		
+		<h3>French date picker:</h3>
+		<input id="datepick4" size="50" />
+		
+		<script type="text/javascript" src="datepickr.min.js"></script>
+		<script type="text/javascript">
+			new datepickr('datepick');
+			
+			new datepickr('datepick2', {
+				'dateFormat': 'm/d/y'
+			});
+			
+			new datepickr('datepick3', {
+				'fullCurrentMonth': false,
+				'dateFormat': 'l, F j'
+			});
+			
+			new datepickr('datepick4', {
+				dateFormat: '\\l\\e jS F Y', /* need to double escape characters that you don't want formatted */
+				weekdays: ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'],
+				months: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'],
+				suffix: { 1: 'er' },
+				defaultSuffix: '' /* the suffix that is used if nothing matches the suffix object, default 'th' */
+			});
+		</script>
+	</body>
+</html>

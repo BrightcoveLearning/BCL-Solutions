@@ -1,0 +1,51 @@
+.player-wrapper {
+	position: relative;
+}
+.chapter-list {
+	overflow: scroll;
+	margin: 2px;
+}
+.chapter-list-top-bottom {
+	display: block;
+}
+.chapter-list-right {
+	display: inline-block;
+	position: absolute;
+	top: 0;
+}
+.chapter {
+	cursor: pointer;
+	border: 1px #CCC solid;
+}
+.chapter-top-bottom {
+	display: inline-block;
+}
+.chapter-right {
+	display: block;
+	/* width: 250px; */
+}
+.chapter-right img {
+	display: inline-block;
+	vertical-align: middle;
+}
+.chapter-right div {
+	display: inline-block;
+	word-wrap: word;
+	padding: 4px;
+	vertical-align: middle;
+}
+.chapter-highlight {
+	background-color: #333333;
+	color: #F5F5F5;
+}
+.chapter-thumbnail {
+	border: 1px #666 solid;
+}
+.chapter-title {
+	font-size: x-small;
+	margin: 2px;
+	text-align: center;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}

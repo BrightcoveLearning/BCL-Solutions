@@ -1,0 +1,42 @@
+[
+  {
+    "startTime": 0,
+    "chapterInfo": {
+      "title": "Robin",
+      "thumbnail": "/bcls/assets/images/bof-chapter-1-thumbnail.png"
+    },
+    "endTime": 26.876667404174803
+  },
+  {
+    "startTime": 26.976667404174805,
+    "chapterInfo": {
+      "title": "Titmouse",
+      "thumbnail": "/bcls/assets/images/bof-chapter-2-thumbnail.png"
+    },
+    "endTime": 35.144998931884764
+  },
+  {
+    "startTime": 35.244998931884766,
+    "chapterInfo": {
+      "title": "Peacock",
+      "thumbnail": "/bcls/assets/images/bof-chapter-3-thumbnail.png"
+    },
+    "endTime": 63.53000106811523
+  },
+  {
+    "startTime": 63.630001068115234,
+    "chapterInfo": {
+      "title": "Redpoll",
+      "thumbnail": "/bcls/assets/images/bof-chapter-4-thumbnail.png"
+    },
+    "endTime": 93.53166809082032
+  },
+  {
+    "startTime": 93.63166809082031,
+    "chapterInfo": {
+      "title": "Woodpecker",
+      "thumbnail": "/bcls/assets/images/bof-chapter-5-thumbnail.png"
+    },
+    "endTime": 111.66666412353516
+  }
+]

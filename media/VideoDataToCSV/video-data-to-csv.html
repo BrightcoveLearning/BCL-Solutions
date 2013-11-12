@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Brightcove Learning Services Solutions</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="/bcls/bootstrap/js/html5shiv.js"></script>
+        <![endif]-->
+        <!-- Fav and touch icons -->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/bcls/bootstrap/img/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/bcls/bootstrap/img/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/bcls/bootstrap/img/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="/bcls/bootstrap/img/apple-touch-icon-57-precomposed.png">
+        <link rel="shortcut icon" href="/bcls/bootstrap/img/favicon.ico">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/github.css">
+        <link href="//docs.brightcove.com/en/scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <script src="//use.edgefonts.net/source-code-pro.js"></script>
+        <link href="//files.brightcove.com/proxima-nova/font-faces.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
+        <style>
+            /* element styles */
+            body {
+                font-family:'ProximaNovaA-Regular', "Helvetica Neue", Arial, Helvetica, sans-serif;
+                width: 80%;
+                padding-left: 40px;
+                padding-top: 100px;
+            }
+            fieldset {
+                width: 800px;
+                display: block;
+                margin-bottom: 20px;
+                border-radius: 5px;
+            }
+            h1 {
+                border-bottom: 1px #CCC solid;
+            }
+            input {
+                width: 400px;
+            }
+            pre, textarea {
+                border: 1px #999 solid;
+                border-radius: 5px;
+                padding: 5px;
+                width: 100%;
+                height: 800px;
+            }
+            /* class styles */
+            .button {
+                background-color: #f5f5f5;
+                border: 1px #666 solid;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: small;
+                margin-left: 20px;
+                padding: 5px;
+            }
+            .run-button {
+                color: #f5f5f5;
+                background-color: #666666;
+                border: 1px #000000 solid;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: small;
+                margin-left: 20px;
+                padding: 5px;
+            }
+            .text-warning {
+                color: #990000;
+                background-color: #f5f5f5;
+                border: 1px #990000 solid;
+                border-radius: 5px;
+                padding: 5px;
+            }
+        </style>
+    </head>
+
+    <body data-spy="scroll" data-target=".sub-menu" data-offset="100">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <!-- header navbar -->
+                    <div id="titleBar" class="navbar-inverse navbar-fixed-top">
+                        <div class="navbar-inner">
+                            <div id="otherSites">
+                                <ul class="nav pull-right small">
+                                    <li>
+                                        <a href="//brightcove.com">BRIGHTCOVE.COM</a>
+                                    </li>
+                                    <li>
+                                        <a href="//support.brightcove.com">SUPPORT</a>
+                                    </li>
+                                    <li>
+                                        <a href="//support.brightcove.com/video-cloud/training-videos">TRAINING VIDEOS</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a class="brand" href="//docs.brightcove.com/en/index.html">BRIGHTCOVE DEVELOPER DOCUMENTATION</a>
+                        </div>
+                    </div>
+                    <!-- end header navbar -->
+                    <!-- nav navbar -->
+                    <div id="navBar" class="navbar-inverse navbar-fixed-top">
+                        <div class="navbar-inner">
+                            <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+                            <a class="btn btn-navbar pull-right" data-toggle="collapse" data-target=".nav-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </a>
+                            <!-- Everything you want hidden at 940px or less, place within here -->
+                            <ul id="sectionNav" class="nav"></ul>
+                        </div>
+                    </div>
+                    <!-- end nav navbar -->
+                </div>
+            </div>
+        </div>
+        <!-- main content starts here -->
+        <h1>Video Data to CSV Tool</h1>
+        <h2>Instructions</h2>
+        <ol>
+            <li>Replace the Media API READ token in the field below with a token from your own account
+                <br />(find it in your Account Settings)</li>
+            <li>Click the
+                <strong>Run the Report</strong> button below and wait for the results
+                <br />(<strong><em>be patient!</em></strong> &mdash; if there are a lot of videos in the account, this may take a few minutes)</li>
+            <li>Open any text editor (Notepad on Windows or TextEdit on Mac will do)</li>
+            <li>Create a new empty file</li>
+            <li>Select the data in the detailed data block below</li>
+            <li>Copy the data to the clipboard and paste it into your empty text document</li>
+            <li>Save the file as a CSV file, with a name like VideoData.csv</li>
+            <li>Open the csv file in Excel</li>
+        </ol>
+        <p>Service URL:
+            <select id="serviceURL">
+                <option value="http://api.brightcove.com/services/library">http://api.brightcove.com/services/library</option>
+                <option value="http://api.brightcove.co.jp/services/library">http://api.brightcove.co.jp/services/library (Japan)</option>
+            </select>
+        <p>
+        <p>Media API READ token:
+            <input id="token" type="text" size="60" value="WDGO_XdKqXVJRVGtrNuGLxCYDNoR-SvA5yUqX2eE6KjgefOxRzQilw..">
+            <span id="runButton" class="button">Run the Report</span>
+        </p>
+        <p class="text-warning">Developers: this is all created client-side, so use view source to see the code. You can change the fields by modifying
+            <code>secondaryParams.video_fields</code>. If fields contain quotation marks, commas, or special characters, you may need to run these through a regular expression replacer to prevent mangling the CSV data.</p>
+        <h2>Data Overview</h2>
+        <div class="initialData">
+            <p>Total deleted videos in your library:
+                <span id="DELETED"></span>
+            </p>
+            <p>Total inactive videos in your library:
+                <span id="INACTIVE"></span>
+            </p>
+            <p>Total playable videos in your library:
+                <span id="PLAYABLE"></span>
+            </p>
+            <p>Total videos in your library:
+                <span id="totalVideos"></span>
+            </p>
+        </div>
+        <h2>Detailed Data in CSV format</h2>
+        <p>
+            <span class="button" id="selectData">Select the data</span>
+        </p>
+        <textarea id="response"></textarea>
+        <!-- scripts -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="//docs.brightcove.com/en/scripts/bootstrap/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-smooth-scroll/1.4.10/jquery.smooth-scroll.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.1.2/handlebars.min.js"></script>
+        <script src="//docs.brightcove.com/en/scripts/highlight/highlight.pack.js"></script>
+
+        <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
+        <script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
+        <script type="text/javascript" src="//docs.brightcove.com/en/scripts/bc-mapi.js"></script>
+        <script type="text/javascript" src="//docs.brightcove.com/en/scripts/secondsToTime.js"></script>
+        <script>
+            var BCLS = (function() {
+                var $totalVideos = $("#totalVideos"),
+                    $request = $("#request"),
+                    $response = $("#response"),
+                    $token = $("#token"),
+                    $runButton = $("#runButton"),
+                    $selectData = $("#selectData"),
+                    $serviceURL = $("#serviceURL"),
+                    totalVideos = 0,
+                    filterArray = ["DELETED", "INACTIVE", "PLAYABLE"],
+                    currentFilterIndex = 0,
+                    currentFilter = "",
+                    method = "find_modified_videos",
+                    primaryParams = {
+                        callback: "BCLS.primaryCallResponse",
+                        from_date: "0",
+                        filter: "",
+                        page_size: 1,
+                        sort_by: "CREATION_DATE",
+                        get_item_count: true,
+                        video_fields: ""
+                    },
+                    secondaryParams = {
+                        callback: "BCLS.secondaryCallResponse",
+                        from_date: "0",
+                        filter: "",
+                        page_size: 100,
+                        page_number: 0,
+                        sort_by: "CREATION_DATE",
+                        get_item_count: true,
+                        video_fields: "id,name,shortDescription,length,lastModifiedDate"
+                    },
+                    totalCalls = 0,
+                    callNumber = 0,
+                    responseStart = "\"Video ID\",\"Title\",\"Description\",\"Running Time\",\"Last Updated\",\"Status\"\r",
+                    dataRowTemplate = "{{#items}}\"{{id}}\",\"{{name}}\",\"{{shortDescription}}\",\"{{length}}\",\"{{lastModifiedDate}}\",\"{{status}}\"\r{{/items}}",
+                    responseBody = "",
+
+                    makePrimaryCall = function(filter) {
+                        BCMAPI.token = $token.val();
+                        BCMAPI.url = $serviceURL.val();
+                        primaryParams.filter = filter;
+                        BCMAPI.find(method, primaryParams);
+                    },
+                    makeSecondaryCall = function(filter) {
+                        secondaryParams.filter = filter;
+                        secondaryParams.page_number = callNumber;
+                        BCMAPI.find(method, secondaryParams);
+                    },
+                    runReport = function() {
+                        currentFilter = filterArray[currentFilterIndex];
+                        makePrimaryCall(currentFilter);
+                    };
+                $runButton.on("click", runReport);
+                $selectData.on("click", function() {
+                    document.getElementById("response").select();
+                });
+                return {
+                    primaryCallResponse: function(jsonData) {
+                        document.getElementById(currentFilter).innerHTML = jsonData.total_count;
+                        totalVideos += jsonData.total_count;
+                        totalCalls = Math.ceil(jsonData.total_count / secondaryParams.page_size);
+                        callNumber = 0;
+                        makeSecondaryCall(currentFilter);
+                    },
+                    secondaryCallResponse: function(jsonData) {
+                        var template = Handlebars.compile(dataRowTemplate),
+                            data,
+                            results,
+                            item,
+                            lengthObj = {};
+                        for (var i = 0, max = jsonData.items.length; i < max; i++) {
+                            item = jsonData.items[i];
+                            item.id = item.id.toString();
+                            item.status = currentFilter.toLowerCase();
+                            lengthObj = BCLSsecondsToTime(item.length / 1000);
+                            item.length = lengthObj.h + ":" + lengthObj.m + ":" + lengthObj.s;
+                            item.lastModifiedDate = new Date(parseInt(item.lastModifiedDate));
+                        };
+                        data = jsonData;
+                        results = template(data);
+                        responseBody += results;
+                        callNumber++;
+                        if (callNumber <= totalCalls) {
+                            makeSecondaryCall(currentFilter);
+                        } else if (currentFilterIndex == filterArray.length - 1) {
+                            $totalVideos.html(totalVideos);
+                            document.getElementById("response").innerHTML = responseStart + responseBody;
+                        } else {
+                            currentFilterIndex++;
+                            currentFilter = filterArray[currentFilterIndex];
+                            makePrimaryCall(currentFilter);
+                        }
+                    }
+                }
+            })();
+        </script>
+    </body>
+</html>

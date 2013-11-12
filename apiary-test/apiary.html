@@ -1,0 +1,912 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+}
+</style>
+<title>Analytics API v1</title>
+
+</head>
+<body>
+<p>FORMAT: X-1A</p>
+
+<p>HOST: https://data.brightcove.com/analytics-api/videocloud</p>
+
+<h1>Analytics API v1</h1>
+
+<p>The Analytics API allows you to obtain analytics data for your Video Cloud accounts directly. You can also view the built-in analytics reports in the Analytics Module of <a href="//videocloud.brightcove.com">Video Cloud Studio</a>. Accessing the data programmatically gives you additional flexibility for such purposes as:</p>
+
+<ul>
+<li>Creating custom charts and displays</li>
+<li>Merging or aggregating data from multiple accounts</li>
+<li>Combining your video analytic data with other site analytics data</li>
+<li>For some sample solutions, see
+
+<ul>
+<li><a href="//solutions.brightcove.com/bcls/analytics-api/most-popular-videos.html">Most Popular Videos</a></li>
+<li><a href="//solutions.brightcove.com/bcls/analytics-api/analytics-by-playlist.html">Analytics for Playlists</a></li>
+<li><a href="//solutions.brightcove.com/bcls/analytics-api/aapi-request-builder.html">Analytics API Request Builder</a></li>
+</ul>
+</li>
+</ul>
+
+
+<h2><a id="metrics"></a> Available Metrics (by report type)</h2>
+
+<table>
+<thead>
+<tr>
+<th> Metric                </th>
+<th align="center"> Player    </th>
+<th align="center"> Video    </th>
+<th align="center"> Referrer_domain    </th>
+<th align="center"> Search_terms </th>
+<th align="center"> Account Rollup   </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> player_load           </td>
+<td align="center"> <strong>x</strong>     </td>
+<td align="center">          </td>
+<td align="center">     <strong>x</strong>          </td>
+<td align="center"> <strong>x</strong>        </td>
+<td align="center">  <strong>x</strong>           </td>
+</tr>
+<tr>
+<td> video_impression      </td>
+<td align="center"> <strong>x</strong>     </td>
+<td align="center">  <strong>x</strong>   </td>
+<td align="center">     <strong>x</strong>          </td>
+<td align="center"> <strong>x</strong>        </td>
+<td align="center">  <strong>x</strong>           </td>
+</tr>
+<tr>
+<td> video_view            </td>
+<td align="center"> <strong>x</strong>     </td>
+<td align="center">  <strong>x</strong>   </td>
+<td align="center">     <strong>x</strong>          </td>
+<td align="center"> <strong>x</strong>        </td>
+<td align="center">  <strong>x</strong>           </td>
+</tr>
+<tr>
+<td> video_engagement      </td>
+<td align="center"> <strong>x</strong>     </td>
+<td align="center">  <strong>x</strong>   </td>
+<td align="center">                    </td>
+<td align="center">              </td>
+<td align="center">  <strong>x</strong>           </td>
+</tr>
+<tr>
+<td> video_percent_viewed  </td>
+<td align="center"> <strong>x</strong>     </td>
+<td align="center">  <strong>x</strong>   </td>
+<td align="center">                    </td>
+<td align="center">              </td>
+<td align="center">  <strong>x</strong>           </td>
+</tr>
+<tr>
+<td> video_seconds_viewed  </td>
+<td align="center"> <strong>x</strong>     </td>
+<td align="center">  <strong>x</strong>   </td>
+<td align="center">                    </td>
+<td align="center">              </td>
+<td align="center">  <strong>x</strong>           </td>
+</tr>
+<tr>
+<td> active_media          </td>
+<td align="center">           </td>
+<td align="center">          </td>
+<td align="center">                    </td>
+<td align="center">              </td>
+<td align="center">  <strong>x</strong>           </td>
+</tr>
+<tr>
+<td> bytes_in              </td>
+<td align="center">           </td>
+<td align="center">          </td>
+<td align="center">                    </td>
+<td align="center">              </td>
+<td align="center">  <strong>x</strong>           </td>
+</tr>
+<tr>
+<td> bytes_out             </td>
+<td align="center">           </td>
+<td align="center">          </td>
+<td align="center">                    </td>
+<td align="center">              </td>
+<td align="center">  <strong>x</strong>           </td>
+</tr>
+<tr>
+<td> bytes_overhead        </td>
+<td align="center">           </td>
+<td align="center">          </td>
+<td align="center">                    </td>
+<td align="center">              </td>
+<td align="center">  <strong>x</strong>           </td>
+</tr>
+<tr>
+<td> bytes_stored          </td>
+<td align="center">           </td>
+<td align="center">          </td>
+<td align="center">                    </td>
+<td align="center">              </td>
+<td align="center">  <strong>x</strong>           </td>
+</tr>
+<tr>
+<td> bytes_player          </td>
+<td align="center">           </td>
+<td align="center">          </td>
+<td align="center">                    </td>
+<td align="center">              </td>
+<td align="center">  <strong>x</strong>           </td>
+</tr>
+</tbody>
+</table>
+
+
+<h1>Report [/account/{accountId}/report]</h1>
+
+<p>Reports return analytics data on one or more dimensions</p>
+
+<ul>
+<li>Parameters
+
+<ul>
+<li><p>dimensions
+&mdash; The dimesion(s) to report on &mdash; one or more in a comma-delimited list</p>
+
+<ul>
+<li> Type: string</li>
+<li> Required</li>
+<li> Default: <code>[none]</code></li>
+<li> Example: <code>dimensions=video,player</code></li>
+<li> Values:
+
+<ul>
+<li> <code>video</code></li>
+<li> <code>player</code></li>
+<li> <code>referrer_domain</code></li>
+<li> <code>search_terms</code></li>
+<li> <code>source_type</code></li>
+<li> <code>device_type</code></li>
+<li> <code>device_os</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>where
+&mdash; Filters for the report in the form <em>dimension1==value1;dimension2==value2</em>
+
+<ul>
+<li>Type: string</li>
+<li>Optional</li>
+<li>Default: <code>[none]</code></li>
+<li>Example: <code>video==123455;player==67890;search_terms==brightcove</code></li>
+</ul>
+</li>
+<li>from
+&mdash; Start time for the period covered by the report &mdash; either epoch time in milliseconds or <code>alltime</code>
+
+<ul>
+<li>Type: string</li>
+<li>Optional</li>
+<li>Default: <code>[30 days before now]</code></li>
+<li>Example: <code>from=1375761600000</code> or <code>from=alltime</code></li>
+</ul>
+</li>
+<li>to
+&mdash; End time for the period covered by the report &mdash; either epoch time in milliseconds or <em>now</em>
+
+<ul>
+<li>Type: string</li>
+<li>Optional</li>
+<li>Default: <code>now</code></li>
+<li>Example: <code>to=1375761600000</code> or <code>to=now</code></li>
+</ul>
+</li>
+<li>limit
+&mdash; The number of results to return &mdash; an integer greater than 0
+
+<ul>
+<li>Type: number</li>
+<li>Optional</li>
+<li>Default: <code>10</code></li>
+<li>Example: <code>limit=25</code></li>
+</ul>
+</li>
+<li>offset
+&mdash; The number of results to skip &mdash; an integer greater than or equal to 0
+
+<ul>
+<li>Type: number</li>
+<li>Optional</li>
+<li>Default: <code>0</code></li>
+<li>Example: <code>offset=50</code></li>
+</ul>
+</li>
+<li>fields
+&mdash; The <a href="#metrics">metrics</a> to return &mdash; one or more metrics as a comma-delimited list
+
+<ul>
+<li>Type: string</li>
+<li>Optional</li>
+<li>Default: <code>[all fields available for the dimension(s)]</code></li>
+<li>Example: <code>fields=video_view,video_impression,video_percent_viewed</code></li>
+</ul>
+</li>
+<li>sort
+&mdash;s The metric field to sort the results on. For allowable values see the <a href="#metrics">metrics</a> returned for different reports
+
+<ul>
+<li>Type: string</li>
+<li>Optional</li>
+<li>Default: <code>[none]</code></li>
+<li>Example: sort=video_view</li>
+</ul>
+</li>
+<li>format
+&mdash; The format to return the results in &mdash; <em>json</em>, <em>csv</em>, or <em>xlsx</em>
+
+<ul>
+<li>Type: string</li>
+<li>Optional</li>
+<li>Default: <code>json</code></li>
+<li>Example: <code>format=csv</code></li>
+<li>Values:
+
+<ul>
+<li><code>json</code></li>
+<li><code>csv</code></li>
+<li><code>xlsx</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>GET</h2>
+
+<ul>
+<li><p>Headers
+  <code>
+  Authorization: Bearer 15075c51ae4b0af095c9a619a
+ </code></p></li>
+<li><p>Request
+  <code>
+  test
+ </code></p></li>
+<li>Response 200 (application/json;charset=UTF-8)
+
+<ul>
+<li><p>Body</p>
+
+<p>  <code>js
+  {
+      "account": "20318290001",
+      "item_count": 123,
+      "items": [
+          {
+              "video": "2127145422001",
+              "video_duration": "124",
+              "video_engagement_1": 0,
+              "video_engagement_25": 4,
+              "video_engagement_50": 2,
+              "video_engagement_75": 2,
+              "video_engagement_100": 2,
+              "video_impression": 65,
+              "video_name": "Creating a Playlist (Japanese)",
+              "video_percent_viewed": 297.81667977970096,
+              "video_seconds_viewed": 369,
+              "video_view": 9
+          }
+      ]
+  }
+ </code></p></li>
+</ul>
+</li>
+</ul>
+
+
+<h1>Rollup [/account/{accountId}]</h1>
+
+<p>Account rollup requests return a summary of analytics data for the account. See the <a href="#metrics">metrics</a> section for details of what metrics are included.</p>
+
+<ul>
+<li>Parameters
+
+<ul>
+<li>where
+&mdash; Filters for the report in the form <em>dimension1==value1;dimension2==value2</em>
+
+<ul>
+<li>Type: string</li>
+<li>Optional</li>
+<li>Default: <code>[none]</code></li>
+<li>Example: <code>video==123455;player==67890;search_terms==brightcove</code></li>
+</ul>
+</li>
+<li>from
+&mdash; Start time for the period covered by the report &mdash; either epoch time in milliseconds or <code>alltime</code>
+
+<ul>
+<li>Type: string</li>
+<li>Optional</li>
+<li>Default: <code>[30 days before now]</code></li>
+<li>Example: <code>from=1375761600000</code> or <code>from=alltime</code></li>
+</ul>
+</li>
+<li>to
+&mdash; End time for the period covered by the report &mdash; either epoch time in milliseconds or <em>now</em>
+
+<ul>
+<li>Type: string</li>
+<li>Optional</li>
+<li>Default: <code>now</code></li>
+<li>Example: <code>to=1375761600000</code> or <code>to=now</code></li>
+</ul>
+</li>
+<li>limit
+&mdash; The number of results to return &mdash; an integer greater than 0
+
+<ul>
+<li>Type: number</li>
+<li>Optional</li>
+<li>Default: <code>10</code></li>
+<li>Example: <code>limit=25</code></li>
+</ul>
+</li>
+<li>offset
+&mdash; The number of results to skip &mdash; an integer greater than or equal to 0
+
+<ul>
+<li>Type: number</li>
+<li>Optional</li>
+<li>Default: <code>0</code></li>
+<li>Example: <code>offset=50</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>GET</h2>
+
+<ul>
+<li><p>Headers
+  <code>
+  Authorization: Bearer 15075c51ae4b0af095c9a619a
+ </code></p></li>
+<li><p>Request
+  <code>
+  test
+ </code></p></li>
+<li>Response 200 (application/json;charset=UTF-8)
+
+<ul>
+<li><p>Body</p>
+
+<pre><code>  {
+      "video": "2423810273001",
+      "account": "20318290001",
+      "metrics": {
+          "video_engagement": {
+              "series": {
+                  "type": "percentile",
+                  "values": [
+                      1.6535947712418297,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      1.0000000000000007,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      1.9477124183006533,
+                      2.0000000000000013,
+                      1.9999999999999996,
+                      1.9999999999999996,
+                      1.999999999999996,
+                      1.9999999999999996,
+                      1.9999999999999996,
+                      1.9999999999999996,
+                      1.9999999999999996,
+                      1.999999999999996,
+                      1.9999999999999996,
+                      1.1633986928104567,
+                      0.9999999999999998,
+                      1.8758169934640523,
+                      1.9999999999999996,
+                      1.084967320261441,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999927,
+                      0.9999999999999998,
+                      1.111111111111114,
+                      1.9999999999999996,
+                      1.9999999999999996,
+                      1.9999999999999996,
+                      2.0000000000000138,
+                      1.9999999999999996,
+                      1.9999999999999996,
+                      1.9999999999999925,
+                      1.9999999999999996,
+                      1.7124183006535953,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      1.000000000000014,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      1.000000000000014,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998,
+                      0.9999999999999998
+                  ]
+              }
+          },
+          "video_seconds_viewed": {
+              "series": {
+                  "step": 3600000,
+                  "values": [
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      373,
+                      0,
+                      0,
+                      0,
+                      2,
+                      0,
+                      0,
+                      0
+                  ],
+                  "type": "time",
+                  "start": 1377748800000
+              },
+              "alltime": 66153
+          },
+          "video_percent_viewed": {
+              "series": {
+                  "step": 3600000,
+                  "values": [
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      121.89542483660131,
+                      0,
+                      0,
+                      0,
+                      0.6535947712418301,
+                      0,
+                      0,
+                      0
+                  ],
+                  "type": "time",
+                  "start": 1377748800000
+              },
+              "alltime": 21618.651023249957
+          },
+          "video_impression": {
+              "series": {
+                  "step": 3600000,
+                  "values": [
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                      1,
+                      1,
+                      2,
+                      1,
+                      1,
+                      1,
+                      1,
+                      1,
+                      0,
+                      6
+                  ],
+                  "type": "time",
+                  "start": 1377748800000
+              },
+              "alltime": 1544
+          },
+          "video_view": {
+              "series": {
+                  "step": 3600000,
+                  "values": [
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0,
+                      0
+                  ],
+                  "type": "time",
+                  "start": 1377748800000
+              },
+              "alltime": 357
+          }
+      },
+      "video_name": "Embedding Videos in Tweets Using Twitter Player Cards",
+      "video_duration": "306"
+  }
+</code></pre></li>
+</ul>
+</li>
+</ul>
+
+</body>
+</html>

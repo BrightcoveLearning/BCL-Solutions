@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Brightcove Learning Services Solutions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+    <!--link rel="stylesheet/less" href="less/bootstrap.less" type="text/css" /-->
+    <!--link rel="stylesheet/less" href="less/responsive.less" type="text/css" /-->
+    <!--script src="/bcls/bootstrap/js/less-1.3.3.min.js"></script-->
+    <!--append Ô#!watchÕ to the browser URL, then refresh the page. -->
+
+    <link href="//docs.brightcove.com/en/scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+    
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="/bcls/bootstrap/js/html5shiv.js"></script>
+  <![endif]-->
+
+  <!-- Fav and touch icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/bcls/bootstrap/img/apple-touch-icon-144-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/bcls/bootstrap/img/apple-touch-icon-114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/bcls/bootstrap/img/apple-touch-icon-72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="/bcls/bootstrap/img/apple-touch-icon-57-precomposed.png">
+  <link rel="shortcut icon" href="/bcls/bootstrap/img/favicon.ico">
+  <link rel="stylesheet" href="/bcls/smart-player-api/css/lightbox-player.css"
+    
+</head>
+
+<body>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                         <a data-target=".navbar-responsive-collapse" data-toggle="collapse" class="btn btn-navbar"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a> <a href="//solutions.brightcove.com/bcls/index.html" class="brand">BCLS Solutions</a>
+                        <div class="nav-collapse collapse navbar-responsive-collapse">
+                            <ul class="nav">
+                                <li>
+                                    <a href="//solutions.brightcove.com/bcls/index.html">Home</a>
+                                </li>
+                                <li class="dropdown">
+                                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">Analytics API<strong class="caret"></strong></a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="/bcls/analytics-api/aapi-request-builder.html">Request Builder</a>
+                                        </li>
+                                        <li>
+                                            <a href="/bcls/analytics-api/most-popular-videos.html">Most Popular Videos</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">Media API<strong class="caret"></strong></a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="/bcls/media/SchemaTool/schema-tool.html">Schema Tool</a>
+                                        </li>
+                                        <li>
+                                            <a href="/bcls/media/VideoDataToCSV/video-data-to-csv.html">Video Data in CSV Format</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">Smart Player API<strong class="caret"></strong></a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="/bcls/smart-player-api/ScrollIntoViewStartVideo/ScrollIntoViewStartVideo.html">Play on Scroll into View</a>
+                                        </li>
+                                        <li>
+                                            <a href="/bcls/smart-player-api/newURLOnVideoComplete/NewURLOnVideoComplete.html">New URL on Video Complete</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">video.js<strong class="caret"></strong></a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="/bcls/video-js/samples/chaptered-video/chapter-builder.html">Video Chaptering Tool</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <ul class="nav pull-right">
+                                <li class="divider-vertical">
+                                </li>
+                                <li class="dropdown">
+                                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">Other BCLS Sites<strong class="caret"></strong></a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="//support.brightcove.com/en/docs">Brightcove Support Documentation</a>
+                                        </li>
+                                        <li>
+                                            <a href="//support.brightcove.com/en/video-cloud/training-videos">Training Videos</a>
+                                        </li>
+                                        <li>
+                                            <a href="//docs.brightcove.com/en/">Developer Documentation</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://www.brightcove.com/en/services/training">Brightcove Training</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- main content starts here -->
+<div class="section" id="resources">
+          <h2><a name="resources"></a>API resources used</h2>
+          <h3>Smart Player API</h3>
+          <p>This sample uses the following API resources</p>
+          <h4>Modules and methods</h4>
+          <ul>
+            <li>VIDEO_PLAYER
+              <ul>
+                <li>loadVideoByID()</li>
+                <li>pause()</li>
+              </ul>
+          </li>
+          </ul>
+          <h4>Events</h4>
+          <ul>
+            <li>templateLoad</li>
+            <li>templateReady</li>
+            <li>Media: COMPLETE</li>
+          </ul>
+          <h3>Media API</h3>
+          <p class="text-warning">Note that the read methods of the Media API are availble to Express 3, Professional, and Enterprise accounts.</p>
+          <h4>Methods</h4>
+          <ul>
+            <li>search_videos</li>
+          </ul>
+        </div>
+        <div class="section" id="player">
+          <!-- h2 contents will be in page navigation label - 21 characters (including spaces) maximum -->
+          <h2><a name="player"></a>The player</h2>
+          <p>A standard Chromeless Video Player is used for this sample.</p>
+          <p class="text-warning">Note that the buttons below are for development purposes only &mdash; do not use in production.</p>
+          <div id="modeSwitch">
+            <span class="bc-button" id="switchToHTML5" style="margin-bottom: 20px;margin-right: 10px;">Switch to HTML5 Player</span>
+            <span class="bc-button" id="switchToFlash" style="margin-bottom: 20px;">Switch to Flash Player</span>
+          </div>
+          <div class="player-block">
+            <!-- This is the container for the video list -->
+            <div id="videoList" class="video-list"></div>
+            <!-- Start of Brightcove Player -->
+            <script language="JavaScript" type="text/javascript" src="//admin.brightcove.com/js/BrightcoveExperiences.js"></script>
+            <!-- lightbox block -->
+            <div id="BCLSlightbox" class="BCLShide">
+              <object id="myExperience921449663001" class="BrightcoveExperience">
+                <param name="bgcolor" value="#FFFFFF" />
+                <param name="width" value="480" />
+                <param name="height" value="270" />
+                <param name="playerID" value="2079935931001" />
+                <param name="playerKey" value="AQ~~,AAAA1oy1bvE~,ALl2ezBj3WE0z3yX6Xw29sdCvkH5GCJv" />
+                <param name="isVid" value="true" />
+                <param name="isUI" value="true" />
+                <param name="dynamicStreaming" value="true" />
+                <param name="@videoPlayer" value="921449663001" />
+
+                <param name="includeAPI" value="true" />
+                <param name="templateLoadHandler" value="BCLS.onTemplateLoad" />
+                <param name="templateReadyHandler" value="BCLS.onTemplateReady" />
+              </object>
+              <div id="BCLSclose" class="BCLSclose">Close</div>
+            </div>
+            <script type="text/javascript">brightcove.createExperiences();</script>
+            <!-- End of Brightcove Player -->
+          </div>
+          <div class="section" id="logic">
+            <h2><a name="logic"></a>How it is done</h2>
+            <p>The sample uses the Media API and Smart Player API together. The Media API calls are made from the client, using the <a href="//opensource.brightcove.com/project/javascript-mapi-wrapper">JavaScript MAPI Wrapper</a>, but you could easily do the Media API part on the server-side, if you prefer not to expose your Media API Read Token in the source code.</p>
+            <h3>The Smart Player API part</h3>
+            <p>The Smart Player API part of this is quite simple. When the player is ready, we get a reference to the <code>VIDEO_PLAYER</code> module, and set up an event listener for the media <code>COMPLETE</code> event, which we will use to close the lightbox when the video finishes playing.</p>
+            <p>There are also functions called <code>showAndLoad()</code> and <code>hideAndStop()</code>, which show and hide the lightbox. In the first, we use <code>loadVideoByID()</code> to load the video selected in the carousel, and in the second we use <code>pause()</code> to stop the video, in case the user closes the lightbox manually while the video is playing.</p>
+            <h3>The Media API part</h3>
+            <p>As soon as the page loads, we use the JavaScript Media API wrapper to construct and make a  <a href="/en/media/guides/search_videos-guide.html"><code>search_videos</code></a> Media API call. The search looks for any video that has the word "sea" in the title or short description (you could modify the search terms to find any collection of videos). We limit the video fields returned to those we need for the carousel display: the id, name, shortDescription, lenght, and videoStillURL.</p>
+            <p>In the callback function for the video search, we first use a utility that replaces the video length in milliseconds that is returned with a human-readable string for the length in minutes:seconds. We then use Handlebars to inject the data into an HTML template for the video selector carousel. We attach the id for the video to each item using a data-id attribute so that we can pass that to the <code>playVideo()</code> function.</p>
+            <h3>The rest</h3>
+            <p>The rest of the code is just CSS and JavaScript. We make use of jQuery to simplify things, and we hide and show the lightbox by toggling the <code>width</code> and <code>height</code> between 0 and the display size &mdash; this is important: you do not want to use <code>display: none</code> or the jQuery <code>hide()</code> method, as this takes the player out of the DOM, and requires that it be reloaded every time the lightbox is restored.</p>
+            <p>See the full code below.</p>
+            <div class="text-info">
+              <h3>Is the Media API required?</h3>
+              <p>The short answer to this question is "no." You could instead use the <code>CONTENT</code> module <code>getPlaylistByID()</code> method to fetch a playlist to display (see <a href="/en/smart-player-api/samples/fetch-playlists.html">Fetch Playlists</a> for an example of this. This would require only minor modifications to the code. The advantages of using the Media API are:</p>
+              <ul>
+                <li>You can make the call on the server side for better performance</li>
+                <li>You can make the call to fetch the videos immediately, rather than waiting for the Player to be ready</li>
+                <li>You have a more robust search method for retrieving the collection of videos to display</li>
+              </ul>
+            </div>
+          </div>
+          <div class="section" id="code">
+            <h2><a name=""></a>The code</h2>
+            <h3>Modifications to the player publishing code</h3>
+<pre><code>
+  &lt;!-- smart player api params --&gt;
+  &lt;param name="includeAPI" value="true" /&gt;
+  &lt;param name="templateLoadHandler" value="BCLS.onTemplateLoad" /&gt;
+  &lt;param name="templateReadyHandler" value="BCLS.onTemplateReady" /&gt;
+</code></pre>
+          <h3>The Media API request for this sample:</h3>
+          <pre><code id="mediaAPIrequest"></code></pre>
+          <h3>CSS used for this sample:</h3>
+<pre><code id="css_code"></code></pre>
+          <h3>JavaScript used for this sample:</h3>
+<pre><code id="js_code"></code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- bcl scripts ============================================================ -->
+    <script src="//docs.brightcove.com/en/scripts/prefix.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//docs.brightcove.com/en/scripts/highlight/highlight.pack.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.1.2/handlebars.min.js"></script>
+    <script src="//docs.brightcove.com/en/scripts/bc-mapi.js"></script>
+    <script src="//docs.brightcove.com/en/scripts/secondsToTime.js"></script>
+    <script src="//docs.brightcove.com/en/scripts/flashHTMLswitch.js"></script>
+    <script id="pageScript" type="text/javascript">
+      /******** Any scripts specific to page samples should go here *********/
+      /**** Brightcove Learning Services Module ****/
+      var BCLS = (function() {
+        // variables
+        var player,
+            APIModules,
+            mediaEvent,
+            videoPlayer,
+            playerLoaded = false,
+            //$overlay = $("#BCLSoverlay"),
+            $lightbox = $("#BCLSlightbox"),
+            $videoList = $("#videoList"),
+            $close = $(".BCLSclose"),
+            // vars for Handlebars
+            videosTemplate = "{{#items}}<img alt=\"{{name}}\" class=\"video-list-item\" src=\"{{videoStillURL}}\" width=\"180\" height=\"96\" data-id=\"{{id}}\" />{{/items}}",
+            template,
+            data,
+            results,
+            // vars for BCMAPI wrapper
+            params = {},
+            formattedLength,
+            i = 0,
+            max = 0;
+            // initialize BCMAPI setup
+            BCMAPI.token = "WDGO_XdKqXVJRVGtrNuGLxCYDNoR-SvA5yUqX2eE6KjgefOxRzQilw..";
+            BCMAPI.url = "//api.brightcove.com/services/library";
+            // note the callback is the public name of the function
+            BCMAPI.callback = "BCLS.onGetVideos";
+            params.any = "sea";
+            params.video_fields = "id,shortDescription,length,videoStillURL";
+        // public functions and data
+        return {
+          /**** template loaded event handler ****/
+          onTemplateLoad : function (experienceID) {
+            // let the video selector know the player is loaded
+            playerLoaded = true;
+            // get a reference to the player and API Modules and Events
+            player = brightcove.api.getExperience(experienceID);
+            APIModules = brightcove.api.modules.APIModules;
+            mediaEvent = brightcove.api.events.MediaEvent;
+            // do the Media API search
+            BCMAPI.search(params);
+          },
+          /**** template ready event handler ****/
+          onTemplateReady : function (evt) {
+            // get references to modules
+            videoPlayer = player.getModule(APIModules.VIDEO_PLAYER);
+            // add media COMPLETE listener
+            videoPlayer.addEventListener(mediaEvent.COMPLETE, BCLS.hideAndStop);
+          },
+          /**** callback for Media API call ****/
+          onGetVideos : function (JSONdata) {
+            // display the request (for this sample only)
+            $("#mediaAPIrequest").html(BCMAPI.request);
+            // convert video length to human-readable format
+            for (i = 0, max = JSONdata.items.length; i < max; i++) {
+              formattedLength = BCLSsecondsToTime(JSONdata.items[i].length / 1000);
+              JSONdata.items[i].length = formattedLength.m + ":" + formattedLength.s;
+            };
+            // build the related videos list
+            template = Handlebars.compile(videosTemplate);
+            data = JSONdata;
+            results = template(data);
+            $videoList.append(results);
+            // add event listener for clicks on videos
+            $(".video-list-item").on("click", BCLS.showAndLoad);
+            $close.on("click", BCLS.hideAndStop);
+         },
+          showAndLoad : function (videoID) {
+            // make sure the player is loaded
+            if (playerLoaded) {
+              // reveal the lightbox
+            $lightbox.attr("class", "BCLSshow");
+            // load the video
+            videoPlayer.loadVideoByID($(this).attr("data-id"));
+            }
+          },
+          hideAndStop : function () {
+            // hide the lightbox
+            $lightbox.attr("class", "BCLShide");
+            // pause the video
+            videoPlayer.pause(true);
+          }
+        }
+      }());
+    </script>
+    <script>
+      $(document).ready(function(){
+        $("#js_code").html(BCLSpreFix($("#pageScript").html()));
+        $("#css_code").html(BCLSpreFix($("#pageStyles").html()));
+      });
+    </script>
+</body>
+</html>

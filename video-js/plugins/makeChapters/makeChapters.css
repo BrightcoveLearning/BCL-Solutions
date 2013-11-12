@@ -1,0 +1,58 @@
+.player-wrapper {
+	position: relative;
+}
+.chapter-list {
+	overflow: scroll;
+	margin: 2px;
+}
+.chapter-list-top-bottom {
+	display: block;
+}
+.chapter-list-right {
+	display: inline-block;
+	position: absolute;
+	top: 0;
+}
+.chapter {
+	cursor: pointer;
+	border: 1px #CCC solid;
+}
+.chapter-top-bottom {
+	display: inline-block;
+}
+.chapter-right {
+	display: block;
+	/* width: 250px; */
+}
+.chapter-right img {
+	display: inline-block;
+	vertical-align: middle;
+}
+.chapter-right div {
+	display: inline-block;
+	word-wrap: word;
+	padding: 4px;
+	vertical-align: middle;
+}
+.chapter-highlight {
+	background-color: #333333;
+	color: #F5F5F5;
+}
+.chapter-thumbnail {
+	border: 1px #666 solid;
+}
+.chapter-title {
+	font-size: x-small;
+	margin: 2px;
+	text-align: center;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.timeline-marker
+{
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAABL2lDQ1BJQ0MgUHJvZmlsZQAAGBljYGAycHRxcmUSYGDIzSspCnJ3UoiIjFJgv8DAwcDNIMxgzGCdmFxc4BgQ4MMABHn5eakgGhV8u8bACBK5rAsyC1WOII8ruaCoBKjqDxAbpaQWJzMwMBoA2dnlJQVAccY5QLZIUjaYvQHELgoJcgaKHwGy+dIh7CsgdhKE/QTELgJ6AqjmC0h9OpjNxAFiJ0HYMiB2SWoFyF4G5/yCyqLM9IwSBSMDAwMFx5T8pFSF4MriktTcYgXPvOT8ooL8osSS1BSgWoj7QLoYBCEKQSGmYWhpaaEJFqUiAYoHiHGfA8Hhyyh2BiGGsCi5tKgMymNkMmZgIMRHmDFHgoHBfykDA8sfhJhJLwPDAh0GBv6pCDE1QwYGAX0Ghn1zAMOvUG/qV5R/AAAACXBIWXMAABYlAAAWJQFJUiTwAAAASUlEQVQYGWP4//8/AxDrAvE5IEYHIDGQHANM0Q90FUh8kJwuSCE2k5DUgZnnGEEUAxGAiQg1YCW0UXieCOvPkxQ8MMXYggke4AAVvMEO0cqrDwAAAABJRU5ErkJggg==);
+	position: absolute;
+	width:10px;
+	height:10px;
+}

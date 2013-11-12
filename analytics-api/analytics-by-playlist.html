@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Analytics by Playlists</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link href="//docs.brightcove.com/en/scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <script src="//use.edgefonts.net/source-code-pro.js"></script>
+        <link href="//files.brightcove.com/proxima-nova/font-faces.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/github.css">
+        <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/anytime.c.css">
+        <link rel="stylesheet" type="text/css" href="/bcls/analytics-api/css/analytics-by-playlist.css">
+        <style type="text/css">
+            body {
+                padding-left: 40px;
+                padding-top: 120px;
+            }
+            #responseFrame, #request {
+                width: 80%;
+            }
+        </style>
+    </head>
+
+    <body data-spy="scroll" data-target=".sub-menu" data-offset="100">
+        <!-- header navbar -->
+        <div id="titleBar" class="navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div id="otherSites">
+                    <ul class="nav pull-right small">
+                        <li>
+                            <a href="//brightcove.com">BRIGHTCOVE.COM</a>
+                        </li>
+                        <li>
+                            <a href="//support.brightcove.com">SUPPORT</a>
+                        </li>
+                        <li>
+                            <a href="//support.brightcove.com/video-cloud/training-videos">TRAINING VIDEOS</a>
+                        </li>
+                    </ul>
+                </div>
+                <a class="brand" href="//docs.brightcove.com/en/index.html">BRIGHTCOVE DEVELOPER DOCUMENTATION</a>
+            </div>
+        </div>
+        <!-- end header navbar -->
+        <!-- nav navbar -->
+        <div id="navBar" class="navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+                <a class="btn btn-navbar pull-right" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <!-- Everything you want hidden at 940px or less, place within here -->
+                <ul id="sectionNav" class="nav"></ul>
+            </div>
+        </div>
+        <!-- end nav navbar -->
+        <!-- main content starts here -->
+        <h1>Get Analytics for a Playlist</h1>
+        <p class="text-warning">Note that the Analytics API is currently in <strong>Limited Availability</strong>. If you are interested in enabling your account for the beta version of the API, please contact your account manager.</p>
+        <p>This tool allows you to select a playlist from your account and get analytics data for all the videos in the playlist.</p>
+        <h3>Notes</h3>
+        <ul>
+            <li>You must retrieve playlist data and select a playlist before submitting the request to the Analytics API &mdash; if you want to get analytics data for individual videos or players, use the <a href="//solutions.brightcove.com/bcls/analytics-api/aapi-request-builder.html">Analytics Request Builder</a></li>
+            <li>If any of the videos are also published in single video players, or in multiple playlists, you will need to specify the player to get accurate data for a specific playlist</li>
+            <li>The returned data includes the data for individual videos plus cumulative or average values for the playlist</li>
+            <li>If the returned data does not include items for all videos in the playlist, no data was returned for those videos over the time period specified</li>
+        </ul>
+        <h2>Request Options</h2>
+        <p>Where no default value is indicated, there is none.</p>
+        <div id="inputFields" class="input-fields">
+            <fieldset>
+                <legend>Basic Information</legend>
+                <div id="basicInfo">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Service URL:</td>
+                                <td>
+                                    <input id="serviceURL" class="required aapi-request" type="text" size="55" value="https://data.brightcove.com/analytics-api/videocloud" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Video Cloud Account (Publisher ID):</td>
+                                <td>
+                                    <input id="accountID" class="required aapi-request" type="text" size="55" value="20318290001"> (default: BC Training Videos)</td>
+                            </tr>
+                            <tr>
+                                <td class="align-top no-wrap">Authorization Token:
+                                    <sup class="red">*</sup>
+                                </td>
+                                <td>
+                                    <input id="token" class="required aapi-request" type="text" size="55" value="15075c51ae4b0af095c9a619a" /> (default: BC Training Videos)
+                                    <p>
+                                        <sup class="red">*</sup>If your account has been enabled for the Analytics API, this token was emailed to the account administrator when you joined the <strong>limited availability</strong> program.</p>
+                                </td>
+                            </tr>
+                             <tr>
+                                <td>Media API READ Token:
+                                <br /> (to retrieve videos to report or filter on)</td>
+                                <td>
+                                    <input id="mapitoken" type="text" size="60" value="v87kWelIdjUwVm7_Rzv09k-KqtLz-ty8ONbMxVYAI7-Q0eOilegqqg.." /> (default: BC Training Videos)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Media API Location</td>
+                                <td>
+                                    <select id="readApiLocation">
+                                        <option value="http://api.brightcove.com/services/library">http://api.brightcove.com/services/post</option>
+                                        <option value="http://api.brightcove.co.jp/services/library">http://api.brightcove.co.jp/services/post (Japan)</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Select Playlist</legend>
+                <p><span class="run-button" id="getPlaylists">Get Playlists</span></p>
+                <div class="bcls-hidden" id="playlistSelectWrapper">
+                    <p id="playlists"><select id="playlistSelector"></select></p>
+                </div>
+            </fieldset>
+            <fieldset id="aapiParams" class="bcls-hidden">
+                <legend>Filters</legend>
+                <div id="filters">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>From:</td>
+                                <td>Date:
+                                    <input class="aapi-request" id="startDate" type="text" size="30"> Time:
+                                    <input class="aapi-request" id="startTime" type="text" size="40"> (default: 30 days ago)</td>
+                            </tr>
+                            <tr>
+                                <td>To:</td>
+                                <td>Date:
+                                    <input class="aapi-request" id="endDate" type="text" size="30"> Time:
+                                    <input class="aapi-request" id="endTime" type="text" size="40"> (default: now</td>
+                            </tr>
+                            <tr>
+                                <td>Where:</td>
+                                <td>
+                                    Player ID = <input id="player" class="where-input aapi-request" type="text" size="40" value="" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </fieldset>
+        </div>
+        <h2>The API Request</h2>
+        <div id="requestSubmitter" class="bcls-hidden">
+                <fieldset>
+                    <legend>Generated Request</legend>
+                    <p>API Request</p>
+                    <textarea id="request" name="request" rows="3" cols="100"></textarea>
+                    <p>Authorization</p>
+                    <div id="authorizationDisplay" class="aapi-request"></div>
+                    <input class="aapi-request" id="authorization" name="authorization" type="hidden" value="" />
+                </fieldset>
+                <p>
+                    <span class="bcls-button" id="submitButton">Submit Request</span>
+                </p>
+        </div>
+        <div id="response">
+            <h2>Response</h2>
+            <pre><code id="responseFrame"></code></pre>
+        </div>
+        <!-- scripts -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <!-- migrate plugin to enable any+time to work -->
+        <script src="//docs.brightcove.com/en/scripts/jquery-migrate-1.2.1.min.js"></script>
+        <!-- any+time data/time picker -->
+        <script src="//docs.brightcove.com/en/scripts/anytime.c.js"></script>
+        <script src="//docs.brightcove.com/en/scripts/bootstrap/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-smooth-scroll/1.4.10/jquery.smooth-scroll.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.1.2/handlebars.min.js"></script>
+        <script src="//docs.brightcove.com/en/scripts/highlight/highlight.pack.js"></script>
+        <script src="//docs.brightcove.com/en/scripts/bc-mapi.js"></script>
+        <!-- file saver allows download of xlsx data -->
+        <script src="//docs.brightcove.com/en/scripts/FileSaver.min.js"></script>
+        <script src="//docs.brightcove.com/en/scripts/BlobBuilder.min.js"></script>
+        <script src="//docs.brightcove.com/en/scripts/Blob.js"></script>
+        <!-- homegrown utility to format json -->
+        <script src="//docs.brightcove.com/en/scripts/format_json.js"></script>
+        <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
+        <script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
+        <script src="/bcls/analytics-api/js/analytics-by-playlist.js"></script>
+    </body>
+
+</html>

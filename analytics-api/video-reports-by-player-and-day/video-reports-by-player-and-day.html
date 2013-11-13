@@ -39,7 +39,42 @@
 
 </head>
 
-<body>
+<body data-spy="scroll" data-target=".sub-menu" data-offset="100">
+    <!-- header navbar -->
+    <div id="titleBar" class="navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div id="otherSites">
+                <ul class="nav pull-right small">
+                    <li>
+                        <a href="//brightcove.com">BRIGHTCOVE.COM</a>
+                    </li>
+                    <li>
+                        <a href="//support.brightcove.com">SUPPORT</a>
+                    </li>
+                    <li>
+                        <a href="//support.brightcove.com/video-cloud/training-videos">TRAINING VIDEOS</a>
+                    </li>
+                </ul>
+            </div>
+            <a class="brand" href="//docs.brightcove.com/en/index.html">BRIGHTCOVE DEVELOPER DOCUMENTATION</a>
+        </div>
+    </div>
+    <!-- end header navbar -->
+    <!-- nav navbar -->
+    <div id="navBar" class="navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+            <a class="btn btn-navbar pull-right" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <!-- Everything you want hidden at 940px or less, place within here -->
+            <ul id="sectionNav" class="nav">
+            </ul>
+        </div>
+    </div>
+    <!-- end nav navbar -->
     <!-- main content starts here -->
     <div class="row">
         <div id="sidenav" class="span2"></div>
@@ -47,6 +82,15 @@
             <div class="section" id="top">
                 <h1>Analytics API Solution: Video Report by Player and Day</h1>
                 <p>The Analytics UI in Video Cloud Studio offers a number of ready-made reports, but you can create additional reports using he Analytics API that are tailored to your specific needs. In this example, we will create a report on all videos in the account, grouped by player, showing the total views, percentage of views that were complete, the average number of seconds viewed per view, and the total viewed seconds for each day in the selected period.</p>
+                <div class="text-warning">
+                    <h3>Dependencies</h3>
+                    <p>3rd party libraries used in this sample:</p>
+                    <ul>
+                        <li><a href="https://jquery.org">jQuery</a></li>
+                        <li><a href="http://handlebarsjs.com">Handlebars</a></li>
+                        <li><a href="http://www.flotcharts.org">Flot</a></li>
+                    </ul>
+                </div>
             </div>
             <div class="section" id="inputs">
                 <h2>Inputs</h2>
@@ -102,8 +146,13 @@
                     </thead>
                     <tbody id="reportTableBody"></tbody>
                 </table>
-                <canvas id="chartViews" style="width:800px;height:400px"></canvas>
-                <div id="chartViewsLegend" style="padding:10px 20px;"></div>
+                <div id="chartView" width="700" height="400" style="width:700px;height:400px"></div>
+                <div id="chartViewLegend" style="padding:10px 20px;"></div>
+            </div>
+            <div class="section" id="code">
+              <h2>Code for the sample</h2>
+              <p>The JavaScript code for this sample is shown below &mdash; view source to see the full page code.<p>
+              <script src="https://gist.github.com/7456361.js"></script>
             </div>
         </div>
     </div>
@@ -115,7 +164,8 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.1.2/handlebars.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/highlight.min.js"></script>
     <!-- chart.js charting package -->
-    <script type="text/javascript" src="//docs.brightcove.com/en/scripts/chartjs/Chart.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/flot/0.8.1/jquery.flot.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/flot/0.8.1/jquery.flot.categories.min.js"></script>
     <!-- for date picker -->
     <script type="text/javascript" src="/bcls/scripts/datepickr_2/datepickr.min.js"></script>
     <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
@@ -155,22 +205,77 @@
                 gettingDataDisplay = document.getElementById("gettingDataDisplay"),
                 today = new Date(),
                 weekAgo = new Date(today - 604800000),
-                dataDisplayBodyTemplate = "<th>{{video_name}}</th><th>Totals</th><th>{{totalPlays}}</th><th></th><th></th><th></th></tr>{{#items}}<tr><td></td><td></td><td>{{date}}</td><td>{{video_view}}</td><td>{{completionRate}}</td><td>{{avgSecondsViewed}}</td><td>{{totalSecondsViewed}}</td></tr>{{/items}}",
+                dataDisplayBodyTemplate = "<td>{{video_name}}</td><td>Totals</td><td>{{totalPlays}}</td><td>{{totalCompletedViews}}</td><td>{{totalAvgSecondsViewed}}</td><td>{{totalSecondsViewed}}</td></tr>{{#items}}<tr><td></td><td></td><td>{{date}}</td><td>{{video_view}}</td><td>{{completionRate}}</td><td>{{avgSecondsViewed}}</td><td>{{totalSecondsViewed}}</td></tr>{{/items}}",
                 playerSelectTemplate = "{{#items}}<option value=\"{{player}}\">{{player_name}}</options>{{/items}}",
                 videoSelectTemplate = "{{#items}}<option value=\"{{video}}\">{{video_name}}</options>{{/items}}",
                 callType,
+                getMonthName = function (month) {
+                    var name;
+                    switch (month) {
+                        case 1:
+                        name = "Jan";
+                        break;
+                        case 2:
+                        name = "Feb";
+                        break;
+                        case 3:
+                        name = "Mar";
+                        break;
+                        case 4:
+                        name = "Apr";
+                        break;
+                        case 5:
+                        name = "May";
+                        break;
+                        case 6:
+                        name = "Jun";
+                        break;
+                        case 7:
+                        name = "Jul";
+                        break;
+                        case 8:
+                        name = "Aug";
+                        break;
+                        case 9:
+                        name = "Sep";
+                        break;
+                        case 10:
+                        name = "Oct";
+                        break;
+                        case 11:
+                        name = "Nov";
+                        break;
+                        case 12:
+                        name = "Dec";
+                        break;
+                    }
+                    return name;
+                }
                 displayData = function () {
-                    var displayStr, playerObject, videoObject, template;
-                        currentPlayer = playerSelector.options[playerSelector.selectedIndex].value;
-                        console.log(currentPlayer);
-                        currentVideoIndex = videoSelector.selectedIndex;
-                        playerObject = analyticsData[currentPlayer];
-                        console.log(playerObject);
-                        videoObject = playerObject.items[currentVideoIndex];
-                        displayStr = "<tr style=\"background-color:#64AAB2;color:#FFF;\"><th>" + playerObject.player_name + "</th>";
-                        template = Handlebars.compile(dataDisplayBodyTemplate);
-                        displayStr += template(videoObject);
-                        reportTableBody.innerHTML = displayStr;
+                    var displayStr, playerObject, videoObject, template, barChartData, chart;
+                    currentPlayer = playerSelector.options[playerSelector.selectedIndex].value;
+                    currentVideoIndex = videoSelector.selectedIndex;
+                    playerObject = analyticsData[currentPlayer];
+                    videoObject = playerObject.items[currentVideoIndex];
+                    displayStr = "<tr style=\"background-color:#64AAB2;color:#FFF;\"><th>" + playerObject.player_name + "</th>";
+                    template = Handlebars.compile(dataDisplayBodyTemplate);
+                    displayStr += template(videoObject);
+                    reportTableBody.innerHTML = displayStr;
+                    // chart
+                    barChartData = videoObject.chartData;
+                    $.plot("#chartView", [ barChartData ], {
+                        series: {
+                            bars: {
+                                show: true,
+                                barWidth: 0.6,
+                                align: "center"
+                            }
+                        },
+                        xaxis: {
+                            mode: "categories",
+                            tickLength: 0
+                        }
+                    });
                 },
                 getTotals = function () {
                     var player, video, i, imax, j, jmax, item, date, thisVideo;
@@ -182,7 +287,6 @@
                             thisVideo.totalPlays = 0;
                             thisVideo.totalSecondsViewed = 0;
                             thisVideo.totalCompletedViews = 0;
-                            thisVideo.chartLabels = [];
                             thisVideo.chartData = [];
                             for (i = 0; i < imax; i++) {
                                 item = thisVideo.items[i];
@@ -191,13 +295,14 @@
                                 thisVideo.totalPlays += item.video_view;
                                 thisVideo.totalSecondsViewed += item.totalSecondsViewed;
                                 thisVideo.totalCompletedViews += item.completionRate;
+                                thisVideo.chartData.push([getMonthName(date.getMonth()) + " " + date.getDate(), item.video_view]);
                             }
+                            thisVideo.totalAvgSecondsViewed = thisVideo.totalSecondsViewed / thisVideo.totalPlays;
                             if (thisVideo.totalPlays > 0) {
                                 thisVideo.totalCompletedViews = thisVideo.totalCompletedViews / thisVideo.totalPlays;
                             }
                         }
                     }
-                    console.log(analyticsData);
                 },
                 makeAnalyticsCall = function (callURL) {
                     $.ajax({
@@ -206,7 +311,7 @@
                         Authorization : "Bearer " + token.value
                     },
                     success : function (data) {
-                        var template, results, i, j, k, player, video, itemsmax, analytics, item, newItem = {};
+                        var template, results, i, j, k, player, video, itemsmax, analytics, item, newItem = {}, thisVideo;
                         switch (callType) {
                             case "players":
                                 callNumber++;
@@ -251,6 +356,7 @@
                                 itemsmax = data.items.length;
                                 videoMax = analyticsData[currentPlayer].items.length;
                                 for (k = 0; k < videoMax; k++) {
+                                    thisVideo = analyticsData[currentPlayer].items[k];
                                     newItem = {};
                                     newItem.video_view = 0;
                                     newItem.completionRate = 0;
@@ -258,7 +364,7 @@
                                     newItem.totalSecondsViewed = 0;
                                     newItem.day = currentDay.from;
                                     for (i = 0; i < itemsmax; i++) {
-                                        if (data.items[i].video === video) {
+                                        if (data.items[i].video === thisVideo.id) {
                                             item = data.items[i];
                                             newItem.video_view = item.video_view;
                                             newItem.completionRate = Math.round(item.video_engagement_100 / item.video_view);
@@ -305,7 +411,7 @@
                     var callURL = "";
                     gettingDataDisplay.innerHTML = "Getting video data...";
                     callType = "videos";
-                    callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=video&limit=100&fields=video,video_name&from=" + dateFromMS + "&to=" + dateToMS;
+                    callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=video&limit=200&fields=video,video_name&sort=video_view&from=" + dateFromMS + "&to=" + dateToMS;
                     makeAnalyticsCall(callURL);
                 },
                 // get all players for the selected time period
@@ -313,7 +419,7 @@
                     var callURL = "";
                     gettingDataDisplay.innerHTML = "Getting player data...";
                     callType = "players";
-                    callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=player&limit=100&fields=player,player_name&from=" + dateFromMS + "&to=" + dateToMS;
+                    callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=player&limit=100&fields=player,player_name&sort=video_view&from=" + dateFromMS + "&to=" + dateToMS;
                     makeAnalyticsCall(callURL);
                 };
             // add date pickers to the date input fields
@@ -348,7 +454,6 @@
             videoSelector.addEventListener("change", displayData);
             playerSelector.addEventListener("change", displayData);
             return {
-                "displayData" : displayData
             }
         })();
     </script>

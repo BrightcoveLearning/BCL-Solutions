@@ -46,7 +46,7 @@
         <div id="main" class="span10">
             <div class="section" id="top">
                 <h1>Analytics API Solution: Video Report by Player and Day</h1>
-                <p>The Analytics UI in Video Cloud Studio offers a number of ready-made reports, but you can create additional reports using he Analytics API that are tailored to your specific needs. In this example, we will create a report on all videos in the account, grouped by player, showing the total views, percentage of views that were complete, and the total viewed seconds for each day in the selected period.</p>
+                <p>The Analytics UI in Video Cloud Studio offers a number of ready-made reports, but you can create additional reports using he Analytics API that are tailored to your specific needs. In this example, we will create a report on all videos in the account, grouped by player, showing the total views, percentage of views that were complete, the average number of seconds viewed per view, and the total viewed seconds for each day in the selected period.</p>
             </div>
             <div class="section" id="inputs">
                 <h2>Inputs</h2>
@@ -76,9 +76,9 @@
                         End: &nbsp;<input id="toDatePicker" size="30" />
                     </p>
                     <p>
-                        <span class="bcls-button" id="getData">Get Data</span>
+                        <span class="BCL-btn" id="getData">Get Data</span>
                     </p>
-                    <p id="gettingDataDisplay"></p>
+                    <p class="text-warning" id="gettingDataDisplay"></p>
                 </fieldset>
 
             </div>
@@ -102,7 +102,7 @@
                     </thead>
                     <tbody id="reportTableBody"></tbody>
                 </table>
-                <div id="chartViews" style="width:800px;height:400px"></div>
+                <canvas id="chartViews" style="width:800px;height:400px"></canvas>
                 <div id="chartViewsLegend" style="padding:10px 20px;"></div>
             </div>
         </div>
@@ -128,6 +128,7 @@
                 dateSelector = document.getElementById("dateSelector"),
                 playerSelector = document.getElementById("playerSelector"),
                 videoSelector = document.getElementById("videoSelector"),
+                reportTableBody = document.getElementById("reportTableBody"),
                 currentPlayerIndex = 0,
                 currentVideoIndex = 0,
                 currentDayIndex = 0,
@@ -154,24 +155,45 @@
                 gettingDataDisplay = document.getElementById("gettingDataDisplay"),
                 today = new Date(),
                 weekAgo = new Date(today - 604800000),
-                dataDisplayTemplate = "<tr></tr>",
-                playerSelectTemplate = "{{#items}}<option value\"{{player}}\">{{player_name}}</options>{{/items}}",
-                videoSelectTemplate = "{{#items}}<option value\"{{video}}\">{{video_name}}</options>{{/items}}",
+                dataDisplayBodyTemplate = "<th>{{video_name}}</th><th>Totals</th><th>{{totalPlays}}</th><th></th><th></th><th></th></tr>{{#items}}<tr><td></td><td></td><td>{{date}}</td><td>{{video_view}}</td><td>{{completionRate}}</td><td>{{avgSecondsViewed}}</td><td>{{totalSecondsViewed}}</td></tr>{{/items}}",
+                playerSelectTemplate = "{{#items}}<option value=\"{{player}}\">{{player_name}}</options>{{/items}}",
+                videoSelectTemplate = "{{#items}}<option value=\"{{video}}\">{{video_name}}</options>{{/items}}",
                 callType,
+                displayData = function () {
+                    var displayStr, playerObject, videoObject, template;
+                        currentPlayer = playerSelector.options[playerSelector.selectedIndex].value;
+                        console.log(currentPlayer);
+                        currentVideoIndex = videoSelector.selectedIndex;
+                        playerObject = analyticsData[currentPlayer];
+                        console.log(playerObject);
+                        videoObject = playerObject.items[currentVideoIndex];
+                        displayStr = "<tr style=\"background-color:#64AAB2;color:#FFF;\"><th>" + playerObject.player_name + "</th>";
+                        template = Handlebars.compile(dataDisplayBodyTemplate);
+                        displayStr += template(videoObject);
+                        reportTableBody.innerHTML = displayStr;
+                },
                 getTotals = function () {
-                    var player, video, i, imax, item, date, thisVideo;
+                    var player, video, i, imax, j, jmax, item, date, thisVideo;
                     for (player in analyticsData) {
-                        for (video in analyticsData[player]) {
-                            thisVideo = analyticsData[player][video];
+                        jmax = analyticsData[player].items.length;
+                        for (j = 0; j < jmax; j++) {
+                            thisVideo = analyticsData[player].items[j];
                             imax = thisVideo.items.length;
                             thisVideo.totalPlays = 0;
                             thisVideo.totalSecondsViewed = 0;
+                            thisVideo.totalCompletedViews = 0;
+                            thisVideo.chartLabels = [];
+                            thisVideo.chartData = [];
                             for (i = 0; i < imax; i++) {
-                                item = analyticsData[player][video].items[i];
+                                item = thisVideo.items[i];
                                 date = new Date(item.day);
                                 item.date = date.toDateString();
                                 thisVideo.totalPlays += item.video_view;
                                 thisVideo.totalSecondsViewed += item.totalSecondsViewed;
+                                thisVideo.totalCompletedViews += item.completionRate;
+                            }
+                            if (thisVideo.totalPlays > 0) {
+                                thisVideo.totalCompletedViews = thisVideo.totalCompletedViews / thisVideo.totalPlays;
                             }
                         }
                     }
@@ -184,7 +206,7 @@
                         Authorization : "Bearer " + token.value
                     },
                     success : function (data) {
-                        var template, results, i, j, player, video, itemsmax, analytics, item, newItem = {};
+                        var template, results, i, j, k, player, video, itemsmax, analytics, item, newItem = {};
                         switch (callType) {
                             case "players":
                                 callNumber++;
@@ -194,10 +216,13 @@
                                 // add players to the analytics data object
                                 for (i = 0; i < playerMax; i++) {
                                     analyticsData[playerData.items[i].player] = {};
+                                    analyticsData[playerData.items[i].player].player_name = playerData.items[i].player_name;
+                                    analyticsData[playerData.items[i].player].items = [];
                                 }
                                 // populate the player selector
                                 template = Handlebars.compile(playerSelectTemplate);
                                 playerSelector.innerHTML = template(data);
+                                playerSelector.options[0].setAttribute("selected", "selected");
                                 getVideoData();
                                 break;
                             case "videos":
@@ -208,22 +233,24 @@
                                 // add videos to the analytics data object
                                 for (player in analyticsData) {
                                     for (j = 0; j < videoMax; j++) {
-                                        video = videoData.items[j].video;
-                                        analyticsData[player][video] = {};
-                                        analyticsData[player][video].items = [];
-                                        // player[video].items = [];
+                                        video = videoData.items[j];
+                                        analyticsData[player].items[j] = {};
+                                        analyticsData[player].items[j].id = video.video;
+                                        analyticsData[player].items[j].video_name = video.video_name;
+                                        analyticsData[player].items[j].items = [];
                                     }
                                 }
                                 // populate the video selector
                                 template = Handlebars.compile(videoSelectTemplate);
                                 videoSelector.innerHTML = template(data);
+                                videoSelector.options[0].setAttribute("selected", "selected");
                                 getAnalyticsData();
                                 break;
                             case "analytics":
                                 callNumber++;
                                 itemsmax = data.items.length;
-                                analytics = analyticsData[currentPlayer];
-                                for (video in analyticsData[currentPlayer]) {
+                                videoMax = analyticsData[currentPlayer].items.length;
+                                for (k = 0; k < videoMax; k++) {
                                     newItem = {};
                                     newItem.video_view = 0;
                                     newItem.completionRate = 0;
@@ -239,7 +266,7 @@
                                             newItem.totalSecondsViewed = item.video_seconds_viewed;
                                         }
                                     }
-                                    analyticsData[currentPlayer][video].items.push(newItem);
+                                    analyticsData[currentPlayer].items[k].items.push(newItem);
                                 }
                                 if (currentDayIndex < dayMax - 1) {
                                     currentDayIndex++;
@@ -264,7 +291,7 @@
                 // get the analytics data for the videos
                 getAnalyticsData = function () {
                     var callURL;
-                    gettingDataDisplay.innerHTML = "Getting player data...";
+                    gettingDataDisplay.innerHTML = "Getting analytics data...";
                     callType = "analytics";
                     currentPlayer = playerData.items[currentPlayerIndex].player;
                     // currentVideo = videoData.items[currentVideoIndex].video;
@@ -318,8 +345,10 @@
                 dayMax = daysArray.length;
                 getPlayersData();
             });
+            videoSelector.addEventListener("change", displayData);
+            playerSelector.addEventListener("change", displayData);
             return {
-
+                "displayData" : displayData
             }
         })();
     </script>

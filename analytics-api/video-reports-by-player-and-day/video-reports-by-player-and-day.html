@@ -16,6 +16,7 @@
     <link href="/bcls/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/bcls/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="/bcls/bootstrap/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
     <!-- for date picker -->
     <link href="/bcls/scripts/datepickr_2/datepickr.css" rel="stylesheet">
 
@@ -131,7 +132,9 @@
                 currentVideoIndex = 0,
                 currentDayIndex = 0,
                 currentPlayer,
+                currentPlayerName,
                 currentVideo,
+                currentVideoName,
                 currentDay,
                 playerMax,
                 videoMax,
@@ -155,22 +158,39 @@
                 playerSelectTemplate = "{{#items}}<option value\"{{player}}\">{{player_name}}</options>{{/items}}",
                 videoSelectTemplate = "{{#items}}<option value\"{{video}}\">{{video_name}}</options>{{/items}}",
                 callType,
+                getTotals = function () {
+                    var player, video, i, imax, item, date, thisVideo;
+                    for (player in analyticsData) {
+                        for (video in analyticsData[player]) {
+                            thisVideo = analyticsData[player][video];
+                            imax = thisVideo.items.length;
+                            thisVideo.totalPlays = 0;
+                            thisVideo.totalSecondsViewed = 0;
+                            for (i = 0; i < imax; i++) {
+                                item = analyticsData[player][video].items[i];
+                                date = new Date(item.day);
+                                item.date = date.toDateString();
+                                thisVideo.totalPlays += item.video_view;
+                                thisVideo.totalSecondsViewed += item.totalSecondsViewed;
+                            }
+                        }
+                    }
+                    console.log(analyticsData);
+                },
                 makeAnalyticsCall = function (callURL) {
-                    gettingDataDisplay.innerHTML = "Getting data..."
                     $.ajax({
                     url: callURL,
                     headers: {
                         Authorization : "Bearer " + token.value
                     },
                     success : function (data) {
-                        var template, results, i, j, player, video;
+                        var template, results, i, j, player, video, itemsmax, analytics, item, newItem = {};
                         switch (callType) {
                             case "players":
                                 callNumber++;
                                 // save the data for getting the analytics
                                 playerData = data;
                                 playerMax = playerData.items.length;
-                                console.log(playerData);
                                 // add players to the analytics data object
                                 for (i = 0; i < playerMax; i++) {
                                     analyticsData[playerData.items[i].player] = {};
@@ -201,12 +221,37 @@
                                 break;
                             case "analytics":
                                 callNumber++;
-                                analyticsData[currentPlayer][currentVideo].items.push(data);
-                                analyticsData[currentPlayer][currentVideo].day = currentDay.from;
-                                console.log(analyticsData[currentPlayer][currentVideo]);
-                                if (currentDayIndex < dayMax) {
+                                itemsmax = data.items.length;
+                                analytics = analyticsData[currentPlayer];
+                                for (video in analyticsData[currentPlayer]) {
+                                    newItem = {};
+                                    newItem.video_view = 0;
+                                    newItem.completionRate = 0;
+                                    newItem.avgSecondsViewed = 0;
+                                    newItem.totalSecondsViewed = 0;
+                                    newItem.day = currentDay.from;
+                                    for (i = 0; i < itemsmax; i++) {
+                                        if (data.items[i].video === video) {
+                                            item = data.items[i];
+                                            newItem.video_view = item.video_view;
+                                            newItem.completionRate = Math.round(item.video_engagement_100 / item.video_view);
+                                            newItem.avgSecondsViewed = item.video_seconds_viewed / item.video_view;
+                                            newItem.totalSecondsViewed = item.video_seconds_viewed;
+                                        }
+                                    }
+                                    analyticsData[currentPlayer][video].items.push(newItem);
+                                }
+                                if (currentDayIndex < dayMax - 1) {
                                     currentDayIndex++;
                                     getAnalyticsData();
+                                } else if (currentPlayerIndex < playerMax - 1) {
+                                    currentDayIndex = 0;
+                                    currentVideoIndex = 0;
+                                    currentPlayerIndex++;
+                                    getAnalyticsData();
+                                } else {
+                                    gettingDataDisplay.innerHTML = "Data retrieved - " + callNumber + " API calls made";
+                                    getTotals();
                                 }
                         }
                     },
@@ -215,32 +260,35 @@
                             gettingDataDisplay.innerHTML = "Sorry, your request was not successful. Here's what the server sent back: " + errorThrown;
                         }
                     });
-                }
+                },
                 // get the analytics data for the videos
                 getAnalyticsData = function () {
                     var callURL;
-                        callType = "analytics";
-                        currentPlayer = playerData.items[currentPlayerIndex].player;
-                        currentVideo = videoData.items[currentVideoIndex].video;
-                        currentDay = daysArray[currentDayIndex];
-                        callURL = "https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=video&from=" + currentDay.from + "&to=" + currentDay.to + "&where=player==" + currentPlayer + ";video==" + currentVideo + "&fields=video_view,video_seconds_viewed,video,video_engagement_100";
-                        makeAnalyticsCall(callURL);
+                    gettingDataDisplay.innerHTML = "Getting player data...";
+                    callType = "analytics";
+                    currentPlayer = playerData.items[currentPlayerIndex].player;
+                    // currentVideo = videoData.items[currentVideoIndex].video;
+                    currentDay = daysArray[currentDayIndex];
+                    callURL = "https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=video&from=" + currentDay.from + "&to=" + currentDay.to + "&where=player==" + currentPlayer + "&fields=video_view,video_seconds_viewed,video,video_engagement_100";
+                    makeAnalyticsCall(callURL);
 
-                }
+                },
                 // get the video analytics data
                 getVideoData = function () {
                     var callURL = "";
+                    gettingDataDisplay.innerHTML = "Getting video data...";
                     callType = "videos";
                     callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=video&limit=100&fields=video,video_name&from=" + dateFromMS + "&to=" + dateToMS;
                     makeAnalyticsCall(callURL);
-                }
+                },
                 // get all players for the selected time period
                 getPlayersData = function () {
                     var callURL = "";
+                    gettingDataDisplay.innerHTML = "Getting player data...";
                     callType = "players";
                     callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=player&limit=100&fields=player,player_name&from=" + dateFromMS + "&to=" + dateToMS;
                     makeAnalyticsCall(callURL);
-                }
+                };
             // add date pickers to the date input fields
             new datepickr('fromDatePicker', {
                 'fullCurrentMonth': false,

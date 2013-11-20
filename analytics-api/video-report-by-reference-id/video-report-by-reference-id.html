@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>Brightcove Learning Services Solutions</title>
+        <title>Anayltics API Sample: Video Report by Reference ID</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
@@ -21,6 +21,9 @@
             }
             #responseFrame, #request {
                 width: 70%;
+            }
+            .small {
+            	font-size: 10px;
             }
         </style>
     </head>
@@ -61,9 +64,9 @@
         </div>
         <!-- end nav navbar -->
         <!-- main content starts here -->
-        <h1>Video Cloud Analytics API Request Builder</h1>
-        <p class="text-warning">Note that the Analytics API is currently in
-            <strong>Limited Availability</strong>. If you are interested in enabling your account for the beta version of the API, please contact your account manager.</p>
+        <h1>Anayltics API Sample: Video Report by Reference ID</h1>
+        <p>This sample allows you to get reports on videos by the video reference ID and return the results in JSON or CSV format./p>
+        <p class="text-warning small">Note that the Analytics API is currently in <strong>Limited Availability</strong>. If you are interested in enabling your account for the beta version of the API, please contact your account manager.</p>
         <h2>Request Options</h2>
         <p>Where no default value is indicated, there is none.</p>
         <div id="inputFields" class="input-fields">
@@ -89,13 +92,12 @@
                                 </td>
                                 <td>
                                     <input id="token" class="required aapi-request" type="text" size="55" value="15075c51ae4b0af095c9a619a" /> (default: BC Training Videos)
-                                    <p>
+                                    <p class="small">
                                         <sup class="red">*</sup>If your account has been enabled for the Analytics API, this token was emailed to the account administrator when you joined the <strong>limited availability</strong> program.</p>
                                 </td>
                             </tr>
                              <tr>
-                                <td>Media API READ Token:
-                                <br /> (to retrieve videos to report or filter on)</td>
+                                <td>Media API READ Token:</td>
                                 <td>
                                     <input id="mapitoken" type="text" size="60" value="v87kWelIdjUwVm7_Rzv09k-KqtLz-ty8ONbMxVYAI7-Q0eOilegqqg.." /> (default: BC Training Videos)
                                 </td>
@@ -104,7 +106,7 @@
                                 <td>Media API Location</td>
                                 <td>
                                     <select id="readApiLocation">
-                                        <option value="http://api.brightcove.com/services/library">http://api.brightcove.com/services/library</option>
+                                        <option value="http://api.brightcove.com/services/library">http://api.brightcove.com/services/library (all accounts except those in Japan)</option>
                                         <option value="http://api.brightcove.co.jp/services/library">http://api.brightcove.co.jp/services/library (Japan)</option>
                                     </select>
                                 </td>
@@ -114,28 +116,78 @@
                 </div>
             </fieldset>
             <fieldset>
-                <legend>Type and Dimension</legend>
+            	<legend>Videos</legend>
+            	<div id="videos">
+            		<table>
+            			<tbody>
+            				<tr>
+								<td>Number of videos to retrieve on each call:</td>
+								<td>
+									<select id="pageSize">
+										<option value="10">10</option>
+										<option value="25" selected="selected">25</option>
+										<option value="50">50</option>
+										<option value="100">100</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>Search for videos (leave search terms blank to retrieve all videos)</td>
+								<td><p>What to search:</p>
+									<select id="searchType">
+										<option value="" selected="selected">Title and Description</option>
+										<option value="tag">Tags</option>
+										<option value="custom_fields">Custom Fields</option>
+									</select>
+									<p>Search for (separate multiple terms by commas): <input id="searchTerms" value="" size="60" /></p>
+								</td>
+							</tr>
+							<tr>
+								<td>Sort results by:</td>
+								<td>
+									<select id="sortBy">
+										<option value="DISPLAY_NAME">Video Name</option>
+										<option value="REFERENCE_ID">Reference ID</option>
+										<option value="PUBLISH_DATE" selected="selected">Date Published</option>
+										<option value="CREATION_DATE">Date Created</option>
+										<option value="MODIFIED_DATE">Date Last Modified</option>
+										<option value="START_DATE">Date Scheduled to Start</option>
+										<option value="PLAYS_TRAILING_WEEK">Trailing Week Plays</option>
+										<option value="PLAYS_TOTAL">All-Time Plays</option>
+									</select>
+									<select id="sortOrder">
+										<option value="ASC">Ascending</option>
+										<option value="DESC" selected="selected">Descending</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<span id="getVideosButton" class="bcls-button">Get videos</span>
+								</td>
+							</tr>
+							<tr>
+								<td>Select a video <span class="small">Reference ID (if any) is shown before the video title</span>:</td>
+								<td>
+									<select id="videoSelector" class="where-input"></select>
+								</td>
+							</tr>
+            			</tbody>
+            		</table>
+            	</div>
+            </fieldset>
+            <fieldset>
+                <legend>Add Dimensiosn</legend>
                 <div id="typeAndDimsion">
                     <table>
                         <tbody>
                             <tr>
-                                <td>Request Type:</td>
-                                <td>
-                                    <select id="requestType" class="required aapi-request">
-                                        <option value="report" selected="selected">Report</option>
-                                        <option value="rollup">Roll-up</option>
-                                    </select> (default:
-                                    <strong>report</strong>)</td>
-                            </tr>
-                            <tr>
                                 <td>Dimensions:
-                                <br />(multiple dimensions allowed for reports)</td>
+                                <br /><span class="small">(you can add the following dimensions to your report &mdash; any single dimension will work; if you add multiple dimensions, some combinations will not work &mdash; you will receive a warning if you select an invalid combination of dimensions)</<span></td>
                                 <td>
                                     <select id="dimension" class="required aapi-request" multiple="true" size="7">
                                         <option value="account">account</option>
                                         <option value="player">player</option>
-                                        <option value="video" selected="selected">video</option>
-                                        <option value="day">day</option>
                                         <option value="referrer_domain">referrer_domain</option>
                                         <option value="source_type">source_type</option>
                                         <option value="search_terms">search_terms</option>
@@ -174,68 +226,6 @@
                                                 <td>Player ID =</td>
                                                 <td>
                                                     <input id="player" class="where-input aapi-request" type="text" size="40" value="" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Video ID =</td>
-                                                <td>
-                                                    <div id="directVideoInput"><input id="video" class="where-input aapi-request" type="text" size="40" value="" /><br />Note that you can enter a video ID here, or <a href="#mapitoken">enter your Media API READ token above</a> and then list or search for videos:</div>
-                                                    <table>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>Number of videos to retrieve on each call:</td>
-                                                                <td>
-                                                                    <select id="pageSize">
-                                                                        <option value="10">10</option>
-                                                                        <option value="25" selected="selected">25</option>
-                                                                        <option value="50">50</option>
-                                                                        <option value="100">100</option>
-                                                                    </select>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Search for videos (leave search terms blank to retrieve all videos)</td>
-                                                                <td><p>What to search:</p>
-                                                                    <select id="searchType">
-                                                                        <option value="" selected="selected">Title and Description</option>
-                                                                        <option value="tag">Tags</option>
-                                                                        <option value="custom_fields">Custom Fields</option>
-                                                                    </select>
-                                                                    <p>Search for (separate multiple terms by commas): <input id="searchTerms" value="" size="60" /></p>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Sort results by:</td>
-                                                                <td>
-                                                                    <select id="sortBy">
-                                                                        <option value="DISPLAY_NAME">Video Name</option>
-                                                                        <option value="REFERENCE_ID">Reference ID</option>
-                                                                        <option value="PUBLISH_DATE" selected="selected">Date Published</option>
-                                                                        <option value="CREATION_DATE">Date Created</option>
-                                                                        <option value="MODIFIED_DATE">Date Last Modified</option>
-                                                                        <option value="START_DATE">Date Scheduled to Start</option>
-                                                                        <option value="PLAYS_TRAILING_WEEK">Trailing Week Plays</option>
-                                                                        <option value="PLAYS_TOTAL">All-Time Plays</option>
-                                                                    </select>
-                                                                    <select id="sortOrder">
-                                                                        <option value="ASC">Ascending</option>
-                                                                        <option value="DESC" selected="selected">Descending</option>
-                                                                    </select>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td colspan="2">
-                                                                    <span id="getVideosButton" class="bcls-button">Get videos</span>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Select a video:</td>
-                                                                <td>
-                                                                    <select id="videoSelector" class="where-input"></select>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -342,21 +332,6 @@
                     </table>
                 </div>
             </fieldset>
-            <fieldset>
-                <legend>Output Format</legend>
-                <p>Output Format:
-                    <select class="aapi-request" id="format">
-                        <option value="json" selected="selected">json</option>
-                        <option value="csv">csv</option>
-                        <option value="xlsx">xlsx</option>
-                    </select></p>
-                    <p>Notes:
-                        <ol>
-                            <li>csv and xlsx for Reports only; for Rollups you will always get JSON</li>
-                            <li>If you select xlsx, you will only see a success message here; to download xlxs results, you will have to use the Analytics UI in Video Cloud Studio</li>
-                        </ol>
-                    </p>
-            </fieldset>
         </div>
         <h2>The API Request</h2>
         <div id="requestSubmitter">
@@ -369,7 +344,8 @@
                     <input class="aapi-request" id="authorization" name="authorization" type="hidden" value="" />
                 </fieldset>
                 <p>
-                    <span class="bcls-button" id="submitButton">Submit Request</span>
+                    <span class="bcls-button" id="submitButton">Get Data for Selected Video</span>
+                    <span class="bcls-button" id="submitButton">Get Data for All Videos</span>
                 </p>
         </div>
         <div id="response">
@@ -395,7 +371,7 @@
         <script src="//docs.brightcove.com/en/scripts/format_json.js"></script>
         <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
         <script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
-        <script src="/bcls/analytics-api/js/aapi-request-builder.js"></script>
+        <script src="/bcls/analytics-api/video-report-by-reference-id/video-report-by-reference-id.js"></script>
     </body>
 
 </html>

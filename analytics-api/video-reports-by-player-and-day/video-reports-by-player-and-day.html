@@ -403,7 +403,7 @@
                     currentPlayer = playerData.items[currentPlayerIndex].player;
                     // currentVideo = videoData.items[currentVideoIndex].video;
                     currentDay = daysArray[currentDayIndex];
-                    callURL = "https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=video&from=" + currentDay.from + "&to=" + currentDay.to + "&where=player==" + currentPlayer + "&fields=video_view,video_seconds_viewed,video,video_engagement_100";
+                    callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=video&from=" + currentDay.from + "&to=" + currentDay.to + "&where=player==" + currentPlayer + "&fields=video_view,video_seconds_viewed,video,video_engagement_100";
                     makeAnalyticsCall(callURL);
 
                 },

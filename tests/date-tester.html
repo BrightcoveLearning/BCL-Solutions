@@ -8,22 +8,27 @@
     </style>
   </head>
   <body>
-    <p>Date input (epoch time in milleseconds) <input type="text" size="30" /></p>
+    <p>Date input (epoch time in milliseconds) <input id="dateField" type="text" size="30" /></p>
+    <p id="results"></p>
     <script>
 
     var BCLS = ( function () {
-      var
+        var dateField = document.getElementById("dateField")
+            results = document.getElementById("results"),
+            date = dateField.value;
+
+
+          dateField.addEventListener("mouseout" , function(dateField.value) {
+                var d = new Data(date),
+                    curr_date = d.getDate(),
+                    curr_month = d.getMonth(),
+                    curr_year = d.getFullYear();
+                results.innerHTML =  curr_year.toString() + ":" + curr_month.toString() + ":" + curr_date.toString();
+              });
       return {
 
       }
     })();
-        var d = new Date();
-
-        var curr_date = d.getDate();
-
-        var curr_month = d.getMonth();
-
-        var curr_year = d.getFullYear();
     </script>
   </body>
 </html>

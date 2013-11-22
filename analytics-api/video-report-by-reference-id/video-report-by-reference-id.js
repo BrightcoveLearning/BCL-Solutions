@@ -1,4 +1,4 @@
-var BCLS = (function ($, window, AnyTime) {
+var BCLS = (function ($, window, AnyTime, BCMAPI, Handlebars, BCLSformatJSON) {
     "use strict";
     var // media api stuff
         $pageSize = $("#pageSize"),
@@ -50,6 +50,8 @@ var BCLS = (function ($, window, AnyTime) {
         authorization = "",
         endDate = "",
         startDate = "",
+        i,
+        len,
         // options for different report types
         rollupDimensionOptions = "<option value=\"account\">account</option>",
         reportDimensionOptions = "<option value=\"account\">account</option><option value=\"player\">player</option><option value=\"referrer_domain\">referrer_domain</option><option value=\"source_type\">source_type</option><option value=\"search_terms\">search_terms</option><option value=\"device_type\">device_type</option><option value=\"device_os\">device_os</option>",
@@ -67,60 +69,33 @@ var BCLS = (function ($, window, AnyTime) {
         device_typeFields = baseFields + "<option value=\"player_load\">player_load</option><option value=\"device_type\">device_type</option>",
         device_osFields = baseFields + "<option value=\"player_load\">player_load</option><option value=\"device_os\">device_os</option>",
         accountVideoFields = videoFields + "<option value=\"account\">account</option>",
-        accountPlayerFields = playerFields + "<option value=\"account\">account</option>",
-        accountReferrer_domainFields = referrer_domainFields + "<option value=\"account\">account</option>",
-        accountSource_typeFields = source_typeFields + "<option value=\"account\">account</option>",
-        accountSearch_termsFields = search_termsFields + "<option value=\"account\">account</option>",
-        accountDevice_typeFields = device_typeFields + "<option value=\"account\">account</option>",
-        accountDevice_osFields = device_osFields + "<option value=\"account\">account</option>",
         playerVideoFields = videoFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option>",
-        playerReferrer_domainFields = referrer_domainFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option>",
-        playerSource_typeFields = source_typeFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option>",
-        playerSearch_termsFields = search_termsFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option>",
-        playerDevice_typeFields = device_typeFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option>",
-        playerDevice_osFields = device_osFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option>",
+        referrer_domainSource_typeFields = referrer_domainFields + "<option value=\"source_type\">source_type</option>",
+        referrer_domainSearch_termsFields = referrer_domainFields + "<option value=\"search_terms\">search_terms</option>",
+        source_typeSearch_termsFields = source_typeFields + "<option value=\"search_terms\">search_terms</option>",
+        device_typeDevice_osFields = device_typeFields + "<option value=\"device_os\">device_os</option>",
         videoReferrer_domainFields = referrer_domainFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
         videoSource_typeFields = source_typeFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
         videoSearch_termsFields = search_termsFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
         videoDevice_typeFields = device_typeFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
         videoDevice_osFields = device_osFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
-        referrer_domainSource_typeFields = referrer_domainFields + "<option value=\"source_type\">source_type</option>",
-        referrer_domainSearch_termsFields = referrer_domainFields + "<option value=\"search_terms\">search_terms</option>",
-        source_typeSearch_termsFields = source_typeFields + "<option value=\"search_terms\">search_terms</option>",
-        device_typeDevice_osFields = device_typeFields + "<option value=\"device_os\">device_os</option>",
         accountPlayerVideoFields = playerVideoFields + "<option value=\"account\">account</option>",
-        accountPlayerReferrer_domainFields = playerReferrer_domainFields + "<option value=\"account\">account</option>",
-        accountPlayerSource_typeFields = playerSource_typeFields + "<option value=\"account\">account</option>",
-        accountPlayerSearch_termsFields = playerSearch_termsFields + "<option value=\"account\">account</option>",
         accountVideoReferrer_domainFields = videoReferrer_domainFields + "<option value=\"account\">account</option>",
         accountVideoSource_typeFields = videoSource_typeFields + "<option value=\"account\">account</option>",
         accountVideoSearch_termsFields = videoSearch_termsFields + "<option value=\"account\">account</option>",
-        accountReferrer_domainSource_typeFields = referrer_domainSource_typeFields + "<option value=\"account\">account</option>",
-        accountReferrer_domainSearch_termsFields = referrer_domainSearch_termsFields + "<option value=\"account\">account</option>",
-        accountSource_typeSearch_termsFields = source_typeSearch_termsFields + "<option value=\"account\">account</option>",
-        accountDevice_typeDevice_osFields = device_typeDevice_osFields + "<option value=\"account\">account</option>",
-        playerReferrer_domainSource_typeFields = referrer_domainSource_typeFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option>",
-        playerReferrer_domainSearch_termsFields = referrer_domainSearch_termsFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option>",
-        playerSource_typeSearch_termsFields = source_typeSearch_termsFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option>",
-        playerDevice_typeDevice_osFields = device_typeDevice_osFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option>",
         videoReferrer_domainSource_typeFields = referrer_domainSource_typeFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
         videoReferrer_domainSearch_termsFields = referrer_domainSearch_termsFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
         videoSource_typeSearch_termsFields = source_typeSearch_termsFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
         videoDevice_typeDevice_osFields = device_typeDevice_osFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
-        referrer_domainSource_typeSearch_termsFields = referrer_domainSource_typeFields + "<option value=\"search_terms\">search_terms</option>",
-        accountPlayerReferrer_domainSource_typeFields = accountPlayerReferrer_domainFields + "<option value=\"source_type\">source_type</option>",
-        accountPlayerReferrer_domainSearch_termsFields = accountPlayerReferrer_domainFields + "<option value=\"search_terms\">search_terms</option>",
-        accountPlayerSource_typeSearch_termsFields = accountPlayerSource_typeFields + "<option value=\"search_terms\">search_terms</option>",
         accountVideoReferrer_domainSource_typeFields = accountVideoReferrer_domainFields + "<option value=\"source_type\">source_type</option>",
         accountVideoReferrer_domainSearch_termsFields = accountVideoReferrer_domainFields + "<option value=\"search_terms\">search_terms</option>",
         accountVideoSource_typeSearch_termsFields = accountVideoSource_typeFields + "<option value=\"search_terms\">search_terms</option>",
-        accountReferrer_domainSource_typeSearch_termsFields = accountReferrer_domainSource_typeFields + "<option value=\"search_terms\">search_terms</option>",
-        playerReferrer_domainSource_typeSearch_termsFields = playerReferrer_domainSource_typeFields + "<option value=\"search_terms\">search_terms</option>",
         videoReferrer_domainSource_typeSearch_termsFields = videoReferrer_domainSource_typeFields + "<option value=\"search_terms\">search_terms</option>",
-        accountPlayerReferrer_domainSource_typeSearch_termsFields = accountPlayerReferrer_domainSource_typeFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
         accountVideoReferrer_domainSource_typeSearch_termsFields = accountVideoReferrer_domainSource_typeFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
         // functions to be defined
         getVideos,
+        getSelectedVideoAnalytics,
+        getAllVideosAnalytics,
         onGetVideos,
         trimRequest,
         removeSpaces,
@@ -128,9 +103,7 @@ var BCLS = (function ($, window, AnyTime) {
         isDefined,
         getData,
         setFieldsSortOptions,
-        onDimesionError,
-        i,
-        len;
+        onDimesionError;
 
     // implement array forEach method in older browsers
     if (!Array.prototype.forEach) {
@@ -267,7 +240,7 @@ var BCLS = (function ($, window, AnyTime) {
                 return;
             }
             requestURL += "report/";
-            requestURL += "?dimensions=" + $dimension.val() + "&";
+            requestURL += "?dimensions=video," + $dimension.val() + "&";
         } else {
             requestURL += "?";
         }
@@ -327,7 +300,7 @@ var BCLS = (function ($, window, AnyTime) {
         $authorization.attr("value", authorization);
     };
     // submit request
-    getData = function () {
+    getData = function (evt) {
         // clear the results frame
         $responseFrame.html("Loading...");
         $.ajax({
@@ -338,7 +311,7 @@ var BCLS = (function ($, window, AnyTime) {
             success : function (data) {
                 $responseFrame.html(BCLSformatJSON.formatJSON(data));
             },
-            error : function(XMLHttpRequest, textStatus, errorThrown) {
+            error : function (XMLHttpRequest, textStatus, errorThrown) {
                 $responseFrame.html("Sorry, your request was not successful. Here's what the server sent back: " + errorThrown);
             }
         });
@@ -395,7 +368,7 @@ var BCLS = (function ($, window, AnyTime) {
         if (day && (account || player || video || referrer_domain || source_type || search_terms || device_type || device_os)) {
             onDimesionError(vals);
             return;
-        }  else if ((device_type || device_os) &&  (account || player || video) && (referrer_domain || source_type || search_terms)) {
+        } else if ((device_type || device_os) &&  (account || player || video) && (referrer_domain || source_type || search_terms)) {
             onDimesionError(vals);
             return;
         }
@@ -406,36 +379,6 @@ var BCLS = (function ($, window, AnyTime) {
                 if (video) {
                     $fields.html(accountPlayerVideoFields);
                     $sort.html(accountPlayerVideoFields);
-                } else if (referrer_domain) {
-                    if (source_type) {
-                        if (search_terms) {
-                            $fields.html(accountPlayerReferrer_domainSource_typeSearch_termsFields);
-                            $sort.html(accountPlayerReferrer_domainSource_typeSearch_termsFields);
-                        } else {
-                            $fields.html(accountPlayerReferrer_domainSource_typeFields);
-                            $sort.html(accountPlayerReferrer_domainSource_typeFields);
-                        }
-                    } else if (search_terms) {
-                        $fields.html(accountPlayerReferrer_domainSearch_termsFields);
-                        $sort.html(accountPlayerReferrer_domainSearch_termsFields);
-                    } else {
-                        $fields.html(accountPlayerReferrer_domainFields);
-                        $sort.html(accountPlayerReferrer_domainFields);
-                    }
-                } else if (source_type) {
-                    if (search_terms) {
-                        $fields.html(accountPlayerSource_typeSearch_termsFields);
-                        $sort.html(accountPlayerSource_typeSearch_termsFields);
-                    } else {
-                        $fields.html(accountPlayerSource_typeFields);
-                        $sort.html(accountPlayerSource_typeFields);
-                    }
-                } else if (search_terms) {
-                    $fields.html(accountPlayerSearch_termsFields);
-                    $sort.html(accountPlayerSearch_termsFields);
-                } else {
-                    $fields.html(accountPlayerFields);
-                    $sort.html(accountPlayerFields);
                 }
             } else if (video) {
                 if (referrer_domain) {
@@ -469,90 +412,11 @@ var BCLS = (function ($, window, AnyTime) {
                     $fields.html(accountVideoFields);
                     $sort.html(accountVideoFields);
                 }
-            } else if (referrer_domain) {
-                if (source_type) {
-                    if (search_terms) {
-                        $fields.html(accountReferrer_domainSource_typeSearch_termsFields);
-                        $sort.html(accountReferrer_domainSource_typeSearch_termsFields);
-                    } else {
-                        $fields.html(accountReferrer_domainSource_typeFields);
-                        $sort.html(accountReferrer_domainSource_typeFields);
-                    }
-                } else if (search_terms) {
-                    $fields.html(accountReferrer_domainSearch_termsFields);
-                    $sort.html(accountReferrer_domainSearch_termsFields);
-                } else {
-                    $fields.html(accountReferrer_domainFields);
-                    $sort.html(accountReferrer_domainFields);
-                }
-            } else if (source_type) {
-                if (search_terms) {
-                    $fields.html(accountSource_typeSearch_termsFields);
-                    $sort.html(accountSource_typeSearch_termsFields);
-                } else {
-                    $fields.html(accountSource_typeFields);
-                    $sort.html(accountSource_typeFields);
-                }
-            } else if (search_terms) {
-                $fields.html(accountSearch_termsFields);
-                $sort.html(accountSearch_termsFields);
-            } else if (device_type) {
-                if (device_os) {
-                    $fields.html(accountDevice_typeDevice_osFields);
-                    $sort.html(accountDevice_typeDevice_osFields);
-                } else {
-                    $fields.html(accountDevice_typeFields);
-                    $sort.html(accountDevice_typeFields);
-                }
-            } else if (device_os) {
-                $fields.html(accountDevice_osFields);
-                $sort.html(accountDevice_osFields);
-            } else {
-                $fields.html(accountFields);
-                $sort.html(accountFields);
             }
         } else if (player) { // player combinations
             if (video) {
                 $fields.html(playerVideoFields);
                 $sort.html(playerVideoFields);
-            } else if (referrer_domain) {
-                if (source_type) {
-                    if (search_terms) {
-                        $fields.html(playerReferrer_domainSource_typeSearch_termsFields);
-                        $sort.html(playerReferrer_domainSource_typeSearch_termsFields);
-                    } else {
-                        $fields.html(playerReferrer_domainSource_typeFields);
-                        $sort.html(playerReferrer_domainSource_typeFields);
-                    }
-                } else if (search_terms) {
-                    $fields.html(playerReferrer_domainSearch_termsFields);
-                    $sort.html(playerReferrer_domainSearch_termsFields);
-                }
-            } else if (source_type) {
-                if (search_terms) {
-                    $fields.html(playerSource_typeSearch_termsFields);
-                    $sort.html(playerSource_typeSearch_termsFields);
-                } else {
-                    $fields.html(playerSource_typeFields);
-                    $sort.html(playerSource_typeFields);
-                }
-            } else if (search_terms) {
-                $fields.html(playerSearch_termsFields);
-                $sort.html(playerSearch_termsFields);
-            } else if (device_type) {
-                if (device_os) {
-                    $fields.html(playerDevice_typeDevice_osFields);
-                    $sort.html(playerDevice_typeDevice_osFields);
-                } else {
-                    $fields.html(playerDevice_typeFields);
-                    $sort.html(playerDevice_typeFields);
-                }
-            } else if (device_os) {
-                $fields.html(playerDevice_osFields);
-                $sort.html(playerDevice_osFields);
-            } else {
-                $fields.html(playerFields);
-                $sort.html(playerFields);
             }
         } else if (video) {
             if (referrer_domain) {
@@ -594,44 +458,6 @@ var BCLS = (function ($, window, AnyTime) {
                 $fields.html(videoFields);
                 $sort.html(videoFields);
             }
-        } else if (referrer_domain) {
-            if (source_type) {
-                if (search_terms) {
-                    $fields.html(referrer_domainSource_typeSearch_termsFields);
-                    $sort.html(referrer_domainSource_typeSearch_termsFields);
-                } else {
-                    $fields.html(referrer_domainSource_typeFields);
-                    $sort.html(referrer_domainSource_typeFields);
-                }
-            } else if (search_terms) {
-                $fields.html(referrer_domainSearch_termsFields);
-                $sort.html(referrer_domainSearch_termsFields);
-            } else {
-                $fields.html(referrer_domainFields);
-                $sort.html(referrer_domainFields);
-            }
-        } else if (source_type) {
-            if (search_terms) {
-                $fields.html(source_typeSearch_termsFields);
-                $sort.html(source_typeSearch_termsFields);
-            } else {
-                $fields(source_typeFields);
-                $sort.html(source_typeFields);
-            }
-        } else if (search_terms) {
-            $fields.html(search_termsFields);
-            $sort.html(search_termsFields);
-        } else if (device_type) {
-            if (device_os) {
-                $fields.html(device_typeDevice_osFields);
-                $sort.html(device_typeDevice_osFields);
-            } else {
-                $fields.html(device_typeFields);
-                $sort.html(device_typeFields);
-            }
-        } else if (device_os) {
-            $fields.html(device_osFields);
-            $sort.html(device_osFields);
         } else {
             onDimesionError(vals);
         }
@@ -660,14 +486,12 @@ var BCLS = (function ($, window, AnyTime) {
     $requestType.on("change", function () {
         if ($requestType.val() === "rollup") {
             $dimension.html(rollupDimensionOptions);
-            $format.html(rollupFormatOptions);
         } else if ($requestType.val() === "report") {
             $dimension.html(reportDimensionOptions);
-            $format.html(reportFormatOptions);
         }
     });
     $dimension.on("change", setFieldsSortOptions);
-    // if we get a mapi token , hide direct input of video id
+    // if we get a mapi token, hide direct input of video id
     $mapitoken.on("change", function () {
         $directVideoInput.hide();
     });

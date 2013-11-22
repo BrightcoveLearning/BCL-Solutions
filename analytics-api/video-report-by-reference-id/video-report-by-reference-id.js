@@ -95,9 +95,9 @@ var BCLS = (function ($, window, AnyTime) {
         accountVideoReferrer_domainFields = videoReferrer_domainFields + "<option value=\"account\">account</option>",
         accountVideoSource_typeFields = videoSource_typeFields + "<option value=\"account\">account</option>",
         accountVideoSearch_termsFields = videoSearch_termsFields + "<option value=\"account\">account</option>",
-        accountReferrer_domainSource_typeFields = referrer_domainSource_typeFields+ "<option value=\"account\">account</option>",
-        accountReferrer_domainSearch_termsFields = referrer_domainSearch_termsFields+ "<option value=\"account\">account</option>",
-        accountSource_typeSearch_termsFields = source_typeSearch_termsFields+ "<option value=\"account\">account</option>",
+        accountReferrer_domainSource_typeFields = referrer_domainSource_typeFields + "<option value=\"account\">account</option>",
+        accountReferrer_domainSearch_termsFields = referrer_domainSearch_termsFields + "<option value=\"account\">account</option>",
+        accountSource_typeSearch_termsFields = source_typeSearch_termsFields + "<option value=\"account\">account</option>",
         accountDevice_typeDevice_osFields = device_typeDevice_osFields + "<option value=\"account\">account</option>",
         playerReferrer_domainSource_typeFields = referrer_domainSource_typeFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option>",
         playerReferrer_domainSearch_termsFields = referrer_domainSearch_termsFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option>",
@@ -128,12 +128,14 @@ var BCLS = (function ($, window, AnyTime) {
         isDefined,
         getData,
         setFieldsSortOptions,
-        onDimesionError;
+        onDimesionError,
+        i,
+        len;
 
     // implement array forEach method in older browsers
-    if ( !Array.prototype.forEach ) {
-        Array.prototype.forEach = function(fn, scope) {
-            for(var i = 0, len = this.length; i < len; ++i) {
+    if (!Array.prototype.forEach) {
+        Array.prototype.forEach = function (fn, scope) {
+            for (i = 0, len = this.length; i < len; ++i) {
                 fn.call(scope || this, this[i], i, this);
             }
         };
@@ -141,7 +143,7 @@ var BCLS = (function ($, window, AnyTime) {
 
     // implement array indexOf method for older browsers
     if (!Array.prototype.indexOf) {
-        Array.prototype.indexOf = function (searchElement , fromIndex) {
+        Array.prototype.indexOf = function (searchElement, fromIndex) {
             var i,
                 pivot = (fromIndex) ? fromIndex : 0,
                 length;
@@ -165,8 +167,9 @@ var BCLS = (function ($, window, AnyTime) {
     }
     // more robust test for strings "not defined"
     isDefined =  function (v) {
-        if(v !== "" && v !== null && v !== "undefined") { return true; }
-        else { return false; }
+        if (v !== "" && v !== null && v !== "undefined") {
+            return true;
+        } else { return false; }
     };
     // get videos via MAPI
     getVideos = function () {
@@ -195,7 +198,7 @@ var BCLS = (function ($, window, AnyTime) {
         pageNumber++;
     };
     // handler for MAPI call
-    onGetVideos = function(JSONdata) {
+    onGetVideos = function (JSONdata) {
         console.log(JSONdata);
         var template, data, result;
         videoData = JSONdata;
@@ -260,7 +263,7 @@ var BCLS = (function ($, window, AnyTime) {
         if ($requestType.val() === "report") {
             // make sure dimensions is defined
             if (!isDefined($dimension.val())) {
-                alert("For reports, you must select at least one dimension");
+                window.alert("For reports, you must select at least one dimension");
                 return;
             }
             requestURL += "report/";
@@ -325,7 +328,6 @@ var BCLS = (function ($, window, AnyTime) {
     };
     // submit request
     getData = function () {
-        var format = $format.val();
         // clear the results frame
         $responseFrame.html("Loading...");
         $.ajax({
@@ -333,20 +335,18 @@ var BCLS = (function ($, window, AnyTime) {
             headers: {
                 Authorization : $authorization.attr("value")
             },
-            success : function(data) {
+            success : function (data) {
                 $responseFrame.html(BCLSformatJSON.formatJSON(data));
-                }
             },
-            error : function(XMLHttpRequest, textStatus, errorThrown)
-                {
-                    $responseFrame.html("Sorry, your request was not successful. Here's what the server sent back: " + errorThrown);
-                }
+            error : function(XMLHttpRequest, textStatus, errorThrown) {
+                $responseFrame.html("Sorry, your request was not successful. Here's what the server sent back: " + errorThrown);
+            }
         });
     };
     // error handler for invalid dimension combination
     onDimesionError = function (dimensions) {
         window.alert("The combination of dimensions you selected - " +  dimensions.join(" ,") +  " - is not a valid combination. Please select a different combination. See the Analytics API Overview for a table of allowable combinations.");
-    }
+    };
     // set the options for the fields and sort
     setFieldsSortOptions = function () {
         var vals = $dimension.val(),
@@ -693,4 +693,4 @@ var BCLS = (function ($, window, AnyTime) {
         buildRequest: buildRequest,
         onGetVideos: onGetVideos
     };
-})($, window, AnyTime);
+})($, window, AnyTime, BCMAPI, Handlebars, BCLSformatJSON);

@@ -326,7 +326,8 @@ var BCLS = (function ($, window, AnyTime, BCMAPI, Handlebars, BCLSformatJSON) {
             account = false,
             day = false,
             player = false,
-            video = false,
+            // all reports will include the video dimension
+            video = true,
             referrer_domain = false,
             source_type = false,
             search_terms = false,
@@ -335,7 +336,7 @@ var BCLS = (function ($, window, AnyTime, BCMAPI, Handlebars, BCLSformatJSON) {
         // check for nothing selected Fields -- then it's just the video dimension
         if (vals === null) {
 			$fields.html(accountVideoFields);
-			$sort.html(accountVideoFields);
+			$sort.html("<option value=\"\">Select a field</option> " + accountVideoFields);
 			return;
 		}
 
@@ -345,9 +346,6 @@ var BCLS = (function ($, window, AnyTime, BCMAPI, Handlebars, BCLSformatJSON) {
         }
         if ($.inArray("player", vals) > -1) {
             player = true;
-        }
-        if ($.inArray("video", vals) > -1) {
-            video = true;
         }
         if ($.inArray("referrer_domain", vals) > -1) {
             referrer_domain = true;

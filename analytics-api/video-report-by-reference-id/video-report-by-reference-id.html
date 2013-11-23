@@ -121,29 +121,8 @@
             		<table>
             			<tbody>
             				<tr>
-								<td>Number of videos to retrieve on each call:</td>
-								<td>
-									<select id="pageSize">
-										<option value="10">10</option>
-										<option value="25" selected="selected">25</option>
-										<option value="50">50</option>
-										<option value="100">100</option>
-									</select>
-								</td>
-							</tr>
 							<tr>
-								<td>Search for videos (leave search terms blank to retrieve all videos)</td>
-								<td><p>What to search:</p>
-									<select id="searchType">
-										<option value="" selected="selected">Title and Description</option>
-										<option value="tag">Tags</option>
-										<option value="custom_fields">Custom Fields</option>
-									</select>
-									<p>Search for (separate multiple terms by commas): <input id="searchTerms" value="" size="60" /></p>
-								</td>
-							</tr>
-							<tr>
-								<td>Sort results by:</td>
+								<td>Sort videos by:</td>
 								<td>
 									<select id="sortBy">
 										<option value="DISPLAY_NAME">Video Name</option>
@@ -163,7 +142,7 @@
 							</tr>
 							<tr>
 								<td colspan="2">
-									<span id="getVideosButton" class="bcls-button">Get videos</span>
+									<span id="getVideosButton" class="bcls-button">Get videos for the account</span>
 								</td>
 							</tr>
 							<tr>
@@ -183,7 +162,7 @@
                         <tbody>
                             <tr>
                                 <td>Dimensions:
-                                <br /><span class="small">(you can add the following dimensions to your report &mdash; any single dimension will work; if you add multiple dimensions, some combinations will not work &mdash; you will receive a warning if you select an invalid combination of dimensions)</<span></td>
+                                <br /><span class="small">(you can add the following dimensions to your report &mdash; any single dimension will work; if you add multiple dimensions, some combinations will not work &mdash; you will receive a warning if you select an invalid combination of dimensions)<span></td>
                                 <td>
                                     <select id="dimension" class="required aapi-request" multiple="true" size="7">
                                         <option value="account">account</option>
@@ -301,8 +280,8 @@
                                         <option value="25">25</option>
                                         <option value="50">50</option>
                                         <option value="100">100</option>
-                                    </select>or specify:
-                                    <input class="aapi-request" id="limitText" type="text" size="10"> (default: 10)</td>
+                                    </select> or specify:
+                                    <input class="aapi-request" id="limitText" type="text" size="10"> <br /><span class="small">(by default all videos that have analytics data for the date range will be returned)</span></td>
                             </tr>
                             <tr>
                                 <td>Offset:</td>
@@ -315,7 +294,7 @@
                                         <option value="25">25</option>
                                         <option value="50">50</option>
                                         <option value="100">100</option>
-                                    </select>or specify:
+                                    </select> or specify:
                                     <input class="aapi-request" id="offsetText" type="text" size="10"> (default: 0)</td>
                             </tr>
                             <tr>
@@ -349,7 +328,11 @@
         </div>
         <div id="response">
             <h2>Response</h2>
-            <pre><code id="responseFrame"></code></pre>
+                <p>
+                    <span class="bcls-button" id="csvButton">Convert Data to CSV</span>
+                    <span class="bcls-button" id="selectData">Select the Data to Copy</span>
+                </p>
+            <textarea id="responseFrame" rows="20"></textarea>
         </div>
         <!-- scripts -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>

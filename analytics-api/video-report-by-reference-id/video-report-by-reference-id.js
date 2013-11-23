@@ -1,21 +1,18 @@
 var BCLS = (function ($, window, AnyTime, BCMAPI, Handlebars, BCLSformatJSON) {
     "use strict";
     var // media api stuff
-        $pageSize = $("#pageSize"),
-        $searchType = $("#searchType"),
-        $searchTerms = $("#searchTerms"),
         $sortBy = $("#sortBy"),
-        pageNumber = 0,
-        totalPages = 0,
         $getVideosButton = $("#getVideosButton"),
         $videoSelector = $("#videoSelector"),
         $sortOrder = $("#sortOrder"),
         $mapitoken = $("#mapitoken"),
         $readApiLocation = $("#readApiLocation"),
-        videoData,
-        totalVideos = 0,
+        videoData = {},
+        analyticsData = {},
+        pageNumber = 0,
         params = {},
-        videoOptionTemplate = "{{#items}}<option value=\"{{id}}\">{{referenceId}} | {{name}}</option>{{/items}}",
+        referenceIdLookup = {},
+        videoOptionTemplate = "<option value=\"\">Select a video for a report only on that video</option>{{#items}}<option value=\"{{id}}\">{{referenceId}} | {{name}}</option>{{/items}}",
         // aapi stuff
         $serviceURL = $("#serviceURL"),
         $accountID = $("#accountID"),
@@ -37,6 +34,8 @@ var BCLS = (function ($, window, AnyTime, BCMAPI, Handlebars, BCLSformatJSON) {
         $authorization = $("#authorization"),
         $authorizationDisplay = $("#authorizationDisplay"),
         $submitButton = $("#submitButton"),
+        $csvButton = $("#csvButton"),
+        $selectData = $("#selectData"),
         $required = $(".required"),
         $requestInputs = $(".aapi-request"),
         $directVideoInput = $("#directVideoInput"),
@@ -103,7 +102,8 @@ var BCLS = (function ($, window, AnyTime, BCMAPI, Handlebars, BCLSformatJSON) {
         isDefined,
         getData,
         setFieldsSortOptions,
-        onDimesionError;
+        onDimesionError,
+        jsonToCSV;
 
     // implement array forEach method in older browsers
     if (!Array.prototype.forEach) {
@@ -146,48 +146,38 @@ var BCLS = (function ($, window, AnyTime, BCMAPI, Handlebars, BCLSformatJSON) {
     };
     // get videos via MAPI
     getVideos = function () {
-        var searchTerms = $searchTerms.val(),
-            searchTermsArray = searchTerms.split(","),
-            searchType = $searchType.val();
-        // hide the direct video input
-        $directVideoInput.hide();
         BCMAPI.url = $readApiLocation.val();
         BCMAPI.callback = "BCLS.onGetVideos";
         BCMAPI.token = $mapitoken.val();
         params.page_number = pageNumber;
-        params.page_size = $pageSize.val();
+        params.page_size = 100;
         params.sort_by = $sortBy.val() + ":" + $sortOrder.val();
         params.video_fields = "id,name,referenceId";
         params.get_item_count = true;
-        if (searchTerms !== "") {
-            if (searchType !== "") {
-                searchTermsArray.forEach(function (element, index, array) {
-                    element = searchType + ":" + element;
-                });
-            }
-            params.any = searchTerms;
-        }
         BCMAPI.search(params);
-        pageNumber++;
+
     };
     // handler for MAPI call
     onGetVideos = function (JSONdata) {
-        console.log(JSONdata);
-        var template, data, result;
-        videoData = JSONdata;
-        totalVideos += JSONdata.total_count;
-        totalPages = Math.ceil(JSONdata.total_count / $pageSize.val());
-        if (totalPages === pageNumber) {
-            $getVideosButton.html("No more videos");
-            $getVideosButton.off("click", this.getVideos);
+        var template, result, i, itemsMax, item;
+        videoData.items = videoData.items.concat(JSONdata.items);
+
+        if (videoData.items.length < JSONdata.total_count) {
+            pageNumber++;
+            getVideos();
         } else {
-            $getVideosButton.html("Get the next " + $pageSize.val() + " videos");
+            itemsMax = videoData.items.length;
+            for (i = 0; i < itemsMax; i++) {
+                item = videoData.items[i];
+                referenceIdLookup[item.id] = item.referenceId;
+            }
+            $limitText.val(itemsMax);
+            template = Handlebars.compile(videoOptionTemplate);
+            result = template(videoData);
+            $videoSelector.html(result);
+            buildRequest();
         }
-        template = Handlebars.compile(videoOptionTemplate);
-        data = JSONdata;
-        result = template(data);
-        $videoSelector.html(result);
-        buildRequest();
+
     };
     removeSpaces = function (str) {
         if (isDefined(str)) {
@@ -231,18 +221,11 @@ var BCLS = (function ($, window, AnyTime, BCMAPI, Handlebars, BCLSformatJSON) {
         // build the request
         authorization = "Bearer " + removeSpaces($token.val());
         requestURL = $serviceURL.val();
-        requestURL += "/account/" + removeSpaces($accountID.val()) + "/";
-        // is it a report?
-        if ($requestType.val() === "report") {
-            // make sure dimensions is defined
-            if (!isDefined($dimension.val())) {
-                window.alert("For reports, you must select at least one dimension");
-                return;
-            }
-            requestURL += "report/";
-            requestURL += "?dimensions=video," + $dimension.val() + "&";
+        requestURL += "/account/" + removeSpaces($accountID.val()) + "/report/?dimensions=video";
+        if (isDefined($dimension.val())) {
+            requestURL += "," + $dimension.val() + "&";
         } else {
-            requestURL += "?";
+            requestURL += "&";
         }
         // check for time filters
         startDate = $startDate.val() + " " + $startTime.val();
@@ -300,7 +283,8 @@ var BCLS = (function ($, window, AnyTime, BCMAPI, Handlebars, BCLSformatJSON) {
         $authorization.attr("value", authorization);
     };
     // submit request
-    getData = function (evt) {
+    getData = function () {
+        var i, itemsMax, item;
         // clear the results frame
         $responseFrame.html("Loading...");
         $.ajax({
@@ -309,12 +293,38 @@ var BCLS = (function ($, window, AnyTime, BCMAPI, Handlebars, BCLSformatJSON) {
                 Authorization : $authorization.attr("value")
             },
             success : function (data) {
+                analyticsData = data;
+                itemsMax = data.items.length;
+                for (i = 0; i < itemsMax; i++) {
+                    item = data.items[i];
+                    if (isDefined(referenceIdLookup[item.video])) {
+                        item.reference_id = referenceIdLookup[item.video];
+                    } else {
+                        item.reference_id = "";
+                    }
+                }
                 $responseFrame.html(BCLSformatJSON.formatJSON(data));
             },
             error : function (XMLHttpRequest, textStatus, errorThrown) {
                 $responseFrame.html("Sorry, your request was not successful. Here's what the server sent back: " + errorThrown);
             }
         });
+    };
+    // convert data to CSV
+    jsonToCSV = function () {
+        var headersRow = "", rowTemplate = "{{#items}}", property, template, results, str = "";
+        $responseFrame.html("Loading CSV data...");
+        for (property in analyticsData.items[0]) {
+            headersRow += "\"" + property + "\",";
+            rowTemplate += "\"{{" + property + "}}\",";
+        }
+        headersRow += " \r";
+        rowTemplate += "\r{{/items}}";
+        str = headersRow;
+        template = Handlebars.compile(rowTemplate);
+        results = template(analyticsData);
+        str += results;
+        $responseFrame.html(str);
     };
     // error handler for invalid dimension combination
     onDimesionError = function (dimensions) {
@@ -416,7 +426,7 @@ var BCLS = (function ($, window, AnyTime, BCMAPI, Handlebars, BCLSformatJSON) {
                 $fields.html(playerVideoFields);
                 $sort.html(playerVideoFields);
             }
-        } else if (video) {
+        } else if (video) { // video combinations
             if (referrer_domain) {
                 if (source_type) {
                     if (search_terms) {
@@ -479,6 +489,8 @@ var BCLS = (function ($, window, AnyTime, BCMAPI, Handlebars, BCLSformatJSON) {
         labelHour: "Hour",
         labelMinute: "Minute"
     });
+    // initialize videoData.items
+    videoData.items = [];
 
     // set event listeners
     $requestType.on("change", function () {
@@ -489,9 +501,9 @@ var BCLS = (function ($, window, AnyTime, BCMAPI, Handlebars, BCLSformatJSON) {
         }
     });
     $dimension.on("change", setFieldsSortOptions);
-    // if we get a mapi token, hide direct input of video id
+    // if we get a mapi token, redo the mapi call
     $mapitoken.on("change", function () {
-        $directVideoInput.hide();
+        getVideos();
     });
     // listener for videos request
     $getVideosButton.on("click", getVideos);
@@ -499,14 +511,14 @@ var BCLS = (function ($, window, AnyTime, BCMAPI, Handlebars, BCLSformatJSON) {
     $requestInputs.on("change", buildRequest);
     // rebuild request when video selector changes
     $videoSelector.on("change", buildRequest);
-    // in case search terms added after initial video retrieval
-    $searchTerms.on("change", function () {
-        // re-initialize
-        pageNumber = 0;
-        totalPages = 0;
-    });
     // send request
     $submitButton.on("click", getData);
+    // convert to csv
+    $csvButton.on("click", jsonToCSV);
+    // select all the data
+    $selectData.on("click", function() {
+        document.getElementById("responseFrame").select();
+    });
     // set the initial options for fields and sort
     setFieldsSortOptions();
     // generate initial request

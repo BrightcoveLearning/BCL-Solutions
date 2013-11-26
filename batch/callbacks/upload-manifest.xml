@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<publisher-upload-manifest publisher-id="57838016001" preparer="Robert Crooks" report-success="true">
+	<callback entity-url="solutions.brightcove.com/bcls/batch/callbacks/batch-callback.php"/>
+	<notify email="rcrooks@brightcove.com" />
+	<asset filename="Bird_Titmouse.mp4"
+		refid="1385482669"
+		type="VIDEO_FULL"
+		hash-code="0ad35788c9d7a758a2af947e2c886eec"
+		encode-to="MP4"
+		encode-multiple="true"/>
+	<title name="Callback Test"
+		refid="1385482669"
+		active="TRUE"
+		video-full-refid="1385482669">
+    <short-description>
+      Testing orchestration system callbacks.
+    </short-description>
+    <long-description>
+      Testing orchestration system callbacks.
+    </long-description>
+  </title>
+</publisher-upload-manifest>

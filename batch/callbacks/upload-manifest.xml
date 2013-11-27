@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <publisher-upload-manifest publisher-id="57838016001" preparer="Robert Crooks" report-success="true">
-	<callback entity-url="solutions.brightcove.com/bcls/batch/callbacks/batch-callback.php"/>
+	<callback entity-url="http://solutions.brightcove.com/bcls/batch/callbacks/batch-callback.php"/>
 	<notify email="rcrooks@brightcove.com" />
 	<asset filename="Space-Satellite.mp4"
 		refid="1385588504"

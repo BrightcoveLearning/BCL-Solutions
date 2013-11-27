@@ -29,8 +29,8 @@
 	Key customer-facing events indicated in italics
 </p>
 <ul>
-	<li>General Ingest Events <br />
-	<br />
+	<li>General Ingest Events
+
 	<ul>
 		<li> <em>Digital Master Not Found</em> </li>
 		<li> <em>Digital Master Invalid</em> </li>
@@ -39,39 +39,34 @@
 		<li> <em>Ingestion Failed, title deleted during processing</em> </li>
 	</ul>
 	</li>
-	<li>Individual Rendition/Image Processing Events <br />
-	<br />
+	<li>Individual Rendition/Image Processing Events
+
 	<ul>
 		<li>Rendition Failed, reason unknown</li>
-		<li>Transcoding <br />
-		<br />
+		<li>Transcoding
 		<ul>
 			<li> <em>Transcode Request Failed</em> </li>
 			<li> <em>Transcode Request Rejected</em> </li>
 		</ul>
 		</li>
-		<li>Image Capture <br />
-		<br />
+		<li>Image Capture
 		<ul>
 			<li> <em>Image Capture Request Failed</em> </li>
 			<li> <em>Image Capture Request Rejected</em> </li>
 		</ul>
 		</li>
-		<li>Catalog Updates <br />
-		<br />
+		<li>Catalog Updates
 		<ul>
 			<li>Add Asset failed, Title not in Database</li>
 			<li>Add Asset failed, unspecified reason</li>
 		</ul>
 		</li>
-		<li>Archiving <br />
-		<br />
+		<li>Archiving
 		<ul>
 			<li>Archive failed, unspecified reason</li>
 		</ul>
 		</li>
-		<li>CDN Delivery <br />
-		<br />
+		<li>CDN Delivery
 		<ul>
 			<li> <em>CDN failed, credentials invalid</em> </li>
 			<li>CDN failed, unspecified reason</li>
@@ -80,8 +75,8 @@
 		<li>DRM packaging failed, unspecified reason</li>
 	</ul>
 	</li>
-	<li>Widevine Events <br />
-	<br />
+	<li>Widevine Events
+
 	<ul>
 		<li> <em>Widevine packaging failed, format error</em> </li>
 		<li>Widevine packaging failed, unspecified reason</li>
@@ -106,25 +101,24 @@
 	<li>http or https</li>
 	<li>host and path with a bunch of query args</li>
 	<li>post</li>
-	<li>questions: <br />
-	<br />
+	<li>questions:
+
 	<ul>
 		<li>any other callback events (playlist changes, etc.)</li>
 		<li>can we specify callbacks below the manifest level (on a particular title, a particular asset, etc.)</li>
 	</ul>
 	</li>
-	<li>nice-to-have <br />
-	<br />
+	<li>nice-to-have
+
 	<ul>
 		<li>secure callbacks</li>
 	</ul>
 	</li>
-	<li>design notes <br />
-	<br />
+	<li>design notes
+
 	<ul>
 		<li>where do we build the url?</li>
-		<li>callback execution <br />
-		<br />
+		<li>callback execution
 		<ul>
 			<li>straight from ec2</li>
 			<li>proxy through arctic</li>
@@ -150,288 +144,288 @@
 	<table>
 		<tbody>
 			<tr>
-				<th> 
+				<th>
 				<p>
 					Parameter
 				</p>
 				</th>
-				<th> 
+				<th>
 				<p>
 					Type
 				</p>
 				</th>
-				<th> 
+				<th>
 				<p>
 					Required
 				</p>
 				</th>
-				<th> 
+				<th>
 				<p>
 					Allowed Values
 				</p>
 				</th>
-				<th> 
+				<th>
 				<p>
 					Description
 				</p>
 				</th>
-				<th> 
+				<th>
 				<p>
 					Example
 				</p>
 				</th>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					host
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					String
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					x
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Valid URL
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					URL of a server providing the Mannheim Integration end-points
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
-					<a href="https://console.brightcove.com/services/mannheim/">https://console.brightcove.com/services/mannheim/</a> 
+					<a href="https://console.brightcove.com/services/mannheim/">https://console.brightcove.com/services/mannheim/</a>
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					callbackUrl
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					String
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					x
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Valid URL
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					URL of the server to which the callback will be sent
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
-					<a href="http://jfp.com/the/good/word">http://jfp.com/the/good/word</a> 
+					<a href="http://jfp.com/the/good/word">http://jfp.com/the/good/word</a>
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					entity
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					String
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					x
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					One of: ASSET,VIDEO, <em>RENDITIONS</em>(LINEUP,PHOTO,CUEPOINT,AUDIOTRACK,AUDIOTRACK_PLAYLIST)
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					The type of entity referred to by the callback
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					VIDEO
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					referenceId
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					String
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					&#160;
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Valid reference id
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Reference id of the entity referred to by the callback
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					video-refid-1
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					id
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					String
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					&#160;
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Valid entity id
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Hibernate/database id of the entity referred to by the callback
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					1642671472001
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					action
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					String
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					x
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					One of: CREATE,UPDATE,DELETE
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					The action being taken on the referenced entity
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					CREATE
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					status
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					String
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					x
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					One of: SUCCESS,FAILED
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Whether the action succeeded or failed
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					SUCCESS
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					error
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					String
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					&#160;
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Any String
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Message describing the error that occurred
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Refid already exists
 				</p>
@@ -521,11 +515,11 @@
 	The All Renditions Complete Callback will use the same format as other batch processing callbacks. A new entity type, 'RENDITIONS', will be introduced for the callback. This callback will use the refid and id of the corresponding video. The action field will be set to 'CREATE', and the status field will be set to 'COMPLETE', indicating that all renditions of the video have been created.
 </p>
 <p>
-	Callback Example: <br />
+	Callback Example:
 	All Renditions Complete Callback: Entity: RENDITIONS, Refid: GSFN_a37c921sag7tl5vm_1332859193, Id: 1429940531001, Action: CREATE, Status: SUCCESS, Error: Null-Value
 </p>
 <p>
-	Workflow Example with All Renditions Complete Callback Workitem: <br />
+	Workflow Example with All Renditions Complete Callback Workitem:
 	<em>In this example, the all renditions complete callback is being triggered after all video processing has completed, including image capture and digital master archiving.</em>
 </p>
 <table>
@@ -551,466 +545,466 @@
 	Uses the refid and entity id of the asset if available. Callbacks status is 'FAILED' and action is 'UPDATE' or 'CREATE depending on whether it was a swap asset call or not. See UploadManager::updateUpload(). Only applies if upload isn't CGM.
 </p>
 <p>
-	<strong>Upload Related</strong> <br />
+	<strong>Upload Related</strong>
 	Ignoring pub-pod and cgm uploads (ClientUploadServlet and FormUploadServlet). Also ignoring DRM related errors (PostDrmHandler). Also ignoring Aspera upload paths. Also ignoring swap asset path.
 </p>
 <div>
 	<table>
 		<tbody>
 			<tr>
-				<th> 
+				<th>
 				<p>
 					Function
 				</p>
 				</th>
-				<th> 
+				<th>
 				<p>
 					Cause
 				</p>
 				</th>
-				<th> 
+				<th>
 				<p>
 					Message
 				</p>
 				</th>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					UploadManagerThread::addAssetToBCFS
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					On any exception
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"This asset upload has encountered a system error. Make sure two asset tags did not reference the same file. Please try again or contact customer support."
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					FileCDNAdapter::checkFileExistence
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					If the file being pushed can't be found for pushing
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"This asset upload has encountered a system error. Please try again or contact customer support."
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					UploadManagerThread::handleDRMed
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Any call into the old DRM path
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"This file can no longer be processed by the system."
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					UploadManagerThread::handleDRMReady
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Any call into the old DRM path
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"This file can no longer be processed by the system."
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					UploadManagerThread::handleDRMWaitReady
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Any call into the old DRM path
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"This file can no longer be processed by the system."
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					ArchiveHandler::internalHandle
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					I/O exception while moving a file
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"This asset upload has encountered a system error. Make sure two asset tags did not reference the same file. Please try again or contact customer support."
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					ArchiveReadyHandler::internalHandle
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					I/O exception while moving a file
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"This asset upload has encountered a system error. Make sure two asset tags did not reference the same file. Please try again or contact customer support."
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					UploadManagerThread::handleFingerprintBlock
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Asset blocked on account of fingerprinting
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"Your attempt to upload the file was blocked and the file will be deleted because the upload appears to contain copyrighted material."
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					UploadManagerThread::handleFingerprintWaitReady
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					I/O exception moving a file into the fingerprint directory
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"This asset upload has encountered a system error. Make sure two asset tags did not reference the same file. Please try again or contact customer support."
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					UploadManagerThread::handleFlaggedUpload
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					An expired upload
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"The system is deleting an upload that has not changed in '" + getUploadManager().getUploadExpiration() + "' days : " + munged(pUload.getAsset().getOriginalFilename()
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					UploadManagerThread::handleFlaggedUpload
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					The asset's file can't be found in scratch
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"This asset upload has encountered a system error. Please try again or contact customer support."
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					UploadManagerThread::handleFlaggedUpload
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					The upload is in an unrecognized state
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"This Asset is stuck in the upload/processing process and needs to be addressed by an administrator."
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					UploadManagerThread::handleFlaggedUpload
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					An unhandled exception occurred and no other error has been set on the upload
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"This upload encountered an unrecoverable error. Please try again or contact customer support."
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					UploadManagerThread::handleIndexReady
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					We have an M2TS FLV_FULL, but no metadata captured yet
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"Segmented asset found, but metadata not provided for asset: " + asset.getCurrentFilename()
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					UploadManagerThread::handleIndexReady
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					We have an FLV_FULL but no recognized file extension
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"Unexpected file extension for file: " + asset.getCurrentFilename()
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					UploadManagerThread::handleIndexReady
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					We have an FLV_FULL with valid H264 extension that isn't flash playable and the upload state doesn't yet have an error message
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"invalid H264/AAC source"
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					UploadManagerThread::handleIndexReady
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					We have an FLV_FULL with valid H264 extension but no metadata
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"Unable to parse h264 metadata for asset id: " + asset.getId()
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					UploadManagerThread::handleIndexReady
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					We have an FLV_FULL with valid H264 extension with metadata that isn't audio-only and the metadata reports it isn't h264
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"Expected avc codec, found: " + videoMetaData.getVideoCodecEnum()
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					UploadManagerThread::handleIndexReady
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					ParseException thrown during metadata parsing
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"This video asset could not be parsed for the necessary meta-data."
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					UploadManagerThread::handleIndexReady
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					An unhandled exception is thrown as part of metadata processing
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"This video asset could not be parsed for the necessary meta-data."
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					UploadManagerThread::handleTranscodeWaitReady
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Exception occurs trying to generate a local filename
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"The uploaded file did not end in an appropriate file extension."
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					UploadManagerThread::handleTranscodeWaitReady
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					I/O exception occurs moving the file to a transcode wait directory
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"This asset upload has encountered a system error. Make sure two asset tags did not reference the same file. Please try again or contact customer support."
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					UploadManagerThread::handleTranscodeWaitReady
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					An exception occurs handing the upload off to the transcode farm
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"This asset upload has encountered a system error. Please try again or contact customer support."
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					ArchiveHandler::internalHandle
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					I/O exception occurs during MD5 calculation
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"This asset upload has encountered a system error. Please try again or contact customer support."
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					UploadServerPushHelper::pushFile
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Source file couldn't be found
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"A system error was encountered. Please try again or contact customer support."
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					UploadManager::uploadChanged
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Negative size reported
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"This file has an inappropriate size reported of '" <span style="text-decoration: underline;">asset.getSize()</span>"' bytes."
 				</p>
@@ -1020,8 +1014,8 @@
 	</table>
 </div>
 <p>
-	<strong>Transcode Related</strong> <br />
-	see TranscodeManager::errorUploadState <br />
+	<strong>Transcode Related</strong>
+	see TranscodeManager::errorUploadState
 	In all cases, the callback error message is "This upload failed to transcode. Please try again or contact customer support."
 </p>
 <p>
@@ -1029,8 +1023,8 @@
 </p>
 <ul>
 	<li>If the transcode request for an upload is deleted</li>
-	<li>On any error with a transcode request <br />
-	<br />
+	<li>On any error with a transcode request
+
 	<ul>
 		<li>add rendition to video fails</li>
 		<li>the transcode request's transcode request group is expired</li>
@@ -1053,91 +1047,91 @@
 	2 separate paths, both related to asset updates (where &lt;asset&gt; was specified using a refid that already exists). Oddly, neither of these is an error path, but rather indicate that the upload is being skipped
 </p>
 <p>
-	<strong>Hash Codes Equal</strong> <br />
+	<strong>Hash Codes Equal</strong>
 	If the hash of the asset being replaced equals the hash of the new asset, then a successful asset update callback is sent.
 </p>
 <div>
 	<table>
 		<tbody>
 			<tr>
-				<th> 
+				<th>
 				<p>
 					Callback Field
 				</p>
 				</th>
-				<th> 
+				<th>
 				<p>
 					Value
 				</p>
 				</th>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					ref id
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					ref id supplied in &lt;asset&gt; tag
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					entity id
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					id of asset being replaced
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					entity
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					ASSET
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					action
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					UPDATE
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					status
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					SUCCESS
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					message
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"Skipping update of asset with '" <span style="text-decoration: underline;">XMLAttributes.REFID</span>"' = '" <span style="text-decoration: underline;">refid</span>"' since the filename, size, and hash have not changed."
 				</p>
@@ -1147,91 +1141,91 @@
 	</table>
 </div>
 <p>
-	<strong>Upload Invalid for DRM</strong> <br />
+	<strong>Upload Invalid for DRM</strong>
 	If an upload can't proceed because it would violate DRM consistency of a video and it's assigned renditoins, then a success asset update callback is sent.
 </p>
 <div>
 	<table>
 		<tbody>
 			<tr>
-				<th> 
+				<th>
 				<p>
 					Callback Field
 				</p>
 				</th>
-				<th> 
+				<th>
 				<p>
 					Value
 				</p>
 				</th>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					ref id
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					ref id supplied in &lt;asset&gt; tag
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					entity id
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					id of asset being replaced
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					entity
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					ASSET
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					action
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					UPDATE
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					status
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					SUCCESS
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					message
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"Skipping update of asset with '" <span style="text-decoration: underline;">XMLAttributes.REFID</span>"' = '" <span style="text-decoration: underline;">mRefID</span>"' as it's DRM state is incompatible with one or more of the replacement asset's videos."
 				</p>
@@ -1247,22 +1241,22 @@
 	<table>
 		<tbody>
 			<tr>
-				<th> 
+				<th>
 				<p>
 					Function
 				</p>
 				</th>
-				<th> 
+				<th>
 				<p>
 					Cause
 				</p>
 				</th>
-				<th> 
+				<th>
 				<p>
 					Callback Fields
 				</p>
 				</th>
-				<th> 
+				<th>
 				<p>
 					Message
 				</p>
@@ -1271,22 +1265,22 @@
 				<th>M2 Handler</th>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					AssetHandler::completeUpload
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Upload state didn't transition to UPLOADED and there was an upload error message
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					ASSET,CREATE|UPDATE,FAILED
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"The following error prevented the processing of asset '" + pFilename + "': " + pUpload.getErrorMessage()
 				</p>
@@ -1295,22 +1289,22 @@
 				<td>?</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					AssetHandler::completeUpload
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Upload state didn't transition to UPLOADED and the upload had a positive previous size
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					ASSET,CREATE|UPDATE,FAILED
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"The uploaded file '" + pFilename + "' size of '" + pUpload.getPreviousSize() + "' does not match the reported size of '" + mSize + "' bytes. This asset will not be processed."
 				</p>
@@ -1319,22 +1313,22 @@
 				<td>Manifest Parser</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					AssetHandler::completeUpload
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Upload state didn't transition to UPLOADED and the upload has a zero or negative previous size
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					ASSET,CREATE|UPDATE,FAILED
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"The file '" + pFilename + "' was not found on the Brightcove system. All files must be uploaded prior to uploading the batch provisioning manifest. This asset will not be processed."
 				</p>
@@ -1343,22 +1337,22 @@
 				<td>Manifest Parser</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					AssetHandler::completeUpload
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Upload state didn't transition to UPLOADED and one of the above three conditions doesn't apply (should be impossible)
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					ASSET,CREATE|UPDATE,FAILED
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"An error was encountered processing file '" + pFilename + "'. All files must be uploaded prior to uploading the batch provisioning manifest. This asset will not be processed."
 				</p>
@@ -1367,22 +1361,22 @@
 				<td>Manifest Parser</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					AssetHandler::handleAssetCreationError(Exception, Long, Byte)
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					An uncaught exception during insert/update processing
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					ASSET,CREATE|UPDATE,FAILED
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"A system error was encountered saving asset '" + mFilename + "'. Please contact Brightcove support, or try updating the item in question directly in the Brightcove Console."
 				</p>
@@ -1391,22 +1385,22 @@
 				<td>addasset callback in Workflow</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					AssetHandler::handleAssetCreationError(Long, Byte)
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					An upload state wasn't created properly or had to be rolled-back
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					ASSET,CREATE|UPDATE,FAILED
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"A system error was encountered saving asset '" + mFilename + "'. Please contact Brightcove support, or try updating the item in question directly in the Brightcove Console."
 				</p>
@@ -1415,22 +1409,22 @@
 				<td>&#160;</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					AssetHandler::validate
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					The &lt;asset&gt; file can't be found
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					ASSET,CREATE|UPDATE,FAILED
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"The file '" + mFilename + "' was not found on the Brightcove system. All files must be uploaded prior to uploading the batch provisioning manifest. This asset will not be processed."
 				</p>
@@ -1439,22 +1433,22 @@
 				<td>Manifest Parser</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					AssetHandler::validate
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					The &lt;asset&gt; filesize doesn't match the actual file size
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					ASSET,CREATE|UPDATE,FAILED
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"The uploaded file '" + mFilename + "' size of '" + fileSize + "' does not match the reported size of '" + mSize + "' bytes. This asset will not be processed."
 				</p>
@@ -1463,22 +1457,22 @@
 				<td>Manifest Parser (using appropriate S3 call)</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					AssetHandler::validate
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					It's a swap and it's WMV_FULL with old-school DRM
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					ASSET,UPDATE,FAILED
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"Filename '" + mFilename + "' is an update for ref id '" + mRefID + "' but updates are not allowed for DRM WMV assets at this time. This asset will not be processed."
 				</p>
@@ -1487,22 +1481,22 @@
 				<td>&#160;</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					AssetHandler::validateHashCodeConsistency
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					If the computed hash code and the &lt;asset&gt; hash code differ
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					ASSET,CREATE,FAILED
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"The following error prevented the processing of asset '" + mFilename + "': " + "The hash computed for the uploaded file does not match the hash reported for the file before upload."
 				</p>
@@ -1511,22 +1505,22 @@
 				<td>Manifest Parser (using appropriate S3 call)</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					TitleHandler::executeImportWork
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					The logo overlay transaction during title creation fails
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					VIDEO,CREATE|UPDATE,FAILED
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"A system error was encountered saving a logo overlay for a title. Please contact Brightcove support, or try updating the item in question directly in the Brightcove Console."
 				</p>
@@ -1535,22 +1529,22 @@
 				<td>&#160;</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					TitleHandler::executeImportWork
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					A FLV_FULL refid is supplied but the asset can't be found
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					VIDEO,CREATE|UPDATE,FAILED
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"The '" + XMLAttributes.VIDEO_FULL_REFID + "' attribute '" + mVideoFullRefid + "' for title '" + mName + "' does not appear to be in your library. This title will not be processed."
 				</p>
@@ -1559,22 +1553,22 @@
 				<td>Manifest Parser (referenced asset must be in same manifest)</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					TitleHandler::executeImportWork
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					There's no digital master id and it's not considered a 'new' &lt;title&gt; request
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					VIDEO,UPDATE,FAILED
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"The '" + XMLAttributes.VIDEO_FULL_REFID + "' attribute '" + mVideoFullRefid + "' for title '"+ mName + "' cannot reference an asset that has the attribute '" + XMLAttributes.ENCODE_MULTIPLE + " if the title already exists."
 				</p>
@@ -1583,22 +1577,22 @@
 				<td>Manifest Parser</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					TitleHandler::executeImportWork
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Renditions were specified as well as a digital master id
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					VIDEO,CREATE|UPDATE,FAILED
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"The element '" + XMLTags.RENDITION_REFID + "' for title '" + mName + "' cannot be used in combination with the attribute '" + XMLAttributes.ENCODE_MULTIPLE + ". This title will not be created."
 				</p>
@@ -1607,22 +1601,22 @@
 				<td>Manifest Parser</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					TitleHandler::executeImportWork
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					A rendition refid was specified but couldn't be found
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Video,CREATE|UPDATE,FAILED
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"The '" + XMLTags.RENDITION_REFID + "' tag '" + refId + "' for title '" + mName + "' does not appear to be in your library." + " This title will not be processed."
 				</p>
@@ -1631,22 +1625,22 @@
 				<td>Manifest Parser (referenced asset must be in same manifest) – shouldn't happen with JFP manifests</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					TitleHandler::executeImportWork
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					A WMV_FULL refid was specified but a corresponding asset could not be found
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					VIDEO,CREATE|UPDATE,FAILED
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"The '" + XMLAttributes.WMV_FULL_REFID + "' attribute '" + mWmvfullRefid + "' for title '" + mName + "' does not appear to be in your library. This title will not be processed."
 				</p>
@@ -1655,22 +1649,22 @@
 				<td>&#160;</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					TitleHandler::executeImportWork
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Economic type is FREE and publisher is not publisher-pays enabled
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					VIDEO,CREATE|UPDATE,FAILED
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"The '" + XMLAttributes.ECONOMIC_TYPE + "' attribute for title '" + mName + "' is set to 'FREE' yet the publisher is not free enabled. This title will not be processed."
 				</p>
@@ -1679,22 +1673,22 @@
 				<td>&#160;</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					TitleHandler::executeImportWork
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Economic type is FREE and WMV_FULL ref id has been specified
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					VIDEO,CREATE|UPDATE,FAILED
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"The '" + XMLAttributes.ECONOMIC_TYPE + "' attribute for title '" + mName + "' has the currently unsupported value 'FREE' but has a WMV full asset. 'FREE' is not supported with WMVs at this time. This title will not be processed."
 				</p>
@@ -1703,22 +1697,22 @@
 				<td>&#160;</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					TitleHandler::executeImportWork
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Economic type is AD and publisher is not ad enabled
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					VIDEO,CREATE|UPDATE,FAILED
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"The '" + XMLAttributes.ECONOMIC_TYPE + "' attribute for title '" + mName + "' is set to 'AD' yet the publisher is not ad enabled. This title will not be processed."
 				</p>
@@ -1727,22 +1721,22 @@
 				<td>&#160;</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					TitleHandler::executeImportWork
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Economic type is AD and WMV_FULL ref id has been specified
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					VIDEO,CREATE|UPDATE,FAILED
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"The '" + XMLAttributes.ECONOMIC_TYPE + "' attribute for title '" + mName + "' has the currently unsupported value 'AD' but has a WMV full asset. 'AD' is not supported with WMVs at this time. This title will not be processed."
 				</p>
@@ -1751,22 +1745,22 @@
 				<td>&#160;</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					TitleHandler::executeImportWork
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					Economis type is PAID and publisher is not pay media enabled
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					VIDEO,CREATE|UPDATE,FAILED
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"The '" + XMLAttributes.ECONOMIC_TYPE + "' attribute for title '" + mName + "' is set to 'PAID' yet the publisher is not pay media enabled. This title will not be processed."
 				</p>
@@ -1775,22 +1769,22 @@
 				<td>&#160;</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					TitleHandler::executeImportWork
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					An uncaught exception is thrown
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					VIDEO,CREATE|UPDATE,FAILED
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"A system error was encountered saving title '" + mName + "'. Please contact Brightcove support, or try updating the item in question directly in the Brightcove Console."
 				</p>
@@ -1799,22 +1793,22 @@
 				<td>&#160;</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					TitleHandler::executeImportWork
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					A BrightcoveException is thrown while doing 'finally' work and it isn't a SOSE
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					VIDEO,CREATE|UPDATE,FAILED
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"A system error was encountered saving title '" + mName + "'. Please contact Brightcove support, or try updating the item in question directly in the Brightcove Console."
 				</p>
@@ -1823,22 +1817,22 @@
 				<td>&#160;</td>
 			</tr>
 			<tr>
-				<td> 
+				<td>
 				<p>
 					TitleHandler::executeImportWork
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					An uncaught Exception is thrown while doing 'finally' work
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					VIDEO,CREATE|UPDATE,FAILED
 				</p>
 				</td>
-				<td> 
+				<td>
 				<p>
 					"A system error was encountered saving title '" + mName + "'. Please contact Brightcove support, or try updating the item in question directly in the Brightcove Console."
 				</p>

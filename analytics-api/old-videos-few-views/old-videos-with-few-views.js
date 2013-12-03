@@ -5,6 +5,8 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
         $mapitoken = $("#mapitoken"),
         $readApiLocation = $("#readApiLocation"),
         videoData = {},
+        itemsArray = [],
+        videoCount = 0,
         analyticsData = {},
         pageNumber = 0,
         params = {},
@@ -16,6 +18,9 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
         $limitText = $("#limitText"),
         $offset = $("#offset"),
         $offsetText = $("#offsetText"),
+        $fromMonths = $("#fromMonths"),
+        $excludeMonths = $("#excludeMonths"),
+        $includeVideos = $("#includeVideos"),
         $request = $("#request"),
         $authorization = $("#authorization"),
         $authorizationDisplay = $("#authorizationDisplay"),
@@ -26,6 +31,10 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
         $requestInputs = $(".aapi-request"),
         $directVideoInput = $("#directVideoInput"),
         $responseFrame = $("#responseFrame"),
+        mMonth = 2592000000,
+        now = new Date(),
+        from,
+        oldestPubDate,
         $this,
         separator = "",
         requestTrimmed = false,
@@ -36,6 +45,7 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
         startDate = "",
         i,
         len,
+        minViews,
         // functions to be defined
         getVideos,
         getSelectedVideoAnalytics,
@@ -84,7 +94,7 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
     }
     // more robust test for strings "not defined"
     isDefined =  function (v) {
-        if (v !== "" && v !== null && v !== "undefined") {
+        if (v !== "" && v !== null && v !== undefined) {
             return true;
         } else { return false; }
     };
@@ -96,7 +106,7 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
         params.page_number = pageNumber;
         params.page_size = 100;
         params.sort_by = "PUBLISH_DATE:ASC";
-        params.video_fields = "id,name,referenceId,publishedDate";
+        params.video_fields = "id,referenceId,name,publishedDate";
         params.get_item_count = true;
         BCMAPI.search(params);
 
@@ -104,19 +114,20 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
     // handler for MAPI call
     onGetVideos = function (JSONdata) {
         var template, result, i, itemsMax, item;
-        videoData.items = videoData.items.concat(JSONdata.items);
-
-        if (videoData.items.length < JSONdata.total_count) {
+        itemsMax = JSONdata.items.length;
+        videoCount += itemsMax
+        for (i = 0; i < itemsMax; i++) {
+            item = JSONdata.items[i];
+            item.publishedDate = parseInt(item.publishedDate);
+            videoData[item.id] = item;
+        }
+        if (videoCount < JSONdata.total_count) {
             pageNumber++;
             getVideos();
-        } 
-        $limitText.val(itemsMax);
-        template = Handlebars.compile(videoOptionTemplate);
-        result = template(videoData);
-        $videoSelector.html(result);
-        buildRequest();
+        } else {
+            $limitText.val(videoCount);
+            buildRequest();
         }
-
     };
     removeSpaces = function (str) {
         if (isDefined(str)) {
@@ -156,13 +167,11 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
         // build the request
         authorization = "Bearer " + removeSpaces($token.val());
         requestURL = $serviceURL.val();
-        requestURL += "/account/" + removeSpaces($accountID.val()) + "/report/?dimensions=video";
-        requestURL += "&";
+        requestURL += "/account/" + removeSpaces($accountID.val()) + "/report/?dimensions=video&";
+        requestURL += "from=" + from + "&";
         // check for limit and offset
         if ($limitText.val() !== "") {
             requestURL += "limit=" + removeSpaces($limitText.val()) + "&";
-        } else if ($limit.val() !== "") {
-            requestURL += "limit=" + $limit.val() + "&";
         }
         if ($offsetText.val() !== "") {
             requestURL += "offset=" + removeSpaces($offsetText.val()) + "&";
@@ -170,7 +179,7 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
             requestURL += "offset=" + $offset.val() + "&";
         }
         // add fields
-        requestURL += "fields=video,engagement_score,video_view,video_percent_viewed&";
+        requestURL += "fields=video,engagement_score,video_view,video_percent_viewed";
         // strip trailing ? or & and replace &&s
         trimRequest();
         $request.html(requestURL);
@@ -180,7 +189,7 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
     };
     // submit request
     getData = function () {
-        var i, itemsMax, item;
+        var i, itemsMax, item, video;
         // clear the results frame
         $responseFrame.html("Loading...");
         $.ajax({
@@ -189,17 +198,40 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
                 Authorization : $authorization.attr("value")
             },
             success : function (data) {
+                minViews = $includeVideos.val();
                 analyticsData = data;
-                itemsMax = data.items.length;
+                console.log(analyticsData);
+                itemsMax = analyticsData.items.length;
+                console.log(videoData);
+                // add analytics data to video data
                 for (i = 0; i < itemsMax; i++) {
                     item = data.items[i];
-                    if (isDefined(referenceIdLookup[item.video])) {
-                        item.reference_id = referenceIdLookup[item.video];
-                    } else {
-                        item.reference_id = "";
+                    if (isDefined(videoData[item.video])) {
+                        video = videoData[item.video];
+                        video.engagement_score = item.engagement_score;
+                        video.video_view = item.video_view;
+                        video.average_percent_viewed = item.video_percent_viewed / item.video_view;
                     }
                 }
-                $responseFrame.html(BCLSformatJSON.formatJSON(data));
+                // assume videos not returned in analytics data had 0 views and remove videos above the views minimum
+                for (video in videoData) {
+                    if (!isDefined(video["video_view"])) {
+                        videoData[video].engagement_score = 0;
+                        videoData[video].video_view = 0;
+                        videoData[video].average_percent_viewed = 0;
+                    } else if (video.video_view > minViews) {
+                        delete videoData[video];
+                    }
+                }
+                console.log(videoData);
+                // convert it to a simple array to make conversion to CSV easier
+                // initialize video items
+                videoData.items = [];
+                for (video in videoData) {
+                    itemsArray.push(videoData[video]);
+                }
+
+                $responseFrame.html(BCLSformatJSON.formatJSON(itemsArray));
             },
             error : function (XMLHttpRequest, textStatus, errorThrown) {
                 $responseFrame.html("Sorry, your request was not successful. Here's what the server sent back: " + errorThrown);
@@ -208,9 +240,10 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
     };
     // convert data to CSV
     jsonToCSV = function () {
-        var headersRow = "", rowTemplate = "{{#items}}", property, template, results, str = "";
+        var headersRow = "", rowTemplate = "{{#items}}", property, template, results, str = "", obj = {};
+        obj.items = itemsArray;
         $responseFrame.html("Loading CSV data...");
-        for (property in analyticsData.items[0]) {
+        for (property in obj.items[0]) {
             headersRow += "\"" + property + "\",";
             rowTemplate += "\"{{" + property + "}}\",";
         }
@@ -218,23 +251,26 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
         rowTemplate += "\r{{/items}}";
         str = headersRow;
         template = Handlebars.compile(rowTemplate);
-        results = template(analyticsData);
+        results = template(obj);
         str += results;
         $responseFrame.html(str);
     };
-    // initialize videoData.items
-    videoData.items = [];
 
     // set event listeners
     $mapitoken.on("change", function () {
         getVideos();
     });
     // listener for videos request
-    $getVideosButton.on("click", getVideos);
-    // set listener for form fields
     $requestInputs.on("change", buildRequest);
-    // rebuild request when video selector changes
-    $videoSelector.on("change", buildRequest);
+    // listener for change in from months
+    $fromMonths.on("change", function () {
+        from = now.valueOf() - (fromMonths.val() * mMonth);
+        buildRequest();
+    });
+    // listener for change in exclude months
+    $excludeMonths.on("change", function () {
+        oldestPubDate = now.valueOf() - (excludeMonths.val() * mMonth);
+    });
     // send request
     $submitButton.on("click", getData);
     // convert to csv
@@ -243,8 +279,10 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
     $selectData.on("click", function() {
         document.getElementById("responseFrame").select();
     });
-    // set the initial options for fields and sort
-    setFieldsSortOptions();
+    // set initial value of from
+    from = now.valueOf() - mMonth;
+    // make the Media API calls
+    getVideos();
     // generate initial request
     buildRequest();
     return {

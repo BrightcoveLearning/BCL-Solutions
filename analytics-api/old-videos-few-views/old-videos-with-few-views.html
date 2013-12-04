@@ -64,7 +64,7 @@
         <!-- end nav navbar -->
         <!-- main content starts here -->
         <h1>Anayltics API Sample: Identifying Low-Performing Content</h1>
-        <p>This sample uses the Media API and the Analytics API together to compile a list of videos with less than five views over the past 1-6 months (you can specifiy the period). The output includes the creation date for the video, and you can skip videos published within the last 1-6 months if you like. The results can be returned in JSON or CSV format.</p>
+        <p>This sample uses the Media API and the Analytics API together to compile a list of videos with less than five views over the past 1-6 months (you can specifiy the period). The output includes the creation date for the video, and you can exclude videos published within the last 1-12 months if you like. The results can be returned in JSON or CSV format.</p>
         <p class="text-warning small">Note that the Analytics API is currently in <strong>Limited Availability</strong>. If you are interested in enabling your account for the beta version of the API, please contact your account manager.</p>
         <h2>Request Options</h2>
         <p>Where no default value is indicated, there is none.</p>
@@ -120,7 +120,7 @@
                     <table>
                         <tbody>
                             <tr>
-                                <td>How many months back to check for views:</td>
+                                <td>How many months back to check for views (default: 1 month):</td>
                                 <td>
                                     <select class="aapi-request" id="fromMonths">
                                         <option value="1">1</option>
@@ -136,7 +136,8 @@
                                 <td colspan="2">
                                     <p>Exclude videos published within the last
                                         <select class="aapi-request" id="excludeMonths">
-                                            <option value="1">1</option>
+                                            <option value="0">0</option>
+                                            <option value="1" selected="selected">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
                                             <option value="4">4</option>
@@ -148,7 +149,7 @@
                                             <option value="10">10</option>
                                             <option value="11">11</option>
                                             <option value="12">12</option>
-                                        </select> months
+                                        </select> months (by default, videos published in the last month are excluded)
                                     </p>
                                 </td>
                             </tr>
@@ -166,7 +167,7 @@
                                             <option value="8">8</option>
                                             <option value="9">9</option>
                                             <option value="10">10</option>
-                                        </select> views during the period
+                                        </select> views during the period (default: 5 views)
                                     </p>
                                 </td>
                             </tr>

@@ -1,20 +1,17 @@
 var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
     "use strict";
     var // media api stuff
-        $getVideosButton = $("#getVideosButton"),
         $mapitoken = $("#mapitoken"),
         $readApiLocation = $("#readApiLocation"),
         videoData = {},
         itemsArray = [],
         videoCount = 0,
-        analyticsData = {},
         pageNumber = 0,
         params = {},
         // aapi stuff
         $serviceURL = $("#serviceURL"),
         $accountID = $("#accountID"),
         $token = $("#token"),
-        $limit = $("#limit"),
         $limitText = $("#limitText"),
         $offset = $("#offset"),
         $offsetText = $("#offsetText"),
@@ -29,35 +26,27 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
         $selectData = $("#selectData"),
         $required = $(".required"),
         $requestInputs = $(".aapi-request"),
-        $directVideoInput = $("#directVideoInput"),
         $responseFrame = $("#responseFrame"),
         mMonth = 2592000000,
         now = new Date(),
         from,
-        oldestPubDate,
+        oldestPubDate = now.valueOf() - ($excludeMonths.val() * mMonth),
         $this,
-        separator = "",
         requestTrimmed = false,
         lastChar = "",
         requestURL = "",
         authorization = "",
-        endDate = "",
-        startDate = "",
         i,
         len,
-        minViews,
+        minViews = $includeVideos.val(),
         // functions to be defined
         getVideos,
-        getSelectedVideoAnalytics,
-        getAllVideosAnalytics,
         onGetVideos,
         trimRequest,
         removeSpaces,
         buildRequest,
         isDefined,
         getData,
-        setFieldsSortOptions,
-        onDimesionError,
         jsonToCSV;
     // implement array forEach method in older browsers
     if (!Array.prototype.forEach) {
@@ -71,8 +60,7 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
     // implement array indexOf method for older browsers
     if (!Array.prototype.indexOf) {
         Array.prototype.indexOf = function (searchElement, fromIndex) {
-            var i,
-                pivot = (fromIndex) ? fromIndex : 0,
+            var pivot = (fromIndex) ? fromIndex : 0,
                 length;
             if (!this) {
                 throw new TypeError();
@@ -113,9 +101,9 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
     };
     // handler for MAPI call
     onGetVideos = function (JSONdata) {
-        var template, result, i, itemsMax, item;
+        var itemsMax, item;
         itemsMax = JSONdata.items.length;
-        videoCount += itemsMax
+        videoCount += itemsMax;
         for (i = 0; i < itemsMax; i++) {
             item = JSONdata.items[i];
             item.publishedDate = parseInt(item.publishedDate);
@@ -189,7 +177,7 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
     };
     // submit request
     getData = function () {
-        var i, itemsMax, item, video;
+        var itemsMax, item, video;
         // clear the results frame
         $responseFrame.html("Loading...");
         $.ajax({
@@ -199,38 +187,47 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
             },
             success : function (data) {
                 minViews = $includeVideos.val();
-                analyticsData = data;
-                console.log(analyticsData);
-                itemsMax = analyticsData.items.length;
-                console.log(videoData);
+                itemsMax = data.items.length;
                 // add analytics data to video data
                 for (i = 0; i < itemsMax; i++) {
                     item = data.items[i];
-                    if (isDefined(videoData[item.video])) {
-                        video = videoData[item.video];
-                        video.engagement_score = item.engagement_score;
-                        video.video_view = item.video_view;
-                        video.average_percent_viewed = item.video_percent_viewed / item.video_view;
+                    if (isDefined(videoData[parseInt(item.video)])) {
+                        videoData[item.video].engagement_score = item.engagement_score;
+                        videoData[item.video].video_view = item.video_view;
+                        videoData[item.video].average_percent_viewed = item.video_percent_viewed / item.video_view;
                     }
                 }
-                // assume videos not returned in analytics data had 0 views and remove videos above the views minimum
-                for (video in videoData) {
-                    if (!isDefined(video["video_view"])) {
-                        videoData[video].engagement_score = 0;
-                        videoData[video].video_view = 0;
-                        videoData[video].average_percent_viewed = 0;
-                    } else if (video.video_view > minViews) {
-                        delete videoData[video];
-                    }
-                }
-                console.log(videoData);
                 // convert it to a simple array to make conversion to CSV easier
-                // initialize video items
-                videoData.items = [];
                 for (video in videoData) {
                     itemsArray.push(videoData[video]);
                 }
 
+                itemsMax = itemsArray.length;
+                // assume videos not returned in analytics data had 0 views
+                for (i = 0; i < itemsMax; i++) {
+                    video = itemsArray[i];
+                    if (!video.hasOwnProperty("video_view")) {
+                        video.engagement_score = 0;
+                        video.video_view = 0;
+                        video.average_percent_viewed = 0;
+                    }
+                }
+                // remove videos above the views minimum
+                i = itemsArray.length;
+                while (i--) {
+                    video = itemsArray[i];
+                    if (video.video_view > minViews) {
+                        itemsArray.splice(i, 1);
+                    }
+                }
+                // remove items if the published date is too new
+                i = itemsArray.length;
+                while (i--) {
+                    video = itemsArray[i];
+                    if (video.publishedDate > oldestPubDate) {
+                        itemsArray.splice(i, 1);
+                    }
+                }
                 $responseFrame.html(BCLSformatJSON.formatJSON(itemsArray));
             },
             error : function (XMLHttpRequest, textStatus, errorThrown) {
@@ -240,6 +237,7 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
     };
     // convert data to CSV
     jsonToCSV = function () {
+        // templates are built dynamically to allow for additional fields added later
         var headersRow = "", rowTemplate = "{{#items}}", property, template, results, str = "", obj = {};
         obj.items = itemsArray;
         $responseFrame.html("Loading CSV data...");
@@ -264,19 +262,23 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
     $requestInputs.on("change", buildRequest);
     // listener for change in from months
     $fromMonths.on("change", function () {
-        from = now.valueOf() - (fromMonths.val() * mMonth);
+        from = now.valueOf() - ($fromMonths.val() * mMonth);
         buildRequest();
     });
     // listener for change in exclude months
     $excludeMonths.on("change", function () {
-        oldestPubDate = now.valueOf() - (excludeMonths.val() * mMonth);
+        oldestPubDate = now.valueOf() - ($excludeMonths.val() * mMonth);
+    });
+    // listener for change in minimum views threshhold
+    $includeVideos.on("change", function () {
+        minViews = $includeVideos.val();
     });
     // send request
     $submitButton.on("click", getData);
     // convert to csv
     $csvButton.on("click", jsonToCSV);
     // select all the data
-    $selectData.on("click", function() {
+    $selectData.on("click", function () {
         document.getElementById("responseFrame").select();
     });
     // set initial value of from

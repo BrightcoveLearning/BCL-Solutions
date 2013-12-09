@@ -47,7 +47,9 @@ var BCLS = (function ($, window, AnyTime) {
         $requestInputs = $(".aapi-request"),
         $directVideoInput = $("#directVideoInput"),
         $responseFrame = $("#responseFrame"),
+        optionTemplate = "{{#items}}<option value=\"{{.}}\">{{.}}</option>{{/items}}",
         $this,
+        dimensions = ["account", "player", "video", "country", "city", "region", "day", "device_type", "device_os" "referrer_domain", "source_type", "search_terms"],
         separator = "",
         requestTrimmed = false,
         lastChar = "",
@@ -362,8 +364,8 @@ var BCLS = (function ($, window, AnyTime) {
         });
     };
     // error handler for invalid dimension combination
-    onDimesionError = function (dimensions) {
-        window.alert("The combination of dimensions you selected - " +  dimensions.join(" ,") +  " - is not a valid combination. Please select a different combination. See the Analytics API Overview for a table of allowable combinations.");
+    onDimesionError = function (selectiedDimensions) {
+        window.alert("The combination of dimensions you selected - " +  selectiedDimensions.join(" ,") +  " - is not a valid combination. Please select a different combination. See the Analytics API Overview for a table of allowable combinations.");
     }
     // set the options for the fields and sort
     setFieldsSortOptions = function () {
@@ -657,29 +659,15 @@ var BCLS = (function ($, window, AnyTime) {
         }
     };
     // set up the anytime date/time pickers
-    AnyTime.picker("startDate", {
-        format: "%a %M %d %Y"
-    });
-    AnyTime.picker("startTime", {
-        format: "%H:%i:%s %@",
-        labelTitle: "Time",
-        labelHour: "Hour",
-        labelMinute: "Minute"
-    });
-    AnyTime.picker("endDate", {
-        format: "%a %M %d %Y"
-    });
-    AnyTime.picker("endTime", {
-        format: "%H:%i:%s %@",
-        labelTitle: "Time",
-        labelHour: "Hour",
-        labelMinute: "Minute"
-    });
+    AnyTime.picker("startDate", {});
+    AnyTime.picker("endDate", {});
 
     // set event listeners
     $requestType.on("change", function () {
+        var template;
         if ($requestType.val() === "rollup") {
-            $dimension.html(rollupDimensionOptions);
+            template = Handlebars.compile(optionTemplate);
+            $dimension.html(template(dimensions));
             $format.html(rollupFormatOptions);
         } else if ($requestType.val() === "report") {
             $dimension.html(reportDimensionOptions);

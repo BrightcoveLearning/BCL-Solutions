@@ -284,14 +284,12 @@ var BCLS = (function ($, window, AnyTime) {
             requestURL += "?";
         }
         // check for time filters
-        startDate = $startDate.val() + " " + $startTime.val();
-        if (startDate !== " ") {
-            startDate = new Date(startDate).getTime();
+        startDate = $startDate.val();
+        if (startDate !== "") {
             requestURL += "from=" + startDate + "&";
         }
-        endDate = $endDate.val() + " " + $endTime.val();
-        if (endDate !== " ") {
-            endDate = new Date(endDate).getTime();
+        endDate = $endDate.val();
+        if (endDate !== "") {
             requestURL += "to=" + endDate + "&";
         }
         // check for where filters
@@ -706,8 +704,12 @@ var BCLS = (function ($, window, AnyTime) {
         }
     };
     // set up the anytime date/time pickers
-    AnyTime.picker("startDate", {});
-    AnyTime.picker("endDate", {});
+    AnyTime.picker("startDate", {
+        format : "%Y-%m-%d"
+    });
+    AnyTime.picker("endDate", {
+        format : "%Y-%m-%d"
+    });
 
     // set event listeners
     $requestType.on("change", function () {

@@ -48,8 +48,9 @@ var BCLS = (function ($, window, AnyTime) {
         $directVideoInput = $("#directVideoInput"),
         $responseFrame = $("#responseFrame"),
         optionTemplate = "{{#items}}<option value=\"{{.}}\">{{.}}</option>{{/items}}",
+        template,
         $this,
-        dimensions = ["account", "player", "video", "country", "city", "region", "day", "device_type", "device_os" "referrer_domain", "source_type", "search_terms"],
+        dimensions = ["account", "player", "video", "country", "city", "region", "day", "device_type", "device_os", "referrer_domain", "source_type", "search_terms"],
         separator = "",
         requestTrimmed = false,
         lastChar = "",
@@ -69,6 +70,9 @@ var BCLS = (function ($, window, AnyTime) {
         videoFields = baseFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option><option value=\"video_duration\">video_duration</option><option value=\"video_engagement\">video_engagement</option>i<option value=\"video_engagement_1\">video_engagement_1</option><option value=\"video_engagement_25\">video_engagement_25</option><option value=\"video_engagement_50\">video_engagement_50</option><option value=\"video_engagement_75\">video_engagement_75</option><option value=\"video_engagement_100\">video_engagement_100</option>",
         playerFields = baseFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option><option value=\"player_load\">player_load</option><option value=\"video_engagement\">video_engagement</option>",
         dayFields = baseFields + "<option value=\"active_media\">active_media</option><option value=\"bytes_delivered\">bytes_delivered</option><option value=\"bytes_in\">bytes_in</option><option value=\"bytes_out\">bytes_out</option><option value=\"bytes_overhead\">bytes_overhead</option><option value=\"bytes_player\">bytes_player</option><option value=\"bytes_stored\">bytes_stored</option><option value=\"day\">day</option><option value=\"player_load\">player_load</option><option value=\"video_engagement\">video_engagement</option>",
+        countryFields = baseFields + "<option value=\"country\">country</option><option value=\"country_name\">country_name</option>",
+        cityFields = baseFields + "<option value=\"city\">city</option>",
+        regionFields = baseFields + "<option value=\"region\">region</option>region_name",
         referrer_domainFields = baseFields + "<option value=\"player_load\">player_load</option><option value=\"referrer_domain\">referrer_domain</option>",
         source_typeFields = baseFields + "<option value=\"player_load\">player_load</option><option value=\"source_type\">source_type</option>",
         search_termsFields = baseFields + "<option value=\"player_load\">player_load</option><option value=\"search_terms\">search_terms</option>",
@@ -92,6 +96,9 @@ var BCLS = (function ($, window, AnyTime) {
         videoSearch_termsFields = search_termsFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
         videoDevice_typeFields = device_typeFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
         videoDevice_osFields = device_osFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
+        countryCityFields = cityFields + "<option value=\"country\">country</option><option value=\"country_name\">country_name</option><option value=\"dma\">dma</option>",
+        countryRegionFields = regionFields + "<option value=\"country\">country</option><option value=\"country_name\">country_name</option>",
+        cityRegionFields = regionFields + "city",
         referrer_domainSource_typeFields = referrer_domainFields + "<option value=\"source_type\">source_type</option>",
         referrer_domainSearch_termsFields = referrer_domainFields + "<option value=\"search_terms\">search_terms</option>",
         source_typeSearch_termsFields = source_typeFields + "<option value=\"search_terms\">search_terms</option>",
@@ -115,6 +122,7 @@ var BCLS = (function ($, window, AnyTime) {
         videoReferrer_domainSearch_termsFields = referrer_domainSearch_termsFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
         videoSource_typeSearch_termsFields = source_typeSearch_termsFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
         videoDevice_typeDevice_osFields = device_typeDevice_osFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
+        countryCityRegionFields = countryRegionFields + "<option value=\"city\">city</option>",
         referrer_domainSource_typeSearch_termsFields = referrer_domainSource_typeFields + "<option value=\"search_terms\">search_terms</option>",
         accountPlayerReferrer_domainSource_typeFields = accountPlayerReferrer_domainFields + "<option value=\"source_type\">source_type</option>",
         accountPlayerReferrer_domainSearch_termsFields = accountPlayerReferrer_domainFields + "<option value=\"search_terms\">search_terms</option>",
@@ -374,6 +382,9 @@ var BCLS = (function ($, window, AnyTime) {
             day = false,
             player = false,
             video = false,
+            country = false,
+            city = false,
+            region = false,
             referrer_domain = false,
             source_type = false,
             search_terms = false,
@@ -391,6 +402,15 @@ var BCLS = (function ($, window, AnyTime) {
         }
         if ($.inArray("video", vals) > -1) {
             video = true;
+        }
+        if ($.inArray("country", vals) > -1) {
+            country = true;
+        }
+        if ($.inArray("city", vals) > -1) {
+            city = true;
+        }
+        if ($.inArray("region", vals) > -1) {
+            region = true;
         }
         if ($.inArray("referrer_domain", vals) > -1) {
             referrer_domain = true;
@@ -616,7 +636,34 @@ var BCLS = (function ($, window, AnyTime) {
                 $fields.html(videoFields);
                 $sort.html(videoFields);
             }
-        } else if (referrer_domain) {
+        } else if (country) { // country combinations
+            if (city) {
+                if (region) {
+                    $fields.html(countryCityRegionFields);
+                    $sort.html(countryCityRegionFields);
+                } else {
+                    $fields.html(countryCityFields);
+                    $sort.html(countryCityFields);
+                }
+            } else if (region) {
+                $fields.html(countryRegionFields);
+                $sort.html(countryRegionFields);
+            } else {
+                $fields.html(countryFields);
+                $sort.html(countryFields);
+            }
+        } else if (city) { // city combinations
+            if (region) {
+                $fields.html(cityRegionFields);
+                $sort.html(cityRegionFields);
+            } else {
+                $fields.html(cityFields);
+                $sort.html(cityFields);
+            }
+        } else if (region) {
+            $fields.html(regionFields);
+            $sort.html(regionFields);
+        } else if (referrer_domain) { // referrer_domain combinations
             if (source_type) {
                 if (search_terms) {
                     $fields.html(referrer_domainSource_typeSearch_termsFields);
@@ -632,7 +679,7 @@ var BCLS = (function ($, window, AnyTime) {
                 $fields.html(referrer_domainFields);
                 $sort.html(referrer_domainFields);
             }
-        } else if (source_type) {
+        } else if (source_type) { // source_type combinations
             if (search_terms) {
                 $fields.html(source_typeSearch_termsFields);
                 $sort.html(source_typeSearch_termsFields);
@@ -640,10 +687,10 @@ var BCLS = (function ($, window, AnyTime) {
                 $fields(source_typeFields);
                 $sort.html(source_typeFields);
             }
-        } else if (search_terms) {
+        } else if (search_terms) { // search_terms combinations
             $fields.html(search_termsFields);
             $sort.html(search_termsFields);
-        } else if (device_type) {
+        } else if (device_type) { // device_type combinations
             if (device_os) {
                 $fields.html(device_typeDevice_osFields);
                 $sort.html(device_typeDevice_osFields);
@@ -651,7 +698,7 @@ var BCLS = (function ($, window, AnyTime) {
                 $fields.html(device_typeFields);
                 $sort.html(device_typeFields);
             }
-        } else if (device_os) {
+        } else if (device_os) { // device_os combinations
             $fields.html(device_osFields);
             $sort.html(device_osFields);
         } else {
@@ -664,7 +711,6 @@ var BCLS = (function ($, window, AnyTime) {
 
     // set event listeners
     $requestType.on("change", function () {
-        var template;
         if ($requestType.val() === "rollup") {
             template = Handlebars.compile(optionTemplate);
             $dimension.html(template(dimensions));

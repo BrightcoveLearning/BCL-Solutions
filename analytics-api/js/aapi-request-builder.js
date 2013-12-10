@@ -47,8 +47,10 @@ var BCLS = (function ($, window, AnyTime) {
         $requestInputs = $(".aapi-request"),
         $directVideoInput = $("#directVideoInput"),
         $responseFrame = $("#responseFrame"),
-        optionTemplate = "{{#items}}<option value=\"{{.}}\">{{.}}</option>{{/items}}",
+        optionTemplate = "{{#items}}<option value=\"{{.}}\">{{this}}</option>{{/items}}",
         template,
+        result,
+        obj = {},
         $this,
         dimensions = ["account", "player", "video", "country", "city", "region", "day", "device_type", "device_os", "referrer_domain", "source_type", "search_terms"],
         separator = "",
@@ -715,10 +717,12 @@ var BCLS = (function ($, window, AnyTime) {
     $requestType.on("change", function () {
         if ($requestType.val() === "rollup") {
             template = Handlebars.compile(optionTemplate);
-            $dimension.html(template(dimensions));
+            $dimension.html("");
             $format.html(rollupFormatOptions);
         } else if ($requestType.val() === "report") {
-            $dimension.html(reportDimensionOptions);
+            obj.items = dimensions;
+            result = template(obj);
+            $dimension.html(result);
             $format.html(reportFormatOptions);
         }
     });

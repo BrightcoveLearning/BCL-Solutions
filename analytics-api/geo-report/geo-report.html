@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Analytics API Solution: Video Report by Player and Day</title>
+    <title>Analytics API Solution: Geographical Report</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Robert Crooks">
@@ -80,14 +80,15 @@
         <div id="sidenav" class="span2"></div>
         <div id="main" class="span10">
             <div class="section" id="top">
-                <h1>Analytics API Solution: Video Report by Player and Day</h1>
-                <p>The Analytics UI in Video Cloud Studio offers a number of ready-made reports, but you can create additional reports using he Analytics API that are tailored to your specific needs. In this example, we will create a report on all videos in the account, grouped by player, showing the total views, percentage of views that were complete, the average number of seconds viewed per view, and the total viewed seconds for each day in the selected period.</p>
+                <h1>Analytics API Solution: Geographical Report</h1>
+                <p>The Analytics UI in Video Cloud Studio offers a number of ready-made reports, but you can create additional reports using he Analytics API that are tailored to your specific needs. In this example, we will get video views by geographical locations</p>
                 <div class="text-warning">
                     <h3>Dependencies</h3>
                     <p>3rd party libraries used in this sample:</p>
                     <ul>
                         <li><a href="https://jquery.org">jQuery</a></li>
                         <li><a href="http://handlebarsjs.com">Handlebars</a></li>
+                        <li><a href="//code.google.com/p/datepickr/">DatePickr</a></li>
                         <li><a href="http://www.flotcharts.org">Flot</a></li>
                     </ul>
                 </div>
@@ -112,41 +113,57 @@
                     </div>
                 </fieldset>
                 <fieldset>
-                    <legend>Date Range for Report</legend>
+                    <legend>Report Options</legend>
+                    <h4>Geo options</h4>
+                    <p>Select the geographical entity to chart video views by:<br />
+                        <select id="geoSelector">
+                            <option selected="selected" value="country">Country</option>
+                            <option value="region">Region</option>
+                            <option value="city">City</option>
+                        </select>
+                    </p>
+                    <h4>Date Range</h4>
                     <p>
-                        Start: <input id="fromDatePicker" size="30" />
+                        Start: <input id="fromDatePicker" size="30" /> (default: 30 days ago)
                     </p>
                     <p>
-                        End: &nbsp;<input id="toDatePicker" size="30" />
+                        End: &nbsp;<input id="toDatePicker" size="30" /> (default: today)
+                    </p>
+                    <h4>Limiting Results</h4>
+                    <p>
+                        Number of items to return: <input id="limit" size="10" value="10" />
                     </p>
                     <p>
-                        <span class="BCL-btn" id="getData">Get Data</span>
+                        Number of items to skip: <input id="offset" size="10" value="0" />
+                    </p>
+                    <p>
+                        <span class="BCL-btn" id="getData">Get Data for the Account</span>
+                    </p>
+                    <h2>Video and Player Options</h2>
+                    <p>To get results for a specific video and/or player, make a selection below</p>
+                    <p>
+                        <select id="playerSelector"></select>
+                        <select id="videoSelector"></select>
                     </p>
                     <p class="text-warning" id="gettingDataDisplay"></p>
                 </fieldset>
-
             </div>
             <div class="section" id="results">
-                <h2>Video Data</h2>
-                <p>
-                    <select id="playerSelector"></select>
-                    <select id="videoSelector"></select>
-                </p>
+
+                <div id="video_player_info"></div>
                 <table>
                     <thead>
                         <tr>
-                            <th>Player</th>
-                            <th>Video</th>
-                            <th>Date</th>
-                            <th>Plays</th>
-                            <th>Completion Rate</th>
-                            <th>Avg viewed seconds</th>
-                            <th>Total viewed seconds</th>
+                            <th>Country</th>
+                            <th>Region</th>
+                            <th>City</th>
+                            <th>Video Views</th>
+                            <th>Average Viewed Seconds</th>
                         </tr>
                     </thead>
                     <tbody id="reportTableBody"></tbody>
                 </table>
-                <h4>Plays by Day</h4>
+                <h4>Video Views by Geo</h4>
                 <div id="chartView" width="700" height="400" style="width:700px;height:400px"></div>
                 <div id="chartViewLegend" style="padding:10px 20px;"></div>
             </div>
@@ -174,94 +191,42 @@
     <script id="pageScript" type="text/javascript">
         var BCLS = (function () {
             var callNumber = 0,
-                accountID = document.getElementById("accountID"),
-                token = document.getElementById("token"),
-                dateSelector = document.getElementById("dateSelector"),
-                playerSelector = document.getElementById("playerSelector"),
-                videoSelector = document.getElementById("videoSelector"),
-                reportTableBody = document.getElementById("reportTableBody"),
-                currentPlayerIndex = 0,
-                currentVideoIndex = 0,
-                currentDayIndex = 0,
+                $accountID = $("#accountID"),
+                $token = $("#token"),
+                $dateSelector = $("#dateSelector"),
+                $playerSelector = $("#playerSelector"),
+                $videoSelector = $("#videoSelector"),
+                $reportTableBody = $("#reportTableBody"),
+                $fromDate = $("#fromDatePicker"),
+                $toDate = $("#toDatePicker"),
+                $getData = $("#getData"),
+                $gettingDataDisplay = $("#gettingDataDisplay"),
+                $video_player_info = $("#video_player_info"),
                 currentPlayer,
-                currentPlayerName,
                 currentVideo,
-                currentVideoName,
-                currentDay,
                 playerMax,
                 videoMax,
-                dayMax,
-                daysArray = [],
-                dateToMS,
-                dateFromMS,
                 videoData,
                 playerData,
                 analyticsData = {},
                 playerID,
                 videoID,
-                dayMS,
-                fromDate = document.getElementById("fromDatePicker"),
-                toDate = document.getElementById("toDatePicker"),
-                getData = document.getElementById("getData"),
-                gettingDataDisplay = document.getElementById("gettingDataDisplay"),
-                today = new Date(),
-                weekAgo = new Date(today - 604800000),
                 dataDisplayBodyTemplate = "<td>{{video_name}}</td><td>Totals</td><td>{{totalPlays}}</td><td>{{totalCompletedViews}}</td><td>{{totalAvgSecondsViewed}}</td><td>{{totalSecondsViewed}}</td></tr>{{#items}}<tr><td></td><td></td><td>{{date}}</td><td>{{video_view}}</td><td>{{completionRate}}</td><td>{{avgSecondsViewed}}</td><td>{{totalSecondsViewed}}</td></tr>{{/items}}",
                 playerSelectTemplate = "{{#items}}<option value=\"{{player}}\">{{player_name}}</options>{{/items}}",
                 videoSelectTemplate = "{{#items}}<option value=\"{{video}}\">{{video_name}}</options>{{/items}}",
                 callType,
-                getMonthName = function (month) {
-                    var name;
-                    switch (month) {
-                        case 1:
-                        name = "Jan";
-                        break;
-                        case 2:
-                        name = "Feb";
-                        break;
-                        case 3:
-                        name = "Mar";
-                        break;
-                        case 4:
-                        name = "Apr";
-                        break;
-                        case 5:
-                        name = "May";
-                        break;
-                        case 6:
-                        name = "Jun";
-                        break;
-                        case 7:
-                        name = "Jul";
-                        break;
-                        case 8:
-                        name = "Aug";
-                        break;
-                        case 9:
-                        name = "Sep";
-                        break;
-                        case 10:
-                        name = "Oct";
-                        break;
-                        case 11:
-                        name = "Nov";
-                        break;
-                        case 12:
-                        name = "Dec";
-                        break;
-                    }
-                    return name;
-                }
                 displayData = function () {
                     var displayStr, playerObject, videoObject, template, barChartData, chart;
-                    currentPlayer = playerSelector.options[playerSelector.selectedIndex].value;
-                    currentVideoIndex = videoSelector.selectedIndex;
-                    playerObject = analyticsData[currentPlayer];
-                    videoObject = playerObject.items[currentVideoIndex];
-                    displayStr = "<tr style=\"background-color:#64AAB2;color:#FFF;\"><th>" + playerObject.player_name + "</th>";
-                    template = Handlebars.compile(dataDisplayBodyTemplate);
-                    displayStr += template(videoObject);
-                    reportTableBody.innerHTML = displayStr;
+                    currentPlayer = $playerSelector.filter(":selected").text();
+                    currentVideo = $videoSelector.filter(":selected").text();
+                    displayStr = "";
+                    if (currentPlayer !== "") {
+                        displayStr += "Player: " + currentPlayer + " ";
+                    }
+                    if (currentVideo !== "") {
+                        displayStr += "Video: " + currentVideo;
+                    }
+                    video_player_info.html("displayStr");
                     // chart
                     barChartData = videoObject.chartData;
                     $.plot("#chartView", [ barChartData ], {
@@ -277,33 +242,6 @@
                             tickLength: 0
                         }
                     });
-                },
-                getTotals = function () {
-                    var player, video, i, imax, j, jmax, item, date, thisVideo;
-                    for (player in analyticsData) {
-                        jmax = analyticsData[player].items.length;
-                        for (j = 0; j < jmax; j++) {
-                            thisVideo = analyticsData[player].items[j];
-                            imax = thisVideo.items.length;
-                            thisVideo.totalPlays = 0;
-                            thisVideo.totalSecondsViewed = 0;
-                            thisVideo.totalCompletedViews = 0;
-                            thisVideo.chartData = [];
-                            for (i = 0; i < imax; i++) {
-                                item = thisVideo.items[i];
-                                date = new Date(item.day);
-                                item.date = date.toDateString();
-                                thisVideo.totalPlays += item.video_view;
-                                thisVideo.totalSecondsViewed += item.totalSecondsViewed;
-                                thisVideo.totalCompletedViews += item.completionRate;
-                                thisVideo.chartData.push([getMonthName(date.getMonth()) + " " + date.getDate(), item.video_view]);
-                            }
-                            thisVideo.totalAvgSecondsViewed = thisVideo.totalSecondsViewed / thisVideo.totalPlays;
-                            if (thisVideo.totalPlays > 0) {
-                                thisVideo.totalCompletedViews = thisVideo.totalCompletedViews / thisVideo.totalPlays;
-                            }
-                        }
-                    }
                 },
                 makeAnalyticsCall = function (callURL) {
                     $.ajax({
@@ -407,15 +345,23 @@
                     makeAnalyticsCall(callURL);
 
                 },
-                // get the video analytics data
+                /** get the videos for the time period
+                * note the limit of 200 videos - to get more simply
+                * change that value, or you could provide an additional field
+                * to let the user decide how many to retrieve
+                */
                 getVideoData = function () {
                     var callURL = "";
                     gettingDataDisplay.innerHTML = "Getting video data...";
                     callType = "videos";
-                    callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=video&limit=200&fields=video,video_name&sort=video_view&from=" + dateFromMS + "&to=" + dateToMS;
+                    callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=video&limit=200&fields=video,video_name&sort=video_view&from=" + $fromDate.val() + "&to=" + $toDate.val();
                     makeAnalyticsCall(callURL);
                 },
-                // get all players for the selected time period
+                /** get the players for the time period
+                * note the limit of 100 players - to get more simply
+                * change that value, or you could provide an additional field
+                * to let the user decide how many to retrieve
+                */
                 getPlayersData = function () {
                     var callURL = "";
                     gettingDataDisplay.innerHTML = "Getting player data...";
@@ -433,8 +379,10 @@
                 'dateFormat': 'Y-m-d'
             });
 
-            videoSelector.addEventListener("change", displayData);
-            playerSelector.addEventListener("change", displayData);
+            // set event listeners
+
+            $videoSelector.on("change", displayData);
+            $playerSelector.on("change", displayData);
             return {
             }
         })();

@@ -211,7 +211,7 @@
                 analyticsData = {},
                 playerID,
                 videoID,
-                dataDisplayBodyTemplate = "<td>{{video_name}}</td><td>Totals</td><td>{{totalPlays}}</td><td>{{totalCompletedViews}}</td><td>{{totalAvgSecondsViewed}}</td><td>{{totalSecondsViewed}}</td></tr>{{#items}}<tr><td></td><td></td><td>{{date}}</td><td>{{video_view}}</td><td>{{completionRate}}</td><td>{{avgSecondsViewed}}</td><td>{{totalSecondsViewed}}</td></tr>{{/items}}",
+                dataDisplayBodyTemplate = "{{#items}}<tr><td>{{country_name}}</td><td>{{region_name}}</td><td>{{city_name}}</td><td>{{video_view}}</td><td>{{average_seconds_viewed}}</td></tr>{{/items}}",
                 playerSelectTemplate = "<option>Select a player</option>{{#items}}<option value=\"{{player}}\">{{player_name}}</options>{{/items}}",
                 videoSelectTemplate = "<option>Select a video</option>{{#items}}<option value=\"{{video}}\">{{video_name}}</options>{{/items}}",
                 callType,
@@ -290,38 +290,14 @@
                             case "analytics":
                                 callNumber++;
                                 itemsmax = data.items.length;
-                                videoMax = analyticsData[currentPlayer].items.length;
-                                for (k = 0; k < videoMax; k++) {
-                                    thisVideo = analyticsData[currentPlayer].items[k];
-                                    newItem = {};
-                                    newItem.video_view = 0;
-                                    newItem.completionRate = 0;
-                                    newItem.avgSecondsViewed = 0;
-                                    newItem.totalSecondsViewed = 0;
-                                    newItem.day = currentDay.from;
-                                    for (i = 0; i < itemsmax; i++) {
-                                        if (data.items[i].video === thisVideo.id) {
-                                            item = data.items[i];
-                                            newItem.video_view = item.video_view;
-                                            newItem.completionRate = Math.round(item.video_engagement_100 / item.video_view);
-                                            newItem.avgSecondsViewed = item.video_seconds_viewed / item.video_view;
-                                            newItem.totalSecondsViewed = item.video_seconds_viewed;
-                                        }
+                                for (i = 0; i < itemsmax; i++) {
+                                    if (data.items[i].video === thisVideo.id) {
+                                        item = data.items[i];
+                                        newItem.avgSecondsViewed = item.video_seconds_viewed / item.video_view;
                                     }
-                                    analyticsData[currentPlayer].items[k].items.push(newItem);
                                 }
-                                if (currentDayIndex < dayMax - 1) {
-                                    currentDayIndex++;
-                                    getAnalyticsData();
-                                } else if (currentPlayerIndex < playerMax - 1) {
-                                    currentDayIndex = 0;
-                                    currentVideoIndex = 0;
-                                    currentPlayerIndex++;
-                                    getAnalyticsData();
-                                } else {
                                     gettingDataDisplay.innerHTML = "Data retrieved - " + callNumber + " API calls made";
-                                    getTotals();
-                                }
+                            }
                         }
                     },
                     error : function (XMLHttpRequest, textStatus, errorThrown)
@@ -378,8 +354,8 @@
 
             // set event listeners
 
-            $videoSelector.on("change", displayData);
-            $playerSelector.on("change", displayData);
+            $videoSelector.on("change", getAnalyticsData);
+            $playerSelector.on("change", getAnalyticsData);
             return {
             }
         })();

@@ -212,8 +212,8 @@
                 playerID,
                 videoID,
                 dataDisplayBodyTemplate = "<td>{{video_name}}</td><td>Totals</td><td>{{totalPlays}}</td><td>{{totalCompletedViews}}</td><td>{{totalAvgSecondsViewed}}</td><td>{{totalSecondsViewed}}</td></tr>{{#items}}<tr><td></td><td></td><td>{{date}}</td><td>{{video_view}}</td><td>{{completionRate}}</td><td>{{avgSecondsViewed}}</td><td>{{totalSecondsViewed}}</td></tr>{{/items}}",
-                playerSelectTemplate = "{{#items}}<option value=\"{{player}}\">{{player_name}}</options>{{/items}}",
-                videoSelectTemplate = "{{#items}}<option value=\"{{video}}\">{{video_name}}</options>{{/items}}",
+                playerSelectTemplate = "<option>Select a player</option>{{#items}}<option value=\"{{player}}\">{{player_name}}</options>{{/items}}",
+                videoSelectTemplate = "<option>Select a video</option>{{#items}}<option value=\"{{video}}\">{{video_name}}</options>{{/items}}",
                 callType,
                 displayData = function () {
                     var displayStr, playerObject, videoObject, template, barChartData, chart;
@@ -266,8 +266,7 @@
                                 // populate the player selector
                                 template = Handlebars.compile(playerSelectTemplate);
                                 playerSelector.innerHTML = template(data);
-                                playerSelector.options[0].setAttribute("selected", "selected");
-                                getVideoData();
+                                // now get the videos data
                                 break;
                             case "videos":
                                 callNumber++;
@@ -287,8 +286,6 @@
                                 // populate the video selector
                                 template = Handlebars.compile(videoSelectTemplate);
                                 videoSelector.innerHTML = template(data);
-                                videoSelector.options[0].setAttribute("selected", "selected");
-                                getAnalyticsData();
                                 break;
                             case "analytics":
                                 callNumber++;

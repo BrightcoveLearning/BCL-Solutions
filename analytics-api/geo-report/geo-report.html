@@ -40,6 +40,7 @@
         background-color: #F5F5F5;
         border-radius: 5px;
         padding: 5px;
+        width: 800px;
     }
     </style>
 
@@ -123,9 +124,9 @@
                     <h4>Geo options</h4>
                     <p>Select the geographical entity to chart video views by:<br />
                         <select id="geoSelector">
-                            <option selected="selected" value="country">Country</option>
-                            <option value="region">Region</option>
-                            <option value="city">City</option>
+                            <option selected="selected" value="country_name">Country</option>
+                            <option value="region_name">Region</option>
+                            <option value="city_name">City</option>
                         </select>
                     </p>
                     <h4>Date Range</h4>
@@ -154,8 +155,12 @@
                     <p class="text-warning" id="gettingDataDisplay"></p>
                 </fieldset>
             </div>
+            <div class="section" id="aapiRequest">
+              <h2>Analytics API Request</h2>
+              <textarea id="requestURL" rows="3" cols="200"></textarea>
+            </div>
             <div class="section" id="results">
-                <textarea id="requestURL" rows="3" cols="200"></textarea>
+                <h2>Geo Analytics Report</h2>
                 <div id="video_player_info"></div>
                 <table>
                     <thead>
@@ -194,206 +199,7 @@
     <script type="text/javascript" src="/bcls/scripts/datepickr_2/datepickr.min.js"></script>
     <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
     <script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
-    <script id="pageScript" type="text/javascript">
-        var BCLS = (function () {
-            var callNumber = 0,
-                $accountID = $("#accountID"),
-                $token = $("#token"),
-                $dateSelector = $("#dateSelector"),
-                $playerSelector = $("#playerSelector"),
-                $videoSelector = $("#videoSelector"),
-                $geoSelector = $("#geoSelector")
-                $reportTableBody = $("#reportTableBody"),
-                $fromDate = $("#fromDatePicker"),
-                $toDate = $("#toDatePicker"),
-                $limit = $("#limit"),
-                $offset = $("#offset"),
-                $getData = $("#getData"),
-                $gettingDataDisplay = $("#gettingDataDisplay"),
-                $video_player_info = $("#video_player_info"),
-                $requestURL = $("#requestURL"),
-                currentPlayer,
-                currentVideo,
-                videoData,
-                playerData,
-                analyticsData = {},
-                chartData = [],
-                playerID,
-                videoID,
-                dataDisplayBodyTemplate = "{{#items}}<tr><td>{{country_name}}</td><td>{{region_name}}</td><td>{{city_name}}</td><td>{{video_view}}</td><td>{{average_seconds_viewed}}</td></tr>{{/items}}",
-                playerSelectTemplate = "<option>Select a player</option>{{#items}}<option value=\"{{player}}\">{{player_name}}</options>{{/items}}",
-                videoSelectTemplate = "<option>Select a video</option>{{#items}}<option value=\"{{video}}\">{{video_name}}</options>{{/items}}",
-                callType,
-                // more robust test for strings "not defined"
-                isDefined =  function (v) {
-                    if(v !== "" && v !== null && v !== "undefined") { return true; }
-                    else { return false; }
-                },
-                displayData = function () {
-                    var displayStr, playerObject, videoObject, template, results, barChartData, chart;
-                    currentPlayer = $playerSelector.filter(":selected").text();
-                    currentVideo = $videoSelector.filter(":selected").text();
-                    displayStr = "";
-                    if (currentPlayer !== "") {
-                        displayStr += "Player: " + currentPlayer + " ";
-                    }
-                    if (currentVideo !== "") {
-                        displayStr += "Video: " + currentVideo;
-                    }
-                    video_player_info.html("displayStr");
-                    // table
-                    template = Handlebars.compile(dataDisplayBodyTemplate);
-                    results = template(analyticsData);
-                    $reportTableBody.html(results);
-                    // chart
-                    barChartData = videoObject.chartData;
-                    $.plot("#chartView", [ barChartData ], {
-                        series: {
-                            bars: {
-                                show: true,
-                                barWidth: 0.6,
-                                align: "center"
-                            }
-                        },
-                        xaxis: {
-                            mode: "categories",
-                            tickLength: 0
-                        }
-                    });
-                },
-                makeAnalyticsCall = function (callURL) {
-                    $.ajax({
-                    url: callURL,
-                    headers: {
-                        Authorization : "Bearer " + token.value
-                    },
-                    success : function (data) {
-                        var template, results, i, j, k, player, video, itemsmax, analytics, item, newItem = {}, thisVideo;
-                        switch (callType) {
-                            case "players":
-                                callNumber++;
-                                // save the data for getting the analytics
-                                playerData = data;
-                                playerMax = playerData.items.length;
-                                // add players to the analytics data object
-                                for (i = 0; i < playerMax; i++) {
-                                    analyticsData[playerData.items[i].player] = {};
-                                    analyticsData[playerData.items[i].player].player_name = playerData.items[i].player_name;
-                                    analyticsData[playerData.items[i].player].items = [];
-                                }
-                                // populate the player selector
-                                template = Handlebars.compile(playerSelectTemplate);
-                                playerSelector.innerHTML = template(data);
-                                // now get the videos data
-                                break;
-                            case "videos":
-                                callNumber++;
-                                // save the data for getting the analytics
-                                videoData = data;
-                                videoMax = videoData.items.length;
-                                // add videos to the analytics data object
-                                for (player in analyticsData) {
-                                    for (j = 0; j < videoMax; j++) {
-                                        video = videoData.items[j];
-                                        analyticsData[player].items[j] = {};
-                                        analyticsData[player].items[j].id = video.video;
-                                        analyticsData[player].items[j].video_name = video.video_name;
-                                        analyticsData[player].items[j].items = [];
-                                    }
-                                }
-                                // populate the video selector
-                                template = Handlebars.compile(videoSelectTemplate);
-                                videoSelector.innerHTML = template(data);
-                                break;
-                            case "analytics":
-                                callNumber++;
-                                itemsmax = data.items.length;
-                                for (i = 0; i < itemsmax; i++) {
-                                    item = data.items[i];
-                                    item.avgSecondsViewed = item.video_seconds_viewed / item.video_view;
-                                }
-                                gettingDataDisplay.innerHTML = "Data retrieved - " + callNumber + " API calls made";
-                                displayData();
-                            }
-                        }
-                    },
-                    error : function (XMLHttpRequest, textStatus, errorThrown)
-                        {
-                            gettingDataDisplay.innerHTML = "Sorry, your request was not successful. Here's what the server sent back: " + errorThrown;
-                        }
-                    });
-                },
-                // get the analytics data for the videos
-                getAnalyticsData = function () {
-                    var callURL;
-                    gettingDataDisplay.innerHTML = "Getting analytics data...";
-                    callType = "analytics";
-                    currentPlayer = $playerSelector.val();
-                    currentVideo = $videoSelector.val();
-                    callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=country,city,region";
-
-                    if (isDefined($fromDate.val())) {
-                        callURL += "&from=" + $fromDate.val();
-                    }
-                    if (isDefined($toDate.val())) {
-                        callURL += "&to=" + $toDate.val();
-                    }
-                    if (isDefined(currentPlayer)) {
-                        if (isDefined(currentVideo)) {
-                            callURL += "&where=player==" + currentPlayer + ";video==" + currentVideo;
-                        } else {
-                            callURL += "&where=player==" + currentPlayer;
-                        }
-                    } else if (isDefined(currentVideo)) {
-                        callURL += "&where=player==" + currentPlayer + ";video==" + currentVideo;
-                    }
-                    analyticsData = data;
-                    $requestURL.text(callURL);
-                    makeAnalyticsCall(callURL);
-
-                },
-                /** get the videos for the time period
-                * note the limit of 200 videos - to get more simply
-                * change that value, or you could provide an additional field
-                * to let the user decide how many to retrieve
-                */
-                getVideoData = function () {
-                    var callURL = "";
-                    gettingDataDisplay.innerHTML = "Getting video data...";
-                    callType = "videos";
-                    callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=video&limit=200&fields=video,video_name&sort=video_view&from=" + $fromDate.val() + "&to=" + $toDate.val();
-                    makeAnalyticsCall(callURL);
-                },
-                /** get the players for the time period
-                * note the limit of 100 players - to get more simply
-                * change that value, or you could provide an additional field
-                * to let the user decide how many to retrieve
-                */
-                getPlayersData = function () {
-                    var callURL = "";
-                    gettingDataDisplay.innerHTML = "Getting player data...";
-                    callType = "players";
-                    callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=player&limit=100&fields=player,player_name&sort=video_view&from=" + dateFromMS + "&to=" + dateToMS;
-                    makeAnalyticsCall(callURL);
-                };
-            // add date pickers to the date input fields
-            new datepickr('fromDatePicker', {
-                'fullCurrentMonth': false,
-                'dateFormat': 'Y-m-d'
-            });
-            new datepickr('toDatePicker', {
-                'fullCurrentMonth': false,
-                'dateFormat': 'Y-m-d'
-            });
-
-            // set event listeners
-
-            $videoSelector.on("change", getAnalyticsData);
-            $playerSelector.on("change", getAnalyticsData);
-            return {
-            }
-        })();
-    </script>
+    <script id="pageScript" type="text/javascript" src="geo-report.js"></script>
 </body>
 
 </html>

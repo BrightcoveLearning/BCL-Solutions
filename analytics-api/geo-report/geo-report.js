@@ -6,6 +6,7 @@ var BCLS = (function ($, Handlebars) {
         $playerSelector = $("#playerSelector"),
         $videoSelector = $("#videoSelector"),
         $geoSelector = $("#geoSelector"),
+        $sortSelector = $("#sortSelector"),
         $reportTableBody = $("#reportTableBody"),
         $fromDate = $("#fromDatePicker"),
         $toDate = $("#toDatePicker"),
@@ -19,7 +20,7 @@ var BCLS = (function ($, Handlebars) {
         currentVideo,
         analyticsData = {},
         chartData = [],
-        dataDisplayBodyTemplate = "{{#items}}<tr><td>{{country_name}}</td><td>{{region_name}}</td><td>{{city_name}}</td><td>{{video_view}}</td><td>{{average_seconds_viewed}}</td></tr>{{/items}}",
+        dataDisplayBodyTemplate = "{{#items}}<tr><td>{{country_name}}</td><td>{{region_name}}</td><td>{{city}}</td><td>{{video_view}}</td><td>{{average_seconds_viewed}}</td></tr>{{/items}}",
         playerSelectTemplate = "<option value=\"\">Select a player</option>{{#items}}<option value=\"{{player}}\">{{player_name}}</options>{{/items}}",
         videoSelectTemplate = "<option value=\"\">Select a video</option>{{#items}}<option value=\"{{video}}\">{{video_name}}</options>{{/items}}",
         callType,
@@ -45,7 +46,7 @@ var BCLS = (function ($, Handlebars) {
             results = template(analyticsData);
             $reportTableBody.html(results);
             // chart
-            $.plot("#chartView", chartData, {
+            $.plot("#chartView", [ chartData] , {
                 series: {
                     bars: {
                         show: true,
@@ -60,6 +61,8 @@ var BCLS = (function ($, Handlebars) {
             });
         },
         makeAnalyticsCall = function (callURL) {
+            // clear chart data
+            chartData = [];
             $.ajax({
             url: callURL,
             headers: {
@@ -110,7 +113,7 @@ var BCLS = (function ($, Handlebars) {
             callType = "analytics";
             currentPlayer = $playerSelector.val();
             currentVideo = $videoSelector.val();
-            callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + $accountID.val()+ "/report/?dimensions=country,city,region";
+            callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + $accountID.val()+ "/report/?dimensions=country,city,region&sort_by=" + $sortSelector.val();
 
             if (isDefined($fromDate.val())) {
                 callURL += "&from=" + $fromDate.val();

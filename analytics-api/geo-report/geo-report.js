@@ -40,7 +40,7 @@ var BCLS = (function ($, Handlebars) {
             if (currentVideo !== "") {
                 displayStr += "Video: " + currentVideo;
             }
-            $video_player_info.html("displayStr");
+            $video_player_info.html(displayStr);
             // table
             template = Handlebars.compile(dataDisplayBodyTemplate);
             results = template(analyticsData);
@@ -95,7 +95,7 @@ var BCLS = (function ($, Handlebars) {
                             chartData.push([item[selectedGeo], item.video_view]);
                         }
                         analyticsData = data;
-                        $gettingDataDisplay.text("Data retrieved &mdash; " + callNumber + " API calls made");
+                        $gettingDataDisplay.text("Data retrieved - " + callNumber + " API calls made");
                         displayData();
                         break;
                 }
@@ -128,7 +128,7 @@ var BCLS = (function ($, Handlebars) {
                     callURL += "&where=player==" + currentPlayer;
                 }
             } else if (isDefined(currentVideo)) {
-                callURL += "&where=player==" + currentPlayer + ";video==" + currentVideo;
+                callURL += "video==" + currentVideo;
             }
             if (isDefined($limit.val())) {
                 callURL += "&limit=" + $limit.val();
@@ -176,8 +176,14 @@ var BCLS = (function ($, Handlebars) {
 
     // set event listeners
 
-    $videoSelector.on("change", getAnalyticsData);
-    $playerSelector.on("change", getAnalyticsData);
+    $videoSelector.on("change", function () {
+        $playerSelector.val(0);
+        getAnalyticsData();
+    });
+    $playerSelector.on("change", function () {
+        $videoSelector.val(0);
+        getAnalyticsData();
+    });
     $getData.on("click", getAnalyticsData);
     // get players and video data
     getPlayersData();

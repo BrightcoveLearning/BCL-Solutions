@@ -94,3 +94,6 @@ iframe {
 .no-wrap {
     white-space: nowrap;
 }
+#fields {
+    height: 250px;
+}

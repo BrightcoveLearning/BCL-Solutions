@@ -185,7 +185,11 @@ var BCLS = (function ($, Handlebars) {
         getAnalyticsData();
     });
     $getData.on("click", getAnalyticsData);
-    // get players and video data
+    $token.on("blur", function () {
+        // refetch player and video data
+        getPlayersData();
+    })
+    // get initial players and video data
     getPlayersData();
     return {
     };

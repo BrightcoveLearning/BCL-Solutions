@@ -1,0 +1,22 @@
+Brightcove Video Cloud SDK for Android - Widevine Plugin
+
+Version 4.0.15:
+
+  Changes:
+
+    * Compiled with target API level 18.
+
+Version 4.0.1:
+
+  Changes:
+
+    * Added logging and events for Widevine events, errors, and info.
+
+Version 2.2.6:
+
+  Changes:
+
+    * Added support for DID_PRESENT_CONTENT and WILL_PRESENT_CONTENT
+      events.
+    * Added workaround for kernel crashes when resuming a widevine
+      video after playing an ad.

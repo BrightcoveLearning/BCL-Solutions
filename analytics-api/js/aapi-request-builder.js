@@ -52,7 +52,7 @@ var BCLS = (function ($, window, AnyTime) {
         result,
         obj = {},
         $this,
-        dimensions = ["account", "player", "video", "country", "city", "region", "day", "device_type", "device_os", "referrer_domain", "source_type", "search_terms"],
+        dimensions = ["account", "player", "video", "country", "city", "region", "day", "destination_domain", "destination_path" "device_type", "device_os", "referrer_domain", "source_type", "search_terms"],
         separator = "",
         requestTrimmed = false,
         lastChar = "",
@@ -74,7 +74,9 @@ var BCLS = (function ($, window, AnyTime) {
         dayFields = baseFields + "<option value=\"active_media\">active_media</option><option value=\"bytes_delivered\">bytes_delivered</option><option value=\"bytes_in\">bytes_in</option><option value=\"bytes_out\">bytes_out</option><option value=\"bytes_overhead\">bytes_overhead</option><option value=\"bytes_player\">bytes_player</option><option value=\"bytes_stored\">bytes_stored</option><option value=\"day\">day</option><option value=\"player_load\">player_load</option><option value=\"video_engagement\">video_engagement</option>",
         countryFields = baseFields + "<option value=\"country\">country</option><option value=\"country_name\">country_name</option>",
         cityFields = baseFields + "<option value=\"city\">city</option>",
-        regionFields = baseFields + "<option value=\"region\">region</option>region_name",
+        regionFields = baseFields + "<option value=\"region\">region</option>",
+        destinationDomainFields = baseFields + "<option value=\"destination_domain\">destination_domain</option>",
+        destinationPathFields = baseFields + "<option value=\"destination_path\">destination_path</option>",
         referrer_domainFields = baseFields + "<option value=\"player_load\">player_load</option><option value=\"referrer_domain\">referrer_domain</option>",
         source_typeFields = baseFields + "<option value=\"player_load\">player_load</option><option value=\"source_type\">source_type</option>",
         search_termsFields = baseFields + "<option value=\"player_load\">player_load</option><option value=\"search_terms\">search_terms</option>",
@@ -100,7 +102,8 @@ var BCLS = (function ($, window, AnyTime) {
         videoDevice_osFields = device_osFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
         countryCityFields = cityFields + "<option value=\"country\">country</option><option value=\"country_name\">country_name</option><option value=\"dma\">dma</option>",
         countryRegionFields = regionFields + "<option value=\"country\">country</option><option value=\"country_name\">country_name</option>",
-        cityRegionFields = regionFields + "city",
+        cityRegionFields = regionFields + "<option value=\"city\">city</option>",
+        destinationDomainDesinationPathFields = destinationDomainFields + "<option value=\"destination_path\">destination_path</option>"
         referrer_domainSource_typeFields = referrer_domainFields + "<option value=\"source_type\">source_type</option>",
         referrer_domainSearch_termsFields = referrer_domainFields + "<option value=\"search_terms\">search_terms</option>",
         source_typeSearch_termsFields = source_typeFields + "<option value=\"search_terms\">search_terms</option>",
@@ -389,7 +392,9 @@ var BCLS = (function ($, window, AnyTime) {
             source_type = false,
             search_terms = false,
             device_type = false,
-            device_os = false;
+            device_os = false
+            destination_path = false,
+            destination_domain = false;
         // determine what values are in the array
         if ($.inArray("account", vals) > -1) {
             account = true;
@@ -426,6 +431,12 @@ var BCLS = (function ($, window, AnyTime) {
         }
         if ($.inArray("device_os", vals) > -1) {
             device_os = true;
+        }
+        if ($.inArray("destination_domain", vals) > -1) {
+            destination_domain = true;
+        }
+        if ($.inArray("destination_path", vals) > -1) {
+            destination_path = true;
         }
         // on invalid combinations, throw error
         if (day && (account || player || video || referrer_domain || source_type || search_terms || device_type || device_os)) {
@@ -701,6 +712,17 @@ var BCLS = (function ($, window, AnyTime) {
         } else if (device_os) { // device_os combinations
             $fields.html(device_osFields);
             $sort.html(device_osFields);
+        } else if (destination_domain) {
+            if (destination_path) {
+                $fields.html(destinationDomainDesinationPathFields);
+                $sort.html(destinationDomainDesinationPathFields);
+            } else {
+                $fields.html(destinationDomainFields);
+                $sort.html(destinationDomainFields);
+            }
+        } else if (destination_path) {
+            $fields.html(destinationPathFields);
+            $sort.html(destinationPathFields);
         } else {
             onDimesionError(vals);
         }

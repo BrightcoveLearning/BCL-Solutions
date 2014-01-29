@@ -3,7 +3,7 @@
   <groupId>com.brightcove.ima</groupId>
   <artifactId>android-ima-plugin</artifactId>
   <versioning>
-    <release>4.0.18</release>
+    <release>4.0.21</release>
     <versions>
       <version>4.0.6</version>
       <version>4.0.12</version>
@@ -21,7 +21,8 @@
       <version>4.0.13</version>
       <version>4.0.15</version>
       <version>4.0.18</version>
+      <version>4.0.21</version>
     </versions>
-    <lastUpdated>20140123202651</lastUpdated>
+    <lastUpdated>20140128223742</lastUpdated>
   </versioning>
 </metadata>

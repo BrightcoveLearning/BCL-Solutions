@@ -20,7 +20,7 @@ var BCLS = (function ($, window, AnyTime) {
         $serviceURL = $("#serviceURL"),
         $accountID = $("#accountID"),
         $token = $("#token"),
-        $requestType = $("#requestType"),
+        $APIrequestType = $("#requestType"),
         $dimension = $("#dimension"),
         $startDate = $("#startDate"),
         $startTime = $("#startTime"),
@@ -38,13 +38,13 @@ var BCLS = (function ($, window, AnyTime) {
         $offsetText = $("#offsetText"),
         $sort = $("#sort"),
         $fields = $("#fields"),
-        $request = $("#request"),
+        $APIrequest = $("#APIrequest"),
         $authorization = $("#authorization"),
         $authorizationDisplay = $("#authorizationDisplay"),
         $submitButton = $("#submitButton"),
         $required = $(".required"),
         $format = $("#format"),
-        $requestInputs = $(".aapi-request"),
+        $APIrequestInputs = $(".aapi-request"),
         $directVideoInput = $("#directVideoInput"),
         $responseFrame = $("#responseFrame"),
         optionTemplate = "{{#items}}<option value=\"{{.}}\">{{this}}</option>{{/items}}",
@@ -277,7 +277,7 @@ var BCLS = (function ($, window, AnyTime) {
         requestURL = $serviceURL.val();
         requestURL += "/account/" + removeSpaces($accountID.val()) + "/";
         // is it a report?
-        if ($requestType.val() === "report") {
+        if ($APIrequestType.val() === "report") {
             // make sure dimensions is defined
             if (!isDefined($dimension.val())) {
                 alert("For reports, you must select at least one dimension");
@@ -338,9 +338,9 @@ var BCLS = (function ($, window, AnyTime) {
         requestURL += separator + "format=" + $format.val();
         // strip trailing ? or & and replace &&s
         trimRequest();
-        $request.html(requestURL);
+        $APIrequest.html(requestURL);
         $authorizationDisplay.html(authorization);
-        $request.attr("value", requestURL);
+        $APIrequest.attr("value", requestURL);
         $authorization.attr("value", authorization);
     };
     // submit request
@@ -348,8 +348,9 @@ var BCLS = (function ($, window, AnyTime) {
         var format = $format.val();
         // clear the results frame
         $responseFrame.html("Loading...");
+        console.log($APIrequest.attr("value"));
         $.ajax({
-            url: $request.attr("value"),
+            url: $APIrequest.attr("value"),
             headers: {
                 Authorization : $authorization.attr("value")
             },
@@ -438,8 +439,6 @@ var BCLS = (function ($, window, AnyTime) {
         if ($.inArray("destination_path", vals) > -1) {
             destination_path = true;
         }
-        console.log(destination_domain);
-        console.log(destination_path);
         // on invalid combinations, throw error
         // if (day && (account || player || video || referrer_domain || source_type || search_terms || device_type || device_os)) {
         //     onDimesionError(vals);
@@ -738,12 +737,12 @@ var BCLS = (function ($, window, AnyTime) {
     });
 
     // set event listeners
-    $requestType.on("change", function () {
-        if ($requestType.val() === "rollup") {
+    $APIrequestType.on("change", function () {
+        if ($APIrequestType.val() === "rollup") {
             template = Handlebars.compile(optionTemplate);
             $dimension.html("");
             $format.html(rollupFormatOptions);
-        } else if ($requestType.val() === "report") {
+        } else if ($APIrequestType.val() === "report") {
             obj.items = dimensions;
             result = template(obj);
             $dimension.html(result);
@@ -758,7 +757,7 @@ var BCLS = (function ($, window, AnyTime) {
     // listener for videos request
     $getVideosButton.on("click", getVideos);
     // set listener for form fields
-    $requestInputs.on("change", buildRequest);
+    $APIrequestInputs.on("change", buildRequest);
     // rebuild request when video selector changes
     $videoSelector.on("change", buildRequest);
     // in case search terms added after initial video retrieval
@@ -766,6 +765,11 @@ var BCLS = (function ($, window, AnyTime) {
         // re-initialize
         pageNumber = 0;
         totalPages = 0;
+    });
+    // allow for manual editiing of request URL
+    $APIrequest.on("change", function () {
+        console.log("change");
+        $APIrequest.attr("value", $APIrequest.html());
     });
     // send request
     $submitButton.on("click", getData);

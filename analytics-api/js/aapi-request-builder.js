@@ -20,7 +20,7 @@ var BCLS = (function ($, window, AnyTime) {
         $serviceURL = $("#serviceURL"),
         $accountID = $("#accountID"),
         $token = $("#token"),
-        $APIrequestType = $("#requestType"),
+        APIrequestType = $("#requestType"),
         $dimension = $("#dimension"),
         $startDate = $("#startDate"),
         $startTime = $("#startTime"),
@@ -38,13 +38,13 @@ var BCLS = (function ($, window, AnyTime) {
         $offsetText = $("#offsetText"),
         $sort = $("#sort"),
         $fields = $("#fields"),
-        $APIrequest = $("#APIrequest"),
+        APIrequest = document.getElementById("APIrequest"),
         $authorization = $("#authorization"),
         $authorizationDisplay = $("#authorizationDisplay"),
         $submitButton = $("#submitButton"),
         $required = $(".required"),
         $format = $("#format"),
-        $APIrequestInputs = $(".aapi-request"),
+        APIrequestInputs = $(".aapi-request"),
         $directVideoInput = $("#directVideoInput"),
         $responseFrame = $("#responseFrame"),
         optionTemplate = "{{#items}}<option value=\"{{.}}\">{{this}}</option>{{/items}}",
@@ -277,7 +277,7 @@ var BCLS = (function ($, window, AnyTime) {
         requestURL = $serviceURL.val();
         requestURL += "/account/" + removeSpaces($accountID.val()) + "/";
         // is it a report?
-        if ($APIrequestType.val() === "report") {
+        if (APIrequestType.val() === "report") {
             // make sure dimensions is defined
             if (!isDefined($dimension.val())) {
                 alert("For reports, you must select at least one dimension");
@@ -338,9 +338,8 @@ var BCLS = (function ($, window, AnyTime) {
         requestURL += separator + "format=" + $format.val();
         // strip trailing ? or & and replace &&s
         trimRequest();
-        $APIrequest.html(requestURL);
+        APIrequest.value = requestURL;
         $authorizationDisplay.html(authorization);
-        $APIrequest.attr("value", requestURL);
         $authorization.attr("value", authorization);
     };
     // submit request
@@ -348,9 +347,9 @@ var BCLS = (function ($, window, AnyTime) {
         var format = $format.val();
         // clear the results frame
         $responseFrame.html("Loading...");
-        console.log($APIrequest.attr("value"));
+        console.log(APIrequest.value);
         $.ajax({
-            url: $APIrequest.attr("value"),
+            url: APIrequest.value,
             headers: {
                 Authorization : $authorization.attr("value")
             },
@@ -737,12 +736,12 @@ var BCLS = (function ($, window, AnyTime) {
     });
 
     // set event listeners
-    $APIrequestType.on("change", function () {
-        if ($APIrequestType.val() === "rollup") {
+    APIrequestType.on("change", function () {
+        if (APIrequestType.val() === "rollup") {
             template = Handlebars.compile(optionTemplate);
             $dimension.html("");
             $format.html(rollupFormatOptions);
-        } else if ($APIrequestType.val() === "report") {
+        } else if (APIrequestType.val() === "report") {
             obj.items = dimensions;
             result = template(obj);
             $dimension.html(result);
@@ -757,7 +756,7 @@ var BCLS = (function ($, window, AnyTime) {
     // listener for videos request
     $getVideosButton.on("click", getVideos);
     // set listener for form fields
-    $APIrequestInputs.on("change", buildRequest);
+    APIrequestInputs.on("change", buildRequest);
     // rebuild request when video selector changes
     $videoSelector.on("change", buildRequest);
     // in case search terms added after initial video retrieval
@@ -765,11 +764,6 @@ var BCLS = (function ($, window, AnyTime) {
         // re-initialize
         pageNumber = 0;
         totalPages = 0;
-    });
-    // allow for manual editiing of request URL
-    $APIrequest.on("change", function () {
-        console.log("change");
-        $APIrequest.attr("value", $APIrequest.html());
     });
     // send request
     $submitButton.on("click", getData);

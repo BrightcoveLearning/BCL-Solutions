@@ -52,6 +52,7 @@ var BCLS = (function ($, window, AnyTime) {
         result,
         obj = {},
         $this,
+        thisVal,
         dimensions = ["account", "player", "video", "country", "city", "region", "day", "destination_domain", "destination_path", "device_type", "device_os", "referrer_domain", "source_type", "search_terms"],
         separator = "",
         requestTrimmed = false,
@@ -304,13 +305,19 @@ var BCLS = (function ($, window, AnyTime) {
             dimension = $this.attr("id");
             if (dimension === "videoSelector") {
                 dimension = "video";
+
             }
             if (isDefined($this.val())) {
                 if (!where) {
                     requestURL += "where=";
                     where = true;
                 }
-                requestURL += dimension + "==" + removeSpaces($this.val()) + ";";
+                if (dimension === "video") {
+                    thisVal = $this.val().join(",");
+                } else {
+                    thisVal = $this.val();
+                }
+                requestURL += dimension + "==" + removeSpaces(thisVal) + ";";
             }
         });
         // end the where filters

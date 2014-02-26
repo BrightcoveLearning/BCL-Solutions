@@ -121,7 +121,7 @@
                                 <td>Dimensions:
                                 <br />(multiple dimensions allowed for reports)</td>
                                 <td>
-                                    <select id="dimension" class="required aapi-request" multiple="true" size="7">
+                                    <select id="dimension" class="required aapi-request" multiple="true" size="14">
                                         <option value="account">account</option>
                                         <option value="player">player</option>
                                         <option value="video" selected="selected">video</option>
@@ -163,6 +163,11 @@
                                 <td>
                                     <table class="where-terms">
                                         <tbody>
+                                            <tr>
+                                                <td colspan="2">
+                                                    Note: Commas are treated as logical ORs, and semicolons as logical ANDs. For example, <code>where=video==1234,5678;player=9876</code> is interpreted as "where video = 1234 <strong>OR</strong> 5678 <strong>AND</strong> player = 9876
+                                                </td>
+                                            </tr>
                                             <tr>
                                                 <td>Player ID =</td>
                                                 <td>
@@ -224,7 +229,7 @@
                                                             <tr>
                                                                 <td>Select a video:</td>
                                                                 <td>
-                                                                    <select id="videoSelector" class="where-input aapi-request"></select>
+                                                                    <select id="videoSelector" class="where-input aapi-request" multiple="multiple" size="10"></select>
                                                                 </td>
                                                             </tr>
                                                         </tbody>

@@ -85,7 +85,7 @@
                     <div id="titleBar" class="navbar-inverse navbar-fixed-top">
                         <div class="navbar-inner">
                             <div id="otherSites">
-                                
+
                             </div>
                             <a class="brand" href="//docs.brightcove.com/en/index.html">BRIGHTCOVE DEVELOPER DOCUMENTATION</a>
                         </div>
@@ -133,7 +133,8 @@
         </p>
         <p>Media API READ token:
             <input id="token" type="text" size="60" value="v87kWelIdjUwVm7_Rzv09k-KqtLz-ty8ONbMxVYAI7-Q0eOilegqqg.."></p>
-        <p><span id="runButton" class="run-button">Run the Report</span></p>
+        <p><span id="runButton" class="run-button">Run report</span></p>
+        <p>Total calls made: <span id="totalCalls"></span></p>
         <hr/>
         <h2>Data Overview</h2>
         <div class="initialData">
@@ -171,10 +172,12 @@
                     $runButton = $("#runButton"),
                     $selectData = $("#selectData"),
                     $serviceURL = $("#serviceURL"),
+                    $totalCalls = $("#totalCalls"),
                     totalVideos = 0,
                     filterArray = ["INACTIVE", "PLAYABLE"],
                     currentFilterIndex = 0,
                     currentFilter = "",
+                    primaryCallMade = false,
                     method = "find_modified_videos",
                     primaryParams = {
                         callback: "BCLS.primaryCallResponse",
@@ -217,16 +220,28 @@
                         makePrimaryCall(currentFilter);
                     };
                 $runButton.on("click", runReport);
+                $token.on("change", function () {
+                    primaryCallMade = false;
+                    $runButton.text("Run report");
+                    document.getElementById("response").innerHTML = "";
+                });
                 $selectData.on("click", function() {
                     document.getElementById("response").select();
                 });
+                $totalCalls.text(0);
                 return {
                     primaryCallResponse: function(jsonData) {
-                        document.getElementById(currentFilter).innerHTML = jsonData.total_count;
-                        totalVideos += jsonData.total_count;
-                        totalCalls = Math.ceil(jsonData.total_count / secondaryParams.page_size);
-                        callNumber = 0;
+                        if (primaryCallMade === false) {
+                            document.getElementById(currentFilter).innerHTML = jsonData.total_count;
+                            totalVideos += jsonData.total_count;
+                            if (currentFilterIndex === 0) {
+
+                            }
+                            totalCalls = Math.ceil(jsonData.total_count / secondaryParams.page_size);
+                            callNumber = 0;
+                            primaryCallMade = true;
                         makeSecondaryCall(currentFilter);
+                        }
                     },
                     secondaryCallResponse: function(jsonData) {
                         var template = Handlebars.compile(dataRowTemplate),
@@ -236,6 +251,7 @@
                             item,
                             rendition,
                             lengthObj = {};
+                            $totalCalls.text(callNumber + 1);
                         for (var i = 0, max = jsonData.items.length; i < max; i++) {
                             item = jsonData.items[i];
                             item.id = item.id.toString();
@@ -260,11 +276,15 @@
                         responseBody += results;
                         callNumber++;
                         if (callNumber <= totalCalls) {
-                            makeSecondaryCall(currentFilter);
+                            $totalCalls.text(callNumber);
+                            callNumber++;
+                            $runButton.text("Get the next block of videos");
                         } else if (currentFilterIndex == filterArray.length - 1) {
+                            $runButton.text("All videos retrieved!")
                             $totalVideos.html(totalVideos);
                             document.getElementById("response").innerHTML = responseStart + responseBody;
                         } else {
+                            primaryCallMade = false;
                             currentFilterIndex++;
                             currentFilter = filterArray[currentFilterIndex];
                             makePrimaryCall(currentFilter);

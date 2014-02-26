@@ -16,6 +16,7 @@
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/bcls/bootstrap/img/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="/bcls/bootstrap/img/apple-touch-icon-57-precomposed.png">
         <link rel="shortcut icon" href="/bcls/bootstrap/img/favicon.ico">
+        <link href="//files.brightcove.com/proxima-nova/font-faces.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/github.css">
         <link href="//docs.brightcove.com/en/scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
         <script src="//use.edgefonts.net/source-code-pro.js"></script>
@@ -23,13 +24,12 @@
         <style>
             /* element styles */
             body {
-                font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
                 width: 80%;
                 padding-left: 40px;
                 padding-top: 100px;
             }
             fieldset {
-                width: 800px;
+                width: 80%;
                 display: block;
                 margin-bottom: 20px;
                 border-radius: 5px;
@@ -84,9 +84,7 @@
                     <!-- header navbar -->
                     <div id="titleBar" class="navbar-inverse navbar-fixed-top">
                         <div class="navbar-inner">
-                            <div id="otherSites">
-
-                            </div>
+                            <div id="otherSites"></div>
                             <a class="brand" href="//docs.brightcove.com/en/index.html">BRIGHTCOVE DEVELOPER DOCUMENTATION</a>
                         </div>
                     </div>
@@ -110,20 +108,17 @@
         </div>
         <!-- main content starts here -->
         <h1>Video Data to CSV Tool</h1>
-        <p>This tool allows you to get data for all your active and inactive videos, including the total size of the rendition in megabytes, in CSV format.</p>
+        <p>This tool allows you to get data for all your active and inactive videos, including the total size of the renditions in megabytes, in CSV format.</p>
         <h2>Instructions</h2>
         <ol>
-            <li>Replace the Media API READ token in the field below with a token from your own account
-                <br />(find it in your Account Settings)</li>
-            <li>Click the
-                <strong>Run the Report</strong> button below and wait for the results
-                <br />(<strong><em>be patient!</em></strong> &mdash; if there are a lot of videos in the account, this may take a few minutes)</li>
-            <li>Open any text editor (Notepad on Windows or TextEdit on Mac will do)</li>
-            <li>Create a new empty file</li>
-            <li>Select the data in the detailed data block below</li>
-            <li>Copy the data to the clipboard and paste it into your empty text document</li>
+            <li>Replace the Media API READ token in the field below with a token from your own account (find it in your Account Settings &gt; API Management).</li>
+            <li>Click the <strong>Run report</strong> button (re-click until you see the <strong><em>"All videos retrieved"</em></strong> message!).</li>
+            <li>Open any text editor (Notepad on Windows or TextEdit on Mac will do).</li>
+            <li>Create a new empty file.</li>
+            <li>Select the data in the detailed data block below.</li>
+            <li>Copy the data to the clipboard and paste it into your empty text document.</li>
             <li>Save the file as a CSV file, with a name like VideoData.csv</li>
-            <li>Open the csv file in Excel</li>
+            <li>Open the csv file in Excel, Numbers, or any app that can open .csv data files.</li>
         </ol>
         <p>Service URL:
             <select id="serviceURL">
@@ -134,7 +129,7 @@
         <p>Media API READ token:
             <input id="token" type="text" size="60" value="v87kWelIdjUwVm7_Rzv09k-KqtLz-ty8ONbMxVYAI7-Q0eOilegqqg.."></p>
         <p><span id="runButton" class="run-button">Run report</span></p>
-        <p>Total calls made: <span id="totalCalls"></span></p>
+        <p>Calls left to make <span id="currentType"></span>:  <span id="remainingCalls"></span></p>
         <hr/>
         <h2>Data Overview</h2>
         <div class="initialData">
@@ -164,6 +159,7 @@
         <script type="text/javascript" src="//docs.brightcove.com/en/scripts/bc-mapi.js"></script>
         <script type="text/javascript" src="//docs.brightcove.com/en/scripts/secondsToTime.js"></script>
         <script>
+            "use strict";
             var BCLS = (function() {
                 var $totalVideos = $("#totalVideos"),
                     $request = $("#request"),
@@ -173,11 +169,15 @@
                     $selectData = $("#selectData"),
                     $serviceURL = $("#serviceURL"),
                     $totalCalls = $("#totalCalls"),
+                    $remainingCalls = $("#remainingCalls"),
+                    $currentType = $("#currentType"),
                     totalVideos = 0,
                     filterArray = ["INACTIVE", "PLAYABLE"],
                     currentFilterIndex = 0,
                     currentFilter = "",
                     primaryCallMade = false,
+                    remainingCalls = 0,
+                    str = "",
                     method = "find_modified_videos",
                     primaryParams = {
                         callback: "BCLS.primaryCallResponse",
@@ -234,13 +234,16 @@
                         if (primaryCallMade === false) {
                             document.getElementById(currentFilter).innerHTML = jsonData.total_count;
                             totalVideos += jsonData.total_count;
-                            if (currentFilterIndex === 0) {
-
-                            }
                             totalCalls = Math.ceil(jsonData.total_count / secondaryParams.page_size);
+                            remainingCalls = totalCalls;
+                            str = "for " + currentFilter + " videos";
+                            $currentType.text(str);
+                            $remainingCalls.text(remainingCalls);
                             callNumber = 0;
                             primaryCallMade = true;
-                        makeSecondaryCall(currentFilter);
+                            makeSecondaryCall(currentFilter);
+                        } else {
+                            makeSecondaryCall(currentFilter);
                         }
                     },
                     secondaryCallResponse: function(jsonData) {
@@ -275,12 +278,13 @@
                         results = template(data);
                         responseBody += results;
                         callNumber++;
+                        remainingCalls--;
                         if (callNumber <= totalCalls) {
-                            $totalCalls.text(callNumber);
-                            callNumber++;
-                            $runButton.text("Get the next block of videos");
+                            $remainingCalls.text(remainingCalls + 1);
+                            $runButton.text("Make call number " + (callNumber + 1));
                         } else if (currentFilterIndex == filterArray.length - 1) {
-                            $runButton.text("All videos retrieved!")
+                            $remainingCalls.text(0);
+                            $runButton.text("All videos retrieved - Get your data below!")
                             $totalVideos.html(totalVideos);
                             document.getElementById("response").innerHTML = responseStart + responseBody;
                         } else {

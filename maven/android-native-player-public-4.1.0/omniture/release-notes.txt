@@ -1,0 +1,33 @@
+Brightcove Video Cloud SDK for Android - Omniture Plugin:
+
+  Version 4.1.0:
+
+    Changes:
+
+      * Use com.brightcove.player as the Maven group identifier when publishing the plugin.
+
+  Version 4.0.5:
+
+    Changes:
+
+      * Compiled with target API level 18.
+
+  Version 2.2.12:
+
+    Changes:
+
+      * Updated to Omniture 3.2.2.
+
+  Version 2.2.7:
+
+    Changes:
+
+      * Updated to Omniture 3.1.0.
+
+  Version 2.2.6:
+
+    Changes:
+
+      * Changed OmnitureComponent's openVideo(), play(),
+        stopPlayback(), and closeCurrentVideo() protected to make
+        extending easier.

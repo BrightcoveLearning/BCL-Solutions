@@ -1,0 +1,69 @@
+Brightcove Video Cloud SDK for Android - FreeWheel Plugin
+
+  Version 4.0.22:
+
+    Changes:
+
+      * Added support for new flag,
+        AdCuePointComponent.CLEAR_PLAYED_SLOTS, which when added to a
+        COMPLETED event controls if the played slots are cleared.
+
+    Changes:
+
+      * Use com.brightcove.player as the Maven group identifier when publishing the plugin.
+
+  Version 4.0.21:
+
+    Changes:
+
+      * Fixed issue where seeking to the end of a video with a midroll
+        ad was causing the video to be replayed afterwards.
+
+  Version 4.0.5:
+
+    Changes:
+
+      * Compiled with target API level 18.
+
+  Version 4.0.1:
+
+    Changes:
+
+      * Added FreeWheelController constructors that take a FrameLayout
+        instead of a SurfaceView.  Deprecated the SurfaceView
+        constructors.
+      * Added FreeWheelController.setupContext(), which can be used to
+        enable ad playback when replaying a video.
+
+  Version 2.2.17:
+
+    Changes:
+
+      * Fixed issue with the video starting while prerolls are playing
+        and with playlists advancing while postrolls are playing.
+
+  Version 2.2.7:
+
+    Changes:
+
+      * Upgraded FreeWheel AdManager library to 5.7.2.
+
+  Version 2.2.6:
+
+    Changes:
+
+      * Modified AdCuePointComponent to emit PAUSE before playing an ad.
+      * FreeWheelController to defer updating the AdContext until
+        the ad request returns successfully and to reuse the previous
+        AdContext if available when an ad request fails.
+      * Upgraded FreeWheel AdManager library to 5.5.3.  As a result, removed
+        AdManagerLoader library and it's use.
+      * Added adRequestingEnabled flag to FreeWheelController.
+
+  Version 1.0.0:
+
+    Open Issues:
+
+      * Midrolls with HLS videos are not supported due to an Android
+        bug.  The underlying Android MediaPlayer for the main video
+        throws an error when resumed after the midroll.

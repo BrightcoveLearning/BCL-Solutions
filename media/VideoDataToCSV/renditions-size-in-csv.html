@@ -127,14 +127,17 @@
             </select>
         </p>
         <p>Media API READ token:
-            <input id="token" type="text" size="60" value="v87kWelIdjUwVm7_Rzv09k-KqtLz-ty8ONbMxVYAI7-Q0eOilegqqg.."></p>
+            <input id="token" type="text" size="60" value="ZY4Ls9Hq6LCBgleGDTaFRDLWWBC8uoXQun0xEEXtlDUHBDPZBCOzbw.."></p>
         <p><span id="runButton" class="run-button">Run report</span></p>
-        <p>Calls left to make <span id="currentType"></span>:  <span id="remainingCalls"></span></p>
+        <p>Calls left to make <span id="currentType"></span>:  <span id="remainingCalls" style="color:red;font-weight:bold"></span></p>
         <hr/>
         <h2>Data Overview</h2>
         <div class="initialData">
             <p>Total inactive videos in your library:
                 <span id="INACTIVE"></span>
+            </p>
+            <p>Total unscheduled videos in your library:
+                <span id="UNSCHEDULED"></span>
             </p>
             <p>Total playable videos in your library:
                 <span id="PLAYABLE"></span>
@@ -172,7 +175,7 @@
                     $remainingCalls = $("#remainingCalls"),
                     $currentType = $("#currentType"),
                     totalVideos = 0,
-                    filterArray = ["INACTIVE", "PLAYABLE"],
+                    filterArray = ["INACTIVE", "UNSCHEDULED", "PLAYABLE"],
                     currentFilterIndex = 0,
                     currentFilter = "",
                     primaryCallMade = false,
@@ -204,6 +207,12 @@
                     dataRowTemplate = "{{#items}}\"{{id}}\",\"{{name}}\",\"{{length}}\",\"{{totalSize}}\",\"{{publishedDate}}\",\"{{status}}\"\r{{/items}}",
                     responseBody = "",
 
+                    // more robust test for "not defined"
+                    isDefined =  function (v) {
+                        if(v !== "" && v !== null && v !== "undefined") { return true; }
+                        else { return false; }
+                    },
+
                     makePrimaryCall = function(filter) {
                         BCMAPI.token = $token.val();
                         BCMAPI.url = $serviceURL.val();
@@ -213,6 +222,7 @@
                     makeSecondaryCall = function(filter) {
                         secondaryParams.filter = filter;
                         secondaryParams.page_number = callNumber;
+                        $runButton.html("processing...please wait");
                         BCMAPI.find(method, secondaryParams);
                     },
                     runReport = function() {
@@ -255,43 +265,47 @@
                             rendition,
                             lengthObj = {};
                             $totalCalls.text(callNumber + 1);
-                        for (var i = 0, max = jsonData.items.length; i < max; i++) {
-                            item = jsonData.items[i];
-                            item.id = item.id.toString();
-                            item.status = currentFilter.toLowerCase();
-                            lengthObj = BCLSsecondsToTime(item.length / 1000);
-                            item.length = lengthObj.h + ":" + lengthObj.m + ":" + lengthObj.s;
-                            item.publishedDate = new Date(parseInt(item.publishedDate));
-                            for (var j = 0, jmax = item.renditions.length; j < jmax; j++) {
-                                rendition = item.renditions[j];
-                                totalFileSize += rendition.size
+                        if (isDefined(jsonData.items)) {
+                            for (var i = 0, max = jsonData.items.length; i < max; i++) {
+                                item = jsonData.items[i];
+                                item.id = item.id.toString();
+                                item.status = currentFilter.toLowerCase();
+                                lengthObj = BCLSsecondsToTime(item.length / 1000);
+                                item.length = lengthObj.h + ":" + lengthObj.m + ":" + lengthObj.s;
+                                item.publishedDate = new Date(parseInt(item.publishedDate));
+                                for (var j = 0, jmax = item.renditions.length; j < jmax; j++) {
+                                    rendition = item.renditions[j];
+                                    totalFileSize += rendition.size
+                                }
+                                totalFileSize = totalFileSize / 1000000;
+                                totalFileSize = Math.round(totalFileSize);
+                                item.totalSize = totalFileSize;
+                            };
+                            if (console && callNumber === 0) {
+                                console.log(jsonData);
+                                console.log(totalFileSize);
                             }
-                            totalFileSize = totalFileSize / 1000000;
-                            totalFileSize = Math.round(totalFileSize);
-                            item.totalSize = totalFileSize;
-                        };
-                        if (console && callNumber === 0) {
-                            console.log(jsonData);
-                            console.log(totalFileSize);
-                        }
-                        data = jsonData;
-                        results = template(data);
-                        responseBody += results;
-                        callNumber++;
-                        remainingCalls--;
-                        if (callNumber <= totalCalls) {
-                            $remainingCalls.text(remainingCalls + 1);
-                            $runButton.text("Make call number " + (callNumber + 1));
-                        } else if (currentFilterIndex == filterArray.length - 1) {
-                            $remainingCalls.text(0);
-                            $runButton.text("All videos retrieved - Get your data below!")
-                            $totalVideos.html(totalVideos);
-                            document.getElementById("response").innerHTML = responseStart + responseBody;
+                            data = jsonData;
+                            results = template(data);
+                            responseBody += results;
+                            callNumber++;
+                            remainingCalls--;
+                            if (callNumber <= totalCalls) {
+                                $remainingCalls.text(remainingCalls + 1);
+                                $runButton.text("Make call number " + (callNumber + 1));
+                            } else if (currentFilterIndex == filterArray.length - 1) {
+                                $remainingCalls.text(0);
+                                $runButton.text("All videos retrieved - Get your data below!")
+                                $totalVideos.html(totalVideos);
+                                document.getElementById("response").innerHTML = responseStart + responseBody;
+                            } else {
+                                primaryCallMade = false;
+                                currentFilterIndex++;
+                                currentFilter = filterArray[currentFilterIndex];
+                                makePrimaryCall(currentFilter);
+                            }
                         } else {
-                            primaryCallMade = false;
-                            currentFilterIndex++;
-                            currentFilter = filterArray[currentFilterIndex];
-                            makePrimaryCall(currentFilter);
+                            makeSecondaryCall(currentFilter);
                         }
                     }
                 }

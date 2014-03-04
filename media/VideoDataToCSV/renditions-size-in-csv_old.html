@@ -136,9 +136,6 @@
             <p>Total inactive videos in your library:
                 <span id="INACTIVE"></span>
             </p>
-            <p>Total unscheduled videos in your library:
-                <span id="UNSCHEDULED"></span>
-            </p>
             <p>Total playable videos in your library:
                 <span id="PLAYABLE"></span>
             </p>
@@ -175,7 +172,7 @@
                     $remainingCalls = $("#remainingCalls"),
                     $currentType = $("#currentType"),
                     totalVideos = 0,
-                    filterArray = ["INACTIVE", "UNSCHEDULED", "PLAYABLE"],
+                    filterArray = ["INACTIVE", "PLAYABLE"],
                     currentFilterIndex = 0,
                     currentFilter = "",
                     primaryCallMade = false,
@@ -216,7 +213,6 @@
                     makeSecondaryCall = function(filter) {
                         secondaryParams.filter = filter;
                         secondaryParams.page_number = callNumber;
-                        $runButton.html("processing...please wait");
                         BCMAPI.find(method, secondaryParams);
                     },
                     runReport = function() {

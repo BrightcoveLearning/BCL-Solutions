@@ -459,276 +459,276 @@ var BCLS = (function ($, window, AnyTime) {
         // now check for combinations
         // day reports -- doesn't combine with any other dimension
         if (day) {
-            $fields.html(dayFields);
+            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + dayFields);
             $sort.html(dayFields);
         } else if (account) { // account combinations
             if (player) {
                 if (video) {
-                    $fields.html(accountPlayerVideoFields);
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountPlayerVideoFields);
                     $sort.html(accountPlayerVideoFields);
                 } else if (referrer_domain) {
                     if (source_type) {
                         if (search_terms) {
-                            $fields.html(accountPlayerReferrer_domainSource_typeSearch_termsFields);
+                            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountPlayerReferrer_domainSource_typeSearch_termsFields);
                             $sort.html(accountPlayerReferrer_domainSource_typeSearch_termsFields);
                         } else {
-                            $fields.html(accountPlayerReferrer_domainSource_typeFields);
+                            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountPlayerReferrer_domainSource_typeFields);
                             $sort.html(accountPlayerReferrer_domainSource_typeFields);
                         }
                     } else if (search_terms) {
-                        $fields.html(accountPlayerReferrer_domainSearch_termsFields);
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountPlayerReferrer_domainSearch_termsFields);
                         $sort.html(accountPlayerReferrer_domainSearch_termsFields);
                     } else {
-                        $fields.html(accountPlayerReferrer_domainFields);
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountPlayerReferrer_domainFields);
                         $sort.html(accountPlayerReferrer_domainFields);
                     }
                 } else if (source_type) {
                     if (search_terms) {
-                        $fields.html(accountPlayerSource_typeSearch_termsFields);
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountPlayerSource_typeSearch_termsFields);
                         $sort.html(accountPlayerSource_typeSearch_termsFields);
                     } else {
-                        $fields.html(accountPlayerSource_typeFields);
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountPlayerSource_typeFields);
                         $sort.html(accountPlayerSource_typeFields);
                     }
                 } else if (search_terms) {
-                    $fields.html(accountPlayerSearch_termsFields);
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountPlayerSearch_termsFields);
                     $sort.html(accountPlayerSearch_termsFields);
                 } else {
-                    $fields.html(accountPlayerFields);
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountPlayerFields);
                     $sort.html(accountPlayerFields);
                 }
             } else if (video) {
                 if (referrer_domain) {
                     if (source_type) {
                         if (search_terms) {
-                            $fields.html(accountVideoReferrer_domainSource_typeSearch_termsFields);
+                            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountVideoReferrer_domainSource_typeSearch_termsFields);
                             $sort.html(accountVideoReferrer_domainSource_typeSearch_termsFields);
                         } else {
-                            $fields.html(accountVideoReferrer_domainSource_typeFields);
+                            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountVideoReferrer_domainSource_typeFields);
                             $sort.html(accountVideoReferrer_domainSource_typeFields);
                         }
                     } else if (search_terms) {
-                        $fields.html(accountVideoReferrer_domainSearch_termsFields);
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountVideoReferrer_domainSearch_termsFields);
                         $sort.html(accountVideoReferrer_domainSearch_termsFields);
                     } else {
-                        $fields.html(accountVideoReferrer_domainFields);
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountVideoReferrer_domainFields);
                         $sort.html(accountVideoReferrer_domainFields);
                     }
                 } else if (source_type) {
                     if (search_terms) {
-                        $fields.html(accountVideoSource_typeSearch_termsFields);
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountVideoSource_typeSearch_termsFields);
                         $sort.html(accountVideoSource_typeSearch_termsFields);
                     } else {
-                        $fields.html(accountVideoSource_typeFields);
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountVideoSource_typeFields);
                         $sort.html(accountVideoSource_typeFields);
                     }
                 } else if (search_terms) {
-                    $fields.html(accountVideoSearch_termsFields);
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountVideoSearch_termsFields);
                     $sort.html(accountVideoSearch_termsFields);
                 } else {
-                    $fields.html(accountVideoFields);
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountVideoFields);
                     $sort.html(accountVideoFields);
                 }
             } else if (referrer_domain) {
                 if (source_type) {
                     if (search_terms) {
-                        $fields.html(accountReferrer_domainSource_typeSearch_termsFields);
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountReferrer_domainSource_typeSearch_termsFields);
                         $sort.html(accountReferrer_domainSource_typeSearch_termsFields);
                     } else {
-                        $fields.html(accountReferrer_domainSource_typeFields);
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountReferrer_domainSource_typeFields);
                         $sort.html(accountReferrer_domainSource_typeFields);
                     }
                 } else if (search_terms) {
-                    $fields.html(accountReferrer_domainSearch_termsFields);
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountReferrer_domainSearch_termsFields);
                     $sort.html(accountReferrer_domainSearch_termsFields);
                 } else {
-                    $fields.html(accountReferrer_domainFields);
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountReferrer_domainFields);
                     $sort.html(accountReferrer_domainFields);
                 }
             } else if (source_type) {
                 if (search_terms) {
-                    $fields.html(accountSource_typeSearch_termsFields);
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountSource_typeSearch_termsFields);
                     $sort.html(accountSource_typeSearch_termsFields);
                 } else {
-                    $fields.html(accountSource_typeFields);
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountSource_typeFields);
                     $sort.html(accountSource_typeFields);
                 }
             } else if (search_terms) {
-                $fields.html(accountSearch_termsFields);
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountSearch_termsFields);
                 $sort.html(accountSearch_termsFields);
             } else if (device_type) {
                 if (device_os) {
-                    $fields.html(accountDevice_typeDevice_osFields);
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountDevice_typeDevice_osFields);
                     $sort.html(accountDevice_typeDevice_osFields);
                 } else {
-                    $fields.html(accountDevice_typeFields);
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountDevice_typeFields);
                     $sort.html(accountDevice_typeFields);
                 }
             } else if (device_os) {
-                $fields.html(accountDevice_osFields);
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountDevice_osFields);
                 $sort.html(accountDevice_osFields);
             } else {
-                $fields.html(accountFields);
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + accountFields);
                 $sort.html(accountFields);
             }
         } else if (player) { // player combinations
             if (video) {
-                $fields.html(playerVideoFields);
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + playerVideoFields);
                 $sort.html(playerVideoFields);
             } else if (referrer_domain) {
                 if (source_type) {
                     if (search_terms) {
-                        $fields.html(playerReferrer_domainSource_typeSearch_termsFields);
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + playerReferrer_domainSource_typeSearch_termsFields);
                         $sort.html(playerReferrer_domainSource_typeSearch_termsFields);
                     } else {
-                        $fields.html(playerReferrer_domainSource_typeFields);
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + playerReferrer_domainSource_typeFields);
                         $sort.html(playerReferrer_domainSource_typeFields);
                     }
                 } else if (search_terms) {
-                    $fields.html(playerReferrer_domainSearch_termsFields);
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + playerReferrer_domainSearch_termsFields);
                     $sort.html(playerReferrer_domainSearch_termsFields);
                 }
             } else if (source_type) {
                 if (search_terms) {
-                    $fields.html(playerSource_typeSearch_termsFields);
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + playerSource_typeSearch_termsFields);
                     $sort.html(playerSource_typeSearch_termsFields);
                 } else {
-                    $fields.html(playerSource_typeFields);
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + playerSource_typeFields);
                     $sort.html(playerSource_typeFields);
                 }
             } else if (search_terms) {
-                $fields.html(playerSearch_termsFields);
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + playerSearch_termsFields);
                 $sort.html(playerSearch_termsFields);
             } else if (device_type) {
                 if (device_os) {
-                    $fields.html(playerDevice_typeDevice_osFields);
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + playerDevice_typeDevice_osFields);
                     $sort.html(playerDevice_typeDevice_osFields);
                 } else {
-                    $fields.html(playerDevice_typeFields);
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + playerDevice_typeFields);
                     $sort.html(playerDevice_typeFields);
                 }
             } else if (device_os) {
-                $fields.html(playerDevice_osFields);
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + playerDevice_osFields);
                 $sort.html(playerDevice_osFields);
             } else {
-                $fields.html(playerFields);
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + playerFields);
                 $sort.html(playerFields);
             }
         } else if (video) {
             if (referrer_domain) {
                 if (source_type) {
                     if (search_terms) {
-                        $fields.html(videoReferrer_domainSource_typeSearch_termsFields);
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + videoReferrer_domainSource_typeSearch_termsFields);
                         $sort.html(videoReferrer_domainSource_typeSearch_termsFields);
                     } else {
-                        $fields.html(videoReferrer_domainSource_typeFields);
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + videoReferrer_domainSource_typeFields);
                         $sort.html(videoReferrer_domainSource_typeFields);
                     }
                 } else if (search_terms) {
-                    $fields.html(videoReferrer_domainSearch_termsFields);
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + videoReferrer_domainSearch_termsFields);
                     $sort.html(videoReferrer_domainSearch_termsFields);
                 }
             } else if (source_type) {
                 if (search_terms) {
-                    $fields.html(videoSource_typeSearch_termsFields);
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + videoSource_typeSearch_termsFields);
                     $sort.html(videoSource_typeSearch_termsFields);
                 } else {
-                    $fields.html(videoSource_typeFields);
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + videoSource_typeFields);
                     $sort.html(videoSource_typeFields);
                 }
             } else if (search_terms) {
-                $fields.html(videoSearch_termsFields);
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + videoSearch_termsFields);
                 $sort.html(videoSearch_termsFields);
             } else if (device_type) {
                 if (device_os) {
-                    $fields.html(videoDevice_typeDevice_osFields);
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + videoDevice_typeDevice_osFields);
                     $sort.html(videoDevice_typeDevice_osFields);
                 } else {
-                    $fields.html(videoDevice_typeFields);
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + videoDevice_typeFields);
                     $sort.html(videoDevice_typeFields);
                 }
             } else if (device_os) {
-                $fields.html(videoDevice_osFields);
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + videoDevice_osFields);
                 $sort.html(videoDevice_osFields);
             } else {
-                $fields.html(videoFields);
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + videoFields);
                 $sort.html(videoFields);
             }
         } else if (country) { // country combinations
             if (city) {
                 if (region) {
-                    $fields.html(countryCityRegionFields);
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + countryCityRegionFields);
                     $sort.html(countryCityRegionFields);
                 } else {
-                    $fields.html(countryCityFields);
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + countryCityFields);
                     $sort.html(countryCityFields);
                 }
             } else if (region) {
-                $fields.html(countryRegionFields);
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + countryRegionFields);
                 $sort.html(countryRegionFields);
             } else {
-                $fields.html(countryFields);
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + countryFields);
                 $sort.html(countryFields);
             }
         } else if (city) { // city combinations
             if (region) {
-                $fields.html(cityRegionFields);
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + cityRegionFields);
                 $sort.html(cityRegionFields);
             } else {
-                $fields.html(cityFields);
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + cityFields);
                 $sort.html(cityFields);
             }
         } else if (region) {
-            $fields.html(regionFields);
+            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + regionFields);
             $sort.html(regionFields);
         } else if (referrer_domain) { // referrer_domain combinations
             if (source_type) {
                 if (search_terms) {
-                    $fields.html(referrer_domainSource_typeSearch_termsFields);
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + referrer_domainSource_typeSearch_termsFields);
                     $sort.html(referrer_domainSource_typeSearch_termsFields);
                 } else {
-                    $fields.html(referrer_domainSource_typeFields);
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + referrer_domainSource_typeFields);
                     $sort.html(referrer_domainSource_typeFields);
                 }
             } else if (search_terms) {
-                $fields.html(referrer_domainSearch_termsFields);
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + referrer_domainSearch_termsFields);
                 $sort.html(referrer_domainSearch_termsFields);
             } else {
-                $fields.html(referrer_domainFields);
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + referrer_domainFields);
                 $sort.html(referrer_domainFields);
             }
         } else if (source_type) { // source_type combinations
             if (search_terms) {
-                $fields.html(source_typeSearch_termsFields);
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + source_typeSearch_termsFields);
                 $sort.html(source_typeSearch_termsFields);
             } else {
                 $fields(source_typeFields);
                 $sort.html(source_typeFields);
             }
         } else if (search_terms) { // search_terms combinations
-            $fields.html(search_termsFields);
+            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + search_termsFields);
             $sort.html(search_termsFields);
         } else if (device_type) { // device_type combinations
             if (device_os) {
-                $fields.html(device_typeDevice_osFields);
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + device_typeDevice_osFields);
                 $sort.html(device_typeDevice_osFields);
             } else {
-                $fields.html(device_typeFields);
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + device_typeFields);
                 $sort.html(device_typeFields);
             }
         } else if (device_os) { // device_os combinations
-            $fields.html(device_osFields);
+            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + device_osFields);
             $sort.html(device_osFields);
         // } else if (destination_domain) { // destination_domain combinations
         //     if (destination_path) {
-        //         $fields.html(destinationDomainDesinationPathFields);
+        //         $fields.html("<option value=\"all\" selected=\"true\">all</option>" + destinationDomainDesinationPathFields);
         //         $sort.html(destinationDomainDesinationPathFields);
         //     } else {
-        //         $fields.html(destinationDomainFields);
+        //         $fields.html("<option value=\"all\" selected=\"true\">all</option>" + destinationDomainFields);
         //         $sort.html(destinationDomainFields);
         //     }
         // } else if (destination_path) { // destination path combinations
-        //     $fields.html(destinationPathFields);
+        //     $fields.html("<option value=\"all\" selected=\"true\">all</option>" + destinationPathFields);
         //     $sort.html(destinationPathFields);
         } else {
             onDimesionError(vals);

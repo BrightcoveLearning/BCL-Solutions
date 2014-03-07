@@ -199,12 +199,12 @@
                         page_number: 0,
                         sort_by: "CREATION_DATE",
                         get_item_count: true,
-                        video_fields: "id,name,length,publishedDate,renditions"
+                        video_fields: "id,name,length,publishedDate,tags,renditions"
                     },
                     totalCalls = 0,
                     callNumber = 0,
-                    responseStart = "\"Video ID\",\"Title\",\"Running Time\",\"Total File Size (MB)\",\"Date Published\",\"Status\"\r",
-                    dataRowTemplate = "{{#items}}\"{{id}}\",\"{{name}}\",\"{{length}}\",\"{{totalSize}}\",\"{{publishedDate}}\",\"{{status}}\"\r{{/items}}",
+                    responseStart = "\"Video ID\",\"Title\",\"Tags\"\"Running Time\",\"Total File Size (MB)\",\"Date Published\",\"Status\"\r",
+                    dataRowTemplate = "{{#items}}\"{{id}}\",\"{{name}}\",\"{{tags}}\"\"{{length}}\",\"{{totalSize}}\",\"{{publishedDate}}\",\"{{status}}\"\r{{/items}}",
                     responseBody = "",
 
                     // more robust test for "not defined"
@@ -270,6 +270,7 @@
                                 item = jsonData.items[i];
                                 item.id = item.id.toString();
                                 item.status = currentFilter.toLowerCase();
+                                item.tags = item.tags.join(",")
                                 lengthObj = BCLSsecondsToTime(item.length / 1000);
                                 item.length = lengthObj.h + ":" + lengthObj.m + ":" + lengthObj.s;
                                 item.publishedDate = new Date(parseInt(item.publishedDate));
@@ -305,7 +306,8 @@
                                 makePrimaryCall(currentFilter);
                             }
                         } else {
-                            makeSecondaryCall(currentFilter);
+                            var t = window.setTimeout(function () {makeSecondaryCall(currentFilter);},30000 )
+
                         }
                     }
                 }

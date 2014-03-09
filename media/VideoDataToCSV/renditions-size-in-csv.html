@@ -126,14 +126,14 @@
                 <option value="http://api.brightcove.co.jp/services/library">http://api.brightcove.co.jp/services/library (Japan)</option>
             </select>
         </p>
-        <p>Media API READ token:
-            <input id="token" type="text" size="60" value="ZY4Ls9Hq6LCBgleGDTaFRDLWWBC8uoXQun0xEEXtlDUHBDPZBCOzbw.."></p>
+        <p>Media API READ token: <input id="token" type="text" size="60" value="ZY4Ls9Hq6LCBgleGDTaFRDLWWBC8uoXQun0xEEXtlDUHBDPZBCOzbw.."></p>
+        <p>EXCLUDE videos with the following tags (tag1,tag2,tag3...) <input id="noneTags" type="text" size="60"></p>
         <p><span id="runButton" class="run-button">Run report</span></p>
         <p>Calls left to make <span id="currentType"></span>:  <span id="remainingCalls" style="color:red;font-weight:bold"></span></p>
         <hr/>
         <h2>Data Overview</h2>
         <div class="initialData">
-            <p>Total inactive videos in your library:
+            <!-- <p>Total inactive videos in your library:
                 <span id="INACTIVE"></span>
             </p>
             <p>Total unscheduled videos in your library:
@@ -141,7 +141,7 @@
             </p>
             <p>Total playable videos in your library:
                 <span id="PLAYABLE"></span>
-            </p>
+            </p> -->
             <p>Total videos in your library:
                 <span id="totalVideos"></span>
             </p>
@@ -168,6 +168,7 @@
                     $request = $("#request"),
                     $response = $("#response"),
                     $token = $("#token"),
+                    $noneTags = $("#noneTags"),
                     $runButton = $("#runButton"),
                     $selectData = $("#selectData"),
                     $serviceURL = $("#serviceURL"),
@@ -175,7 +176,7 @@
                     $remainingCalls = $("#remainingCalls"),
                     $currentType = $("#currentType"),
                     totalVideos = 0,
-                    filterArray = ["INACTIVE", "UNSCHEDULED", "PLAYABLE"],
+                    filterArray = ["totalVideos"],
                     currentFilterIndex = 0,
                     currentFilter = "",
                     primaryCallMade = false,
@@ -184,8 +185,7 @@
                     method = "find_modified_videos",
                     primaryParams = {
                         callback: "BCLS.primaryCallResponse",
-                        from_date: "0",
-                        filter: "",
+                        // filter: "",
                         page_size: 1,
                         sort_by: "PUBLISH_DATE",
                         get_item_count: true,
@@ -193,18 +193,17 @@
                     },
                     secondaryParams = {
                         callback: "BCLS.secondaryCallResponse",
-                        from_date: "0",
-                        filter: "",
+                        // filter: "",
                         page_size: 100,
                         page_number: 0,
                         sort_by: "CREATION_DATE",
-                        get_item_count: true,
+                        get_item_count: false,
                         video_fields: "id,name,length,publishedDate,tags,renditions"
                     },
                     totalCalls = 0,
                     callNumber = 0,
-                    responseStart = "\"Video ID\",\"Title\",\"Tags\"\"Running Time\",\"Total File Size (MB)\",\"Date Published\",\"Status\"\r",
-                    dataRowTemplate = "{{#items}}\"{{id}}\",\"{{name}}\",\"{{tags}}\"\"{{length}}\",\"{{totalSize}}\",\"{{publishedDate}}\",\"{{status}}\"\r{{/items}}",
+                    responseStart = "\"Video ID\",\"Title\",\"Tags\",\"Running Time\",\"Total File Size (MB)\",\"Date Published\",\"Status\"\r",
+                    dataRowTemplate = "{{#items}}\"{{id}}\",\"{{name}}\",\"{{tags}}\",\"{{length}}\",\"{{totalSize}}\",\"{{publishedDate}}\",\"{{status}}\"\r{{/items}}",
                     responseBody = "",
 
                     // more robust test for "not defined"
@@ -212,20 +211,44 @@
                         if(v !== "" && v !== null && v !== "undefined") { return true; }
                         else { return false; }
                     },
-
+                    // remove spaces from string
+                    removeSpaces = function (str) {
+                        if (isDefined(str)) {
+                            str = str.replace(/\s+/g, "");
+                            return str;
+                        }
+                    },
+                    // media api calls, per filter
                     makePrimaryCall = function(filter) {
                         BCMAPI.token = $token.val();
                         BCMAPI.url = $serviceURL.val();
-                        primaryParams.filter = filter;
-                        BCMAPI.find(method, primaryParams);
+                        // primaryParams.filter = filter;
+                        BCMAPI.search_unfiltered(primaryParams);
+                        console.log(BCMAPI.request);
                     },
                     makeSecondaryCall = function(filter) {
-                        secondaryParams.filter = filter;
+                        // secondaryParams.filter = filter;
                         secondaryParams.page_number = callNumber;
                         $runButton.html("processing...please wait");
-                        BCMAPI.find(method, secondaryParams);
+                        BCMAPI.search_unfiltered(secondaryParams);
+                        console.log(BCMAPI.request);
                     },
                     runReport = function() {
+                        var tagsArray = [],
+                            tagsStr,
+                            i;
+
+                        if (isDefined($noneTags.val())) {
+                            tagsStr = $noneTags.val();
+                            tagsStr = (removeSpaces(tagsStr));
+                            tagsArray = tagsStr.split(",");
+                            for (i = 0; i < tagsArray.length; i++) {
+                                tagsArray[i] = "tag:" + tagsArray[i]
+                            }
+                            primaryParams.none = tagsArray;
+                            secondaryParams.none = tagsArray;
+                            console.log(secondaryParams.none);
+                        }
                         currentFilter = filterArray[currentFilterIndex];
                         makePrimaryCall(currentFilter);
                     };
@@ -264,7 +287,6 @@
                             item,
                             rendition,
                             lengthObj = {};
-                            $totalCalls.text(callNumber + 1);
                         if (isDefined(jsonData.items)) {
                             for (var i = 0, max = jsonData.items.length; i < max; i++) {
                                 item = jsonData.items[i];
@@ -286,6 +308,7 @@
                                 console.log(jsonData);
                                 console.log(totalFileSize);
                             }
+                            $totalCalls.text(callNumber + 1);
                             data = jsonData;
                             results = template(data);
                             responseBody += results;

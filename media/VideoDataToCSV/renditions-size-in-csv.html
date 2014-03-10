@@ -111,6 +111,7 @@
         <p>This tool allows you to get data for all your active and inactive videos, including the total size of the renditions in megabytes, in CSV format.</p>
         <h2>Instructions</h2>
         <ol>
+            <li class="text-warning">Note that this app has been rewritten to use the <code>search_videos_unfiltered</code> method. Unfiltered methods must be enabled for specific tokens by Brightcove Support - contact Support if you would like to have these methods enabled for one or more of your read tokens.</li>
             <li>Replace the Media API READ token in the field below with a token from your own account (find it in your Account Settings &gt; API Management).</li>
             <li>Click the <strong>Run report</strong> button (re-click until you see the <strong><em>"All videos retrieved"</em></strong> message!).</li>
             <li>Open any text editor (Notepad on Windows or TextEdit on Mac will do).</li>
@@ -241,7 +242,7 @@
                         if (isDefined($noneTags.val())) {
                             tagsStr = $noneTags.val();
                             tagsStr = (removeSpaces(tagsStr));
-                            tagsArray = tagsStr.split(",");
+                            // tagsArray = tagsStr.split(",");
                             for (i = 0; i < tagsArray.length; i++) {
                                 tagsArray[i] = "tag:" + tagsArray[i]
                             }

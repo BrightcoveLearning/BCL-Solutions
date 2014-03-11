@@ -206,6 +206,14 @@
                     responseStart = "\"Video ID\",\"Title\",\"Tags\",\"Running Time\",\"Total File Size (MB)\",\"Date Published\",\"Status\"\r",
                     dataRowTemplate = "{{#items}}\"{{id}}\",\"{{name}}\",\"{{tags}}\",\"{{length}}\",\"{{totalSize}}\",\"{{publishedDate}}\",\"{{status}}\"\r{{/items}}",
                     responseBody = "",
+                    // logging
+                    bclslog = function (message) {
+                      if (window["console"] && console["log"]) {
+                        var d = new Date();
+                        console.log(d + ": ");
+                        console.log(message);
+                      };
+                    },
 
                     // more robust test for "not defined"
                     isDefined =  function (v) {
@@ -225,14 +233,12 @@
                         BCMAPI.url = $serviceURL.val();
                         // primaryParams.filter = filter;
                         BCMAPI.search_unfiltered(primaryParams);
-                        console.log(BCMAPI.request);
                     },
                     makeSecondaryCall = function(filter) {
                         // secondaryParams.filter = filter;
                         secondaryParams.page_number = callNumber;
                         $runButton.html("processing...please wait");
                         BCMAPI.search_unfiltered(secondaryParams);
-                        console.log(BCMAPI.request);
                     },
                     runReport = function() {
                         var tagsArray = [],
@@ -241,14 +247,13 @@
 
                         if (isDefined($noneTags.val())) {
                             tagsStr = $noneTags.val();
-                            tagsStr = (removeSpaces(tagsStr));
-                            // tagsArray = tagsStr.split(",");
+                            // tagsStr = (removeSpaces(tagsStr));
+                            tagsArray = tagsStr.split(",");
                             for (i = 0; i < tagsArray.length; i++) {
                                 tagsArray[i] = "tag:" + tagsArray[i]
                             }
                             primaryParams.none = tagsArray;
                             secondaryParams.none = tagsArray;
-                            console.log(secondaryParams.none);
                         }
                         currentFilter = filterArray[currentFilterIndex];
                         makePrimaryCall(currentFilter);
@@ -306,8 +311,6 @@
                                 item.totalSize = totalFileSize;
                             };
                             if (console && callNumber === 0) {
-                                console.log(jsonData);
-                                console.log(totalFileSize);
                             }
                             $totalCalls.text(callNumber + 1);
                             data = jsonData;
@@ -317,7 +320,8 @@
                             remainingCalls--;
                             if (callNumber <= totalCalls) {
                                 $remainingCalls.text(remainingCalls + 1);
-                                $runButton.text("Make call number " + (callNumber + 1));
+                                makeSecondaryCall(currentFilter);
+                                // $runButton.text("Make call number " + (callNumber + 1));
                             } else if (currentFilterIndex == filterArray.length - 1) {
                                 $remainingCalls.text(0);
                                 $runButton.text("All videos retrieved - Get your data below!")
@@ -330,6 +334,7 @@
                                 makePrimaryCall(currentFilter);
                             }
                         } else {
+                            bclslog("no items!");
                             var t = window.setTimeout(function () {makeSecondaryCall(currentFilter);},30000 )
 
                         }

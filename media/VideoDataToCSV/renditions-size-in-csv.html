@@ -127,7 +127,8 @@
                 <option value="http://api.brightcove.co.jp/services/library">http://api.brightcove.co.jp/services/library (Japan)</option>
             </select>
         </p>
-        <p>Media API READ token: <input id="token" type="text" size="60" value="ZY4Ls9Hq6LCBgleGDTaFRDLWWBC8uoXQun0xEEXtlDUHBDPZBCOzbw.."></p>
+        <p>Media API READ token: <input id="token" type="text" size="60" value="ZY4Ls9Hq6LCBgleGDTaFRDLWWBC8uoXQun0xEEXtlDUHBDPZBCOzbw.."> <br />
+        <span style="color:red;font-weight:bold">Note that the token must be enabled for _unfiltered methods by Brightcove Support or the app will fail.</span></p>
         <p>EXCLUDE videos with the following tags (tag1,tag2,tag3...) <input id="noneTags" type="text" size="60"></p>
         <p><span id="runButton" class="run-button">Run report</span></p>
         <p>Calls left to make <span id="currentType"></span>:  <span id="remainingCalls" style="color:red;font-weight:bold"></span></p>
@@ -146,6 +147,7 @@
             <p>Total videos in your library:
                 <span id="totalVideos"></span>
             </p>
+            <p id="errorLog"></p>
         </div>
         <h2>Detailed Data in CSV format</h2>
         <p>
@@ -176,6 +178,8 @@
                     $totalCalls = $("#totalCalls"),
                     $remainingCalls = $("#remainingCalls"),
                     $currentType = $("#currentType"),
+                    $errorLog = $("#errorLog"),
+                    retries = 0,
                     totalVideos = 0,
                     filterArray = ["totalVideos"],
                     currentFilterIndex = 0,
@@ -183,6 +187,7 @@
                     primaryCallMade = false,
                     remainingCalls = 0,
                     str = "",
+                    t,
                     method = "find_modified_videos",
                     primaryParams = {
                         callback: "BCLS.primaryCallResponse",
@@ -203,8 +208,8 @@
                     },
                     totalCalls = 0,
                     callNumber = 0,
-                    responseStart = "\"Video ID\",\"Title\",\"Tags\",\"Running Time\",\"Total File Size (MB)\",\"Date Published\",\"Status\"\r",
-                    dataRowTemplate = "{{#items}}\"{{id}}\",\"{{name}}\",\"{{tags}}\",\"{{length}}\",\"{{totalSize}}\",\"{{publishedDate}}\",\"{{status}}\"\r{{/items}}",
+                    responseStart = "\"Video ID\",\"Title\",\"Tags\",\"Running Time\",\"Total File Size (MB)\",\"Date Published\"\r",
+                    dataRowTemplate = "{{#items}}\"{{id}}\",\"{{name}}\",\"{{tags}}\",\"{{length}}\",\"{{totalSize}}\",\"{{publishedDate}}\"\r{{/items}}",
                     responseBody = "",
                     // logging
                     bclslog = function (message) {
@@ -217,7 +222,7 @@
 
                     // more robust test for "not defined"
                     isDefined =  function (v) {
-                        if(v !== "" && v !== null && v !== "undefined") { return true; }
+                        if(v !== "" && v !== null && v !== undefined) { return true; }
                         else { return false; }
                     },
                     // remove spaces from string
@@ -226,6 +231,10 @@
                             str = str.replace(/\s+/g, "");
                             return str;
                         }
+                    },
+                    // write the data to the page
+                    writeData = function () {
+                        document.getElementById("response").innerHTML = responseStart + responseBody;
                     },
                     // media api calls, per filter
                     makePrimaryCall = function(filter) {
@@ -297,7 +306,6 @@
                             for (var i = 0, max = jsonData.items.length; i < max; i++) {
                                 item = jsonData.items[i];
                                 item.id = item.id.toString();
-                                item.status = currentFilter.toLowerCase();
                                 item.tags = item.tags.join(",")
                                 lengthObj = BCLSsecondsToTime(item.length / 1000);
                                 item.length = lengthObj.h + ":" + lengthObj.m + ":" + lengthObj.s;
@@ -310,8 +318,6 @@
                                 totalFileSize = Math.round(totalFileSize);
                                 item.totalSize = totalFileSize;
                             };
-                            if (console && callNumber === 0) {
-                            }
                             $totalCalls.text(callNumber + 1);
                             data = jsonData;
                             results = template(data);
@@ -326,7 +332,7 @@
                                 $remainingCalls.text(0);
                                 $runButton.text("All videos retrieved - Get your data below!")
                                 $totalVideos.html(totalVideos);
-                                document.getElementById("response").innerHTML = responseStart + responseBody;
+                                writeData();
                             } else {
                                 primaryCallMade = false;
                                 currentFilterIndex++;
@@ -335,8 +341,15 @@
                             }
                         } else {
                             bclslog("no items!");
-                            var t = window.setTimeout(function () {makeSecondaryCall(currentFilter);},30000 )
-
+                            bclslog(jsonData);
+                            if (retries < 5) {
+                                    t = window.setTimeout(function () {
+                                        makeSecondaryCall(currentFilter);
+                                    },30000 )
+                            } else {
+                                $errorLog.text("Something went wrong...writing the data we got below. " + "The error code was: " + jsonData.error.code + "and the message was: " + jsonData.error.message);
+                                writeData();
+                            }
                         }
                     }
                 }

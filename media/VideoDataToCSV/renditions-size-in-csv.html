@@ -111,6 +111,7 @@
         <p>This tool allows you to get data for all your active and inactive videos, including the total size of the renditions in megabytes, in CSV format.</p>
         <h2>Instructions</h2>
         <ol>
+            <li class="text-warning">Note that this app has been rewritten to use the <code>search_videos_unfiltered</code> method. Unfiltered methods must be enabled for specific tokens by Brightcove Support - contact Support if you would like to have these methods enabled for one or more of your read tokens.</li>
             <li>Replace the Media API READ token in the field below with a token from your own account (find it in your Account Settings &gt; API Management).</li>
             <li>Click the <strong>Run report</strong> button (re-click until you see the <strong><em>"All videos retrieved"</em></strong> message!).</li>
             <li>Open any text editor (Notepad on Windows or TextEdit on Mac will do).</li>
@@ -126,14 +127,15 @@
                 <option value="http://api.brightcove.co.jp/services/library">http://api.brightcove.co.jp/services/library (Japan)</option>
             </select>
         </p>
-        <p>Media API READ token:
-            <input id="token" type="text" size="60" value="ZY4Ls9Hq6LCBgleGDTaFRDLWWBC8uoXQun0xEEXtlDUHBDPZBCOzbw.."></p>
+        <p>Media API READ token: <input id="token" type="text" size="60" value="ZY4Ls9Hq6LCBgleGDTaFRDLWWBC8uoXQun0xEEXtlDUHBDPZBCOzbw.."> <br />
+        <span style="color:red;font-weight:bold">Note that the token must be enabled for _unfiltered methods by Brightcove Support or the app will fail.</span></p>
+        <p>EXCLUDE videos with the following tags (tag1,tag2,tag3...) <input id="noneTags" type="text" size="60"></p>
         <p><span id="runButton" class="run-button">Run report</span></p>
         <p>Calls left to make <span id="currentType"></span>:  <span id="remainingCalls" style="color:red;font-weight:bold"></span></p>
         <hr/>
         <h2>Data Overview</h2>
         <div class="initialData">
-            <p>Total inactive videos in your library:
+            <!-- <p>Total inactive videos in your library:
                 <span id="INACTIVE"></span>
             </p>
             <p>Total unscheduled videos in your library:
@@ -141,10 +143,11 @@
             </p>
             <p>Total playable videos in your library:
                 <span id="PLAYABLE"></span>
-            </p>
+            </p> -->
             <p>Total videos in your library:
                 <span id="totalVideos"></span>
             </p>
+            <p id="errorLog"></p>
         </div>
         <h2>Detailed Data in CSV format</h2>
         <p>
@@ -168,24 +171,27 @@
                     $request = $("#request"),
                     $response = $("#response"),
                     $token = $("#token"),
+                    $noneTags = $("#noneTags"),
                     $runButton = $("#runButton"),
                     $selectData = $("#selectData"),
                     $serviceURL = $("#serviceURL"),
                     $totalCalls = $("#totalCalls"),
                     $remainingCalls = $("#remainingCalls"),
                     $currentType = $("#currentType"),
+                    $errorLog = $("#errorLog"),
+                    retries = 0,
                     totalVideos = 0,
-                    filterArray = ["INACTIVE", "UNSCHEDULED", "PLAYABLE"],
+                    filterArray = ["totalVideos"],
                     currentFilterIndex = 0,
                     currentFilter = "",
                     primaryCallMade = false,
                     remainingCalls = 0,
                     str = "",
+                    t,
                     method = "find_modified_videos",
                     primaryParams = {
                         callback: "BCLS.primaryCallResponse",
-                        from_date: "0",
-                        filter: "",
+                        // filter: "",
                         page_size: 1,
                         sort_by: "PUBLISH_DATE",
                         get_item_count: true,
@@ -193,39 +199,71 @@
                     },
                     secondaryParams = {
                         callback: "BCLS.secondaryCallResponse",
-                        from_date: "0",
-                        filter: "",
+                        // filter: "",
                         page_size: 100,
                         page_number: 0,
                         sort_by: "CREATION_DATE",
-                        get_item_count: true,
-                        video_fields: "id,name,length,publishedDate,renditions"
+                        get_item_count: false,
+                        video_fields: "id,name,length,publishedDate,tags,renditions"
                     },
                     totalCalls = 0,
                     callNumber = 0,
-                    responseStart = "\"Video ID\",\"Title\",\"Running Time\",\"Total File Size (MB)\",\"Date Published\",\"Status\"\r",
-                    dataRowTemplate = "{{#items}}\"{{id}}\",\"{{name}}\",\"{{length}}\",\"{{totalSize}}\",\"{{publishedDate}}\",\"{{status}}\"\r{{/items}}",
+                    responseStart = "\"Video ID\",\"Title\",\"Tags\",\"Running Time\",\"Total File Size (MB)\",\"Date Published\"\r",
+                    dataRowTemplate = "{{#items}}\"{{id}}\",\"{{name}}\",\"{{tags}}\",\"{{length}}\",\"{{totalSize}}\",\"{{publishedDate}}\"\r{{/items}}",
                     responseBody = "",
+                    // logging
+                    bclslog = function (message) {
+                      if (window["console"] && console["log"]) {
+                        var d = new Date();
+                        console.log(d + ": ");
+                        console.log(message);
+                      };
+                    },
 
                     // more robust test for "not defined"
                     isDefined =  function (v) {
-                        if(v !== "" && v !== null && v !== "undefined") { return true; }
+                        if(v !== "" && v !== null && v !== undefined) { return true; }
                         else { return false; }
                     },
-
+                    // remove spaces from string
+                    removeSpaces = function (str) {
+                        if (isDefined(str)) {
+                            str = str.replace(/\s+/g, "");
+                            return str;
+                        }
+                    },
+                    // write the data to the page
+                    writeData = function () {
+                        document.getElementById("response").innerHTML = responseStart + responseBody;
+                    },
+                    // media api calls, per filter
                     makePrimaryCall = function(filter) {
                         BCMAPI.token = $token.val();
                         BCMAPI.url = $serviceURL.val();
-                        primaryParams.filter = filter;
-                        BCMAPI.find(method, primaryParams);
+                        // primaryParams.filter = filter;
+                        BCMAPI.search_unfiltered(primaryParams);
                     },
                     makeSecondaryCall = function(filter) {
-                        secondaryParams.filter = filter;
+                        // secondaryParams.filter = filter;
                         secondaryParams.page_number = callNumber;
                         $runButton.html("processing...please wait");
-                        BCMAPI.find(method, secondaryParams);
+                        BCMAPI.search_unfiltered(secondaryParams);
                     },
                     runReport = function() {
+                        var tagsArray = [],
+                            tagsStr,
+                            i;
+
+                        if (isDefined($noneTags.val())) {
+                            tagsStr = $noneTags.val();
+                            // tagsStr = (removeSpaces(tagsStr));
+                            tagsArray = tagsStr.split(",");
+                            for (i = 0; i < tagsArray.length; i++) {
+                                tagsArray[i] = "tag:" + tagsArray[i]
+                            }
+                            primaryParams.none = tagsArray;
+                            secondaryParams.none = tagsArray;
+                        }
                         currentFilter = filterArray[currentFilterIndex];
                         makePrimaryCall(currentFilter);
                     };
@@ -264,12 +302,11 @@
                             item,
                             rendition,
                             lengthObj = {};
-                            $totalCalls.text(callNumber + 1);
                         if (isDefined(jsonData.items)) {
                             for (var i = 0, max = jsonData.items.length; i < max; i++) {
                                 item = jsonData.items[i];
                                 item.id = item.id.toString();
-                                item.status = currentFilter.toLowerCase();
+                                item.tags = item.tags.join(",")
                                 lengthObj = BCLSsecondsToTime(item.length / 1000);
                                 item.length = lengthObj.h + ":" + lengthObj.m + ":" + lengthObj.s;
                                 item.publishedDate = new Date(parseInt(item.publishedDate));
@@ -281,10 +318,7 @@
                                 totalFileSize = Math.round(totalFileSize);
                                 item.totalSize = totalFileSize;
                             };
-                            if (console && callNumber === 0) {
-                                console.log(jsonData);
-                                console.log(totalFileSize);
-                            }
+                            $totalCalls.text(callNumber + 1);
                             data = jsonData;
                             results = template(data);
                             responseBody += results;
@@ -292,12 +326,13 @@
                             remainingCalls--;
                             if (callNumber <= totalCalls) {
                                 $remainingCalls.text(remainingCalls + 1);
-                                $runButton.text("Make call number " + (callNumber + 1));
+                                makeSecondaryCall(currentFilter);
+                                // $runButton.text("Make call number " + (callNumber + 1));
                             } else if (currentFilterIndex == filterArray.length - 1) {
                                 $remainingCalls.text(0);
                                 $runButton.text("All videos retrieved - Get your data below!")
                                 $totalVideos.html(totalVideos);
-                                document.getElementById("response").innerHTML = responseStart + responseBody;
+                                writeData();
                             } else {
                                 primaryCallMade = false;
                                 currentFilterIndex++;
@@ -305,7 +340,16 @@
                                 makePrimaryCall(currentFilter);
                             }
                         } else {
-                            makeSecondaryCall(currentFilter);
+                            bclslog("no items!");
+                            bclslog(jsonData);
+                            if (retries < 5) {
+                                    t = window.setTimeout(function () {
+                                        makeSecondaryCall(currentFilter);
+                                    },30000 )
+                            } else {
+                                $errorLog.text("Something went wrong...writing the data we got below. " + "The error code was: " + jsonData.error.code + "and the message was: " + jsonData.error.message);
+                                writeData();
+                            }
                         }
                     }
                 }

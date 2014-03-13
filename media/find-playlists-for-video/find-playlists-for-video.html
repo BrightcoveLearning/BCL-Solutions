@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" />
+    <!-- change title to match the h1 heading -->
+    <title id="bclPageTitle">Media API Sample: Find Playlists for a Video</title>
+    <link href="/en/scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <script src="//use.edgefonts.net/source-code-pro.js"></script>
+    <link href="//files.brightcove.com/proxima-nova/font-faces.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="/en/styles/bcls-doc-site.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/github.css" />
+    <link rel="stylesheet" type="text/css" href="/en/styles/anytime.c.css" />
+  <script type="text/javascript">
+  <!--//--><![CDATA[//><!--
+	var _gaq = _gaq || [];
+	_gaq.push(
+		["_setAccount", "UA-2728311-23"],
+		["_setDomainName", ".brightcove.com"],
+		["_trackPageview"]
+	);
+	(function() {var ga = document.createElement("script");ga.type = "text/javascript";ga.async = true;ga.src = ("https:" == document.location.protocol ? "https://ssl" : "http://www") + ".google-analytics.com/ga.js";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(ga, s);})();
+//--><!]]>
+  </script>
+  </head>
+
+  <body data-spy="scroll" data-target=".sub-menu" data-offset="100">
+  <!-- header navbar -->
+    <div id="titleBar" class="navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div id="otherSites">
+          <ul class="nav pull-right small">
+            <li><a href="//brightcove.com">BRIGHTCOVE.COM</a></li>
+            <li><a href="//support.brightcove.com">SUPPORT</a></li>
+            <li><a href="//support.brightcove.com/video-cloud/training-videos">TRAINING VIDEOS</a></li>
+          </ul>
+        </div>
+        <a class="brand" href="//docs.brightcove.com/en/index.html">BRIGHTCOVE DEVELOPER DOCUMENTATION</a>
+       </div>
+     </div>
+     <!-- end header navbar -->
+     <!-- nav navbar -->
+     <div id="navBar" class="navbar-inverse navbar-fixed-top">
+     <div class="navbar-inner">
+      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+      <a class="btn btn-navbar pull-right" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <!-- Everything you want hidden at 940px or less, place within here -->
+      <ul id="sectionNav" class="nav">
+      </ul>
+     </div>
+    </div>
+    <!-- end nav navbar -->
+  <!-- Content ============================================= -->
+    <div class="row">
+      <div id="sidenav" class="span2"></div>
+      <div id="main" class="span10">
+        <div id="top" class="section">
+            <h1 id="bclPageHeading">Media API Sample: Find Playlists for a Video</h1>
+            <p>This example lets you choose a video, then all the playlists that contain this video are returned. For both the video you select, and then the playlists that contain that video, you choose which properties should be returned.</p>
+            <p>The example uses the <code>search_videos()</code> READ method to return a list of videos and populates them in a drop-down menu. With this method, you can perform complex searches where you specify one or more <code>all</code>, <code>any</code>, and <code>none</code> terms to include and/or exclude videos from the search results.</p>
+            <p>You can then select a video from the drop-down menu and perform a playlist search. This search uses the <code>find_all_playlists()</code> READ method to return all the playlists in your account. We then loop through each playlist and display only those that contain the selected video.</p>
+            <p class="text-warning">Since there is no Media API method to find all the playlists which contain a specific video, this example retrieves all the playlists in your account, before displaying only those that contain the video. <span style="color:red;">Warning: If you have a large number of playlists in your account this example could take some time to process.</span></p>
+            <p>All READ method samples are made using the <a href="//opensource.brightcove.com/project/javascript-mapi-wrapper">JavaScript MAPI wrapper</a> from <a href="//opensource.brightcove.com">http://opensource.brightcove.com</a></p>
+            <p class="text-warning">Note that making this call from the client side exposes your read token, which could allow a developer to access all video data from your account. If you use the READ token with URL access, that developer could even download copies of all your video files. Brightcove recommends making all Media API calls from a server-side application if possible.</p>
+          </div>
+          <div id="search" class="section">
+            <h2><a name="search"></a>Search Input</h2>
+            <p>Read token: <input name="token" id="token" type="text" size="100" value="XGuquNMCweRY0D3tt_VUotzuyIASMAzhUS4F8ZIWa_e0cYlKpA4WtQ..">
+            <p>Service URL: <input name="url" id="url" type="text" size="100" value="//api.brightcove.com/services/library"></p>
+            <p>Return videos that have <code>all</code> of these terms:<br /><input name="all" id="all" type="text" size="100" value="sea"></p>
+            <p>Return videos that have <code>any</code> of these terms:<br /><input name="any" id="any" type="text" size="100" value="tag:sealife"></p>
+            <p>Return videos that have <code>none</code> of these terms:<br /><input name="none" id="none" type="text" size="100" value="private"></p>
+         
+            <p>Page size: <input name="videoSize" id="videoSize" type="text" size="10" value="5">
+            &nbsp; Page number:
+              <select id="pageNumber">
+                <option>0</option>
+              </select>
+            </p>
+            <p class="text-warning">Only the first page is available until you make a search; then the available pages are recalculated.</p>
+            <p>Total videos: <input name="totalVidoes" id="totalVideos" type="text" readonly="readonly" value="???"></p>
+            <p><span class="BCL-btn" onclick="BCL.doSearchVideos()">Search for Videos</span></p>
+          </div>
+          <br/>
+          <p class="text-warning">After you select the <strong>Search for Videos</strong> button, your video list will appear in the <strong>Select a Video</strong> drop-down menu below.</p>
+          
+          
+          <div class="section" id="searchplaylist">
+            <h2><a name="searchplaylist"></a>Search playlists for video</h2>
+            <p>Select a video:
+              <select id="videoList">
+                <option>none</option>
+              </select>
+            </p>
+            <p>Playlist fields to return:
+              <select id="playlistFields" multiple="multiple" size="10">
+                <option selected="selected">id</option>
+                <option selected="selected">name</option>
+                <option selected="selected">shortDescription</option>
+                <option>videos</option>
+                <option>videoIds</option>
+                <option>accountId</option>
+                <option>referenceId</option>
+                <option selected="selected">playListType</option>
+                <option selected="selected">filterTags</option>
+                <option>thumbnailURL</option>
+              </select>
+              &nbsp;
+            Video fields to return:
+              <select id="videoFields" multiple="multiple" size="10">
+                <option>id</option>
+                <option>name</option>
+                <option>shortDescription</option>
+                <option>referenceId</option>
+                <option>longDescription</option>
+                <option>creationDate</option>
+                <option>publishedDate</option>
+                <option>lastModifiedDate</option>
+                <option>linkURL</option>
+                <option>linkText</option>
+                <option>tags</option>
+                <option>customFields</option>
+                <option>cuePoints</option>
+                <option>videoStillURL</option>
+                <option>thumbnailURL</option>
+                <option>length</option>
+                <option>economics</option>
+                <option>playsTotal</option>
+                <option>playsTrailingWeek</option>
+                <option>FLVURL</option>
+                <option>renditions</option>
+                <option>HLSURL</option>
+                <option>FLVFullLength</option>
+                <option>videoFullLength</option>
+                <option>iOSRenditions</option>
+              </select>
+            </p>
+            <p class="text-warning">For the video fields to appear in the response data, you must select the <code>videos</code> field in the <strong>Playlist fields to return</strong> selection.</p>
+            <p class="text-warning">You must use a read token with URL access to return the following video fields: <code>FLVURL</code>, <code>renditions</code>, <code>iOSRenditions</code>, <code>FLVFullLength</code>, and <code>videoFullLength</code>. Also note that the <code>iOSRenditions</code> field is not returned unless explicitly included in the <code>video_fields</code> parameter.</p>
+            <br/>
+            <p><span class="BCL-btn" onclick="BCL.doSearchPlaylists(videoList.value)">Search for Playlists</span></p>
+            <br/>
+            <p>Total playlists: <input name="totalItems" id="totalItems" type="text" readonly="readonly" value="???"></p>
+            <p><span id="errorMsg" style="color:red"></span></p>
+            
+          </div>
+          <div class="section" id="apirequest">
+            <h2><a name="apirequest"></a>Media API Request</h2>
+            <p>Below is the request sent to the Media API service to retrieve videos:</p>
+            <pre><code id="mapiRequest1"></code></pre>
+            <p>Below is the request sent to the Media API service to retrieve all playlists:</p>
+            <pre><code id="mapiRequest2"></code></pre>
+          </div>
+          <div class="section" id="jsonResponse">
+            <h2><a name="jsonResponse"></a>JSON Response</h2>
+              <p>Below is the JSON data returned by the request:</p>
+              <fieldset>
+                <legend>JSON Response</legend>
+                <pre><code id="mapiResponse"></code></pre>
+              </fieldset>
+          </div>
+          <div class="section" id="processedResponse">
+            <h2><a name="processedResponse"></a>Processed Response</h2>
+            <p>Below is simple HTML output of the video names using the <a href="//handlebarsjs.com">Handlebars</a> templating system:</p>
+            <div id="htmlOutput"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- bcl scripts ============================================================ -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-smooth-scroll/1.4.10/jquery.smooth-scroll.min.js"></script>
+    <script src="/en/scripts/bootstrap/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0/handlebars.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/highlight.min.js"></script>
+
+    <script src="/en/scripts/docs-nav-data.min.js"></script>
+    <script src="/en/scripts/bcls-doc-site.js"></script>
+    <script src="/en/scripts/bc-mapi.js"></script>
+    <script id="pageScript" type="text/javascript">
+      /******** Any scripts specific to page samples should go here *********/
+      var BCL = {};
+      BCL.mediaDelivery = document.getElementById("mediaDelivery");
+      BCL.sortBy = document.getElementById("sortBy");
+      BCL.sortByOrder = document.getElementById("sortByOrder");
+      BCL.pageNumber = document.getElementById("pageNumber");
+	  // define Handlebars helper function and template
+	  Handlebars.registerHelper('ifCond', function(v1, v2, options) {
+		  if(v1 === v2) {
+			return options.fn(this);
+		  }
+		  return options.inverse(this);
+		});
+      BCL.htmlTemplate = "<ul>{{#items}}<li>Playlist name: {{name}}<ul><li>Playlist type: {{#ifCond 'EXPLICIT' playlistType}}Manual{{else}}Smart{{/ifCond}} ({{playlistType}}) </li><li>Tags: {{filterTags}}</li></ul></li>{{/items}}</ul>"
+      BCL.doSearchVideos = function() {
+		// call the Media API to return all the video data for the specified account  
+        if (document.getElementById("token") == "" || document.getElementById("url").value == "") {
+          alert("Please enter a valid token and service URL");
+        }
+        BCMAPI.token = document.getElementById("token").value;
+        BCMAPI.callback = "BCL.onSearchResponse";
+        BCL.params = {};
+        if (document.getElementById("all").value !== "") {
+          BCL.params.all = document.getElementById("all").value.split(",");
+        }
+        if (document.getElementById("any").value !== "") {
+          BCL.params.any = document.getElementById("any").value.split(",");
+        }
+        if (document.getElementById("none").value !== "") {
+          BCL.params.none = document.getElementById("none").value.split(",");
+        }
+        if (document.getElementById("videoSize").value !== "") {
+          BCL.params.page_size = document.getElementById("videoSize").value;
+        }
+		BCL.params.video_fields = "id,name";
+		BCL.params.media_delivery = "default";
+		BCL.params.sort_by = "DISPLAY_NAME:ASC";
+        BCL.params.page_number = BCL.pageNumber.options[BCL.pageNumber.selectedIndex].value;
+        BCL.params.get_item_count = true;
+        BCMAPI.search(BCL.params);
+      }
+	  
+	  BCL.onSearchResponse = function(jsonData) {
+        //console.log(jsonData);
+		
+		// output request to retrieve videos
+        document.getElementById("mapiRequest1").innerHTML = BCMAPI.request;
+		
+		// create the video list and format in HTML
+		var str = "";
+		for (var i in jsonData.items) {
+			// format the video drop-down menu items
+			str += "<option value='"+ jsonData.items[i].id +
+			"' >" + jsonData.items[i].name + "</option>";	
+		}
+		// inject the video list into the video drop-down menu
+		document.getElementById("videoList").innerHTML = str;
+		
+		// remove any option elements from previous requests
+		var numberOfPages = Math.ceil(jsonData.total_count/jsonData.page_size);
+		if(BCL.pageNumber.length > numberOfPages) {
+			for (var i = numberOfPages; i < BCL.pageNumber.length; i++) {	
+				console.log(BCL.pageNumber[i]);
+				BCL.pageNumber.remove(i);
+				i--;
+			}
+		}
+		// add option elements for each page in returned data
+		for (var i = 1; i < numberOfPages; i++) {	
+			if (!BCL.pageNumber[i]) {
+				var option = document.createElement("option");
+				option.text = i;
+				BCL.pageNumber.add(option,null);
+			}
+        }
+		
+		// set the number of videos returned
+		document.getElementById("totalVideos").value = jsonData.total_count;
+      }
+	  
+	  BCL.doSearchPlaylists = function(videoId) {
+        console.log(videoId);
+		BCL.videoId = videoId;
+		
+		if (BCL.videoId !== "none") {
+			// call the Media API to get all the playlists for this account
+			BCMAPI.callback = "BCL.onPlaylistResponse";
+			BCL.method = "find_all_playlists";
+			BCL.params = {};
+			console.log(BCL.params.playlist_fields);
+			BCL.showVideoIds = false;
+			BCL.params.playlist_fields = getSelectValues(document.getElementById("playlistFields")).join();
+			BCL.params.playlist_fields += ",videoIds";
+			console.log(BCL.params.playlist_fields);
+			BCL.params.video_fields = getSelectValues(document.getElementById("videoFields")).join();
+			BCL.params.media_delivery = "default";
+			BCL.params.get_item_count = true;
+			BCMAPI.find(BCL.method,BCL.params);
+			document.getElementById("errorMsg").innerHTML = "";
+		} else {
+			document.getElementById("totalItems").value = 0;
+			document.getElementById("errorMsg").innerHTML = "Please select a video from the drop-down menu before selecting the <strong>Search for Playlists</strong> button.";
+		}
+      }
+	  
+	  BCL.onPlaylistResponse = function(jsonData) {
+		
+		// search the playlist data for the videoId selected
+		var videoIdFound = false;
+		
+		console.log("search for playlists");
+		console.log(jsonData);
+		for (var i in jsonData.items) {
+			videoIdFound = false;
+			for (var j in jsonData.items[i].videoIds) {
+				if (BCL.videoId == jsonData.items[i].videoIds[j]) {
+					videoIdFound = true;
+				}
+			}
+			if (!videoIdFound) {
+				console.log("remove data for playlist Id: " + jsonData.items[i].id);
+				delete jsonData.items[i];
+			} else if (!BCL.showVideoIds) {
+				console.log("delete videoId data");
+				delete jsonData.items[i].videoIds;
+			}
+		}
+		jsonData.items = jsonData.items.filter(function() { return true; }); // works with JS 1.6 and above
+			
+		// output request and response
+        document.getElementById("mapiRequest2").innerHTML = BCMAPI.request;
+		console.log(jsonData);
+		if (jsonData.items) {
+			document.getElementById("totalItems").value = jsonData.items.length;
+			delete jsonData.page_size;
+			delete jsonData.page_number;
+			jsonData.total_count = jsonData.items.length;
+		} 
+		
+        document.getElementById("mapiResponse").innerHTML = JSON.stringify(jsonData,null,2);
+		// create HTML from response and output using Handlebars
+        var template = Handlebars.compile(BCL.htmlTemplate);
+        var data = jsonData;
+        var results = template(data);
+        // update form values
+        document.getElementById("htmlOutput").innerHTML = results;
+      }
+	  
+      // Return an array of the selected option values
+      getSelectValues = function(select) {
+        var result = [];
+        var options = select && select.options;
+        var opt;
+        for (var i = 0, iLen = options.length; i < iLen; i++) {
+          opt = options[i];
+          if (opt.selected) {
+			if (opt.value == "videoIds") {
+			  // include videoIds if selected as a display field
+			  BCL.showVideoIds = true;
+			}
+            result.push(opt.value || opt.text);
+          }
+        }
+        return result;
+      }
+      // debugging tool - wraps BCL.log to avoid errors in IE 7 & 8
+      BCL.log = function(message) {
+        if (window["console"] && console["log"]) {
+          var d = new Date();
+          console.log(d + ": ");
+          console.log(message);
+        }
+      }
+    </script>
+	</body>
+</html>

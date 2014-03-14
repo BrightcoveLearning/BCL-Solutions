@@ -614,7 +614,7 @@ var BCLS = (function ($, window, AnyTime) {
                 $fields.html("<option value=\"all\" selected=\"true\">all</option>" + playerFields);
                 $sort.html(playerFields);
             }
-        } else if (video) {
+        } else if (video) { // video combinations
             if (referrer_domain) {
                 if (source_type) {
                     if (search_terms) {
@@ -627,6 +627,9 @@ var BCLS = (function ($, window, AnyTime) {
                 } else if (search_terms) {
                     $fields.html("<option value=\"all\" selected=\"true\">all</option>" + videoReferrer_domainSearch_termsFields);
                     $sort.html(videoReferrer_domainSearch_termsFields);
+                } else {
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + videoReferrer_domainFields);
+                    $sort.html(videoReferrer_domainFields);
                 }
             } else if (source_type) {
                 if (search_terms) {

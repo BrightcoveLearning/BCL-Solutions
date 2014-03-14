@@ -1,0 +1,7 @@
+Brightcove Native Player for Android - Cast Plugin
+
+  Version 4.1.3:
+
+    Changes:
+
+      * Initial checkin

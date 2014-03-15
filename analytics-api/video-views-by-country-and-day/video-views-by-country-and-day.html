@@ -110,7 +110,12 @@
                         End: <input id="toDatePicker" size="30" />
                     </p>
                     <p>
-                        <span class="BCL-btn" id="getData">Get Data</span>
+                        Country: <select id="countrySelector">
+                            <option value="all" selected="selected">All</option>
+                        </select>
+                    </p>
+                    <p>
+                        <span class="BCL-btn" id="getData">Get Country Data</span>
                     </p>
                     <p class="text-warning" id="gettingDataDisplay"></p>
                 </fieldset>
@@ -118,6 +123,11 @@
             </div>
             <div class="section" id="results">
                 <h2>Results</h2>
+                <p>
+                    Date: <select id="dateSelector">
+                        <option value="all" selected="selected">All</option>
+                    </select>
+                </p>
                 <table>
                     <thead>
                         <tr>
@@ -154,34 +164,35 @@
     <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
     <script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
     <script id="pageScript" type="text/javascript">
+        "use strict";
         var BCLS = (function () {
             var callNumber = 0,
+                callType = "",
+                // call limit will be reset once we know how many countries have data for the period
+                callLimit = 200,
                 accountID = document.getElementById("accountID"),
                 token = document.getElementById("token"),
                 dateSelector = document.getElementById("dateSelector"),
                 reportTableBody = document.getElementById("reportTableBody"),
-                currentPlayerIndex = 0,
-                currentVideoIndex = 0,
                 currentDayIndex = 0,
                 currentDay,
                 dayMax,
+                daysObj = {};
                 daysArray = [],
                 dateToMS,
                 dateFromMS,
-                videoData,
-                playerData,
                 analyticsData = {},
-                playerID,
-                videoID,
                 dayMS,
                 fromDate = document.getElementById("fromDatePicker"),
                 toDate = document.getElementById("toDatePicker"),
+                countrySelector = document.getElementById("countrySelector"),
                 getData = document.getElementById("getData"),
                 gettingDataDisplay = document.getElementById("gettingDataDisplay"),
                 today = new Date(),
                 weekAgo = new Date(today - 604800000),
-                dataDisplayBodyTemplate = "<{{#items}}<tr>td>{{date}}</td><td>{{country_name}}</td><td>{{video_view}}</td><td>{{totalAvgSecondsViewed}}</td><td>{{totalSecondsViewed}}</td></tr>{{/items}}",
-                callType,
+                countryDisplayTemplate = "{{#items}}<option value=\"{{country}}\">{{country_name}}</option>{{/items}}",
+                dateDisplayTemplate = "{{#items}}<option value=\"{{date}}\">{{date}}</option>{{/items}}",
+                dataDisplayBodyTemplate = "<tr><th colspan=\"2\">{{date}}</th></tr>{{#items}}<tr><td>{{country_name}}</td><td>{{video_view}}</td><td>{{totalAvgSecondsViewed}}</td><td>{{totalSecondsViewed}}</td></tr>{{/items}}",
                 // return iso date for JS date
                 dateToISO = function (date) {
                     var y = date.getFullYear(),
@@ -247,12 +258,7 @@
                     return name;
                 }
                 displayData = function () {
-                    var displayStr, playerObject, videoObject, template, barChartData, chart;
-                    currentPlayer = playerSelector.options[playerSelector.selectedIndex].value;
-                    currentVideoIndex = videoSelector.selectedIndex;
-                    playerObject = analyticsData[currentPlayer];
-                    videoObject = playerObject.items[currentVideoIndex];
-                    displayStr = "<tr style=\"background-color:#64AAB2;color:#FFF;\"><th>" + playerObject.player_name + "</th>";
+                    var displayStr, template, barChartData, chart;
                     template = Handlebars.compile(dataDisplayBodyTemplate);
                     displayStr += template(videoObject);
                     reportTableBody.innerHTML = displayStr;
@@ -307,80 +313,33 @@
                     },
                     success : function (data) {
                         var template, results, i, j, k, player, video, itemsmax, analytics, item, newItem = {}, thisVideo;
+                        callNumber++;
                         switch (callType) {
-                            case "players":
-                                callNumber++;
-                                // save the data for getting the analytics
-                                playerData = data;
-                                playerMax = playerData.items.length;
-                                // add players to the analytics data object
-                                for (i = 0; i < playerMax; i++) {
-                                    analyticsData[playerData.items[i].player] = {};
-                                    analyticsData[playerData.items[i].player].player_name = playerData.items[i].player_name;
-                                    analyticsData[playerData.items[i].player].items = [];
-                                }
-                                // populate the player selector
-                                template = Handlebars.compile(playerSelectTemplate);
-                                playerSelector.innerHTML = template(data);
-                                playerSelector.options[0].setAttribute("selected", "selected");
-                                getVideoData();
-                                break;
-                            case "videos":
-                                callNumber++;
-                                // save the data for getting the analytics
-                                videoData = data;
-                                videoMax = videoData.items.length;
-                                // add videos to the analytics data object
-                                for (player in analyticsData) {
-                                    for (j = 0; j < videoMax; j++) {
-                                        video = videoData.items[j];
-                                        analyticsData[player].items[j] = {};
-                                        analyticsData[player].items[j].id = video.video;
-                                        analyticsData[player].items[j].video_name = video.video_name;
-                                        analyticsData[player].items[j].items = [];
-                                    }
-                                }
-                                // populate the video selector
-                                template = Handlebars.compile(videoSelectTemplate);
-                                videoSelector.innerHTML = template(data);
-                                videoSelector.options[0].setAttribute("selected", "selected");
-                                getAnalyticsData();
-                                break;
+                            case "countries":
+
+                            break;
                             case "analytics":
-                                callNumber++;
-                                itemsmax = data.items.length;
-                                videoMax = analyticsData[currentPlayer].items.length;
-                                for (k = 0; k < videoMax; k++) {
-                                    thisVideo = analyticsData[currentPlayer].items[k];
-                                    newItem = {};
-                                    newItem.video_view = 0;
-                                    newItem.completionRate = 0;
-                                    newItem.avgSecondsViewed = 0;
-                                    newItem.totalSecondsViewed = 0;
-                                    newItem.day = currentDay.from;
-                                    for (i = 0; i < itemsmax; i++) {
-                                        if (data.items[i].video === thisVideo.id) {
-                                            item = data.items[i];
-                                            newItem.video_view = item.video_view;
-                                            newItem.completionRate = Math.round(item.video_engagement_100 / item.video_view);
-                                            newItem.avgSecondsViewed = item.video_seconds_viewed / item.video_view;
-                                            newItem.totalSecondsViewed = item.video_seconds_viewed;
-                                        }
+                            itemsmax = data.items.length;
+                            for (i = 0; i < itemsMax; i++) {
+                                thisItem = analyticsData[currentDay].items[k];
+                                newItem = {};
+                                newItem.video_view = 0;
+                                for (i = 0; i < itemsmax; i++) {
+                                    if (data.items[i].video === thisVideo.id) {
+                                        item = data.items[i];
+                                        newItem.video_view = item.video_view;
+                                        newItem.;
                                     }
-                                    analyticsData[currentPlayer].items[k].items.push(newItem);
                                 }
-                                if (currentDayIndex < dayMax - 1) {
-                                    currentDayIndex++;
-                                    getAnalyticsData();
-                                } else if (currentPlayerIndex < playerMax - 1) {
-                                    currentDayIndex = 0;
-                                    currentVideoIndex = 0;
-                                    currentPlayerIndex++;
-                                    getAnalyticsData();
-                                } else {
-                                    gettingDataDisplay.innerHTML = "Data retrieved - " + callNumber + " API calls made";
-                                    getTotals();
-                                }
+                                analyticsData[currentDay].items[k].items.push(newItem);
+                            }
+                        }
+                        if (currentDayIndex < dayMax - 1) {
+                            currentDayIndex++;
+                            getAnalyticsData();
+                        } else {
+                            gettingDataDisplay.innerHTML = "Data retrieved - " + callNumber + " API calls made";
+                            getTotals();
                         }
                     },
                     error : function (XMLHttpRequest, textStatus, errorThrown)
@@ -389,33 +348,24 @@
                         }
                     });
                 },
+                // get country data
+                getCountryData = function () {
+                    var callURL;
+                    gettingDataDisplay.innerHTML = "Getting country data...";
+                    callType = "countries";
+                    callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=country&from=" + daysArray[0] + "&to=" + daysArray[daysArray.length - 1] + "&fields=country,country_name$sort=country&limit=" + callLimit;
+                    makeAnalyticsCall(callURL);
+                }
                 // get the analytics data for the videos
                 getAnalyticsData = function () {
                     var callURL;
                     gettingDataDisplay.innerHTML = "Getting analytics data...";
                     callType = "analytics";
-                    currentPlayer = playerData.items[currentPlayerIndex].player;
                     // currentVideo = videoData.items[currentVideoIndex].video;
                     currentDay = daysArray[currentDayIndex];
-                    callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=video&from=" + currentDay.from + "&to=" + currentDay.to + "&where=player==" + currentPlayer + "&fields=video_view,video_seconds_viewed,video,video_engagement_100";
+                    callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=country&from=" + currentDay + "&to=" + currentDay + "&fields=video_view,country,country_name$sort=country";
                     makeAnalyticsCall(callURL);
 
-                },
-                // get the video analytics data
-                getVideoData = function () {
-                    var callURL = "";
-                    gettingDataDisplay.innerHTML = "Getting video data...";
-                    callType = "videos";
-                    callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=video&limit=200&fields=video,video_name&sort=video_view&from=" + dateFromMS + "&to=" + dateToMS;
-                    makeAnalyticsCall(callURL);
-                },
-                // get all players for the selected time period
-                getPlayersData = function () {
-                    var callURL = "";
-                    gettingDataDisplay.innerHTML = "Getting player data...";
-                    callType = "players";
-                    callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=player&limit=100&fields=player,player_name&sort=video_view&from=" + dateFromMS + "&to=" + dateToMS;
-                    makeAnalyticsCall(callURL);
                 };
             // add date pickers to the date input fields
             new datepickr('fromDatePicker', {
@@ -431,7 +381,9 @@
             fromDate.value = weekAgo.toDateString(),
 
             getData.addEventListener("click", function () {
-                var totalDays, i;
+                var totalDays,
+                    i,
+                    template;
                 dateFromMS = new Date(fromDate.value).valueOf();
                 dateToMS = new Date(toDate.value).valueOf();
                 /**
@@ -441,10 +393,14 @@
                 */
                 totalDays = Math.round((dateToMS - dateFromMS)/86400000);
                 for (i = 0; i < (totalDays - 1); i++) {
-                    daysArray[i] = {from : dateFromMS + (i * 86400000), to : dateFromMS + ((i + 1) * 86400000) - 1};
+                    daysArray[i] = dateToISO(dateFromMS + (i * 86400000));
                 }
                 dayMax = daysArray.length;
-                getPlayersData();
+                console.log(daysArray);
+                daysObj.items = daysArray;
+                template = Handlebars.compile(dateDisplayTemplate);
+                countrySelector.insertAdjacentHTML(beforeend, template(daysObj));
+                getCountryData();
             });
             return {
             }

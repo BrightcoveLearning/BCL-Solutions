@@ -22,6 +22,7 @@ var BCLS = ( function () {
         f.videosWithoutReferenceIdsLabel.innerHTML = "";
         f.getTotalVideos.disabled = false;
         f.updateVideosBtn.disabled = true;
+		f.getVideosWithoutReferenceIds.disabled = true; 
       },
       returnCurrentTime = function () {
         currentDate = new Date();
@@ -171,9 +172,10 @@ var BCLS = ( function () {
         performUpdate(acc.videosWithoutRefIds[currentVideo].id);
       },
       onTotalVideosResult = function (result) {
+		f.getTotalVideos.disabled = false;
         f.getTotalVideos.loadingMode(false);
         f.getTotalVideos.value = "Load";
-        f.getTotalVideos.disabled = false;
+		  
         result = result;
 
         if(result.error != null) {
@@ -239,8 +241,8 @@ var BCLS = ( function () {
         }
       },
       loadVideosWithoutReferenceIds = function () {
-        var totalVideos = acc.totalVideos,
-            totalRequests = Math.ceil(totalVideos / app.pageSize);
+        var totalVideos = acc.totalVideos;
+        totalRequests = Math.ceil(totalVideos / app.pageSize);
         if(currentPage === 0) {
 
           f.getVideosWithoutReferenceIds.value = "Loading    ";
@@ -311,9 +313,10 @@ var BCLS = ( function () {
               else if(this.scrollPos == 3) { this.value = "Loading ..."; this.scrollPos = 0; }
           }
           f.getTotalVideos.loadingMode = function(v) {
-            var my;
             if(v) { my = setInterval("BCLS.f.getTotalVideos.scrollBtn()",500); }
-            else { clearInterval(my); }
+            else { 
+				clearInterval(my); 
+		    } 
           }
         f.getVideosWithoutReferenceIds = document.getElementById("getVideosWithoutReferenceIds");
         f.getVideosWithoutReferenceIds.addEventListener("click", loadVideosWithoutReferenceIds);
@@ -329,7 +332,9 @@ var BCLS = ( function () {
         }
         f.getVideosWithoutReferenceIds.loadingMode = function(v) {
           if(v) { my = setInterval("BCLS.f.getVideosWithoutReferenceIds.scrollBtn()",500); }
-          else { clearInterval(my); }
+          else { 
+			  clearInterval(my); 
+		  }
         }
         f.totalVideosLabel = document.getElementById("totalVideosLabel");
         f.videosWithoutReferenceIdsLabel = document.getElementById("videosWithoutReferenceIdsLabel");

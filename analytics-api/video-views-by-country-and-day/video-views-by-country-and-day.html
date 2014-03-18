@@ -177,7 +177,7 @@
                 currentDayIndex = 0,
                 currentDay,
                 dayMax,
-                daysObj = {};
+                daysObj = {},
                 daysArray = [],
                 dateToMS,
                 dateFromMS,
@@ -256,7 +256,7 @@
                         break;
                     }
                     return name;
-                }
+                },
                 displayData = function () {
                     var displayStr, template, barChartData, chart;
                     template = Handlebars.compile(dataDisplayBodyTemplate);
@@ -329,10 +329,12 @@
                                     if (data.items[i].video === thisVideo.id) {
                                         item = data.items[i];
                                         newItem.video_view = item.video_view;
-                                        newItem.;
+                                        newItem.date = currentDay;
+                                        newItem.country = item.country;
+                                        newItem.country_name = item.country_name;
                                     }
                                 }
-                                analyticsData[currentDay].items[k].items.push(newItem);
+                                analyticsData[currentDay].items.push(newItem);
                             }
                         }
                         if (currentDayIndex < dayMax - 1) {
@@ -354,9 +356,10 @@
                     var callURL;
                     gettingDataDisplay.innerHTML = "Getting country data...";
                     callType = "countries";
-                    callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=country&from=" + daysArray[0] + "&to=" + daysArray[daysArray.length - 1] + "&fields=country,country_name$sort=country&limit=" + callLimit;
+                    callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=country&from=" + daysArray[0] + "&to=" + daysArray[daysArray.length - 1] + "&fields=country,country_name&sort=country&format=json&limit=" + callLimit;
+                    console.log(callURL);
                     makeAnalyticsCall(callURL);
-                }
+                },
                 // get the analytics data for the videos
                 getAnalyticsData = function () {
                     var callURL;
@@ -393,9 +396,12 @@
                 * 86400000 = 1 day in milliseconds
                 */
                 totalDays = Math.round((dateToMS - dateFromMS)/86400000);
-                for (i = 0; i < (totalDays - 1); i++) {
-                    daysArray[i] = dateToISO(dateFromMS + (i * 86400000));
+                console.log(totalDays);
+                for (i = 0; i < totalDays; i++) {
+                    var newDate = new Date(dateFromMS + (i * 86400000));
+                    daysArray[i] = dateToISO(newDate);
                 }
+                console.log(daysArray);
                 dayMax = daysArray.length;
                 console.log(daysArray);
                 daysObj.items = daysArray;

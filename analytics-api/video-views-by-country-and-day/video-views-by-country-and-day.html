@@ -316,7 +316,8 @@
                         callNumber++;
                         switch (callType) {
                             case "countries":
-
+                            template = Handlebars.compile(countryDisplayTemplate);
+                            countrySelector.insertAdjacentHTML("beforeend", template(data));
                             break;
                             case "analytics":
                             itemsmax = data.items.length;
@@ -399,7 +400,7 @@
                 console.log(daysArray);
                 daysObj.items = daysArray;
                 template = Handlebars.compile(dateDisplayTemplate);
-                countrySelector.insertAdjacentHTML(beforeend, template(daysObj));
+                countrySelector.insertAdjacentHTML("beforeend", template(daysObj));
                 getCountryData();
             });
             return {

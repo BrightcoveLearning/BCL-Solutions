@@ -123,7 +123,7 @@
                 <option value="http://api.brightcove.co.jp/services/library">http://api.brightcove.co.jp/services/library (Japan)</option>
             </select>
         </p>
-        <p>Media API READ token: <input id="token" type="text" size="60" value="ZY4Ls9Hq6LCBgleGDTaFRDLWWBC8uoXQun0xEEXtlDUHBDPZBCOzbw.."></p>
+        <p>Media API READ token: <input id="token" type="text" size="60" value="WDGO_XdKqXVJRVGtrNuGLxCYDNoR-SvA5yUqX2eE6KjgefOxRzQilw.."></p>
         <p><span id="runButton" class="run-button">Run report</span></p>
         <p>Calls left to make :  <span id="remainingCalls" style="color:red;font-weight:bold"></span></p>
         <hr/>
@@ -138,10 +138,9 @@
             <p id="errorLog"></p>
         </div>
         <h2 id="dataDisplay">Detailed Data</h2>
-        <p>
-            <span class="button" id="selectData">Select the data</span>
-        </p>
+        <p>Click on links in the table below to open the best video rendition in a separate browser window (or tab). You can then use the <strong>File &gt; Save As...</strong> command to save the video file locally. If there were no downloadable renditions for any of the videos, you will find those in a <a href="#failed">separate table</a> further down the page.</p>
         <div id="response"></div>
+        <div id="failed"></div>
         <!-- scripts -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-smooth-scroll/1.4.13/jquery.smooth-scroll.min.js"></script>
@@ -158,9 +157,9 @@
                 var $totalVideos = $("#totalVideos"),
                     $request = $("#request"),
                     $response = $("#response"),
+                    $failed = $("#failed"),
                     $token = $("#token"),
                     $runButton = $("#runButton"),
-                    $selectData = $("#selectData"),
                     $serviceURL = $("#serviceURL"),
                     $totalCalls = $("#totalCalls"),
                     $remainingCalls = $("#remainingCalls"),
@@ -169,7 +168,6 @@
                     totalVideos = 0,
                     primaryCallMade = false,
                     remainingCalls = 0,
-                    responseBody = "",
                     t,
                     method = "search_videos",
                     primaryParams = {
@@ -186,7 +184,7 @@
                         sort_by: "CREATION_DATE",
                         get_item_count: false,
                         video_fields: "id,name,creationDate,renditions",
-                        media_deliver: "http"
+                        media_delivery: "http"
                     },
                     totalCalls = 0,
                     callNumber = 0,
@@ -194,6 +192,12 @@
                     dataRowTemplate = "{{#items}}<tr><td>{{id}}</td><td>{{name}}</td><td>{{creationDate}}</td><td><a href=\"{{url}}\" target=\"_blank\">{{url}}</a></td></tr>{{/items}}",
                     responseEnd = "</tbody></table>",
                     responseBody = "",
+                    failStart = "<table><thead><tr><th>Video ID</th><th>Title</th><th>Date Created</th><th>Issue</th></tr></thead><tbody>",
+                    failBodyTemplate = "{{#items}}<tr><td>{{id}}</td><td>{{name}}</td><td>{{creationDate}}</td><td>{{failMessage}}</td></tr>{{/items}}",
+                    failEnd = "</tbody></table>",
+                    failBody = "",
+                    failObj = {},
+                    successObj = {},
                     // logging
                     bclslog = function (message) {
                       if (window["console"] && console["log"]) {
@@ -205,7 +209,7 @@
 
                     // more robust test for "not defined"
                     isDefined =  function (v) {
-                        if(v !== "" && v !== null && v !== undefined) { return true; }
+                        if (v !== "" && v !== null && v !== undefined) { return true; }
                         else { return false; }
                     },
 /*
@@ -220,6 +224,7 @@
                     // write the data to the page
                     writeData = function () {
                         document.getElementById("response").innerHTML = responseStart + responseBody + responseEnd;
+                        document.getElementById("failed").innerHTML = failStart + failBody + failEnd;
                     },
                     // media api calls, per filter
                     makePrimaryCall = function() {
@@ -243,10 +248,9 @@
                     $runButton.text("Run report");
                     document.getElementById("response").innerHTML = "";
                 });
-                $selectData.on("click", function() {
-                    document.getElementById("response").select();
-                });
                 $totalCalls.text(0);
+                failObj.items = [];
+                successObj.items = [];
                 return {
                     primaryCallResponse: function(jsonData) {
                         if (primaryCallMade === false) {
@@ -261,15 +265,23 @@
                     },
                     secondaryCallResponse: function(jsonData) {
                         var template = Handlebars.compile(dataRowTemplate),
+                        	failTemplate = Handlebars.compile(failBodyTemplate),
                             data,
                             results,
+                            failures,
+                            i,
+                            j,
+                            itemsMax,
+                            renditionsMax,
+                            rendition,
                             totalFileSize = 0,
                             item,
                             rendition,
                             lengthObj = {};
                         if (isDefined(jsonData.items)) {
                             bclslog(jsonData.items);
-                            for (var i = 0, max = jsonData.items.length; i < max; i++) {
+                            itemsMax = jsonData.items.length;
+                            for (i = 0; i < itemsMax; i++) {
                                 item = jsonData.items[i];
                                 item.creationDate = new Date(parseInt(item.creationDate));
                                 item.creationDate = item.creationDate.toDateString();
@@ -277,17 +289,30 @@
                                     item.renditions.sort( function (a, b) {
                                         return b.size - a.size;
                                     });
-                                    bclslog(item);
-                                    item.url = item.renditions[0].url;
+                                    renditionsMax = item.renditions.length
+                                    for (j =0; j < renditionsMax; j++) {
+	                                    rendition = item.renditions[j];
+	                                    if (rendition.url.indexOf("http") === 0) {
+		                                    item.url = rendition.url;
+		                                    successObj.items.push(item);
+		                                    break;
+	                                    } else if (j === (renditionsMax - 1)) {
+		                                    // didn't find a downloadable rendition
+		                                    item.failMessage = "no http rendition";
+		                                    failObj.items.push(item);
+	                                    }
+                                    }
                                 } else {
-                                    item.url = "javascript: window.alert(\"Sorry, there is no downloadable rendition for this vidow\")";
+                                    item.failMessage = "no renditions";
+                                    failObj.items.push(item);
                                 }
                                 
                             };
                             $totalCalls.text(callNumber + 1);
-                            data = jsonData;
-                            results = template(data);
+                            results = template(successObj);
+                            failures = failTemplate(failObj);
                             responseBody += results;
+                            failBody += failures;
                             callNumber++;
                             remainingCalls--;
                             if (callNumber <= totalCalls) {

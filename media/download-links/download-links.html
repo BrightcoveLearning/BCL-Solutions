@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Download Links for Best Renditions</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="/bcls/bootstrap/js/html5shiv.js"></script>
+        <![endif]-->
+        <!-- Fav and touch icons -->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/bcls/bootstrap/img/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/bcls/bootstrap/img/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/bcls/bootstrap/img/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="/bcls/bootstrap/img/apple-touch-icon-57-precomposed.png">
+        <link rel="shortcut icon" href="/bcls/bootstrap/img/favicon.ico">
+        <link href="//files.brightcove.com/proxima-nova/font-faces.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/github.css">
+        <link href="//docs.brightcove.com/en/scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <script src="//use.edgefonts.net/source-code-pro.js"></script>
+        <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
+        <style>
+            /* element styles */
+            body {
+                width: 80%;
+                padding-left: 40px;
+                padding-top: 100px;
+            }
+            fieldset {
+                width: 80%;
+                display: block;
+                margin-bottom: 20px;
+                border-radius: 5px;
+            }
+            h1 {
+                border-bottom: 1px #CCC solid;
+            }
+            input {
+                width: 400px;
+            }
+            pre, textarea {
+                border: 1px #999 solid;
+                border-radius: 5px;
+                padding: 5px;
+                width: 100%;
+                height: 800px;
+            }
+            /* class styles */
+            .button {
+                background-color: #f5f5f5;
+                border: 1px #666 solid;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: small;
+                margin-left: 20px;
+                padding: 5px;
+            }
+            .run-button {
+                color: #f5f5f5;
+                background-color: #666666;
+                border: 1px #000000 solid;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: small;
+                margin-left: 20px;
+                padding: 5px;
+            }
+            .text-warning {
+                color: #990000;
+                background-color: #f5f5f5;
+                border: 1px #990000 solid;
+                border-radius: 5px;
+                padding: 5px;
+            }
+        </style>
+    </head>
+
+    <body data-spy="scroll" data-target=".sub-menu" data-offset="100">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <!-- header navbar -->
+                    <div id="titleBar" class="navbar-inverse navbar-fixed-top">
+                        <div class="navbar-inner">
+                            <div id="otherSites"></div>
+                            <a class="brand" href="//docs.brightcove.com/en/index.html">BRIGHTCOVE DEVELOPER DOCUMENTATION</a>
+                        </div>
+                    </div>
+                    <!-- end header navbar -->
+                    <!-- nav navbar -->
+                    <div id="navBar" class="navbar-inverse navbar-fixed-top">
+                        <div class="navbar-inner">
+                            <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+                            <a class="btn btn-navbar pull-right" data-toggle="collapse" data-target=".nav-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </a>
+                            <!-- Everything you want hidden at 940px or less, place within here -->
+                            <ul id="sectionNav" class="nav"></ul>
+                        </div>
+                    </div>
+                    <!-- end nav navbar -->
+                </div>
+            </div>
+        </div>
+        <!-- main content starts here -->
+        <h1>Download Links for Best Renditions</h1>
+        <p>This tool allows you to get download links for the best rendition available for all your <em>active</em> videos.</p>
+        <p class="text-warning">Note: for accounts with many thousands of videos, this will take a while, and may fail on occasions because of timeouts or too many concurrent Media API calls. In case of errors, the problem and the data retrieved so far will be displayed - try again later to get the full data, and try to ensure that other applications are not making Media API calls on your account while you run the report.</p>
+        <h2>Instructions</h2>
+        <ol>
+            <li>Replace the Media API READ token in the field below with a token from your own account (find it in your Account Settings &gt; API Management - <strong style="color:red">note that you MUST use a READ token with URL Access!</strong>).</li>
+            <li>Click the <strong>Run report</strong> button.</li>
+            <li>For each link in the table of returned data, click the link to open the video rendition in a new browser window.</li>
+            <li>In the new video window, choose <strong>File &gt; Save as</strong> to save the video file locally.</li>
+        </ol>
+        <p>Service URL:
+            <select id="serviceURL">
+                <option value="http://api.brightcove.com/services/library">http://api.brightcove.com/services/library</option>
+                <option value="http://api.brightcove.co.jp/services/library">http://api.brightcove.co.jp/services/library (Japan)</option>
+            </select>
+        </p>
+        <p>Media API READ token: <input id="token" type="text" size="60" value="ZY4Ls9Hq6LCBgleGDTaFRDLWWBC8uoXQun0xEEXtlDUHBDPZBCOzbw.."></p>
+        <p><span id="runButton" class="run-button">Run report</span></p>
+        <p>Calls left to make :  <span id="remainingCalls" style="color:red;font-weight:bold"></span></p>
+        <hr/>
+        <h2>Data Overview</h2>
+        <div class="initialData">
+            <p>Total videos in your library:
+                <span id="totalVideos"></span>
+            </p>
+            <h4>Media API Request</h4>
+            <p class="code-area" id="request"></p>
+            <h4>Log</h4>
+            <p id="errorLog"></p>
+        </div>
+        <h2 id="dataDisplay">Detailed Data</h2>
+        <p>
+            <span class="button" id="selectData">Select the data</span>
+        </p>
+        <div id="response"></div>
+        <!-- scripts -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-smooth-scroll/1.4.13/jquery.smooth-scroll.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/highlight.min.js"></script>
+
+        <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
+        <script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
+        <script type="text/javascript" src="//docs.brightcove.com/en/scripts/bc-mapi.js"></script>
+        <script type="text/javascript" src="//docs.brightcove.com/en/scripts/secondsToTime.js"></script>
+        <script>
+            var BCLS = (function() {
+                "use strict";
+                var $totalVideos = $("#totalVideos"),
+                    $request = $("#request"),
+                    $response = $("#response"),
+                    $token = $("#token"),
+                    $runButton = $("#runButton"),
+                    $selectData = $("#selectData"),
+                    $serviceURL = $("#serviceURL"),
+                    $totalCalls = $("#totalCalls"),
+                    $remainingCalls = $("#remainingCalls"),
+                    $errorLog = $("#errorLog"),
+                    retries = 0,
+                    totalVideos = 0,
+                    primaryCallMade = false,
+                    remainingCalls = 0,
+                    responseBody = "",
+                    t,
+                    method = "search_videos",
+                    primaryParams = {
+                        callback: "BCLS.primaryCallResponse",
+                        page_size: 1,
+                        sort_by: "PUBLISH_DATE",
+                        get_item_count: true,
+                        video_fields: "id"
+                    },
+                    secondaryParams = {
+                        callback: "BCLS.secondaryCallResponse",
+                        page_size: 100,
+                        page_number: 0,
+                        sort_by: "CREATION_DATE",
+                        get_item_count: false,
+                        video_fields: "id,name,creationDate,renditions",
+                        media_deliver: "http"
+                    },
+                    totalCalls = 0,
+                    callNumber = 0,
+                    responseStart = "<table><thead><tr><th>Video ID</th><th>Title</th><th>Date Created</th><th>Link</th></tr></thead><tbody>",
+                    dataRowTemplate = "{{#items}}<tr><td>{{id}}</td><td>{{name}}</td><td>{{creationDate}}</td><td><a href=\"{{url}}\" target=\"_blank\">{{url}}</a></td></tr>{{/items}}",
+                    responseEnd = "</tbody></table>",
+                    responseBody = "",
+                    // logging
+                    bclslog = function (message) {
+                      if (window["console"] && console["log"]) {
+                        var d = new Date();
+                        console.log(d + ": ");
+                        console.log(message);
+                      };
+                    },
+
+                    // more robust test for "not defined"
+                    isDefined =  function (v) {
+                        if(v !== "" && v !== null && v !== undefined) { return true; }
+                        else { return false; }
+                    },
+/*
+                    // remove spaces from string
+                    removeSpaces = function (str) {
+                        if (isDefined(str)) {
+                            str = str.replace(/\s+/g, "");
+                            return str;
+                        }
+                    },
+*/
+                    // write the data to the page
+                    writeData = function () {
+                        document.getElementById("response").innerHTML = responseStart + responseBody + responseEnd;
+                    },
+                    // media api calls, per filter
+                    makePrimaryCall = function() {
+                        BCMAPI.token = $token.val();
+                        BCMAPI.url = $serviceURL.val();
+                        BCMAPI.search(primaryParams);
+                        $request.html(BCMAPI.request);
+                    },
+                    makeSecondaryCall = function() {
+                        secondaryParams.page_number = callNumber;
+                        $runButton.html("processing...please wait");
+                        BCMAPI.search(secondaryParams);
+                        $request.html(BCMAPI.request);
+                    },
+                    runReport = function() {
+                        makePrimaryCall();
+                    };
+                $runButton.on("click", runReport);
+                $token.on("change", function () {
+                    primaryCallMade = false;
+                    $runButton.text("Run report");
+                    document.getElementById("response").innerHTML = "";
+                });
+                $selectData.on("click", function() {
+                    document.getElementById("response").select();
+                });
+                $totalCalls.text(0);
+                return {
+                    primaryCallResponse: function(jsonData) {
+                        if (primaryCallMade === false) {
+                            totalVideos += jsonData.total_count;
+                            totalCalls = Math.ceil(jsonData.total_count / secondaryParams.page_size);
+                            remainingCalls = totalCalls;
+                            $remainingCalls.text(remainingCalls);
+                            callNumber = 0;
+                            primaryCallMade = true;
+                            makeSecondaryCall();
+                        }
+                    },
+                    secondaryCallResponse: function(jsonData) {
+                        var template = Handlebars.compile(dataRowTemplate),
+                            data,
+                            results,
+                            totalFileSize = 0,
+                            item,
+                            rendition,
+                            lengthObj = {};
+                        if (isDefined(jsonData.items)) {
+                            bclslog(jsonData.items);
+                            for (var i = 0, max = jsonData.items.length; i < max; i++) {
+                                item = jsonData.items[i];
+                                item.creationDate = new Date(parseInt(item.creationDate));
+                                item.creationDate = item.creationDate.toDateString();
+                                if (item.renditions.length !== 0) {
+                                    item.renditions.sort( function (a, b) {
+                                        return b.size - a.size;
+                                    });
+                                    bclslog(item);
+                                    item.url = item.renditions[0].url;
+                                } else {
+                                    item.url = "javascript: window.alert(\"Sorry, there is no downloadable rendition for this vidow\")";
+                                }
+                                
+                            };
+                            $totalCalls.text(callNumber + 1);
+                            data = jsonData;
+                            results = template(data);
+                            responseBody += results;
+                            callNumber++;
+                            remainingCalls--;
+                            if (callNumber <= totalCalls) {
+                                $remainingCalls.text(remainingCalls + 1);
+                                makeSecondaryCall();
+                                // $runButton.text("Make call number " + (callNumber + 1));
+                            } else {
+                                $remainingCalls.text(0);
+                                $runButton.text("All videos retrieved - Get your data below!")
+                                $totalVideos.html(totalVideos);
+                                writeData();
+                            } 
+                        } else {
+                            bclslog("no items!");
+                            bclslog(jsonData);
+                            if (retries < 5) {
+                                    t = window.setTimeout(function () {
+                                        makeSecondaryCall(currentFilter);
+                                    },30000 )
+                            } else {
+                                $errorLog.text("Something went wrong...writing the data we got below. " + "The error code was: " + jsonData.error.code + "and the message was: " + jsonData.error.message);
+                                writeData();
+                            }
+                        }
+                    }
+                }
+            })();
+        </script>
+    </body>
+</html>

@@ -344,11 +344,12 @@
                     $this,
                     videoOptionTemplate = "{{#items}}<option value=\"{{id}}\">{{name}}</option>{{/items}}",
                     schemaTemplates = {
-                        EntertainmentBusiness: "&lt;div id=\"content\"&gt; &lt;div itemscope itemid=\"\"itemtype=\"http://schema.org/VideoObject\"&gt;&lt;link itemprop=\"url\"href=\"{{pageURL}}?bctid={{id}}\"&gt;&lt;meta itemprop=\"name\" content=\"{{name}}\"&gt;&lt;meta itemprop=\"description\" content=\"{{shortDescription}}\"&gt;&lt;meta itemprop=\"paid\" content=\"False\"&gt;&lt;meta itemprop=\"videoId\" content=\"{{id}}\"&gt;&lt;meta itemprop=\"duration\" content=\"PT3M4S\"&gt;&lt;meta itemprop=\"unlisted\" content=\"False\"&gt;&lt;link itemprop=\"thumbnailUrl\" href=\"{{thumbnailURL}}\"&gt;&lt;span itemprop=\"thumbnail\" itemscope itemtype=\"http://schema.org/ImageObject\"&gt;&lt;link itemprop=\"url\" href=\"{{thumbnailURL}}\"&gt;&lt;meta itemprop=\"width\" content=\"320\"&gt;&lt;meta itemprop=\"height\" content=\"180\"&gt;&lt;/span&gt;&lt;link itemprop=\"embedURL\" href=\"href=\\\"http://c.brightcove.com/services/viewer/federated_f9/{{playerID}}?isVid=1&isUI=1&publisherID={{accountID}}&playerID={{playerID}}&domain=embed&videoId={{id}}\"&gt;&lt;meta itemprop=\"width\" content=\"640\"&gt;&lt;meta itemprop=\"height\" content=\"360\"&gt;&lt;!-- END OF SCHEMA --&gt;&lt;script src=\"http://admin.brightcove.com/js/BrightcoveExperiences.js\"&gt;&lt;\/script&gt;&lt;object id=\"myExperience{{id}}\" class=\"BrightcoveExperience\"&gt;&lt;param name=\"bgcolor\" value=\"#333333\" /&gt;&lt;param name=\"width\" value=\"{{playerWidth}}\" /&gt;&lt;param name=\"height\" value=\"{{playerHeight}}\" /&gt;&lt;param name=\"playerID\" value=\"{{playerID}}\" /&gt;&lt;param name=\"playerKey\" value=\"{{playerKey}}\"/&gt;&lt;param name=\"isVid\" value=\"true\" /&gt;&lt;param name=\"isUI\" value=\"true\" /&gt;&lt;param name=\"dynamicStreaming\" value=\"true\" /&gt;&lt;param name=\"@videoPlayer\" value=\"{{id}}\" /&gt;&lt;param name=\"linkBaseURL\" value=\"{{pageURL}}bctid={{id}}\" /&gt;&lt;/object&gt;&lt;/div&gt;"
+                        EntertainmentBusiness: "&lt;div id=\"content\"&gt; &lt;div itemscope itemid=\"\"itemtype=\"http://schema.org/VideoObject\"&gt;&lt;link itemprop=\"url\"href=\"{{pageURL}}?bctid={{id}}\"&gt;&lt;meta itemprop=\"name\" content=\"{{name}}\"&gt;&lt;meta itemprop=\"description\" content=\"{{shortDescription}}\"&gt;&lt;meta itemprop=\"paid\" content=\"False\"&gt;&lt;meta itemprop=\"videoId\" content=\"{{id}}\"&gt;&lt;meta itemprop=\"duration\" content=\"{{duration}}\"&gt;&lt;meta itemprop=\"unlisted\" content=\"False\"&gt;&lt;link itemprop=\"thumbnailUrl\" href=\"{{thumbnailURL}}\"&gt;&lt;span itemprop=\"thumbnail\" itemscope itemtype=\"http://schema.org/ImageObject\"&gt;&lt;link itemprop=\"url\" href=\"{{thumbnailURL}}\"&gt;&lt;meta itemprop=\"width\" content=\"320\"&gt;&lt;meta itemprop=\"height\" content=\"180\"&gt;&lt;/span&gt;&lt;link itemprop=\"embedURL\" href=\"href=\\\"http://c.brightcove.com/services/viewer/federated_f9/{{playerID}}?isVid=1&isUI=1&publisherID={{accountID}}&playerID={{playerID}}&domain=embed&videoId={{id}}\"&gt;&lt;meta itemprop=\"width\" content=\"640\"&gt;&lt;meta itemprop=\"height\" content=\"360\"&gt;&lt;!-- END OF SCHEMA --&gt;&lt;script src=\"http://admin.brightcove.com/js/BrightcoveExperiences.js\"&gt;&lt;\/script&gt;&lt;object id=\"myExperience{{id}}\" class=\"BrightcoveExperience\"&gt;&lt;param name=\"bgcolor\" value=\"#333333\" /&gt;&lt;param name=\"width\" value=\"{{playerWidth}}\" /&gt;&lt;param name=\"height\" value=\"{{playerHeight}}\" /&gt;&lt;param name=\"playerID\" value=\"{{playerID}}\" /&gt;&lt;param name=\"playerKey\" value=\"{{playerKey}}\"/&gt;&lt;param name=\"isVid\" value=\"true\" /&gt;&lt;param name=\"isUI\" value=\"true\" /&gt;&lt;param name=\"dynamicStreaming\" value=\"true\" /&gt;&lt;param name=\"@videoPlayer\" value=\"{{id}}\" /&gt;&lt;param name=\"linkBaseURL\" value=\"{{pageURL}}bctid={{id}}\" /&gt;&lt;/object&gt;&lt;/div&gt;"
                     },
                     getVideos,
                     onGetVideos,
-                    generateSchema;
+                    generateSchema,
+                    secondsToTime;
                     // allow array forEach method in older browsers
                     if ( !Array.prototype.forEach ) {
                         Array.prototype.forEach = function(fn, scope) {
@@ -356,13 +357,26 @@
                                 fn.call(scope || this, this[i], i, this);
                             }
                         }
+                    };
+                    secondsToTime = function (secs) {
+                      var hours = Math.floor(secs / (60 * 60));
+                      var divisor_for_minutes = secs % (60 * 60);
+                      var minutes = Math.floor(divisor_for_minutes / 60);
+                      var divisor_for_seconds = divisor_for_minutes % 60;
+                      var seconds = Math.ceil(divisor_for_seconds);
+                      var obj = {
+                        "h": hours.toString(),
+                        "m": minutes.toString(),
+                        "s": seconds.toString()
+                      };
+                      return obj;
                     }
                     // in case search terms added after initial video retrieval
                     $searchTerms.on("change", function () {
                         // re-initialize
                         pageNumber = 0;
                         totalPages = 0;
-                    })
+                    }),
                     getVideos = function() {
                         var searchTerms = $searchTerms.val(),
                             searchTermsArray = searchTerms.split(","),
@@ -373,7 +387,7 @@
                         params.page_number = pageNumber;
                         params.page_size = $pageSize.val();
                         params.sort_by = $sortBy.val();
-                        params.video_fields = "id,name,shortDescription,videoStillURL,thumbnailURL";
+                        params.video_fields = "id,name,shortDescription,videoStillURL,thumbnailURL,length";
                         params.get_item_count = true;
                         if (searchTerms !== "") {
                             if (searchType !== "") {
@@ -387,7 +401,13 @@
                         pageNumber++;
                     };
                     onGetVideos = function(JSONdata) {
+                        var i, item, durationObj, itemsMax = JSONdata.items.length;
                         videoData = JSONdata;
+                        for (i = 0; i < itemsMax; i++) {
+                            item = videoData.items[i];
+                            durationObj = secondsToTime(item.length / 1000);
+                            item.duration = "P" +durationObj.h + "H" + durationObj.m + "M" + durationObj.s + "S";
+                        }
                         totalVideos += JSONdata.total_count;
                         totalPages = Math.ceil(JSONdata.total_count / $pageSize.val());
                         if (totalPages === pageNumber) {

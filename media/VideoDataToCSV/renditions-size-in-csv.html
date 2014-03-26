@@ -297,22 +297,30 @@
                     secondaryCallResponse: function(jsonData) {
                         var template = Handlebars.compile(dataRowTemplate),
                             data,
+                            i,
+                            j,
+                            max,
+                            jmax,
                             results,
                             totalFileSize = 0,
                             item,
                             rendition,
                             lengthObj = {};
                         if (isDefined(jsonData.items)) {
-                            for (var i = 0, max = jsonData.items.length; i < max; i++) {
+                            max = jsonData.items.length;
+                            for (i = 0; i < max; i++) {
                                 item = jsonData.items[i];
                                 item.id = item.id.toString();
                                 item.tags = item.tags.join(",")
                                 lengthObj = BCLSsecondsToTime(item.length / 1000);
                                 item.length = lengthObj.h + ":" + lengthObj.m + ":" + lengthObj.s;
                                 item.publishedDate = new Date(parseInt(item.publishedDate));
-                                for (var j = 0, jmax = item.renditions.length; j < jmax; j++) {
-                                    rendition = item.renditions[j];
-                                    totalFileSize += rendition.size
+                                if (isDefined(item.renditions)) {
+                                    jmax = item.renditions.length;
+                                    for (j = 0; j < jmax; j++) {
+                                        rendition = item.renditions[j];
+                                        totalFileSize += rendition.size
+                                    }
                                 }
                                 totalFileSize = totalFileSize / 1000000;
                                 totalFileSize = Math.round(totalFileSize);

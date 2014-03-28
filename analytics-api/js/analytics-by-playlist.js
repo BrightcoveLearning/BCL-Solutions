@@ -53,6 +53,8 @@ var BCLS = (function ($, window, AnyTime) {
         $analyticsData = $("#analyticsData"),
         videoIds = [],
         currentVideoIndex = 0,
+        // functions
+        reset,
         logit,
         firstRun = true,
         onPlaylistSelect,
@@ -89,6 +91,12 @@ var BCLS = (function ($, window, AnyTime) {
         if(v !== "" && v !== null && v !== "undefined") { return true; }
         else { return false; }
     }
+    // reset everything
+    reset = function () {
+	    firstRun = true;
+	    $playlistSelectWrapper.attr("class", "bcls-hidden");
+	    $playlistSelector.html("");
+    }
     onMAPIresponse = function(jsonData) {
         // merge the data into the html template using Handlebars
         var template = Handlebars.compile(handleBarsTemplate),
@@ -105,8 +113,10 @@ var BCLS = (function ($, window, AnyTime) {
             // display the selector and get analytics button
             $playlistSelectWrapper.attr("class", "bcls-shown");
             $getPlaylists.html("Get next 25 playlists");
-            // get a reference to the playlist selector
+            /*
+// get a reference to the playlist selector
             $playlistSelector = $("#playlistSelector");
+*/
             // add event listener
             $playlistSelector.on("change", BCLS.onPlaylistSelect);
         }
@@ -343,6 +353,7 @@ var BCLS = (function ($, window, AnyTime) {
     $getPlaylists.on("click", getPlaylists);
     // set listener for form fields
     $requestInputs.on("change", function () {
+        reset();
         buildRequest();
     });
     // send request

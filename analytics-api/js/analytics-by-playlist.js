@@ -96,6 +96,10 @@ var BCLS = (function ($, window, AnyTime) {
 	    firstRun = true;
 	    $playlistSelectWrapper.attr("class", "bcls-hidden");
 	    $playlistSelector.html("");
+	    $getPlaylists.html("Get playlists");
+	    $getPlaylists.attr("class", "run-button");
+	    $getPlaylists.on("click", getPlaylists);
+	    page_number = 0;
     }
     onMAPIresponse = function(jsonData) {
         // merge the data into the html template using Handlebars
@@ -352,7 +356,7 @@ var BCLS = (function ($, window, AnyTime) {
     // set event listeners
     $getPlaylists.on("click", getPlaylists);
     // set listener for form fields
-    $requestInputs.on("change", function () {
+    $requestInputs.on("keydown", function () {
         reset();
         buildRequest();
     });

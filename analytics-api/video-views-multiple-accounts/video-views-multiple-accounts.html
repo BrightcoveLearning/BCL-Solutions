@@ -35,6 +35,9 @@
     body {
         margin: 40px;
     }
+    .BCL-btn {
+	    white-space: nowrap;
+    }
     </style>
 
 </head>
@@ -97,7 +100,7 @@
                                     <td class="align-middle"><span class="BCL-btn" id="addAccountButton">Add this account</span></td>
                                 </tr>
                                 <tr>
-                                    <td>Accounts <br /><select id="accounts" multiple="multiple" size="6"></select></td>
+                                    <td>Accounts <br /><select id="accounts" multiple="multiple"></select></td>
                                     <td class="align-middle"><span class="BCL-btn" id="removeAccountButton">Removed selected account</span></td>
                                 </tr>
                             </tbody>
@@ -107,15 +110,9 @@
                 <fieldset>
                     <legend>Date Range for Report</legend>
                     <p class="text-warning">Note that the date range <strong>must</strong> be set before you fetch the data. If you wish to set a new date range, you will need to refresh the page.</p>
-                    <p>
-                        Start: <input id="fromDatePicker" size="30" />
-                    </p>
-                    <p>
-                        End: <input id="toDatePicker" size="30" />
-                    </p>
-                    <p>
-                        <span class="BCL-btn" id="getData">Get Analytics Data</span>
-                    </p>
+                    <p>Start: <input id="fromDatePicker" size="30" /></p>
+                    <p>End: <input id="toDatePicker" size="30" /></p>
+                    <p><span class="BCL-btn" id="getData">Get Analytics Data</span></p>
                     <p class="text-warning" id="gettingDataDisplay"></p>
                 </fieldset>
 
@@ -165,6 +162,8 @@ var BCLS = (function (window, document, Handlebars, $) {
         addAccountButton = document.getElementById("addAccountButton"),
         accounts = document.getElementById("accounts"),
         accountsObj = {},
+        countryObj= [],
+        aggregateData = {},
         currentAccount,
         currentAccountIndex = 0,
         removeAccountButton = document.getElementById("removeAccountButton"),
@@ -191,7 +190,7 @@ var BCLS = (function (window, document, Handlebars, $) {
                 return false;
             }
         },
-        // return iso date for JS date
+        // return ISO 8601 date string (YYYY-MM-DD) for JS date
         dateToISO = function (date) {
             var y = date.getFullYear(),
                 m = date.getMonth(),
@@ -212,9 +211,43 @@ var BCLS = (function (window, document, Handlebars, $) {
             isoDate = y + "-" + m + "-" + d;
             return isoDate;
         },
+        /*
+		de-dupe array of objects based on selected property
+        note the comparison here is case-sensitive
+        for non-case-sensitive comparison, change 
+        targetArray[i].prop to targetArray[i].prop.toLowerCase()
+		*/
+        deDupe = function (targetArray, prop) {
+	        var i, j, totalItems = targetArray.length;
+	        for (i = 0; i < totalItems; i++) {
+			    for(var j = i + 1; j < totalItems; j++) {
+			        if(targetArray[i].prop === targetArray[j].prop)
+			            targetArray.splice(j, 1);
+			    }
+			}
+        },
+        // get selected value for single select element
         getSelectValue = function (e) {
             return e.options[e.selectedIndex].value;
         },
+        /*
+		get an array of selected options for multi-select element
+        returns array of objects with properties "index" and "value"
+		*/
+        getSelectedOptions = function (e) {
+            var selectedOptions = [],
+	            index = 0,
+	            i;
+            for (var i = 0; i < e.length; i++) {
+               if (e[i].selected) {
+                  index = selectedOptions.length;
+                  selectedOptions[index] = {};
+                  selectedOptions[index].value = e[i].value;
+                  selectedOptions[index].index = i;
+               }
+            }
+            return selectedOptions;
+         },
         // display the data
         displayData = function () {
             var template, tempObj = {}, i, item, totalItems, selectedCountry;
@@ -228,15 +261,20 @@ var BCLS = (function (window, document, Handlebars, $) {
                 selectedCountry = getSelectValue(countrySelector);
             }
         },
+        // update the aggregateData object
+        updateAggregateData = function () {
+	        
+        },
+        // make the analytics api call via AJAX
         makeAnalyticsCall = function (callURL) {
             var newItem;
             $.ajax({
                 url: callURL,
                 headers: {
-                    Authorization : "Bearer " + token.value
+                    Authorization : "Bearer " + currentAccount.token
                 },
                 success : function (data) {
-                    var template, results, i, player, video, analytics, item, itemsMax, newItem = {},accountsMax = accountsObj.accounts.length;
+                    var template, results, i, item, itemsMax, newItem = {},accountsMax = accountsObj.items.length;
                     callNumber++;
                     itemsMax = data.items.length;
                     for (i = 0; i < itemsMax; i++) {
@@ -262,57 +300,62 @@ var BCLS = (function (window, document, Handlebars, $) {
                 }
             });
         },
-        // get country data
-        getCountryData = function () {
-            var callURL;
-            gettingDataDisplay.innerHTML = "Getting country data...";
-            callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=country&from=" + daysArray[0] + "&to=" + daysArray[daysArray.length - 1] + "&fields=country,country_name&sort=country_name&format=json&limit=" + callLimit;
-            makeAnalyticsCall(callURL);
-        },
         // get the analytics data for the videos
         getAnalyticsData = function () {
             var callURL;
             gettingDataDisplay.innerHTML = "Getting analytics data...";
             // currentVideo = videoData.items[currentVideoIndex].video;
-            currentAccount = daysArray[currentAccountIndex];
-            callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=country&from=" + currentAccount + "&to=" + currentAccount + "&fields=video_view,country,country_name&sort=country_name&format=json&limit=300";
+            currentAccount = accountsObj.items[currentAccountIndex];
+            callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + currentAccount.id + "/report/?dimensions=country&from=" + fromDate.value + "&to=" + toDate.value + "&fields=video_view,country,country_name&sort=country_name&format=json&limit=300";
             makeAnalyticsCall(callURL);
         },
         addAccount = function () {
-            var id = accountID.value,
-                token = token.value,
-                str = id + " " + token;
-            if (isDefined(id) && isDefined(token)) {
-                accountsObj.accounts.push({"id": id, "token": token});
+            var str,
+            	id = accountID.value,
+				acctToken = token.value,
+            str = id + " " + acctToken;
+            if (isDefined(id) && isDefined(acctToken)) {
+                accountsObj.items.push({"id": id, "token": acctToken});
                 accounts.options[accounts.options.length] = new Option(str, accounts.options.length);
+                accounts.setAttribute('size', accounts.options.length);
+				accounts.style.display='none';
+				accounts.style.display='block';
             } else {
                 window.alert("You must enter an account ID and the token for the account");
             }
         },
-        removeAccount = function () {
-
+        removeAccounts = function () {
+			var i, idx, selectedAccounts = getSelectedOptions(accounts);
+			for (i = selectedAccounts.length - 1; i >= 0; i--) {
+				idx = selectedAccounts[i].index;
+				accountsObj.items.splice(idx, 1);
+				console.log(accountsObj.items);
+				accounts.remove(idx);
+			}
         },
         initializeData = function () {
-            var dateFromMS = new Date(fromDate.value).valueOf();
-                dateToMS = new Date(toDate.value).valueOf();
+            accountsObj.items = [];
+		    countryObj.items = [];
+		    aggregateData.accounts = {};
+		    aggregateData.total_views = 0;
         };
         // add date pickers to the date input fields
         new datepickr('fromDatePicker', {
-            'fullCurrentMonth': false
+            'fullCurrentMonth': true
         });
         new datepickr('toDatePicker', {
-            'fullCurrentMonth': false
+            'fullCurrentMonth': true
         });
     // default date range values
     toDate.value = dateToISO(today),
     fromDate.value = dateToISO(weekAgo),
     // accounts data setup
-    accountsObj.accounts = [];
+    initializeData();
     // event listeners
     getData.addEventListener("click", initializeData);
     countrySelector.addEventListener("change", displayData);
     addAccountButton.addEventListener("click", addAccount);
-    removeAccountButton.addEventListener("click", removeAccount);
+    removeAccountButton.addEventListener("click", removeAccounts);
     return {
     }
 })(window, document, Handlebars, $);

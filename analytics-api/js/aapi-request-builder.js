@@ -187,7 +187,7 @@ var BCLS = (function ($, window, AnyTime) {
     }
     // more robust test for strings "not defined"
     isDefined =  function (v) {
-        if(v !== "" && v !== null && v !== "undefined") { return true; }
+        if(v !== "" && v !== null && v !== "undefined" && v !== undefined) { return true; }
         else { return false; }
     };
     // get videos via MAPI

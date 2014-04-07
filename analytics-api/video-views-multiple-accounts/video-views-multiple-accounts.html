@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Analytics API Solution: Video Views Report for Multiple Accounts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Robert Crooks">
+
+    <!--link rel="stylesheet/less" href="less/bootstrap.less" type="text/css" /-->
+    <!--link rel="stylesheet/less" href="less/responsive.less" type="text/css" /-->
+    <!--script src="/bcls/bootstrap/js/less-1.3.3.min.js"></script-->
+    <!--append ‘#!watch’ to the browser URL, then refresh the page. -->
+
+    <link href="/bcls/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bcls/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="/bcls/bootstrap/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
+    <!-- for date picker -->
+    <link href="/bcls/scripts/datepickr_2/datepickr.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="/bcls/bootstrap/js/html5shiv.js"></script>
+  <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/bcls/bootstrap/img/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/bcls/bootstrap/img/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/bcls/bootstrap/img/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/bcls/bootstrap/img/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="/bcls/bootstrap/img/favicon.ico">
+    <style type="text/css">
+    body {
+        margin: 40px;
+    }
+    </style>
+
+</head>
+
+<body data-spy="scroll" data-target=".sub-menu" data-offset="100">
+    <!-- header navbar -->
+    <div id="titleBar" class="navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div id="otherSites">
+
+            </div>
+            <a class="brand" href="//docs.brightcove.com/en/index.html">BRIGHTCOVE DEVELOPER DOCUMENTATION</a>
+        </div>
+    </div>
+    <!-- end header navbar -->
+    <!-- nav navbar -->
+    <div id="navBar" class="navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+            <a class="btn btn-navbar pull-right" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <!-- Everything you want hidden at 940px or less, place within here -->
+            <ul id="sectionNav" class="nav">
+            </ul>
+        </div>
+    </div>
+    <!-- end nav navbar -->
+    <!-- main content starts here -->
+    <div class="row">
+        <div id="sidenav" class="span2"></div>
+        <div id="main" class="span10">
+            <div class="section" id="top">
+                <h1>Analytics API Solution: Video Views Report for Multiple Accounts</h1>
+                <p>The Analytics UI in Video Cloud Studio offers a number of ready-made reports, but you can create additional reports using he Analytics API that are tailored to your specific needs. In this example, we will create a report showing the total video views for multiple accounts over a selected period. We will also break the views down by country.</p>
+                <div class="text-warning">
+                    <h3>Dependencies</h3>
+                    <p>3rd party libraries used in this sample:</p>
+                    <ul>
+                        <li><a href="https://jquery.org">jQuery</a></li>
+                        <li><a href="http://handlebarsjs.com">Handlebars</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="section" id="inputs">
+                <h2>Inputs</h2>
+                <fieldset>
+                    <legend>Basic Information</legend>
+                    <div id="basicInfo">
+                        <h3>Accounts to return data for</h3>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <p>Video Cloud Account: <input id="accountID" class="required aapi-request" type="text" size="55" value="20318290001"></p>
+                                        <p>Authorization Token<sup class="red">*</sup>: <input id="token" class="required aapi-request" type="text" size="55" value="15075c51ae4b0af095c9a619a" /></p>
+                                    </td>
+                                    <td class="align-middle"><span class="BCL-btn" id="addAccountButton">Add this account</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Accounts <br /><select id="accounts" multiple="multiple" size="6"></select></td>
+                                    <td class="align-middle"><span class="BCL-btn" id="removeAccountButton">Removed selected account</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Date Range for Report</legend>
+                    <p class="text-warning">Note that the date range <strong>must</strong> be set before you fetch the data. If you wish to set a new date range, you will need to refresh the page.</p>
+                    <p>
+                        Start: <input id="fromDatePicker" size="30" />
+                    </p>
+                    <p>
+                        End: <input id="toDatePicker" size="30" />
+                    </p>
+                    <p>
+                        <span class="BCL-btn" id="getData">Get Analytics Data</span>
+                    </p>
+                    <p class="text-warning" id="gettingDataDisplay"></p>
+                </fieldset>
+
+            </div>
+            <div class="section" id="results">
+                <h2>Results</h2>
+                <p>
+                    Country: <select id="countrySelector">
+                            <option value="all" selected="selected">All</option>
+                        </select>
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Country</th>
+                            <th>Video Views</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportTableBody"></tbody>
+                </table>
+            </div>
+            <div class="section" id="code">
+              <h2>Code for the sample</h2>
+              <p>The JavaScript code for this sample is shown below &mdash; view source to see the full page code.<p>
+              <script src=""></script>
+            </div>
+        </div>
+    </div>
+<!-- jquery used for the AJAX calls -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//docs.brightcove.com/en/scripts/bootstrap/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-smooth-scroll/1.4.13/jquery.smooth-scroll.min.js"></script>
+<!-- handlebars used to merge data with HTML strings -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/highlight.min.js"></script>
+<!-- for date picker -->
+<script type="text/javascript" src="/bcls/scripts/datepickr_2/datepickr.min.js"></script>
+<script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
+<script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
+<script id="pageScript" type="text/javascript">
+var BCLS = (function (window, document, Handlebars, $) {
+    "use strict";
+    var callNumber = 0,
+        // call limit will be reset once we know how many countries have data for the period
+        accountID = document.getElementById("accountID"),
+        token = document.getElementById("token"),
+        addAccountButton = document.getElementById("addAccountButton"),
+        accounts = document.getElementById("accounts"),
+        accountsObj = {},
+        currentAccount,
+        currentAccountIndex = 0,
+        removeAccountButton = document.getElementById("removeAccountButton"),
+        dateSelector = document.getElementById("dateSelector"),
+        reportTableBody = document.getElementById("reportTableBody"),
+        dateToMS,
+        dateFromMS,
+        analyticsData = {},
+        dayMS,
+        fromDate = document.getElementById("fromDatePicker"),
+        toDate = document.getElementById("toDatePicker"),
+        countrySelector = document.getElementById("countrySelector"),
+        getData = document.getElementById("getData"),
+        gettingDataDisplay = document.getElementById("gettingDataDisplay"),
+        today = new Date(),
+        weekAgo = new Date(today - 604800000),
+        countryDisplayTemplate = "{{#items}}<option value=\"{{country}}\">{{country_name}}</option>{{/items}}",
+        dataDisplayBodyTemplate = "<tr><th colspan=\"2\">{{date}}</th></tr>{{#items}}<tr><td>{{country_name}}</td><td>{{video_view}}</td></tr>{{/items}}",
+        // is defined
+        isDefined = function (x) {
+            if (x !== "" && x !== null && x !== undefined) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        // return iso date for JS date
+        dateToISO = function (date) {
+            var y = date.getFullYear(),
+                m = date.getMonth(),
+                d = date.getDate(),
+                isoDate;
+            y = y.toString();
+            m = m + 1;
+            if (m < 10) {
+                m = "0" + m.toString();
+            } else {
+                m = m.toString();
+            }
+            if (d < 10) {
+                d = "0" + d.toString();
+            } else {
+                d = d.toString();
+            }
+            isoDate = y + "-" + m + "-" + d;
+            return isoDate;
+        },
+        getSelectValue = function (e) {
+            return e.options[e.selectedIndex].value;
+        },
+        // display the data
+        displayData = function () {
+            var template, tempObj = {}, i, item, totalItems, selectedCountry;
+            // clear the table body
+            reportTableBody.innerHTML = "";
+            template = Handlebars.compile(dataDisplayBodyTemplate);
+            if (getSelectValue(countrySelector) === "all") {
+
+            } else {
+                // we have a selected country
+                selectedCountry = getSelectValue(countrySelector);
+            }
+        },
+        makeAnalyticsCall = function (callURL) {
+            var newItem;
+            $.ajax({
+                url: callURL,
+                headers: {
+                    Authorization : "Bearer " + token.value
+                },
+                success : function (data) {
+                    var template, results, i, player, video, analytics, item, itemsMax, newItem = {},accountsMax = accountsObj.accounts.length;
+                    callNumber++;
+                    itemsMax = data.items.length;
+                    for (i = 0; i < itemsMax; i++) {
+                        newItem = {};
+                        item = data.items[i];
+                        newItem.video_view = item.video_view;
+                        newItem.country = item.country;
+                        newItem.country_name = item.country_name;
+                        analyticsData[currentAccount].items.push(newItem);
+                    }
+                    if (currentAccountIndex < accountsMax - 1) {
+                        currentAccountIndex++;
+                        getAnalyticsData();
+                    } else {
+                        gettingDataDisplay.innerHTML = "Data retrieved - " + callNumber + " API calls made. See and filter your data below.";
+                        displayData();
+                    }
+                },
+                error : function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (window.console) {
+                        console.log("Request was not successful. Here's what the server sent back: " + errorThrown);
+                    }
+                }
+            });
+        },
+        // get country data
+        getCountryData = function () {
+            var callURL;
+            gettingDataDisplay.innerHTML = "Getting country data...";
+            callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=country&from=" + daysArray[0] + "&to=" + daysArray[daysArray.length - 1] + "&fields=country,country_name&sort=country_name&format=json&limit=" + callLimit;
+            makeAnalyticsCall(callURL);
+        },
+        // get the analytics data for the videos
+        getAnalyticsData = function () {
+            var callURL;
+            gettingDataDisplay.innerHTML = "Getting analytics data...";
+            // currentVideo = videoData.items[currentVideoIndex].video;
+            currentAccount = daysArray[currentAccountIndex];
+            callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=country&from=" + currentAccount + "&to=" + currentAccount + "&fields=video_view,country,country_name&sort=country_name&format=json&limit=300";
+            makeAnalyticsCall(callURL);
+        },
+        addAccount = function () {
+            var id = accountID.value,
+                token = token.value,
+                str = id + " " + token;
+            if (isDefined(id) && isDefined(token)) {
+                accountsObj.accounts.push({"id": id, "token": token});
+                accounts.options[accounts.options.length] = new Option(str, accounts.options.length);
+            } else {
+                window.alert("You must enter an account ID and the token for the account");
+            }
+        },
+        removeAccount = function () {
+
+        },
+        initializeData = function () {
+            var dateFromMS = new Date(fromDate.value).valueOf();
+                dateToMS = new Date(toDate.value).valueOf();
+        };
+        // add date pickers to the date input fields
+        new datepickr('fromDatePicker', {
+            'fullCurrentMonth': false
+        });
+        new datepickr('toDatePicker', {
+            'fullCurrentMonth': false
+        });
+    // default date range values
+    toDate.value = dateToISO(today),
+    fromDate.value = dateToISO(weekAgo),
+    // accounts data setup
+    accountsObj.accounts = [];
+    // event listeners
+    getData.addEventListener("click", initializeData);
+    countrySelector.addEventListener("change", displayData);
+    addAccountButton.addEventListener("click", addAccount);
+    removeAccountButton.addEventListener("click", removeAccount);
+    return {
+    }
+})(window, document, Handlebars, $);
+</script>
+</body>
+
+</html>

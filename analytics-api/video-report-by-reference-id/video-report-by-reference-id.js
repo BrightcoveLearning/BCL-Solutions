@@ -140,7 +140,7 @@ var BCLS = (function ($, window, AnyTime, BCMAPI, Handlebars, BCLSformatJSON) {
     }
     // more robust test for strings "not defined"
     isDefined =  function (v) {
-        if (v !== "" && v !== null && v !== "undefined") {
+        if (v !== "" && v !== null && v !== "undefined" && v !== undefined) {
             return true;
         } else { return false; }
     };
@@ -161,7 +161,6 @@ var BCLS = (function ($, window, AnyTime, BCMAPI, Handlebars, BCLSformatJSON) {
     onGetVideos = function (JSONdata) {
         var template, result, i, itemsMax, item;
         videoData.items = videoData.items.concat(JSONdata.items);
-
         if (videoData.items.length < JSONdata.total_count) {
             pageNumber++;
             getVideos();

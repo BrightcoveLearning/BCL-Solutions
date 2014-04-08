@@ -15,13 +15,11 @@
           ta = document.getElementById("ta"),
           btn = document.getElementById("btn");
           console.log(btn);
-      processList = function () {
-          var t = ta.value;
-          console.log(t);
+      /* function to remove line breaks and spaces from text */
+      removeBreaksAndSpaces = function (t) {
           t = t.replace(/\r\n/g, ',').replace(/[\r\n]/g, ',');
-          console.log(t);
           t = t.replace(/\s/g, "");
-          console.log(t);
+          return t;
       }
       btn.addEventListener("click", processList);
     </script>

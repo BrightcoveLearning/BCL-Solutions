@@ -183,12 +183,8 @@ var BCLS = (function (window, document, Handlebars, $, datepickr) {
         currentAccount,
         currentAccountIndex = 0,
         removeAccountButton = document.getElementById("removeAccountButton"),
-        dateSelector = document.getElementById("dateSelector"),
         reportTableBody = document.getElementById("reportTableBody"),
-        dateToMS,
-        dateFromMS,
         analyticsData = {},
-        dayMS,
         fromDate = document.getElementById("fromDatePicker"),
         toDate = document.getElementById("toDatePicker"),
         countrySelector = document.getElementById("countrySelector"),
@@ -197,7 +193,6 @@ var BCLS = (function (window, document, Handlebars, $, datepickr) {
         today = new Date(),
         weekAgo = new Date(today - 604800000),
         countryDisplayTemplate = "{{#totals}}<option value=\"{{country}}\">{{country_name}}</option>{{/totals}}",
-        dataDisplayBodyTemplate = "<tr><th colspan=\"2\">{{accountID}}</th></tr>{{#items}}<tr><td>{{country_name}}</td><td>{{video_view}}</td></tr>{{/items}}",
         // functions
         isDefined,
         dateToISO,
@@ -349,7 +344,7 @@ var BCLS = (function (window, document, Handlebars, $, datepickr) {
                 Authorization : "Bearer " + currentAccount.token
             },
             success : function (data) {
-                var template, results, i, item, itemsMax, newItem = {}, newTotalsItem = {}, accountsMax = accountsObj.items.length, objIdx;
+                var template, i, item, itemsMax, newItem = {}, newTotalsItem = {}, accountsMax = accountsObj.items.length, objIdx;
                 callNumber++;
                 itemsMax = data.items.length;
                 analyticsData.items[currentAccount.id] = {};

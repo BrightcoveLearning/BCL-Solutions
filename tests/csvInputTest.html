@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="t/html; charset=utf-8" />		
+    <title></title>
+    <style>
+      
+    </style>
+  </head>
+  <body>
+    <textarea name="ta" id="ta" cols="30" rows="10"></textarea>
+    <button id="btn">Submit</button>
+    <script>
+      var processList,
+          ta = document.getElementById("ta"),
+          btn = document.getElementById("btn");
+          console.log(btn);
+      processList = function () {
+          var t = ta.value;
+          console.log(t);
+          t = t.replace(/\r\n/g, ',').replace(/[\r\n]/g, ',');
+          console.log(t);
+          t = t.replace(/\s/g, "");
+          console.log(t);
+      }
+      btn.addEventListener("click", processList);
+    </script>
+  </body>
+</html>

@@ -37,6 +37,10 @@
     }
     .BCL-btn {
 	    white-space: nowrap;
+	    font-size: small;
+    }
+    textarea {
+        font-size: x-small;
     }
     </style>
 
@@ -100,6 +104,18 @@
                                     <td class="align-middle"><span class="BCL-btn" id="addAccountButton">Add this account</span></td>
                                 </tr>
                                 <tr>
+                                    <td>
+                                        <p>Add multiple accounts:<br />
+                                            (Paste in data in the form:<br />
+                                            1stAccountID, 1stAccountToken
+                                            2ndAccountID, 2ndAccountToken
+                                            ...etc. [spaces don't matter])<br />
+                                            <textarea name="multipleAccounts" id="multipleAccounts" cols="40" rows="10"></textarea>
+                                         </p>
+                                    </td>
+                                    <td class="align-middle"><span class="BCL-btn" id="addMultipleAccountsButton">Add multiple accounts</span></td>
+                                </tr>
+                                <tr>
                                     <td>Accounts <br /><select id="accounts" multiple="multiple"></select></td>
                                     <td class="align-middle"><span class="BCL-btn" id="removeAccountButton">Removed selected account</span></td>
                                 </tr>
@@ -137,7 +153,7 @@
             <div class="section" id="code">
               <h2>Code for the sample</h2>
               <p>The JavaScript code for this sample is shown below &mdash; view source to see the full page code.<p>
-              <script src=""></script>
+              <script src="https://gist.github.com/10139371.js"></script>
             </div>
         </div>
     </div>
@@ -153,17 +169,17 @@
 <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
 <script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
 <script id="pageScript" type="text/javascript">
-var BCLS = (function (window, document, Handlebars, $) {
+var BCLS = (function (window, document, Handlebars, $, datepickr) {
     "use strict";
     var callNumber = 0,
-        // call limit will be reset once we know how many countries have data for the period
         accountID = document.getElementById("accountID"),
         token = document.getElementById("token"),
         addAccountButton = document.getElementById("addAccountButton"),
         accounts = document.getElementById("accounts"),
+        multipleAccounts = document.getElementById("multipleAccounts"),
+        addMultipleAccountsButton = document.getElementById("addMultipleAccountsButton"),
         accountsObj = {},
-        countryObj= [],
-        aggregateData = {},
+        countryObj = [],
         currentAccount,
         currentAccountIndex = 0,
         removeAccountButton = document.getElementById("removeAccountButton"),
@@ -180,185 +196,288 @@ var BCLS = (function (window, document, Handlebars, $) {
         gettingDataDisplay = document.getElementById("gettingDataDisplay"),
         today = new Date(),
         weekAgo = new Date(today - 604800000),
-        countryDisplayTemplate = "{{#items}}<option value=\"{{country}}\">{{country_name}}</option>{{/items}}",
-        dataDisplayBodyTemplate = "<tr><th colspan=\"2\">{{date}}</th></tr>{{#items}}<tr><td>{{country_name}}</td><td>{{video_view}}</td></tr>{{/items}}",
-        // is defined
-        isDefined = function (x) {
-            if (x !== "" && x !== null && x !== undefined) {
-                return true;
-            } else {
-                return false;
+        countryDisplayTemplate = "{{#totals}}<option value=\"{{country}}\">{{country_name}}</option>{{/totals}}",
+        dataDisplayBodyTemplate = "<tr><th colspan=\"2\">{{accountID}}</th></tr>{{#items}}<tr><td>{{country_name}}</td><td>{{video_view}}</td></tr>{{/items}}",
+        // functions
+        isDefined,
+        dateToISO,
+        getSelectedValue,
+        getSelectedOptions,
+        findObjectInArray,
+        sortArray,
+        displayData,
+        makeAnalyticsCall,
+        getAnalyticsData,
+        addAccount,
+        addMultipleAccounts,
+        removeAccounts,
+        initializeData,
+        removeBreaksAndSpaces;
+    // is defined
+    isDefined = function (x) {
+        if (x !== "" && x !== null && x !== undefined) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+    // return ISO 8601 date string (YYYY-MM-DD) for JS date
+    dateToISO = function (date) {
+        var y = date.getFullYear(),
+            m = date.getMonth(),
+            d = date.getDate(),
+            isoDate;
+        y = y.toString();
+        m = m + 1;
+        if (m < 10) {
+            m = "0" + m.toString();
+        } else {
+            m = m.toString();
+        }
+        if (d < 10) {
+            d = "0" + d.toString();
+        } else {
+            d = d.toString();
+        }
+        isoDate = y + "-" + m + "-" + d;
+        return isoDate;
+    };
+    /* function to remove line breaks and spaces from text */
+    removeBreaksAndSpaces = function (t) {
+        t = t.replace(/\r\n/g, ',').replace(/[\r\n]/g, ',');
+        t = t.replace(/\s/g, "");
+        return t;
+    };
+    // get selected value for single select element
+    getSelectedValue = function (e) {
+        return e.options[e.selectedIndex].value;
+    };
+    /*
+    get an array of selected options for multi-select element
+    returns array of objects with properties "index" and "value"
+    */
+    getSelectedOptions = function (e) {
+        var selectedOptions = [],
+            index = 0,
+            i;
+        for (i = 0; i < e.length; i++) {
+            if (e[i].selected) {
+                index = selectedOptions.length;
+                selectedOptions[index] = {};
+                selectedOptions[index].value = e[i].value;
+                selectedOptions[index].index = i;
             }
-        },
-        // return ISO 8601 date string (YYYY-MM-DD) for JS date
-        dateToISO = function (date) {
-            var y = date.getFullYear(),
-                m = date.getMonth(),
-                d = date.getDate(),
-                isoDate;
-            y = y.toString();
-            m = m + 1;
-            if (m < 10) {
-                m = "0" + m.toString();
-            } else {
-                m = m.toString();
+        }
+        return selectedOptions;
+    };
+    /*
+    find index of an object in array of objects
+    based on some property value
+    returns index if found, otherwise returns -1
+    */
+    findObjectInArray = function (targetArray, objProperty, value) {
+        var i, totalItems = targetArray.length, objFound = false;
+        for (i = 0; i < totalItems; i++) {
+            if (targetArray[i][objProperty] === value) {
+                objFound = true;
+                return i;
             }
-            if (d < 10) {
-                d = "0" + d.toString();
-            } else {
-                d = d.toString();
-            }
-            isoDate = y + "-" + m + "-" + d;
-            return isoDate;
-        },
-        /*
-		de-dupe array of objects based on selected property
-        note the comparison here is case-sensitive
-        for non-case-sensitive comparison, change 
-        targetArray[i].prop to targetArray[i].prop.toLowerCase()
-		*/
-        deDupe = function (targetArray, prop) {
-	        var i, j, totalItems = targetArray.length;
-	        for (i = 0; i < totalItems; i++) {
-			    for(var j = i + 1; j < totalItems; j++) {
-			        if(targetArray[i].prop === targetArray[j].prop)
-			            targetArray.splice(j, 1);
-			    }
-			}
-        },
-        // get selected value for single select element
-        getSelectValue = function (e) {
-            return e.options[e.selectedIndex].value;
-        },
-        /*
-		get an array of selected options for multi-select element
-        returns array of objects with properties "index" and "value"
-		*/
-        getSelectedOptions = function (e) {
-            var selectedOptions = [],
-	            index = 0,
-	            i;
-            for (var i = 0; i < e.length; i++) {
-               if (e[i].selected) {
-                  index = selectedOptions.length;
-                  selectedOptions[index] = {};
-                  selectedOptions[index].value = e[i].value;
-                  selectedOptions[index].index = i;
-               }
-            }
-            return selectedOptions;
-         },
-        // display the data
-        displayData = function () {
-            var template, tempObj = {}, i, item, totalItems, selectedCountry;
+        }
+        if (objFound === false) {
+            return -1;
+        }
+    };
+    /*
+    sort an array of objects based on an object property
+    returns the sorted array
+    */
+    sortArray = function (targetArray, objProperty) {
+        targetArray.sort(function (a, b) {
+            return a[objProperty] - b[objProperty];
+        });
+        return targetArray;
+    };
+    // display the data
+    displayData = function () {
+        var  i, j, totalItems, countryIdx, totalAccounts, selectedCountry, str, accountItem, thisItem;
+        if (getSelectedValue(countrySelector) === "all") {
             // clear the table body
-            reportTableBody.innerHTML = "";
-            template = Handlebars.compile(dataDisplayBodyTemplate);
-            if (getSelectValue(countrySelector) === "all") {
-
-            } else {
-                // we have a selected country
-                selectedCountry = getSelectValue(countrySelector);
+            str = "<tr><th colspan=\"2\">Total Views for All Accounts</th></tr>";
+            str += "<tr><td>All countries</td><td>" + analyticsData.total_views + "</td></tr>";
+            str += "<tr><th colspan=\"2\">Total Views by Country</th></tr>";
+            totalItems = analyticsData.totals.length;
+            for (i = 0; i < totalItems; i++) {
+                str += "<tr><td>" + analyticsData.totals[i].country_name + "</td><td>" + analyticsData.totals[i].video_view  + "</td></tr>";
             }
-        },
-        // update the aggregateData object
-        updateAggregateData = function () {
-	        
-        },
-        // make the analytics api call via AJAX
-        makeAnalyticsCall = function (callURL) {
-            var newItem;
-            $.ajax({
-                url: callURL,
-                headers: {
-                    Authorization : "Bearer " + currentAccount.token
-                },
-                success : function (data) {
-                    var template, results, i, item, itemsMax, newItem = {},accountsMax = accountsObj.items.length;
-                    callNumber++;
-                    itemsMax = data.items.length;
-                    for (i = 0; i < itemsMax; i++) {
-                        newItem = {};
-                        item = data.items[i];
-                        newItem.video_view = item.video_view;
-                        newItem.country = item.country;
-                        newItem.country_name = item.country_name;
-                        analyticsData[currentAccount].items.push(newItem);
+            str += "<tr><th colspan=\"2\">Individual Account Data</th></tr>";
+            totalAccounts = accountsObj.items.length;
+            for (i = 0; i < totalAccounts; i++) {
+                accountItem = accountsObj.items[i].id;
+                str += "<tr><th colspan=\"2\">Account: " + accountItem + "</th></tr>";
+                totalItems = analyticsData.items[accountItem].items.length;
+                for (j = 0; j < totalItems; j++) {
+                    thisItem = analyticsData.items[accountItem].items[j];
+                    str += "<tr><td>" + thisItem.country_name + "</td><td>" + thisItem.video_view  + "</td></tr>";
+                }
+            }
+        } else {
+            // we have a selected country
+            selectedCountry = getSelectedValue(countrySelector);
+            countryIdx = findObjectInArray(analyticsData.totals, "country", selectedCountry);
+            thisItem = analyticsData.totals[countryIdx];
+            str = "<tr><th colspan=\"2\">Total Views for All Accounts</th></tr>";
+            str += "<tr><td>All countries</td><td>" + analyticsData.total_views + "</td></tr>";
+            str += "<tr><th colspan=\"2\">Total Views for " + thisItem.country_name + "</th></tr>";
+            str += "<tr><td>" + thisItem.country_name + "</td><td>" + thisItem.video_view  + "</td></tr>";
+            str += "<tr><th colspan=\"2\">Individual Account Data</th></tr>";
+            totalAccounts = accountsObj.items.length;
+            for (i = 0; i < totalAccounts; i++) {
+                accountItem = accountsObj.items[i].id;
+                str += "<tr><th colspan=\"2\">Account: " + accountItem + "</th></tr>";
+                countryIdx = findObjectInArray(analyticsData.items[accountItem].items, "country", selectedCountry);
+                thisItem = analyticsData.items[accountItem].items[countryIdx];
+                str += "<tr><td>" + thisItem.country_name + "</td><td>" + thisItem.video_view  + "</td></tr>";
+            }
+        }
+        reportTableBody.innerHTML = str;
+    };
+    // make the analytics api call via AJAX
+    makeAnalyticsCall = function (callURL) {
+        $.ajax({
+            url: callURL,
+            headers: {
+                Authorization : "Bearer " + currentAccount.token
+            },
+            success : function (data) {
+                var template, results, i, item, itemsMax, newItem = {}, newTotalsItem = {}, accountsMax = accountsObj.items.length, objIdx;
+                callNumber++;
+                itemsMax = data.items.length;
+                analyticsData.items[currentAccount.id] = {};
+                analyticsData.items[currentAccount.id].items = [];
+                analyticsData.total_views += data.summary.video_view;
+                for (i = 0; i < itemsMax; i++) {
+                    newItem = {};
+                    newTotalsItem = {};
+                    item = data.items[i];
+                    // check for missing country names
+                    if (item.country_name === null) {
+                        item.country_name = item.country;
                     }
-                    if (currentAccountIndex < accountsMax - 1) {
-                        currentAccountIndex++;
-                        getAnalyticsData();
+                    newItem.video_view = item.video_view;
+                    newItem.country = item.country;
+                    newItem.country_name = item.country_name;
+                    newTotalsItem.video_view = item.video_view;
+                    newTotalsItem.country = item.country;
+                    newTotalsItem.country_name = item.country_name;
+                    analyticsData.items[currentAccount.id].items.push(newItem);
+                    objIdx = findObjectInArray(analyticsData.totals, "country", item.country);
+                    if (objIdx > -1) {
+                        analyticsData.totals[objIdx].video_view += item.video_view;
                     } else {
-                        gettingDataDisplay.innerHTML = "Data retrieved - " + callNumber + " API calls made. See and filter your data below.";
-                        displayData();
-                    }
-                },
-                error : function (XMLHttpRequest, textStatus, errorThrown) {
-                    if (window.console) {
-                        console.log("Request was not successful. Here's what the server sent back: " + errorThrown);
+                        analyticsData.totals.push(newTotalsItem);
                     }
                 }
-            });
-        },
-        // get the analytics data for the videos
-        getAnalyticsData = function () {
-            var callURL;
-            gettingDataDisplay.innerHTML = "Getting analytics data...";
-            // currentVideo = videoData.items[currentVideoIndex].video;
-            currentAccount = accountsObj.items[currentAccountIndex];
-            callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + currentAccount.id + "/report/?dimensions=country&from=" + fromDate.value + "&to=" + toDate.value + "&fields=video_view,country,country_name&sort=country_name&format=json&limit=300";
-            makeAnalyticsCall(callURL);
-        },
-        addAccount = function () {
-            var str,
-            	id = accountID.value,
-				acctToken = token.value,
+                if (currentAccountIndex < accountsMax - 1) {
+                    currentAccountIndex++;
+                    getAnalyticsData();
+                } else {
+                    gettingDataDisplay.innerHTML = "Data retrieved - " + callNumber + " API calls made. See and filter your data below.";
+                    analyticsData.totals = sortArray(analyticsData.totals, "country_name");
+                    template = Handlebars.compile(countryDisplayTemplate);
+                    countrySelector.innerHTML += template(analyticsData);
+                    displayData();
+                }
+            },
+            error : function (XMLHttpRequest, textStatus, errorThrown) {
+                if (window.console) {
+                    console.log("Request was not successful. Here's what the server sent back: " + errorThrown);
+                }
+            }
+        });
+    };
+    // get the analytics data for the videos
+    getAnalyticsData = function () {
+        var callURL;
+        gettingDataDisplay.innerHTML = "Getting analytics data...";
+        // currentVideo = videoData.items[currentVideoIndex].video;
+        currentAccount = accountsObj.items[currentAccountIndex];
+        callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + currentAccount.id + "/report/?dimensions=country&from=" + fromDate.value + "&to=" + toDate.value + "&fields=video_view,country,country_name&sort=country_name&format=json&limit=all";
+        makeAnalyticsCall(callURL);
+    };
+    addAccount = function () {
+        var id = accountID.value,
+            acctToken = token.value,
             str = id + " " + acctToken;
-            if (isDefined(id) && isDefined(acctToken)) {
-                accountsObj.items.push({"id": id, "token": acctToken});
+        if (isDefined(id) && isDefined(acctToken)) {
+            accountsObj.items.push({"id": id, "token": acctToken});
+            accounts.options[accounts.options.length] = new Option(str, accounts.options.length);
+            accounts.setAttribute('size', accounts.options.length);
+            accounts.style.display = 'none';
+            accounts.style.display = 'block';
+        } else {
+            window.alert("You must enter the account ID and the token for the account");
+        }
+    };
+    // add multiple accounts from text area inpu
+    addMultipleAccounts = function () {
+        var acctData = multipleAccounts.value,
+            tmpArray = [],
+            str = "",
+            i;
+        if (isDefined(acctData)) {
+            acctData = removeBreaksAndSpaces(acctData);
+            tmpArray = acctData.split(",");
+            for (i = 0; i < tmpArray.length; i = (i + 2)) {
+                accountsObj.items.push({"id": tmpArray[i], "token": tmpArray[i + 1]});
+                str = tmpArray[i] + " " + tmpArray[i + 1];
                 accounts.options[accounts.options.length] = new Option(str, accounts.options.length);
                 accounts.setAttribute('size', accounts.options.length);
-				accounts.style.display='none';
-				accounts.style.display='block';
-            } else {
-                window.alert("You must enter an account ID and the token for the account");
+                accounts.style.display = 'none';
+                accounts.style.display = 'block';
             }
-        },
-        removeAccounts = function () {
-			var i, idx, selectedAccounts = getSelectedOptions(accounts);
-			for (i = selectedAccounts.length - 1; i >= 0; i--) {
-				idx = selectedAccounts[i].index;
-				accountsObj.items.splice(idx, 1);
-				console.log(accountsObj.items);
-				accounts.remove(idx);
-			}
-        },
-        initializeData = function () {
-            accountsObj.items = [];
-		    countryObj.items = [];
-		    aggregateData.accounts = {};
-		    aggregateData.total_views = 0;
-        };
-        // add date pickers to the date input fields
-        new datepickr('fromDatePicker', {
-            'fullCurrentMonth': true
-        });
-        new datepickr('toDatePicker', {
-            'fullCurrentMonth': true
-        });
+        } else {
+            window.alert("Please enter account information in the form \"accountID, accountToken\" - one entry per line");
+        }
+    };
+    removeAccounts = function () {
+        var i, idx, selectedAccounts = getSelectedOptions(accounts);
+        for (i = selectedAccounts.length - 1; i >= 0; i--) {
+            idx = selectedAccounts[i].index;
+            accountsObj.items.splice(idx, 1);
+            console.log(accountsObj.items);
+            accounts.remove(idx);
+        }
+    };
+    initializeData = function () {
+        accountsObj.items = [];
+        countryObj.items = [];
+        analyticsData.items = {};
+        analyticsData.totals = [];
+        analyticsData.total_views = 0;
+    };
+    // add date pickers to the date input fields
+    new datepickr('fromDatePicker', {
+        'fullCurrentMonth': true,
+        dateFormat: "Y-m-d"
+    });
+    new datepickr('toDatePicker', {
+        'fullCurrentMonth': true,
+        dateFormat: "Y-m-d"
+    });
     // default date range values
-    toDate.value = dateToISO(today),
-    fromDate.value = dateToISO(weekAgo),
+    toDate.value = dateToISO(today);
+    fromDate.value = dateToISO(weekAgo);
     // accounts data setup
     initializeData();
     // event listeners
-    getData.addEventListener("click", initializeData);
+    getData.addEventListener("click", getAnalyticsData);
     countrySelector.addEventListener("change", displayData);
     addAccountButton.addEventListener("click", addAccount);
+    addMultipleAccountsButton.addEventListener("click", addMultipleAccounts);
     removeAccountButton.addEventListener("click", removeAccounts);
     return {
     }
-})(window, document, Handlebars, $);
+})(window, document, Handlebars, $, datepickr);
 </script>
 </body>
 

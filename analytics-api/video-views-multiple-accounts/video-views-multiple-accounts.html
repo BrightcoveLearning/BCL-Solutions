@@ -42,6 +42,12 @@
     textarea {
         font-size: x-small;
     }
+    .success {
+	    color: #327b2a
+    }
+    .failure {
+	    color: #a51d1d
+    }
     </style>
 
 </head>
@@ -110,7 +116,7 @@
                                             1stAccountID, 1stAccountToken
                                             2ndAccountID, 2ndAccountToken
                                             ...etc. [spaces don't matter])<br />
-                                            <textarea name="multipleAccounts" id="multipleAccounts" cols="40" rows="10"></textarea>
+                                            <textarea name="multipleAccounts" id="multipleAccounts" cols="50" rows="10"></textarea>
                                          </p>
                                     </td>
                                     <td class="align-middle"><span class="BCL-btn" id="addMultipleAccountsButton">Add multiple accounts</span></td>
@@ -135,6 +141,10 @@
             </div>
             <div class="section" id="results">
                 <h2>Results</h2>
+                <frameset>
+                	<legend>Log</legend>
+					<div id="log"></div>
+                </frameset>
                 <p>
                     Country: <select id="countrySelector">
                             <option value="all" selected="selected">All</option>
@@ -178,6 +188,7 @@ var BCLS = (function (window, document, Handlebars, $, datepickr) {
         accounts = document.getElementById("accounts"),
         multipleAccounts = document.getElementById("multipleAccounts"),
         addMultipleAccountsButton = document.getElementById("addMultipleAccountsButton"),
+        errorLog = document.getElementById("log"),
         accountsObj = {},
         countryObj = [],
         currentAccount,
@@ -288,7 +299,15 @@ var BCLS = (function (window, document, Handlebars, $, datepickr) {
     */
     sortArray = function (targetArray, objProperty) {
         targetArray.sort(function (a, b) {
-            return a[objProperty] - b[objProperty];
+            var propA = a[objProperty].toLowerCase(), propB = b[objProperty].toLowerCase();
+            // sort ascending; reverse propA and propB to sort descending
+            if (propA < propB) {
+	            return -1;
+            } else if (propA > propB) {
+	            return 1;
+            } else {
+	            return 0;
+            }
         });
         return targetArray;
     };
@@ -308,12 +327,14 @@ var BCLS = (function (window, document, Handlebars, $, datepickr) {
             totalAccounts = accountsObj.items.length;
             for (i = 0; i < totalAccounts; i++) {
                 accountItem = accountsObj.items[i].id;
-                str += "<tr><th colspan=\"2\">Account: " + accountItem + "</th></tr>";
-                totalItems = analyticsData.items[accountItem].items.length;
-                for (j = 0; j < totalItems; j++) {
-                    thisItem = analyticsData.items[accountItem].items[j];
-                    str += "<tr><td>" + thisItem.country_name + "</td><td>" + thisItem.video_view  + "</td></tr>";
-                }
+                if (isDefined(analyticsData.items[accountItem])) {
+	                str += "<tr><th colspan=\"2\">Account: " + accountItem + "</th></tr>";
+				    totalItems = analyticsData.items[accountItem].items.length;
+	                for (j = 0; j < totalItems; j++) {
+	                    thisItem = analyticsData.items[accountItem].items[j];
+	                    str += "<tr><td>" + thisItem.country_name + "</td><td>" + thisItem.video_view  + "</td></tr>";
+	                }
+				}
             }
         } else {
             // we have a selected country
@@ -328,65 +349,82 @@ var BCLS = (function (window, document, Handlebars, $, datepickr) {
             totalAccounts = accountsObj.items.length;
             for (i = 0; i < totalAccounts; i++) {
                 accountItem = accountsObj.items[i].id;
-                str += "<tr><th colspan=\"2\">Account: " + accountItem + "</th></tr>";
-                countryIdx = findObjectInArray(analyticsData.items[accountItem].items, "country", selectedCountry);
-                thisItem = analyticsData.items[accountItem].items[countryIdx];
-                str += "<tr><td>" + thisItem.country_name + "</td><td>" + thisItem.video_view  + "</td></tr>";
+                if (isDefined(analyticsData.items[accountItem])) {
+				    str += "<tr><th colspan=\"2\">Account: " + accountItem + "</th></tr>";
+	                countryIdx = findObjectInArray(analyticsData.items[accountItem].items, "country", selectedCountry);
+	                thisItem = analyticsData.items[accountItem].items[countryIdx];
+	                str += "<tr><td>" + thisItem.country_name + "</td><td>" + thisItem.video_view  + "</td></tr>";
+				}
             }
         }
         reportTableBody.innerHTML = str;
     };
     // make the analytics api call via AJAX
     makeAnalyticsCall = function (callURL) {
+        var template, i, item, itemsMax, newItem = {}, newTotalsItem = {}, accountsMax = accountsObj.items.length, objIdx;
         $.ajax({
             url: callURL,
             headers: {
                 Authorization : "Bearer " + currentAccount.token
             },
             success : function (data) {
-                var template, i, item, itemsMax, newItem = {}, newTotalsItem = {}, accountsMax = accountsObj.items.length, objIdx;
                 callNumber++;
-                itemsMax = data.items.length;
-                analyticsData.items[currentAccount.id] = {};
-                analyticsData.items[currentAccount.id].items = [];
-                analyticsData.total_views += data.summary.video_view;
-                for (i = 0; i < itemsMax; i++) {
-                    newItem = {};
-                    newTotalsItem = {};
-                    item = data.items[i];
-                    // check for missing country names
-                    if (item.country_name === null) {
-                        item.country_name = item.country;
-                    }
-                    newItem.video_view = item.video_view;
-                    newItem.country = item.country;
-                    newItem.country_name = item.country_name;
-                    newTotalsItem.video_view = item.video_view;
-                    newTotalsItem.country = item.country;
-                    newTotalsItem.country_name = item.country_name;
-                    analyticsData.items[currentAccount.id].items.push(newItem);
-                    objIdx = findObjectInArray(analyticsData.totals, "country", item.country);
-                    if (objIdx > -1) {
-                        analyticsData.totals[objIdx].video_view += item.video_view;
-                    } else {
-                        analyticsData.totals.push(newTotalsItem);
-                    }
-                }
-                if (currentAccountIndex < accountsMax - 1) {
-                    currentAccountIndex++;
-                    getAnalyticsData();
+                if (data.item_count > 0) {
+		            errorLog.innerHTML += "<p class=\"success\">Data successfully retrieved for account:" + data.account + "</p>";
+	                itemsMax = data.items.length;
+	                analyticsData.items[currentAccount.id] = {};
+	                analyticsData.items[currentAccount.id].items = [];
+	                analyticsData.total_views += data.summary.video_view;
+	                for (i = 0; i < itemsMax; i++) {
+	                    newItem = {};
+	                    newTotalsItem = {};
+	                    item = data.items[i];
+	                    // check for missing country names
+	                    if (item.country_name === null) {
+	                        item.country_name = item.country;
+	                    }
+	                    newItem.video_view = item.video_view;
+	                    newItem.country = item.country;
+	                    newItem.country_name = item.country_name;
+	                    newTotalsItem.video_view = item.video_view;
+	                    newTotalsItem.country = item.country;
+	                    newTotalsItem.country_name = item.country_name;
+	                    analyticsData.items[currentAccount.id].items.push(newItem);
+	                    objIdx = findObjectInArray(analyticsData.totals, "country", item.country);
+	                    if (objIdx > -1) {
+	                        analyticsData.totals[objIdx].video_view += item.video_view;
+	                    } else {
+	                        analyticsData.totals.push(newTotalsItem);
+	                    }
+	                }
                 } else {
-                    gettingDataDisplay.innerHTML = "Data retrieved - " + callNumber + " API calls made. See and filter your data below.";
-                    analyticsData.totals = sortArray(analyticsData.totals, "country_name");
-                    template = Handlebars.compile(countryDisplayTemplate);
-                    countrySelector.innerHTML += template(analyticsData);
-                    displayData();
+	                errorLog.innerHTML += "<p class=\"failure\">No data was returned for account: " + data.account + "</p>";
                 }
+		        if (currentAccountIndex < accountsMax - 1) {
+		            currentAccountIndex++;
+		            getAnalyticsData();
+		        } else {
+		            gettingDataDisplay.innerHTML = "Data retrieved - " + callNumber + " API calls made. See and filter your data below.";
+		            analyticsData.totals = sortArray(analyticsData.totals, "country_name");
+		            template = Handlebars.compile(countryDisplayTemplate);
+		            countrySelector.innerHTML += template(analyticsData);
+		            displayData();
+		        }
             },
             error : function (XMLHttpRequest, textStatus, errorThrown) {
                 if (window.console) {
-                    console.log("Request was not successful. Here's what the server sent back: " + errorThrown);
+                    errorLog.innerHTML += "<p class=\"failure\">Request was not successful for account " + currentAccount.id + ". Here's what the server sent back: " + errorThrown + "</p>";
                 }
+		        if (currentAccountIndex < accountsMax - 1) {
+		            currentAccountIndex++;
+		            getAnalyticsData();
+		        } else {
+		            gettingDataDisplay.innerHTML = "Data retrieved - " + callNumber + " API calls made. See and filter your data below.";
+		            analyticsData.totals = sortArray(analyticsData.totals, "country_name");
+		            template = Handlebars.compile(countryDisplayTemplate);
+		            countrySelector.innerHTML += template(analyticsData);
+		            displayData();
+		        }
             }
         });
     };

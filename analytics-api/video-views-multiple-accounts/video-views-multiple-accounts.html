@@ -131,11 +131,11 @@
                 </fieldset>
                 <fieldset>
                     <legend>Date Range for Report</legend>
-                    <p class="text-warning">Note that the date range <strong>must</strong> be set before you fetch the data. If you wish to set a new date range, you will need to refresh the page.</p>
+                    <!-- <p class="text-warning">Note that the date range <strong>must</strong> be set before you fetch the data. If you wish to set a new date range, you will need to refresh the page.</p> -->
                     <p>Start: <input id="fromDatePicker" size="30" /></p>
                     <p>End: <input id="toDatePicker" size="30" /></p>
                     <p><span class="BCL-btn" id="getData">Get Analytics Data</span></p>
-                    <p class="text-warning" id="gettingDataDisplay"></p>
+                    <p class="text-warning" id="gettingDataDisplay">Click the button above when you are ready to get the data</p>
                 </fieldset>
 
             </div>
@@ -182,6 +182,7 @@
 var BCLS = (function (window, document, Handlebars, $, datepickr) {
     "use strict";
     var callNumber = 0,
+        firstRun = true,
         accountID = document.getElementById("accountID"),
         token = document.getElementById("token"),
         addAccountButton = document.getElementById("addAccountButton"),
@@ -368,13 +369,17 @@ var BCLS = (function (window, document, Handlebars, $, datepickr) {
                 Authorization : "Bearer " + currentAccount.token
             },
             success : function (data) {
+                errorLog.innerHTML += "<p class=\"success\">API call made:</p>";
+                errorLog.innerHTML += "<textarea class=\"code-area\">" + callURL + "</textarea>";
                 callNumber++;
                 if (data.item_count > 0) {
 		            errorLog.innerHTML += "<p class=\"success\">Data successfully retrieved for account:" + data.account + "</p>";
 	                itemsMax = data.items.length;
 	                analyticsData.items[currentAccount.id] = {};
 	                analyticsData.items[currentAccount.id].items = [];
-	                analyticsData.total_views += data.summary.video_view;
+	                if (isDefined(data.summary)) {
+    	                analyticsData.total_views += data.summary.video_view;
+	                }
 	                for (i = 0; i < itemsMax; i++) {
 	                    newItem = {};
 	                    newTotalsItem = {};
@@ -477,16 +482,25 @@ var BCLS = (function (window, document, Handlebars, $, datepickr) {
         for (i = selectedAccounts.length - 1; i >= 0; i--) {
             idx = selectedAccounts[i].index;
             accountsObj.items.splice(idx, 1);
-            console.log(accountsObj.items);
             accounts.remove(idx);
         }
     };
     initializeData = function () {
-        accountsObj.items = [];
+        // need to create the accountsObj items just the first time called
+        if (firstRun === true) {
+            accountsObj.items = [];
+            firstRun = false;
+        } else {
+            currentAccountIndex = 0;
+        }
+        callNumber = 0;
+        errorLog.innerHTML = "";
         countryObj.items = [];
         analyticsData.items = {};
         analyticsData.totals = [];
         analyticsData.total_views = 0;
+        getData.innerHTML = "Get Analytics Data";
+        gettingDataDisplay.innerHTML = "Click the button above when you are ready to get the data"
     };
     // add date pickers to the date input fields
     new datepickr('fromDatePicker', {
@@ -503,6 +517,8 @@ var BCLS = (function (window, document, Handlebars, $, datepickr) {
     // accounts data setup
     initializeData();
     // event listeners
+    toDate.addEventListener("click", initializeData);
+    fromDate.addEventListener("click", initializeData);
     getData.addEventListener("click", getAnalyticsData);
     countrySelector.addEventListener("change", displayData);
     addAccountButton.addEventListener("click", addAccount);

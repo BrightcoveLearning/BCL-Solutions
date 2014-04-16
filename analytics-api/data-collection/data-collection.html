@@ -34,23 +34,29 @@ brightcove.createExperiences();
 <div id="log" style="float: left">
 <div id="positionLog"></div>
 <div id="eventLog"></div>
+<form id="analyticsRequest" action="data-collection.php">
+    <input id="requestURL" type="hidden" />
+</form>
 </div>
 <script>
-var BCLS = ( function () {
-    var myTemplateLoaded,
-        onTemplateReady,
-        player,
+var BCLS = ( () {
+    var player,
         modVP,
         modExp,
         previousVideoID = 0,
         currentVideo,
         videosToSwap = [1754261637001,1754261438001]; //videos we will swap
-  return {
+        // functions
+        myTemplateLoaded,
+        onTemplateReady,
+        onMediaEventFired,
+        onMediaProgressFired,
+        onMediaProgressFired,
+        
+    return {
     
-  } 
+    } 
 })();
-var 
-
 myTemplateLoaded = function (experienceID) {
     player = brightcove.api.getExperience(experienceID);
     modVP = player.getModule(brightcove.api.modules.APIModules.VIDEO_PLAYER);
@@ -58,34 +64,33 @@ myTemplateLoaded = function (experienceID) {
     modCon = player.getModule(brightcove.api.modules.APIModules.CONTENT);
 }
 
-onTemplateReady = function (evt) {
-    modVP.getCurrentVideo(function (dto) {
-    });
+onTemplateReady = function  = function (evt) {
     modVP.addEventListener(brightcove.api.events.MediaEvent.BEGIN, onMediaEventFired);
     modVP.addEventListener(brightcove.api.events.MediaEvent.CHANGE, onMediaEventFired);
     modVP.addEventListener(brightcove.api.events.MediaEvent.COMPLETE, onMediaEventFired);
-    modVP.addEventListener(brightcove.api.events.MediaEvent.ERROR, onMediaEventFired);
-    modVP.addEventListener(brightcove.api.events.MediaEvent.PLAY, onMediaEventFired);
     modVP.addEventListener(brightcove.api.events.MediaEvent.PROGRESS, onMediaProgressFired);
-    modVP.addEventListener(brightcove.api.events.MediaEvent.STOP, onMediaEventFired);
 }
 
-function onMediaEventFired(evt) {
+onMediaEventFired = function (evt) {
    document.getElementById("eventLog").innerHTML += "MEDIA EVENT: " + evt.type + " fired at position: " + evt.position + "<BR>";
-   if (evt.type === "mediaComplete") {
+   switch (evt.type) {
+       case "mediaBegin":
+       
+       case "mediaComplete":
        changeVideo();
+       break;
    }
 }
 
-function onMediaProgressFired(evt) {
+onMediaProgressFired = function (evt) {
    document.getElementById("positionLog").innerHTML = "CURRENT POSITION: " + evt.position;
 }
 
-function changeVideo() {
+changeVideo = function () {
    modVP.getCurrentVideo(currentVideoCallback);
 }
 
-function currentVideoCallback(currentVideo) {
+currentVideoCallback = function (currentVideo) {
    document.getElementById("positionLog").innerHTML = "";
    document.getElementById("eventLog").innerHTML = "";
 

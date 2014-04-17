@@ -3,12 +3,26 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Data Collection Sample</title>
-
+    <style>
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            margin-top: 40px;
+            margin-left: 40px;
+        }
+        .analytics-event {
+            color: #ff0000;
+        }
+        .player-event {
+            color: #6e9fb3;
+        }
+        .legend {
+            width: 1em;
+        }
+    </style>
   </head>
   <body>
   <h1>Data Collection Sample</h1>
 <script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
-
 <div id="player" style="float: left">
 <object id="myExperience1754261637001" class="BrightcoveExperience">
   <param name="bgcolor" value="#FFFFFF" />
@@ -25,22 +39,26 @@
   <param name="@videoPlayer" value="1754261637001" />
 </object>
 <div>
-<button id="changeVideo" onclick="changeVideo()">Change Video</button>
+<p><button id="changeVideoBtn">Change Video</button></p>
+<p><button id="resetBtn">Reset</button></p>
 </div>
 </div>
 <script type="text/javascript">
 brightcove.createExperiences();
 </script>
-<div id="log" style="float: left">
-<div id="positionLog"></div>
 <div id="eventLog"></div>
-<form id="analyticsRequest" action="data-collection.php">
+<form id="analyticsRequest" action="">
     <input id="requestURL" type="hidden" />
 </form>
 </div>
 <script>
 var BCLS = ( () {
-    var player,
+    var eventLog = document.getElementById("positionLog"),
+        changeVideoBtn = document.getElementById("changeVideoBtn"),
+        resetBtn = document.getElementById("resetBtn"),
+        analyticsRequest = document.getElementById("anaylyticsRequest"),
+        requestURL = document.getElementById("requestURL"),
+        player,
         modVP,
         modExp,
         previousVideoID = 0,
@@ -51,55 +69,62 @@ var BCLS = ( () {
         onTemplateReady,
         onMediaEventFired,
         onMediaProgressFired,
-        onMediaProgressFired,
-        
+        logEvent,
+        logPosition,
+        reset;
+    // player load handler    
+    myTemplateLoaded = function (experienceID) {
+        // player modules
+        player = brightcove.api.getExperience(experienceID);
+        modVP = player.getModule(brightcove.api.modules.APIModules.VIDEO_PLAYER);
+        modExp = player.getModule(brightcove.api.modules.APIModules.EXPERIENCE);
+        modCon = player.getModule(brightcove.api.modules.APIModules.CONTENT);
+        // document event handlers
+        changeVideoBtn.addEventHandler("click", )
+    }
+    // player ready handler
+    onTemplateReady = function  = function (evt) {
+        modVP.addEventListener(brightcove.api.events.MediaEvent.BEGIN, onMediaEventFired);
+        modVP.addEventListener(brightcove.api.events.MediaEvent.CHANGE, onMediaEventFired);
+        modVP.addEventListener(brightcove.api.events.MediaEvent.COMPLETE, onMediaEventFired);
+        modVP.addEventListener(brightcove.api.events.MediaEvent.PROGRESS, onMediaEventFired);
+    }
+    // media event handler
+    onMediaEventFired = function (evt) {
+       document.getElementById("eventLog").innerHTML += "MEDIA EVENT: " + evt.type + " fired at position: " + evt.position + "<BR>";
+       switch (evt.type) {
+           case "mediaBegin":
+           
+           break;
+           case "mediaComplete":
+           changeVideo();
+           break;
+           case "mediaProgress":
+           
+           break;
+           default:
+           
+       }
+    }
+    // video swapper
+    changeVideo = function () {
+       modVP.getCurrentVideo(function (dto) {
+           if (dto.id == videosToSwap[0]) {
+              modVP.loadVideoByID(videosToSwap[1]);
+           } else {
+              modVP.loadVideoByID(videosToSwap[0]);
+           };
+       });
+    }
+    // empty the log
+    reset = function (currentVideo) {
+       document.getElementById("eventLog").innerHTML = "";
+    }
+
     return {
     
     } 
 })();
-myTemplateLoaded = function (experienceID) {
-    player = brightcove.api.getExperience(experienceID);
-    modVP = player.getModule(brightcove.api.modules.APIModules.VIDEO_PLAYER);
-    modExp = player.getModule(brightcove.api.modules.APIModules.EXPERIENCE);
-    modCon = player.getModule(brightcove.api.modules.APIModules.CONTENT);
-}
-
-onTemplateReady = function  = function (evt) {
-    modVP.addEventListener(brightcove.api.events.MediaEvent.BEGIN, onMediaEventFired);
-    modVP.addEventListener(brightcove.api.events.MediaEvent.CHANGE, onMediaEventFired);
-    modVP.addEventListener(brightcove.api.events.MediaEvent.COMPLETE, onMediaEventFired);
-    modVP.addEventListener(brightcove.api.events.MediaEvent.PROGRESS, onMediaProgressFired);
-}
-
-onMediaEventFired = function (evt) {
-   document.getElementById("eventLog").innerHTML += "MEDIA EVENT: " + evt.type + " fired at position: " + evt.position + "<BR>";
-   switch (evt.type) {
-       case "mediaBegin":
-       
-       case "mediaComplete":
-       changeVideo();
-       break;
-   }
-}
-
-onMediaProgressFired = function (evt) {
-   document.getElementById("positionLog").innerHTML = "CURRENT POSITION: " + evt.position;
-}
-
-changeVideo = function () {
-   modVP.getCurrentVideo(currentVideoCallback);
-}
-
-currentVideoCallback = function (currentVideo) {
-   document.getElementById("positionLog").innerHTML = "";
-   document.getElementById("eventLog").innerHTML = "";
-
-   if (currentVideo.id == videosToSwap[0]) {
-      modVP.loadVideoByID(videosToSwap[1]);
-   } else {
-      modVP.loadVideoByID(videosToSwap[0]);
-   }
-}
 </script>
 
   </body>

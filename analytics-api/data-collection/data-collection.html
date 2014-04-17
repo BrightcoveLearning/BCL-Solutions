@@ -22,108 +22,129 @@
   </head>
   <body>
   <h1>Data Collection Sample</h1>
-<script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
 <div id="player" style="float: left">
-<object id="myExperience1754261637001" class="BrightcoveExperience">
+<!-- Start of Brightcove Player -->
+
+<div style="display:none">
+Used for related videos API sample
+</div>
+<script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
+
+<object id="myExperience928199562001" class="BrightcoveExperience">
   <param name="bgcolor" value="#FFFFFF" />
   <param name="width" value="480" />
   <param name="height" value="270" />
-  <param name="playerID" value="2549948545001" />
-  <param name="playerKey" value="AQ~~,AAABmA9XpXk~,-Kp7jNgisreVadKjzdyJfLcfukyXcGqB" />
+  <param name="playerID" value="921267190001" />
+  <param name="playerKey" value="AQ~~,AAAA1oy1bvE~,ALl2ezBj3WG3MLvDx9F9zkV06cNK00ey" />
   <param name="isVid" value="true" />
   <param name="isUI" value="true" />
   <param name="dynamicStreaming" value="true" />
+  <param name="@videoPlayer" value="928199562001" />
+
   <param name="includeAPI" value="true" />
-  <param name="templateLoadHandler" value="myTemplateLoaded" />
+  <param name="templateLoadHandler" value="onTemplateLoaded" />
   <param name="templateReadyHandler" value="onTemplateReady">
-  <param name="@videoPlayer" value="1754261637001" />
 </object>
+
+<script type="text/javascript">brightcove.createExperiences();</script>
+
+<!-- End of Brightcove Player -->
 <div>
 <p><button id="changeVideoBtn">Change Video</button></p>
 <p><button id="resetBtn">Reset</button></p>
 </div>
 </div>
-<script type="text/javascript">
-brightcove.createExperiences();
-</script>
 <div id="eventLog"></div>
 <form id="analyticsRequest" action="">
     <input id="requestURL" type="hidden" />
 </form>
 </div>
 <script>
-var BCLS = ( () {
+var BCLS = (function () {
+    "use strict";
     var eventLog = document.getElementById("positionLog"),
         changeVideoBtn = document.getElementById("changeVideoBtn"),
         resetBtn = document.getElementById("resetBtn"),
         analyticsRequest = document.getElementById("anaylyticsRequest"),
         requestURL = document.getElementById("requestURL"),
+        counter = 0,
         player,
         modVP,
-        modExp,
-        previousVideoID = 0,
-        currentVideo,
-        videosToSwap = [1754261637001,1754261438001]; //videos we will swap
+        videosToSwap = [928199562001, 2101639723001], //videos we will swap
         // functions
-        myTemplateLoaded,
+        onTemplateLoaded,
         onTemplateReady,
         onMediaEventFired,
-        onMediaProgressFired,
+        changeVideo,
         logEvent,
-        logPosition,
         reset;
-    // player load handler    
-    myTemplateLoaded = function (experienceID) {
+    // event logger
+    logEvent = function (str) {
+        eventLog.innerHTML += str + "<br />";
+    };
+    // player load handler
+    onTemplateLoaded = function (experienceID) {
+        var str = "";
+        str = "<span class=\"player-event\">Player event: player loaded</span>";
+        logEvent(str);
         // player modules
         player = brightcove.api.getExperience(experienceID);
         modVP = player.getModule(brightcove.api.modules.APIModules.VIDEO_PLAYER);
-        modExp = player.getModule(brightcove.api.modules.APIModules.EXPERIENCE);
-        modCon = player.getModule(brightcove.api.modules.APIModules.CONTENT);
         // document event handlers
-        changeVideoBtn.addEventHandler("click", )
-    }
+        changeVideoBtn.addEventHandler("click", changeVideo);
+        resetBtn.addEventListener("click", reset);
+    };
     // player ready handler
-    onTemplateReady = function  = function (evt) {
+    onTemplateReady = function  (evt) {
         modVP.addEventListener(brightcove.api.events.MediaEvent.BEGIN, onMediaEventFired);
         modVP.addEventListener(brightcove.api.events.MediaEvent.CHANGE, onMediaEventFired);
         modVP.addEventListener(brightcove.api.events.MediaEvent.COMPLETE, onMediaEventFired);
         modVP.addEventListener(brightcove.api.events.MediaEvent.PROGRESS, onMediaEventFired);
-    }
+    };
     // media event handler
     onMediaEventFired = function (evt) {
-       document.getElementById("eventLog").innerHTML += "MEDIA EVENT: " + evt.type + " fired at position: " + evt.position + "<BR>";
+       var str = "";
+       console.log(evt);
        switch (evt.type) {
            case "mediaBegin":
-           
+           str = "<span class=\"player-event\">Player event: video begin</span>";
            break;
            case "mediaComplete":
            changeVideo();
            break;
            case "mediaProgress":
-           
+           if (counter % 100 === 0) {
+                str = "<span class=\"player-event\">Player event: progress (" + counter + ")</span>";
+           }
+           counter++;
            break;
            default:
-           
+
        }
-    }
+    };
     // video swapper
     changeVideo = function () {
        modVP.getCurrentVideo(function (dto) {
-           if (dto.id == videosToSwap[0]) {
+           if (dto.id === videosToSwap[0]) {
               modVP.loadVideoByID(videosToSwap[1]);
            } else {
               modVP.loadVideoByID(videosToSwap[0]);
            };
        });
-    }
-    // empty the log
+    };
+    // empty the log, reset the counter
     reset = function (currentVideo) {
        document.getElementById("eventLog").innerHTML = "";
-    }
+       counter = 0;
+    };
 
     return {
-    
-    } 
+        onTemplateLoaded : onTemplateLoaded,
+        onTemplateReady: onTemplateReady,
+        onMediaEventFired: onMediaEventFired,
+        changeVideo: changeVideo,
+        reset: reset
+    };
 })();
 </script>
 

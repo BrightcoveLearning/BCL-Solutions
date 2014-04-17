@@ -24,10 +24,6 @@
   <h1>Data Collection Sample</h1>
 <div id="player" style="float: left">
 <!-- Start of Brightcove Player -->
-
-<div style="display:none">
-Used for related videos API sample
-</div>
 <script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
 
 <object id="myExperience928199562001" class="BrightcoveExperience">
@@ -42,8 +38,8 @@ Used for related videos API sample
   <param name="@videoPlayer" value="928199562001" />
 
   <param name="includeAPI" value="true" />
-  <param name="templateLoadHandler" value="onTemplateLoaded" />
-  <param name="templateReadyHandler" value="onTemplateReady">
+  <param name="templateLoadHandler" value="BCLS.onTemplateLoaded" />
+  <param name="templateReadyHandler" value="BCLS.onTemplateReady">
 </object>
 
 <script type="text/javascript">brightcove.createExperiences();</script>
@@ -86,20 +82,22 @@ var BCLS = (function () {
     onTemplateLoaded = function (experienceID) {
         var str = "";
         str = "<span class=\"player-event\">Player event: player loaded</span>";
+        console.log("loaded");
         logEvent(str);
         // player modules
         player = brightcove.api.getExperience(experienceID);
         modVP = player.getModule(brightcove.api.modules.APIModules.VIDEO_PLAYER);
         // document event handlers
-        changeVideoBtn.addEventHandler("click", changeVideo);
-        resetBtn.addEventListener("click", reset);
+        changeVideoBtn.addEventHandler("click", BCLS.changeVideo);
+        resetBtn.addEventListener("click", BCLS.reset);
     };
     // player ready handler
     onTemplateReady = function  (evt) {
-        modVP.addEventListener(brightcove.api.events.MediaEvent.BEGIN, onMediaEventFired);
-        modVP.addEventListener(brightcove.api.events.MediaEvent.CHANGE, onMediaEventFired);
-        modVP.addEventListener(brightcove.api.events.MediaEvent.COMPLETE, onMediaEventFired);
-        modVP.addEventListener(brightcove.api.events.MediaEvent.PROGRESS, onMediaEventFired);
+        console.log("ready");
+        modVP.addEventListener(brightcove.api.events.MediaEvent.BEGIN, BCLS.onMediaEventFired);
+        // modVP.addEventListener(brightcove.api.events.MediaEvent.CHANGE, BCLS.onMediaEventFired);
+        // modVP.addEventListener(brightcove.api.events.MediaEvent.COMPLETE, BCLS.onMediaEventFired);
+        // modVP.addEventListener(brightcove.api.events.MediaEvent.PROGRESS, BCLS.onMediaEventFired);
     };
     // media event handler
     onMediaEventFired = function (evt) {
@@ -107,6 +105,7 @@ var BCLS = (function () {
        console.log(evt);
        switch (evt.type) {
            case "mediaBegin":
+
            str = "<span class=\"player-event\">Player event: video begin</span>";
            break;
            case "mediaComplete":
@@ -119,11 +118,12 @@ var BCLS = (function () {
            counter++;
            break;
            default:
-
+           break;
        }
     };
     // video swapper
     changeVideo = function () {
+       console.log("change");
        modVP.getCurrentVideo(function (dto) {
            if (dto.id === videosToSwap[0]) {
               modVP.loadVideoByID(videosToSwap[1]);

@@ -18,11 +18,15 @@
         .legend {
             width: 1em;
         }
+        div#player {
+            float: left;
+            margin-right: 20px;
+        }
     </style>
   </head>
   <body>
   <h1>Data Collection Sample</h1>
-<div id="player" style="float: left">
+<div id="player">
 <!-- Start of Brightcove Player -->
 <script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
 
@@ -42,7 +46,7 @@
   <param name="templateReadyHandler" value="BCLS.onTemplateReady">
 </object>
 
-<script type="text/javascript">brightcove.createExperiences();</script>
+<script type="text/javascript">//brightcove.createExperiences();</script>
 
 <!-- End of Brightcove Player -->
 <div>
@@ -56,14 +60,20 @@
 </form>
 </div>
 <script>
-var BCLS = (function () {
+var BCLS = (function (brightcove, window, document, console) {
     "use strict";
-    var eventLog = document.getElementById("positionLog"),
+    var counter = 0, // counter for progress events
+        // page elements
+        eventLog = document.getElementById("eventLog"),
         changeVideoBtn = document.getElementById("changeVideoBtn"),
         resetBtn = document.getElementById("resetBtn"),
         analyticsRequest = document.getElementById("anaylyticsRequest"),
         requestURL = document.getElementById("requestURL"),
-        counter = 0,
+        // page properties
+        userInfo = window.navigator,
+        // player id - easier to hard-code this - hard to get through JavaScript
+        playerID = 921267190001,
+        // for Smart Player API references
         player,
         modVP,
         videosToSwap = [928199562001, 2101639723001], //videos we will swap
@@ -74,6 +84,7 @@ var BCLS = (function () {
         changeVideo,
         logEvent,
         reset;
+    console.log(userInfo);
     // event logger
     logEvent = function (str) {
         eventLog.innerHTML += str + "<br />";
@@ -145,7 +156,7 @@ var BCLS = (function () {
         changeVideo: changeVideo,
         reset: reset
     };
-})();
+})(brightcove, window, document, console);
 </script>
 
   </body>

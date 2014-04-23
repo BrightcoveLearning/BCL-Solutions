@@ -9,21 +9,48 @@
   </head>
   <body>
     <p>Date input (epoch time in milliseconds) <input id="dateField" type="text" size="30" /></p>
-    <p id="results"></p>
+    <p><button id="btn">Go!</button></p>
+    <div id="results"></div>
     <script>
 
     var BCLS = ( function () {
         var dateField = document.getElementById("dateField")
             results = document.getElementById("results"),
-            date = dateField.value;
-
-
-          dateField.addEventListener("mouseout" , function(dateField.value) {
-                var d = new Data(date),
+            date = dateField.value,
+            btn = document.getElementById("btn");
+        if ( !Date.prototype.toISOString ) {
+          ( function() {
+            
+            function pad(number) {
+              if ( number < 10 ) {
+                return '0' + number;
+              }
+              return number;
+            }
+         
+            Date.prototype.toISOString = function() {
+              return this.getUTCFullYear() +
+                '-' + pad( this.getUTCMonth() + 1 ) +
+                '-' + pad( this.getUTCDate() ) +
+                'T' + pad( this.getUTCHours() ) +
+                ':' + pad( this.getUTCMinutes() ) +
+                ':' + pad( this.getUTCSeconds() ) +
+                '.' + (this.getUTCMilliseconds() / 1000).toFixed(3).slice( 2, 5 ) +
+                'Z';
+            };
+          
+          }() );
+        }
+        btn.addEventListener("click" , function(date) {
+                var d = new Date(date),
+                    isoDate,
+                    dateTime,
                     curr_date = d.getDate(),
                     curr_month = d.getMonth(),
                     curr_year = d.getFullYear();
-                results.innerHTML =  curr_year.toString() + ":" + curr_month.toString() + ":" + curr_date.toString();
+                isoDate = d.toISOString();
+                dateTime = d.toUTCString();
+                results.innerHTML +=  "ISO 8601 Date: " + isoDate + "<br />" + "UTC Date: " + dateTime + "<br />";
               });
       return {
 

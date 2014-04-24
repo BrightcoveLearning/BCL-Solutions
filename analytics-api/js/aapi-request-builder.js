@@ -53,7 +53,7 @@ var BCLS = (function ($, window, AnyTime) {
         obj = {},
         $this,
         thisVal,
-        dimensions = ["account", "player", "video", "country", "city", "region", "day", "destination_domain", "destination_path", "device_type", "device_os", "referrer_domain", "source_type", "search_terms"],
+        dimensions = ["account", "player", "video", "country", "city", "region", "day", "destination_domain", "device_type", "device_os", "referrer_domain", "source_type", "search_terms"],
         separator = "",
         requestTrimmed = false,
         lastChar = "",
@@ -76,8 +76,7 @@ var BCLS = (function ($, window, AnyTime) {
         countryFields = baseFields + "<option value=\"country\">country</option><option value=\"country_name\">country_name</option>",
         cityFields = baseFields + "<option value=\"city\">city</option>",
         regionFields = baseFields + "<option value=\"region\">region</option>",
-        // destinationDomainFields = baseFields + "<option value=\"destination_domain\">destination_domain</option>",
-        // destinationPathFields = baseFields + "<option value=\"destination_path\">destination_path</option>",
+        destinationDomainFields = baseFields + "<option value=\"destination_domain\">destination_domain</option>",
         referrer_domainFields = baseFields + "<option value=\"player_load\">player_load</option><option value=\"referrer_domain\">referrer_domain</option>",
         source_typeFields = baseFields + "<option value=\"player_load\">player_load</option><option value=\"source_type\">source_type</option>",
         search_termsFields = baseFields + "<option value=\"player_load\">player_load</option><option value=\"search_terms\">search_terms</option>",
@@ -104,7 +103,6 @@ var BCLS = (function ($, window, AnyTime) {
         countryCityFields = cityFields + "<option value=\"country\">country</option><option value=\"country_name\">country_name</option><option value=\"dma\">dma</option>",
         countryRegionFields = regionFields + "<option value=\"country\">country</option><option value=\"country_name\">country_name</option>",
         cityRegionFields = regionFields + "<option value=\"city\">city</option>",
-        // destinationDomainDesinationPathFields = destinationDomainFields + "<option value=\"destination_path\">destination_path</option>",
         referrer_domainSource_typeFields = referrer_domainFields + "<option value=\"source_type\">source_type</option>",
         referrer_domainSearch_termsFields = referrer_domainFields + "<option value=\"search_terms\">search_terms</option>",
         source_typeSearch_termsFields = source_typeFields + "<option value=\"search_terms\">search_terms</option>",
@@ -439,9 +437,9 @@ var BCLS = (function ($, window, AnyTime) {
         if ($.inArray("device_os", vals) > -1) {
             device_os = true;
         }
-        // if ($.inArray("destination_domain", vals) > -1) {
-        //     destination_domain = true;
-        // }
+        if ($.inArray("destination_domain", vals) > -1) {
+            destination_domain = true;
+        }
         // if ($.inArray("destination_path", vals) > -1) {
         //     destination_path = true;
         // }
@@ -722,14 +720,14 @@ var BCLS = (function ($, window, AnyTime) {
         } else if (device_os) { // device_os combinations
             $fields.html("<option value=\"all\" selected=\"true\">all</option>" + device_osFields);
             $sort.html(device_osFields);
-        // } else if (destination_domain) { // destination_domain combinations
-        //     if (destination_path) {
-        //         $fields.html("<option value=\"all\" selected=\"true\">all</option>" + destinationDomainDesinationPathFields);
-        //         $sort.html(destinationDomainDesinationPathFields);
-        //     } else {
-        //         $fields.html("<option value=\"all\" selected=\"true\">all</option>" + destinationDomainFields);
-        //         $sort.html(destinationDomainFields);
-        //     }
+        } else if (destination_domain) { // destination_domain combinations
+            if (destination_path) {
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + destinationDomainDesinationPathFields);
+                $sort.html(destinationDomainDesinationPathFields);
+            } else {
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + destinationDomainFields);
+                $sort.html(destinationDomainFields);
+            }
         // } else if (destination_path) { // destination path combinations
         //     $fields.html("<option value=\"all\" selected=\"true\">all</option>" + destinationPathFields);
         //     $sort.html(destinationPathFields);

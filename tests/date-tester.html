@@ -14,44 +14,26 @@
     <script>
 
     var BCLS = ( function () {
-        var dateField = document.getElementById("dateField")
+        var dateField = document.getElementById("dateField"),
             results = document.getElementById("results"),
-            date = dateField.value,
+            entry,
             btn = document.getElementById("btn");
-        if ( !Date.prototype.toISOString ) {
-          ( function() {
-            
-            function pad(number) {
-              if ( number < 10 ) {
-                return '0' + number;
-              }
-              return number;
-            }
-         
-            Date.prototype.toISOString = function() {
-              return this.getUTCFullYear() +
-                '-' + pad( this.getUTCMonth() + 1 ) +
-                '-' + pad( this.getUTCDate() ) +
-                'T' + pad( this.getUTCHours() ) +
-                ':' + pad( this.getUTCMinutes() ) +
-                ':' + pad( this.getUTCSeconds() ) +
-                '.' + (this.getUTCMilliseconds() / 1000).toFixed(3).slice( 2, 5 ) +
-                'Z';
-            };
-          
-          }() );
-        }
-        btn.addEventListener("click" , function(date) {
-                var d = new Date(date),
-                    isoDate,
-                    dateTime,
-                    curr_date = d.getDate(),
-                    curr_month = d.getMonth(),
-                    curr_year = d.getFullYear();
-                isoDate = d.toISOString();
-                dateTime = d.toUTCString();
-                results.innerHTML +=  "ISO 8601 Date: " + isoDate + "<br />" + "UTC Date: " + dateTime + "<br />";
-              });
+
+        btn.addEventListener("click" , function() {
+            var d,m,
+                isoDate,
+                dateTime;
+            entry = parseInt(dateField.value);
+            d = new Date(entry);
+            m = d.valueOf();
+            curr_date = d.getDate();
+            console.log(curr_date);
+            curr_month = d.getMonth();
+            curr_year = d.getFullYear();
+            isoDate = d.toISOString();
+            dateTime = d.toUTCString();
+            results.innerHTML +=  "ISO3601 Date: " + isoDate + "<br />UTC Date: " + dateTime + "<br />" + m;
+          });
       return {
 
       }

@@ -96,6 +96,7 @@
 				videosToSwap = [1595052160001, 3483280272001], // videos we will swap
 				currentVideoDTO = {}, // use this to hold the video info object
 				// functions
+				bclslog,
 				onTemplateLoaded,
 				onTemplateReady,
 				onMediaEventFired,
@@ -105,6 +106,12 @@
 				logEvent,
 				sendAnalyticsEvent,
 				reset;
+			// modified console - workaround for IE
+			bclslog = function (message) {
+                if (console) {
+                    console.log(message);
+                }
+            }
 			// event logger
 			logEvent = function (str) {
 				eventLog.innerHTML += str + "<br /><hr />";
@@ -199,6 +206,7 @@
 			onMediaEventFired = function (evt) {
 				var str = "",
 					thisPosition, range = "";
+				bclslog(evt.type);
 				switch (evt.type) {
 				case "mediaBegin":
 					str = "<span class=\"player-event\">Player event: video begin</span>";

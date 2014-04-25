@@ -266,6 +266,7 @@
 			getVideoDTO = function () {
 				modVP.getCurrentVideo(function (dto) {
 					currentVideoDTO = dto;
+					sendAnalyticsEvent("video_impression", null);
 				});
 			};
 			// empty the log, reset the counter

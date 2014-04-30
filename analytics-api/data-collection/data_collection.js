@@ -2,18 +2,18 @@
 * Data Collection Plugin for Video JS
 * Version: 0.1
 * Author: Robert Crooks
-* Description: Send analytics events for the player to Brightcove Analytics
+* Description: Send analytics events for the Video JS player to Brightcove Analytics
 * Options:
 *   showLog: if true (default) adds a log to page to show events sent
 *   accountID (Video Cloud account ID)
 *   videosCollection: array of video objects with properties:
 *       video_name
-*       id
+*       id (Video Cloud video id)
 *       src (URL for http rendition to play)
 *       poster (URL for the video still)
 * Note: this is a sample only, not a supported Brightcove plugin
 */
-(function (videojs) {
+(function (videojs, console) {
     "use strict";
     var defaults = {
             "showLog": "true",
@@ -69,18 +69,16 @@
      */
     videojs.plugin("collectData", function (options) {
         var player,
-            playerID,
             videoDiv,
-            videoElement,
             nextNode,
             nextNodeParent,
             playerWrapper,
             eventLog,
             changeVideoBtn,
-            resetBtn,
             currentVideoIndex = 0,
+            lastVideoIndex = 0,
             firstTimeUpdate = true,
-            initialPosition,
+            initialPosition = 0,
             lastPosition = 0,
             // data-collection api
             baseURL = "http://metrics.brightcove.com/tracker?",
@@ -94,7 +92,8 @@
             injectScript,
             sendAnalyticsEvent,
             wrapPlayer,
-            addEventLog;
+            addEventLog,
+            init;
         // load the next video into the player
         loadVideo = function () {
             player.src({
@@ -103,13 +102,18 @@
             });
             /* each time we load a video, we want to add an event listener for the play event that will unload after one event */
             player.one("play", function (evt) {
-                logEvent("player-event", "play", "")
-                sendAnalyticsEvent("video_view", null);
+                var dateTime = new Date();
+                evt.timeStamp = dateTime.valueOf();
+                if (settings.showLog) {
+                    logEvent("player-event", "play", "", dateTime.toISOString());
+                }
+                sendAnalyticsEvent("video_view", evt);
             });
             // reset firstTimeUpdate
             firstTimeUpdate = true;
             // increment or reset current video index
-            if (currentVideoIndex < settings.videoCollection.length) {
+            lastVideoIndex = currentVideoIndex;
+            if (currentVideoIndex < (settings.videoCollection.length - 1)) {
                 currentVideoIndex++;
             } else {
                 currentVideoIndex = 0;
@@ -131,13 +135,11 @@
         // send analytics event
         sendAnalyticsEvent = function (eventType, evt) {
             var urlStr = "",
-                str,
-                now = new Date(),
-                dateTime,
-                currentVideo = settings.videoCollection[currentVideoIndex];
-            dateTime = now.valueOf();
+                time = evt.timeStamp,
+                dateTime = new Date(parseInt(evt.timeStamp)),
+                currentVideo = settings.videoCollection[lastVideoIndex];
             // add params for all requests
-            urlStr = "event=" + eventType + "&domain=videocloud&account=" + settings.accountID + "&player=" + player.id() + "&time=" + dateTime + "&destination=" + destination;
+            urlStr = "event=" + eventType + "&domain=videocloud&account=" + settings.accountID + "&player=" + player.id() + "&time=" + time + "&destination=" + destination;
             // source will be empty for direct traffic
             if (source !== "") {
                 urlStr += "&source=" + source;
@@ -158,38 +160,35 @@
             injectScript(urlStr);
             // log that we did this
             if (settings.showLog) {
-                logEvent("analytics-event", "eventType", ("Data Collection request: " + urlStr));
+                logEvent("analytics-event", eventType, ("Data Collection request: " + urlStr), dateTime.toISOString());
             }
             return;
         };
         onTimeUpdate = function (evt) {
-            var thisPosition = evt.timeStamp, range = "";
-            bclslog(evt);
+            var thisPosition = evt.timeStamp, range = "", dateTime = new Date(evt.timeStamp);
             if (firstTimeUpdate) {
                 initialPosition = evt.timeStamp;
                 lastPosition = evt.timeStamp;
                 firstTimeUpdate = false;
             }
-            
-            bclslog(Math.ceil(thisPosition / 1000) - Math.ceil(lastPosition / 1000));
-            if (Math.ceil(thisPosition / 1000) - Math.ceil(lastPosition / 1000) === 10) {
+            if (Math.round(thisPosition / 1000) - Math.round(lastPosition / 1000) === 10) {
                 // set the range and add it to the evt object
                 range = ((lastPosition - initialPosition) / 1000).toString() + ".." + ((thisPosition - initialPosition) / 1000).toString();
-                evt.range = range;
                 // reset lastPosition
                 lastPosition = thisPosition;
+                evt.range = range;
                 // log player event
                 if (settings.showLog) {
-                    logEvent("player-event","position update", (((thisPosition - initialPosition) / 1000) + " sec"));
+                    logEvent("player-event", "position update", (((thisPosition - initialPosition) / 1000) + " sec"), dateTime.toISOString());
                 }
                 // send video_enagement event
                 sendAnalyticsEvent("video_engagement", evt);
-            };
+            }
         };
         // event logger
-        logEvent = function (eventType, event, data) {
+        logEvent = function (eventType, event, data, dateTime) {
             var str = "";
-            str += "<span class=\"" + eventType + "\">Player event: " + event;
+            str += "<span class=\"" + eventType + "\">" + dateTime + "<br />" + eventType + ": " + event;
             if (data !== "") {
                 str += " (" + data + " )";
             }
@@ -235,12 +234,15 @@
             // add button event listener
             changeVideoBtn.addEventListener("click", loadVideo);
         };
-        addEventLog = function (chapter) {
+        addEventLog = function () {
             // create a new divs and buttons for event log and buttons
+            var eventLogHeader = document.createElement("h2");
+            eventLogHeader.innerHTML = "Event log";
             eventLog = document.createElement("div");
             eventLog.setAttribute("id", "eventLog");
             eventLog.setAttribute("class", "event-log");
-            // add log and buttons after the player
+            // add log and header after the player
+            playerWrapper.appendChild(eventLogHeader);
             playerWrapper.appendChild(eventLog);
         };
         // initial actions
@@ -248,24 +250,43 @@
         player = this;
         // add player event listeners
         player.on("loadstart", function (evt) {
+            var dateTime = new Date(evt.timeStamp);
             if (settings.showLog) {
-                logEvent("player-event", "loadstart", "");
+                logEvent("player-event", "loadstart", "", dateTime.toISOString());
             }
-            sendAnalyticsEvent("video_impression", null);
+            sendAnalyticsEvent("video_impression", evt);
         });
-        // add listener for time updates events
-        player.on("timeupdate", onTimeUpdate);
-
-        // get a reference to the div that wraps the video tag
-        videoDiv = document.getElementById(player.id());
-        // wrap the player in a new div
-        wrapPlayer(videoDiv);
-        // add log if wanted
-        if (settings.showLog) {
-            addEventLog();
+        // add listener for loadedalldata
+        player.on("loadedalldata", function (evt) {
+            var dateTime = new Date();
+            if (settings.showLog) {
+                logEvent("player-event", "loadedalldata", "", dateTime.toISOString());
+            }
+            player.play(); 
+        });
+        // add listener for video ended
+        player.on("ended", function () {
+            var dateTime = new Date();
+            if (settings.showLog) {
+                logEvent("player-event", "ended", "", dateTime.toISOString());
+            }
+            loadVideo();
+        });
+        init = function () {
+            // add listener for time updates events
+            player.on("timeupdate", onTimeUpdate);
+            // get a reference to the div that wraps the video tag
+            videoDiv = document.getElementById(player.id());
+            // wrap the player in a new div
+            wrapPlayer(videoDiv);
+            // add log if wanted
+            if (settings.showLog) {
+                addEventLog();
         }
         // load the first video in the collection
         loadVideo();
+        }
+        init();
         return;
     });
-})(videojs);
+})(videojs, console);

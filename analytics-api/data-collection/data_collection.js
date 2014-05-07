@@ -139,21 +139,19 @@
                 dateTime = new Date(parseInt(evt.timeStamp)),
                 currentVideo = settings.videoCollection[lastVideoIndex];
             // add params for all requests
-            urlStr = "event=" + eventType + "&domain=videocloud&account=" + settings.accountID + "&player=" + player.id() + "&time=" + time + "&destination=" + destination;
+            urlStr = "event=" + eventType + "&domain=videocloud&account=" + settings.accountID + "&player=" + player.id() + "&time=" + time + "&destination=" + encodeURI(destination);
             // source will be empty for direct traffic
             if (source !== "") {
-                urlStr += "&source=" + source;
+                urlStr += "&source=" + encodeURI(source);
             }
             // add params specific to video events
             if (eventType === "video_impression" || eventType === "video_view" || eventType === "video_engagement") {
-                urlStr += "&video=" + currentVideo.id + "&video_name=" + currentVideo.video_name;
+                urlStr += "&video=" + currentVideo.id + "&video_name=" + encodeURI(currentVideo.video_name);
             }
             // add params specific to video_engagement events
             if (eventType === "video_engagement") {
                 urlStr += "&video_duration=" + player.duration() + "&range=" + evt.range;
             }
-            // URI encode
-            urlStr = encodeURI(urlStr);
             // add the base URL
             urlStr = baseURL + urlStr;
             // make the request
@@ -262,7 +260,7 @@
             if (settings.showLog) {
                 logEvent("player-event", "loadedalldata", "", dateTime.toISOString());
             }
-            player.play(); 
+            player.play();
         });
         // add listener for video ended
         player.on("ended", function () {

@@ -23,33 +23,17 @@
                 width: 80%;
             }
         </style>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
     </head>
 
-    <body data-spy="scroll" data-target=".sub-menu" data-offset="100">
-        <!-- header navbar -->
-        <div id="titleBar" class="navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <div id="otherSites">
-                    
-                </div>
-                <a class="brand" href="//docs.brightcove.com/en/index.html">BRIGHTCOVE DEVELOPER DOCUMENTATION</a>
-            </div>
-        </div>
-        <!-- end header navbar -->
-        <!-- nav navbar -->
-        <div id="navBar" class="navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-                <a class="btn btn-navbar pull-right" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <!-- Everything you want hidden at 940px or less, place within here -->
-                <ul id="sectionNav" class="nav"></ul>
-            </div>
-        </div>
-        <!-- end nav navbar -->
+    <body>
+    <!-- header navbar -->
+    <div id="navWrapper" class="fixed"></div>
+    <!-- search -->
+    <div id="searchModal" class="reveal-modal" data-reveal></div>
+    <!-- content -->
+    <div class="row">
+        <div class="large-12 large-centered small-12 small-centered">
         <!-- main content starts here -->
         <h1>Get Analytics for a Playlist</h1>
         <p class="text-warning">Note that the Analytics API is currently in <strong>Limited Availability</strong>. If you are interested in enabling your account for the beta version of the API, please contact your account manager.</p>
@@ -163,6 +147,8 @@
             <h2>Response</h2>
             <pre><code id="responseFrame"></code></pre>
         </div>
+    </div>
+</div>
         <!-- scripts -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
@@ -186,6 +172,9 @@
         <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
         <script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
         <script src="/bcls/analytics-api/js/analytics-by-playlist.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
     </body>
 
 </html>

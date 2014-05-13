@@ -31,44 +31,17 @@
       padding-top: 120px;
     }
   </style>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
 </head>
 
-<body data-spy="scroll" data-target=".sub-menu" data-offset="100">
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span12">
-            <!-- header navbar -->
-              <div id="titleBar" class="navbar-inverse navbar-fixed-top">
-                <div class="navbar-inner">
-                  <div id="otherSites">
-                    <ul class="nav pull-right small">
-                      <li><a href="//brightcove.com">BRIGHTCOVE.COM</a></li>
-                      <li><a href="//support.brightcove.com">SUPPORT</a></li>
-                      <li><a href="//support.brightcove.com/video-cloud/training-videos">TRAINING VIDEOS</a></li>
-                    </ul>
-                  </div>
-                  <a class="brand" href="//docs.brightcove.com/en/index.html">BRIGHTCOVE DEVELOPER DOCUMENTATION</a>
-                 </div>
-               </div>
-               <!-- end header navbar -->
-               <!-- nav navbar -->
-               <div id="navBar" class="navbar-inverse navbar-fixed-top">
-               <div class="navbar-inner">
-                <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-                <a class="btn btn-navbar pull-right" data-toggle="collapse" data-target=".nav-collapse">
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </a>
-                <!-- Everything you want hidden at 940px or less, place within here -->
-                <ul id="sectionNav" class="nav">
-                </ul>
-               </div>
-              </div>
-              <!-- end nav navbar -->
-        </div>
-    </div>
-</div>
+<body>
+  <!-- header navbar -->
+  <div id="navWrapper" class="fixed"></div>
+  <!-- search -->
+  <div id="searchModal" class="reveal-modal" data-reveal></div>
+  <!-- content -->
+  <div class="row">
+    <div class="large-12 large-centered small-12 small-centered">
 <!-- main content starts here -->
 <h1>Most Popular Videos: Analytics API / Media API / Smart Player API</h1>
     <p class="text-warning">Note that the Analytics API is currently in <strong>Limited Availability</strong>. If you are interested in enabling your account for the beta version of the API, please contact your account manager.</p>
@@ -166,6 +139,9 @@
     <script src="/bcls/scripts/bc-mapi.js"></script>
     <script src="/bcls/analytics-api/get-popular-video-data.php" type="text/javascript"></script>
     <script src="/bcls/scripts/log.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
     <script id="pageScript">
       var BCLS = ( function () {
         "use strict";

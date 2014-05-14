@@ -44,38 +44,16 @@
             padding: 10px;
         }
     </style>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
   </head>
   <body>
-  <div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span12">
-            <!-- header navbar -->
-            <div id="titleBar" class="navbar-inverse navbar-fixed-top">
-                <div class="navbar-inner">
-                    <div id="otherSites">
-                        
-                    </div>
-                    <a class="brand" href="//docs.brightcove.com/en/index.html">BRIGHTCOVE DEVELOPER DOCUMENTATION</a>
-                </div>
-            </div>
-            <!-- end header navbar -->
-            <!-- nav navbar -->
-            <div id="navBar" class="navbar-inverse navbar-fixed-top">
-                <div class="navbar-inner">
-                    <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-                    <a class="btn btn-navbar pull-right" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    <!-- Everything you want hidden at 940px or less, place within here -->
-                    <ul id="sectionNav" class="nav"></ul>
-                </div>
-            </div>
-            <!-- end nav navbar -->
-        </div>
-    </div>
-</div>
+  <!-- header navbar -->
+  <div id="navWrapper" class="fixed"></div>
+  <!-- search -->
+  <div id="searchModal" class="reveal-modal" data-reveal></div>
+  <!-- content -->
+  <div class="row">
+    <div class="large-12 large-centered small-12 small-centered">
   <h1>Do Not Track: Programmatically block cookies</h1>
   <p>This sample shows you how to use the Smart Player API to block the Brightcove player from setting cookies. All cookies will be blocked except the <code>BC_BANDWIDTH</code> cookie, which is used solely for rendition selection.</p>
   <p class="text-warning">Note that this method will not clear Brightcove cookies that have already been set &mdash; it will only prevent updating those cookies or setting new ones. Therefore, until you clear the current cookies, you will continue to see other cookies in the list.</p>
@@ -114,6 +92,8 @@
 
     <h3>Script used in this page:</h3>
 <pre><code id="scriptDisplay"></code></pre>
+</div>
+</div>
     <script src="//docs.brightcove.com/en/scripts/prefix.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>

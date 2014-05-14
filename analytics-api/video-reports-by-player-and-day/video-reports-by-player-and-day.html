@@ -29,9 +29,7 @@
     }
     </style>
     <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
-
 </head>
-
 <body>
     <!-- header navbar -->
     <div id="navWrapper" class="fixed"></div>
@@ -40,11 +38,6 @@
     <!-- content -->
     <div class="row">
         <div class="large-12 large-centered small-12 small-centered">
-    <!-- main content starts here -->
-    <div class="row">
-        <div id="sidenav" class="span2"></div>
-        <div id="main" class="span10">
-            <div class="section" id="top">
                 <h1>Analytics API Solution: Video Report by Player and Day</h1>
                 <p>The Analytics UI in Video Cloud Studio offers a number of ready-made reports, but you can create additional reports using he Analytics API that are tailored to your specific needs. In this example, we will create a report on all videos in the account, grouped by player, showing the total views, percentage of views that were complete, the average number of seconds viewed per view, and the total viewed seconds for each day in the selected period.</p>
                 <div class="text-warning">
@@ -139,6 +132,9 @@
     <script type="text/javascript" src="/bcls/scripts/datepickr_2/datepickr.min.js"></script>
     <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
     <script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
     <script id="pageScript" type="text/javascript">
         var BCLS = (function () {
             var callNumber = 0,

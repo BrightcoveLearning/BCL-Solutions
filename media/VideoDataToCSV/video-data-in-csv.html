@@ -70,9 +70,17 @@
                 padding: 5px;
             }
         </style>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
     </head>
 
-    <body data-spy="scroll" data-target=".sub-menu" data-offset="100">
+    <body>
+    <!-- header navbar -->
+    <div id="navWrapper" class="fixed"></div>
+    <!-- search -->
+    <div id="searchModal" class="reveal-modal" data-reveal></div>
+    <!-- content -->
+    <div class="row">
+        <div class="large-12 large-centered small-12 small-centered">
         <!-- main content starts here -->
         <h1>Video Data to CSV Tool</h1>
         <h2>Instructions</h2>
@@ -116,6 +124,8 @@
             <span class="button" id="selectData">Select the data</span>
         </p>
         <textarea id="response"></textarea>
+    </div>
+</div>
         <!-- scripts -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
@@ -127,6 +137,9 @@
 
         <script type="text/javascript" src="//docs.brightcove.com/en/scripts/bc-mapi.js"></script>
         <script type="text/javascript" src="//docs.brightcove.com/en/scripts/secondsToTime.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
         <script>
             var BCLS = (function() {
                 var $totalVideos = $("#totalVideos"),

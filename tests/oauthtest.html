@@ -27,40 +27,20 @@
     })();
      //--><!]]>
   </script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
 </head>
 
-<body data-spy="scroll" data-target=".sub-menu" data-offset="100">
+<body>
   <!-- header navbar -->
-  <div id="titleBar" class="navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-      <div id="otherSites">
-        <ul class="nav pull-right small"></ul>
-      </div> <a class="brand" href="//docs.brightcove.com/en/index.html">BRIGHTCOVE DEVELOPER DOCUMENTATION</a>
-    </div>
-  </div>
-  <!-- end header navbar -->
-  <!-- nav navbar -->
-  <div id="navBar" class="navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-      <a class="btn btn-navbar pull-right" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
-      <!-- Everything you want hidden at 940px or less, place within here -->
-      <ul id="sectionNav" class="nav"></ul>
-    </div>
-  </div>
-  <!-- end nav navbar -->
-  <!-- Content -->
+  <div id="navWrapper" class="fixed"></div>
+  <!-- search -->
+  <div id="searchModal" class="reveal-modal" data-reveal></div>
+  <!-- content -->
   <div class="row">
-    <div id="sidenav" class="span2"></div>
-    <div id="main" class="span10">
-      <div id="top" class="section">
-        <h1></h1>
-    </div>
+    <div class="large-12 large-centered small-12 small-centered">
+  <!-- Content -->
   </div>
+</div>
 <!-- bcl scripts -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
@@ -74,6 +54,9 @@
 <script src="/en/scripts/log.js"></script>
 <script src="/en/scripts/docs-nav-data.min.js"></script>
 <script src="/en/scripts/bcls-doc-site.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
 <script type="text/javascript">
     /******** Any scripts specific to page samples should go here *********/
     var BCLS = ( function () {

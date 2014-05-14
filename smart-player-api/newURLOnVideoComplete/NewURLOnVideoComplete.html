@@ -34,39 +34,17 @@
       padding-left: 40px;
     }
   </style>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
 </head>
 
-<body data-spy="scroll" data-target=".sub-menu" data-offset="100">
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span12">
-            <!-- header navbar -->
-            <div id="titleBar" class="navbar-inverse navbar-fixed-top">
-                <div class="navbar-inner">
-                    <div id="otherSites">
-                        
-                    </div>
-                    <a class="brand" href="//docs.brightcove.com/en/index.html">BRIGHTCOVE DEVELOPER DOCUMENTATION</a>
-                </div>
-            </div>
-            <!-- end header navbar -->
-            <!-- nav navbar -->
-            <div id="navBar" class="navbar-inverse navbar-fixed-top">
-                <div class="navbar-inner">
-                    <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-                    <a class="btn btn-navbar pull-right" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    <!-- Everything you want hidden at 940px or less, place within here -->
-                    <ul id="sectionNav" class="nav"></ul>
-                </div>
-            </div>
-            <!-- end nav navbar -->
-        </div>
-    </div>
-</div>
+<body>
+  <!-- header navbar -->
+  <div id="navWrapper" class="fixed"></div>
+  <!-- search -->
+  <div id="searchModal" class="reveal-modal" data-reveal></div>
+  <!-- content -->
+  <div class="row">
+    <div class="large-12 large-centered small-12 small-centered">
 <!-- main content starts here -->
 <h1>New URL on Video Complete</h1>
 <p>This sample automatically navigates to a new page when the video is complete.</p>
@@ -109,6 +87,9 @@
   <script type="text/javascript">brightcove.createExperiences();</script>
 
   <!-- End of Brightcove Player -->
+</div>
+</div>
+
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.0/fastclick.min.js"></script>
@@ -120,6 +101,9 @@
   
   <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
   <script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
   <script type="text/javascript">
     var player,
       APIModules,

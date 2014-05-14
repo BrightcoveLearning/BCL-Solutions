@@ -28,92 +28,17 @@
   <link rel="apple-touch-icon-precomposed" href="/bcls/bootstrap/img/apple-touch-icon-57-precomposed.png">
   <link rel="shortcut icon" href="/bcls/bootstrap/img/favicon.ico">
   <link rel="stylesheet" href="/bcls/smart-player-api/css/lightbox-player.css"
-    
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
 </head>
 
 <body>
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span12">
-            <div class="navbar">
-                <div class="navbar-inner">
-                    <div class="container-fluid">
-                         <a data-target=".navbar-responsive-collapse" data-toggle="collapse" class="btn btn-navbar"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a> <a href="//solutions.brightcove.com/bcls/index.html" class="brand">BCLS Solutions</a>
-                        <div class="nav-collapse collapse navbar-responsive-collapse">
-                            <ul class="nav">
-                                <li>
-                                    <a href="//solutions.brightcove.com/bcls/index.html">Home</a>
-                                </li>
-                                <li class="dropdown">
-                                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">Analytics API<strong class="caret"></strong></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="/bcls/analytics-api/aapi-request-builder.html">Request Builder</a>
-                                        </li>
-                                        <li>
-                                            <a href="/bcls/analytics-api/most-popular-videos.html">Most Popular Videos</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">Media API<strong class="caret"></strong></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="/bcls/media/SchemaTool/schema-tool.html">Schema Tool</a>
-                                        </li>
-                                        <li>
-                                            <a href="/bcls/media/VideoDataToCSV/video-data-to-csv.html">Video Data in CSV Format</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">Smart Player API<strong class="caret"></strong></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="/bcls/smart-player-api/ScrollIntoViewStartVideo/ScrollIntoViewStartVideo.html">Play on Scroll into View</a>
-                                        </li>
-                                        <li>
-                                            <a href="/bcls/smart-player-api/newURLOnVideoComplete/NewURLOnVideoComplete.html">New URL on Video Complete</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">video.js<strong class="caret"></strong></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="/bcls/video-js/samples/chaptered-video/chapter-builder.html">Video Chaptering Tool</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <ul class="nav pull-right">
-                                <li class="divider-vertical">
-                                </li>
-                                <li class="dropdown">
-                                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">Other BCLS Sites<strong class="caret"></strong></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="//support.brightcove.com/en/docs">Brightcove Support Documentation</a>
-                                        </li>
-                                        <li>
-                                            <a href="//support.brightcove.com/en/video-cloud/training-videos">Training Videos</a>
-                                        </li>
-                                        <li>
-                                            <a href="//docs.brightcove.com/en/">Developer Documentation</a>
-                                        </li>
-                                        <li>
-                                            <a href="http://www.brightcove.com/en/services/training">Brightcove Training</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+  <!-- header navbar -->
+  <div id="navWrapper" class="fixed"></div>
+  <!-- search -->
+  <div id="searchModal" class="reveal-modal" data-reveal></div>
+  <!-- content -->
+  <div class="row">
+    <div class="large-12 large-centered small-12 small-centered">
 <!-- main content starts here -->
 <div class="section" id="resources">
           <h2><a name="resources"></a>API resources used</h2>
@@ -229,6 +154,9 @@
     <script src="//docs.brightcove.com/en/scripts/bc-mapi.js"></script>
     <script src="//docs.brightcove.com/en/scripts/secondsToTime.js"></script>
     <script src="//docs.brightcove.com/en/scripts/flashHTMLswitch.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
     <script id="pageScript" type="text/javascript">
       /******** Any scripts specific to page samples should go here *********/
       /**** Brightcove Learning Services Module ****/

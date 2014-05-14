@@ -75,37 +75,17 @@
                 padding: 5px;
             }
         </style>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
     </head>
 
-    <body data-spy="scroll" data-target=".sub-menu" data-offset="100">
-        <div class="container-fluid">
-            <div class="row-fluid">
-                <div class="span12">
-                    <!-- header navbar -->
-                    <div id="titleBar" class="navbar-inverse navbar-fixed-top">
-                        <div class="navbar-inner">
-                            <div id="otherSites"></div>
-                            <a class="brand" href="//docs.brightcove.com/en/index.html">BRIGHTCOVE DEVELOPER DOCUMENTATION</a>
-                        </div>
-                    </div>
-                    <!-- end header navbar -->
-                    <!-- nav navbar -->
-                    <div id="navBar" class="navbar-inverse navbar-fixed-top">
-                        <div class="navbar-inner">
-                            <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-                            <a class="btn btn-navbar pull-right" data-toggle="collapse" data-target=".nav-collapse">
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </a>
-                            <!-- Everything you want hidden at 940px or less, place within here -->
-                            <ul id="sectionNav" class="nav"></ul>
-                        </div>
-                    </div>
-                    <!-- end nav navbar -->
-                </div>
-            </div>
-        </div>
+    <body>
+    <!-- header navbar -->
+    <div id="navWrapper" class="fixed"></div>
+    <!-- search -->
+    <div id="searchModal" class="reveal-modal" data-reveal></div>
+    <!-- content -->
+    <div class="row">
+        <div class="large-12 large-centered small-12 small-centered">
         <!-- main content starts here -->
         <h1>Download Links for Best Renditions</h1>
         <p>This tool allows you to get download links for the best rendition available for all your <em>active</em> videos.</p>
@@ -141,6 +121,8 @@
         <p>Click on links in the table below to open the best video rendition in a separate browser window (or tab). You can then use the <strong>File &gt; Save As...</strong> command to save the video file locally. If there were no downloadable renditions for any of the videos, you will find those in a <a href="#failed">separate table</a> further down the page.</p>
         <div id="response"></div>
         <div id="failed"></div>
+    </div>
+</div>
         <!-- scripts -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
@@ -154,6 +136,9 @@
         <script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
         <script type="text/javascript" src="//docs.brightcove.com/en/scripts/bc-mapi.js"></script>
         <script type="text/javascript" src="//docs.brightcove.com/en/scripts/secondsToTime.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
         <script>
             var BCLS = (function() {
                 "use strict";

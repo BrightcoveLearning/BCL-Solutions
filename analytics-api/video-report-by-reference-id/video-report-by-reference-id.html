@@ -26,32 +26,17 @@
             	font-size: 10px;
             }
         </style>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
     </head>
 
-    <body data-spy="scroll" data-target=".sub-menu" data-offset="100">
-        <!-- header navbar -->
-        <div id="titleBar" class="navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <div id="otherSites">
-                </div>
-                <a class="brand" href="//docs.brightcove.com/en/index.html">BRIGHTCOVE DEVELOPER DOCUMENTATION</a>
-            </div>
-        </div>
-        <!-- end header navbar -->
-        <!-- nav navbar -->
-        <div id="navBar" class="navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-                <a class="btn btn-navbar pull-right" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <!-- Everything you want hidden at 940px or less, place within here -->
-                <ul id="sectionNav" class="nav"></ul>
-            </div>
-        </div>
-        <!-- end nav navbar -->
+    <body>
+    <!-- header navbar -->
+    <div id="navWrapper" class="fixed"></div>
+    <!-- search -->
+    <div id="searchModal" class="reveal-modal" data-reveal></div>
+    <!-- content -->
+    <div class="row">
+        <div class="large-12 large-centered small-12 small-centered">
         <!-- main content starts here -->
         <h1>Anayltics API Sample: Video Report by Reference ID</h1>
         <p>This sample allows you to get reports on videos by the video reference ID and return the results in JSON or CSV format.</p>
@@ -151,7 +136,7 @@
                         <tbody>
                             <tr>
                                 <td>Dimensions:
-                                <br /><span class="small">(you can add the following dimensions to your report &mdash; any single dimension will work; if you add multiple dimensions, some combinations will not work &mdash; you will receive a warning if you select an invalid combination of dimensions)<span></td>
+                                <br /><span class="small">(you can add the following dimensions to your report &mdash; any single dimension will work; if you add multiple dimensions, some combinations will not work &mdash; you will receive a warning if you select an invalid combination of dimensions)<span></span></span></td>
                                 <td>
                                     <select id="dimension" class="required aapi-request" multiple="true" size="7">
                                         <option value="account">account</option>
@@ -323,6 +308,8 @@
                 </p>
             <textarea id="responseFrame" rows="20"></textarea>
         </div>
+    </div>
+</div>
         <!-- scripts -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
@@ -346,6 +333,9 @@
         <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
         <script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
         <script src="/bcls/analytics-api/video-report-by-reference-id/video-report-by-reference-id.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
     </body>
 
 </html>

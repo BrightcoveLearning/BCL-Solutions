@@ -41,39 +41,18 @@
 	    color: #a51d1d
     }
     </style>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
 
 </head>
 
-<body data-spy="scroll" data-target=".sub-menu" data-offset="100">
+<body>
     <!-- header navbar -->
-    <div id="titleBar" class="navbar-inverse navbar-fixed-top">
-        <div class="navbar-inner">
-            <div id="otherSites">
-
-            </div>
-            <a class="brand" href="//docs.brightcove.com/en/index.html">BRIGHTCOVE DEVELOPER DOCUMENTATION</a>
-        </div>
-    </div>
-    <!-- end header navbar -->
-    <!-- nav navbar -->
-    <div id="navBar" class="navbar-inverse navbar-fixed-top">
-        <div class="navbar-inner">
-            <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-            <a class="btn btn-navbar pull-right" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </a>
-            <!-- Everything you want hidden at 940px or less, place within here -->
-            <ul id="sectionNav" class="nav">
-            </ul>
-        </div>
-    </div>
-    <!-- end nav navbar -->
-    <!-- main content starts here -->
+    <div id="navWrapper" class="fixed"></div>
+    <!-- search -->
+    <div id="searchModal" class="reveal-modal" data-reveal></div>
+    <!-- content -->
     <div class="row">
-        <div id="sidenav" class="span2"></div>
-        <div id="main" class="span10">
+        <div class="large-12 large-centered small-12 small-centered">
             <div class="section" id="top">
                 <h1>Analytics API Solution: Video Views Report for Multiple Accounts</h1>
                 <p>The Analytics UI in Video Cloud Studio offers a number of ready-made reports, but you can create additional reports using he Analytics API that are tailored to your specific needs. In this example, we will create a report showing the total video views for multiple accounts over a selected period. We will also break the views down by country.</p>
@@ -173,6 +152,9 @@
 <script type="text/javascript" src="/bcls/scripts/datepickr_2/datepickr.min.js"></script>
 <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
 <script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
 <script id="pageScript" type="text/javascript">
 var BCLS = (function (window, document, Handlebars, $, datepickr) {
     "use strict";

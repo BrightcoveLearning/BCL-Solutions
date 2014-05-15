@@ -1,0 +1,35 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    margin-left: 10px;
+}
+bcls-btn {
+    color: #F5F5F5;
+    background-color: #33333;
+    border-radius: 5px;
+    margin-left: 40px;
+    margin-right: 40px;
+    font-size: small;
+    padding: 10px;
+}
+.analytics-event {
+    color: #990000;
+}
+.player-event {
+    color: #6e9fb3;
+}
+div#player {
+    float: left;
+    margin-right: 20px;
+}
+div.event-log {
+    border: 1px #6e9fb3 solid;
+    border-radius: 5px;
+    display: inline-block;
+    font-size: .8em;
+    overflow: scroll;
+    padding: 10px;
+    min-height: 220px;
+    max-height: 220px;
+    max-width: 50%;
+    width: 50%;
+}

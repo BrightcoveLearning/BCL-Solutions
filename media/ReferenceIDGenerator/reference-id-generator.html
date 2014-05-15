@@ -3,28 +3,35 @@
 <head>
   <meta charset="utf-8">
   <title>Brightcove Reference ID processor</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <!-- Fav and touch icons -->
+        <link rel="shortcut icon" href="/bcls/assets/images/favicon.ico">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/styles/github.min.css">
+        <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.2.2/css/foundation.min.css" />
+        <script src="//use.edgefonts.net/source-code-pro.js"></script>
+        <link href="//files.brightcove.com/proxima-nova/font-faces.css" rel="stylesheet" type="text/css">
+            </script>
+        <script type="text/javascript">
 
-  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-  <!--[if lt IE 9]>
-    <script src="/bcls/bootstrap/js/html5shiv.js"></script>
-  <![endif]-->
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-33930315-1']);
+            _gaq.push(['_trackPageview']);
 
-  <!-- Fav and touch icons -->
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/bcls/bootstrap/img/apple-touch-icon-144-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/bcls/bootstrap/img/apple-touch-icon-114-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/bcls/bootstrap/img/apple-touch-icon-72-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" href="/bcls/bootstrap/img/apple-touch-icon-57-precomposed.png">
-  <link rel="shortcut icon" href="/bcls/bootstrap/img/favicon.ico">
-    <link href="//docs.brightcove.com/en/scripts/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <script src="//use.edgefonts.net/source-code-pro.js"></script>
-    <link href="//files.brightcove.com/proxima-nova/font-faces.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css" />
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/styles/github.min.css">
-    <link rel="stylesheet" type="text/css" href="/bcls/media/ReferenceIDGenerator/css/reference-id-generator.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+
+        </script>
+        <style>
+            .label {
+                border-radius: 5px;
+            }
+        </style>
+        <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
 </head>
 
 <!-- main content starts here -->
@@ -45,7 +52,7 @@
 <legend>System Information</legend>
     <table>
     <tr>
-        <td class="label"><label for="readApiLocation">Read API Location</label></td>
+        <td class="label" style="color:#ffffff"><label for="readApiLocation">Read API Location</label></td>
         <td class="field">
             <select id="readApiLocation">
                 <option value="http://api.brightcove.com/services/library">http://api.brightcove.com/services/post</option>
@@ -54,7 +61,7 @@
         </td>
     </tr>
     <tr>
-        <td class="label"><label for="writeApiLocation">Write API Location</label></td>
+        <td class="label" style="color:#ffffff"><label for="writeApiLocation">Write API Location</label></td>
         <td class="field">
             <select id="writeApiLocation">
                 <option value="http://api.brightcove.com/services/post">http://api.brightcove.com/services/post</option>
@@ -63,11 +70,11 @@
         </td>
     </tr>
     <tr>
-        <td class="label"><label for="readToken">Read Token</label></td>
+        <td class="label" style="color:#ffffff"><label for="readToken">Read Token</label></td>
         <td class="field"><input id="readToken" name="token" type="text" value=""></td>
     </tr>
     <tr>
-        <td class="label"><label for="writeToken">Write Token</label></td>
+        <td class="label" style="color:#ffffff"><label for="writeToken">Write Token</label></td>
         <td class="field"><input id="writeToken" name="writeToken" type="text" value=""></td>
     </tr>
     </table>
@@ -76,7 +83,7 @@
 <legend>Account Contents</legend>
     <table>
     <tr>
-        <td class="label" valign="middle"><label for="getTotalVideos">Get Total Videos</label></td>
+        <td class="label" style="color:#ffffff" valign="middle"><label for="getTotalVideos">Get Total Videos</label></td>
         <td class="field" style="width:120px;">
             <input id="getTotalVideos" name="getTotalVideos" type="button" value="Load" style="width:100px"><br />
         </td>
@@ -85,7 +92,7 @@
         </td>
     </tr>
     <tr>
-        <td class="label" valign="middle"><label for="getVideosWithoutReferenceIds">Get Videos without Reference Ids</label></td>
+        <td class="label" style="color:#ffffff" valign="middle"><label for="getVideosWithoutReferenceIds">Get Videos without Reference Ids</label></td>
         <td class="field" style="width:120px;">
             <input id="getVideosWithoutReferenceIds" name="getVideosWithoutReferenceIds" type="button" value="Load" disabled="true" style="width:100px"><br />
         </td>
@@ -105,7 +112,7 @@
 <legend>Update Videos with Reference IDs</legend>
     <table>
     <tr>
-        <td class="label" valign="middle"><label for="updateVideosBtn">Update Videos</label></td>
+        <td class="label" style="color:#ffffff" valign="middle"><label for="updateVideosBtn">Update Videos</label></td>
         <td class="field" style="width:120px;">
             <input id="updateVideosBtn" name="updateVideosBtn" type="button" value="Start" disabled="false" style="width:100px">
         </td>

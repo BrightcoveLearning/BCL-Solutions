@@ -1,15 +1,16 @@
 body {
-    font-family: Helvetica, Arial, sans-serif;
     margin-left: 10px;
 }
-bcls-btn {
+.bcls-btn {
     color: #F5F5F5;
-    background-color: #33333;
+    background-color: #333333;
     border-radius: 5px;
     margin-left: 40px;
     margin-right: 40px;
     font-size: small;
-    padding: 10px;
+    padding: 8px;
+    position: relative;
+    top: 0;
 }
 .analytics-event {
     color: #990000;
@@ -18,8 +19,7 @@ bcls-btn {
     color: #6e9fb3;
 }
 div#player {
-    float: left;
-    margin-right: 20px;
+    margin-bottom: 20px;
 }
 div.event-log {
     border: 1px #6e9fb3 solid;
@@ -30,6 +30,6 @@ div.event-log {
     padding: 10px;
     min-height: 220px;
     max-height: 220px;
-    max-width: 50%;
-    width: 50%;
+    max-width: 70%;
+    width: 70%;
 }

@@ -13,7 +13,7 @@
 *       poster (URL for the video still)
 * Note: this is a sample only, not a supported Brightcove plugin
 */
-(function (videojs, console) {
+(function (videojs, window, document, console) {
     "use strict";
     var defaults = {
             "showLog": "true",
@@ -36,6 +36,7 @@
         settings,
         // functions
         extend,
+        isDefined,
         bclslog;
     /**
      * extend used to merge options and defaults into settings
@@ -57,6 +58,13 @@
             }
         }
         return target;
+    };
+    // more robust test for strings "not defined"
+    isDefined =  function (v) {
+        if (v !== "" && v !== null && v !== "undefined" && v !== undefined) {
+            return true;
+        }
+        return false;
     };
     // safe console logger
     bclslog = function (message) {
@@ -91,6 +99,7 @@
             logEvent,
             injectScript,
             sendAnalyticsEvent,
+            dataCollectionCallback,
             wrapPlayer,
             addEventLog,
             init;
@@ -162,6 +171,9 @@
             }
             return;
         };
+        dataCollectionCallback = function (data) {
+            bclslog(data);
+        };
         onTimeUpdate = function (evt) {
             var thisPosition = evt.timeStamp, range = "", dateTime = new Date(evt.timeStamp);
             if (firstTimeUpdate) {
@@ -221,7 +233,7 @@
             playerWrapper.appendChild(videoDiv);
             // add control button to change video
             btnWrapper = document.createElement("div");
-            changeVideoBtn = document.createElement("button");
+            changeVideoBtn = document.createElement("span");
             changeVideoBtn.setAttribute("class", "bcls-btn");
             changeVideoBtn.setAttribute("id", "changeVideoBtn");
             changeVideoBtn.innerHTML = "Change Video";
@@ -255,7 +267,7 @@
             sendAnalyticsEvent("video_impression", evt);
         });
         // add listener for loadedalldata
-        player.on("loadedalldata", function (evt) {
+        player.on("loadedalldata", function () {
             var dateTime = new Date();
             if (settings.showLog) {
                 logEvent("player-event", "loadedalldata", "", dateTime.toISOString());
@@ -273,6 +285,10 @@
         init = function () {
             // add listener for time updates events
             player.on("timeupdate", onTimeUpdate);
+            // strip the protocol from the source
+            if (isDefined(source)) {
+                source = source.substring(source.indexOf("//") + 2);
+            }
             // get a reference to the div that wraps the video tag
             videoDiv = document.getElementById(player.id());
             // wrap the player in a new div
@@ -280,11 +296,11 @@
             // add log if wanted
             if (settings.showLog) {
                 addEventLog();
-        }
-        // load the first video in the collection
-        loadVideo();
+            }
+            // load the first video in the collection
+            loadVideo();
         }
         init();
         return;
     });
-})(videojs, console);
+})(videojs, window, document, console);

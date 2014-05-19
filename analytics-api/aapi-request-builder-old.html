@@ -57,6 +57,22 @@
                                         <sup class="red">*</sup>If your account has been enabled for the Analytics API, this token was emailed to the account administrator when you joined the <strong>limited availability</strong> program.</p>
                                 </td>
                             </tr>
+                             <tr>
+                                <td>Media API READ Token:
+                                <br /> (to retrieve videos to report or filter on)</td>
+                                <td>
+                                    <input id="mapitoken" type="text" size="60" value="v87kWelIdjUwVm7_Rzv09k-KqtLz-ty8ONbMxVYAI7-Q0eOilegqqg.." /> (default: BC Training Videos)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Media API Location</td>
+                                <td>
+                                    <select id="readApiLocation">
+                                        <option value="http://api.brightcove.com/services/library">http://api.brightcove.com/services/library</option>
+                                        <option value="http://api.brightcove.co.jp/services/library">http://api.brightcove.co.jp/services/library (Japan)</option>
+                                    </select>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -125,27 +141,83 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Player =</td>
-                                                <td id="playerFilter">
-                                                    <select id="player" class="where-input aapi-request" multiple="multiple"></select>
+                                                <td>Player ID =</td>
+                                                <td>
+                                                    <input id="player" class="where-input aapi-request" type="text" size="40" value="" />
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Video =</td>
-                                                <td id="videoFilter">
-                                                    <select id="video" class="where-input aapi-request" multiple="multiple"></select>
+                                                <td>Video ID =</td>
+                                                <td>
+                                                    <div id="directVideoInput"><input id="video" class="where-input aapi-request" type="text" size="40" value="" /><br />Note that you can enter a video ID here, or <a href="#mapitoken">enter your Media API READ token above</a> and then list or search for videos:</div>
+                                                    <table>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Number of videos to retrieve on each call:</td>
+                                                                <td>
+                                                                    <select id="pageSize">
+                                                                        <option value="10">10</option>
+                                                                        <option value="25" selected="selected">25</option>
+                                                                        <option value="50">50</option>
+                                                                        <option value="100">100</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Search for videos (leave search terms blank to retrieve all videos)</td>
+                                                                <td><p>What to search:</p>
+                                                                    <select id="searchType">
+                                                                        <option value="" selected="selected">Title and Description</option>
+                                                                        <option value="tag">Tags</option>
+                                                                        <option value="custom_fields">Custom Fields</option>
+                                                                    </select>
+                                                                    <p>Search for (separate multiple terms by commas): <input id="searchTerms" value="" size="60" /></p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Sort results by:</td>
+                                                                <td>
+                                                                    <select id="sortBy">
+                                                                        <option value="DISPLAY_NAME">Video Name</option>
+                                                                        <option value="REFERENCE_ID">Reference ID</option>
+                                                                        <option value="PUBLISH_DATE" selected="selected">Date Published</option>
+                                                                        <option value="CREATION_DATE">Date Created</option>
+                                                                        <option value="MODIFIED_DATE">Date Last Modified</option>
+                                                                        <option value="START_DATE">Date Scheduled to Start</option>
+                                                                        <option value="PLAYS_TRAILING_WEEK">Trailing Week Plays</option>
+                                                                        <option value="PLAYS_TOTAL">All-Time Plays</option>
+                                                                    </select>
+                                                                    <select id="sortOrder">
+                                                                        <option value="ASC">Ascending</option>
+                                                                        <option value="DESC" selected="selected">Descending</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2">
+                                                                    <span id="getVideosButton" class="bcls-button">Get videos</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Select a video:</td>
+                                                                <td>
+                                                                    <select id="videoSelector" class="where-input aapi-request" multiple="multiple" size="10"></select>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Destination Domain =</td>
                                                 <td>
-                                                    <select id="destination_domain" class="where-input aapi-request" multiple="multiple"></select>
+                                                    <input id="destination_domain" class="where-input aapi-request" type="text" size="40" value="" />
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Referrer Domain =</td>
+                                                <td>Referring Domain =</td>
                                                 <td>
-                                                    <select id="referrer_domain" class="where-input aapi-request" multiple="multiple"></select>
+                                                    <input id="referrer_domain" class="where-input aapi-request" type="text" size="40" value="" />
                                                 </td>
                                             </tr>
                                             <tr>
@@ -164,7 +236,7 @@
                                             <tr>
                                                 <td>Search Terms =</td>
                                                 <td>
-                                                    <select id="search_terms" class="where-input aapi-request" multiple="multiple"></select>
+                                                    <input id="search_terms" class="where-input aapi-request" type="text" size="40" value="" />
                                                 </td>
                                             </tr>
                                             <tr>
@@ -182,7 +254,7 @@
                                             </tr>
                                             <tr>
                                                 <td>Device OS =</td>
-                                                <td>
+                                                <td colspan="2">
                                                     <select id="device_os" class="where-input aapi-request">
                                                         <option value="">&nbsp;</option>
                                                         <option value="android">android</option>

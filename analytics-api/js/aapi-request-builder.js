@@ -7,8 +7,6 @@ var BCLS = (function ($, window, AnyTime) {
         $sortBy = $("#sortBy"),
         pageNumber = 0,
         totalPages = 0,
-        $getVideosButton = $("#getVideosButton"),
-        $videoSelector = $("#videoSelector"),
         $sortOrder = $("#sortOrder"),
         $mapitoken = $("#mapitoken"),
         $readApiLocation = $("#readApiLocation"),
@@ -27,11 +25,11 @@ var BCLS = (function ($, window, AnyTime) {
         $endDate = $("#endDate"),
         $endTime = $("#endTime"),
         $whereInputs = $(".where-input"),
-        //$player = $("#player"),
-        //$video = $("#video"),
-        //$referrer_domain = $("#referrer_domain"),
-        //$source_type = $("#source_type"),
-        //$search_terms = $("#search_terms"),
+        $player = $("#player"),
+        $video = $("#video"),
+        $referrer_domain = $("#referrer_domain"),
+        $source_type = $("#source_type"),
+        $search_terms = $("#search_terms"),
         $limit = $("#limit"),
         $limitText = $("#limitText"),
         $offset = $("#offset"),
@@ -62,6 +60,8 @@ var BCLS = (function ($, window, AnyTime) {
         authorization = "",
         endDate = "",
         startDate = "",
+        videoSelectTemplate = "<select id=\"videoSelector\" class=\"where-input aapi-request\" multiple=\"multiple\">{{#items}}<option value=\"{{video}}\">{{video_name}}</option>{{/items}}</select>",
+        playerSelectTemplate = "<select id=\"playerSelector\" class=\"where-input aapi-request\" multiple=\"multiple\">{{#items}}<option value=\"{{player}}\">{{player_name}}</option>{{/items}}</select>",
         // options for different report types
         rollupDimensionOptions = "<option value=\"account\">account</option>",
         reportDimensionOptions = "<option value=\"account\">account</option><option value=\"player\">player</option><option value=\"video\">video</option><option value=\"day\">day</option><option value=\"referrer_domain\">referrer_domain</option><option value=\"source_type\">source_type</option><option value=\"search_terms\">search_terms</option><option value=\"device_type\">device_type</option><option value=\"device_os\">device_os</option>",
@@ -140,7 +140,8 @@ var BCLS = (function ($, window, AnyTime) {
         accountPlayerReferrer_domainSource_typeSearch_termsFields = accountPlayerReferrer_domainSource_typeFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
         accountVideoReferrer_domainSource_typeSearch_termsFields = accountVideoReferrer_domainSource_typeFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
         // functions to be defined
-        getVideos,
+        getDataForInputs,
+        buildDataForInputRequest,
         onGetVideos,
         trimRequest,
         removeSpaces,
@@ -188,49 +189,12 @@ var BCLS = (function ($, window, AnyTime) {
         if(v !== "" && v !== null && v !== "undefined" && v !== undefined) { return true; }
         else { return false; }
     };
-    // get videos via MAPI
-    getVideos = function () {
-        var searchTerms = $searchTerms.val(),
-            searchTermsArray = searchTerms.split(","),
-            searchType = $searchType.val();
-        // hide the direct video input
-        $directVideoInput.hide();
-        BCMAPI.url = $readApiLocation.val();
-        BCMAPI.callback = "BCLS.onGetVideos";
-        BCMAPI.token = $mapitoken.val();
-        params.page_number = pageNumber;
-        params.page_size = $pageSize.val();
-        params.sort_by = $sortBy.val() + ":" + $sortOrder.val();
-        params.video_fields = "id,name";
-        params.get_item_count = true;
-        if (searchTerms !== "") {
-            if (searchType !== "") {
-                searchTermsArray.forEach(function (element, index, array) {
-                    element = searchType + ":" + element;
-                });
-            }
-            params.any = searchTerms;
-        }
-        BCMAPI.search(params);
-        pageNumber++;
+    // get videos list
+    getDataForInputs = function () {
+    
     };
-    // handler for MAPI call
-    onGetVideos = function(JSONdata) {
-        var template, data, result;
-        videoData = JSONdata;
-        totalVideos += JSONdata.total_count;
-        totalPages = Math.ceil(JSONdata.total_count / $pageSize.val());
-        if (totalPages === pageNumber) {
-            $getVideosButton.html("No more videos");
-            $getVideosButton.off("click", this.getVideos);
-        } else {
-            $getVideosButton.html("Get the next " + $pageSize.val() + " videos");
-        }
-        template = Handlebars.compile(videoOptionTemplate);
-        data = JSONdata;
-        result = template(data);
-        $videoSelector.html(result);
-        buildRequest();
+    buildDataForInputRequest = function () {
+        
     };
     removeSpaces = function (str) {
         if (isDefined(str)) {
@@ -761,12 +725,14 @@ var BCLS = (function ($, window, AnyTime) {
     $mapitoken.on("change", function () {
         $directVideoInput.hide();
     });
-    // listener for videos request
+    // listeners for get videos and players buttons
     $getVideosButton.on("click", getVideos);
+    $getPlayersButton.on("click", getPlayers);
     // set listener for form fields
     APIrequestInputs.on("change", buildRequest);
-    // rebuild request when video selector changes
-    $videoSelector.on("change", buildRequest);
+    // rebuild request when video or selector changes
+    $video.on("change", buildRequest);
+    $player.on("change", buildRequest);
     // in case search terms added after initial video retrieval
     $searchTerms.on("change", function () {
         // re-initialize

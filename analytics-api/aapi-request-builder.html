@@ -69,7 +69,7 @@
                             <tr>
                                 <td>Request Type:</td>
                                 <td>
-                                    <select id="requestType">
+                                    <select id="requestType" class="aapi-request">
                                         <option value="report" selected="selected">Report</option>
                                         <option value="rollup">Roll-up</option>
                                     </select> (default:
@@ -79,21 +79,7 @@
                                 <td>Dimensions:
                                 <br />(multiple dimensions allowed for reports)</td>
                                 <td>
-                                    <select id="dimension" multiple="multiple" size="14">
-                                        <option value="account">account</option>
-                                        <option value="player">player</option>
-                                        <option value="video" selected="selected">video</option>
-                                        <option value="country">country</option>
-                                        <option value="city">city</option>
-                                        <option value="region">region</option>
-                                        <option value="day">day</option>
-                                        <option value="destination_domain">destination_domain</option>
-                                        <option value="referrer_domain">referrer_domain</option>
-                                        <option value="source_type">source_type</option>
-                                        <option value="search_terms">search_terms</option>
-                                        <option value="device_type">device_type</option>
-                                        <option value="device_os">device_os</option>
-                                    </select>
+                                    <select id="dimension" multiple="multiple" size="14" class="aapi-request"></select>
                                 </td>
                             </tr>
                         </tbody>
@@ -127,32 +113,40 @@
                                             <tr>
                                                 <td>Player =</td>
                                                 <td id="playerFilter">
-                                                    <select id="player" class="where-input aapi-request" multiple="multiple"></select>
+                                                    <select id="player" class="where-input aapi-request" multiple="multiple">
+                                                        <option>Select one or more</option>
+                                                    </select>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Video =</td>
                                                 <td id="videoFilter">
-                                                    <select id="video" class="where-input aapi-request" multiple="multiple"></select>
+                                                    <select id="video" class="where-input aapi-request" multiple="multiple">
+                                                        <option>Select one or more</option>
+                                                    </select>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Destination Domain =</td>
                                                 <td>
-                                                    <select id="destination_domain" class="where-input aapi-request" multiple="multiple"></select>
+                                                    <select id="destination_domain" class="where-input aapi-request" multiple="multiple">
+                                                        <option>Select one or more</option>
+                                                    </select>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Referrer Domain =</td>
                                                 <td>
-                                                    <select id="referrer_domain" class="where-input aapi-request" multiple="multiple"></select>
+                                                    <select id="referrer_domain" class="where-input aapi-request" multiple="multiple">
+                                                        <option>Select one or more</option>
+                                                    </select>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Source Type =</td>
                                                 <td>
-                                                    <select id="source_type" class="where-input aapi-request">
-                                                        <option value="">&nbsp;</option>
+                                                    <select id="source_type" class="where-input aapi-request" multiple="multiple">
+                                                        <option>Select one or more</option>
                                                         <option value="direct">direct</option>
                                                         <option value="referral">referral</option>
                                                         <option value="organic_search">organic_search</option>
@@ -164,14 +158,41 @@
                                             <tr>
                                                 <td>Search Terms =</td>
                                                 <td>
-                                                    <select id="search_terms" class="where-input aapi-request" multiple="multiple"></select>
+                                                    <select id="search_terms" class="where-input aapi-request" multiple="multiple">
+                                                        <option value="direct">Select one or more</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Country =</td>
+                                                <td>
+                                                    <select id="country" class="where-input aapi-request" multiple="multiple">
+                                                        <option value="direct">Select one or more</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Region =</td>
+                                                <td>
+                                                    <select id="region" class="where-input aapi-request" multiple="multiple">
+                                                        <option value="direct">Select one or more</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>City =</td>
+                                                <td>
+                                                    <select id="city" class="where-input aapi-request" multiple="multiple">
+                                                        <option value="direct">Select one or more</option>
+                                                    </select>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Device Type =</td>
                                                 <td>
-                                                    <select id="device_type" class="where-input aapi-request">
-                                                        <option value="">&nbsp;</option>
+                                                    <select id="device_type" class="where-input aapi-request" multiple="multiple">
+                                                        <option>Select one or more</option>
+                                                        <option value="direct">direct</option>
                                                         <option value="mobile">mobile</option>
                                                         <option value="tablet">tablet</option>
                                                         <option value="tv">tv</option>
@@ -183,8 +204,9 @@
                                             <tr>
                                                 <td>Device OS =</td>
                                                 <td>
-                                                    <select id="device_os" class="where-input aapi-request">
-                                                        <option value="">&nbsp;</option>
+                                                    <select id="device_os" class="where-input aapi-request" multiple="multiple">
+                                                        <option>Select one or more</option>
+                                                        <option value="direct">direct</option>
                                                         <option value="android">android</option>
                                                         <option value="bada">bada</option>
                                                         <option value="tv">tv</option>
@@ -235,7 +257,7 @@
                             </tr>
                             <tr>
                                 <td>Fields:</td>
-                                <td><select class="aapi-request" id="fields" multiple="true"></select></td>
+                                <td><select class="aapi-request" id="fields" multiple="multiple"></select></td>
                             </tr>
                             <tr>
                                 <td>Sort by:</td>
@@ -254,13 +276,14 @@
                         <option value="json" selected="selected">json</option>
                         <option value="csv">csv</option>
                         <option value="xlsx">xlsx</option>
-                    </select></p>
-                    <p>Notes:
-                        <ol>
-                            <li>csv and xlsx for Reports only; for Rollups you will always get JSON</li>
-                            <li>If you select xlsx, you will only see a success message here; to download xlxs results, you will have to use the Analytics UI in Video Cloud Studio</li>
-                        </ol>
-                    </p>
+                    </select>
+                </p>
+                <p>Notes:
+                    <ol>
+                        <li>csv and xlsx for Reports only; for Rollups you will always get JSON</li>
+                        <li>If you select xlsx, you will only see a success message here; to download xlxs results, you will have to use the Analytics UI in Video Cloud Studio</li>
+                    </ol>
+                </p>
             </fieldset>
         </div>
         <h2>The API Request</h2>

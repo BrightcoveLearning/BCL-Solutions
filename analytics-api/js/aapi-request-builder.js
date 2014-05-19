@@ -10,32 +10,50 @@ var BCLS = (function ($, window, AnyTime) {
         $sortOrder = $("#sortOrder"),
         $mapitoken = $("#mapitoken"),
         $readApiLocation = $("#readApiLocation"),
-        videoData,
-        totalVideos = 0,
         params = {},
-        videoOptionTemplate = "{{#items}}<option value=\"{{id}}\">{{name}}</option>{{/items}}",
-        // aapi stuff
+        // templates for data input options
+        dimensionOptionTemplate = {{#dimensions}}<option>{{.}}</option>{{/dimensions}},
+        videoOptionTemplate = "{{#items}}<option value=\"{{video}}\">{{video_name}}</option>{{/items}}",
+        playerOptionTemplate = "{{#items}}<option value=\"{{player}}\">{{player_name}}</option>{{/items}}",
+        destinationOptionTemplate = "{{#items}}<option>{{destination_domain}}</option>{{/items}}",
+        searchOptionTemplate = "{{#items}}<option>{{search_terms}}</option>{{/items}}",
+        referrerOptionTemplate = "{{#items}}<option>{{referrer_domain}}</option>{{/items}}",
+        // fields and values
         $serviceURL = $("#serviceURL"),
+        serviceURL,
         $accountID = $("#accountID"),
+        account,
         $token = $("#token"),
+        token,
         APIrequestType = $("#requestType"),
+        requestType,
         $dimension = $("#dimension"),
+        dimensions,
         $startDate = $("#startDate"),
-        $startTime = $("#startTime"),
+        from,
         $endDate = $("#endDate"),
-        $endTime = $("#endTime"),
+        to,
         $whereInputs = $(".where-input"),
         $player = $("#player"),
+        player,
         $video = $("#video"),
+        video,
         $referrer_domain = $("#referrer_domain"),
+        referrer_domain,
         $source_type = $("#source_type"),
+        source_type,
         $search_terms = $("#search_terms"),
+        search_terms,
         $limit = $("#limit"),
         $limitText = $("#limitText"),
+        limit,
         $offset = $("#offset"),
         $offsetText = $("#offsetText"),
+        offset,
         $sort = $("#sort"),
+        sort,
         $fields = $("#fields"),
+        fields,
         APIrequest = document.getElementById("APIrequest"),
         $authorization = $("#authorization"),
         $authorizationDisplay = $("#authorizationDisplay"),
@@ -51,7 +69,8 @@ var BCLS = (function ($, window, AnyTime) {
         obj = {},
         $this,
         thisVal,
-        dimensions = ["account", "player", "video", "country", "city", "region", "day", "destination_domain", "device_type", "device_os", "referrer_domain", "source_type", "search_terms"],
+        dimensionsArray = ["account", "player", "video", "country", "city", "region", "day", "destination_domain", "device_type", "device_os", "referrer_domain", "source_type", "search_terms"],
+        dimensionsObj = {"dimensions": dimensionsArray },
         separator = "",
         requestTrimmed = false,
         lastChar = "",
@@ -60,8 +79,6 @@ var BCLS = (function ($, window, AnyTime) {
         authorization = "",
         endDate = "",
         startDate = "",
-        videoSelectTemplate = "<select id=\"videoSelector\" class=\"where-input aapi-request\" multiple=\"multiple\">{{#items}}<option value=\"{{video}}\">{{video_name}}</option>{{/items}}</select>",
-        playerSelectTemplate = "<select id=\"playerSelector\" class=\"where-input aapi-request\" multiple=\"multiple\">{{#items}}<option value=\"{{player}}\">{{player_name}}</option>{{/items}}</select>",
         // options for different report types
         rollupDimensionOptions = "<option value=\"account\">account</option>",
         reportDimensionOptions = "<option value=\"account\">account</option><option value=\"player\">player</option><option value=\"video\">video</option><option value=\"day\">day</option><option value=\"referrer_domain\">referrer_domain</option><option value=\"source_type\">source_type</option><option value=\"search_terms\">search_terms</option><option value=\"device_type\">device_type</option><option value=\"device_os\">device_os</option>",
@@ -142,6 +159,7 @@ var BCLS = (function ($, window, AnyTime) {
         // functions to be defined
         getDataForInputs,
         buildDataForInputRequest,
+        getInputValues,
         onGetVideos,
         trimRequest,
         removeSpaces,
@@ -191,7 +209,15 @@ var BCLS = (function ($, window, AnyTime) {
     };
     // get videos list
     getDataForInputs = function () {
-    
+        serviceURL = $serviceURL.val();
+        token = $token.val();
+        account = $accountID.val();
+        to = $endDate.val();
+        from = $startDate.val();
+        player = $player.val();
+        video = $video.val();
+        destination_domain = $destination_domain.val();
+        
     };
     buildDataForInputRequest = function () {
         
@@ -202,7 +228,7 @@ var BCLS = (function ($, window, AnyTime) {
             return str;
         }
     };
-
+    // trim trailing white space and multiple &&s
     trimRequest = function () {
         if (!requestTrimmed) {
             lastChar = requestURL.charAt((requestURL.length - 1));
@@ -219,6 +245,7 @@ var BCLS = (function ($, window, AnyTime) {
             }
         }
     };
+    // get input values from the fields
     // construct the request
     buildRequest = function () {
         var selectedFields = $fields.val();

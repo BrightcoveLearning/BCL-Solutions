@@ -209,8 +209,8 @@ var BCLS = (function ($, window, AnyTime) {
     // get videos list
     getDataForInputs = function () {
         serviceURL = $serviceURL.val();
-        token = $token.val();
-        account = $accountID.val();
+        token = removeSpaces($token.val());
+        account = removeSpaces($accountID.val());
         requestType = $APIrequestType.val();
         to = $endDate.val();
         from = $startDate.val();
@@ -237,11 +237,20 @@ var BCLS = (function ($, window, AnyTime) {
         }
         sort = $sort.val();
         fields = $fields.val().join(",");
-        
+        // check for required fields
+        if (!isDefined(account) || !isDefined(token)) {
+            window.alert("You must provide a service URL, account ID, and a token");
+        }
     };
-    buildDataForInputRequest = function () {
-        var url = "";
+    // build request for input data
+    buildDataForInputRequest = function (dataType) {
         thisRequestType = "data";
+        requestURL = serviceURL + "account/" + account + "report/" + "?dimensions=" + dataType + "&from=" + from + "&to=" + to;
+        switch (dataType) {
+            case "player": 
+            requestURL += "&fields=" + fields + "&sort=player_name" + "&limit=all";
+            break;
+        }
     };
     removeSpaces = function (str) {
         if (isDefined(str)) {
@@ -269,7 +278,7 @@ var BCLS = (function ($, window, AnyTime) {
     // get input values from the fields
     // construct the request
     buildRequest = function () {
-        var selectedFields = $fields.val();
+        thisRequestType = "analytics";
         // reset where to false in case this is a new request
         where = false;
         // check for required fields

@@ -11,7 +11,7 @@ var BCLS = (function ($, window, AnyTime) {
         referrerOptionTemplate = "{{#items}}<option>{{referrer_domain}}</option>{{/items}}",
         countryOptionTemplate = "{{#items}}<option value=\"{{country}}\">{{country_name}}</option>{{/items}}",
         regionOptionTemplate = "{{#items}}<option value=\"{{region}}\">{{region_name}}</option>{{/items}}",
-        cityOptionTemplate = "{{#items}}<option value=\"{{city}}\">{{city_name}}</option>{{/items}}",
+        cityOptionTemplate = "{{#items}}<option>{{city}}</option>{{/items}}",
         // fields and values
         $serviceURL = $("#serviceURL"),
         serviceURL,
@@ -54,6 +54,8 @@ var BCLS = (function ($, window, AnyTime) {
         sort,
         $fields = $("#fields"),
         fields,
+        dataCalls = ["player", "video", "destination_domain", "referrer_domain", "search_terms", "country", "region", "city"],
+        dataCallsIndex = 0,
         // for request building
         thisRequestType = "",
         APIrequest = document.getElementById("APIrequest"),
@@ -156,6 +158,7 @@ var BCLS = (function ($, window, AnyTime) {
         accountPlayerReferrer_domainSource_typeSearch_termsFields = accountPlayerReferrer_domainSource_typeFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
         accountVideoReferrer_domainSource_typeSearch_termsFields = accountVideoReferrer_domainSource_typeFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
         // functions to be defined
+        bclslog,
         getDataForInputs,
         buildDataForInputRequest,
         getInputValues,
@@ -168,6 +171,12 @@ var BCLS = (function ($, window, AnyTime) {
         setFieldsSortOptions,
         onDimesionError;
 
+    // safe console log
+    bclslog = function (m) {
+        if (isDefined(window.console)) {
+            console.log(m);
+        }
+    }
     // implement array forEach method in older browsers
     if ( !Array.prototype.forEach ) {
         Array.prototype.forEach = function(fn, scope) {
@@ -206,7 +215,7 @@ var BCLS = (function ($, window, AnyTime) {
         if(v !== "" && v !== null && v !== "undefined" && v !== undefined) { return true; }
         else { return false; }
     };
-    // get videos list
+    // get input field values
     getDataForInputs = function () {
         serviceURL = $serviceURL.val();
         token = removeSpaces($token.val());
@@ -248,9 +257,34 @@ var BCLS = (function ($, window, AnyTime) {
         requestURL = serviceURL + "account/" + account + "report/" + "?dimensions=" + dataType + "&from=" + from + "&to=" + to;
         switch (dataType) {
             case "player": 
-            requestURL += "&fields=" + fields + "&sort=player_name" + "&limit=all";
+            requestURL += "&fields=player,player_name" + "&sort=player_name" + "&limit=all";
+            break;
+            case "video": 
+            requestURL += "&fields=video,video_name" + "&sort=video_name" + "&limit=all";
+            break;
+            case "destination_domain": 
+            requestURL += "&fields=destination_domain" + "&sort=destination_domain" + "&limit=all";
+            break;
+            case "referrer_domain": 
+            requestURL += "&fields=referrer_domain" + "&sort=referrer_domain" + "&limit=all";
+            break;
+            case "search_terms": 
+            requestURL += "&fields=search_terms" + "&sort=search_terms" + "&limit=all";
+            break;
+            case "country": 
+            requestURL += "&fields=country,country_name" + "&sort=country_name" + "&limit=all";
+            break;
+            case "region": 
+            requestURL += "&fields=region,region_name" + "&sort=region_name" + "&limit=all";
+            break;
+            case "city": 
+            requestURL += "&fields=city" + "&sort=city" + "&limit=all";
+            break;
+            default:
+            bclslog("unknown data type " + dataType);
             break;
         }
+        getData(requestURL, thisRequestType, dataType);
     };
     removeSpaces = function (str) {
         if (isDefined(str)) {

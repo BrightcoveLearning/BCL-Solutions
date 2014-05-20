@@ -1,23 +1,17 @@
 var BCLS = (function ($, window, AnyTime) {
     "use strict";
-    var // media api stuff
-        $pageSize = $("#pageSize"),
-        $searchType = $("#searchType"),
-        $searchTerms = $("#searchTerms"),
-        $sortBy = $("#sortBy"),
-        pageNumber = 0,
-        totalPages = 0,
-        $sortOrder = $("#sortOrder"),
-        $mapitoken = $("#mapitoken"),
-        $readApiLocation = $("#readApiLocation"),
-        params = {},
-        // templates for data input options
-        dimensionOptionTemplate = {{#dimensions}}<option>{{.}}</option>{{/dimensions}},
+    var // templates for data input options
+        dimensionsArray = ["account", "player", "video", "country", "city", "region", "day", "destination_domain", "device_type", "device_os", "referrer_domain", "source_type", "search_terms"],
+        dimensionsObj = {"items": dimensionsArray },
+        dimensionOptionTemplate = "{{#items}}<option>{{this}}</option>{{/items}}",
         videoOptionTemplate = "{{#items}}<option value=\"{{video}}\">{{video_name}}</option>{{/items}}",
         playerOptionTemplate = "{{#items}}<option value=\"{{player}}\">{{player_name}}</option>{{/items}}",
         destinationOptionTemplate = "{{#items}}<option>{{destination_domain}}</option>{{/items}}",
         searchOptionTemplate = "{{#items}}<option>{{search_terms}}</option>{{/items}}",
         referrerOptionTemplate = "{{#items}}<option>{{referrer_domain}}</option>{{/items}}",
+        countryOptionTemplate = "{{#items}}<option value=\"{{country}}\">{{country_name}}</option>{{/items}}",
+        regionOptionTemplate = "{{#items}}<option value=\"{{region}}\">{{region_name}}</option>{{/items}}",
+        cityOptionTemplate = "{{#items}}<option value=\"{{city}}\">{{city_name}}</option>{{/items}}",
         // fields and values
         $serviceURL = $("#serviceURL"),
         serviceURL,
@@ -44,6 +38,12 @@ var BCLS = (function ($, window, AnyTime) {
         source_type,
         $search_terms = $("#search_terms"),
         search_terms,
+        $country = $("#country"),
+        country,
+        $region = $("#region"),
+        region,
+        $city = $("#city"),
+        city,
         $limit = $("#limit"),
         $limitText = $("#limitText"),
         limit,
@@ -54,6 +54,8 @@ var BCLS = (function ($, window, AnyTime) {
         sort,
         $fields = $("#fields"),
         fields,
+        // for request building
+        thisRequestType = "",
         APIrequest = document.getElementById("APIrequest"),
         $authorization = $("#authorization"),
         $authorizationDisplay = $("#authorizationDisplay"),
@@ -61,7 +63,6 @@ var BCLS = (function ($, window, AnyTime) {
         $required = $(".required"),
         $format = $("#format"),
         APIrequestInputs = $(".aapi-request"),
-        $directVideoInput = $("#directVideoInput"),
         $responseFrame = $("#responseFrame"),
         optionTemplate = "{{#items}}<option value=\"{{.}}\">{{this}}</option>{{/items}}",
         template,
@@ -69,8 +70,6 @@ var BCLS = (function ($, window, AnyTime) {
         obj = {},
         $this,
         thisVal,
-        dimensionsArray = ["account", "player", "video", "country", "city", "region", "day", "destination_domain", "device_type", "device_os", "referrer_domain", "source_type", "search_terms"],
-        dimensionsObj = {"dimensions": dimensionsArray },
         separator = "",
         requestTrimmed = false,
         lastChar = "",
@@ -212,15 +211,37 @@ var BCLS = (function ($, window, AnyTime) {
         serviceURL = $serviceURL.val();
         token = $token.val();
         account = $accountID.val();
+        requestType = $APIrequestType.val();
         to = $endDate.val();
         from = $startDate.val();
-        player = $player.val();
-        video = $video.val();
-        destination_domain = $destination_domain.val();
+        player = $player.val().join(",");
+        video = $video.val().join(",");
+        destination_domain = $destination_domain.val().join(",");
+        referrer_domain = $referrer_domain.val().join(",");
+        search_terms = encodeURI($search_terms.val().join(","));
+        source_type = $source_type.val().join(",");
+        device_os = $device_os.val().join(",");
+        device_type = $device_type.val().join(",");
+        country = $country.val().join(",");
+        region = $region.val().join(",");
+        city = $city.val().join(",");
+        if (isDefined($limitText.val()) {
+            limit = removeSpaces($limitText.val());
+        } else {
+            limit = $limit.val();
+        }
+        if (isDefined($offsetText.val()) {
+            offset = #offsetText.val();
+        } else {
+            offset = #offset.val();
+        }
+        sort = $sort.val();
+        fields = $fields.val().join(",");
         
     };
     buildDataForInputRequest = function () {
-        
+        var url = "";
+        thisRequestType = "data";
     };
     removeSpaces = function (str) {
         if (isDefined(str)) {

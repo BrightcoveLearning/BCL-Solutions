@@ -1,4 +1,4 @@
-var BCLS = (function ($, window, AnyTime, BCLSformatJSON) {
+var BCLS = (function ($, window, AnyTime, Handlebars, BCLSformatJSON) {
     "use strict";
     var // templates for data input options
         dimensionsArray = ["account", "player", "video", "country", "city", "region", "day", "destination_domain", "device_type", "device_os", "referrer_domain", "source_type", "search_terms"],
@@ -176,12 +176,13 @@ var BCLS = (function ($, window, AnyTime, BCLSformatJSON) {
         isDefined,
         getData,
         setFieldsSortOptions,
-        onDimesionError;
+        onDimesionError,
+        init;
 
     // safe console log
     bclslog = function (m) {
         if (isDefined(window.console)) {
-            console.log(m);
+            window.console.log(m);
         }
     };
     // more robust test for strings "not defined"
@@ -301,7 +302,7 @@ var BCLS = (function ($, window, AnyTime, BCLSformatJSON) {
         if (requestType === "report") {
             // make sure dimensions is defined
             if (!isDefined(dimensions)) {
-                alert("For reports, you must select at least one dimension");
+                window.alert("For reports, you must select at least one dimension");
                 return;
             }
             requestURL += "report/";
@@ -391,19 +392,22 @@ var BCLS = (function ($, window, AnyTime, BCLSformatJSON) {
                 Authorization : $authorization.attr("value")
             },
             success : function (data) {
-                switch (format) {
-                case "json":
-                    $responseFrame.html(BCLSformatJSON.formatJSON(data));
-                    break;
-                // else check for CSV
-                case "csv":
-                    $responseFrame.html(data);
-                    break;
-                // must be XLSX
-                case "xlsx":
-                    $responseFrame.html("The result is an xlsx binary file and cannot be displayed");
-                    break;
+                if (dataType === "analytics") {
+                    switch (format) {
+                    case "json":
+                        $responseFrame.html(BCLSformatJSON.formatJSON(data));
+                        break;
+                    // else check for CSV
+                    case "csv":
+                        $responseFrame.html(data);
+                        break;
+                    // must be XLSX
+                    case "xlsx":
+                        $responseFrame.html("The result is an xlsx binary file and cannot be displayed");
+                        break;
+                    }
                 }
+                
             },
             error : function (XMLHttpRequest, textStatus, errorThrown) {
                 $responseFrame.html("Sorry, your request was not successful. Here's what the server sent back: " + errorThrown);
@@ -757,36 +761,40 @@ var BCLS = (function ($, window, AnyTime, BCLSformatJSON) {
     AnyTime.picker("endDate", {
         format : "%Y-%m-%d"
     });
-
-    // set event listeners
-    APIrequestType.on("change", function () {
-        if ($APIrequestType.val() === "rollup") {
-            $dimensions.html("");
-            $format.html(rollupFormatOptions);
-        } else if ($APIrequestType.val() === "report") {
-            template = Handlebars.compile(optionTemplate);
-            obj.items = dimensions;
-            result = template(obj);
-            $dimensions.html(result);
-            $format.html(reportFormatOptions);
-        }
-    });
-    $dimensions.on("change", setFieldsSortOptions);
-    // set listener for form fields
-    APIrequestInputs.on("change", buildRequest);
-    // send request
-    $submitButton.on("click", function () {
-        thisRequestType = "analytics";
-        getData(APIrequest.value, thisRequestType);
-    });
-    // populate data input selectors
-    buildDataForInputRequest(dataCalls[dataCallsIndex]);
-    // set the initial options for fields and sort
-    setFieldsSortOptions();
-    // generate initial request
-    buildRequest();
+    // init
+    init = function () {
+        // set event listeners
+        $APIrequestType.on("change", function () {
+            if ($APIrequestType.val() === "rollup") {
+                $dimensions.html("");
+                $format.html(rollupFormatOptions);
+            } else if ($APIrequestType.val() === "report") {
+                template = Handlebars.compile(optionTemplate);
+                obj.items = dimensions;
+                result = template(obj);
+                $dimensions.html(result);
+                $format.html(reportFormatOptions);
+            }
+        });
+        $dimensions.on("change", setFieldsSortOptions);
+        // set listener for form fields
+        APIrequestInputs.on("change", buildRequest);
+        // send request
+        $submitButton.on("click", function () {
+            thisRequestType = "analytics";
+            getData(APIrequest.value, thisRequestType);
+        });
+        // populate data input selectors
+        buildDataForInputRequest(dataCalls[dataCallsIndex]);
+        // set the initial options for fields and sort
+        setFieldsSortOptions();
+        // generate initial request
+        buildRequest();
+    }
+    // set things up
+    init();
     return {
         buildRequest: buildRequest,
         onGetVideos: onGetVideos
     };
-})($, window, AnyTime, BCLSformatJSON);
+})($, window, AnyTime, Handlebars, BCLSformatJSON);

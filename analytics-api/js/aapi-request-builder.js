@@ -289,18 +289,13 @@ var BCLS = (function ($, window, AnyTime, BCLSformatJSON) {
     };
     // get input values from the fields
     // construct the request
-    buildRequest = function (updateDataInputs) {
-        // reset where to false in case this is a new request
-        where = false;
-        // check for required fields
-        if (!isDefined(account) || !isDefined(token)) {
-            window.alert("You must provide an account ID and a token");
-            return;
-        }
+    buildRequest = function () {
+        // make sure we have the latest values
+        getDataForInputs();
         // reset requestTrimmed to false in case of regenerate request
         requestTrimmed = false;
         // build the request
-        authorization = "Bearer " + removeSpaces($token.val());
+        authorization = "Bearer " + token;
         requestURL = serviceURL + "account/" + account;
         // is it a report?
         if (requestType === "report") {
@@ -384,12 +379,14 @@ var BCLS = (function ($, window, AnyTime, BCLSformatJSON) {
         $authorization.attr("value", authorization);
     };
     // submit request
-    getData = function (url, thisRequestType, dataType) {
-        // clear the results frame
-        $responseFrame.html("Loading...");
-        console.log(APIrequest.value);
+    getData = function (requestURL, thisRequestType, dataType) {
+        if (dataType === "analytics") {
+            // clear the results frame
+            $responseFrame.html("Loading...");
+        }
+        bclslog(APIrequest.value);
         $.ajax({
-            url: APIrequest.value,
+            url: requestURL,
             headers: {
                 Authorization : $authorization.attr("value")
             },
@@ -780,7 +777,7 @@ var BCLS = (function ($, window, AnyTime, BCLSformatJSON) {
     // send request
     $submitButton.on("click", function () {
         thisRequestType = "analytics";
-        getData(requestURL, thisRequestType);
+        getData(APIrequest.value, thisRequestType);
     });
     // populate data input selectors
     buildDataForInputRequest(dataCalls[dataCallsIndex]);

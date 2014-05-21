@@ -1,4 +1,4 @@
-var BCLS = (function ($, window, AnyTime) {
+var BCLS = (function ($, window, AnyTime, BCLSformatJSON) {
     "use strict";
     var // templates for data input options
         dimensionsArray = ["account", "player", "video", "country", "city", "region", "day", "destination_domain", "device_type", "device_os", "referrer_domain", "source_type", "search_terms"],
@@ -19,9 +19,9 @@ var BCLS = (function ($, window, AnyTime) {
         account,
         $token = $("#token"),
         token,
-        APIrequestType = $("#requestType"),
+        $APIrequestType = $("#requestType"),
         requestType,
-        $dimension = $("#dimension"),
+        $dimensions = $("#dimensions"),
         dimensions,
         $startDate = $("#startDate"),
         from,
@@ -32,6 +32,8 @@ var BCLS = (function ($, window, AnyTime) {
         player,
         $video = $("#video"),
         video,
+        $destination_domain = $("#destination_domain"),
+        destination_domain,
         $referrer_domain = $("#referrer_domain"),
         referrer_domain,
         $source_type = $("#source_type"),
@@ -44,6 +46,10 @@ var BCLS = (function ($, window, AnyTime) {
         region,
         $city = $("#city"),
         city,
+        $device_os = $("#device_os"),
+        device_os,
+        $device_type = $("#device_type"),
+        device_type,
         $limit = $("#limit"),
         $limitText = $("#limitText"),
         limit,
@@ -64,6 +70,7 @@ var BCLS = (function ($, window, AnyTime) {
         $submitButton = $("#submitButton"),
         $required = $(".required"),
         $format = $("#format"),
+        format,
         APIrequestInputs = $(".aapi-request"),
         $responseFrame = $("#responseFrame"),
         optionTemplate = "{{#items}}<option value=\"{{.}}\">{{this}}</option>{{/items}}",
@@ -132,9 +139,9 @@ var BCLS = (function ($, window, AnyTime) {
         accountVideoReferrer_domainFields = videoReferrer_domainFields + "<option value=\"account\">account</option>",
         accountVideoSource_typeFields = videoSource_typeFields + "<option value=\"account\">account</option>",
         accountVideoSearch_termsFields = videoSearch_termsFields + "<option value=\"account\">account</option>",
-        accountReferrer_domainSource_typeFields = referrer_domainSource_typeFields+ "<option value=\"account\">account</option>",
-        accountReferrer_domainSearch_termsFields = referrer_domainSearch_termsFields+ "<option value=\"account\">account</option>",
-        accountSource_typeSearch_termsFields = source_typeSearch_termsFields+ "<option value=\"account\">account</option>",
+        accountReferrer_domainSource_typeFields = referrer_domainSource_typeFields + "<option value=\"account\">account</option>",
+        accountReferrer_domainSearch_termsFields = referrer_domainSearch_termsFields +  "<option value=\"account\">account</option>",
+        accountSource_typeSearch_termsFields = source_typeSearch_termsFields + "<option value=\"account\">account</option>",
         accountDevice_typeDevice_osFields = device_typeDevice_osFields + "<option value=\"account\">account</option>",
         playerReferrer_domainSource_typeFields = referrer_domainSource_typeFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option>",
         playerReferrer_domainSearch_termsFields = referrer_domainSearch_termsFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option>",
@@ -176,44 +183,13 @@ var BCLS = (function ($, window, AnyTime) {
         if (isDefined(window.console)) {
             console.log(m);
         }
-    }
-    // implement array forEach method in older browsers
-    if ( !Array.prototype.forEach ) {
-        Array.prototype.forEach = function(fn, scope) {
-            for(var i = 0, len = this.length; i < len; ++i) {
-                fn.call(scope || this, this[i], i, this);
-            }
-        };
-    }
-
-    // implement array indexOf method for older browsers
-    if (!Array.prototype.indexOf) {
-        Array.prototype.indexOf = function (searchElement , fromIndex) {
-            var i,
-                pivot = (fromIndex) ? fromIndex : 0,
-                length;
-            if (!this) {
-                throw new TypeError();
-            }
-            length = this.length;
-            if (length === 0 || pivot >= length) {
-                return -1;
-            }
-            if (pivot < 0) {
-                pivot = length - Math.abs(pivot);
-            }
-            for (i = pivot; i < length; i++) {
-                if (this[i] === searchElement) {
-                    return i;
-                }
-            }
-            return -1;
-        };
-    }
+    };
     // more robust test for strings "not defined"
     isDefined =  function (v) {
-        if(v !== "" && v !== null && v !== "undefined" && v !== undefined) { return true; }
-        else { return false; }
+        if (v !== "" && v !== null && v !== "undefined" && v !== undefined) {
+            return true;
+        }
+        return false;
     };
     // get input field values
     getDataForInputs = function () {
@@ -221,6 +197,7 @@ var BCLS = (function ($, window, AnyTime) {
         token = removeSpaces($token.val());
         account = removeSpaces($accountID.val());
         requestType = $APIrequestType.val();
+        dimensions = $dimensions.val().join(",");
         to = $endDate.val();
         from = $startDate.val();
         player = $player.val().join(",");
@@ -234,57 +211,58 @@ var BCLS = (function ($, window, AnyTime) {
         country = $country.val().join(",");
         region = $region.val().join(",");
         city = $city.val().join(",");
-        if (isDefined($limitText.val()) {
+        format = $format.val();
+        if (isDefined($limitText.val())) {
             limit = removeSpaces($limitText.val());
         } else {
             limit = $limit.val();
         }
-        if (isDefined($offsetText.val()) {
-            offset = #offsetText.val();
+        if (isDefined($offsetText.val())) {
+            offset = $offsetText.val();
         } else {
-            offset = #offset.val();
+            offset = $offset.val();
         }
         sort = $sort.val();
         fields = $fields.val().join(",");
         // check for required fields
         if (!isDefined(account) || !isDefined(token)) {
-            window.alert("You must provide a service URL, account ID, and a token");
+            window.alert("You must provide an account ID and a token");
         }
     };
     // build request for input data
     buildDataForInputRequest = function (dataType) {
+        var url = serviceURL + "account/" + account + "report/" + "?dimensions=" + dataType + "&from=" + from + "&to=" + to;
         thisRequestType = "data";
-        requestURL = serviceURL + "account/" + account + "report/" + "?dimensions=" + dataType + "&from=" + from + "&to=" + to;
         switch (dataType) {
-            case "player": 
-            requestURL += "&fields=player,player_name" + "&sort=player_name" + "&limit=all";
+        case "player":
+            url += "&fields=player,player_name" + "&sort=player_name" + "&limit=all";
             break;
-            case "video": 
-            requestURL += "&fields=video,video_name" + "&sort=video_name" + "&limit=all";
+        case "video":
+            url += "&fields=video,video_name" + "&sort=video_name" + "&limit=all";
             break;
-            case "destination_domain": 
-            requestURL += "&fields=destination_domain" + "&sort=destination_domain" + "&limit=all";
+        case "destination_domain":
+            url += "&fields=destination_domain" + "&sort=destination_domain" + "&limit=all";
             break;
-            case "referrer_domain": 
-            requestURL += "&fields=referrer_domain" + "&sort=referrer_domain" + "&limit=all";
+        case "referrer_domain":
+            url += "&fields=referrer_domain" + "&sort=referrer_domain" + "&limit=all";
             break;
-            case "search_terms": 
-            requestURL += "&fields=search_terms" + "&sort=search_terms" + "&limit=all";
+        case "search_terms":
+            url += "&fields=search_terms" + "&sort=search_terms" + "&limit=all";
             break;
-            case "country": 
-            requestURL += "&fields=country,country_name" + "&sort=country_name" + "&limit=all";
+        case "country":
+            url += "&fields=country,country_name" + "&sort=country_name" + "&limit=all";
             break;
-            case "region": 
-            requestURL += "&fields=region,region_name" + "&sort=region_name" + "&limit=all";
+        case "region":
+            url += "&fields=region,region_name" + "&sort=region_name" + "&limit=all";
             break;
-            case "city": 
-            requestURL += "&fields=city" + "&sort=city" + "&limit=all";
+        case "city":
+            url += "&fields=city" + "&sort=city" + "&limit=all";
             break;
-            default:
+        default:
             bclslog("unknown data type " + dataType);
             break;
         }
-        getData(requestURL, thisRequestType, dataType);
+        getData(url, thisRequestType, dataType);
     };
     removeSpaces = function (str) {
         if (isDefined(str)) {
@@ -311,88 +289,91 @@ var BCLS = (function ($, window, AnyTime) {
     };
     // get input values from the fields
     // construct the request
-    buildRequest = function () {
-        thisRequestType = "analytics";
+    buildRequest = function (updateDataInputs) {
         // reset where to false in case this is a new request
         where = false;
         // check for required fields
-        $required.each(function () {
-            $this = $(this);
-            if ($this.val === "") {
-                window.alert("You must provide a service URL, account ID, and a token");
-                // stop right here
-                return;
-            }
-        });
+        if (!isDefined(account) || !isDefined(token)) {
+            window.alert("You must provide an account ID and a token");
+            return;
+        }
         // reset requestTrimmed to false in case of regenerate request
         requestTrimmed = false;
         // build the request
         authorization = "Bearer " + removeSpaces($token.val());
-        requestURL = $serviceURL.val();
-        requestURL += "/account/" + removeSpaces($accountID.val()) + "/";
+        requestURL = serviceURL + "account/" + account;
         // is it a report?
-        if (APIrequestType.val() === "report") {
+        if (requestType === "report") {
             // make sure dimensions is defined
-            if (!isDefined($dimension.val())) {
+            if (!isDefined(dimensions)) {
                 alert("For reports, you must select at least one dimension");
                 return;
             }
             requestURL += "report/";
-            requestURL += "?dimensions=" + $dimension.val() + "&";
+            requestURL += "?dimensions=" + dimensions + "&";
         } else {
             requestURL += "?";
         }
         // check for time filters
-        startDate = $startDate.val();
-        if (startDate !== "") {
-            requestURL += "from=" + startDate + "&";
+        if (isDefined(from)) {
+            requestURL += "from=" + from + "&";
         }
-        endDate = $endDate.val();
-        if (endDate !== "") {
-            requestURL += "to=" + endDate + "&";
+        if (isDefined(to)) {
+            requestURL += "to=" + to + "&";
         }
         // check for where filters
-        $whereInputs.each(function () {
-            var dimension;
-            $this = $(this);
-            dimension = $this.attr("id");
-            if (dimension === "videoSelector") {
-                dimension = "video";
-
+        if (isDefined(player) || isDefined(video) || isDefined(destination_domain) || isDefined(referrer_domain) || isDefined(search_terms) || isDefined(source_type) || isDefined(country) || isDefined(region) || isDefined(city) || isDefined(device_os) || isDefined(device_type)) {
+            requestURL += "where=";
+            if (isDefined(player)) {
+                requestURL += "player==" + player + ";";
             }
-            if (isDefined($this.val())) {
-                if (!where) {
-                    requestURL += "where=";
-                    where = true;
-                }
-                if (dimension === "video") {
-                    thisVal = $this.val().join(",");
-                } else {
-                    thisVal = $this.val();
-                }
-                requestURL += dimension + "==" + removeSpaces(thisVal) + ";";
+            if (isDefined(video)) {
+                requestURL += "video==" + video + ";";
             }
-        });
+            if (isDefined(destination_domain)) {
+                requestURL += "destination_domain==" + destination_domain + ";";
+            }
+            if (isDefined(referrer_domain)) {
+                requestURL += "referrer_domain==" + referrer_domain + ";";
+            }
+            if (isDefined(search_terms)) {
+                requestURL += "search_terms==" + search_terms + ";";
+            }
+            if (isDefined(source_type)) {
+                requestURL += "source_type==" + source_type + ";";
+            }
+            if (isDefined(country)) {
+                requestURL += "country==" + country + ";";
+            }
+            if (isDefined(region)) {
+                requestURL += "region==" + region + ";";
+            }
+            if (isDefined(city)) {
+                requestURL += "city==" + city + ";";
+            }
+            if (isDefined(device_os)) {
+                requestURL += "device_os==" + device_os + ";";
+            }
+            if (isDefined(device_type)) {
+                requestURL += "device_type==" + device_type + ";";
+            }
+        }
         // end the where filters
         requestURL += "&";
         // check for limit and offset
-        if ($limitText.val() !== "") {
-            requestURL += "limit=" + removeSpaces($limitText.val()) + "&";
-        } else if ($limit.val() !== "") {
-            requestURL += "limit=" + $limit.val() + "&";
+        if (isDefined(limit)) {
+            requestURL += "limit=" + limit + "&";
         }
-        if ($offsetText.val() !== "") {
-            requestURL += "offset=" + removeSpaces($offsetText.val()) + "&";
-        } else if ($offset.val() !== "") {
-            requestURL += "offset=" + $offset.val() + "&";
+        if (isDefined(offset)) {
+            requestURL += "offset=" + offset + "&";
         }
         // check for fields
-        if (selectedFields !== null) {
-            requestURL += "fields=" + selectedFields.join(",") + "&";
+        if (isDefined(fields)) {
+            requestURL += "fields=" + fields + "&";
         }
         // check for sorting
-        if ($sort.val() !== "") {
-            requestURL += "sort=" + $sort.val() + "&";
+        if (isDefined(sort)) {
+            requestURL += "sort=" + sort + "&";
         }
         // get output format
         requestURL += separator + "format=" + $format.val();
@@ -403,8 +384,7 @@ var BCLS = (function ($, window, AnyTime) {
         $authorization.attr("value", authorization);
     };
     // submit request
-    getData = function () {
-        var format = $format.val();
+    getData = function (url, thisRequestType, dataType) {
         // clear the results frame
         $responseFrame.html("Loading...");
         console.log(APIrequest.value);
@@ -413,7 +393,7 @@ var BCLS = (function ($, window, AnyTime) {
             headers: {
                 Authorization : $authorization.attr("value")
             },
-            success : function(data) {
+            success : function (data) {
                 switch (format) {
                 case "json":
                     $responseFrame.html(BCLSformatJSON.formatJSON(data));
@@ -425,22 +405,21 @@ var BCLS = (function ($, window, AnyTime) {
                 // must be XLSX
                 case "xlsx":
                     $responseFrame.html("The result is an xlsx binary file and cannot be displayed");
-
+                    break;
                 }
             },
-            error : function(XMLHttpRequest, textStatus, errorThrown)
-                {
-                    $responseFrame.html("Sorry, your request was not successful. Here's what the server sent back: " + errorThrown);
-                }
+            error : function (XMLHttpRequest, textStatus, errorThrown) {
+                $responseFrame.html("Sorry, your request was not successful. Here's what the server sent back: " + errorThrown);
+            }
         });
     };
     // error handler for invalid dimension combination
     onDimesionError = function (selectiedDimensions) {
         window.alert("The combination of dimensions you selected - " +  selectiedDimensions.join(" ,") +  " - is not a valid combination. Please select a different combination. See the Analytics API Overview for a table of allowable combinations.");
-    }
+    };
     // set the options for the fields and sort
     setFieldsSortOptions = function () {
-        var vals = $dimension.val(),
+        var vals = $dimensions.val(),
             account = false,
             day = false,
             player = false,
@@ -495,22 +474,6 @@ var BCLS = (function ($, window, AnyTime) {
         if ($.inArray("destination_domain", vals) > -1) {
             destination_domain = true;
         }
-        // if ($.inArray("destination_path", vals) > -1) {
-        //     destination_path = true;
-        // }
-        // on invalid combinations, throw error
-        // if (day && (account || player || video || referrer_domain || source_type || search_terms || device_type || device_os)) {
-        //     onDimesionError(vals);
-        //     return;
-        // } else if (vals.length > 5) {
-        //     onDimesionError(vals);
-        //     return;
-        // } else if ((device_type || device_os) &&  (account || player || video) && (referrer_domain || source_type || search_terms)) {
-        //     onDimesionError(vals);
-        //     return;
-        // }
-        // now check for combinations
-        // day reports -- doesn't combine with any other dimension
         if (day) {
             $fields.html("<option value=\"all\" selected=\"true\">all</option>" + dayFields);
             $sort.html(dayFields);
@@ -800,38 +763,27 @@ var BCLS = (function ($, window, AnyTime) {
 
     // set event listeners
     APIrequestType.on("change", function () {
-        if (APIrequestType.val() === "rollup") {
-            template = Handlebars.compile(optionTemplate);
-            $dimension.html("");
+        if ($APIrequestType.val() === "rollup") {
+            $dimensions.html("");
             $format.html(rollupFormatOptions);
-        } else if (APIrequestType.val() === "report") {
+        } else if ($APIrequestType.val() === "report") {
+            template = Handlebars.compile(optionTemplate);
             obj.items = dimensions;
             result = template(obj);
-            $dimension.html(result);
+            $dimensions.html(result);
             $format.html(reportFormatOptions);
         }
     });
-    $dimension.on("change", setFieldsSortOptions);
-    // if we get a mapi token , hide direct input of video id
-    $mapitoken.on("change", function () {
-        $directVideoInput.hide();
-    });
-    // listeners for get videos and players buttons
-    $getVideosButton.on("click", getVideos);
-    $getPlayersButton.on("click", getPlayers);
+    $dimensions.on("change", setFieldsSortOptions);
     // set listener for form fields
     APIrequestInputs.on("change", buildRequest);
-    // rebuild request when video or selector changes
-    $video.on("change", buildRequest);
-    $player.on("change", buildRequest);
-    // in case search terms added after initial video retrieval
-    $searchTerms.on("change", function () {
-        // re-initialize
-        pageNumber = 0;
-        totalPages = 0;
-    });
     // send request
-    $submitButton.on("click", getData);
+    $submitButton.on("click", function () {
+        thisRequestType = "analytics";
+        getData(requestURL, thisRequestType);
+    });
+    // populate data input selectors
+    buildDataForInputRequest(dataCalls[dataCallsIndex]);
     // set the initial options for fields and sort
     setFieldsSortOptions();
     // generate initial request
@@ -840,4 +792,4 @@ var BCLS = (function ($, window, AnyTime) {
         buildRequest: buildRequest,
         onGetVideos: onGetVideos
     };
-})($, window, AnyTime);
+})($, window, AnyTime, BCLSformatJSON);

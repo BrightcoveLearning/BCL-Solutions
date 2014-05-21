@@ -406,8 +406,33 @@ var BCLS = (function ($, window, AnyTime, Handlebars, BCLSformatJSON) {
                         $responseFrame.html("The result is an xlsx binary file and cannot be displayed");
                         break;
                     }
+                } else if (dataType === "data") {
+                    if (isDefined(data.items)) {
+                        switch (dataType) {
+                        case "player":
+                            template = Handlebars.compile(playerOptionTemplate);
+                            $player.html(template(data));
+                            break;
+                        case "video":
+                            template = Handlebars.compile(videoOptionTemplate);
+                            $video.html(template(data));
+                            break;
+                        case "destination_domain":
+                            template = Handlebars.compile(destination_domainOptionTemplate);
+                            $destination_domain.html(template(data));
+                            break;
+                        }
+                        if (dataCallsIndex < dataCalls.length) {
+                            // get the next data set
+                            dataCallsIndex++;
+                            buildDataForInputRequest(dataCalls[dataCallsIndex]);
+                        } else {
+                            // reset dataCallsIndex
+                            dataCallIndex = 0;
+                        }
+
+                    }
                 }
-                
             },
             error : function (XMLHttpRequest, textStatus, errorThrown) {
                 $responseFrame.html("Sorry, your request was not successful. Here's what the server sent back: " + errorThrown);
@@ -790,7 +815,7 @@ var BCLS = (function ($, window, AnyTime, Handlebars, BCLSformatJSON) {
         setFieldsSortOptions();
         // generate initial request
         buildRequest();
-    }
+    };
     // set things up
     init();
     return {

@@ -1,4 +1,4 @@
-var BCLS = (function ($, window, document, AnyTime, Handlebars, BCLSformatJSON) {
+var BCLS = (function ($, window, document, Handlebars, BCLSformatJSON) {
     "use strict";
     var // templates for data input options
         dimensionsArray = ["account", "player", "video", "country", "city", "region", "day", "destination_domain", "device_type", "device_os", "referrer_domain", "source_type", "search_terms"],
@@ -27,6 +27,7 @@ var BCLS = (function ($, window, document, AnyTime, Handlebars, BCLSformatJSON) 
         from,
         $to = $("#to"),
         to,
+        $date_range = $(".date-range"),
         $whereInputs = $(".where-input"),
         $player = $("#player"),
         player,
@@ -195,6 +196,10 @@ var BCLS = (function ($, window, document, AnyTime, Handlebars, BCLSformatJSON) 
     // get input field values
     getDataForInputs = function () {
         serviceURL = $serviceURL.val();
+        // check for required fields
+        if (!isDefined(account) || !isDefined(token)) {
+            window.alert("You must provide an account ID and a token");
+        }
         token = removeSpaces($token.val());
         account = removeSpaces($accountID.val());
         requestType = $APIrequestType.val();
@@ -289,15 +294,11 @@ var BCLS = (function ($, window, document, AnyTime, Handlebars, BCLSformatJSON) 
         authorization = "Bearer " + token;
         $authorizationDisplay.html(authorization);
         $authorization.attr("value", authorization);
-        // check for required fields
-        if (!isDefined(account) || !isDefined(token)) {
-            window.alert("You must provide an account ID and a token");
-        }
     };
     // build request for input data
     buildDataForInputRequest = function (dataType) {
         var url = serviceURL + "/account/" + account + "/report" + "?dimensions=" + dataType;
-        bclslog(url);
+        bclslog(dataType);
         if (isDefined(from)) {
             url += "&from=" + from;
         }
@@ -513,8 +514,9 @@ var BCLS = (function ($, window, document, AnyTime, Handlebars, BCLSformatJSON) 
                             break;
                         default:
                             bclslog("Unknown dataType " + dataType);
+                            break;
                         }
-                        if (dataCallsIndex < dataCalls.length) {
+                        if (dataCallsIndex < (dataCalls.length - 1)) {
                             // get the next data set
                             dataCallsIndex++;
                             buildDataForInputRequest(dataCalls[dataCallsIndex]);
@@ -864,19 +866,20 @@ var BCLS = (function ($, window, document, AnyTime, Handlebars, BCLSformatJSON) 
                 $fields.html("<option value=\"all\" selected=\"true\">all</option>" + destinationDomainFields);
                 $sort.html(destinationDomainFields);
             }
-        // } else if (destination_path) { // destination path combinations
-        //     $fields.html("<option value=\"all\" selected=\"true\">all</option>" + destinationPathFields);
-        //     $sort.html(destinationPathFields);
         } else {
             onDimesionError(vals);
         }
+        // refresh data input values
+        buildRequest();
     };
-    // set up the anytime date/time pickers
-    AnyTime.picker("from", {
-        format : "%Y-%m-%d"
+    // add date pickers to the date input fields
+    new datepickr ("from", {
+        "fullCurrentMonth": false,
+        "dateFormat": "Y-m-d"
     });
-    AnyTime.picker("to", {
-        format : "%Y-%m-%d"
+    new datepickr ("to", {
+        "fullCurrentMonth": false,
+        "dateFormat": "Y-m-d"
     });
     // init
     init = function () {
@@ -899,7 +902,10 @@ var BCLS = (function ($, window, document, AnyTime, Handlebars, BCLSformatJSON) 
                 $format.html(reportFormatOptions);
             }
         });
+        // event listener for dimensions
         $dimensions.on("change", setFieldsSortOptions);
+        // event listener for date range
+        $date_range.on("change", buildDataForInputRequest);
         // set listener for form fields
         APIrequestInputs.on("change", buildRequest);
         // send request
@@ -920,4 +926,4 @@ var BCLS = (function ($, window, document, AnyTime, Handlebars, BCLSformatJSON) 
         buildRequest: buildRequest,
         onGetVideos: onGetVideos
     };
-})($, window, document, AnyTime, Handlebars, BCLSformatJSON);
+})($, window, document, Handlebars, BCLSformatJSON);

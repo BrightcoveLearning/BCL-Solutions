@@ -94,12 +94,12 @@
                             <tr>
                                 <td>From:</td>
                                 <td>Date:
-                                    <input class="aapi-request" id="startDate" type="text" size="30">  (default: 30 days ago -- choose the same date for From and To to get a report for that day)</td>
+                                    <input class="aapi-request" id="from" type="text" size="30">  (default: 30 days ago -- choose the same date for From and To to get a report for that day)</td>
                             </tr>
                             <tr>
                                 <td>To:</td>
                                 <td>Date:
-                                    <input class="aapi-request" id="endDate" type="text" size="30"> (default: now)</td>
+                                    <input class="aapi-request" id="to" type="text" size="30"> (default: now)</td>
                             </tr>
                             <tr>
                                 <td class="align-top"><strong>Where:</strong></td>
@@ -114,7 +114,6 @@
                                                 <td>Player =</td>
                                                 <td id="playerFilter">
                                                     <select id="player" class="where-input aapi-request" multiple="multiple">
-                                                        <option>Select one or more</option>
                                                     </select>
                                                 </td>
                                             </tr>
@@ -122,7 +121,6 @@
                                                 <td>Video =</td>
                                                 <td id="videoFilter">
                                                     <select id="video" class="where-input aapi-request" multiple="multiple">
-                                                        <option>Select one or more</option>
                                                     </select>
                                                 </td>
                                             </tr>
@@ -130,7 +128,6 @@
                                                 <td>Destination Domain =</td>
                                                 <td>
                                                     <select id="destination_domain" class="where-input aapi-request" multiple="multiple">
-                                                        <option>Select one or more</option>
                                                     </select>
                                                 </td>
                                             </tr>
@@ -138,7 +135,6 @@
                                                 <td>Referrer Domain =</td>
                                                 <td>
                                                     <select id="referrer_domain" class="where-input aapi-request" multiple="multiple">
-                                                        <option>Select one or more</option>
                                                     </select>
                                                 </td>
                                             </tr>
@@ -146,7 +142,6 @@
                                                 <td>Source Type =</td>
                                                 <td>
                                                     <select id="source_type" class="where-input aapi-request" multiple="multiple">
-                                                        <option>Select one or more</option>
                                                         <option value="direct">direct</option>
                                                         <option value="referral">referral</option>
                                                         <option value="organic_search">organic_search</option>
@@ -159,7 +154,6 @@
                                                 <td>Search Terms =</td>
                                                 <td>
                                                     <select id="search_terms" class="where-input aapi-request" multiple="multiple">
-                                                        <option value="direct">Select one or more</option>
                                                     </select>
                                                 </td>
                                             </tr>
@@ -167,7 +161,6 @@
                                                 <td>Country =</td>
                                                 <td>
                                                     <select id="country" class="where-input aapi-request" multiple="multiple">
-                                                        <option value="direct">Select one or more</option>
                                                     </select>
                                                 </td>
                                             </tr>
@@ -175,7 +168,6 @@
                                                 <td>Region =</td>
                                                 <td>
                                                     <select id="region" class="where-input aapi-request" multiple="multiple">
-                                                        <option value="direct">Select one or more</option>
                                                     </select>
                                                 </td>
                                             </tr>
@@ -183,7 +175,6 @@
                                                 <td>City =</td>
                                                 <td>
                                                     <select id="city" class="where-input aapi-request" multiple="multiple">
-                                                        <option value="direct">Select one or more</option>
                                                     </select>
                                                 </td>
                                             </tr>
@@ -191,7 +182,6 @@
                                                 <td>Device Type =</td>
                                                 <td>
                                                     <select id="device_type" class="where-input aapi-request" multiple="multiple">
-                                                        <option>Select one or more</option>
                                                         <option value="direct">direct</option>
                                                         <option value="mobile">mobile</option>
                                                         <option value="tablet">tablet</option>
@@ -205,7 +195,6 @@
                                                 <td>Device OS =</td>
                                                 <td>
                                                     <select id="device_os" class="where-input aapi-request" multiple="multiple">
-                                                        <option>Select one or more</option>
                                                         <option value="direct">direct</option>
                                                         <option value="android">android</option>
                                                         <option value="bada">bada</option>
@@ -233,7 +222,7 @@
                                         <option value="">&nbsp;</option>
                                         <option value="1">1</option>
                                         <option value="5">5</option>
-                                        <option value="10">10</option>
+                                        <option value="10" selected="selected">10</option>
                                         <option value="25">25</option>
                                         <option value="50">50</option>
                                         <option value="100">100</option>
@@ -246,7 +235,7 @@
                                 <td>
                                     <select class="aapi-request" id="offset">
                                         <option value="">&nbsp;</option>
-                                        <option value="0">0</option>
+                                        <option value="0" selected="selected">0</option>
                                         <option value="5">5</option>
                                         <option value="10">10</option>
                                         <option value="25">25</option>

@@ -1,4 +1,4 @@
-var BCLS = (function ($, window, AnyTime, Handlebars, BCLSformatJSON) {
+var BCLS = (function ($, window, document, AnyTime, Handlebars, BCLSformatJSON) {
     "use strict";
     var // templates for data input options
         dimensionsArray = ["account", "player", "video", "country", "city", "region", "day", "destination_domain", "device_type", "device_os", "referrer_domain", "source_type", "search_terms"],
@@ -6,9 +6,9 @@ var BCLS = (function ($, window, AnyTime, Handlebars, BCLSformatJSON) {
         dimensionOptionTemplate = "{{#items}}<option>{{this}}</option>{{/items}}",
         videoOptionTemplate = "{{#items}}<option value=\"{{video}}\">{{video_name}}</option>{{/items}}",
         playerOptionTemplate = "{{#items}}<option value=\"{{player}}\">{{player_name}}</option>{{/items}}",
-        destinationOptionTemplate = "{{#items}}<option>{{destination_domain}}</option>{{/items}}",
-        searchOptionTemplate = "{{#items}}<option>{{search_terms}}</option>{{/items}}",
-        referrerOptionTemplate = "{{#items}}<option>{{referrer_domain}}</option>{{/items}}",
+        destination_domainOptionTemplate = "{{#items}}<option>{{destination_domain}}</option>{{/items}}",
+        search_termsOptionTemplate = "{{#items}}<option>{{search_terms}}</option>{{/items}}",
+        referrer_domainOptionTemplate = "{{#items}}<option>{{referrer_domain}}</option>{{/items}}",
         countryOptionTemplate = "{{#items}}<option value=\"{{country}}\">{{country_name}}</option>{{/items}}",
         regionOptionTemplate = "{{#items}}<option value=\"{{region}}\">{{region_name}}</option>{{/items}}",
         cityOptionTemplate = "{{#items}}<option>{{city}}</option>{{/items}}",
@@ -23,9 +23,9 @@ var BCLS = (function ($, window, AnyTime, Handlebars, BCLSformatJSON) {
         requestType,
         $dimensions = $("#dimensions"),
         dimensions,
-        $startDate = $("#startDate"),
+        $from = $("#from"),
         from,
-        $endDate = $("#endDate"),
+        $to = $("#to"),
         to,
         $whereInputs = $(".where-input"),
         $player = $("#player"),
@@ -198,20 +198,76 @@ var BCLS = (function ($, window, AnyTime, Handlebars, BCLSformatJSON) {
         token = removeSpaces($token.val());
         account = removeSpaces($accountID.val());
         requestType = $APIrequestType.val();
-        dimensions = $dimensions.val().join(",");
-        to = $endDate.val();
-        from = $startDate.val();
-        player = $player.val().join(",");
-        video = $video.val().join(",");
-        destination_domain = $destination_domain.val().join(",");
-        referrer_domain = $referrer_domain.val().join(",");
-        search_terms = encodeURI($search_terms.val().join(","));
-        source_type = $source_type.val().join(",");
-        device_os = $device_os.val().join(",");
-        device_type = $device_type.val().join(",");
-        country = $country.val().join(",");
-        region = $region.val().join(",");
-        city = $city.val().join(",");
+        if (isDefined($dimensions.val())) {
+            dimensions = $dimensions.val().join(",");
+        } else {
+            dimensions = null;
+        }
+        if (isDefined($to.val())) {
+            to = $to.val();
+        } else {
+            to = null;
+        }
+        if (isDefined($from.val())) {
+            from = $from.val();
+        } else {
+            from = null;
+        }
+        if (isDefined($player.val())) {
+            player = $player.val().join(",");
+        } else {
+            player = null;
+        }
+        if (isDefined($video.val())) {
+            video = $video.val().join(",");
+        } else {
+            video = null;
+        }
+        if (isDefined($destination_domain.val())) {
+            destination_domain = $destination_domain.val().join(",");
+        } else {
+            destination_domain = null;
+        }
+        if (isDefined($referrer_domain.val())) {
+            referrer_domain = $referrer_domain.val().join(",");
+        } else {
+            referrer_domain = null;
+        }
+        if (isDefined($search_terms.val())) {
+            search_terms = encodeURI($search_terms.val().join(","));
+        } else {
+            search_terms = null;
+        }
+        if (isDefined($source_type.val())) {
+            source_type = $source_type.val().join(",");
+        } else {
+            source_type = null;
+        }
+        if (isDefined($device_os.val())) {
+            device_os = $device_os.val().join(",");
+        } else {
+            device_os = null;
+        }
+        if (isDefined($device_type.val())) {
+            device_type = $device_type.val().join(",");
+        } else {
+            device_type = null;
+        }
+        if (isDefined($country.val())) {
+            country = $country.val().join(",");
+        } else {
+            country = null;
+        }
+        if (isDefined($region.val())) {
+            region = $region.val().join(",");
+        } else {
+            region = null;
+        }
+        if (isDefined($city.val())) {
+            city = $city.val().join(",");
+        } else {
+            city = null;
+        }
         format = $format.val();
         if (isDefined($limitText.val())) {
             limit = removeSpaces($limitText.val());
@@ -224,7 +280,15 @@ var BCLS = (function ($, window, AnyTime, Handlebars, BCLSformatJSON) {
             offset = $offset.val();
         }
         sort = $sort.val();
-        fields = $fields.val().join(",");
+        if (isDefined($fields.val())) {
+            fields = $fields.val().join(",");
+        } else {
+            fields = null;
+        }
+        // set up authorization
+        authorization = "Bearer " + token;
+        $authorizationDisplay.html(authorization);
+        $authorization.attr("value", authorization);
         // check for required fields
         if (!isDefined(account) || !isDefined(token)) {
             window.alert("You must provide an account ID and a token");
@@ -232,7 +296,14 @@ var BCLS = (function ($, window, AnyTime, Handlebars, BCLSformatJSON) {
     };
     // build request for input data
     buildDataForInputRequest = function (dataType) {
-        var url = serviceURL + "account/" + account + "report/" + "?dimensions=" + dataType + "&from=" + from + "&to=" + to;
+        var url = serviceURL + "/account/" + account + "/report" + "?dimensions=" + dataType;
+        bclslog(url);
+        if (isDefined(from)) {
+            url += "&from=" + from;
+        }
+        if (isDefined(to)) {
+            url += "&to=" + to;
+        }
         thisRequestType = "data";
         switch (dataType) {
         case "player":
@@ -296,8 +367,7 @@ var BCLS = (function ($, window, AnyTime, Handlebars, BCLSformatJSON) {
         // reset requestTrimmed to false in case of regenerate request
         requestTrimmed = false;
         // build the request
-        authorization = "Bearer " + token;
-        requestURL = serviceURL + "account/" + account;
+        requestURL = serviceURL + "/account/" + account;
         // is it a report?
         if (requestType === "report") {
             // make sure dimensions is defined
@@ -376,12 +446,11 @@ var BCLS = (function ($, window, AnyTime, Handlebars, BCLSformatJSON) {
         // strip trailing ? or & and replace &&s
         trimRequest();
         APIrequest.value = requestURL;
-        $authorizationDisplay.html(authorization);
-        $authorization.attr("value", authorization);
     };
     // submit request
     getData = function (requestURL, thisRequestType, dataType) {
-        if (dataType === "analytics") {
+
+        if (thisRequestType === "analytics") {
             // clear the results frame
             $responseFrame.html("Loading...");
         }
@@ -389,10 +458,10 @@ var BCLS = (function ($, window, AnyTime, Handlebars, BCLSformatJSON) {
         $.ajax({
             url: requestURL,
             headers: {
-                Authorization : $authorization.attr("value")
+                Authorization : authorization
             },
             success : function (data) {
-                if (dataType === "analytics") {
+                if (thisRequestType === "analytics") {
                     switch (format) {
                     case "json":
                         $responseFrame.html(BCLSformatJSON.formatJSON(data));
@@ -406,7 +475,8 @@ var BCLS = (function ($, window, AnyTime, Handlebars, BCLSformatJSON) {
                         $responseFrame.html("The result is an xlsx binary file and cannot be displayed");
                         break;
                     }
-                } else if (dataType === "data") {
+                } else if (thisRequestType === "data") {
+                    bclslog(data);
                     if (isDefined(data.items)) {
                         switch (dataType) {
                         case "player":
@@ -421,6 +491,28 @@ var BCLS = (function ($, window, AnyTime, Handlebars, BCLSformatJSON) {
                             template = Handlebars.compile(destination_domainOptionTemplate);
                             $destination_domain.html(template(data));
                             break;
+                        case "referrer_domain":
+                            template = Handlebars.compile(referrer_domainOptionTemplate);
+                            $referrer_domain.html(template(data));
+                            break;
+                        case "search_terms":
+                            template = Handlebars.compile(search_termsOptionTemplate);
+                            $search_terms.html(template(data));
+                            break;
+                        case "country":
+                            template = Handlebars.compile(countryOptionTemplate);
+                            $country.html(template(data));
+                            break;
+                        case "region":
+                            template = Handlebars.compile(regionOptionTemplate);
+                            $region.html(template(data));
+                            break;
+                        case "city":
+                            template = Handlebars.compile(cityOptionTemplate);
+                            $city.html(template(data));
+                            break;
+                        default:
+                            bclslog("Unknown dataType " + dataType);
                         }
                         if (dataCallsIndex < dataCalls.length) {
                             // get the next data set
@@ -428,7 +520,7 @@ var BCLS = (function ($, window, AnyTime, Handlebars, BCLSformatJSON) {
                             buildDataForInputRequest(dataCalls[dataCallsIndex]);
                         } else {
                             // reset dataCallsIndex
-                            dataCallIndex = 0;
+                            dataCallsIndex = 0;
                         }
 
                     }
@@ -440,8 +532,8 @@ var BCLS = (function ($, window, AnyTime, Handlebars, BCLSformatJSON) {
         });
     };
     // error handler for invalid dimension combination
-    onDimesionError = function (selectiedDimensions) {
-        window.alert("The combination of dimensions you selected - " +  selectiedDimensions.join(" ,") +  " - is not a valid combination. Please select a different combination. See the Analytics API Overview for a table of allowable combinations.");
+    onDimesionError = function (selectedDimensions) {
+        window.alert("The combination of dimensions you selected - " +  selectedDimensions +  " - is not a valid combination. Please select a different combination. See the Analytics API Overview for a table of allowable combinations.");
     };
     // set the options for the fields and sort
     setFieldsSortOptions = function () {
@@ -780,14 +872,20 @@ var BCLS = (function ($, window, AnyTime, Handlebars, BCLSformatJSON) {
         }
     };
     // set up the anytime date/time pickers
-    AnyTime.picker("startDate", {
+    AnyTime.picker("from", {
         format : "%Y-%m-%d"
     });
-    AnyTime.picker("endDate", {
+    AnyTime.picker("to", {
         format : "%Y-%m-%d"
     });
     // init
     init = function () {
+        // set dimensions
+        template = Handlebars.compile(dimensionOptionTemplate);
+        $dimensions.html(template(dimensionsObj));
+        $dimensions.children("option").filter(":first").attr("selected", "selected");
+        // get initial data for inputs
+        getDataForInputs();
         // set event listeners
         $APIrequestType.on("change", function () {
             if ($APIrequestType.val() === "rollup") {
@@ -822,4 +920,4 @@ var BCLS = (function ($, window, AnyTime, Handlebars, BCLSformatJSON) {
         buildRequest: buildRequest,
         onGetVideos: onGetVideos
     };
-})($, window, AnyTime, Handlebars, BCLSformatJSON);
+})($, window, document, AnyTime, Handlebars, BCLSformatJSON);

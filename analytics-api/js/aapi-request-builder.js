@@ -77,6 +77,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         APIrequestInputs = $(".aapi-request"),
         $responseFrame = $("#responseFrame"),
         optionTemplate = "{{#items}}<option value=\"{{.}}\">{{this}}</option>{{/items}}",
+        fieldOptionsTemplate = "{{#items}}<option>{{this}}</option>{{/items}}",
         template,
         result,
         obj = {},
@@ -92,81 +93,80 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         startDate = "",
         // options for different report types
         rollupDimensionOptions = "<option value=\"account\">account</option>",
-        reportDimensionOptions = "<option value=\"account\">account</option><option value=\"player\">player</option><option value=\"video\">video</option><option value=\"day\">day</option><option value=\"referrer_domain\">referrer_domain</option><option value=\"source_type\">source_type</option><option value=\"search_terms\">search_terms</option><option value=\"device_type\">device_type</option><option value=\"device_os\">device_os</option>",
         rollupFormatOptions = "<option value=\"json\">json</option>",
         reportFormatOptions = "<option value=\"json\">json</option><option value=\"cvs\">cvs</option><option value=\"xlsx\">xlxs</option>",
         // fields for different dimensions
-        baseFields = ["engagement_score","play_rate","video_impression","video_view","video_percent_viewed","video_seconds_viewed"],
-        accountFields = baseFields.concat(["account","active_media","bytes_delivered","bytes_in","bytes_out","bytes_overhead","bytes_player","bytes_player","play_rate","video_engagement_1","video_engagement_25","video_engagement_50","video_engagement_75","video_engagement_100"]),
-        videoFields = baseFields.concat(["video","video_name","video_duration","video_engagement","video_engagement_1","video_engagement_25","video_engagement_50","video_engagement_75","video_engagement_100"]),
-        playerFields = baseFields.concat(["player","player_name","player_load","video_engagement"]),
-        dayFields = baseFields.concat(["active_media","bytes_delivered","bytes_in","bytes_out","bytes_overhead","bytes_player","bytes_stored","day","player_load","video_engagement"]),
-        countryFields = baseFields.concat(["country","country_name"]),
-        cityFields = baseFields.concat(["city"]),
-        regionFields = baseFields.concat(["region"]),
-        destinationDomainFields = baseFields.concat(["destination_domain"]),
-        referrer_domainFields = baseFields.concat(["player_load","referrer_domain"]),
-        source_typeFields = baseFields.concat(["player_load","source_type"]),
-        search_termsFields = baseFields.concat(["player_load","search_terms"]),
-        device_typeFields = baseFields.concat(["player_load","device_type"]),
-        device_osFields = baseFields.concat(["player_load","device_os"]),
-        accountVideoFields = videoFields.concat(["account"]),
-        accountPlayerFields = playerFields.concat(["account"]),
-        accountReferrer_domainFields = referrer_domainFields.concat(["account"]),
-        accountSource_typeFields = source_typeFields.concat(["account"]),
-        accountSearch_termsFields = search_termsFields.concat(["account"]),
-        accountDevice_typeFields = device_typeFields.concat(["account"]),
-        accountDevice_osFields = device_osFields.concat(["account"]),
-        playerVideoFields = videoFields.concat(["player","player_name"]),
-        playerReferrer_domainFields = referrer_domainFields.concat(["player","player_name"]),
-        playerSource_typeFields = source_typeFields.concat(["player","player_name"]),
-        playerSearch_termsFields = search_termsFields.concat(["player","player_name"]),
-        playerDevice_typeFields = device_typeFields.concat(["player","player_name"]),
-        playerDevice_osFields = device_osFields.concat(["player","player_name"]),
-        videoReferrer_domainFields = referrer_domainFields.concat(["video","video_name"]),
-        videoSource_typeFields = source_typeFields.concat(["video","video_name"]),
-        videoSearch_termsFields = search_termsFields.concat(["video","video_name"]),
-        videoDevice_typeFields = device_typeFields.concat(["video","video_name"]),
-        videoDevice_osFields = device_osFields.concat(["video","video_name"]),
-        countryCityFields = cityFields.concat(["country","country_name","dma"]),
-        countryRegionFields = regionFields.concat(["country","country_name"]),
-        cityRegionFields = regionFields.concat(["city"]),
-        referrer_domainSource_typeFields = referrer_domainFields.concat(["source_type"]),
-        referrer_domainSearch_termsFields = referrer_domainFields.concat(["search_terms"]),
-        source_typeSearch_termsFields = source_typeFields.concat(["search_terms"]),
-        device_typeDevice_osFields = device_typeFields.concat(["device_os"]),
-        accountPlayerVideoFields = playerVideoFields.concat(["account"]),
-        accountPlayerReferrer_domainFields = playerReferrer_domainFields.concat(["account"]),
-        accountPlayerSource_typeFields = playerSource_typeFields.concat(["account"]),
-        accountPlayerSearch_termsFields = playerSearch_termsFields.concat(["account"]),
-        accountVideoReferrer_domainFields = videoReferrer_domainFields.concat(["account"]),
-        accountVideoSource_typeFields = videoSource_typeFields.concat(["account"]),
-        accountVideoSearch_termsFields = videoSearch_termsFields.concat(["account"]),
-        accountReferrer_domainSource_typeFields = referrer_domainSource_typeFields.concat(["account"]),
-        accountReferrer_domainSearch_termsFields = referrer_domainSearch_termsFields.concat([ "account"]),
-        accountSource_typeSearch_termsFields = source_typeSearch_termsFields.concat(["account"]),
-        accountDevice_typeDevice_osFields = device_typeDevice_osFields.concat(["account"]),
-        playerReferrer_domainSource_typeFields = referrer_domainSource_typeFields.concat(["player","player_name"]),
-        playerReferrer_domainSearch_termsFields = referrer_domainSearch_termsFields.concat(["player","player_name"]),
-        playerSource_typeSearch_termsFields = source_typeSearch_termsFields.concat(["player","player_name"]),
-        playerDevice_typeDevice_osFields = device_typeDevice_osFields.concat(["player","player_name"]),
-        videoReferrer_domainSource_typeFields = referrer_domainSource_typeFields.concat(["video","video_name"]),
-        videoReferrer_domainSearch_termsFields = referrer_domainSearch_termsFields.concat(["video","video_name"]),
-        videoSource_typeSearch_termsFields = source_typeSearch_termsFields.concat(["video","video_name"]),
-        videoDevice_typeDevice_osFields = device_typeDevice_osFields.concat(["video","video_name"]),
-        countryCityRegionFields = countryRegionFields.concat(["city"]),
-        referrer_domainSource_typeSearch_termsFields = referrer_domainSource_typeFields.concat(["search_terms"]),
-        accountPlayerReferrer_domainSource_typeFields = accountPlayerReferrer_domainFields.concat(["source_type"]),
-        accountPlayerReferrer_domainSearch_termsFields = accountPlayerReferrer_domainFields.concat(["search_terms"]),
-        accountPlayerSource_typeSearch_termsFields = accountPlayerSource_typeFields.concat(["search_terms"]),
-        accountVideoReferrer_domainSource_typeFields = accountVideoReferrer_domainFields.concat(["source_type"]),
-        accountVideoReferrer_domainSearch_termsFields = accountVideoReferrer_domainFields.concat(["search_terms"]),
-        accountVideoSource_typeSearch_termsFields = accountVideoSource_typeFields.concat(["search_terms"]),
-        accountReferrer_domainSource_typeSearch_termsFields = accountReferrer_domainSource_typeFields.concat(["search_terms"]),
-        playerReferrer_domainSource_typeSearch_termsFields = playerReferrer_domainSource_typeFields.concat(["search_terms"]),
-        videoReferrer_domainSource_typeSearch_termsFields = videoReferrer_domainSource_typeFields.concat(["search_terms"]),
-        accountPlayerReferrer_domainSource_typeSearch_termsFields = accountPlayerReferrer_domainSource_typeFields.concat(["video","video_name"]),
-        accountVideoReferrer_domainSource_typeSearch_termsFields = accountVideoReferrer_domainSource_typeFields.concat(["video","video_name"]),
+        baseFields = {"items": ["engagement_score", "play_rate", "player_load", "video_impression", "video_view", "video_percent_viewed", "video_seconds_viewed"]},
+        accountFields = {"items": ["account", "active_media", "bytes_delivered", "bytes_in", "bytes_out", "bytes_overhead", "bytes_player", "bytes_stored", "cdn_log_line", "chimera_report", "content_delivered", "drm_bytes_packaged", "engagement_score", "licenses_served", "play_rate", "player_load", "video_engagement_1", "video_engagement_25", "video_engagement_50", "video_engagement_75", "video_engagement_100", "video_impression", "video_percent_viewed", "video_seconds_viewed", "video_view"]},
+        videoFields = {"items": baseFields.items.concat(["video", "video_name", "video_duration", "video_engagement", "video_engagement_1", "video_engagement_25", "video_engagement_50", "video_engagement_75", "video_engagement_100", "bytes_delivered", "content_delivered"])},
+        playerFields = {"items": baseFields.items.concat(["player", "player_name", "video_duration", "video_engagement", "video_engagement_1", "video_engagement_25", "video_engagement_50", "video_engagement_75", "video_engagement_100"])},
+        dayFields = {"items": ["account", "active_media", "bytes_delivered", "bytes_in", "bytes_out", "bytes_overhead", "bytes_player", "bytes_stored", "cdn_log_line", "chimera_report", "content_delivered", "day", "drm_bytes_packaged", "engagement_score", "licenses_served", "play_rate", "player_load", "video_engagement_1", "video_engagement_25", "video_engagement_50", "video_engagement_75", "video_engagement_100", "video_impression", "video_percent_viewed", "video_seconds_viewed", "video_view"]},
+        countryFields = {"items": baseFields.items.concat(["country", "country_name"])},
+        cityFields = {"items": baseFields.items.concat(["city", "dma"])},
+        regionFields = {"items": baseFields.items.concat(["region"])},
+        destinationDomainFields = {"items": baseFields.items.concat(["destination_domain"])},
+        referrer_domainFields = {"items": baseFields.items.concat(["player_load", "referrer_domain"])},
+        source_typeFields = {"items": baseFields.items.concat(["player_load", "source_type"])},
+        search_termsFields = {"items": baseFields.items.concat(["player_load", "search_terms"])},
+        device_typeFields = {"items": baseFields.items.concat(["player_load", "device_type"])},
+        device_osFields = {"items": baseFields.items.concat(["player_load", "device_os"])},
+        accountVideoFields = {"items": videoFields.items.concat(["account"])},
+        accountPlayerFields = {"items": playerFields.items.concat(["account"])},
+        accountReferrer_domainFields = {"items": referrer_domainFields.items.concat(["account"])},
+        accountSource_typeFields = {"items": source_typeFields.items.concat(["account"])},
+        accountSearch_termsFields = {"items": search_termsFields.items.concat(["account"])},
+        accountDevice_typeFields = {"items": device_typeFields.items.concat(["account"])},
+        accountDevice_osFields = {"items": device_osFields.items.concat(["account"])},
+        playerVideoFields = {"items": videoFields.items.concat(["player", "player_name"])},
+        playerReferrer_domainFields = {"items": referrer_domainFields.items.concat(["player", "player_name"])},
+        playerSource_typeFields = {"items": source_typeFields.items.concat(["player", "player_name"])},
+        playerSearch_termsFields = {"items": search_termsFields.items.concat(["player", "player_name"])},
+        playerDevice_typeFields = {"items": device_typeFields.items.concat(["player", "player_name"])},
+        playerDevice_osFields = {"items": device_osFields.items.concat(["player", "player_name"])},
+        videoReferrer_domainFields = {"items": referrer_domainFields.items.concat(["video", "video_name"])},
+        videoSource_typeFields = {"items": source_typeFields.items.concat(["video", "video_name"])},
+        videoSearch_termsFields = {"items": search_termsFields.items.concat(["video", "video_name"])},
+        videoDevice_typeFields = {"items": device_typeFields.items.concat(["video", "video_name"])},
+        videoDevice_osFields = {"items": device_osFields.items.concat(["video", "video_name"])},
+        countryCityFields = {"items": cityFields.items.concat(["country", "country_name", "dma"])},
+        countryRegionFields = {"items": regionFields.items.concat(["country", "country_name"])},
+        cityRegionFields = {"items": regionFields.items.concat(["city"])},
+        referrer_domainSource_typeFields = {"items": referrer_domainFields.items.concat(["source_type"])},
+        referrer_domainSearch_termsFields = {"items": referrer_domainFields.items.concat(["search_terms"])},
+        source_typeSearch_termsFields = {"items": source_typeFields.items.concat(["search_terms"])},
+        device_typeDevice_osFields = {"items": device_typeFields.items.concat(["device_os"])},
+        accountPlayerVideoFields = {"items": playerVideoFields.items.concat(["account"])},
+        accountPlayerReferrer_domainFields = {"items": playerReferrer_domainFields.items.concat(["account"])},
+        accountPlayerSource_typeFields = {"items": playerSource_typeFields.items.concat(["account"])},
+        accountPlayerSearch_termsFields = {"items": playerSearch_termsFields.items.concat(["account"])},
+        accountVideoReferrer_domainFields = {"items": videoReferrer_domainFields.items.concat(["account"])},
+        accountVideoSource_typeFields = {"items": videoSource_typeFields.items.concat(["account"])},
+        accountVideoSearch_termsFields = {"items": videoSearch_termsFields.items.concat(["account"])},
+        accountReferrer_domainSource_typeFields = {"items": referrer_domainSource_typeFields.items.concat(["account"])},
+        accountReferrer_domainSearch_termsFields = {"items": referrer_domainSearch_termsFields.items.concat([ "account"])},
+        accountSource_typeSearch_termsFields = {"items": source_typeSearch_termsFields.items.concat(["account"])},
+        accountDevice_typeDevice_osFields = {"items": device_typeDevice_osFields.items.concat(["account"])},
+        playerReferrer_domainSource_typeFields = {"items": referrer_domainSource_typeFields.items.concat(["player", "player_name"])},
+        playerReferrer_domainSearch_termsFields = {"items": referrer_domainSearch_termsFields.items.concat(["player", "player_name"])},
+        playerSource_typeSearch_termsFields = {"items": source_typeSearch_termsFields.items.concat(["player", "player_name"])},
+        playerDevice_typeDevice_osFields = {"items": device_typeDevice_osFields.items.concat(["player", "player_name"])},
+        videoReferrer_domainSource_typeFields = {"items": referrer_domainSource_typeFields.items.concat(["video", "video_name"])},
+        videoReferrer_domainSearch_termsFields = {"items": referrer_domainSearch_termsFields.items.concat(["video", "video_name"])},
+        videoSource_typeSearch_termsFields = {"items": source_typeSearch_termsFields.items.concat(["video", "video_name"])},
+        videoDevice_typeDevice_osFields = {"items": device_typeDevice_osFields.items.concat(["video", "video_name"])},
+        countryCityRegionFields = {"items": countryRegionFields.items.concat(["city"])},
+        referrer_domainSource_typeSearch_termsFields = {"items": referrer_domainSource_typeFields.items.concat(["search_terms"])},
+        accountPlayerReferrer_domainSource_typeFields = {"items": accountPlayerReferrer_domainFields.items.concat(["source_type"])},
+        accountPlayerReferrer_domainSearch_termsFields = {"items": accountPlayerReferrer_domainFields.items.concat(["search_terms"])},
+        accountPlayerSource_typeSearch_termsFields = {"items": accountPlayerSource_typeFields.items.concat(["search_terms"])},
+        accountVideoReferrer_domainSource_typeFields = {"items": accountVideoReferrer_domainFields.items.concat(["source_type"])},
+        accountVideoReferrer_domainSearch_termsFields = {"items": accountVideoReferrer_domainFields.items.concat(["search_terms"])},
+        accountVideoSource_typeSearch_termsFields = {"items": accountVideoSource_typeFields.items.concat(["search_terms"])},
+        accountReferrer_domainSource_typeSearch_termsFields = {"items": accountReferrer_domainSource_typeFields.items.concat(["search_terms"])},
+        playerReferrer_domainSource_typeSearch_termsFields = {"items": playerReferrer_domainSource_typeFields.items.concat(["search_terms"])},
+        videoReferrer_domainSource_typeSearch_termsFields = {"items": videoReferrer_domainSource_typeFields.items.concat(["search_terms"])},
+        accountPlayerReferrer_domainSource_typeSearch_termsFields = {"items": accountPlayerReferrer_domainSource_typeFields.items.concat(["video", "video_name"])},
+        accountVideoReferrer_domainSource_typeSearch_termsFields = {"items": accountVideoReferrer_domainSource_typeFields.items.concat(["video", "video_name"])},
         // functions to be defined
         bclslog,
         getDataForInputs,
@@ -179,6 +179,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         isDefined,
         getData,
         setFieldsSortOptions,
+        setDimensions,
         onDimesionError,
         init;
 
@@ -555,7 +556,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
             has_destination_path = false,
             has_destination_domain = false;
         // set the template
-        template = Handlebars.compile(optionTemplate);
+        template = Handlebars.compile(fieldOptionsTemplate);
         // determine what values are in the array
         if ($.inArray("account", vals) > -1) {
             has_account = true;
@@ -843,7 +844,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
                 $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(source_typeSearch_termsFields));
                 $sort.html(template(source_typeSearch_termsFields));
             } else {
-                $fields(source_typeFields);
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(source_typeFields));
                 $sort.html(template(source_typeFields));
             }
         } else if (has_search_terms) { // search_terms combinations
@@ -861,53 +862,49 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
             $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(device_osFields));
             $sort.html(template(device_osFields));
         } else if (has_destination_domain) { // destination_domain combinations
-            if (has_destination_path) {
-                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(destinationDomainDesinationPathFields));
-                $sort.html(template(destinationDomainDesinationPathFields));
-            } else {
-                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(destinationDomainFields));
+            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(destinationDomainFields));
                 $sort.html(template(destinationDomainFields));
-            }
         } else {
             onDimesionError(vals);
         }
         // refresh data input values
         buildRequest();
     };
-    // add date pickers to the date input fields
-    fromPicker = new Pikaday({
-        field: document.getElementById("from"),
-        format: 'YYYY-MM-DD',
-        onSelect: buildDataForInputRequest
-    });
-    toPicker = new Pikaday({
-        field: document.getElementById("to"),
-        format: 'YYYY-MM-DD',
-        onSelect: buildDataForInputRequest
-    });
+    setDimensions = function () {
+        if ($APIrequestType.val() === "report") {
+            template = Handlebars.compile(dimensionOptionTemplate);
+            $dimensions.html(template(dimensionsObj));
+            $dimensions.children("option").filter(":first").attr("selected", "selected");
+            $format.html(reportFormatOptions);
+        } else {
+            $dimensions.html(rollupDimensionOptions);
+            $format.html(rollupFormatOptions);
+        }
+    };
     // init
     init = function () {
+        // add date pickers to the date input fields
+        fromPicker = new Pikaday({
+            field: document.getElementById("from"),
+            format: 'YYYY-MM-DD',
+            onSelect: buildDataForInputRequest
+        });
+        toPicker = new Pikaday({
+            field: document.getElementById("to"),
+            format: 'YYYY-MM-DD',
+            onSelect: buildDataForInputRequest
+        });
         // set dimensions
-        template = Handlebars.compile(dimensionOptionTemplate);
-        $dimensions.html(template(dimensionsObj));
-        $dimensions.children("option").filter(":first").attr("selected", "selected");
+        setDimensions();
         // get initial data for inputs
         getDataForInputs();
         // set event listeners
-        $APIrequestType.on("change", function () {
-            if ($APIrequestType.val() === "rollup") {
-                $dimensions.html("");
-                $format.html(rollupFormatOptions);
-            } else if ($APIrequestType.val() === "report") {
-                template = Handlebars.compile(optionTemplate);
-                obj.items = dimensions;
-                result = template(obj);
-                $dimensions.html(result);
-                $format.html(reportFormatOptions);
-            }
-        });
+        $APIrequestType.on("change", setDimensions);
         // event listener for dimensions
-        $dimensions.on("change", setFieldsSortOptions);
+        $dimensions.on("change", function () {
+            setFieldsSortOptions();
+            buildRequest();
+        });
         // event listener for date range
         $date_range.on("change", buildDataForInputRequest);
         // event listener for acount and token change
@@ -917,7 +914,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         $token.on("change", function () {
            account = removeSpaces($accountID.val());
            buildDataForInputRequest();
-           buildRequest(); 
+           buildRequest();
         });
         // set listener for form fields
         APIrequestInputs.on("change", buildRequest);

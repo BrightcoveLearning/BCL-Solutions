@@ -1,4 +1,4 @@
-var BCLS = (function ($, window, document, Handlebars, BCLSformatJSON) {
+var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) {
     "use strict";
     var // templates for data input options
         dimensionsArray = ["account", "player", "video", "country", "city", "region", "day", "destination_domain", "device_type", "device_os", "referrer_domain", "source_type", "search_terms"],
@@ -25,8 +25,10 @@ var BCLS = (function ($, window, document, Handlebars, BCLSformatJSON) {
         dimensions,
         $from = $("#from"),
         from,
+        fromPicker,
         $to = $("#to"),
         to,
+        toPicker,
         $date_range = $(".date-range"),
         $whereInputs = $(".where-input"),
         $player = $("#player"),
@@ -195,13 +197,14 @@ var BCLS = (function ($, window, document, Handlebars, BCLSformatJSON) {
     };
     // get input field values
     getDataForInputs = function () {
+        bclslog("getDataForInputs");
         serviceURL = $serviceURL.val();
+        token = removeSpaces($token.val());
+        account = removeSpaces($accountID.val());
         // check for required fields
         if (!isDefined(account) || !isDefined(token)) {
             window.alert("You must provide an account ID and a token");
         }
-        token = removeSpaces($token.val());
-        account = removeSpaces($accountID.val());
         requestType = $APIrequestType.val();
         if (isDefined($dimensions.val())) {
             dimensions = $dimensions.val().join(",");
@@ -296,9 +299,9 @@ var BCLS = (function ($, window, document, Handlebars, BCLSformatJSON) {
         $authorization.attr("value", authorization);
     };
     // build request for input data
-    buildDataForInputRequest = function (dataType) {
-        var url = serviceURL + "/account/" + account + "/report" + "?dimensions=" + dataType;
-        bclslog(dataType);
+    buildDataForInputRequest = function () {
+        var dataType = dataCalls[dataCallsIndex],
+            url = serviceURL + "/account/" + account + "/report" + "?dimensions=" + dataType;
         if (isDefined(from)) {
             url += "&from=" + from;
         }
@@ -308,28 +311,28 @@ var BCLS = (function ($, window, document, Handlebars, BCLSformatJSON) {
         thisRequestType = "data";
         switch (dataType) {
         case "player":
-            url += "&fields=player,player_name" + "&sort=player_name" + "&limit=all";
+            url += "&fields=player,player_name" + "&sort=video_view" + "&limit=all";
             break;
         case "video":
-            url += "&fields=video,video_name" + "&sort=video_name" + "&limit=all";
+            url += "&fields=video,video_name" + "&sort=video_view" + "&limit=all";
             break;
         case "destination_domain":
-            url += "&fields=destination_domain" + "&sort=destination_domain" + "&limit=all";
+            url += "&fields=destination_domain" + "&sort=video_view" + "&limit=all";
             break;
         case "referrer_domain":
-            url += "&fields=referrer_domain" + "&sort=referrer_domain" + "&limit=all";
+            url += "&fields=referrer_domain" + "&sort=video_view" + "&limit=all";
             break;
         case "search_terms":
-            url += "&fields=search_terms" + "&sort=search_terms" + "&limit=all";
+            url += "&fields=search_terms" + "&sort=video_view" + "&limit=all";
             break;
         case "country":
-            url += "&fields=country,country_name" + "&sort=country_name" + "&limit=all";
+            url += "&fields=country,country_name" + "&sort=video_view" + "&limit=all";
             break;
         case "region":
-            url += "&fields=region,region_name" + "&sort=region_name" + "&limit=all";
+            url += "&fields=region,region_name" + "&sort=video_view" + "&limit=all";
             break;
         case "city":
-            url += "&fields=city" + "&sort=city" + "&limit=all";
+            url += "&fields=city" + "&sort=video_view" + "&limit=all";
             break;
         default:
             bclslog("unknown data type " + dataType);
@@ -368,7 +371,7 @@ var BCLS = (function ($, window, document, Handlebars, BCLSformatJSON) {
         // reset requestTrimmed to false in case of regenerate request
         requestTrimmed = false;
         // build the request
-        requestURL = serviceURL + "/account/" + account;
+        requestURL = serviceURL + "/account/" + account + "/";
         // is it a report?
         if (requestType === "report") {
             // make sure dimensions is defined
@@ -390,39 +393,39 @@ var BCLS = (function ($, window, document, Handlebars, BCLSformatJSON) {
         }
         // check for where filters
         if (isDefined(player) || isDefined(video) || isDefined(destination_domain) || isDefined(referrer_domain) || isDefined(search_terms) || isDefined(source_type) || isDefined(country) || isDefined(region) || isDefined(city) || isDefined(device_os) || isDefined(device_type)) {
-            requestURL += "where=";
+            requestURL += "where==";
             if (isDefined(player)) {
-                requestURL += "player==" + player + ";";
+                requestURL += "player=" + player + ";";
             }
             if (isDefined(video)) {
-                requestURL += "video==" + video + ";";
+                requestURL += "video=" + video + ";";
             }
             if (isDefined(destination_domain)) {
-                requestURL += "destination_domain==" + destination_domain + ";";
+                requestURL += "destination_domain=" + destination_domain + ";";
             }
             if (isDefined(referrer_domain)) {
-                requestURL += "referrer_domain==" + referrer_domain + ";";
+                requestURL += "referrer_domain=" + referrer_domain + ";";
             }
             if (isDefined(search_terms)) {
-                requestURL += "search_terms==" + search_terms + ";";
+                requestURL += "search_terms=" + search_terms + ";";
             }
             if (isDefined(source_type)) {
-                requestURL += "source_type==" + source_type + ";";
+                requestURL += "source_type=" + source_type + ";";
             }
             if (isDefined(country)) {
-                requestURL += "country==" + country + ";";
+                requestURL += "country=" + country + ";";
             }
             if (isDefined(region)) {
-                requestURL += "region==" + region + ";";
+                requestURL += "region=" + region + ";";
             }
             if (isDefined(city)) {
-                requestURL += "city==" + city + ";";
+                requestURL += "city=" + city + ";";
             }
             if (isDefined(device_os)) {
-                requestURL += "device_os==" + device_os + ";";
+                requestURL += "device_os=" + device_os + ";";
             }
             if (isDefined(device_type)) {
-                requestURL += "device_type==" + device_type + ";";
+                requestURL += "device_type=" + device_type + ";";
             }
         }
         // end the where filters
@@ -455,7 +458,6 @@ var BCLS = (function ($, window, document, Handlebars, BCLSformatJSON) {
             // clear the results frame
             $responseFrame.html("Loading...");
         }
-        bclslog(APIrequest.value);
         $.ajax({
             url: requestURL,
             headers: {
@@ -873,13 +875,15 @@ var BCLS = (function ($, window, document, Handlebars, BCLSformatJSON) {
         buildRequest();
     };
     // add date pickers to the date input fields
-    new datepickr ("from", {
-        "fullCurrentMonth": false,
-        "dateFormat": "Y-m-d"
+    fromPicker = new Pikaday({
+        field: document.getElementById("from"),
+        format: 'YYYY-MM-DD',
+        onSelect: buildDataForInputRequest
     });
-    new datepickr ("to", {
-        "fullCurrentMonth": false,
-        "dateFormat": "Y-m-d"
+    toPicker = new Pikaday({
+        field: document.getElementById("to"),
+        format: 'YYYY-MM-DD',
+        onSelect: buildDataForInputRequest
     });
     // init
     init = function () {
@@ -911,7 +915,7 @@ var BCLS = (function ($, window, document, Handlebars, BCLSformatJSON) {
         // send request
         $submitButton.on("click", function () {
             thisRequestType = "analytics";
-            getData(APIrequest.value, thisRequestType);
+            getData(APIrequest.value, "analytics");
         });
         // populate data input selectors
         buildDataForInputRequest(dataCalls[dataCallsIndex]);
@@ -926,4 +930,4 @@ var BCLS = (function ($, window, document, Handlebars, BCLSformatJSON) {
         buildRequest: buildRequest,
         onGetVideos: onGetVideos
     };
-})($, window, document, Handlebars, BCLSformatJSON);
+})($, window, document, Pikaday, Handlebars, BCLSformatJSON);

@@ -1,71 +1,71 @@
-var baseFields = "<option value=\"engagement_score\">engagement_score</option><option value=\"play_rate\">play_rate</option><option value=\"video_impression\">video_impression</option><option value=\"video_view\">video_view</option><option value=\"video_percent_viewed\">video_percent_viewed</option><option value=\"video_seconds_viewed\">video_seconds_viewed</option>",
-accountFields = baseFields + "<option value=\"account\">account</option><option value=\"active_media\">active_media</option><option value=\"bytes_delivered\">bytes_delivered</option><option value=\"bytes_in\">bytes_in</option><option value=\"bytes_out\">bytes_out</option><option value=\"bytes_overhead\">bytes_overhead</option><option value=\"bytes_player\">bytes_player</option><option value=\"bytes_player\">bytes_player</option><option value=\"play_rate\">play_rate</option><option value=\"video_engagement_1\">video_engagement_1</option><option value=\"video_engagement_25\">video_engagement_25</option><option value=\"video_engagement_50\">video_engagement_50</option><option value=\"video_engagement_75\">video_engagement_75</option><option value=\"video_engagement_100\">video_engagement_100</option>",
-videoFields = baseFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option><option value=\"video_duration\">video_duration</option><option value=\"video_engagement\">video_engagement</option>i<option value=\"video_engagement_1\">video_engagement_1</option><option value=\"video_engagement_25\">video_engagement_25</option><option value=\"video_engagement_50\">video_engagement_50</option><option value=\"video_engagement_75\">video_engagement_75</option><option value=\"video_engagement_100\">video_engagement_100</option>",
-playerFields = baseFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option><option value=\"player_load\">player_load</option><option value=\"video_engagement\">video_engagement</option>",
-dayFields = baseFields + "<option value=\"active_media\">active_media</option><option value=\"bytes_delivered\">bytes_delivered</option><option value=\"bytes_in\">bytes_in</option><option value=\"bytes_out\">bytes_out</option><option value=\"bytes_overhead\">bytes_overhead</option><option value=\"bytes_player\">bytes_player</option><option value=\"bytes_stored\">bytes_stored</option><option value=\"day\">day</option><option value=\"player_load\">player_load</option><option value=\"video_engagement\">video_engagement</option>",
-countryFields = baseFields + "<option value=\"country\">country</option><option value=\"country_name\">country_name</option>",
-cityFields = baseFields + "<option value=\"city\">city</option>",
-regionFields = baseFields + "<option value=\"region\">region</option>",
-destinationDomainFields = baseFields + "<option value=\"destination_domain\">destination_domain</option>",
-referrer_domainFields = baseFields + "<option value=\"player_load\">player_load</option><option value=\"referrer_domain\">referrer_domain</option>",
-source_typeFields = baseFields + "<option value=\"player_load\">player_load</option><option value=\"source_type\">source_type</option>",
-search_termsFields = baseFields + "<option value=\"player_load\">player_load</option><option value=\"search_terms\">search_terms</option>",
-device_typeFields = baseFields + "<option value=\"player_load\">player_load</option><option value=\"device_type\">device_type</option>",
-device_osFields = baseFields + "<option value=\"player_load\">player_load</option><option value=\"device_os\">device_os</option>",
-accountVideoFields = videoFields + "<option value=\"account\">account</option>",
-accountPlayerFields = playerFields + "<option value=\"account\">account</option>",
-accountReferrer_domainFields = referrer_domainFields + "<option value=\"account\">account</option>",
-accountSource_typeFields = source_typeFields + "<option value=\"account\">account</option>",
-accountSearch_termsFields = search_termsFields + "<option value=\"account\">account</option>",
-accountDevice_typeFields = device_typeFields + "<option value=\"account\">account</option>",
-accountDevice_osFields = device_osFields + "<option value=\"account\">account</option>",
-playerVideoFields = videoFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option>",
-playerReferrer_domainFields = referrer_domainFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option>",
-playerSource_typeFields = source_typeFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option>",
-playerSearch_termsFields = search_termsFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option>",
-playerDevice_typeFields = device_typeFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option>",
-playerDevice_osFields = device_osFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option>",
-videoReferrer_domainFields = referrer_domainFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
-videoSource_typeFields = source_typeFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
-videoSearch_termsFields = search_termsFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
-videoDevice_typeFields = device_typeFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
-videoDevice_osFields = device_osFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
-countryCityFields = cityFields + "<option value=\"country\">country</option><option value=\"country_name\">country_name</option><option value=\"dma\">dma</option>",
-countryRegionFields = regionFields + "<option value=\"country\">country</option><option value=\"country_name\">country_name</option>",
-cityRegionFields = regionFields + "<option value=\"city\">city</option>",
-referrer_domainSource_typeFields = referrer_domainFields + "<option value=\"source_type\">source_type</option>",
-referrer_domainSearch_termsFields = referrer_domainFields + "<option value=\"search_terms\">search_terms</option>",
-source_typeSearch_termsFields = source_typeFields + "<option value=\"search_terms\">search_terms</option>",
-device_typeDevice_osFields = device_typeFields + "<option value=\"device_os\">device_os</option>",
-accountPlayerVideoFields = playerVideoFields + "<option value=\"account\">account</option>",
-accountPlayerReferrer_domainFields = playerReferrer_domainFields + "<option value=\"account\">account</option>",
-accountPlayerSource_typeFields = playerSource_typeFields + "<option value=\"account\">account</option>",
-accountPlayerSearch_termsFields = playerSearch_termsFields + "<option value=\"account\">account</option>",
-accountVideoReferrer_domainFields = videoReferrer_domainFields + "<option value=\"account\">account</option>",
-accountVideoSource_typeFields = videoSource_typeFields + "<option value=\"account\">account</option>",
-accountVideoSearch_termsFields = videoSearch_termsFields + "<option value=\"account\">account</option>",
-accountReferrer_domainSource_typeFields = referrer_domainSource_typeFields + "<option value=\"account\">account</option>",
-accountReferrer_domainSearch_termsFields = referrer_domainSearch_termsFields +  "<option value=\"account\">account</option>",
-accountSource_typeSearch_termsFields = source_typeSearch_termsFields + "<option value=\"account\">account</option>",
-accountDevice_typeDevice_osFields = device_typeDevice_osFields + "<option value=\"account\">account</option>",
-playerReferrer_domainSource_typeFields = referrer_domainSource_typeFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option>",
-playerReferrer_domainSearch_termsFields = referrer_domainSearch_termsFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option>",
-playerSource_typeSearch_termsFields = source_typeSearch_termsFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option>",
-playerDevice_typeDevice_osFields = device_typeDevice_osFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option>",
-videoReferrer_domainSource_typeFields = referrer_domainSource_typeFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
-videoReferrer_domainSearch_termsFields = referrer_domainSearch_termsFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
-videoSource_typeSearch_termsFields = source_typeSearch_termsFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
-videoDevice_typeDevice_osFields = device_typeDevice_osFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
-countryCityRegionFields = countryRegionFields + "<option value=\"city\">city</option>",
-referrer_domainSource_typeSearch_termsFields = referrer_domainSource_typeFields + "<option value=\"search_terms\">search_terms</option>",
-accountPlayerReferrer_domainSource_typeFields = accountPlayerReferrer_domainFields + "<option value=\"source_type\">source_type</option>",
-accountPlayerReferrer_domainSearch_termsFields = accountPlayerReferrer_domainFields + "<option value=\"search_terms\">search_terms</option>",
-accountPlayerSource_typeSearch_termsFields = accountPlayerSource_typeFields + "<option value=\"search_terms\">search_terms</option>",
-accountVideoReferrer_domainSource_typeFields = accountVideoReferrer_domainFields + "<option value=\"source_type\">source_type</option>",
-accountVideoReferrer_domainSearch_termsFields = accountVideoReferrer_domainFields + "<option value=\"search_terms\">search_terms</option>",
-accountVideoSource_typeSearch_termsFields = accountVideoSource_typeFields + "<option value=\"search_terms\">search_terms</option>",
-accountReferrer_domainSource_typeSearch_termsFields = accountReferrer_domainSource_typeFields + "<option value=\"search_terms\">search_terms</option>",
-playerReferrer_domainSource_typeSearch_termsFields = playerReferrer_domainSource_typeFields + "<option value=\"search_terms\">search_terms</option>",
-videoReferrer_domainSource_typeSearch_termsFields = videoReferrer_domainSource_typeFields + "<option value=\"search_terms\">search_terms</option>",
-accountPlayerReferrer_domainSource_typeSearch_termsFields = accountPlayerReferrer_domainSource_typeFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
-accountVideoReferrer_domainSource_typeSearch_termsFields = accountVideoReferrer_domainSource_typeFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>";
+var baseFields = ""engagement_score""play_rate""video_impression""video_view""video_percent_viewed""video_seconds_viewed"
+accountFields = baseFields + "account""active_media""bytes_delivered""bytes_in""bytes_out""bytes_overhead""bytes_player""bytes_player""play_rate""video_engagement_1""video_engagement_25""video_engagement_50""video_engagement_75""video_engagement_100"
+videoFields = baseFields + "video""video_name""video_duration""video_engagement"i"video_engagement_1""video_engagement_25""video_engagement_50""video_engagement_75""video_engagement_100"
+playerFields = baseFields + "player""player_name""player_load""video_engagement"
+dayFields = baseFields + "active_media""bytes_delivered""bytes_in""bytes_out""bytes_overhead""bytes_player""bytes_stored""day""player_load""video_engagement"
+countryFields = baseFields + "country""country_name"
+cityFields = baseFields + "city"
+regionFields = baseFields + "region"
+destinationDomainFields = baseFields + "destination_domain"
+referrer_domainFields = baseFields + "player_load""referrer_domain"
+source_typeFields = baseFields + "player_load""source_type"
+search_termsFields = baseFields + "player_load""search_terms"
+device_typeFields = baseFields + "player_load""device_type"
+device_osFields = baseFields + "player_load""device_os"
+accountVideoFields = videoFields + "account"
+accountPlayerFields = playerFields + "account"
+accountReferrer_domainFields = referrer_domainFields + "account"
+accountSource_typeFields = source_typeFields + "account"
+accountSearch_termsFields = search_termsFields + "account"
+accountDevice_typeFields = device_typeFields + "account"
+accountDevice_osFields = device_osFields + "account"
+playerVideoFields = videoFields + "player""player_name"
+playerReferrer_domainFields = referrer_domainFields + "player""player_name"
+playerSource_typeFields = source_typeFields + "player""player_name"
+playerSearch_termsFields = search_termsFields + "player""player_name"
+playerDevice_typeFields = device_typeFields + "player""player_name"
+playerDevice_osFields = device_osFields + "player""player_name"
+videoReferrer_domainFields = referrer_domainFields + "video""video_name"
+videoSource_typeFields = source_typeFields + "video""video_name"
+videoSearch_termsFields = search_termsFields + "video""video_name"
+videoDevice_typeFields = device_typeFields + "video""video_name"
+videoDevice_osFields = device_osFields + "video""video_name"
+countryCityFields = cityFields + "country""country_name""dma"
+countryRegionFields = regionFields + "country""country_name"
+cityRegionFields = regionFields + "city"
+referrer_domainSource_typeFields = referrer_domainFields + "source_type"
+referrer_domainSearch_termsFields = referrer_domainFields + "search_terms"
+source_typeSearch_termsFields = source_typeFields + "search_terms"
+device_typeDevice_osFields = device_typeFields + "device_os"
+accountPlayerVideoFields = playerVideoFields + "account"
+accountPlayerReferrer_domainFields = playerReferrer_domainFields + "account"
+accountPlayerSource_typeFields = playerSource_typeFields + "account"
+accountPlayerSearch_termsFields = playerSearch_termsFields + "account"
+accountVideoReferrer_domainFields = videoReferrer_domainFields + "account"
+accountVideoSource_typeFields = videoSource_typeFields + "account"
+accountVideoSearch_termsFields = videoSearch_termsFields + "account"
+accountReferrer_domainSource_typeFields = referrer_domainSource_typeFields + "account"
+accountReferrer_domainSearch_termsFields = referrer_domainSearch_termsFields +  ""account"
+accountSource_typeSearch_termsFields = source_typeSearch_termsFields + "account"
+accountDevice_typeDevice_osFields = device_typeDevice_osFields + "account"
+playerReferrer_domainSource_typeFields = referrer_domainSource_typeFields + "player""player_name"
+playerReferrer_domainSearch_termsFields = referrer_domainSearch_termsFields + "player""player_name"
+playerSource_typeSearch_termsFields = source_typeSearch_termsFields + "player""player_name"
+playerDevice_typeDevice_osFields = device_typeDevice_osFields + "player""player_name"
+videoReferrer_domainSource_typeFields = referrer_domainSource_typeFields + "video""video_name"
+videoReferrer_domainSearch_termsFields = referrer_domainSearch_termsFields + "video""video_name"
+videoSource_typeSearch_termsFields = source_typeSearch_termsFields + "video""video_name"
+videoDevice_typeDevice_osFields = device_typeDevice_osFields + "video""video_name"
+countryCityRegionFields = countryRegionFields + "city"
+referrer_domainSource_typeSearch_termsFields = referrer_domainSource_typeFields + "search_terms"
+accountPlayerReferrer_domainSource_typeFields = accountPlayerReferrer_domainFields + "source_type"
+accountPlayerReferrer_domainSearch_termsFields = accountPlayerReferrer_domainFields + "search_terms"
+accountPlayerSource_typeSearch_termsFields = accountPlayerSource_typeFields + "search_terms"
+accountVideoReferrer_domainSource_typeFields = accountVideoReferrer_domainFields + "source_type"
+accountVideoReferrer_domainSearch_termsFields = accountVideoReferrer_domainFields + "search_terms"
+accountVideoSource_typeSearch_termsFields = accountVideoSource_typeFields + "search_terms"
+accountReferrer_domainSource_typeSearch_termsFields = accountReferrer_domainSource_typeFields + "search_terms"
+playerReferrer_domainSource_typeSearch_termsFields = playerReferrer_domainSource_typeFields + "search_terms"
+videoReferrer_domainSource_typeSearch_termsFields = videoReferrer_domainSource_typeFields + "search_terms"
+accountPlayerReferrer_domainSource_typeSearch_termsFields = accountPlayerReferrer_domainSource_typeFields + "video""video_name"
+accountVideoReferrer_domainSource_typeSearch_termsFields = accountVideoReferrer_domainSource_typeFields + "video""video_name"";

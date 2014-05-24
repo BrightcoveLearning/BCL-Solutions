@@ -91,15 +91,14 @@
             // data-collection api
             baseURL = "http://metrics.brightcove.com/tracker?",
             // location properties
-            destination = window.location.hostname + window.location.pathname,
-            source = document.referrer,
+            destination = encodeURI(window.location.href),
+            source = encodeURI(document.referrer),
             // functions
             onTimeUpdate,
             loadVideo,
             logEvent,
             injectScript,
             sendAnalyticsEvent,
-            dataCollectionCallback,
             wrapPlayer,
             addEventLog,
             init;
@@ -170,9 +169,6 @@
                 logEvent("analytics-event", eventType, ("Data Collection request: " + urlStr), dateTime.toISOString());
             }
             return;
-        };
-        dataCollectionCallback = function (data) {
-            bclslog(data);
         };
         onTimeUpdate = function (evt) {
             var thisPosition = evt.timeStamp, range = "", dateTime = new Date(evt.timeStamp);
@@ -255,40 +251,33 @@
             playerWrapper.appendChild(eventLogHeader);
             playerWrapper.appendChild(eventLog);
         };
-        // initial actions
-        settings = extend(defaults, options);
-        player = this;
-        // add player event listeners
-        player.on("loadstart", function (evt) {
-            var dateTime = new Date(evt.timeStamp);
-            if (settings.showLog) {
-                logEvent("player-event", "loadstart", "", dateTime.toISOString());
-            }
-            sendAnalyticsEvent("video_impression", evt);
-        });
-        // add listener for loadedalldata
-        player.on("loadedalldata", function () {
-            var dateTime = new Date();
-            if (settings.showLog) {
-                logEvent("player-event", "loadedalldata", "", dateTime.toISOString());
-            }
-            player.play();
-        });
-        // add listener for video ended
-        player.on("ended", function () {
-            var dateTime = new Date();
-            if (settings.showLog) {
-                logEvent("player-event", "ended", "", dateTime.toISOString());
-            }
-            loadVideo();
-        });
         init = function () {
+            // add player event listeners
+            player.on("loadstart", function (evt) {
+                var dateTime = new Date(evt.timeStamp);
+                if (settings.showLog) {
+                    logEvent("player-event", "loadstart", "", dateTime.toISOString());
+                }
+                sendAnalyticsEvent("video_impression", evt);
+            });
+            // add listener for loadedalldata
+            player.on("loadedalldata", function () {
+                var dateTime = new Date();
+                if (settings.showLog) {
+                    logEvent("player-event", "loadedalldata", "", dateTime.toISOString());
+                }
+                player.play();
+            });
+            // add listener for video ended
+            player.on("ended", function () {
+                var dateTime = new Date();
+                if (settings.showLog) {
+                    logEvent("player-event", "ended", "", dateTime.toISOString());
+                }
+                loadVideo();
+            });
             // add listener for time updates events
             player.on("timeupdate", onTimeUpdate);
-            // strip the protocol from the source
-            if (isDefined(source)) {
-                source = source.substring(source.indexOf("//") + 2);
-            }
             // get a reference to the div that wraps the video tag
             videoDiv = document.getElementById(player.id());
             // wrap the player in a new div
@@ -299,7 +288,10 @@
             }
             // load the first video in the collection
             loadVideo();
-        }
+        };
+        // initial actions
+        settings = extend(defaults, options);
+        player = this;
         init();
         return;
     });

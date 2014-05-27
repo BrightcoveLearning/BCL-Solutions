@@ -215,9 +215,7 @@ var BCLS = (function (window, document, Handlebars, $, Pikaday) {
                     console.log(analyticsData.summary);
                 } else {
                     for (prop in data.summary) {
-                        if (isNumber(data.summary[prop])) {
-                            analyticsData.summary[prop] += data.summary[prop];
-                        }
+                        analyticsData.summary[prop] += data.summary[prop];
                     }
                 }
                 callNumber++;
@@ -434,7 +432,9 @@ var BCLS = (function (window, document, Handlebars, $, Pikaday) {
         dimensions.addEventListener("change", setFieldsSortOptions);
     }
      // initialize
+    console.log(detailTableHead);
     init();
+    
     return {
     }
 })(window, document, Handlebars, $, Pikaday);

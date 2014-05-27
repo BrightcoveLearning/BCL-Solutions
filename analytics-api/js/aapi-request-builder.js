@@ -167,7 +167,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         videoReferrer_domainSource_typeSearch_termsFields = {"items": videoReferrer_domainSource_typeFields.items.concat(["search_terms"])},
         accountPlayerReferrer_domainSource_typeSearch_termsFields = {"items": accountPlayerReferrer_domainSource_typeFields.items.concat(["video", "video_name"])},
         accountVideoReferrer_domainSource_typeSearch_termsFields = {"items": accountVideoReferrer_domainSource_typeFields.items.concat(["video", "video_name"])},
-        // functions to be defined
+        // functions to be defined"
         bclslog,
         getDataForInputs,
         buildDataForInputRequest,
@@ -530,7 +530,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
                 }
             },
             error : function (XMLHttpRequest, textStatus, errorThrown) {
-                $responseFrame.html("Sorry, your request was not successful. Here's what the server sent back: " + errorThrown);
+                $responseFrame.html("Sorry, your request was not successful. Here is what the server sent back: " + errorThrown);
             }
         });
     };

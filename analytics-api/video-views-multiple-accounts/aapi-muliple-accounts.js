@@ -2,6 +2,7 @@ var BCLS = (function (window, document, Handlebars, $, Pikaday) {
     "use strict";
     var callNumber = 0,
         firstRun = true,
+        firstCall = true,
         accountID = document.getElementById("accountID"),
         token = document.getElementById("token"),
         addAccountButton = document.getElementById("addAccountButton"),
@@ -54,7 +55,7 @@ var BCLS = (function (window, document, Handlebars, $, Pikaday) {
         device_osFields = {"items": baseFields.items.concat(["player_load", "device_os"])},
         // functions"
         bclslog,
-        clone,
+        copyObj,
         isDefined,
         isNumber,
         dateToISO,
@@ -81,42 +82,9 @@ var BCLS = (function (window, document, Handlebars, $, Pikaday) {
             console.log(message);
         }
     };
-    //  clone an Object
-    clone = function (obj) {
-        var copy, i, len, attr;
-        // Handle the 3 simple types, and null or undefined
-        if (null === obj || "object" !== typeof obj) {
-            return obj;
-        }
-        // Handle Date
-        if (obj instanceof Date) {
-            copy = new Date();
-            copy.setTime(obj.getTime());
-            return copy;
-        }
-
-        // Handle Array
-        if (obj instanceof Array) {
-            copy = [];
-            len = obj.length;
-            for (i = 0; i < len; i++) {
-                copy[i] = clone(obj[i]);
-            }
-            return copy;
-        }
-
-        // Handle Object
-        if (obj instanceof Object) {
-            copy = {};
-            for (attr in obj) {
-                if (obj.hasOwnProperty(attr)) {
-                    copy[attr] = clone(obj[attr]);
-                }
-            }
-            return copy;
-        }
-
-        throw new Error("Unable to copy obj! Its type isn't supported.");
+    //  copy an Object
+    copyObj = function (obj) {
+        return JSON.parse(JSON.stringify(obj));
     };
     // is defined
     isDefined = function (x) {
@@ -239,10 +207,12 @@ var BCLS = (function (window, document, Handlebars, $, Pikaday) {
             success : function (data) {
                 errorLog.innerHTML += "<p class=\"success\">API call made:</p>";
                 errorLog.innerHTML += "<textarea class=\"code-area\">" + callURL + "</textarea>";
-                if (firstRun === true) {
+                if (firstCall) {
                     setDisplayTableHeadings(data);
-                    firstRun = false;
-                    analyticsData.summary = clone(data.summary);
+                    firstCall = false;
+                    analyticsData.summary = copyObj(data.summary);
+                    console.log(data.summary);
+                    console.log(analyticsData.summary);
                 } else {
                     for (prop in data.summary) {
                         if (isNumber(data.summary[prop])) {
@@ -253,9 +223,8 @@ var BCLS = (function (window, document, Handlebars, $, Pikaday) {
                 callNumber++;
                 if (data.item_count > 0) {
                     errorLog.innerHTML += "<p class=\"success\">Data successfully retrieved for account:" + data.account + "</p>";
-                    itemsMax = data.items.length;
-                    analyticsData.items[currentAccount.id] = clone(data);
-                    bclslog(analyticsData);
+                    analyticsData.items[currentAccount.id] = copyObj(data);
+                    console.log(analyticsData);
                 } else {
                     errorLog.innerHTML += "<p class=\"failure\">No data was returned for account: " + data.account + "</p>";
                 }

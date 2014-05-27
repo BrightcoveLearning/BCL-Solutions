@@ -94,7 +94,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         // options for different report types
         rollupDimensionOptions = "<option value=\"account\">account</option>",
         rollupFormatOptions = "<option value=\"json\">json</option>",
-        reportFormatOptions = "<option value=\"json\">json</option><option value=\"cvs\">cvs</option><option value=\"xlsx\">xlxs</option>",
+        reportFormatOptions = "<option value=\"json\">json</option><option value=\"csv\">csv</option><option value=\"xlsx\">xlxs</option>",
         // fields for different dimensions
         baseFields = {"items": ["engagement_score", "play_rate", "player_load", "video_impression", "video_view", "video_percent_viewed", "video_seconds_viewed"]},
         accountFields = {"items": ["account", "active_media", "bytes_delivered", "bytes_in", "bytes_out", "bytes_overhead", "bytes_player", "bytes_stored", "cdn_log_line", "chimera_report", "content_delivered", "drm_bytes_packaged", "engagement_score", "licenses_served", "play_rate", "player_load", "video_engagement_1", "video_engagement_25", "video_engagement_50", "video_engagement_75", "video_engagement_100", "video_impression", "video_percent_viewed", "video_seconds_viewed", "video_view"]},
@@ -393,39 +393,39 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         }
         // check for where filters
         if (isDefined(player) || isDefined(video) || isDefined(destination_domain) || isDefined(referrer_domain) || isDefined(search_terms) || isDefined(source_type) || isDefined(country) || isDefined(region) || isDefined(city) || isDefined(device_os) || isDefined(device_type)) {
-            requestURL += "where==";
+            requestURL += "where=";
             if (isDefined(player)) {
-                requestURL += "player=" + player + ";";
+                requestURL += "player==" + player + ";";
             }
             if (isDefined(video)) {
-                requestURL += "video=" + video + ";";
+                requestURL += "video==" + video + ";";
             }
             if (isDefined(destination_domain)) {
-                requestURL += "destination_domain=" + destination_domain + ";";
+                requestURL += "destination_domain==" + destination_domain + ";";
             }
             if (isDefined(referrer_domain)) {
-                requestURL += "referrer_domain=" + referrer_domain + ";";
+                requestURL += "referrer_domain==" + referrer_domain + ";";
             }
             if (isDefined(search_terms)) {
-                requestURL += "search_terms=" + search_terms + ";";
+                requestURL += "search_terms==" + search_terms + ";";
             }
             if (isDefined(source_type)) {
-                requestURL += "source_type=" + source_type + ";";
+                requestURL += "source_type==" + source_type + ";";
             }
             if (isDefined(country)) {
-                requestURL += "country=" + country + ";";
+                requestURL += "country==" + country + ";";
             }
             if (isDefined(region)) {
-                requestURL += "region=" + region + ";";
+                requestURL += "region==" + region + ";";
             }
             if (isDefined(city)) {
-                requestURL += "city=" + city + ";";
+                requestURL += "city==" + city + ";";
             }
             if (isDefined(device_os)) {
-                requestURL += "device_os=" + device_os + ";";
+                requestURL += "device_os==" + device_os + ";";
             }
             if (isDefined(device_type)) {
-                requestURL += "device_type=" + device_type + ";";
+                requestURL += "device_type==" + device_type + ";";
             }
         }
         // end the where filters

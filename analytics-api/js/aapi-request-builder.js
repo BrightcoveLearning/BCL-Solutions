@@ -104,7 +104,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         countryFields = {"items": baseFields.items.concat(["country", "country_name"])},
         cityFields = {"items": baseFields.items.concat(["city"])},
         regionFields = {"items": baseFields.items.concat(["region"])},
-        destinationDomainFields = {"items": baseFields.items.concat(["destination_domain"])},
+        destination_domainFields = {"items": baseFields.items.concat(["destination_domain"])},
         referrer_domainFields = {"items": baseFields.items.concat(["player_load", "referrer_domain"])},
         source_typeFields = {"items": baseFields.items.concat(["player_load", "source_type"])},
         search_termsFields = {"items": baseFields.items.concat(["player_load", "search_terms"])},
@@ -862,8 +862,8 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
             $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(device_osFields));
             $sort.html(template(device_osFields));
         } else if (has_destination_domain) { // destination_domain combinations
-            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(destinationDomainFields));
-                $sort.html(template(destinationDomainFields));
+            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(destination_domainFields));
+                $sort.html(template(destination_domainFields));
         } else {
             onDimesionError(vals);
         }

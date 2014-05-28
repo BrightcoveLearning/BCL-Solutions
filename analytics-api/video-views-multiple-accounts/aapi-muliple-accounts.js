@@ -47,7 +47,7 @@ var BCLS = (function (window, document, Handlebars, $, Pikaday) {
         countryFields = {"items": baseFields.items.concat(["country", "country_name"])},
         cityFields = {"items": baseFields.items.concat(["city"])},
         regionFields = {"items": baseFields.items.concat(["region"])},
-        destinationDomainFields = {"items": baseFields.items.concat(["destination_domain"])},
+        destination_domainFields = {"items": baseFields.items.concat(["destination_domain"])},
         referrer_domainFields = {"items": baseFields.items.concat(["player_load", "referrer_domain"])},
         source_typeFields = {"items": baseFields.items.concat(["player_load", "source_type"])},
         search_termsFields = {"items": baseFields.items.concat(["player_load", "search_terms"])},
@@ -184,17 +184,58 @@ var BCLS = (function (window, document, Handlebars, $, Pikaday) {
     displayData = function () {
         var i,
             j,
-            totalItems,
-            totalAccounts,
+            id,
             str = "",
+            prop,
             accountItem,
             thisItem;
-
+        // grand totals row
+        str += "<tr><td>All Accounts</td>";
+        for (prop in analyticsData.summary) {
+            str += "<td>" + analyticsData.summary[prop] + "</td>";
+        }
+        str += "</tr>";
+        // add the summaries for individual accounts
+        for (id in analyticsData.items) {
+            thisItem = analyticsData.items[id];
+            str += "<tr><td><a class=\"account\" href=\"#detailTable\" id=\"" + id + "\">" + id + "</a></td>";
+            for (prop in thisItem.summary) {
+                str += "<td>" + thisItem.summary[prop] + "</td>";
+            }
+            str += "</tr>";
+        }
         reportTableBody.innerHTML = str;
+        // add click handlers to account summaries
+        for (id in analyticsData.items) {
+            console.log(id);
+            document.getElementById(id).addEventListener("click", function (evt) {
+                evt.preventDefault();
+                displayDetailData(id);
+            });
+        }
     };
     // display account detail table
-    displayDetailData = function () {
-
+    displayDetailData = function (id) {
+        var str,
+            prop,
+            item,
+            i,
+            imax,
+            thisAccount;
+        console.log("in detail");
+        detailCaption.innerHTML = "Details for account: " + id;
+        thisAccount = analyticsData.items[id];
+        imax = thisAccount.items.length;
+        for (i = 0; i < imax; i++) {
+            str = "<tr>";
+            item = thisAccount.items[i];
+            for (prop in item) {
+                str += "<td>" + item[prop] + "</td>";
+            }
+            str += "</tr>";
+        }
+        detailCaption.innerHTML = "Detail Data for Account " + id;
+        detailTableBody.innerHTML = str;
     };
     // make the analytics api call via AJAX
     makeAnalyticsCall = function (callURL) {
@@ -211,18 +252,15 @@ var BCLS = (function (window, document, Handlebars, $, Pikaday) {
                     setDisplayTableHeadings(data);
                     firstCall = false;
                     analyticsData.summary = copyObj(data.summary);
-                    console.log(data.summary);
-                    console.log(analyticsData.summary);
                 } else {
-                    for (prop in data.summary) {
+                    for (prop in analyticsData.summary) {
                         analyticsData.summary[prop] += data.summary[prop];
                     }
                 }
                 callNumber++;
                 if (data.item_count > 0) {
-                    errorLog.innerHTML += "<p class=\"success\">Data successfully retrieved for account:" + data.account + "</p>";
+                    errorLog.innerHTML += "<p class=\"success\">Data successfully retrieved for account: " + data.account + "</p>";
                     analyticsData.items[currentAccount.id] = copyObj(data);
-                    console.log(analyticsData);
                 } else {
                     errorLog.innerHTML += "<p class=\"failure\">No data was returned for account: " + data.account + "</p>";
                 }
@@ -373,7 +411,7 @@ var BCLS = (function (window, document, Handlebars, $, Pikaday) {
     }
     // set the display table headings
     setDisplayTableHeadings = function (obj) {
-        var str = "<tr>",
+        var str = "<tr><th>Account</th>",
             prop;
         // set summary table headings
         for (prop in obj.summary) {
@@ -434,7 +472,7 @@ var BCLS = (function (window, document, Handlebars, $, Pikaday) {
      // initialize
     console.log(detailTableHead);
     init();
-    
+
     return {
     }
 })(window, document, Handlebars, $, Pikaday);

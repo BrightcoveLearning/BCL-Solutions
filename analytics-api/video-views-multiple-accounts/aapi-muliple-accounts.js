@@ -225,7 +225,8 @@ var BCLS = (function (window, document, Handlebars, $, Pikaday) {
         console.log("in detail");
         detailCaption.innerHTML = "Details for account: " + id;
         thisAccount = analyticsData.items[id];
-        imax = thisAccount.items.length;
+        console.log(thisAccount);
+        imax = thisAccount.item_count;
         for (i = 0; i < imax; i++) {
             str = "<tr>";
             item = thisAccount.items[i];
@@ -301,8 +302,13 @@ var BCLS = (function (window, document, Handlebars, $, Pikaday) {
         }
         // currentVideo = videoData.items[currentVideoIndex].video;
         currentAccount = accountsObj.items[currentAccountIndex];
-        callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + currentAccount.id + "/report/?dimensions=" + getSelectedValue(dimensions) + "&from=" + from.value + "&to=" + to.value + "&limit=all" + "&fields=" + selectedFields.join(",");
+        if (isDefined(currentAccount)) {
+            callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + currentAccount.id + "/report/?dimensions=" + getSelectedValue(dimensions) + "&from=" + from.value + "&to=" + to.value + "&limit=all" + "&fields=" + selectedFields.join(",");
         makeAnalyticsCall(callURL);
+        } else {
+            window.alert("You must add at least one account!");
+        }
+        
     };
     addAccount = function () {
         var id = accountID.value,
@@ -413,6 +419,9 @@ var BCLS = (function (window, document, Handlebars, $, Pikaday) {
     setDisplayTableHeadings = function (obj) {
         var str = "<tr><th>Account</th>",
             prop;
+        // in case not first run, clear the table bodies
+        reportTableBody.innerHTML = "";
+        detailTableBody.innerHTML = "";
         // set summary table headings
         for (prop in obj.summary) {
             str += "<th>" + prop +  "</th>";
@@ -436,12 +445,13 @@ var BCLS = (function (window, document, Handlebars, $, Pikaday) {
         } else {
             currentAccountIndex = 0;
         }
+        firstCall = true;
         callNumber = 0;
         errorLog.innerHTML = "";
         analyticsData.items = {};
         analyticsData.summary = {};
         getData.innerHTML = "Get Analytics Data";
-        gettingDataDisplay.innerHTML = "Click the button above when you are ready to get the data"
+        gettingDataDisplay.innerHTML = "Set all accounts and options, then click the button above when you are ready to get the data"
     };
     init = function () {
         // add date pickers to the date input fields
@@ -467,7 +477,10 @@ var BCLS = (function (window, document, Handlebars, $, Pikaday) {
         addAccountButton.addEventListener("click", addAccount);
         addMultipleAccountsButton.addEventListener("click", addMultipleAccounts);
         removeAccountButton.addEventListener("click", removeAccounts);
-        dimensions.addEventListener("change", setFieldsSortOptions);
+        dimensions.addEventListener("change", function (evt) {
+            initializeData();
+            setFieldsSortOptions();
+        });
     }
      // initialize
     console.log(detailTableHead);

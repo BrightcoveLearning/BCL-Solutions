@@ -198,7 +198,7 @@ var BCLS = (function (window, document, Handlebars, $, Pikaday) {
         // add the summaries for individual accounts
         for (id in analyticsData.items) {
             thisItem = analyticsData.items[id];
-            str += "<tr><td><a class=\"account\" href=\"#detailTable\" id=\"" + id + "\">" + id + "</a></td>";
+            str += "<tr><td><a class=\"account\" href=\"#detailTable\" id=\"" + id + "\" onclick=\"BCLS.displayDetailData(" + id + ")\">" + id + "</a></td>";
             for (prop in thisItem.summary) {
                 str += "<td>" + thisItem.summary[prop] + "</td>";
             }
@@ -206,6 +206,7 @@ var BCLS = (function (window, document, Handlebars, $, Pikaday) {
         }
         reportTableBody.innerHTML = str;
         // add click handlers to account summaries
+/*
         for (id in analyticsData.items) {
             console.log(id);
             document.getElementById(id).addEventListener("click", function (evt) {
@@ -213,22 +214,22 @@ var BCLS = (function (window, document, Handlebars, $, Pikaday) {
                 displayDetailData(id);
             });
         }
+*/
     };
     // display account detail table
     displayDetailData = function (id) {
-        var str,
+        var str = "",
             prop,
             item,
             i,
             imax,
             thisAccount;
-        console.log("in detail");
+        detailTableBody.innerHTML = "";
         detailCaption.innerHTML = "Details for account: " + id;
         thisAccount = analyticsData.items[id];
-        console.log(thisAccount);
         imax = thisAccount.item_count;
         for (i = 0; i < imax; i++) {
-            str = "<tr>";
+            str += "<tr>";
             item = thisAccount.items[i];
             for (prop in item) {
                 str += "<td>" + item[prop] + "</td>";
@@ -483,9 +484,9 @@ var BCLS = (function (window, document, Handlebars, $, Pikaday) {
         });
     }
      // initialize
-    console.log(detailTableHead);
     init();
 
     return {
+    "displayDetailData": displayDetailData
     }
 })(window, document, Handlebars, $, Pikaday);

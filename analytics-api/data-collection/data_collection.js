@@ -109,7 +109,7 @@
                 "src": settings.videoCollection[currentVideoIndex].src
             });
             /* each time we load a video, we want to add an event listener for the play event that will unload after one event */
-            player.one("play", function (evt) {
+            player.on("play", function (evt) {
                 var dateTime = new Date();
                 evt.timeStamp = dateTime.valueOf();
                 if (settings.showLog) {
@@ -147,7 +147,7 @@
                 dateTime = new Date(parseInt(evt.timeStamp)),
                 currentVideo = settings.videoCollection[lastVideoIndex];
             // add params for all requests
-            urlStr = "event=" + eventType + "&domain=videocloud&account=" + settings.accountID + "&player=" + player.id() + "&time=" + time + "&destination=" + encodeURI(destination);
+            urlStr = "event=" + eventType + "&domain=videocloud&account=" + settings.accountID + "&time=" + time + "&destination=" + encodeURI(destination);
             // source will be empty for direct traffic
             if (source !== "") {
                 urlStr += "&source=" + encodeURI(source);

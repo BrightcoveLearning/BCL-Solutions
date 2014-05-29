@@ -54,42 +54,45 @@
             </div>
         </div>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam et tellus at nunc varius dapibus a eget arcu. Fusce venenatis ullamcorper viverra. Integer vitae lorem vel nulla interdum commodo. Donec mauris mi, commodo eget egestas at, malesuada vel lorem. Nullam eleifend congue aliquam. Vestibulum tincidunt ante at nisi blandit sollicitudin. Cras ut magna lacus, lacinia faucibus orci.</p>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script type="text/javascript">
-            var player,
-                APIModules,
-                videoPlayer,
-                experienceModule;
-
-            function onTemplateLoad(experienceID) {
-                console.log("EVENT: onTemplateLoad");
-                player = brightcove.api.getExperience(experienceID);
-                APIModules = brightcove.api.modules.APIModules;
+           var player,
+             APIModules,
+             videoPlayer,
+             experienceModule;
+         
+           function onTemplateLoad(experienceID) {
+             console.log("EVENT: onTemplateLoad");
+             player = brightcove.api.getExperience(experienceID);
+             APIModules = brightcove.api.modules.APIModules;
+           }
+         
+           function onTemplateReady(evt) {
+             console.log("EVENT.onTemplateReady");
+             videoPlayer = player.getModule(APIModules.VIDEO_PLAYER);
+             experienceModule = player.getModule(APIModules.EXPERIENCE);
+             videoPlayer.play();
+         
+             videoPlayer.getCurrentRendition(function(renditionDTO) {
+             var newPercentage = (renditionDTO.frameHeight / renditionDTO.frameWidth) * 100;
+             newPercentage = newPercentage + "%";
+             console.log("Video Width = " + renditionDTO.frameWidth + " and Height = " + renditionDTO.frameHeight);
+             console.log("New Percentage = " + newPercentage);
+             document.getElementById("container1").style.paddingBottom = newPercentage;
+             var evt = document.createEvent('UIEvents');
+             evt.initUIEvent('resize',true,false,0);
+             window.dispatchEvent(evt);
+           });
+          }
+         
+          window.onresize = function(evt) {
+            console.log("in resize function");
+            var resizeWidth = document.getElementById("myExperience1754276221001").offsetWidth,
+               resizeHeight = document.getElementById("myExperience1754276221001").offsetHeight;
+            if (experienceModule.experience.type == "html"){
+              experienceModule.setSize(resizeWidth, resizeHeight) 
             }
-
-            function onTemplateReady(evt) {
-                console.log("EVENT.onTemplateReady");
-                videoPlayer = player.getModule(APIModules.VIDEO_PLAYER);
-                experienceModule = player.getModule(APIModules.EXPERIENCE);
-                videoPlayer.play();
-
-                videoPlayer.getCurrentRendition(function(renditionDTO) {
-                    var newPercentage = (renditionDTO.frameHeight / renditionDTO.frameWidth) * 100;
-                    newPercentage = newPercentage + "%";
-                    console.log("Video Width = " + renditionDTO.frameWidth + " and Height = " + renditionDTO.frameHeight);
-                    console.log("New Percentage = " + newPercentage);
-                    document.getElementById("container1").style.paddingBottom = newPercentage;
-                    $(window).trigger("resize");
-                });
-            }
-
-            window.onresize = function(evt) {
-                console.log("in resize function");
-                var resizeWidth = $(".BrightcoveExperience").width(),
-                    resizeHeight = $(".BrightcoveExperience").height();
-                experienceModule.setSize(resizeWidth, resizeHeight);
-            }
-        </script>
+          }
+         </script>
     </body>
 
 </html>

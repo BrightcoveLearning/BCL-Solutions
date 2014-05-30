@@ -109,7 +109,7 @@
                 "src": settings.videoCollection[currentVideoIndex].src
             });
             /* each time we load a video, we want to add an event listener for the play event that will unload after one event */
-            player.on("play", function (evt) {
+            player.one("play", function (evt) {
                 var dateTime = new Date();
                 evt.timeStamp = dateTime.valueOf();
                 if (settings.showLog) {

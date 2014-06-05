@@ -3,15 +3,15 @@
   background-color: #333;
   border-radius: 5px;
   display: inline-block;
-  width: 200px;
-  height: 360px;
+  width: 190px;
+  height: 338px;
   overflow-y: scroll;
   padding: 5px;
   text-align: center;
 }
 .playlist-item {
   cursor: pointer;
-  font-size: small;
+  font-size: .8rem;
   margin: 10px 0;
   text-align: center;
 }

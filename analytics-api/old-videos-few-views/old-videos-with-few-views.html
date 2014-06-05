@@ -14,8 +14,8 @@
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/styles/github.min.css">
         <link rel="stylesheet" type="text/css" href="/bcls/analytics-api/css/aapi-request-builder.css">
         <style type="text/css">
-            body {
-                padding-left: 40px;
+            #top {
+                margin-top: -80px;
                 padding-top: 120px;
             }
             #responseFrame, #request {
@@ -31,15 +31,19 @@
     <body>
     <!-- header navbar -->
     <div id="navWrapper" class="fixed"></div>
+	<!-- breadcrumbs -->
+	<nav id="breadCrumbWrapper" class="breadcrumbs show-for-medium-up"></nav>
     <!-- search -->
     <div id="searchModal" class="reveal-modal" data-reveal></div>
     <!-- content -->
     <div class="row">
         <div class="large-12 large-centered small-12 small-centered">
         <!-- main content starts here -->
-        <h1>Analytics API Sample: Identifying Low-Performing Content</h1>
-        <p>This sample uses the Media API and the Analytics API together to compile a list of videos with less than five views over the past 1-6 months (you can specify the period). The output includes the creation date for the video, and you can exclude videos published within the last 1-12 months if you like. The results can be returned in JSON or CSV format.</p>
-        <p class="text-warning small">Note that the Analytics API is currently in <strong>Limited Availability</strong>. If you are interested in enabling your account for the beta version of the API, please contact your account manager.</p>
+        <div class="section" id="top">
+          <h1>Identifying Low-Performing Content</h1>
+                <p>This sample uses the Media API and the Analytics API together to compile a list of videos with less than five views over the past 1-6 months (you can specify the period). The output includes the creation date for the video, and you can exclude videos published within the last 1-12 months if you like. The results can be returned in JSON or CSV format.</p>
+        </div>
+        <p class="text-warning">Note that the Analytics API is currently in <strong>Limited Availability</strong>. If you are interested in enabling your account for the beta version of the API, please contact your account manager.</p>
         <h2>Request Options</h2>
         <p>Where no default value is indicated, there is none.</p>
         <div id="inputFields" class="input-fields">

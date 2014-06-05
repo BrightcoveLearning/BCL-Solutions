@@ -26,8 +26,8 @@
   <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
   <link rel="stylesheet" type="text/css" href="/bcls/analytics-api/css/most-popular-videos.css">
   <style type="text/css">
-    body {
-      padding-left: 40px;
+    #top {
+      margin-top: -80px;
       padding-top: 120px;
     }
   </style>
@@ -37,6 +37,8 @@
 <body>
 	<!-- header navbar -->
 	<div id="navWrapper" class="fixed"></div>
+	<!-- breadcrumbs -->
+	<nav id="breadCrumbWrapper" class="breadcrumbs show-for-medium-up"></nav>
 	<!-- search -->
 	<div id="searchModal" class="reveal-modal" data-reveal></div>
 	<!-- content -->
@@ -47,12 +49,18 @@
         <div id="main" class="large-10 small-12 columns">
 <!-- main content starts here -->
 <div class="section" id="top">
-  <h1>Most Popular Videos: Analytics API / Media API / Smart Player API</h1>
+  <h1>Most Popular Videos</h1>
     <p class="text-warning">Note that the Analytics API is currently in <strong>Limited Availability</strong>. If you are interested in enabling your account for the beta version of the API, please contact your account manager.</p>
 </div>
     <div class="section" id="intro">
       <h2>Introduction</h2>
       <p>This sample shows the most popular videos of the day and uses the Smart Player API to load them into a player.</p>
+      <p>APIs used:</p>
+      <ul>
+          <li>Analytics API</li>
+          <li>Media API</li>
+          <li>Smart Player API</li>
+      </ul>
     </div>
     <div class="section" id="player">
       <h2>The functional sample</h2>
@@ -60,8 +68,8 @@
       <script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
       <object id="myExperience" class="BrightcoveExperience">
         <param name="bgcolor" value="#FFFFFF" />
-        <param name="width" value="659" />
-        <param name="height" value="371" />
+        <param name="width" value="600" />
+        <param name="height" value="338" />
         <param name="playerID" value="2081645594001" />
         <param name="playerKey" value="AQ~~,AAAABLsQgFE~,jGXrTxeVLAQAxWWh5tR_yAk4ujie9FeT" />
         <param name="isVid" value="true" />
@@ -73,7 +81,7 @@
       </object>
       <!-- End of Brightcove Player -->
       <div id="playlist" class="playlist">
-        <h4>Most popular videos</h4>
+        <h5 style="color:#FFFFFF;">Most popular videos</h5>
       </div>
     </div>
     <div class="section" id="logic">

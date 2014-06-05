@@ -24,8 +24,9 @@
     <!-- Fav and touch icons -->
     <link rel="shortcut icon" href="/bcls/assets/images/favicon.ico">
     <style type="text/css">
-    body {
-        margin: 40px;
+    #top {
+        padding-top: 120px;
+        margin-top: -80px;
     }
     </style>
     <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
@@ -34,7 +35,7 @@
 	<!-- header navbar -->
 	<div id="navWrapper" class="fixed"></div>
 	<!-- breadcrumbs -->
-	<nav id="breadCrumbWrapper" class="breadcrumbs sticky"></nav>
+	<nav id="breadCrumbWrapper" class="breadcrumbs show-for-medium-up"></nav>
 	<!-- search -->
 	<div id="searchModal" class="reveal-modal" data-reveal></div>
 	<!-- content -->
@@ -42,19 +43,17 @@
         <div class="large-2 columns show-for-large-up">
             <div id="sidenav"></div>
         </div>
-        <div class="section" id="top">
         <div id="main" class="large-10 small-12 columns">
+        <div class="section" id="top">
                 <h1>Analytics API Solution: Video Report by Player and Day</h1>
                 <p>The Analytics UI in Video Cloud Studio offers a number of ready-made reports, but you can create additional reports using he Analytics API that are tailored to your specific needs. In this example, we will create a report on all videos in the account, grouped by player, showing the total views, percentage of views that were complete, the average number of seconds viewed per view, and the total viewed seconds for each day in the selected period.</p>
-                <div class="text-warning">
-                    <h3>Dependencies</h3>
-                    <p>3rd party libraries used in this sample:</p>
-                    <ul>
-                        <li><a href="https://jquery.org">jQuery</a></li>
-                        <li><a href="http://handlebarsjs.com">Handlebars</a></li>
-                        <li><a href="http://www.flotcharts.org">Flot</a></li>
-                    </ul>
-                </div>
+                <h3>Dependencies</h3>
+                <p>3rd party libraries used in this sample:</p>
+                <ul>
+                    <li><a href="https://jquery.org">jQuery</a></li>
+                    <li><a href="http://handlebarsjs.com">Handlebars</a></li>
+                    <li><a href="http://www.flotcharts.org">Flot</a></li>
+                </ul>
             </div>
             <div class="section" id="inputs">
                 <h2>Inputs</h2>
@@ -120,6 +119,7 @@
               <script src="https://gist.github.com/7456361.js"></script>
             </div>
         </div>
+    </div>
     </div>
     <!-- jquery used for the AJAX calls -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>

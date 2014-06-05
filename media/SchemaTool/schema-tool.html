@@ -14,10 +14,10 @@
         <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
         <style>
             /* element styles */
-            body {
-                font-family:'ProximaNovaA-Regular', "Helvetica Neue", Arial, Helvetica, sans-serif;
-                margin: 0 30px;
-            }
+            #top {
+                padding-top: 120px;
+                margin-top: -80px;
+                            }
             fieldset {
                 /*width: 800px;
                 display: block;
@@ -27,21 +27,6 @@
             input {
                 font-family: source-code-pro, Monaco, Consolas, Menlo, "Lucida Console", monospace;
             }
-            /*table {
-                border-collapse: collapse;
-                border: 0 #999 solid;
-                border-radius: 5px;
-            }
-            td {
-                padding: 5px;
-            }
-            tr td:first {
-                text-align: right;
-            }
-            textarea {
-                width: 750px;
-                height: 500px;
-            }*/
             iframe {
                 width: 900px;
                 height: 600px;
@@ -91,18 +76,20 @@
     <!-- header navbar -->
 	<div id="navWrapper" class="fixed"></div>
 	<!-- breadcrumbs -->
-	<nav id="breadCrumbWrapper" class="breadcrumbs sticky"></nav>
+	<nav id="breadCrumbWrapper" class="breadcrumbs show-for-medium-up"></nav>
     <!-- search -->
     <div id="searchModal" class="reveal-modal" data-reveal></div>
     <!-- content -->
     <div class="row">
         <div class="large-12 large-centered small-12 small-centered">
         <!-- main content starts here -->
-        <h1>Video Cloud Schema Builder</h1>
-        <p>This app generates an
-            <a href="http://schema.org/VideoObject">VideoObject Schema</a>based on the
-            <a href="http://schema.org">schema.org</a>specification. Including a schema with your video provides information to search engine indexers and enhances SEO. You can generate the code here and use it as your publishing code.</p>
-        <p class="text-warning">Note that this app produces code for a single video player only. Also, you should update the code periodically, as URLs can change.</p>
+        <div class="section" id="top">
+      <h1>Video Cloud Schema Builder</h1>
+            <p>This app generates an
+                <a href="http://schema.org/VideoObject">VideoObject Schema</a>based on the
+                <a href="http://schema.org">schema.org</a>specification. Including a schema with your video provides information to search engine indexers and enhances SEO. You can generate the code here and use it as your publishing code.</p>
+            <p class="text-warning">Note that this app produces code for a single video player only. Also, you should update the code periodically, as URLs can change.</p>
+    </div>
         <h2>Data Input</h2>
         <p class="text-warning">
             <span class="red">All fields are

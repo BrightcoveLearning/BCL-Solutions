@@ -21,9 +21,6 @@
     <!-- Fav and touch icons -->
     <link rel="shortcut icon" href="/bcls/assets/images/favicon.ico">
     <style type="text/css">
-    body {
-        margin: 10px;
-    }
     .BCL-btn {
 	    white-space: nowrap;
 	    font-size: small;
@@ -40,9 +37,9 @@
     td {
         vertical-align: top;
     }
-    #detailTable {
-        padding-top: 70px;
-        margin-top: -70px;
+    #detailTable, #top {
+        padding-top: 120px;
+        margin-top: -80px;
     }
     </style>
     <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
@@ -53,7 +50,7 @@
 	<!-- header navbar -->
 	<div id="navWrapper" class="fixed"></div>
 	<!-- breadcrumbs -->
-	<nav id="breadCrumbWrapper" class="breadcrumbs sticky"></nav>
+	<nav id="breadCrumbWrapper" class="breadcrumbs show-for-medium-up"></nav>
 	<!-- search -->
 	<div id="searchModal" class="reveal-modal" data-reveal></div>
 	<!-- content -->
@@ -63,16 +60,14 @@
         </div>
         <div id="main" class="large-10 small-12 columns">
             <div class="section" id="top">
-                <h1>Analytics API Solution: Video Views Report for Multiple Accounts</h1>
-                <p>The Analytics UI in Video Cloud Studio offers a number of ready-made reports, but you can create additional reports using he Analytics API that are tailored to your specific needs. In this example, we will create a report showing the total video views for multiple accounts over a selected period. We will also break the views down by country.</p>
-                <div class="text-warning">
+                <h1>Analytics Report for Multiple Accounts</h1>
+                <p>The Analytics UI in Video Cloud Studio offers a number of ready-made reports, but you can create additional reports using he Analytics API that are tailored to your specific needs. In this example, we will create a report showing the total video views for multiple accounts over a selected period.</p>
                     <h3>Dependencies</h3>
                     <p>3rd party libraries used in this sample:</p>
                     <ul>
                         <li><a href="https://jquery.org">jQuery</a></li>
                         <li><a href="http://handlebarsjs.com">Handlebars</a></li>
                     </ul>
-                </div>
             </div>
             <div class="section" id="inputs">
                 <h2>Inputs</h2>
@@ -136,10 +131,10 @@
             </div>
             <div class="section" id="results">
                 <h2>Results</h2>
-                <frameset>
+                <fieldset>
                 	<legend>Log</legend>
 					<div id="log"></div>
-                </frameset>
+                </fieldset>
                 <table>
                     <caption style="white-space:nowrap;">
                         Analytics Summary

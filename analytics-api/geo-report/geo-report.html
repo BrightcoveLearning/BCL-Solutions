@@ -20,8 +20,9 @@
     <!-- Fav and touch icons -->
     <link rel="shortcut icon" href="/bcls/assets/images/favicon.ico">
     <style type="text/css">
-    body {
-        margin: 10px;
+    #top {
+        padding-top: 120px;
+        margin-top: -80px;
     }
     #requestURL {
         border: #666666 1px solid;
@@ -38,7 +39,7 @@
 	<!-- header navbar -->
 	<div id="navWrapper" class="fixed"></div>
 	<!-- breadcrumbs -->
-	<nav id="breadCrumbWrapper" class="breadcrumbs sticky"></nav>
+	<nav id="breadCrumbWrapper" class="breadcrumbs show-for-medium-up"></nav>
 	<!-- search -->
 	<div id="searchModal" class="reveal-modal" data-reveal></div>
 	<!-- content -->
@@ -50,7 +51,6 @@
             <div class="section" id="top">
                 <h1>Analytics API Solution: Geographical Report</h1>
                 <p>The Analytics UI in Video Cloud Studio offers a number of ready-made reports, but you can create additional reports using the Analytics API that are tailored to your specific needs. In this example, we will get video views by geographical locations</p>
-                <div class="text-warning">
                     <h3>Dependencies</h3>
                     <p>3rd party libraries used in this sample:</p>
                     <ul>
@@ -59,7 +59,6 @@
                         <li><a href="//code.google.com/p/datepickr/">DatePickr</a></li>
                         <li><a href="http://www.flotcharts.org">Flot</a></li>
                     </ul>
-                </div>
             </div>
             <div class="section" id="inputs">
                 <h2>Inputs</h2>
@@ -144,7 +143,7 @@
                     <tbody id="reportTableBody"></tbody>
                 </table>
                 <h4>Video Views by Geo</h4>
-                <div id="chartView" width="700" height="400" style="width:700px;height:400px"></div>
+                <div id="chartView" style="width:700px;height:400px"></div>
                 <div id="chartViewLegend" style="padding:10px 20px;"></div>
             </div>
             <div class="section" id="code">

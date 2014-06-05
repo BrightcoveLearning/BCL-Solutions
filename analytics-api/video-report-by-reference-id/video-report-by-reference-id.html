@@ -15,16 +15,10 @@
         <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/anytime.5.0.0-1401232312.min.css">
         <link rel="stylesheet" type="text/css" href="/bcls/analytics-api/css/aapi-request-builder.css">
         <style type="text/css">
-            /*body {
-                padding-left: 40px;
+            #top {
                 padding-top: 120px;
+                margin-top: -80px;
             }
-            #responseFrame, #request {
-                width: 70%;
-            }
-            .small {
-            	font-size: 10px;
-            }*/
         </style>
     <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
     </head>
@@ -32,15 +26,19 @@
     <body>
     <!-- header navbar -->
     <div id="navWrapper" class="fixed"></div>
+	<!-- breadcrumbs -->
+	<nav id="breadCrumbWrapper" class="breadcrumbs show-for-medium-up"></nav>
     <!-- search -->
     <div id="searchModal" class="reveal-modal" data-reveal></div>
     <!-- content -->
     <div class="row">
         <div class="large-12 large-centered small-12 small-centered">
         <!-- main content starts here -->
-        <h1>Anayltics API Sample: Video Report by Reference ID</h1>
-        <p>This sample allows you to get reports on videos by the video reference ID and return the results in JSON or CSV format.</p>
-        <p class="text-warning small">Note that the Analytics API is currently in <strong>Limited Availability</strong>. If you are interested in enabling your account for the beta version of the API, please contact your account manager.</p>
+        <div class="section" id="top">
+          <h1>Anayltics API Sample: Video Report by Reference ID</h1>
+                <p>This sample allows you to get reports on videos by the video reference ID and return the results in JSON or CSV format.</p>
+                <p class="text-warning small">Note that the Analytics API is currently in <strong>Limited Availability</strong>. If you are interested in enabling your account for the beta version of the API, please contact your account manager.</p>
+        </div>
         <h2>Request Options</h2>
         <p>Where no default value is indicated, there is none.</p>
         <div id="inputFields" class="input-fields">

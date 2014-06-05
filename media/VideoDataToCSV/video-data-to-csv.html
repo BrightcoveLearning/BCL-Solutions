@@ -6,15 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
-        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-        <!--[if lt IE 9]>
-            <script src="/bcls/bootstrap/js/html5shiv.js"></script>
-        <![endif]-->
         <!-- Fav and touch icons -->
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/bcls/bootstrap/img/apple-touch-icon-144-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/bcls/bootstrap/img/apple-touch-icon-114-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/bcls/bootstrap/img/apple-touch-icon-72-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" href="/bcls/bootstrap/img/apple-touch-icon-57-precomposed.png">
         <link rel="shortcut icon" href="/bcls/assets/images/favicon.ico">
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/styles/github.min.css">
         <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.2.3/css/foundation.min.css" />
@@ -23,20 +15,15 @@
         <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
         <style>
             /* element styles */
-            body {
-                font-family:'ProximaNovaA-Regular', "Helvetica Neue", Arial, Helvetica, sans-serif;
-                width: 80%;
-                padding-left: 40px;
-                padding-top: 100px;
+            #top {
+               padding-top: 120px;
+               margin-top: -80px; 
             }
             fieldset {
                 width: 800px;
                 display: block;
                 margin-bottom: 20px;
                 border-radius: 5px;
-            }
-            h1 {
-                border-bottom: 1px #CCC solid;
             }
             input {
                 width: 400px;
@@ -83,14 +70,16 @@
     <!-- header navbar -->
 	<div id="navWrapper" class="fixed"></div>
 	<!-- breadcrumbs -->
-	<nav id="breadCrumbWrapper" class="breadcrumbs sticky"></nav>
+	<nav id="breadCrumbWrapper" class="breadcrumbs show-for-medium-up"></nav>
     <!-- search -->
     <div id="searchModal" class="reveal-modal" data-reveal></div>
     <!-- content -->
     <div class="row">
         <div class="large-12 large-centered small-12 small-centered">
         <!-- main content starts here -->
-        <h1>Video Data to CSV Tool</h1>
+        <div class="section" id="top">
+          <h1>Video Data to CSV Tool</h1>
+        </div>
         <h2>Instructions</h2>
         <ol>
             <li>Replace the Media API READ token in the field below with a token from your own account

@@ -15,9 +15,9 @@
         <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/anytime.5.0.0-1401232312.min.css">
         <link rel="stylesheet" type="text/css" href="/bcls/analytics-api/css/analytics-by-playlist.css">
         <style type="text/css">
-            body {
-                padding-left: 40px;
+            #top {
                 padding-top: 120px;
+                margin-top: -80px;
             }
             #responseFrame, #request {
                 width: 80%;
@@ -30,14 +30,15 @@
     <!-- header navbar -->
 	<div id="navWrapper" class="fixed"></div>
 	<!-- breadcrumbs -->
-	<nav id="breadCrumbWrapper" class="breadcrumbs sticky"></nav>
+	<nav id="breadCrumbWrapper" class="breadcrumbs show-for-medium-up"></nav>
     <!-- search -->
     <div id="searchModal" class="reveal-modal" data-reveal></div>
     <!-- content -->
     <div class="row">
         <div class="large-12 large-centered small-12 small-centered">
         <!-- main content starts here -->
-        <h1>Get Analytics for a Playlist</h1>
+        <div class="section" id="top">
+  <h1>Get Analytics for a Playlist</h1>
         <p class="text-warning">Note that the Analytics API is currently in <strong>Limited Availability</strong>. If you are interested in enabling your account for the beta version of the API, please contact your account manager.</p>
         <p>This tool allows you to select a playlist from your account and get analytics data for all the videos in the playlist.</p>
         <h3>Notes</h3>
@@ -47,6 +48,7 @@
             <li>The returned data includes the data for individual videos plus cumulative or average values for the playlist</li>
             <li>If the returned data does not include items for all videos in the playlist, no data was returned for those videos over the time period specified</li>
         </ul>
+</div>
         <h2>Request Options</h2>
         <p>Where no default value is indicated, there is none.</p>
         <div id="inputFields" class="input-fields">

@@ -11,10 +11,6 @@
             <script src="/bcls/bootstrap/js/html5shiv.js"></script>
         <![endif]-->
         <!-- Fav and touch icons -->
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/bcls/bootstrap/img/apple-touch-icon-144-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/bcls/bootstrap/img/apple-touch-icon-114-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/bcls/bootstrap/img/apple-touch-icon-72-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" href="/bcls/bootstrap/img/apple-touch-icon-57-precomposed.png">
         <link rel="shortcut icon" href="/bcls/assets/images/favicon.ico">
         <link href="//files.brightcove.com/proxima-nova/font-faces.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/styles/github.min.css">
@@ -23,10 +19,9 @@
         <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
         <style>
             /* element styles */
-            body {
-                width: 80%;
-                padding-left: 40px;
-                padding-top: 100px;
+            #top {
+                padding-top: 120px;
+                margin-top: -80px;
             }
             fieldset {
                 width: 80%;
@@ -82,16 +77,18 @@
     <!-- header navbar -->
 	<div id="navWrapper" class="fixed"></div>
 	<!-- breadcrumbs -->
-	<nav id="breadCrumbWrapper" class="breadcrumbs sticky"></nav>
+	<nav id="breadCrumbWrapper" class="breadcrumbs show-for-medium-up"></nav>
     <!-- search -->
     <div id="searchModal" class="reveal-modal" data-reveal></div>
     <!-- content -->
     <div class="row">
         <div class="large-12 large-centered small-12 small-centered">
         <!-- main content starts here -->
-        <h1>Download Links for Best Renditions</h1>
+        <div class="section" id="top">
+  <h1>Download Links for Best Renditions</h1>
         <p>This tool allows you to get download links for the best rendition available for all your <em>active</em> videos.</p>
         <p class="text-warning">Note: for accounts with many thousands of videos, this will take a while, and may fail on occasions because of timeouts or too many concurrent Media API calls. In case of errors, the problem and the data retrieved so far will be displayed - try again later to get the full data, and try to ensure that other applications are not making Media API calls on your account while you run the report.</p>
+</div>
         <h2>Instructions</h2>
         <ol>
             <li>Replace the Media API READ token in the field below with a token from your own account (find it in your Account Settings &gt; API Management - <strong style="color:red">note that you MUST use a READ token with URL Access!</strong>).</li>

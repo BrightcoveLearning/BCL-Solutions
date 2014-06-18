@@ -1,6 +1,5 @@
 <?php
-//require_once('../util/inc/bc-mapi.php');
-require_once('scripts/bc-mapi.php');
+require_once('http://solutions.brightcove.com/bcls/scripts/bc-mapi.php');
 /* https://github.com/BrightcoveOS/PHP-MAPI-Wrapper
   On a production site use the cache extension */
   

@@ -91,21 +91,21 @@
 			contentModule;
 
 		var onTemplateLoaded = function(experienceID) {
-			console.log("EVENT: onTemplateLoaded");
+			//console.log("EVENT: onTemplateLoaded");
 		    player = brightcove.api.getExperience(experienceID);
 			APIModules = brightcove.api.modules.APIModules;
 		}
 
 		var onTemplateReady = function(evt) {
-			console.log("EVENT.onTemplateReady");
+			//console.log("EVENT.onTemplateReady");
 		    videoPlayer = player.getModule(APIModules.VIDEO_PLAYER);
 			experienceModule = player.getModule(APIModules.EXPERIENCE);
 			contentModule = player.getModule(APIModules.CONTENT);
 			videoPlayer.getCurrentRendition(function (renditionDTO) {
 				var newPercentage = (renditionDTO.frameHeight / renditionDTO.frameWidth) * 100;
 				newPercentage = newPercentage + "%";
-				console.log("Video Width = " + renditionDTO.frameWidth + " and Height = " + renditionDTO.frameHeight);
-				console.log("New Percentage = " + newPercentage);
+				//console.log("Video Width = " + renditionDTO.frameWidth + " and Height = " + renditionDTO.frameHeight);
+				//console.log("New Percentage = " + newPercentage);
 				document.getElementById("container1").style.paddingBottom = newPercentage;
 				var evt = document.createEvent('UIEvents');
 				evt.initUIEvent('resize', true, false, 0);
@@ -118,7 +118,7 @@
 		var buildPlaylistData = function(){
 		    // retrieves the playlist data from the Video Cloud service
 		    contentModule.getPlaylistByID(1754200320001 , function(playlistDTO) {
-				console.dir(playlistDTO);
+				//console.dir(playlistDTO);
 				// create the video thumbnail links in the scroller and write it into the HTML
 				var str = "";
 				for (var i in playlistDTO.videos) {
@@ -126,7 +126,6 @@
 					"' /><div class=\"scroller-caption\"><span>"+
 					playlistDTO.videos[i].shortDescription+"</span></div></div>";
 				}
-				console.log("str=" + str);
 				document.getElementById("playlist").innerHTML = str;
 			});	
 		};

@@ -73,8 +73,9 @@ var BCLS = (function ($, window, Pikaday) {
         gettingData = false;
 
     // utilities
-    logit = function (message) {
+    logit = function (context, message) {
         if (console) {
+            console.log(context);
             console.log(message);
         }
     }
@@ -88,11 +89,11 @@ var BCLS = (function ($, window, Pikaday) {
     }
     // more robust test for strings "not defined"
     isDefined =  function (v) {
-        if (v !== "" && v !== null && v !== "undefined") { 
-            return true; 
+        if (v !== "" && v !== null && v !== "undefined") {
+            return true;
         }
-        else { 
-            return false; 
+        else {
+            return false;
         }
     }
     // reset everything
@@ -160,42 +161,6 @@ var BCLS = (function ($, window, Pikaday) {
         analyticsData.total_video_view = 0;
         analyticsData.individual_video_data = [];
         buildRequest();
-    }
-     // store returned data and do math to sum up playlist totals
-     processData = function (aapiData) {
-        logit(aapiData);
-        // add current data to totals
-        analyticsData.individual_video_data.push(aapiData);
-        analyticsData.average_engagement_score += aapiData.items[0].engagement_score;
-        analyticsData.average_play_rate += aapiData.items[0].play_rate;
-        analyticsData.average_video_engagement_1 += aapiData.items[0].video_engagement_1
-        analyticsData.average_video_engagement_25 += aapiData.items[0].video_engagement_25;
-        analyticsData.average_video_engagement_50 += aapiData.items[0].video_engagement_50;
-        analyticsData.average_video_engagement_75 += aapiData.items[0].video_engagement_75;
-        analyticsData.average_video_engagement_100 += aapiData.items[0].video_engagement_100
-        analyticsData.total_video_impression += aapiData.items[0].video_impression;
-        analyticsData.average_video_percent_viewed += aapiData.items[0].video_percent_viewed;
-        analyticsData.total_video_seconds_viewed += aapiData.items[0].video_seconds_viewed;
-        analyticsData.total_video_view += aapiData.items[0].video_view;
-        if (analyticsRequestNumber === (totalVideos - 1)) {
-            // all done; time to compute the averages
-            analyticsData.average_engagement_score      = analyticsData.average_engagement_score / totalVideos;
-            analyticsData.average_play_rate             = analyticsData.average_play_rate / totalVideos;
-            analyticsData.average_video_engagement_1    = analyticsData.average_video_engagement_1 / totalVideos;
-            analyticsData.average_video_engagement_25   = analyticsData.average_video_engagement_25 / totalVideos;
-            analyticsData.average_video_engagement_50   = analyticsData.average_video_engagement_50 / totalVideos;
-            analyticsData.average_video_engagement_75   = analyticsData.average_video_engagement_75 / totalVideos;
-            analyticsData.average_video_engagement_100  = analyticsData.average_video_engagement_100 / totalVideos;
-            analyticsData.average_video_percent_viewed  = analyticsData.average_video_percent_viewed / totalVideos;
-            $analyticsData.append(BCLSformatJSON.formatJSON(analyticsData));
-            // next line just for this display - remove if reusing this code
-            $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
-        } else {
-            // get the next data set
-            analyticsRequestNumber++;
-            currentVideoIndex++;
-            getData();
-        }
     }
     removeSpaces = function (str) {
         if (isDefined(str)) {
@@ -272,7 +237,7 @@ var BCLS = (function ($, window, Pikaday) {
     }
      // store returned data and do math to sum up playlist totals
      processData = function (aapiData) {
-        logit(aapiData);
+        logit("AAPI data", aapiData);
         // check for items
         if (aapiData.item_count !== 0) {
             // add current data to totals
@@ -290,7 +255,7 @@ var BCLS = (function ($, window, Pikaday) {
             analyticsData.total_video_view += aapiData.items[0].video_view;
             if (analyticsRequestNumber === (totalVideos - 1)) {
                 // all done; time to compute the averages
-                logit(analyticsData);
+                logit("Analytics data", analyticsData);
                 gettingData = false;
                 analyticsData.average_engagement_score      = analyticsData.average_engagement_score / totalVideos;
                 analyticsData.average_play_rate             = analyticsData.average_play_rate / totalVideos;

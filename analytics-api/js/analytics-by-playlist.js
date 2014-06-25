@@ -1,4 +1,4 @@
-var BCLS = (function ($, window, AnyTime) {
+var BCLS = (function ($, window, Pikaday) {
     "use strict";
     var // media api stuff
         getPlaylists,
@@ -16,10 +16,10 @@ var BCLS = (function ($, window, AnyTime) {
         $accountID = $("#accountID"),
         $token = $("#token"),
         $dimension = $("#dimension"),
-        $startDate = $("#startDate"),
-        $startTime = $("#startTime"),
-        $endDate = $("#endDate"),
-        $endTime = $("#endTime"),
+        fromPicker,
+        toPicker,
+        to = document.getElementById("to"),
+        from = document.getElementById("from"),
         $whereInputs = $(".where-input"),
         $player = $("#player"),
         $requestButton = $("#requestButton"),
@@ -88,8 +88,12 @@ var BCLS = (function ($, window, AnyTime) {
     }
     // more robust test for strings "not defined"
     isDefined =  function (v) {
-        if(v !== "" && v !== null && v !== "undefined") { return true; }
-        else { return false; }
+        if (v !== "" && v !== null && v !== "undefined") { 
+            return true; 
+        }
+        else { 
+            return false; 
+        }
     }
     // reset everything
     reset = function () {
@@ -245,14 +249,12 @@ var BCLS = (function ($, window, AnyTime) {
             requestURL += "&";
         }
         // check for time filters
-        startDate = $startDate.val() + " " + $startTime.val();
+        startDate = from.value;
         if (startDate !== " ") {
-            startDate = new Date(startDate).getTime();
             requestURL += "from=" + startDate + "&";
         }
-        endDate = $endDate.val() + " " + $endTime.val();
+        endDate = to.value;
         if (endDate !== " ") {
-            endDate = new Date(endDate).getTime();
             requestURL += "to=" + endDate + "&";
         }
         // add limit and fields
@@ -288,6 +290,7 @@ var BCLS = (function ($, window, AnyTime) {
             analyticsData.total_video_view += aapiData.items[0].video_view;
             if (analyticsRequestNumber === (totalVideos - 1)) {
                 // all done; time to compute the averages
+                logit(analyticsData);
                 gettingData = false;
                 analyticsData.average_engagement_score      = analyticsData.average_engagement_score / totalVideos;
                 analyticsData.average_play_rate             = analyticsData.average_play_rate / totalVideos;
@@ -320,6 +323,9 @@ var BCLS = (function ($, window, AnyTime) {
             },
             success : function(data) {
                 processData(data);
+            },
+            error : function (XMLHttpRequest, textStatus, errorThrown) {
+                $responseFrame.html("Sorry, your request was not successful. Here is what the server sent back: " + errorThrown);
             }
         })
     }
@@ -335,30 +341,22 @@ var BCLS = (function ($, window, AnyTime) {
         params.video_fields = "id,name,thumbnailURL";
         BCMAPI.find("find_all_playlists", params);
     }
-    // set up the anytime date/time pickers
-    AnyTime.picker("startDate", {
-        format: "%a %M %d %Y"
-    });
-    AnyTime.picker("startTime", {
-        format: "%H:%i:%s %@",
-        labelTitle: "Time",
-        labelHour: "Hour",
-        labelMinute: "Minute"
-    });
-    AnyTime.picker("endDate", {
-        format: "%a %M %d %Y"
-    });
-    AnyTime.picker("endTime", {
-        format: "%H:%i:%s %@",
-        labelTitle: "Time",
-        labelHour: "Hour",
-        labelMinute: "Minute"
-    });
+        // add date pickers to the date input fields
+        fromPicker = new Pikaday({
+            field: document.getElementById("from"),
+            format: 'YYYY-MM-DD',
+            onSelect: buildRequest
+        });
+        toPicker = new Pikaday({
+            field: document.getElementById("to"),
+            format: 'YYYY-MM-DD',
+            onSelect: buildRequest
+        });
 
     // set event listeners
     $getPlaylists.on("click", getPlaylists);
     // set listener for form fields
-    $requestInputs.on("keydown", function () {
+    $requestInputs.on("change", function () {
         reset();
         buildRequest();
     });
@@ -377,4 +375,4 @@ var BCLS = (function ($, window, AnyTime) {
         onMAPIresponse : onMAPIresponse,
         onPlaylistSelect : onPlaylistSelect
     }
-})($, window, AnyTime);
+})($, window, Pikaday);

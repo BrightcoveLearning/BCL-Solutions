@@ -255,6 +255,8 @@ var BCLS = (function ($, window, AnyTime) {
             endDate = new Date(endDate).getTime();
             requestURL += "to=" + endDate + "&";
         }
+        // add limit and fields
+        requestURL += "limit=all&fields=all"
         // strip trailing ? or & and replace &&s
         trimRequest();
         $request.html(requestURL);

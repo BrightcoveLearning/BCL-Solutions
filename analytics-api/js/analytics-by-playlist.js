@@ -111,7 +111,6 @@ var BCLS = (function ($, window, Pikaday) {
         var template = Handlebars.compile(handleBarsTemplate),
             data = jsonData,
             results = template(data);
-        logit(jsonData);
         playlistData = jsonData.items;
         // inject the HTML for the video list
         $playlistSelector.html(results);
@@ -122,10 +121,6 @@ var BCLS = (function ($, window, Pikaday) {
             // display the selector and get analytics button
             $playlistSelectWrapper.attr("class", "bcls-shown");
             $getPlaylists.html("Get next 25 playlists");
-            /*
-// get a reference to the playlist selector
-            $playlistSelector = $("#playlistSelector");
-*/
             // add event listener
             $playlistSelector.on("change", BCLS.onPlaylistSelect);
         }
@@ -237,7 +232,6 @@ var BCLS = (function ($, window, Pikaday) {
     }
      // store returned data and do math to sum up playlist totals
      processData = function (aapiData) {
-        logit("AAPI data", aapiData);
         // check for items
         if (aapiData.item_count !== 0) {
             // add current data to totals
@@ -255,7 +249,6 @@ var BCLS = (function ($, window, Pikaday) {
             analyticsData.total_video_view += aapiData.items[0].video_view;
             if (analyticsRequestNumber === (totalVideos - 1)) {
                 // all done; time to compute the averages
-                logit("Analytics data", analyticsData);
                 gettingData = false;
                 analyticsData.average_engagement_score      = analyticsData.average_engagement_score / totalVideos;
                 analyticsData.average_play_rate             = analyticsData.average_play_rate / totalVideos;
@@ -275,6 +268,12 @@ var BCLS = (function ($, window, Pikaday) {
                 gettingData = true;
                 buildRequest();
             }
+        } else {
+            // get the next data set
+            analyticsRequestNumber++;
+            currentVideoIndex++;
+            gettingData = true;
+            buildRequest();
         }
     }
     // submit request

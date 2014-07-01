@@ -4,6 +4,8 @@
     "version": "0.0.1",
     "private": "false",
     "dependencies": {
-        "express": "4.4.5"
+        "express": "4.4.5",
+        "oauth": "0.9.12",
+        "request": "2.36.0"
     }
 }

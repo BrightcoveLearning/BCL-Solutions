@@ -1,0 +1,9 @@
+{
+    "name": "oauther",
+    "description": "client credentials fetcher for Brightcove APIs",
+    "version": "0.0.1",
+    "private": "false",
+    "dependencies": {
+        "express": "4.4.5"
+    }
+}

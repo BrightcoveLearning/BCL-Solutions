@@ -23,9 +23,14 @@
         padding-top: 120px;
         margin-top: -80px;
     }
-    .BCL-btn {
-	    white-space: nowrap;
+    .BCLbutton {
+	    background-color: #333;
+        border-radius: 5px;
+        padding: 5px;
+        color: #F5F5F5;
+        white-space: nowrap;
 	    font-size: small;
+        cursor: pointer;
     }
     textarea {
         font-size: x-small;
@@ -92,7 +97,7 @@
                                         <p>Video Cloud Account: <input id="accountID" class="required aapi-request" type="text" size="55" value="20318290001"></p>
                                         <p>Authorization Token<sup class="red">*</sup>: <input id="token" class="required aapi-request" type="text" size="55" value="15075c51ae4b0af095c9a619a" /></p>
                                     </td>
-                                    <td class="align-middle"><span class="BCL-btn" id="addAccountButton">Add this account</span></td>
+                                    <td class="align-middle"><span class="BCLbutton" id="addAccountButton">Add this account</span></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -104,11 +109,11 @@
                                             <textarea name="multipleAccounts" id="multipleAccounts" cols="50" rows="10"></textarea>
                                          </p>
                                     </td>
-                                    <td class="align-middle"><span class="BCL-btn" id="addMultipleAccountsButton">Add multiple accounts</span></td>
+                                    <td class="align-middle"><span class="BCLbutton" id="addMultipleAccountsButton">Add multiple accounts</span></td>
                                 </tr>
                                 <tr>
                                     <td>Accounts <br /><select id="accounts" multiple="multiple"></select></td>
-                                    <td class="align-middle"><span class="BCL-btn" id="removeAccountButton">Removed selected account</span></td>
+                                    <td class="align-middle"><span class="BCLbutton" id="removeAccountButton">Removed selected account</span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -119,7 +124,7 @@
                     <!-- <p class="text-warning">Note: the date range <strong>must</strong> be set before you fetch the data. If you wish to set a new date range, you will need to refresh the page.</p> -->
                     <p>Start: <input id="fromDatePicker" size="30" /></p>
                     <p>End: <input id="toDatePicker" size="30" /></p>
-                    <p><span class="BCL-btn" id="getData">Get Analytics Data</span></p>
+                    <p><span class="BCLbutton" id="getData">Get Analytics Data</span></p>
                     <p class="text-warning" id="gettingDataDisplay">Click the button above when you are ready to get the data</p>
                 </fieldset>
 

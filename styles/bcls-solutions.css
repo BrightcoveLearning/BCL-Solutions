@@ -78,22 +78,14 @@ figure figcaption {
   float: left;
 }
 .BCLbutton {
-  background-color: #ffffff;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#c9caca));
-  background-image: -webkit-linear-gradient(top, #ffffff, #c9caca);
-  background-image: -moz-linear-gradient(top, #ffffff, #c9caca);
-  background-image: -o-linear-gradient(top, #ffffff, #c9caca);
-  background-image: -ms-linear-gradient(top, #ffffff, #c9caca);
-  background-image: linear-gradient(top, #ffffff, #c9caca);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#ffffff', EndColorStr='#c9caca');
-  border: #999999 1px solid;
-  border-radius: 5px;
-  font-size: .7em;
-  padding: 5px;
-  cursor: pointer;
-  width: 200px;
-  text-align: center;
-  margin-top: 5px;
+    background-color: #333;
+    border-radius: 5px;
+    padding: 5px;
+    color: #F5F5F5;
+    white-space: nowrap;
+    font-size: small;
+    margin-top: 5px;
+    cursor: pointer;
 }
 .bcl-table {
   border: 1px #999 solid;

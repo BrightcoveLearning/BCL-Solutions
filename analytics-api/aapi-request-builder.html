@@ -321,6 +321,14 @@
     <script>
         $(document).foundation();
     </script>
+    <script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io.connect('http://localhost');
+  socket.on('news', function (data) {
+    console.log(data);
+    socket.emit('my other event', { my: 'data' });
+  });
+</script>
         <div class="footer text-center"><a href="mailto:docs@brightcove.com">Questions or comments?</a></div>
 	</body>
 

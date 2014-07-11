@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+
+    </style>
+  </head>
+  <body>
+    <button id="btn"></button>
+    <script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io('http://localhost/bcls/bcls-proxy/');
+  socket.on('news', function (data) {
+    console.log(data);
+    socket.emit('my other event', { my: 'data' });
+  });
+</script>
+  </body>
+</html>

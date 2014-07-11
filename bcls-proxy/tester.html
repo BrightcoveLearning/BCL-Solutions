@@ -8,14 +8,19 @@
     </style>
   </head>
   <body>
-    <button id="btn"></button>
-    <script src="/socket.io/socket.io.js"></script>
+    <button id="btn">Test</button>
+    <script src="//docs.brightcove.com/en/scripts/cdnjs/ajax/libs/socket.io/1.0.6/socket.io-1.0.6.js"></script>
 <script>
-  var socket = io('http://localhost/bcls/bcls-proxy/');
+  var socket = io('http://localhost:9001'),
+      btn = document.getElementById("btn");
   socket.on('news', function (data) {
     console.log(data);
     socket.emit('my other event', { my: 'data' });
   });
+  btn.addEventListener("click", function () {
+    socket.emit('requestSent', {request: "http://localhost:8000", type: "POST"})
+  });
 </script>
   </body>
 </html>
+</script>

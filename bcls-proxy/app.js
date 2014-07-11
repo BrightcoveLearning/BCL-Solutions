@@ -8,6 +8,7 @@ try {
       client = require('socket.io-client');
 }
 catch (ex) {
+  console.log(ex);
   console.error('Socket.io is required for this example:');
   console.error('npm ' + 'install'.green);
   process.exit(1);

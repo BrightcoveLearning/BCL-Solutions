@@ -1,45 +1,28 @@
 var util = require('util'),
-    http = require('http'),
     colors = require('colors'),
-    httpProxy = require('http-proxy');
-
-try {
-  var io = require('socket.io'),
-      client = require('socket.io-client');
-}
-catch (ex) {
-  console.log(ex);
-  console.error('Socket.io is required for this example:');
-  console.error('npm ' + 'install'.green);
-  process.exit(1);
-}
+    http = require('http'),
+    httpProxy = require('../../lib/http-proxy');
 
 //
-// Create the target HTTP server and setup
-// socket.io on it.
+// Http Server with proxyRequest Handler and Latency
 //
-var server = io.listen(9014);
-server.sockets.on('connection', function (client) {
-  util.debug('Got websocket connection');
-
-  client.on('message', function (msg) {
-    util.debug('Got message from client: ' + msg);
-  });
-
-  client.send('from server');
-});
+var proxy = new httpProxy.createProxyServer();
+http.createServer(function (req, res) {
+  setTimeout(function () {
+    proxy.web(req, res, {
+      target: 'http://localhost:9002'
+    });
+  }, 200);
+}).listen(8002);
 
 //
-// Create a proxy server with node-http-proxy
+// Target Http Server
 //
-httpProxy.createServer({ target: 'ws://localhost:9014', ws: true }).listen(8014);
+http.createServer(function (req, res) {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.write('request successfully proxied to: ' + req.url + '\n' + JSON.stringify(req.headers, true, 2));
+  res.end();
+}).listen(9002);
 
-//
-// Setup the socket.io client against our proxy
-//
-var ws = client.connect('ws://localhost:8014');
-
-ws.on('message', function (msg) {
-  util.debug('Got message: ' + msg);
-  ws.send('I am the client');
-});
+util.puts('http server '.blue + 'started '.green.bold + 'on port '.blue + '8002 '.yellow + 'with proxy.web() handler'.cyan.underline + ' and latency'.magenta);
+util.puts('http server '.blue + 'started '.green.bold + 'on port '.blue + '9001 '.yellow);

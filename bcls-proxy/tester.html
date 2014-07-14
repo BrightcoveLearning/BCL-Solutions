@@ -13,14 +13,21 @@
 </head>
 
 <body>
-    <input name="client_id" id="client_id" type="text" value="cd2392eb-de67-480c-b67b-2e00a2d28dab">
     <form action="//localhost:8002" method="post" enctype="application/x-www-form-urlencoded" target="responseFrame">
-        <textarea id="url"></textarea>
+        <p>
+            <input name="client_id" id="client_id" type="text" value="cd2392eb-de67-480c-b67b-2e00a2d28dab">
+        </p>
+        <p>
+            <input name="client_secret" id="client_secret" type="text" value="H_jedNY5aBUsR-ILm__L6qT-Nxhdel-6gkdlVJXbcjKmylJ3LIvBts2TjNibyBXfu9UaTk_HxbLZJsca2PeaKw">
+        </p>
+        <p>
+            <textarea id="url">https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=account&limit=10&offset=0&fields=all&sort=account&format=json</textarea>
+        </p>
         <p>
             <input type="submit" value="Submit">
         </p>
     </form>
-    <iframe id="responseFrame" src=""></iframe>
+    <iframe name="responseFrame" id="responseFrame" src=""></iframe>
     <script>
         var BCLS = (function (window, document) {
             var requestBody = {};

@@ -1,18 +1,17 @@
 var util = require('util'),
     colors = require('colors'),
     http = require('http'),
-    httpProxy = require('../../lib/http-proxy');
+    httpProxy = require('http-proxy');
 
 //
 // Http Server with proxyRequest Handler and Latency
 //
 var proxy = new httpProxy.createProxyServer();
 http.createServer(function (req, res) {
-  setTimeout(function () {
     proxy.web(req, res, {
+      console.log(req);
       target: 'http://localhost:9002'
     });
-  }, 200);
 }).listen(8002);
 
 //

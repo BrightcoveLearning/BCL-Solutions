@@ -1,26 +1,36 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title></title>
-    <style>
 
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>tester</title>
+    <style>
+        iframe {
+            width: 80%;
+            height: 600px;
+        }
     </style>
-  </head>
-  <body>
-    <button id="btn">Test</button>
-    <script src="//docs.brightcove.com/en/scripts/cdnjs/ajax/libs/socket.io/1.0.6/socket.io-1.0.6.js"></script>
-<script>
-  var socket = io('http://localhost:9001'),
-      btn = document.getElementById("btn");
-  socket.on('news', function (data) {
-    console.log(data);
-    socket.emit('my other event', { my: 'data' });
-  });
-  btn.addEventListener("click", function () {
-    socket.emit('requestSent', {request: "http://localhost:8000", type: "POST"})
-  });
-</script>
-  </body>
+</head>
+
+<body>
+    <input name="client_id" id="client_id" type="text" value="cd2392eb-de67-480c-b67b-2e00a2d28dab">
+    <form action="//localhost:8002" method="post" enctype="application/x-www-form-urlencoded" target="responseFrame">
+        <textarea id="url"></textarea>
+        <p>
+            <input type="submit" value="Submit">
+        </p>
+    </form>
+    <iframe id="responseFrame" src=""></iframe>
+    <script>
+        var BCLS = (function (window, document) {
+            var requestBody = {};
+            requestBody.url =
+            return {
+
+            }
+        })(window, document);
+    </script>
+</body>
+
 </html>
 </script>

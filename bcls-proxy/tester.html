@@ -15,28 +15,20 @@
 <body>
     <form action="//localhost:8002" method="post" enctype="application/x-www-form-urlencoded" target="responseFrame">
         <p>
-            <input name="client_id" id="client_id" type="text" value="cd2392eb-de67-480c-b67b-2e00a2d28dab">
+            <input name="client_id" id="client_id" type="text" value="45ddce85-e9e1-4ecc-8562-3f97ead6b048">
         </p>
         <p>
-            <input name="client_secret" id="client_secret" type="text" value="H_jedNY5aBUsR-ILm__L6qT-Nxhdel-6gkdlVJXbcjKmylJ3LIvBts2TjNibyBXfu9UaTk_HxbLZJsca2PeaKw">
+            <input name="client_secret" id="client_secret" type="text" value="WnoEbQM6aslaUcY9eqG8AJs8hXvjDjpnxDJYI4JHpdTo7vb1wpBFJMGlYC0BPdvtlZxyhd7UCpn0F1m5wF1Ccw">
         </p>
         <p>
-            <textarea id="url">https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=account&limit=10&offset=0&fields=all&sort=account&format=json</textarea>
+            <textarea name="url" id="url">https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=account&limit=10&offset=0&fields=all&sort=account&format=json</textarea>
+            <input name="requestType" id="requestType" type="hidden" value="GET">
         </p>
         <p>
             <input type="submit" value="Submit">
         </p>
     </form>
     <iframe name="responseFrame" id="responseFrame" src=""></iframe>
-    <script>
-        var BCLS = (function (window, document) {
-            var requestBody = {};
-            requestBody.url =
-            return {
-
-            }
-        })(window, document);
-    </script>
 </body>
 
 </html>

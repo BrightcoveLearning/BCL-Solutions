@@ -14,13 +14,10 @@ var util = require( "util" ),
  * returns an error if something went wrong
  */
 returnError = function (type, message) {
-    var str = "Sorry, there was a problem with your request: ";
-    switch (type) {
-        
-        default:
-        str += "an unknown error occurred"
-        break;
-    }
+    var errorMessage = {};
+    errorMessage.type = type;
+    errorMessage.message = message;
+    process.stdout.write(JSON.stringify(errorMessage));
 }
 
 /*
@@ -82,6 +79,11 @@ sendRequest = function () {
     	console.log('Headers: ', JSON.stringify(response.headers, true, "  "));
     	console.log('Response: ', body);
     	console.log('Error: ', error);
+    	if (error === null) {
+        	process.stdout.write(JSON.stringify(body));
+    	} else {
+        	returnError("API", "Your API call was unsuccessful; here is what the server returned: " + error);
+    	}
     });
 }
 

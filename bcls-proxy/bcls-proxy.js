@@ -4,6 +4,7 @@ var util = require( "util" ),
     request = require( "request" ),
     options = {},
     access_token = "",
+    expires = 0,
     // functions
     getFormValues,
     getAccessToken,
@@ -24,11 +25,13 @@ returnError = function (type, message) {
  * extract form values from request body
  */
 getFormValues = function (body) {
+    // split the request body string into an array
     var valuesArray = body.split("&"),
         valuesObj = {},
         max = valuesArray.length,
         i,
         item;
+    // now split each item into key and value and store in the object
     for (i = 0; i < max; i++) {
         item = valuesArray[i].split("=");
         valuesObj[item[0]] = item[1];
@@ -40,6 +43,7 @@ getFormValues = function (body) {
  * get new access_token
  */
 getAccessToken = function () {
+    // base64 encode the ciient_id:client_secret string for basic auth
     var auth_string = new Buffer(options.client_id + ":" + options.client_secret).toString("base64"),
     response = {};
     request({
@@ -55,10 +59,18 @@ getAccessToken = function () {
     	console.log('Headers: ', JSON.stringify(response.headers));
     	console.log('Response: ', JSON.parse(body));
     	console.log('Error: ', error);
-    	response = JSON.parse(body);
-    	console.log("response", response);
-    	access_token = response.access_token;
-    	sendRequest();
+    	// check for errors
+    	if (error === null) {
+        	// set the access_token value and send the API request
+        	var jsonBody = JSON.parse(body);
+        	access_token = jsonBody.access_token;
+        	expires = new Date().valueOf() + jsonBody.expires_in * 1000;
+        	
+        	sendRequest();
+    	} else {
+        	response.write("Could not get an access token; here's what the OAuth server returned: " + error)
+    	}
+    	
     });
 }
 
@@ -67,7 +79,7 @@ getAccessToken = function () {
  */
 sendRequest = function () {
     options.url = decodeURIComponent(options.url);
-    console.log(access_token)
+    console.log(access_token);
     request({
     	method: options.requestType,
     	url: options.url,
@@ -80,7 +92,7 @@ sendRequest = function () {
     	console.log('Response: ', body);
     	console.log('Error: ', error);
     	if (error === null) {
-        	process.stdout.write(JSON.stringify(body));
+        	
     	} else {
         	returnError("API", "Your API call was unsuccessful; here is what the server returned: " + error);
     	}
@@ -97,11 +109,28 @@ http.createServer( function( req, res ) {
         body += chunk;
     } );
     req.on( "end", function( req, res ) {
+        console.log("res", res);
+        console.log("req", req);
         console.log("body", body);
         options = getFormValues(body);
-        console.log("options", options)
+        console.log("options", options);
+        /*
+res.writeHead(200);
+        res.write("test");
+        res.end;
+*/
         // get an access token (since we're not using sockets, need to get one every time)
-        getAccessToken();
+        console.log("expires", expires);
+        console.log("access_token", access_token);
+        console.log("now", new Date().valueOf());
+        /* getAccessToken(); */
+        var now = new Date().valueOf();
+        if (expires < now) {
+            getAccessToken();
+        } else {
+            sendRequest();
+        }
+        
     } );
 
 } ).listen( 8002 );

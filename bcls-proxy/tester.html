@@ -9,20 +9,35 @@
             width: 80%;
             height: 600px;
         }
+        input {
+            width: 80%;
+        }
     </style>
 </head>
 
 <body>
+    <h1>bcls-proxy tester</h1>
     <form action="//localhost:8002" method="post" enctype="application/x-www-form-urlencoded" target="responseFrame">
         <p>
+            Client id: 
             <input name="client_id" id="client_id" type="text" value="45ddce85-e9e1-4ecc-8562-3f97ead6b048">
         </p>
         <p>
+            Client secret: 
             <input name="client_secret" id="client_secret" type="text" value="WnoEbQM6aslaUcY9eqG8AJs8hXvjDjpnxDJYI4JHpdTo7vb1wpBFJMGlYC0BPdvtlZxyhd7UCpn0F1m5wF1Ccw">
         </p>
         <p>
+            Full request URL for the API call: 
+            <select name="requestType" id="requestType">
+                <option selected="selected">GET</option>
+                <option>POST</option>
+                <option>PUT</option>
+                <option>PATCH</option>
+                <option>DELETE</option>
+            </select>
+        </p>
+        <p>
             <textarea name="url" id="url">https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=account&limit=10&offset=0&fields=all&sort=account&format=json</textarea>
-            <input name="requestType" id="requestType" type="hidden" value="GET">
         </p>
         <p>
             <input type="submit" value="Submit">

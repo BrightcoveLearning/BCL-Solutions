@@ -44,33 +44,32 @@ getFormValues = function (body) {
  */
 getAccessToken = function () {
     // base64 encode the ciient_id:client_secret string for basic auth
-    var auth_string = new Buffer(options.client_id + ":" + options.client_secret).toString("base64"),
-    response = {};
+    var auth_string = new Buffer(options.client_id + ":" + options.client_secret).toString("base64");
     request({
-    	method: 'POST',
-    	url: 'https://oauth.brightcove.com/v3/access_token',
-    	headers: {
+        method: 'POST',
+        url: 'https://oauth.brightcove.com/v3/access_token',
+        headers: {
             "Authorization": "Basic " + auth_string,
             "Content-Type": "application/x-www-form-urlencoded"
         },
-    	body: 'grant_type=client_credentials'
+        body: 'grant_type=client_credentials'
     }, function (error, response, body) {
-    	console.log('Status: ', response.statusCode);
-    	console.log('Headers: ', JSON.stringify(response.headers));
-    	console.log('Response: ', JSON.parse(body));
-    	console.log('Error: ', error);
-    	// check for errors
-    	if (error === null) {
-        	// set the access_token value and send the API request
-        	var jsonBody = JSON.parse(body);
-        	access_token = jsonBody.access_token;
-        	expires = new Date().valueOf() + jsonBody.expires_in * 1000;
-        	
-        	sendRequest();
-    	} else {
-        	response.write("Could not get an access token; here's what the OAuth server returned: " + error)
-    	}
-    	
+        console.log('Status: ', response.statusCode);
+        console.log('Headers: ', JSON.stringify(response.headers));
+        console.log('Response: ', JSON.parse(body));
+        console.log('Error: ', error);
+        // check for errors
+        if (error === null) {
+            // set the access_token value and send the API request
+            var jsonBody = JSON.parse(body);
+            access_token = jsonBody.access_token;
+            expires = new Date().valueOf() + jsonBody.expires_in * 1000;
+            
+            sendRequest();
+        } else {
+            response.write("Could not get an access token; here's what the OAuth server returned: " + error)
+        }
+        
     });
 }
 
@@ -78,24 +77,30 @@ getAccessToken = function () {
  * sends the request to the targeted API
  */
 sendRequest = function () {
+    var apiResponse;
+    // decode the URL
     options.url = decodeURIComponent(options.url);
-    console.log(access_token);
+    console.log(options.url);
     request({
-    	method: options.requestType,
-    	url: options.url,
-    	headers: {
+        method: options.requestType,
+        url: options.url,
+        headers: {
             "Authorization": "Bearer " + access_token
         },
     }, function (error, response, body) {
-    	console.log('Status: ', response.statusCode);
-    	console.log('Headers: ', JSON.stringify(response.headers, true, "  "));
-    	console.log('Response: ', body);
-    	console.log('Error: ', error);
-    	if (error === null) {
-        	
-    	} else {
-        	returnError("API", "Your API call was unsuccessful; here is what the server returned: " + error);
-    	}
+        console.log('Error: ', error);
+        console.log('Status: ', response.statusCode);
+        console.log('Headers: ', JSON.stringify(response.headers, true, "  "));
+        console.log('Response: ', body);
+        if (error === null) {
+            
+        } else {
+            returnError("API", "Your API call was unsuccessful; here is what the server returned: " + error);
+        }
+    }).pipe(apiResponse);
+    apiResponse.on("pipe", function (src) {
+	   console.log(src);
+	   apiResponse.write(src);
     });
 }
 
@@ -114,11 +119,6 @@ http.createServer( function( req, res ) {
         console.log("body", body);
         options = getFormValues(body);
         console.log("options", options);
-        /*
-res.writeHead(200);
-        res.write("test");
-        res.end;
-*/
         // get an access token (since we're not using sockets, need to get one every time)
         console.log("expires", expires);
         console.log("access_token", access_token);

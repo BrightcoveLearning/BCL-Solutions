@@ -12,6 +12,12 @@
         input {
             width: 80%;
         }
+        textarea {
+            width: 80%
+        }
+        #submit {
+            width: 100px
+        }
     </style>
 </head>
 
@@ -27,7 +33,7 @@
             <input name="client_secret" id="client_secret" type="text" value="WnoEbQM6aslaUcY9eqG8AJs8hXvjDjpnxDJYI4JHpdTo7vb1wpBFJMGlYC0BPdvtlZxyhd7UCpn0F1m5wF1Ccw">
         </p>
         <p>
-            Full request URL for the API call: 
+            Call type:
             <select name="requestType" id="requestType">
                 <option selected="selected">GET</option>
                 <option>POST</option>
@@ -37,10 +43,11 @@
             </select>
         </p>
         <p>
+            Full request URL for the API call: 
             <textarea name="url" id="url">https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=account&limit=10&offset=0&fields=all&sort=account&format=json</textarea>
         </p>
         <p>
-            <input type="submit" value="Submit">
+            <input id="submit" type="submit" value="Submit">
         </p>
     </form>
     <iframe name="responseFrame" id="responseFrame" src=""></iframe>

@@ -60,9 +60,11 @@ var BCLS = (function ($, window, Pikaday) {
         firstRun = true,
         onTagsSelect,
         onMAPIresponse,
+		onMAPIresponse2,
 		removeDuplicateElements,
 		results,
         removeSpaces,
+		createAnalyticsRequest,
         isDefined,
         addArrayItems,
         analyticsRequestNumber = 0,
@@ -169,14 +171,40 @@ var BCLS = (function ($, window, Pikaday) {
 		}
 		return newArray;
 	}
+	// call the Media API to get all videoids for selected tag values
     onTagsSelect = function () {
-        var selectedPlaylist = playlistData[(tagSelector.selectedIndex - 1)];
-        videoIds = selectedPlaylist.videoIds;
-        totalVideos = videoIds.length;
-        // undim param input fields
+		console.log("onTagsSelect");
+		console.log(tagArray[tagSelector.selectedIndex]);
+//        var selectedPlaylist = playlistData[(tagSelector.selectedIndex - 1)];
+//        videoIds = selectedPlaylist.videoIds;
+//        totalVideos = videoIds.length;
+		// set up the Media API call
+//        BCMAPI.url = $readApiLocation.val();
+//        BCMAPI.token = $mapitoken.val();
+        BCMAPI.callback = "BCLS.onMAPIresponse2";
+//		params = {};
+        params.page_size = page_size;
+        params.page_number = page_number;
+        params.get_item_count = true;
+		params.video_fields = "id,shortDescription";
+		var selectedTag = tagArray[tagSelector.selectedIndex];
+		params.any = "tag:" + selectedTag;
+		BCMAPI.search(params);
+        
+    }
+	onMAPIresponse2 = function(jsonData) {
+		console.log("onMAPIresponse2");
+		console.log(jsonData);
+		console.log(BCMAPI.request);
+        // merge the data into the html template using Handlebars
+        
+        
+    }
+	createAnalyticsRequest = function () {
+		// undim param input fields
         $aapiParams.attr("class", "bcls-shown");
         $requestSubmitter.attr("class", "bcls-shown")
-        // set playlist info in analyticsData
+		// set playlist info in analyticsData
         analyticsData.playlist_id = selectedPlaylist.id;
         analyticsData.playlist_name = selectedPlaylist.name;
         analyticsData.average_engagement_score = 0;
@@ -192,7 +220,7 @@ var BCLS = (function ($, window, Pikaday) {
         analyticsData.total_video_view = 0;
         analyticsData.individual_video_data = [];
         buildRequest();
-    }
+	}
     removeSpaces = function (str) {
         if (isDefined(str)) {
             str = str.replace(/\s+/g, '');
@@ -362,6 +390,7 @@ var BCLS = (function ($, window, Pikaday) {
     buildRequest();
     return {
         onMAPIresponse : onMAPIresponse,
+		onMAPIresponse2 : onMAPIresponse2,
         onTagsSelect : onTagsSelect
     }
 })($, window, Pikaday);

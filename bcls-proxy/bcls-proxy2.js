@@ -1,6 +1,7 @@
 var util = require( "util" ),
     colors = require( "colors" ),
     http = require( "http" ),
+    https = require("https"),
     request = require( "request" ),
     options = {},
     access_token = "",
@@ -77,7 +78,7 @@ getAccessToken = function () {
  * sends the request to the targeted API
  */
 sendRequest = function () {
-    var apiResponse;
+    var apiResponse = new Buffer("");
     // decode the URL
     options.url = decodeURIComponent(options.url);
     console.log(options.url);
@@ -93,47 +94,40 @@ sendRequest = function () {
         console.log('Headers: ', JSON.stringify(response.headers, true, "  "));
         console.log('Response: ', body);
         if (error === null) {
-            
+            response.on("pipe", function (src) {
+                console.log("src", src);
+            }) 
         } else {
             returnError("API", "Your API call was unsuccessful; here is what the server returned: " + error);
         }
-    }).pipe(apiResponse);
-    apiResponse.on("pipe", function (src) {
-	   console.log(src);
-	   apiResponse.write(src);
-    });
+    }).pipe(response);
 }
 
 /*
  * Http Server to handle requests
  */
-http.createServer( function( req, res ) {
-    console.log(req.headers.origin);
-    var body = "";
-    req.on( "data", function( chunk ) {
-        body += chunk;
-    } );
-    req.on( "end", function( req, res ) {
-        console.log("res", res);
-        console.log("req", req);
-        console.log("body", body);
-        options = getFormValues(body);
-        console.log("options", options);
-        // get an access token (since we're not using sockets, need to get one every time)
-        console.log("expires", expires);
-        console.log("access_token", access_token);
-        console.log("now", new Date().valueOf());
-        /* getAccessToken(); */
-        var now = new Date().valueOf();
-        if (expires < now) {
-            getAccessToken();
-        } else {
-            sendRequest();
-        }
-        
-    } );
+http.createServer(onRequest).listen(3000);
 
-} ).listen( 8002 );
+function onRequest(client_req, client_res) {
+  console.log('serve: ' + client_req.url);
+
+  var options = {
+    hostname: 'www.google.com',
+    port: 80,
+    path: client_req.url,
+    method: 'GET'
+  };
+
+  var proxy = http.request(options, function (res) {
+    res.pipe(client_res, {
+      end: true
+    });
+  });
+
+  client_req.pipe(proxy, {
+    end: true
+  });
+}
 
 
 

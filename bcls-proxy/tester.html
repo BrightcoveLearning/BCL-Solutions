@@ -5,6 +5,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>tester</title>
     <style>
+        body {
+            font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+            font-size: .9em;
+        }
         iframe {
             width: 80%;
             height: 600px;
@@ -23,6 +27,18 @@
 
 <body>
     <h1>bcls-proxy tester</h1>
+    <p>Welcome to the Brightcove Learning Services proxy tester. The tester can be used currently for the following APIs:
+        <ul>
+            <li>Perform: Player Management</li>
+            <li>Video Cloud: Analytics</li>
+        </ul>
+    </p>
+    <p>To get a <code>client_id</code> and <code>client_secret</code>, you will need to go to the OAuth UI and register this app:
+        <ul>
+            <li>Perform: <a href="https://studio.brightcove.com/products/perform/admin/oauthsettings">https://studio.brightcove.com/products/perform/admin/oauthsettings</a></li>
+            <li>Video Cloud: <a href="https://sadmin.brightcove.com/oauth_module/v1/">https://sadmin.brightcove.com/oauth_module/v1/</a></li>
+        </ul>
+    </p>
     <form action="//localhost:8002" method="post" enctype="application/x-www-form-urlencoded" target="responseFrame">
         <p>
             Client id: 
@@ -43,7 +59,11 @@
             </select>
         </p>
         <p>
-            Full request URL for the API call: 
+            Call body:<br />
+            <textarea name="callBody" id="callBody"></textarea>
+        </p>
+        <p>
+            Full request URL for the API call:<br />
             <textarea name="url" id="url">https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=account&limit=10&offset=0&fields=all&sort=account&format=json</textarea>
         </p>
         <p>

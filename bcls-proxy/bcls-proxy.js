@@ -98,7 +98,8 @@ sendRequest = function (token, options, callback) {
             method: options.requestType,
             url: options.url,
             headers: {
-                "Authorization": "Bearer " + token
+                "Authorization": "Bearer " + token,
+                "Content-Type": "application/json"
             },
             body: options.requestBody
         };
@@ -132,7 +133,7 @@ http.createServer( function( req, res ) {
                     console.log("Access Token: ", token);
                     sendRequest(token, options, function (error, response, body) {
                         if (error === null) {
-                            res.writeHead(response.statusCode, response.headers);
+                            res.writeHead("");
                             if (body.indexOf("{") === 0) {
                                 // prettify JSON
                                 body = JSON.stringify(JSON.parse(body), true, 2);
@@ -151,12 +152,8 @@ http.createServer( function( req, res ) {
                 res.end("There was a problem with your request: " + error);
             }
         });
-                
-                
     });
 
 } ).listen( 8002 );
-
-
 
 util.puts( "http server ".blue + "started ".green.bold + "on port ".blue + "8002 ".yellow + "with proxy.web() handler".cyan.underline);

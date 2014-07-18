@@ -71,6 +71,11 @@
         </p>
     </form>
     <iframe name="responseFrame" id="responseFrame" src=""></iframe>
+    <script>
+        var iframe = document.getElementById("responseFrame"),
+            btn = document.getElementById("submit");
+            btn.addEventListener("click", iframe.setAttribute("src", "about:blank"));
+    </script>
 </body>
 
 </html>

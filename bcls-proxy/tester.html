@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>tester</title>
+    <title>bcls-proxy tester</title>
     <style>
         body {
             font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
@@ -18,6 +18,9 @@
         }
         textarea {
             width: 80%
+        }
+        #callBody {
+            height: 100px;
         }
         #submit {
             width: 100px
@@ -41,11 +44,11 @@
     </p>
     <form action="//localhost:8002" method="post" enctype="application/x-www-form-urlencoded" target="responseFrame">
         <p>
-            Client id: 
+            Client id:
             <input name="client_id" id="client_id" type="text" value="45ddce85-e9e1-4ecc-8562-3f97ead6b048">
         </p>
         <p>
-            Client secret: 
+            Client secret:
             <input name="client_secret" id="client_secret" type="text" value="WnoEbQM6aslaUcY9eqG8AJs8hXvjDjpnxDJYI4JHpdTo7vb1wpBFJMGlYC0BPdvtlZxyhd7UCpn0F1m5wF1Ccw">
         </p>
         <p>
@@ -59,7 +62,7 @@
             </select>
         </p>
         <p>
-            Call body:<br />
+            Call body (optional - include if you need to submit data with the request):<br />
             <textarea name="callBody" id="callBody"></textarea>
         </p>
         <p>

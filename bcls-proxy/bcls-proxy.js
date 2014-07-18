@@ -2,7 +2,7 @@
 * bcls-proxy
 * Version: 0.1
 * Author: Robert Crooks
-* Description: Proxies Brightcove API requests, getting an access token, making the call, and returning 
+* Description: Proxies Brightcove API requests, getting an access token, making the call, and returning
 * the response to an iframe on the client page
 * Requirements:
 *   POST your request to solutions.brightcove.com:8002, and target an iframe on your page
@@ -86,7 +86,7 @@ getAccessToken = function (options, callback) {
             callback(null, bodyObj.access_token);
         } else {
             callback(error);
-        }        
+        }
     });
 }
 
@@ -121,39 +121,44 @@ sendRequest = function (token, options, callback) {
  */
 http.createServer( function( req, res ) {
     console.log(req.headers);
-    var body = "";
-    req.on( "data", function( chunk ) {
-        body += chunk;
-    } );
-    req.on( "end", function() {
-        console.log("body", body);
-        getFormValues(body, function (error, options){
-            if (error === null) {
-                getAccessToken( options, function(err, token) {
-                    console.log("Access Token: ", token);
-                    sendRequest(token, options, function (error, response, body) {
-                        if (error === null) {
-                            res.writeHead("");
-                            if (body.indexOf("{") === 0) {
-                                // prettify JSON
-                                body = JSON.stringify(JSON.parse(body), true, 2);
-                                res.end(body);
-                            } else {
-                                res.end("Your response will download automatically...")
-                            }
-                        } else {
-                            res.writeHead(500);
-                            res.end("Your API call was unsuccessful; here is what the server returned: " + error); 
-                        } 
-                    });
+    
+        var body = "";
+        req.on( "data", function( chunk ) {
+            body += chunk;
+        } );
+        req.on( "end", function() {
+            if (req.headers.origin.indexOf("brightcove.com") > -1) {
+                console.log("body", body);
+                getFormValues(body, function (error, options) {
+                    if (error === null) {
+                        getAccessToken( options, function(err, token) {
+                            console.log("Access Token: ", token);
+                            sendRequest(token, options, function (error, response, body) {
+                                if (error === null) {
+                                    res.writeHead("");
+                                    if (body.indexOf("{") === 0) {
+                                        // prettify JSON
+                                        body = JSON.stringify(JSON.parse(body), true, 2);
+                                        res.end(body);
+                                    } else {
+                                        res.end("Your response will download automatically...")
+                                    }
+                                } else {
+                                    res.writeHead(500);
+                                    res.end("Your API call was unsuccessful; here is what the server returned: " + error);
+                                }
+                            });
+                        });
+                    } else {
+                        res.writeHead(500, response.headers);
+                        res.end("There was a problem with your request: " + error);
+                    }
                 });
             } else {
-                res.writeHead(500, response.headers);
-                res.end("There was a problem with your request: " + error);
+                res.writeHead(500)
+                res.end("Your request cannot be processed; this proxy only handles requests originating from Brightcove servers. If you would like to build your own version of this proxy, see http://docs.brightcove.com/en/perform/oauth-api/guides/quick-start.html")
             }
         });
-    });
-
 } ).listen( 8002 );
 
 util.puts( "http server ".blue + "started ".green.bold + "on port ".blue + "8002 ".yellow + "with proxy.web() handler".cyan.underline);

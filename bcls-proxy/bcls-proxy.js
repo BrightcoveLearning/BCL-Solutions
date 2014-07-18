@@ -1,8 +1,27 @@
+/*
+* bcls-proxy
+* Version: 0.1
+* Author: Robert Crooks
+* Description: Proxies Brightcove API requests, getting an access token, making the call, and returning 
+* the response to an iframe on the client page
+* Requirements:
+*   POST your request to solutions.brightcove.com:8002, and target an iframe on your page
+*   Required fields for the body:
+*       client_id // (get from the Brightcove OAuth UI in Studio)
+*       client_secret // (get from the Brightcove OAuth UI in Studio)
+*       url // the full url for the API call you want to make, including parameters
+*       requestType // GET | POST | PUT | PATCH | DELETE
+*       requestBody // (optional) request body for calls that submit data
+*
+* Note: this is a sample only, not a supported Brightcove plugin
+* It only accepts requests from brightcove domains
+* If you would like to use the code to build your own proxy, see docs.brightcove.com/en/perform/oauth-api/guides/quick-start.html
+*/
+
 var util = require( "util" ),
     colors = require( "colors" ),
     http = require( "http" ),
     request = require( "request" ),
-    options = {},
     // functions
     getFormValues,
     getAccessToken,
@@ -27,7 +46,7 @@ getFormValues = function (body, callback) {
     // now split each item into key and value and store in the object
     for (i = 0; i < max; i++) {
         item = valuesArray[i].split("=");
-        valuesObj[item[0]] = item[1];
+        options[item[0]] = item[1];
     }
     // data fixes
     // decode the URL
@@ -49,7 +68,8 @@ getFormValues = function (body, callback) {
  */
 getAccessToken = function (options, callback) {
     // base64 encode the ciient_id:client_secret string for basic auth
-    var auth_string = new Buffer(options.client_id + ":" + options.client_secret).toString("base64");
+    var auth_string = new Buffer(options.client_id + ":" + options.client_secret).toString("base64"),
+        bodyObj;
     request({
         method: 'POST',
         url: 'https://oauth.brightcove.com/v3/access_token',
@@ -59,14 +79,11 @@ getAccessToken = function (options, callback) {
         },
         body: 'grant_type=client_credentials'
     }, function (error, response, body) {
-        console.log('Status: ', response.statusCode);
-        console.log('Headers: ', JSON.stringify(response.headers));
-        console.log('Response: ', JSON.parse(body));
-        console.log('Error: ', error);
         // check for errors
         if (error === null) {
             // return the access token to the callback
-            callback(null, jsonBody.access_token);
+            bodyObj = JSON.parse(body)
+            callback(null, bodyObj.access_token);
         } else {
             callback(error);
         }        
@@ -77,13 +94,15 @@ getAccessToken = function (options, callback) {
  * sends the request to the targeted API
  */
 sendRequest = function (token, options, callback) {
-    request({
-        method: options.requestType,
-        url: options.url,
-        headers: {
-            "Authorization": "Bearer " + token
-        },
-    }, function (error, response, body) {
+    var requestOptions = {
+            method: options.requestType,
+            url: options.url,
+            headers: {
+                "Authorization": "Bearer " + token
+            },
+            body: options.requestBody
+        };
+    request(requestOptions, function (error, response, body) {
         console.log('Error: ', error);
         console.log('Status: ', response.statusCode);
         console.log('Headers: ', JSON.stringify(response.headers, true, "  "));
@@ -113,12 +132,14 @@ http.createServer( function( req, res ) {
                     console.log("Access Token: ", token);
                     sendRequest(token, options, function (error, response, body) {
                         if (error === null) {
-                            if (body.indexOf("{" === 0) {
+                            res.writeHead(response.statusCode, response.headers);
+                            if (body.indexOf("{") === 0) {
                                 // prettify JSON
                                 body = JSON.stringify(JSON.parse(body), true, 2);
+                                res.end(body);
+                            } else {
+                                res.end("Your response will download automatically...")
                             }
-                            res.writeHead(response.statusCode, response.headers);
-                            res.end(body);
                         } else {
                             res.writeHead(500);
                             res.end("Your API call was unsuccessful; here is what the server returned: " + error); 
@@ -130,7 +151,6 @@ http.createServer( function( req, res ) {
                 res.end("There was a problem with your request: " + error);
             }
         });
-        console.log("options", options);
                 
                 
     });
@@ -140,4 +160,3 @@ http.createServer( function( req, res ) {
 
 
 util.puts( "http server ".blue + "started ".green.bold + "on port ".blue + "8002 ".yellow + "with proxy.web() handler".cyan.underline);
-util.puts( "http server ".blue + "started ".green.bold + "on port ".blue + "9001 ".yellow );

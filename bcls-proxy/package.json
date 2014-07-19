@@ -5,7 +5,7 @@
     "private": "true",
     "dependencies": {
         "colors": "~0.6.2",
-        "connect": "3.0.2",
+        "fast-csv": "0.4.1",
         "request": "2.37.0"
     }
 }

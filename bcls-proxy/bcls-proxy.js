@@ -20,6 +20,7 @@
 
 var util = require( "util" ),
     colors = require( "colors" ),
+    csv = require("fast-csv"),
     http = require( "http" ),
     request = require( "request" ),
     // functions
@@ -161,4 +162,4 @@ http.createServer( function( req, res ) {
         });
 } ).listen( 8002 );
 
-util.puts( "http server ".blue + "started ".green.bold + "on port ".blue + "8002 ".yellow + "with proxy.web() handler".cyan.underline);
+util.puts( "http server ".blue + "started ".green.bold + "on port ".blue + "8002 ".yellow);

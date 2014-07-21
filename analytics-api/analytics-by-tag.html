@@ -105,9 +105,36 @@
 					</p>
 					<div class="bcls-hidden" id="tagSelectWrapper">
 						<p id="tags">
-							<select id="tagSelector" multiple ></select>
+							<select id="tagSelector" multiple style="height:350px;"></select>
 						</p>
 					</div>
+				</fieldset>
+				<fieldset>
+					<legend>Tags Selected</legend>
+					<div class="bcls-hidden" id="tagSelectWrapper">
+						<p id="tagsSelected">
+							<table class="articleTable" style="table-layout:fixed;word-break:break-all;width:100%">
+								<col width="170px" />
+								<col width="170px" />
+								<col width="170px" />
+								<col width="170px" />
+								<col width="170px" />
+								<thead>
+									<tr>
+										<td>column 1</td>
+										<td>column 2</td>
+										<td>column 3</td>
+										<td>column 4</td>
+										<td>column 5</td>
+									</tr>
+								</thead>
+								<tbody id="tagsSelectedTable">
+									<!-- selected tags go here -->
+								</tbody>
+							</table>
+						</p>
+					</div>
+					<p><span>Number of tags selected: </span><span id="numSelected"></span></p>
 					<p><span class="run-button" id="getVideoIds">Get VideoIds</span></p>
 					<p><span id="getVideoMsg"></span></p>
 				</fieldset>

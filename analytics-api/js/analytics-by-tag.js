@@ -8,8 +8,8 @@ var BCLS = (function ($, window, Pikaday) {
         page_number = 0,
 		id_page_size = 100,
         id_page_number = 0,
-        playlistData = [],
 		tagArray = [],
+		selectedTagsArray = [],
 		videoIdArray = [],
         analyticsData = {},
         $playlistInfo = $("#playlistInfo"),
@@ -45,6 +45,7 @@ var BCLS = (function ($, window, Pikaday) {
         $this,
         separator = "",
         requestTrimmed = false,
+		tagButtonClicked = true,
         lastChar = "",
         requestURL = "",
         authorization = "",
@@ -58,6 +59,8 @@ var BCLS = (function ($, window, Pikaday) {
         $tagSelectWrapper = $("#tagSelectWrapper"),
         $tagSelector = $("#tagSelector"),
         tagSelector = document.getElementById("tagSelector"),
+		$tagsSelectedTable = $("#tagsSelectedTable"),
+		$numSelected = $("#numSelected"),
 		$getVideoMsg = $("#getVideoMsg"),
         $analyticsData = $("#analyticsData"),
         videoIds = [],
@@ -66,19 +69,22 @@ var BCLS = (function ($, window, Pikaday) {
         reset,
         logit,
         firstRun = true,
-        onTagsSelect,
         onMAPIresponse,
 		onMAPIresponse2,
 		removeDuplicateElements,
 		results,
-        removeSpaces,
 		compareFields,
+		formatSelectedTags,
+		saveSelectedTags,
 		paramString = "",
+		tableString = "",
+		errMsg = "",
 		createAnalyticsRequest,
-        isDefined,
         addArrayItems,
         analyticsRequestNumber = 0,
         totalVideos = 0,
+		selectCount = 0,
+		rowCount = 1,
         trimRequest,
         removeSpaces,
         buildRequest,
@@ -119,11 +125,17 @@ var BCLS = (function ($, window, Pikaday) {
 	    $getTags.html("Get Tags");
 	    $getTags.attr("class", "run-button");
 	    $getTags.on("click", getTags);
+		selectedTagsArray = [];
 	    page_number = 0;
+		tagButtonClicked = true;
     }
 	// call the Media API to get a list of tags for an account
     getTags = function () {
-        // set up the Media API call
+        if((tagButtonClicked) && (!firstRun)) {
+			saveSelectedTags();
+			formatSelectedTags();
+		}
+		// set up the Media API call
         BCMAPI.url = $readApiLocation.val();
         BCMAPI.token = $mapitoken.val();
 		BCMAPI.token = "ZY4Ls9Hq6LCBgleGDTaFRDLWWBC8uoXQun0xEEXtlDUHBDPZBCOzbw.."; //doktst
@@ -138,31 +150,36 @@ var BCLS = (function ($, window, Pikaday) {
     onMAPIresponse = function(jsonData) {
 		console.log(jsonData);
 		
+		if (jsonData.error) {
+			errMsg = "Error code: " + jsonData.code + "Error msg: " + jsonData.error;
+			$tagSelector.html("<option>" + errMsg + "</option>");
+			return;
+		} 
+		
         // merge the data into the html template using Handlebars
         var template = Handlebars.compile(handleBarsTemplate);
 		
 		// build an array of all tag array items for each video
 		for (var i = 0; i < jsonData["items"].length; i++) {
+			// use apply to add array of tags for each selected video item
 			tagArray.push.apply(tagArray, jsonData["items"][i].tags);
 		}
+		
 		// remove spaces
-		console.log(tagArray.length);
+		console.log("orginal number of tags: " + tagArray.length);
 		for (var i = 0; i < tagArray.length; i++) {
 			tagArray[i] = removeSpaces(tagArray[i]);
 		}
 		// remove duplicate values
 		tagArray = removeDuplicateElements(tagArray);
 		
-		console.log(tagArray.length);
-		console.log(tagArray);
-		
 		page_number++;
 		// if tags found less than page size, get next page
 		if ((tagArray.length < page_size) && (jsonData.total_count > (page_size * page_number))){
+			tagButtonClicked = false;
 			getTags();
 		} else {
-			console.log("after sort ------------");
-
+			tagButtonClicked = true;
 			tagArray.sort(compareFields);
 			
 			// inject the HTML for the video list
@@ -215,26 +232,58 @@ var BCLS = (function ($, window, Pikaday) {
     getVideoIds = function () {
         console.log("getVideoIds");
 		
-		var i;
-		var count = 0;
 		paramString = "";
-		for (i=0; i<tagSelector.options.length; i++) {
-	        if (tagSelector.options[i].selected) {
-				paramString += "," + "tag:" + tagSelector.options[i].value;
-			    count++;
-			}
-		}
+		saveSelectedTags();
+		formatSelectedTags();
 		
 		if (!paramString) {
 			console.log("please select a tag");
 			$getVideoMsg.html("Please select one or more tag values.");
 		} else {
+			$getVideoMsg.html("");
 			paramString = paramString.substring(1);
+			
 			id_page_number = 0;
 			videoIdArray = [];
 			getVideoIdsRequest();
 		}
 		console.log(paramString);
+    }
+	
+	saveSelectedTags = function () {
+        console.log("saveSelectedTags");
+		
+		var i;
+		for (i=0; i<tagSelector.options.length; i++) {
+	        if (tagSelector.options[i].selected) {
+				selectedTagsArray.push(tagSelector.options[i].value);
+			}
+		}
+		console.log(selectedTagsArray);
+    }
+	
+	formatSelectedTags = function () {
+        console.log("formatSelectedTags");
+		var i;
+		selectCount = 0;
+		tableString = "<tr>";
+		rowCount = 1;
+		for (i=0; i<selectedTagsArray.length; i++) {
+			paramString += "," + "tag:" + selectedTagsArray[i];
+			if (rowCount > 5) {
+				tableString += "</tr><tr>";
+				rowCount = 1;
+			}
+			tableString += "<td>" + selectedTagsArray[i] + "</td>";
+			rowCount++;
+			selectCount++;
+		}
+		tableString += "</tr>";
+		
+		// inject the HTML for the video list
+		$tagsSelectedTable.html(tableString);
+		
+		$numSelected.html(selectCount);
     }
 	
 	getVideoIdsRequest = function () {
@@ -257,7 +306,7 @@ var BCLS = (function ($, window, Pikaday) {
 	
 		// build an array of all video ids with any of the selected tag values
 		for (var i = 0; i < jsonData["items"].length; i++) {
-			videoIdArray.push.apply(videoIdArray, jsonData["items"][i].id);
+			videoIdArray.push(jsonData["items"][i].id);
 		}
 	
 		id_page_number++;
@@ -270,10 +319,6 @@ var BCLS = (function ($, window, Pikaday) {
 	
 	
         // merge the data into the html template using Handlebars
-        
-    }
-	
-	onTagsSelect = function () {
         
     }
 	
@@ -455,6 +500,7 @@ var BCLS = (function ($, window, Pikaday) {
         reset();
         buildRequest();
     });
+	
     // send request
     $submitButton.on("click", function () {
         // reset current video index
@@ -469,6 +515,5 @@ var BCLS = (function ($, window, Pikaday) {
     return {
         onMAPIresponse : onMAPIresponse,
 		onMAPIresponse2 : onMAPIresponse2,
-        onTagsSelect : onTagsSelect
     }
 })($, window, Pikaday);

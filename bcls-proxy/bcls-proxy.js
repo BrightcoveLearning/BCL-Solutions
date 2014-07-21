@@ -122,7 +122,7 @@ sendRequest = function (token, options, callback) {
  */
 http.createServer( function( req, res ) {
     console.log(req.headers);
-    
+
         var body = "";
         req.on( "data", function( chunk ) {
             body += chunk;
@@ -136,13 +136,21 @@ http.createServer( function( req, res ) {
                             console.log("Access Token: ", token);
                             sendRequest(token, options, function (error, response, body) {
                                 if (error === null) {
-                                    res.writeHead("");
-                                    if (body.indexOf("{") === 0) {
+                                    res.writeHead(200);
+                                    if (body.indexOf("{") === 0 || options.url.indexOf("format=json") > -1) {
                                         // prettify JSON
                                         body = JSON.stringify(JSON.parse(body), true, 2);
                                         res.end(body);
+                                    } else if (options.url.indexOf("format=csv") > -1) {
+                                        csv.fromPath(body, {headers: true})
+                                        csv.on("record", function(data){
+                                            console.log("csvdata ", data);
+                                        });
+                                        csv.on("end", function(){
+                                            res.end(data);
+                                        });
                                     } else {
-                                        res.end("Your response will download automatically...")
+                                        res.end("Your response will download automatically...");
                                     }
                                 } else {
                                     res.writeHead(500);

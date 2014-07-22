@@ -114,7 +114,7 @@ var BCLSPROXY = (function () {
      */
     http.createServer(function (req, res) {
         var body = "";
-        if (req.headers.origin.indexOf("brightcove.com") < -1) {
+        if (req.headers.origin.indexOf("brightcove.com") < 0) {
             res.writeHead(500);
             res.end("Your request cannot be processed; this proxy only handles requests originating from Brightcove servers. If you would like to build your own version of this proxy, see http://docs.brightcove.com/en/perform/oauth-api/guides/quick-start.html");
         }

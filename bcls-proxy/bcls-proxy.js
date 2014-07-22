@@ -101,8 +101,9 @@ var BCLSPROXY = (function () {
                 body: options.requestBody
             };
         request(requestOptions, function (error, response, body) {
+            console.log("error", error);
             if (error === null) {
-                callback(null, response, body);
+                callback(null, response.headers, body);
             } else {
                 callback(error);
             }
@@ -125,23 +126,19 @@ var BCLSPROXY = (function () {
                 if (error === null) {
                     getAccessToken(options, function (error, token) {
                         if (error === null) {
-                            sendRequest(token, options, function (error, response, body) {
+                            sendRequest(token, options, function (error, headers, body) {
                                 if (error === null) {
+                                    console.log("headers", headers);
+                                    var header;
+                                    for (header in headers) {
+                                        res.setHeader(header, headers[header]);
+                                    }
                                     if (body.indexOf("{") === 0 || options.url.indexOf("format=json") > -1) {
                                         // prettify JSON
                                         body = JSON.stringify(JSON.parse(body), true, 2);
-                                        res.writeHead(200);
-                                        res.end(body);
-                                    } else if (options.url.indexOf("format=csv") > -1) {
-                                        // body is csv - just return it
-                                        res.writeHead(200);
-                                        res.end(body);
-                                    } else {
-                                        // body is xlsx
-                                        res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-                                        res.writeHead(200);
-                                        res.end(body);
                                     }
+                                        res.writeHead(200);
+                                        res.end(body);
                                 } else {
                                     res.writeHead(500);
                                     res.end("Your API call was unsuccessful; here is what the server returned: " + error);

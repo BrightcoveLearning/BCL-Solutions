@@ -21,7 +21,6 @@ var BCLSPROXY = (function () {
     "use strict";
     var util = require("util"),
         colors = require("colors"),
-        csv = require("fast-csv"),
         http = require("http"),
         request = require("request"),
         // functions
@@ -52,7 +51,6 @@ var BCLSPROXY = (function () {
         // data fixes
         // decode the URL
         options.url = decodeURIComponent(options.url);
-        console.log("url", options.url);
         // check for required values
         if (options.client_id === null || options.client_secret === null) {
             error = "Error: client_id and client_secret are required!";
@@ -94,31 +92,16 @@ var BCLSPROXY = (function () {
      */
     sendRequest = function (token, options, callback) {
         var requestOptions = {
-            method: options.requestType,
-            url: options.url,
-            headers: {
-                "Authorization": "Bearer " + token,
-                "Content-Type": "application/json"
-            },
-            body: options.requestBody
-        };
+                method: options.requestType,
+                url: options.url,
+                headers: {
+                    "Authorization": "Bearer " + token,
+                    "Content-Type": "application/json"
+                },
+                body: options.requestBody
+            };
         request(requestOptions, function (error, response, body) {
-            console.log('Error: ', error);
-            console.log('Headers: ', response.headers);
-            console.log('Body: ', body);
             if (error === null) {
-                if (response.headers["content-type"] === "text/csv;charset=UTF-8") {
-                    response.pipe(csv);
-                    csv.fromPath(body, {
-                        headers: true
-                    });
-                    csv.on("record", function (data) {
-                        console.log("csvdata ", data);
-                    });
-                    csv.on("end", function () {
-                        res.end(data);
-                    });
-                }
                 callback(null, response, body);
             } else {
                 callback(error);
@@ -129,7 +112,6 @@ var BCLSPROXY = (function () {
      * Http Server to handle requests
      */
     http.createServer(function (req, res) {
-        console.log(req.headers);
         var body = "";
         if (req.headers.origin.indexOf("brightcove.com") < -1) {
             res.writeHead(500);
@@ -139,22 +121,26 @@ var BCLSPROXY = (function () {
             body += chunk;
         });
         req.on("end", function () {
-            console.log("body", body);
             getFormValues(body, function (error, options) {
                 if (error === null) {
                     getAccessToken(options, function (error, token) {
                         if (error === null) {
                             sendRequest(token, options, function (error, response, body) {
                                 if (error === null) {
-                                    res.writeHead(200);
                                     if (body.indexOf("{") === 0 || options.url.indexOf("format=json") > -1) {
                                         // prettify JSON
                                         body = JSON.stringify(JSON.parse(body), true, 2);
+                                        res.writeHead(200);
                                         res.end(body);
                                     } else if (options.url.indexOf("format=csv") > -1) {
-
+                                        // body is csv - just return it
+                                        res.writeHead(200);
+                                        res.end(body);
                                     } else {
-                                        res.end("Your response will download automatically...");
+                                        // body is xlsx
+                                        res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                                        res.writeHead(200);
+                                        res.end(body);
                                     }
                                 } else {
                                     res.writeHead(500);

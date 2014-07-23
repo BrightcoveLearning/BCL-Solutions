@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>bcls-proxy tester</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+            font-size: .9em;
+            margin-top: 20px;
+            margin-left: 20px;
+        }
+        iframe {
+            width: 80%;
+            height: 600px;
+        }
+        input {
+            width: 80%;
+        }
+        textarea {
+            width: 80%
+        }
+        #callBody {
+            height: 100px;
+        }
+        #submit {
+            width: 100px
+        }
+    </style>
+</head>
+
+<body>
+    <h1>bcls-proxy tester</h1>
+    <p>Welcome to the Brightcove Learning Services proxy tester. The tester can be used currently for the following APIs:
+        <ul>
+            <li>Perform: Player Management</li>
+            <li>Video Cloud: Analytics</li>
+        </ul>
+    </p>
+    <p>To get a <code>client_id</code> and <code>client_secret</code>, you will need to go to the OAuth UI and register this app:
+        <ul>
+            <li>Perform: <a href="https://studio.brightcove.com/products/perform/admin/oauthsettings">https://studio.brightcove.com/products/perform/admin/oauthsettings</a></li>
+            <li>Video Cloud: <a href="https://sadmin.brightcove.com/oauth_module/v1/">https://sadmin.brightcove.com/oauth_module/v1/</a></li>
+        </ul>
+    </p>
+    <p>
+        Client id (required - if you leave this blank values for the Analytics API on a sample account will be used):<br />
+        <input name="client_id_display" id="client_id_display" type="text" value="">
+    </p>
+    <p>
+        Client secret (required - if you leave this blank values for the Analytics API on a sample account will be used):<br />
+        <input name="client_secret_display" id="client_secret_display" type="text" value="">
+    </p>
+    <form action="//solutions.brightcove.com:8002" method="post" enctype="application/x-www-form-urlencoded" target="responseFrame">
+        <p>
+            Call type (default is GET):
+            <select name="requestType" id="requestType">
+                <option selected="selected">GET</option>
+                <option>POST</option>
+                <option>PUT</option>
+                <option>PATCH</option>
+                <option>DELETE</option>
+            </select>
+        </p>
+        <p>
+            Call body (optional - include if you need to submit data with the request):<br />
+            <textarea name="callBody" id="callBody"></textarea>
+        </p>
+        <p>
+            Full request URL for the API call:<br />
+            <textarea name="url" id="url">https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=account&limit=10&offset=0&fields=all&sort=account&format=json</textarea>
+        </p>
+        <p>
+            <input id="client_id" name="client_secret" type="hidden" value="45ddce85-e9e1-4ecc-8562-3f97ead6b048">
+            <input id="client_secret" name="client_secret" type="hidden" value="WnoEbQM6aslaUcY9eqG8AJs8hXvjDjpnxDJYI4JHpdTo7vb1wpBFJMGlYC0BPdvtlZxyhd7UCpn0F1m5wF1Ccw">
+            <input id="submit" type="submit" value="Submit">
+        </p>
+    </form>
+    <iframe name="responseFrame" id="responseFrame" src=""></iframe>
+    <script>
+        var BCLS = ( function () {
+            var iframe = document.getElementById("responseFrame"),
+                btn = document.getElementById("submit"),
+                client_id_display = document.getElementById("client_id_display"),
+                client_secret_display = document.getElementById("client_secret_display"),
+                client_id = document.getElementById("client_id"),
+                client_secret = document.getElementById("client_secret");
+            btn.addEventListener("click", function () {
+                iframe.setAttribute("src", "about:blank")
+            });
+            client_id_display.addEventListener("change", function () {
+                client_id.setAttribute("value", client_id_display.getAttribute("value"));
+                console.log(client_id.value);
+            });
+            client_secret_display.addEventListener("change", function () {
+                client_secret.setAttribute("value", client_secret_display.getAttribute("value"));
+            });
+        })();
+    </script>
+</body>
+
+</html>
+</script>

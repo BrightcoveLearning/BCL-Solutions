@@ -9,7 +9,8 @@ var BCLS = (function ($, window, Pikaday) {
 		id_page_size = 100,
         id_page_number = 0,
 		tagArray = [],
-		selectedTagsArray = [],
+		pageSelectedTagsArray = [],
+		totalSelectedTagsArray = [],
 		videoIdArray = [],
         analyticsData = {},
         $playlistInfo = $("#playlistInfo"),
@@ -54,7 +55,6 @@ var BCLS = (function ($, window, Pikaday) {
         rollupDimensionOptions = "<option value=\"account\">account</option>",
         reportDimensionOptions = "<option value=\"player\">player</option><option value=\"video\">video</option><option value=\"referrer_domain\">referrer_domain</option><option value=\"source_type\">source_type</option><option value=\"search_terms\">search_terms</option><option value=\"device_type\">device_type</option><option value=\"device_os\">device_os</option>",
         $getTags = $("#getTags"),
-		$getVideoIds = $("#getVideoIds"),
         handleBarsTemplate = "{{#each .}}<option value=\"{{this}}\">{{this}}</option>{{/each}}",
         $tagSelectWrapper = $("#tagSelectWrapper"),
         $tagSelector = $("#tagSelector"),
@@ -74,8 +74,12 @@ var BCLS = (function ($, window, Pikaday) {
 		removeDuplicateElements,
 		results,
 		compareFields,
-		formatSelectedTags,
+		processSelectedTags,
 		saveSelectedTags,
+		formatSelectedTags,
+		addTagsToTable,
+		appendSelectedTags,
+		formatTagsString,
 		paramString = "",
 		tableString = "",
 		errMsg = "",
@@ -132,8 +136,8 @@ var BCLS = (function ($, window, Pikaday) {
 	// call the Media API to get a list of tags for an account
     getTags = function () {
         if((tagButtonClicked) && (!firstRun)) {
-			saveSelectedTags();
-			formatSelectedTags();
+			appendSelectedTags();
+			pageSelectedTagsArray = [];
 		}
 		// set up the Media API call
         BCMAPI.url = $readApiLocation.val();
@@ -228,62 +232,103 @@ var BCLS = (function ($, window, Pikaday) {
 		return 0;
 	}
 	
+	processSelectedTags = function() {
+		saveSelectedTags();
+		// undim param input fields
+        $aapiParams.attr("class", "bcls-shown");
+        $requestSubmitter.attr("class", "bcls-shown")
+	}
+	
+	saveSelectedTags = function () {
+        console.log("saveSelectedTags");
+		
+		pageSelectedTagsArray = [];
+		var i;
+		for (i=0; i<tagSelector.options.length; i++) {
+	        if (tagSelector.options[i].selected) {
+				pageSelectedTagsArray.push(tagSelector.options[i].value);
+			}
+		}
+		//console.log(pageSelectedTagsArray);
+		
+		formatSelectedTags();
+    }
+	
+	formatSelectedTags = function () {
+        console.log("formatSelectedTags");
+		
+		selectCount = 0;
+		rowCount = 1;
+		tableString = "<tr>";
+		
+		addTagsToTable(totalSelectedTagsArray);
+		addTagsToTable(pageSelectedTagsArray);
+		
+		tableString += "</tr>";
+		
+		console.log("row count= " + rowCount);
+		console.log(tableString);
+		
+		// inject the HTML for the video list
+		$tagsSelectedTable.html(tableString);
+		
+		$numSelected.html(selectCount);
+    }
+	
+	addTagsToTable = function (current_array) {
+        console.log("addTagsToTable");
+		var i;
+		for (i=0; i<current_array.length; i++) {
+			if (rowCount > 5) {
+				tableString += "</tr><tr>";
+				rowCount = 1;
+			}
+			tableString += "<td>" + current_array[i] + "</td>";
+			rowCount++;
+			selectCount++;
+		}
+    }
+	
+	appendSelectedTags = function () {
+        console.log("appendSelectedTags");
+		
+		var i;
+		for (i=0; i<pageSelectedTagsArray.length; i++) {
+			totalSelectedTagsArray.push(pageSelectedTagsArray[i]);
+		}
+		//console.log(totalSelectedTagsArray);
+    }
+	
+	formatTagsString = function () {
+        console.log("formatTagsString");
+		var i;
+		//selectCount = 0;
+		for (i=0; i<totalSelectedTagsArray.length; i++) {
+			paramString += "," + "tag:" + pageSelectedTagsArray[i];
+			//selectCount++;
+		}
+		paramString = paramString.substring(1);
+    }
+	
 	// call the Media API to get all videoids for selected tag values
     getVideoIds = function () {
         console.log("getVideoIds");
 		
 		paramString = "";
 		saveSelectedTags();
-		formatSelectedTags();
 		
 		if (!paramString) {
 			console.log("please select a tag");
 			$getVideoMsg.html("Please select one or more tag values.");
 		} else {
 			$getVideoMsg.html("");
-			paramString = paramString.substring(1);
+			
 			
 			id_page_number = 0;
 			videoIdArray = [];
 			getVideoIdsRequest();
 		}
 		console.log(paramString);
-    }
-	
-	saveSelectedTags = function () {
-        console.log("saveSelectedTags");
-		
-		var i;
-		for (i=0; i<tagSelector.options.length; i++) {
-	        if (tagSelector.options[i].selected) {
-				selectedTagsArray.push(tagSelector.options[i].value);
-			}
-		}
-		console.log(selectedTagsArray);
-    }
-	
-	formatSelectedTags = function () {
-        console.log("formatSelectedTags");
-		var i;
-		selectCount = 0;
-		tableString = "<tr>";
-		rowCount = 1;
-		for (i=0; i<selectedTagsArray.length; i++) {
-			paramString += "," + "tag:" + selectedTagsArray[i];
-			if (rowCount > 5) {
-				tableString += "</tr><tr>";
-				rowCount = 1;
-			}
-			tableString += "<td>" + selectedTagsArray[i] + "</td>";
-			rowCount++;
-			selectCount++;
-		}
-		tableString += "</tr>";
-		
-		// inject the HTML for the video list
-		$tagsSelectedTable.html(tableString);
-		
-		$numSelected.html(selectCount);
     }
 	
 	getVideoIdsRequest = function () {
@@ -323,12 +368,9 @@ var BCLS = (function ($, window, Pikaday) {
     }
 	
 	createAnalyticsRequest = function () {
-		// undim param input fields
-        $aapiParams.attr("class", "bcls-shown");
-        $requestSubmitter.attr("class", "bcls-shown")
 		// set playlist info in analyticsData
-        analyticsData.playlist_id = selectedPlaylist.id;
-        analyticsData.playlist_name = selectedPlaylist.name;
+//        analyticsData.playlist_id = selectedPlaylist.id;
+//        analyticsData.playlist_name = selectedPlaylist.name;
         analyticsData.average_engagement_score = 0;
         analyticsData.average_play_rate = 0;
         analyticsData.average_video_engagement_1 = 0;
@@ -368,7 +410,7 @@ var BCLS = (function ($, window, Pikaday) {
     }
 
     buildRequest = function () {
-        // check for required fields
+		// check for required fields
         $required.each(function () {
             $this = $(this);
             if ($this.val === "") {
@@ -494,8 +536,11 @@ var BCLS = (function ($, window, Pikaday) {
 
     // set event listeners
     $getTags.on("click", getTags);
-	$getVideoIds.on("click", getVideoIds);
+	//$getVideoIds.on("click", getVideoIds);
     // set listener for form fields
+	$tagSelector.on("change", function () {
+		processSelectedTags();
+    });
     $requestInputs.on("change", function () {
         reset();
         buildRequest();

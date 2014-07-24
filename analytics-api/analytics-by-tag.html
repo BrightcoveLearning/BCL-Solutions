@@ -105,7 +105,7 @@
 					</p>
 					<div class="bcls-hidden" id="tagSelectWrapper">
 						<p id="tags">
-							<select id="tagSelector" multiple style="height:350px;"></select>
+							<select id="tagSelector" multiple style="height:300px;"></select>
 						</p>
 					</div>
 				</fieldset>
@@ -135,6 +135,34 @@
 						</p>
 					</div>
 					<p><span>Number of tags selected: </span><span id="numSelected"></span></p>
+				</fieldset>
+			    <fieldset>
+					<legend>Associated Video Ids</legend>
+					<p><span class="run-button" id="getVideoIds">Get Video Ids</span>
+					</p>
+					<div class="bcls-hidden" id="videoIdWrapper">
+						<p id="videoIds">
+							<table class="articleTable" style="table-layout:fixed;word-break:break-all;width:100%">
+								<col width="170px" />
+								<col width="170px" />
+								<col width="170px" />
+								<col width="170px" />
+								<col width="170px" />
+								<thead>
+									<tr>
+										<td>column 1</td>
+										<td>column 2</td>
+										<td>column 3</td>
+										<td>column 4</td>
+										<td>column 5</td>
+									</tr>
+								</thead>
+								<tbody id="videoIdTable">
+									<!-- associated video ids go here -->
+								</tbody>
+							</table>
+						</p>
+					</div>
 					<p><span id="getVideoMsg"></span></p>
 				</fieldset>
 				<fieldset id="aapiParams" class="bcls-hidden">
@@ -165,6 +193,7 @@
 			</div>
 			<h2>The API Request</h2>
 			<div id="requestSubmitter" class="bcls-hidden">
+				</p>
 				<fieldset>
 					<legend>Generated Request</legend>
 					<p>API Request</p>

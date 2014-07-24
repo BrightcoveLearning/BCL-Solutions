@@ -114,7 +114,7 @@ var BCLSPROXY = (function () {
      */
     http.createServer(function (req, res) {
         var body = "";
-        // the published version of thie proxy accepts requests only from domains that include "brightcove.com"
+        // the published version of this proxy accepts requests only from domains that include "brightcove.com"
         // modify the following line to take requests from other domains
         // or remove the if block to accept requests from any domain (not recommended!)
         if (req.headers.origin.indexOf("brightcove.com") < 0) {
@@ -158,6 +158,7 @@ var BCLSPROXY = (function () {
                 }
             });
         });
+    // change the following line to have the proxy listen for requests on a different port
     }).listen(8002);
     util.puts("http server ".blue + "started ".green.bold + "on port ".blue + "8002 ".yellow);
 })();

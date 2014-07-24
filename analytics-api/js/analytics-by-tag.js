@@ -65,6 +65,7 @@ var BCLS = (function ($, window, Pikaday) {
 		$videoIdTable = $("#videoIdTable"),
 		$numSelected = $("#numSelected"),
 		$getVideoMsg = $("#getVideoMsg"),
+		$numVideoIds = $("#numVideoIds"),
         $analyticsData = $("#analyticsData"),
         videoIds = [],
         currentVideoIndex = 0,
@@ -133,6 +134,7 @@ var BCLS = (function ($, window, Pikaday) {
 	    $getTags.html("Get Tags");
 	    $getTags.attr("class", "run-button");
 	    $getTags.on("click", getTags);
+		$getVideoIds.attr("class", "bcls-hidden");
 	    page_number = 0;
 		tagButtonClicked = true;
 		currentVideoIndex = 0;
@@ -239,8 +241,7 @@ var BCLS = (function ($, window, Pikaday) {
 	processSelectedTags = function() {
 		saveSelectedTags();
 		// undim param input fields
-        $aapiParams.attr("class", "bcls-shown");
-        $requestSubmitter.attr("class", "bcls-shown")
+		$getVideoIds.attr("class", "run-button bcls-shown");
 	}
 	
 	saveSelectedTags = function () {
@@ -390,12 +391,12 @@ var BCLS = (function ($, window, Pikaday) {
 		
 		// inject the HTML for the video list
 		$videoIdTable.html(videoTableString);
+		
+		$numVideoIds.html(videoIdArray.length);
     }
 	
 	prepAnalyticsRequest = function () {
-		// set playlist info in analyticsData
-//        analyticsData.playlist_id = selectedPlaylist.id;
-//        analyticsData.playlist_name = selectedPlaylist.name;
+		// initialize video info in analyticsData
         analyticsData.average_engagement_score = 0;
         analyticsData.average_play_rate = 0;
         analyticsData.average_video_engagement_1 = 0;
@@ -409,7 +410,6 @@ var BCLS = (function ($, window, Pikaday) {
         analyticsData.total_video_view = 0;
         analyticsData.individual_video_data = [];
 		currentVideoIndex = 0;
-        buildRequest();
 	}
     removeSpaces = function (str) {
         if (isDefined(str)) {
@@ -456,6 +456,7 @@ var BCLS = (function ($, window, Pikaday) {
         requestURL += "report/";
         requestURL += "?dimensions=video&";
         // add video filter
+		console.log("current video index: " + currentVideoIndex);
 		console.log(videoIdArray[currentVideoIndex]);
         requestURL += "where=video==" + videoIdArray[currentVideoIndex];
         // check for player filter
@@ -510,8 +511,10 @@ var BCLS = (function ($, window, Pikaday) {
 		 console.log("processData");
 		 console.log(aapiData);
 		 console.log("aapiData.item_count= " + aapiData.item_count);
+		 console.log("currentVideoIndex= " + currentVideoIndex);
+		 console.log("totalVideos= " + totalVideos);
 		 
-		if ((totalVideos == 0) || (currentVideoIndex > totalVideos)) {
+		if ((totalVideos == 0) || (currentVideoIndex > totalVideos - 1)) {
 			gettingData = false;
 			return;
 		}
@@ -553,7 +556,7 @@ var BCLS = (function ($, window, Pikaday) {
                 analyticsRequestNumber++;
                 currentVideoIndex++;
                 gettingData = true;
-//                buildRequest();
+                buildRequest();
             }
         } else {
             // get the next data set
@@ -561,7 +564,7 @@ var BCLS = (function ($, window, Pikaday) {
             analyticsRequestNumber++;
             currentVideoIndex++;
             gettingData = true;
-//            buildRequest();
+            buildRequest();
         }
     }
     
@@ -590,14 +593,16 @@ var BCLS = (function ($, window, Pikaday) {
 	
     // build request
     $getVideoIds.on("click", function () {
+		$aapiParams.attr("class", "bcls-shown");
+        $requestSubmitter.attr("class", "bcls-shown");
         // get video Ids associated with selected tag values
 		getVideoIds();
-		// make sure request data is current
-        buildRequest();
     });
 	// send request
     $submitButton.on("click", function () {
-        getData();
+        console.log("submit button");
+        buildRequest();
+		getData();
     });
 
     // generate initial request

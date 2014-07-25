@@ -45,4 +45,4 @@ The proxy expects a `POST` request with the following `application/x-www-form-ur
     requestType   // for the API request: GET | POST | PUT | PATCH | DELETE (required)
     requestBody   // generally JSON to be sent with write calls (optional)
     
-See `proxy-tester.html` for a sample implementation, and you can view the live sample at [http://solutions.brightcove.com/bcls/bcls-proxy/tester.html](http://solutions.brightcove.com/bcls/bcls-proxy/tester.html).
+See `tester.html` for a sample implementation, and you can view the live sample at [http://solutions.brightcove.com/bcls/bcls-proxy/tester.html](http://solutions.brightcove.com/bcls/bcls-proxy/tester.html). Note that `tester.html` points to proxy on solutions.brightcove.com (in the form `action`) - you will need to modify that if you want to use the page to test your own implementation.

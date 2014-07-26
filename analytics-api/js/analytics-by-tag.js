@@ -446,6 +446,9 @@ var BCLS = (function ($, window, Pikaday) {
                 return;
             }
         });
+//		if (currentVideoIndex > totalVideos - 1) {
+//			return;
+//		} 
         // reset requestTrimmed to false in case of regenerate request
         requestTrimmed = false;
         // build the request
@@ -458,7 +461,7 @@ var BCLS = (function ($, window, Pikaday) {
         // add video filter
 		console.log("current video index: " + currentVideoIndex);
 		console.log(videoIdArray[currentVideoIndex]);
-        requestURL += "where=video==" + videoIdArray[currentVideoIndex];
+		requestURL += "where=video==" + videoIdArray[currentVideoIndex];
         // check for player filter
         if ($player.val() !== "") {
             requestURL += ";player==" + $player.val() + "&";
@@ -491,20 +494,20 @@ var BCLS = (function ($, window, Pikaday) {
 	// submit request
     getData = function () {
 		console.log("getData");
-        var format = $format.val();
-        gettingData = true;
-        $.ajax({
-            url: $request.attr("value"),
-            headers: {
-                Authorization : $authorization.attr("value")
-            },
-            success : function(data) {
-                processData(data);
-            },
-            error : function (XMLHttpRequest, textStatus, errorThrown) {
-                $responseFrame.html("Sorry, your request was not successful. Here is what the server sent back: " + errorThrown);
-            }
-        })
+		var format = $format.val();
+		gettingData = true;
+		$.ajax({
+			url: $request.attr("value"),
+			headers: {
+				Authorization : $authorization.attr("value")
+			},
+			success : function(data) {
+				processData(data);
+			},
+			error : function (XMLHttpRequest, textStatus, errorThrown) {
+				$responseFrame.html("Sorry, your request was not successful. Here is what the server sent back: " + errorThrown);
+			}
+		})
     }
      // store returned data and do math to sum up playlist totals
      processData = function (aapiData) {
@@ -513,11 +516,6 @@ var BCLS = (function ($, window, Pikaday) {
 		 console.log("aapiData.item_count= " + aapiData.item_count);
 		 console.log("currentVideoIndex= " + currentVideoIndex);
 		 console.log("totalVideos= " + totalVideos);
-		 
-		if ((totalVideos == 0) || (currentVideoIndex > totalVideos - 1)) {
-			gettingData = false;
-			return;
-		}
 		 
         // check for items
         if (aapiData.item_count !== 0) {
@@ -561,10 +559,14 @@ var BCLS = (function ($, window, Pikaday) {
         } else {
             // get the next data set
 			console.log("get next data set 2");
-            analyticsRequestNumber++;
-            currentVideoIndex++;
-            gettingData = true;
-            buildRequest();
+			if ((totalVideos == 0) || (currentVideoIndex > totalVideos - 1)) {
+				// stop looping
+			} else {
+				analyticsRequestNumber++;
+				currentVideoIndex++;
+				gettingData = true;
+				buildRequest();
+			}
         }
     }
     
@@ -600,7 +602,10 @@ var BCLS = (function ($, window, Pikaday) {
     });
 	// send request
     $submitButton.on("click", function () {
-        console.log("submit button");
+        console.log("submit button-----------------");
+		$responseFrame.html("");
+		currentVideoIndex = 0;
+		prepAnalyticsRequest();
         buildRequest();
 		getData();
     });

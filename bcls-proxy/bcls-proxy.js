@@ -10,7 +10,7 @@
  *       client_id // (get from the Brightcove OAuth UI in Studio)
  *       client_secret // (get from the Brightcove OAuth UI in Studio)
  *       url // the full url for the API call you want to make, including parameters
- *       requestType // GET | POST | PUT | PATCH | DELETE
+ *       requestType // (optional, default: GET)GET | POST | PUT | PATCH | DELETE
  *       requestBody // (optional) request body for calls that submit data
  *
  * Note: this is a sample only, not a supported Brightcove plugin
@@ -52,8 +52,8 @@ var BCLSPROXY = (function () {
         // decode the URL
         options.url = decodeURIComponent(options.url);
         // check for required values
-        if (options.client_id === null || options.client_secret === null) {
-            error = "Error: client_id and client_secret are required!";
+        if (options.client_id === null || options.client_secret === null || options.url === null) {
+            error = "Error: client_id, client_secret, and url for API request are required!";
         }
         if (error === null) {
             callback(null, options);

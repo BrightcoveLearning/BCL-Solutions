@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Analytics by Tag Value</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.3.0/css/foundation.min.css" />
+	<script src="//use.edgefonts.net/source-code-pro.js"></script>
+	<link href="//files.brightcove.com/proxima-nova/font-faces.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/styles/github.min.css">
+	<!-- for date picker -->
+	<link href="//docs.brightcove.com/en/styles/pikaday.min.css" rel="stylesheet">
+<!--	<link rel="stylesheet" type="text/css" href="/bcls/analytics-api/css/analytics-by-playlist.css"> doktst-->
+	<link rel="stylesheet" type="text/css" href="/analytics-api/css/analytics-by-playlist.css">
+	<style type="text/css">
+		#top {
+			padding-top: 120px;
+			margin-top: -80px;
+		}
+		#responseFrame,
+		#request {
+			width: 80%;
+		}
+	</style>
+	<link href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.3.0/css/normalize.min.css" type="text/css">
+</head>
+
+<body>
+	<!-- header navbar -->
+	<div id="navWrapper" class="fixed"></div>
+	<!-- breadcrumbs -->
+	<nav id="breadCrumbWrapper" class="breadcrumbs show-for-medium-up"></nav>
+	<!-- search -->
+	<div id="searchModal" class="reveal-modal" data-reveal></div>
+	<!-- content -->
+	<div class="row">
+		<div class="large-12 large-centered small-12 small-centered">
+			<!-- main content starts here -->
+			<div class="section" id="top">
+				<h1>Get Analytics by Tag Value</h1>
+				<p class="text-warning">Note: the Analytics API is currently in <strong>Limited Availability</strong>. If you are interested in enabling your account for the beta version of the API, please contact your account manager.</p>
+				<p>This tool allows you to select a tag from your account and get analytics data for all the videos with this tag.</p>
+				<h3>Notes</h3>
+				<ul>
+					<li>You must retrieve tag data and select a tag before submitting the request to the Analytics API &mdash; if you want to get analytics data for individual videos or players, use the <a href="//solutions.brightcove.com/bcls/analytics-api/aapi-request-builder.html">Analytics Request Builder</a>
+					</li>
+<!--					<li>If any of the videos are also published in single video players, or in multiple playlists, you will need to specify the player to get accurate data for a specific playlist</li>-->
+					<li>The returned data includes the data for individual videos plus cumulative or average values for the tag</li>
+					<li>If the returned data does not include items for all videos with the tag, no data was returned for those videos over the time period specified</li>
+				</ul>
+			</div>
+			<h2>Request Options</h2>
+			<p>Where no default value is indicated, there is none.</p>
+			<div id="inputFields" class="input-fields">
+				<fieldset>
+					<legend>Basic Information</legend>
+					<div id="basicInfo">
+						<table>
+							<tbody>
+								<tr>
+									<td>Service URL:</td>
+									<td>
+										<input id="serviceURL" class="required aapi-request" type="text" size="55" value="https://data.brightcove.com/analytics-api/videocloud" />
+									</td>
+								</tr>
+								<tr>
+									<td>Video Cloud Account (Publisher ID):</td>
+									<td>
+										<input id="accountID" class="required aapi-request" type="text" size="55" value="20318290001">(default: BC Training Videos)</td>
+								</tr>
+								<tr>
+									<td class="align-top no-wrap">Authorization Token: <sup class="red">*</sup>
+									</td>
+									<td>
+										<input id="token" class="required aapi-request" type="text" size="55" value="15075c51ae4b0af095c9a619a" />(default: BC Training Videos)
+										<p> <sup class="red">*</sup>If your account has been enabled for the Analytics API, this token was emailed to the account administrator when you joined the <strong>limited availability</strong> program.</p>
+									</td>
+								</tr>
+								<tr>
+									<td>Media API READ Token:
+										<br />(to retrieve videos to report or filter on)</td>
+									<td>
+										<input id="mapitoken" class="required aapi-request" type="text" size="60" value="v87kWelIdjUwVm7_Rzv09k-KqtLz-ty8ONbMxVYAI7-Q0eOilegqqg.." />(default: BC Training Videos)</td>
+								</tr>
+								<tr>
+									<td>Media API Location</td>
+									<td>
+										<select id="readApiLocation" class="required aapi-request">
+											<option value="http://api.brightcove.com/services/library">http://api.brightcove.com/services/post</option>
+											<option value="http://api.brightcove.co.jp/services/library">http://api.brightcove.co.jp/services/post (Japan)</option>
+										</select>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>Select one or more Tags</legend>
+					<p><span class="run-button" id="getTags">Get Tags</span>
+					</p>
+					<div class="bcls-hidden" id="tagSelectWrapper">
+						<p id="tags">
+							<select id="tagSelector" multiple style="height:300px;"></select>
+						</p>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>Tags Selected</legend>
+					<div class="bcls-hidden" id="tagSelectWrapper">
+						<p id="tagsSelected">
+							<table class="articleTable" style="table-layout:fixed;word-break:break-all;width:100%">
+								<col width="170px" />
+								<col width="170px" />
+								<col width="170px" />
+								<col width="170px" />
+								<col width="170px" />
+								<thead>
+									<tr>
+										<td>column 1</td>
+										<td>column 2</td>
+										<td>column 3</td>
+										<td>column 4</td>
+										<td>column 5</td>
+									</tr>
+								</thead>
+								<tbody id="tagsSelectedTable">
+									<!-- selected tags go here -->
+								</tbody>
+							</table>
+						</p>
+					</div>
+					<p><span>Number of tags selected: </span><span id="numSelected"></span></p>
+				</fieldset>
+			    <fieldset>
+					<legend>Associated Video Ids</legend>
+					<p><span class="run-button bcls-hidden" id="getVideoIds">Get Video Ids</span>
+					</p>
+					<div class="bcls-hidden" id="videoIdWrapper">
+						<p id="videoIds">
+							<table class="articleTable" style="table-layout:fixed;word-break:break-all;width:100%">
+								<col width="170px" />
+								<col width="170px" />
+								<col width="170px" />
+								<col width="170px" />
+								<col width="170px" />
+								<thead>
+									<tr>
+										<td>column 1</td>
+										<td>column 2</td>
+										<td>column 3</td>
+										<td>column 4</td>
+										<td>column 5</td>
+									</tr>
+								</thead>
+								<tbody id="videoIdTable">
+									<!-- associated video ids go here -->
+								</tbody>
+							</table>
+						</p>
+					</div>
+					<p><span>Number of videos: </span><span id="numVideoIds"></span></p>
+					<p><span id="getVideoMsg"></span></p>
+				</fieldset>
+				<fieldset id="aapiParams" class="bcls-hidden">
+					<legend>Filters</legend>
+					<div id="filters">
+						<table>
+							<tbody>
+								<tr>
+									<td>From:</td>
+									<td>Date:
+                                    <input class="date-range" id="from" type="text" size="30">  (default: 30 days ago -- choose the same date for From and To to get a report for that day)</td>
+								</tr>
+								<tr>
+									<td>To:</td>
+									<td>Date:
+                                    <input class="date-range" id="to" type="text" size="30"> (default: now)</td>
+								</tr>
+								<tr>
+									<td>Where:</td>
+									<td>Player ID =
+										<input id="player" class="where-input aapi-request" type="text" size="40" value="" />
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</fieldset>
+			</div>
+			<h2>The API Request</h2>
+			<div id="requestSubmitter" class="bcls-hidden">
+				</p>
+				<fieldset>
+					<legend>Generated Request</legend>
+					<p>API Request</p>
+					<textarea id="request" name="request" rows="3" cols="100"></textarea>
+					<p>Authorization</p>
+					<div id="authorizationDisplay" class="aapi-request"></div>
+					<input class="aapi-request" id="authorization" name="authorization" type="hidden" value="" />
+				</fieldset>
+				<p> <span class="bcls-button" id="submitButton">Submit Request</span>
+				</p>
+			</div>
+			<div id="response">
+				<h2>Response</h2>
+				<pre><code id="responseFrame"></code></pre>
+			</div>
+		</div>
+	</div>
+	<!-- scripts -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.2/fastclick.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.3.0/js/foundation.min.js"></script>
+	<!-- migrate plugin to enable any+time to work -->
+	<!-- for date picker -->
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.6.0/moment.min.js"></script>
+	<script type="text/javascript" src="//docs.brightcove.com/en/scripts/pikaday.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/highlight.min.js"></script>
+	<script src="//docs.brightcove.com/en/scripts/bc-mapi.js"></script>
+	<!-- homegrown utility to format json -->
+	<script src="//docs.brightcove.com/en/scripts/format_json.js"></script>
+	<script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
+	<script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
+<!--	<script src="/bcls/analytics-api/js/analytics-by-tag.js"></script> doktst-->
+	<script src="/analytics-api/js/analytics-by-tag.js"></script>
+	<script>
+		$(document).foundation();
+	</script>
+	<div class="footer text-center"><a href="mailto:docs@brightcove.com">Questions or comments?</a>
+	</div>
+</body>
+
+</html>

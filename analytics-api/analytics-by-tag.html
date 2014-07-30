@@ -48,7 +48,6 @@
 				<ul>
 					<li>You must retrieve tag data and select a tag before submitting the request to the Analytics API &mdash; if you want to get analytics data for individual videos or players, use the <a href="//solutions.brightcove.com/bcls/analytics-api/aapi-request-builder.html">Analytics Request Builder</a>
 					</li>
-<!--					<li>If any of the videos are also published in single video players, or in multiple playlists, you will need to specify the player to get accurate data for a specific playlist</li>-->
 					<li>The returned data includes the data for individual videos plus cumulative or average values for the tag</li>
 					<li>If the returned data does not include items for all videos with the tag, no data was returned for those videos over the time period specified</li>
 				</ul>
@@ -70,13 +69,13 @@
 								<tr>
 									<td>Video Cloud Account (Publisher ID):</td>
 									<td>
-										<input id="accountID" class="required aapi-request" type="text" size="55" value="20318290001">(default: BC Training Videos)</td>
+										<input id="accountID" class="required aapi-request" type="text" size="55" value="20318290001"> (default: BC Training Videos)</td>
 								</tr>
 								<tr>
 									<td class="align-top no-wrap">Authorization Token: <sup class="red">*</sup>
 									</td>
 									<td>
-										<input id="token" class="required aapi-request" type="text" size="55" value="15075c51ae4b0af095c9a619a" />(default: BC Training Videos)
+										<input id="token" class="required aapi-request" type="text" size="55" value="15075c51ae4b0af095c9a619a" /> (default: BC Training Videos)
 										<p> <sup class="red">*</sup>If your account has been enabled for the Analytics API, this token was emailed to the account administrator when you joined the <strong>limited availability</strong> program.</p>
 									</td>
 								</tr>
@@ -84,7 +83,7 @@
 									<td>Media API READ Token:
 										<br />(to retrieve videos to report or filter on)</td>
 									<td>
-										<input id="mapitoken" class="required aapi-request" type="text" size="60" value="v87kWelIdjUwVm7_Rzv09k-KqtLz-ty8ONbMxVYAI7-Q0eOilegqqg.." />(default: BC Training Videos)</td>
+										<input id="mapitoken" class="required aapi-request" type="text" size="60" value="v87kWelIdjUwVm7_Rzv09k-KqtLz-ty8ONbMxVYAI7-Q0eOilegqqg.." /> (default: BC Training Videos)</td>
 								</tr>
 								<tr>
 									<td>Media API Location</td>
@@ -113,6 +112,7 @@
 					<legend>Tags Selected</legend>
 					<div class="bcls-hidden" id="tagSelectWrapper">
 						<p id="tagsSelected">
+							
 							<table class="articleTable" style="table-layout:fixed;word-break:break-all;width:100%">
 								<col width="170px" />
 								<col width="170px" />

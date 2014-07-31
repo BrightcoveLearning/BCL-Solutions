@@ -14,8 +14,8 @@
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/styles/github.min.css">
 	<!-- for date picker -->
 	<link href="//docs.brightcove.com/en/styles/pikaday.min.css" rel="stylesheet">
-<!--	<link rel="stylesheet" type="text/css" href="/bcls/analytics-api/css/analytics-by-playlist.css"> doktst-->
 	<link rel="stylesheet" type="text/css" href="/bcls/analytics-api/css/analytics-by-playlist.css">
+
 	<style type="text/css">
 		#top {
 			padding-top: 120px;
@@ -48,6 +48,7 @@
 				<ul>
 					<li>You must retrieve tag data and select a tag before submitting the request to the Analytics API &mdash; if you want to get analytics data for individual videos or players, use the <a href="//solutions.brightcove.com/bcls/analytics-api/aapi-request-builder.html">Analytics Request Builder</a>
 					</li>
+<!--					<li>If any of the videos are also published in single video players, or in multiple playlists, you will need to specify the player to get accurate data for a specific playlist</li>-->
 					<li>The returned data includes the data for individual videos plus cumulative or average values for the tag</li>
 					<li>If the returned data does not include items for all videos with the tag, no data was returned for those videos over the time period specified</li>
 				</ul>
@@ -69,13 +70,13 @@
 								<tr>
 									<td>Video Cloud Account (Publisher ID):</td>
 									<td>
-										<input id="accountID" class="required aapi-request" type="text" size="55" value="20318290001"> (default: BC Training Videos)</td>
+										<input id="accountID" class="required aapi-request" type="text" size="55" value="20318290001">(default: BC Training Videos)</td>
 								</tr>
 								<tr>
 									<td class="align-top no-wrap">Authorization Token: <sup class="red">*</sup>
 									</td>
 									<td>
-										<input id="token" class="required aapi-request" type="text" size="55" value="15075c51ae4b0af095c9a619a" /> (default: BC Training Videos)
+										<input id="token" class="required aapi-request" type="text" size="55" value="15075c51ae4b0af095c9a619a" />(default: BC Training Videos)
 										<p> <sup class="red">*</sup>If your account has been enabled for the Analytics API, this token was emailed to the account administrator when you joined the <strong>limited availability</strong> program.</p>
 									</td>
 								</tr>
@@ -83,7 +84,7 @@
 									<td>Media API READ Token:
 										<br />(to retrieve videos to report or filter on)</td>
 									<td>
-										<input id="mapitoken" class="required aapi-request" type="text" size="60" value="v87kWelIdjUwVm7_Rzv09k-KqtLz-ty8ONbMxVYAI7-Q0eOilegqqg.." /> (default: BC Training Videos)</td>
+										<input id="mapitoken" class="required aapi-request" type="text" size="60" value="v87kWelIdjUwVm7_Rzv09k-KqtLz-ty8ONbMxVYAI7-Q0eOilegqqg.." />(default: BC Training Videos)</td>
 								</tr>
 								<tr>
 									<td>Media API Location</td>
@@ -112,12 +113,15 @@
 					<legend>Tags Selected</legend>
 					<div class="bcls-hidden" id="tagSelectedWrapper">
 						<p id="tagsSelected">
+<<<<<<< HEAD
 							<form id="radioForm">
 								<input type="radio" name="searchType" value="all" checked> I want the videos with ALL of these tags<br />
 								<input type="radio" name="searchType" value="any"> I want the videos with ANY of these tags<br />
 								<input type="radio" name="searchType" value="none"> I want the videos with NONE of these tags
 							</form>
 
+=======
+>>>>>>> FETCH_HEAD
 							<table class="articleTable" style="table-layout:fixed;word-break:break-all;width:100%">
 								<col width="170px" />
 								<col width="170px" />
@@ -233,7 +237,6 @@
 	<script src="//docs.brightcove.com/en/scripts/format_json.js"></script>
 	<script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
 	<script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
-<!--	<script src="/bcls/analytics-api/js/analytics-by-tag.js"></script> doktst-->
 	<script src="/bcls/analytics-api/js/analytics-by-tag.js"></script>
 	<script>
 		$(document).foundation();

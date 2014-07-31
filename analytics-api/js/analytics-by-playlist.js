@@ -130,6 +130,7 @@ var BCLS = (function ($, window, Pikaday) {
             $playlistSelector.on("change", BCLS.onPlaylistSelect);
             // turn off firstRun flag
             firstRun = false;
+            total_pages = 
         }
         // check to see if there are more playlists to fetch
         if (jsonData.total_count <= (page_size * page_number)) {

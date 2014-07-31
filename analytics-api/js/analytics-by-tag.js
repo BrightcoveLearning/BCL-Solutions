@@ -4,8 +4,6 @@ var BCLS = (function ($, window, Pikaday) {
         getTags,
 		getVideoIds,
 		getVideoIdsRequest,
-        radioForm = document.getElementById("radioForm"),
-        radioButton = radioForm.elements["searchType"],
 		formatVideoIds,
         page_size = 100,
         page_number = 0,
@@ -109,7 +107,8 @@ var BCLS = (function ($, window, Pikaday) {
     // utilities
     logit = function (context, message) {
         if (console) {
-            console.log(context, message);
+            console.log(context);
+            console.log(message);
         }
     };
     // allow array forEach method in older browsers
@@ -122,7 +121,11 @@ var BCLS = (function ($, window, Pikaday) {
     }
     // more robust test for strings "not defined"
     isDefined =  function (v) {
+<<<<<<< HEAD
         if (v !== "" && v !== null && v !== "undefined" && v !== undefined ) {
+=======
+        if (v !== "" && v !== null && v !== "undefined") {
+>>>>>>> jeff-know3933
             return true;
         }
         else {
@@ -148,6 +151,7 @@ var BCLS = (function ($, window, Pikaday) {
 			appendSelectedTags();
 			pageSelectedTagsArray = [];
 		}
+		$getVideoMsg.html("");
 		// set up the Media API call
         BCMAPI.url = $readApiLocation.val();
         BCMAPI.token = $mapitoken.val();
@@ -160,34 +164,43 @@ var BCLS = (function ($, window, Pikaday) {
 		$tagSelector.html("<option>processing...</option>");
     };
     onMAPIresponse = function(jsonData) {
+<<<<<<< HEAD
 		logit("jsonData", jsonData);
         var i,
             iMax;
+=======
+		console.log(jsonData);
+		
+>>>>>>> jeff-know3933
 		if (jsonData.error) {
 			errMsg = "Error code: " + jsonData.code + "Error msg: " + jsonData.error;
 			$tagSelector.html("<option>" + errMsg + "</option>");
 			return;
-		}
-
+		} 
+		
         // merge the data into the html template using Handlebars
         var template = Handlebars.compile(handleBarsTemplate);
-
+		
 		// build an array of all tag array items for each video
 		iMax = jsonData.items.length;
         for (i = 0; i < iMax; i++) {
 			// use apply to add array of tags for each selected video item
 			tagArray.push.apply(tagArray, jsonData.items[i].tags);
 		}
-
+		
 		// remove spaces
+<<<<<<< HEAD
 		logit("orginal number of tags: ", tagArray.length);
 		iMax = tagArray.length;
         for (i = 0; i < iMax; i++) {
+=======
+		for (var i = 0; i < tagArray.length; i++) {
+>>>>>>> jeff-know3933
 			tagArray[i] = removeSpaces(tagArray[i]);
 		}
 		// remove duplicate values
 		tagArray = removeDuplicateElements(tagArray);
-
+		
 		page_number++;
 		// if tags found less than page size, get next page
 		if ((tagArray.length < page_size) && (jsonData.total_count > (page_size * page_number))){
@@ -196,13 +209,13 @@ var BCLS = (function ($, window, Pikaday) {
 		} else {
 			tagButtonClicked = true;
 			tagArray.sort(compareFields);
-
+			
 			// inject the HTML for the video list
 			results = template(tagArray);
 			$tagSelector.html(results);
 			tagArray = [];
 		}
-
+		
 		// if first run change the button text
         if (firstRun) {
             // display the selector and get analytics button
@@ -229,8 +242,13 @@ var BCLS = (function ($, window, Pikaday) {
 			newArray[newArray.length] = arrayName[i];
 		}
 		return newArray;
+<<<<<<< HEAD
 	};
 
+=======
+	}
+	
+>>>>>>> jeff-know3933
 	compareFields = function(a,b) {
 		// function for sort array ascending
 		var a1, b1;
@@ -242,17 +260,29 @@ var BCLS = (function ($, window, Pikaday) {
 		if (a1 < b1) return -1;
 		if (a1 > b1) return 1;
 		return 0;
+<<<<<<< HEAD
 	};
 
+=======
+	}
+	
+>>>>>>> jeff-know3933
 	processSelectedTags = function() {
 		saveSelectedTags();
+		$getVideoMsg.html("");
 		// undim param input fields
 		$getVideoIds.attr("class", "run-button bcls-shown");
+<<<<<<< HEAD
 	};
 
 	saveSelectedTags = function () {
         logit("function", "saveSelectedTags");
         $tagSelectedWrapper.attr("class", "bcls-shown");
+=======
+	}
+	
+	saveSelectedTags = function () {
+>>>>>>> jeff-know3933
 		pageSelectedTagsArray = [];
 		var i;
 		for (i = 0; i < tagSelector.options.length; i++) {
@@ -260,6 +290,7 @@ var BCLS = (function ($, window, Pikaday) {
 				pageSelectedTagsArray.push(tagSelector.options[i].value);
 			}
 		}
+<<<<<<< HEAD
 		logit("pageSelectedTagsArray", pageSelectedTagsArray);
 
 		formatSelectedTags();
@@ -268,14 +299,22 @@ var BCLS = (function ($, window, Pikaday) {
 	formatSelectedTags = function () {
         logit("function","formatSelectedTags");
 
+=======
+		
+		formatSelectedTags();
+    }
+	
+	formatSelectedTags = function () {
+>>>>>>> jeff-know3933
 		selectCount = 0;
 		rowCount = 1;
 		tabTableString = "<tr>";
-
+		
 		tabTableString = addTagsToTable(totalSelectedTagsArray,tabTableString);
 		tabTableString = addTagsToTable(pageSelectedTagsArray,tabTableString);
-
+		
 		tabTableString += "</tr>";
+<<<<<<< HEAD
 
 		logit("row count= ", rowCount);
 		logit(tabTableString);
@@ -290,6 +329,16 @@ var BCLS = (function ($, window, Pikaday) {
 
 	addTagsToTable = function (currentArray,tableString) {
         logit("function", "addTagsToTable");
+=======
+		
+		// inject the HTML for the video list
+		$tagsSelectedTable.html(tabTableString);
+		
+		$numSelected.html(selectCount);
+    }
+	
+	addTagsToTable = function (currentArray,tableString) {
+>>>>>>> jeff-know3933
 		var i;
 		for (i=0; i<currentArray.length; i++) {
 			if (rowCount > 5) {
@@ -301,15 +350,22 @@ var BCLS = (function ($, window, Pikaday) {
 			selectCount++;
 		}
 		return tableString;
+<<<<<<< HEAD
     };
 
 	appendSelectedTags = function () {
         logit("function", "appendSelectedTags");
 
+=======
+    }
+	
+	appendSelectedTags = function () {
+>>>>>>> jeff-know3933
 		var i;
 		for (i = 0; i < pageSelectedTagsArray.length; i++) {
 			totalSelectedTagsArray.push(pageSelectedTagsArray[i]);
 		}
+<<<<<<< HEAD
 		// logit(totalSelectedTagsArray);
     };
 
@@ -326,26 +382,55 @@ var BCLS = (function ($, window, Pikaday) {
     getVideoIds = function () {
         logit("function", "getVideoIds");
 
+=======
+    }
+	
+	formatTagsString = function () {
+		var i;
+		//selectCount = 0;
+		for (i=0; i<totalSelectedTagsArray.length; i++) {
+			paramString += "," + "tag:" + totalSelectedTagsArray[i];
+			//selectCount++;
+		}
+		paramString = paramString.substring(1);
+    }
+	
+	// call the Media API to get all videoids for selected tag values
+    getVideoIds = function () {
+>>>>>>> jeff-know3933
 		appendSelectedTags();
 		formatTagsString();
+<<<<<<< HEAD
 		logit("totalSelectedTagsArray", totalSelectedTagsArray);
 
 		if (totalSelectedTagsArray.length === 0) {
 			logit("no tags: ", "please select a tag");
+=======
+		
+		if (!paramString) {
+>>>>>>> jeff-know3933
 			$getVideoMsg.html("Please select one or more tag values.");
 		} else {
 			$getVideoMsg.html("");
-
+			$aapiParams.attr("class", "bcls-shown");
+        	$requestSubmitter.attr("class", "bcls-shown");
+			
 			id_page_number = 0;
 			videoIdArray = [];
 			getVideoIdsRequest();
 		}
+<<<<<<< HEAD
     };
 
 	getVideoIdsRequest = function () {
         logit("function", "getVideoIdsRequest");
         var searchType = radioButton.value;
         logit("searchType", searchType);
+=======
+    }
+	
+	getVideoIdsRequest = function () {
+>>>>>>> jeff-know3933
 		// set up the Media API call
 		BCMAPI.callback = "BCLS.onMAPIresponse2";
 		params2.page_size = id_page_size;
@@ -354,6 +439,7 @@ var BCLS = (function ($, window, Pikaday) {
 		params2.video_fields = "id";
 		params2[searchType] = totalSelectedTagsArray;
 		BCMAPI.search(params2);
+<<<<<<< HEAD
     };
 
 	onMAPIresponse2 = function(jsonData) {
@@ -363,11 +449,20 @@ var BCLS = (function ($, window, Pikaday) {
         var i,
             iMax = jsonData.items.length;
 
+=======
+    }
+    
+	onMAPIresponse2 = function(jsonData) {
+		console.log("onMAPIresponse2");
+		console.log(BCMAPI.request);
+		console.log(jsonData);
+	
+>>>>>>> jeff-know3933
 		// build an array of all video ids with any of the selected tag values
 		for (i = 0; i < iMax; i++) {
 			videoIdArray.push(jsonData.items[i].id);
 		}
-
+	
 		id_page_number++;
 		// if more video id data, get next page
 		if (jsonData.total_count > (id_page_size * id_page_number)){
@@ -382,28 +477,46 @@ var BCLS = (function ($, window, Pikaday) {
             $videoIdWrapper.attr("class", "bcls-shown");
             $aapiParams.attr("class", "bcls-shown");
 		}
+<<<<<<< HEAD
     };
 
 	formatVideoIds = function () {
         logit("function", "formatVideoIds");
 		logit("videoIdArray", videoIdArray);
 
+=======
+    }
+	
+	formatVideoIds = function () {
+        console.log("formatVideoIds");
+		console.log(videoIdArray);
+		
+>>>>>>> jeff-know3933
 		rowCount = 1;
 		videoTableString = "<tr>";
-
+		
 		videoTableString = addTagsToTable(videoIdArray,videoTableString);
-
+		
 		videoTableString += "</tr>";
+<<<<<<< HEAD
 
 		logit("row count= ", rowCount);
 		logit("videoTableString", videoTableString);
 
+=======
+		
+>>>>>>> jeff-know3933
 		// inject the HTML for the video list
 		$videoIdTable.html(videoTableString);
-
+		
 		$numVideoIds.html(videoIdArray.length);
+<<<<<<< HEAD
     };
 
+=======
+    }
+	
+>>>>>>> jeff-know3933
 	prepAnalyticsRequest = function () {
 		// initialize video info in analyticsData
         analyticsData.average_engagement_score = 0;
@@ -445,7 +558,11 @@ var BCLS = (function ($, window, Pikaday) {
     };
 
     buildRequest = function () {
+<<<<<<< HEAD
 		logit("function", "buildRequest");
+=======
+		//console.log("buildRequest");
+>>>>>>> jeff-know3933
 		// check for required fields
         $required.each(function () {
             $this = $(this);
@@ -454,10 +571,7 @@ var BCLS = (function ($, window, Pikaday) {
                 // stop right here
                 return;
             }
-        });
-//		if (currentVideoIndex > totalVideos - 1) {
-//			return;
-//		}
+        }); 
         // reset requestTrimmed to false in case of regenerate request
         requestTrimmed = false;
         // build the request
@@ -468,8 +582,11 @@ var BCLS = (function ($, window, Pikaday) {
         requestURL += "report/";
         requestURL += "?dimensions=video&";
         // add video filter
+<<<<<<< HEAD
 		logit("current video index: ", currentVideoIndex);
 		logit("current video: ", videoIdArray[currentVideoIndex]);
+=======
+>>>>>>> jeff-know3933
 		requestURL += "where=video==" + videoIdArray[currentVideoIndex];
         // check for player filter
         if ($player.val() !== "") {
@@ -498,8 +615,13 @@ var BCLS = (function ($, window, Pikaday) {
         if (gettingData) {
             getData();
         }
+<<<<<<< HEAD
     };
 
+=======
+    }
+	
+>>>>>>> jeff-know3933
 	// submit request
     getData = function () {
 		logit("function", "getData");
@@ -520,6 +642,7 @@ var BCLS = (function ($, window, Pikaday) {
     };
      // store returned data and do math to sum up playlist totals
      processData = function (aapiData) {
+<<<<<<< HEAD
 		 logit("function", "processData");
 		 logit("aapiData", aapiData);
 		 logit("aapiData.item_count= ", aapiData.item_count);
@@ -527,6 +650,17 @@ var BCLS = (function ($, window, Pikaday) {
 		 logit("totalVideos= ", totalVideos);
 
         // check for items
+=======
+		 console.log("processData");
+		 console.log(aapiData);
+		 
+        if ((totalVideos == 0) || (currentVideoIndex > totalVideos - 1)) {
+			// stop looping
+			return;
+		} 
+		 
+		// check for items
+>>>>>>> jeff-know3933
         if (aapiData.item_count !== 0) {
             // add current data to totals
             analyticsData.individual_video_data.push(aapiData);
@@ -541,6 +675,7 @@ var BCLS = (function ($, window, Pikaday) {
             analyticsData.average_video_percent_viewed += aapiData.items[0].video_percent_viewed;
             analyticsData.total_video_seconds_viewed += aapiData.items[0].video_seconds_viewed;
             analyticsData.total_video_view += aapiData.items[0].video_view;
+<<<<<<< HEAD
 
             if (analyticsRequestNumber === (totalVideos - 1)) {
 				logit("all done compute averages", "");
@@ -581,6 +716,35 @@ var BCLS = (function ($, window, Pikaday) {
         }
     };
 
+=======
+		}
+			
+		if (analyticsRequestNumber === (totalVideos - 1)) {
+			console.log("all done compute averages");
+			// all done; time to compute the averages
+			gettingData = false;
+			analyticsData.average_engagement_score      = analyticsData.average_engagement_score / totalVideos;
+			analyticsData.average_play_rate             = analyticsData.average_play_rate / totalVideos;
+			analyticsData.average_video_engagement_1    = analyticsData.average_video_engagement_1 / totalVideos;
+			analyticsData.average_video_engagement_25   = analyticsData.average_video_engagement_25 / totalVideos;
+			analyticsData.average_video_engagement_50   = analyticsData.average_video_engagement_50 / totalVideos;
+			analyticsData.average_video_engagement_75   = analyticsData.average_video_engagement_75 / totalVideos;
+			analyticsData.average_video_engagement_100  = analyticsData.average_video_engagement_100 / totalVideos;
+			analyticsData.average_video_percent_viewed  = analyticsData.average_video_percent_viewed / totalVideos;
+			$responseFrame.html(BCLSformatJSON.formatJSON(analyticsData));
+			// next line just for this display - remove if reusing this code
+			$('pre code').each(function(i, e) {hljs.highlightBlock(e)});
+		} else {
+			// get the next data set
+			console.log("get next data set");
+			analyticsRequestNumber++;
+			currentVideoIndex++;
+			gettingData = true;
+			buildRequest();
+		}
+    }
+    
+>>>>>>> jeff-know3933
 	// add date pickers to the date input fields
 	fromPicker = new Pikaday({
 		field: document.getElementById("from"),
@@ -603,18 +767,21 @@ var BCLS = (function ($, window, Pikaday) {
         reset();
         buildRequest();
     });
-
+	
     // build request
     $getVideoIds.on("click", function () {
-		$aapiParams.attr("class", "bcls-shown");
-        $requestSubmitter.attr("class", "bcls-shown");
         // get video Ids associated with selected tag values
 		getVideoIds();
     });
 	// send request
     $submitButton.on("click", function () {
+<<<<<<< HEAD
         logit("submit button-----------------", "clicked");
+=======
+		$getVideoMsg.html("");
+>>>>>>> jeff-know3933
 		$responseFrame.html("");
+		analyticsRequestNumber = 0;
 		currentVideoIndex = 0;
 		prepAnalyticsRequest();
         buildRequest();

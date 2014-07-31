@@ -2,8 +2,9 @@ var BCLS = (function ($, window, Pikaday) {
     "use strict";
     var // media api stuff
         getPlaylists,
-        page_size = 25,
+        page_size = 100,
         page_number = 0,
+        total_pages = 0,
         playlistData = [],
         analyticsData = {},
         $playlistInfo = $("#playlistInfo"),
@@ -75,27 +76,26 @@ var BCLS = (function ($, window, Pikaday) {
     // utilities
     logit = function (context, message) {
         if (console) {
-            console.log(context);
-            console.log(message);
+            console.log(context, message);
         }
-    }
+    };
     // allow array forEach method in older browsers
     if ( !Array.prototype.forEach ) {
         Array.prototype.forEach = function(fn, scope) {
             for(var i = 0, len = this.length; i < len; ++i) {
                 fn.call(scope || this, this[i], i, this);
             }
-        }
+        };
     }
     // more robust test for strings "not defined"
     isDefined =  function (v) {
-        if (v !== "" && v !== null && v !== "undefined") {
+        if (v !== "" && v !== null && v !== "undefined" && v!== undefined) {
             return true;
         }
         else {
             return false;
         }
-    }
+    };
     // reset everything
     reset = function () {
 	    firstRun = true;
@@ -105,41 +105,54 @@ var BCLS = (function ($, window, Pikaday) {
 	    $getPlaylists.attr("class", "run-button");
 	    $getPlaylists.on("click", getPlaylists);
 	    page_number = 0;
-    }
+    };
     onMAPIresponse = function(jsonData) {
+        logit("jsonData", jsonData);
         // merge the data into the html template using Handlebars
         var template = Handlebars.compile(handleBarsTemplate),
-            data = jsonData,
-            results = template(data);
-        playlistData = jsonData.items;
+            data,
+            dataObj = {},
+            results,
+            i,
+            iMax = jsonData.items.length;
+
+        for (i = 0; i < iMax; i++) {
+            playlistData.push(jsonData.items[i]);
+        }
         // inject the HTML for the video list
         $playlistSelector.html(results);
         // if first run change the button text
-        // increment page_number
-        page_number++;
         if (firstRun) {
             // display the selector and get analytics button
             $playlistSelectWrapper.attr("class", "bcls-shown");
-            $getPlaylists.html("Get next 25 playlists");
+            $getPlaylists.html("Getting playlists...please wait...");
             // add event listener
             $playlistSelector.on("change", BCLS.onPlaylistSelect);
+            // turn off firstRun flag
+            firstRun = false;
         }
         // check to see if there are more playlists to fetch
         if (jsonData.total_count <= (page_size * page_number)) {
             $getPlaylists.html("No more playlists");
             $getPlaylists.attr("class", "bcls-hidden");
             $getPlaylists.off("click", getPlaylists);
+            dataObj.items = playlistData;
+            logit("dataObj", dataObj);
+            data = dataObj;
+            results = template(data);
+        } else {
+            // increment page_number
+            page_number++;
+            getPlaylists();
         }
-        // turn off firstRun flag
-        firstRun = false;
-    }
+    };
     onPlaylistSelect = function () {
         var selectedPlaylist = playlistData[(playlistSelector.selectedIndex - 1)];
         videoIds = selectedPlaylist.videoIds;
         totalVideos = videoIds.length;
         // undim param input fields
         $aapiParams.attr("class", "bcls-shown");
-        $requestSubmitter.attr("class", "bcls-shown")
+        $requestSubmitter.attr("class", "bcls-shown");
         // set playlist info in analyticsData
         analyticsData.playlist_id = selectedPlaylist.id;
         analyticsData.playlist_name = selectedPlaylist.name;
@@ -156,13 +169,13 @@ var BCLS = (function ($, window, Pikaday) {
         analyticsData.total_video_view = 0;
         analyticsData.individual_video_data = [];
         buildRequest();
-    }
+    };
     removeSpaces = function (str) {
         if (isDefined(str)) {
             str = str.replace(/\s+/g, '');
         return str;
         }
-    }
+    };
 
     trimRequest = function () {
         if (!requestTrimmed) {
@@ -179,7 +192,7 @@ var BCLS = (function ($, window, Pikaday) {
                 requestTrimmed = true;
             }
         }
-    }
+    };
 
     buildRequest = function () {
         // check for required fields
@@ -218,7 +231,7 @@ var BCLS = (function ($, window, Pikaday) {
             requestURL += "to=" + endDate + "&";
         }
         // add limit and fields
-        requestURL += "limit=all&fields=all"
+        requestURL += "limit=all&fields=all";
         // strip trailing ? or & and replace &&s
         trimRequest();
         $request.html(requestURL);
@@ -229,7 +242,7 @@ var BCLS = (function ($, window, Pikaday) {
         if (gettingData) {
             getData();
         }
-    }
+    };
      // store returned data and do math to sum up playlist totals
      processData = function (aapiData) {
         // check for items
@@ -238,11 +251,11 @@ var BCLS = (function ($, window, Pikaday) {
             analyticsData.individual_video_data.push(aapiData);
             analyticsData.average_engagement_score += aapiData.items[0].engagement_score;
             analyticsData.average_play_rate += aapiData.items[0].play_rate;
-            analyticsData.average_video_engagement_1 += aapiData.items[0].video_engagement_1
+            analyticsData.average_video_engagement_1 += aapiData.items[0].video_engagement_1;
             analyticsData.average_video_engagement_25 += aapiData.items[0].video_engagement_25;
             analyticsData.average_video_engagement_50 += aapiData.items[0].video_engagement_50;
             analyticsData.average_video_engagement_75 += aapiData.items[0].video_engagement_75;
-            analyticsData.average_video_engagement_100 += aapiData.items[0].video_engagement_100
+            analyticsData.average_video_engagement_100 += aapiData.items[0].video_engagement_100;
             analyticsData.total_video_impression += aapiData.items[0].video_impression;
             analyticsData.average_video_percent_viewed += aapiData.items[0].video_percent_viewed;
             analyticsData.total_video_seconds_viewed += aapiData.items[0].video_seconds_viewed;
@@ -257,10 +270,12 @@ var BCLS = (function ($, window, Pikaday) {
                 analyticsData.average_video_engagement_50   = analyticsData.average_video_engagement_50 / totalVideos;
                 analyticsData.average_video_engagement_75   = analyticsData.average_video_engagement_75 / totalVideos;
                 analyticsData.average_video_engagement_100  = analyticsData.average_video_engagement_100 / totalVideos;
-                analyticsData.average_video_percent_viewed  = analyticsData.average_video_percent_viewed / totalVideos;
+                analyticsData.average_video_percent_viewed  = analyticsData.average_video_percent_viewed / analyticsData.total_video_view;
                 $responseFrame.html(BCLSformatJSON.formatJSON(analyticsData));
                 // next line just for this display - remove if reusing this code
-                $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
+                $('pre code').each(function (i, e) {
+                    hljs.highlightBlock(e);
+                });
             } else {
                 // get the next data set
                 analyticsRequestNumber++;
@@ -275,7 +290,7 @@ var BCLS = (function ($, window, Pikaday) {
             gettingData = true;
             buildRequest();
         }
-    }
+    };
     // submit request
     getData = function () {
         var format = $format.val();
@@ -291,8 +306,8 @@ var BCLS = (function ($, window, Pikaday) {
             error : function (XMLHttpRequest, textStatus, errorThrown) {
                 $responseFrame.html("Sorry, your request was not successful. Here is what the server sent back: " + errorThrown);
             }
-        })
-    }
+        });
+    };
     // get a playlist collection
     getPlaylists = function () {
         // set up the Media API call, using data from the Analytics API call
@@ -304,7 +319,7 @@ var BCLS = (function ($, window, Pikaday) {
         params.get_item_count = true;
         params.video_fields = "id,name,thumbnailURL";
         BCMAPI.find("find_all_playlists", params);
-    }
+    };
         // add date pickers to the date input fields
         fromPicker = new Pikaday({
             field: document.getElementById("from"),
@@ -338,5 +353,5 @@ var BCLS = (function ($, window, Pikaday) {
     return {
         onMAPIresponse : onMAPIresponse,
         onPlaylistSelect : onPlaylistSelect
-    }
+    };
 })($, window, Pikaday);

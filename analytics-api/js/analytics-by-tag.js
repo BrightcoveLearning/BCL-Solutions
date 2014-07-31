@@ -553,7 +553,7 @@ var BCLS = (function ($, window, Pikaday) {
                 analyticsData.average_video_engagement_50   = analyticsData.average_video_engagement_50 / totalVideos;
                 analyticsData.average_video_engagement_75   = analyticsData.average_video_engagement_75 / totalVideos;
                 analyticsData.average_video_engagement_100  = analyticsData.average_video_engagement_100 / totalVideos;
-                analyticsData.average_video_percent_viewed  = analyticsData.average_video_percent_viewed / totalVideos;
+                analyticsData.average_video_percent_viewed  = analyticsData.average_video_percent_viewed / analyticsData.total_video_view;
                 $responseFrame.html(BCLSformatJSON.formatJSON(analyticsData));
                 // next line just for this display - remove if reusing this code
                 $('pre code').each(function (i, e) {

@@ -151,7 +151,6 @@ var BCLS = (function ($, window, Pikaday) {
 		// set up the Media API call
         BCMAPI.url = $readApiLocation.val();
         BCMAPI.token = $mapitoken.val();
-		//BCMAPI.token = "ZY4Ls9Hq6LCBgleGDTaFRDLWWBC8uoXQun0xEEXtlDUHBDPZBCOzbw.."; //doktst
         BCMAPI.callback = "BCLS.onMAPIresponse";
         params.page_size = page_size;
         params.page_number = page_number;

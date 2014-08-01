@@ -71,8 +71,13 @@ var BCLS = (function ($, window, Pikaday) {
         isDefined,
         getData,
         processData,
-        gettingData = false;
-
+        gettingData = false,
+        now = new Date(),
+        nowMS = now.valueOf(),
+        fromMS = nowMS - (30 * 24 * 60 * 60 * 1000),
+        fromDate = new Date(fromMS),
+        nowISO = now.toISOString(),
+        fromISO = fromDate.toISOString();
     // utilities
     logit = function (context, message) {
         if (console) {
@@ -104,6 +109,8 @@ var BCLS = (function ($, window, Pikaday) {
 	    $getPlaylists.html("Get playlists");
 	    $getPlaylists.attr("class", "run-button");
 	    $getPlaylists.on("click", getPlaylists);
+        to.value = nowISO;
+        from.value = fromISO;
 	    page_number = 0;
     };
     onMAPIresponse = function(jsonData) {
@@ -112,15 +119,13 @@ var BCLS = (function ($, window, Pikaday) {
         var template = Handlebars.compile(handleBarsTemplate),
             data,
             dataObj = {},
-            results,
+            result,
             i,
             iMax = jsonData.items.length;
 
         for (i = 0; i < iMax; i++) {
             playlistData.push(jsonData.items[i]);
         }
-        // inject the HTML for the video list
-        $playlistSelector.html(results);
         // if first run change the button text
         if (firstRun) {
             // display the selector and get analytics button
@@ -128,19 +133,22 @@ var BCLS = (function ($, window, Pikaday) {
             $getPlaylists.html("Getting playlists...please wait...");
             // add event listener
             $playlistSelector.on("change", BCLS.onPlaylistSelect);
+            // get total pages
+            total_pages = Math.ceil(jsonData.total_count / page_size);
             // turn off firstRun flag
             firstRun = false;
-            total_pages = 
         }
         // check to see if there are more playlists to fetch
-        if (jsonData.total_count <= (page_size * page_number)) {
+        if (page_number === (total_pages - 1)) {
             $getPlaylists.html("No more playlists");
             $getPlaylists.attr("class", "bcls-hidden");
             $getPlaylists.off("click", getPlaylists);
             dataObj.items = playlistData;
             logit("dataObj", dataObj);
+            // populate the playlist selector
             data = dataObj;
-            results = template(data);
+            result = template(data);
+            $playlistSelector.html(result);
         } else {
             // increment page_number
             page_number++;
@@ -312,12 +320,15 @@ var BCLS = (function ($, window, Pikaday) {
     // get a playlist collection
     getPlaylists = function () {
         // set up the Media API call, using data from the Analytics API call
+        logit("firstRun", firstRun);
         BCMAPI.url = $readApiLocation.val();
         BCMAPI.token = $mapitoken.val();
         BCMAPI.callback = "BCLS.onMAPIresponse";
         params.page_size = page_size;
         params.page_number = page_number;
-        params.get_item_count = true;
+        if (firstRun) {
+            params.get_item_count = true;
+        }
         params.video_fields = "id,name,thumbnailURL";
         BCMAPI.find("find_all_playlists", params);
     };
@@ -332,6 +343,10 @@ var BCLS = (function ($, window, Pikaday) {
             format: 'YYYY-MM-DD',
             onSelect: buildRequest
         });
+        nowISO = nowISO.substring(0, nowISO.indexOf("T"));
+        fromISO = fromISO.substring(0, fromISO.indexOf("T"));
+        to.value = nowISO;
+        from.value = fromISO;
 
     // set event listeners
     $getPlaylists.on("click", getPlaylists);

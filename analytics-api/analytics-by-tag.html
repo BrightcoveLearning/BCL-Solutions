@@ -15,10 +15,7 @@
 	<!-- for date picker -->
 	<link href="//docs.brightcove.com/en/styles/pikaday.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="/bcls/analytics-api/css/analytics-by-playlist.css">
-<<<<<<< HEAD
 
-=======
->>>>>>> jeff-know3933
 	<style type="text/css">
 		#top {
 			padding-top: 120px;
@@ -46,12 +43,13 @@
 			<div class="section" id="top">
 				<h1>Get Analytics by Tag Value</h1>
 				<p class="text-warning">Note: the Analytics API is currently in <strong>Limited Availability</strong>. If you are interested in enabling your account for the beta version of the API, please contact your account manager.</p>
-				<p>This tool allows you to select one or more tags from your account and get analytics data for all the videos which have those tag values.</p>
+				<p>This tool allows you to select a tag from your account and get analytics data for all the videos with this tag.</p>
 				<h3>Notes</h3>
 				<ul>
-					<li>You must retrieve tag data, select one or more tags, and then retrieve the associated video ids before submitting the request to the Analytics API &mdash; if you want to get analytics data for individual videos or players, use the <a href="//solutions.brightcove.com/bcls/analytics-api/aapi-request-builder.html">Analytics Request Builder</a>
+					<li>You must retrieve tag data and select a tag before submitting the request to the Analytics API &mdash; if you want to get analytics data for individual videos or players, use the <a href="//solutions.brightcove.com/bcls/analytics-api/aapi-request-builder.html">Analytics Request Builder</a>
 					</li>
-					<li>The returned data includes the data for individual videos plus cumulative or average values for all the videos selected.</li>
+<!--					<li>If any of the videos are also published in single video players, or in multiple playlists, you will need to specify the player to get accurate data for a specific playlist</li>-->
+					<li>The returned data includes the data for individual videos plus cumulative or average values for the tag</li>
 					<li>If the returned data does not include items for all videos with the tag, no data was returned for those videos over the time period specified</li>
 				</ul>
 			</div>

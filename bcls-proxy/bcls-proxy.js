@@ -26,7 +26,9 @@ var BCLSPROXY = (function () {
         // functions
         getFormValues,
         getAccessToken,
-        sendRequest;
+        sendRequest,
+        aapiExpires = 0,
+        pmapiExpires =0;
     /*
      * extract form values from request body
      */
@@ -110,7 +112,7 @@ var BCLSPROXY = (function () {
         });
     };
     /*
-     * Http Server to handle requests
+     * Http Server to handle Analytics API requests
      */
     http.createServer(function (req, res) {
         var body = "";
@@ -160,5 +162,57 @@ var BCLSPROXY = (function () {
         });
     // change the following line to have the proxy listen for requests on a different port
     }).listen(8002);
-    util.puts("http server ".blue + "started ".green.bold + "on port ".blue + "8002 ".yellow);
+    /*
+     * Http Server to handle Player Mangement API requests
+     */
+    http.createServer(function (req, res) {
+        var body = "";
+        // the published version of this proxy accepts requests only from domains that include "brightcove.com"
+        // modify the following line to take requests from other domains
+        // or remove the if block to accept requests from any domain (not recommended!)
+        if (req.headers.origin.indexOf("brightcove.com") < 0) {
+            res.writeHead(500);
+            res.end("Your request cannot be processed; this proxy only handles requests originating from Brightcove servers. If you would like to build your own version of this proxy, see http://docs.brightcove.com/en/perform/oauth-api/guides/quick-start.html");
+        }
+        req.on("data", function (chunk) {
+            body += chunk;
+        });
+        req.on("end", function () {
+            getFormValues(body, function (error, options) {
+                if (error === null) {
+                    getAccessToken(options, function (error, token) {
+                        if (error === null) {
+                            sendRequest(token, options, function (error, headers, body) {
+                                if (error === null) {
+                                    console.log("headers", headers);
+                                    var header;
+                                    for (header in headers) {
+                                        res.setHeader(header, headers[header]);
+                                    }
+                                    if (body.indexOf("{") === 0 || options.url.indexOf("format=json") > -1) {
+                                        // prettify JSON
+                                        body = JSON.stringify(JSON.parse(body), true, 2);
+                                    }
+                                        res.writeHead(200);
+                                        res.end(body);
+                                } else {
+                                    res.writeHead(500);
+                                    res.end("Your API call was unsuccessful; here is what the server returned: " + error);
+                                }
+                            });
+                        } else {
+                            res.writeHead(500);
+                            res.end("There was a problem getting your access token: " + error);
+                        }
+                    });
+                } else {
+                    res.writeHead(500);
+                    res.end("There was a problem with your request: " + error);
+                }
+            });
+        });
+    // change the following line to have the proxy listen for requests on a different port
+}).listen(8003);
+    util.puts("http server for Analytics API ".blue + "started ".green.bold + "on port ".blue + "8002 ".yellow);
+    util.puts("http server for Player Management API ".blue + "started ".green.bold + "on port ".blue + "8003 ".yellow);
 })();

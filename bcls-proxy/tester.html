@@ -8,22 +8,44 @@
         body {
             font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
             font-size: .9em;
+            margin: 30px;
+        }
+        .form-wrapper {
+            display: inline-block;
+            width: 45%;
+            padding: 10px;
         }
         iframe {
             width: 80%;
             height: 600px;
+            font-family: Menlo, Monaco, "Source Code Pro", monospace;
         }
         input {
-            width: 80%;
+            width: 90%;
+            font-family: Menlo, Monaco, "Source Code Pro", monospace;
         }
         textarea {
-            width: 80%
+            width: 90%;
+            font-family: Menlo, Monaco, "Source Code Pro", monospace;
         }
         #callBody {
             height: 100px;
+            font-family: Menlo, Monaco, "Source Code Pro", monospace;
         }
         #submit {
-            width: 100px
+            width: 20%;
+        }
+        code {
+            font-family: Menlo, Monaco, "Source Code Pro", monospace;
+        }
+        fieldset {
+            border: 1px solid #66cccc;
+            border-radius: 5px;
+            padding: 5px;
+            margin: 5px;
+        }
+        legend {
+            text-align: center;
         }
     </style>
 </head>
@@ -40,39 +62,86 @@
         <ul>
             <li>Perform: <a href="https://studio.brightcove.com/products/perform/admin/oauthsettings">https://studio.brightcove.com/products/perform/admin/oauthsettings</a></li>
             <li>Video Cloud: <a href="https://sadmin.brightcove.com/oauth_module/v1/">https://sadmin.brightcove.com/oauth_module/v1/</a></li>
+            <li>
+                Video Cloud (Next Generation Player Beta): <a href="https://studio.brightcove.com/products/videocloud/admin/oauthsettings">https://studio.brightcove.com/products/videocloud/admin/oauthsettings</a>
+            </li>
         </ul>
     </p>
-    <form action="//solutions.brightcove.com:8002" method="post" enctype="application/x-www-form-urlencoded" target="responseFrame">
-        <p>
-            Client id:
-            <input name="client_id" id="client_id" type="text" value="45ddce85-e9e1-4ecc-8562-3f97ead6b048">
-        </p>
-        <p>
-            Client secret:
-            <input name="client_secret" id="client_secret" type="text" value="WnoEbQM6aslaUcY9eqG8AJs8hXvjDjpnxDJYI4JHpdTo7vb1wpBFJMGlYC0BPdvtlZxyhd7UCpn0F1m5wF1Ccw">
-        </p>
-        <p>
-            Call type:
-            <select name="requestType" id="requestType">
-                <option selected="selected">GET</option>
-                <option>POST</option>
-                <option>PUT</option>
-                <option>PATCH</option>
-                <option>DELETE</option>
-            </select>
-        </p>
-        <p>
-            Call body (optional - include if you need to submit data with the request):<br />
-            <textarea name="callBody" id="callBody"></textarea>
-        </p>
-        <p>
-            Full request URL for the API call:<br />
-            <textarea name="url" id="url">https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=account&limit=10&offset=0&fields=all&sort=account&format=json</textarea>
-        </p>
-        <p>
-            <input id="submit" type="submit" value="Submit">
-        </p>
-    </form>
+    <div class="form-wrapper">
+        <fieldset>
+            <legend>Tester for the Analytics API</legend>
+            <p>Submits to http://solutions.brightcove.com:<strong>8002</strong></p>
+            <form action="//solutions.brightcove.com:8002" method="post" enctype="application/x-www-form-urlencoded" target="responseFrame">
+                <p>
+                    Client id:
+                    <input name="client_id" id="client_id" type="text" value="45ddce85-e9e1-4ecc-8562-3f97ead6b048">
+                </p>
+                <p>
+                    Client secret:
+                    <input name="client_secret" id="client_secret" type="text" value="WnoEbQM6aslaUcY9eqG8AJs8hXvjDjpnxDJYI4JHpdTo7vb1wpBFJMGlYC0BPdvtlZxyhd7UCpn0F1m5wF1Ccw">
+                </p>
+                <p>
+                    Call type:
+                    <select name="requestType" id="requestType">
+                        <option selected="selected">GET</option>
+                        <option>POST</option>
+                        <option>PUT</option>
+                        <option>PATCH</option>
+                        <option>DELETE</option>
+                    </select>
+                </p>
+                <p>
+                    Call body (optional - include if you need to submit data with the request):<br />
+                    <textarea name="callBody" id="callBody"></textarea>
+                </p>
+                <p>
+                    Full request URL for the API call:<br />
+                    <textarea name="url" id="url">https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=account&limit=10&offset=0&fields=all&sort=account&format=json</textarea>
+                </p>
+                <p>
+                    <input id="submit" type="submit" value="Submit">
+                </p>
+            </form>
+        </fieldset>
+    </div>
+    <div class="form-wrapper">
+        <fieldset>
+            <legend>Tester for the Player Management API</legend>
+            <p>Submits to http://solutions.brightcove.com:<strong>8003</strong></p>
+            <form action="//solutions.brightcove.com:8003" method="post" enctype="application/x-www-form-urlencoded" target="responseFrame">
+                <p>
+                    Client id:
+                    <input name="client_id" id="client_id" type="text" value="04ce9029-d61a-4339-83ac-754bb1ad9bc5">
+                </p>
+                <p>
+                    Client secret:
+                    <input name="client_secret" id="client_secret" type="text" value="pzj5hkQMN1lFTtLPx52kQJoXkFq0sDUviZ2XSPOp3edHisuLmTXrhqLteVvJASgm4vXWyozeApe3sUQpf6l2JA">
+                </p>
+                <p>
+                    Call type:
+                    <select name="requestType" id="requestType">
+                        <option selected="selected">GET</option>
+                        <option>POST</option>
+                        <option>PUT</option>
+                        <option>PATCH</option>
+                        <option>DELETE</option>
+                    </select>
+                </p>
+                <p>
+                    Call body (optional - include if you need to submit data with the request):<br />
+                    <textarea name="callBody" id="callBody"></textarea>
+                </p>
+                <p>
+                    Full request URL for the API call:<br />
+                    <textarea name="url" id="url">https://players.api.brightcove.com/v1/accounts/57838016001/players</textarea>
+                </p>
+                <p>
+                    <input id="submit" type="submit" value="Submit">
+                </p>
+            </form>
+        </fieldset>
+    </div>
+
     <iframe name="responseFrame" id="responseFrame" src=""></iframe>
     <script>
         var iframe = document.getElementById("responseFrame"),

@@ -1,11 +1,14 @@
 /*
  * bcls-proxy
- * Version: 0.1
+ * Version: 0.1.1
  * Author: Robert Crooks
  * Description: Proxies Brightcove API requests, getting an access token, making the call, and returning
  * the response to an iframe on the client page
  * Requirements:
- *   POST your request to solutions.brightcove.com:8002, and target an iframe on your page
+ *   POST your request to:
+ *      solutions.brightcove.com:8002 (for the Analytics API)
+ *      solutions.brightcove.com:8003 (for the Player Management API)
+ *   target an iframe on your page to display the response
  *   Required fields for the body:
  *       client_id // (get from the Brightcove OAuth UI in Studio)
  *       client_secret // (get from the Brightcove OAuth UI in Studio)
@@ -28,7 +31,9 @@ var BCLSPROXY = (function () {
         getAccessToken,
         sendRequest,
         aapiExpires = 0,
-        pmapiExpires =0;
+        pmapiExpires =0,
+        aapiServer,
+        pmapiServer;
     /*
      * extract form values from request body
      */
@@ -114,8 +119,9 @@ var BCLSPROXY = (function () {
     /*
      * Http Server to handle Analytics API requests
      */
-    http.createServer(function (req, res) {
-        var body = "";
+    aapiServer = http.createServer(function (req, res) {
+        var body = "",
+            now;
         // the published version of this proxy accepts requests only from domains that include "brightcove.com"
         // modify the following line to take requests from other domains
         // or remove the if block to accept requests from any domain (not recommended!)
@@ -165,7 +171,7 @@ var BCLSPROXY = (function () {
     /*
      * Http Server to handle Player Mangement API requests
      */
-    http.createServer(function (req, res) {
+    pmapiServer = http.createServer(function (req, res) {
         var body = "";
         // the published version of this proxy accepts requests only from domains that include "brightcove.com"
         // modify the following line to take requests from other domains

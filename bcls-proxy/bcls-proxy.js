@@ -1,6 +1,10 @@
 /*
  * bcls-proxy
  * Version: 0.1.1
+ ************
+ * Change log
+ * 0.0.1: added separate ports per API to be able to take advantage of token expire time
+ ************
  * Author: Robert Crooks
  * Description: Proxies Brightcove API requests, getting an access token, making the call, and returning
  * the response to an iframe on the client page
@@ -135,7 +139,7 @@ var BCLSPROXY = (function () {
                 }
             });
         } else {
-            callback(null, aapiToken);
+            callback(null, pmapiToken);
         }
     };
     /*

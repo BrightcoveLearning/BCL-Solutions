@@ -71,18 +71,18 @@
         <fieldset>
             <legend>Tester for the Analytics API</legend>
             <p>Submits to http://solutions.brightcove.com:<strong>8002</strong></p>
-            <form action="//solutions.brightcove.com:8002" method="post" enctype="application/x-www-form-urlencoded" target="responseFrame">
+            <form action="//solutions.brightcove.com:8002" method="post" enctype="application/x-www-form-urlencoded" target="aapi_responseFrame">
                 <p>
                     Client id:
-                    <input name="client_id" id="client_id" type="text" value="45ddce85-e9e1-4ecc-8562-3f97ead6b048">
+                    <input name="client_id" id="aapi_client_id" type="text" value="45ddce85-e9e1-4ecc-8562-3f97ead6b048">
                 </p>
                 <p>
                     Client secret:
-                    <input name="client_secret" id="client_secret" type="text" value="WnoEbQM6aslaUcY9eqG8AJs8hXvjDjpnxDJYI4JHpdTo7vb1wpBFJMGlYC0BPdvtlZxyhd7UCpn0F1m5wF1Ccw">
+                    <input name="client_secret" id="aapi_client_secret" type="text" value="WnoEbQM6aslaUcY9eqG8AJs8hXvjDjpnxDJYI4JHpdTo7vb1wpBFJMGlYC0BPdvtlZxyhd7UCpn0F1m5wF1Ccw">
                 </p>
                 <p>
                     Call type:
-                    <select name="requestType" id="requestType">
+                    <select name="requestType" id="aapi_requestType">
                         <option selected="selected">GET</option>
                         <option>POST</option>
                         <option>PUT</option>
@@ -92,34 +92,35 @@
                 </p>
                 <p>
                     Call body (optional - include if you need to submit data with the request):<br />
-                    <textarea name="callBody" id="callBody"></textarea>
+                    <textarea name="callBody" id="aapi_callBody"></textarea>
                 </p>
                 <p>
                     Full request URL for the API call:<br />
-                    <textarea name="url" id="url">https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=account&limit=10&offset=0&fields=all&sort=account&format=json</textarea>
+                    <textarea name="url" id="aapi_url">https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=account&limit=10&offset=0&fields=all&sort=account&format=json</textarea>
                 </p>
                 <p>
-                    <input id="submit" type="submit" value="Submit">
+                    <input id="aapiSubmit" type="submit" value="Submit">
                 </p>
             </form>
+            <iframe name="aapi_responseFrame" id="aapi_responseFrame" src=""></iframe>
         </fieldset>
     </div>
     <div class="form-wrapper">
         <fieldset>
             <legend>Tester for the Player Management API</legend>
             <p>Submits to http://solutions.brightcove.com:<strong>8003</strong></p>
-            <form action="//solutions.brightcove.com:8003" method="post" enctype="application/x-www-form-urlencoded" target="responseFrame">
+            <form action="//solutions.brightcove.com:8003" method="post" enctype="application/x-www-form-urlencoded" target="pmapi_responseFrame">
                 <p>
                     Client id:
-                    <input name="client_id" id="client_id" type="text" value="04ce9029-d61a-4339-83ac-754bb1ad9bc5">
+                    <input name="client_id" id="pmapi_client_id" type="text" value="04ce9029-d61a-4339-83ac-754bb1ad9bc5">
                 </p>
                 <p>
                     Client secret:
-                    <input name="client_secret" id="client_secret" type="text" value="pzj5hkQMN1lFTtLPx52kQJoXkFq0sDUviZ2XSPOp3edHisuLmTXrhqLteVvJASgm4vXWyozeApe3sUQpf6l2JA">
+                    <input name="client_secret" id="pmapi_client_secret" type="text" value="pzj5hkQMN1lFTtLPx52kQJoXkFq0sDUviZ2XSPOp3edHisuLmTXrhqLteVvJASgm4vXWyozeApe3sUQpf6l2JA">
                 </p>
                 <p>
                     Call type:
-                    <select name="requestType" id="requestType">
+                    <select name="requestType" id="pmapi_requestType">
                         <option selected="selected">GET</option>
                         <option>POST</option>
                         <option>PUT</option>
@@ -129,24 +130,26 @@
                 </p>
                 <p>
                     Call body (optional - include if you need to submit data with the request):<br />
-                    <textarea name="callBody" id="callBody"></textarea>
+                    <textarea name="callBody" id="pmapi_callBody"></textarea>
                 </p>
                 <p>
                     Full request URL for the API call:<br />
-                    <textarea name="url" id="url">https://players.api.brightcove.com/v1/accounts/57838016001/players</textarea>
+                    <textarea name="url" id="pmapi_url">https://players.api.brightcove.com/v1/accounts/57838016001/players</textarea>
                 </p>
                 <p>
-                    <input id="submit" type="submit" value="Submit">
+                    <input id="pmapiSubmit" type="submit" value="Submit">
                 </p>
             </form>
+            <iframe name="pmapi_responseFrame" id="pmapi_responseFrame" src=""></iframe>
         </fieldset>
     </div>
-
-    <iframe name="responseFrame" id="responseFrame" src=""></iframe>
     <script>
-        var iframe = document.getElementById("responseFrame"),
-            btn = document.getElementById("submit");
-            btn.addEventListener("click", iframe.setAttribute("src", "about:blank"));
+        var aapi_iframe = document.getElementById("aapi_responseFrame"),
+            pmapi_iframe = document.getElementById("pmapi_responseFrame"),
+            aapi_btn = document.getElementById("aapi_submit"),
+            pmapi_btn = document.getElementById("pmapi_submit");
+            aapi_btn.addEventListener("click", aapi_iframe.setAttribute("src", "about:blank"));
+            pmapi_btn.addEventListener("click", pmapi_iframe.setAttribute("src", "about:blank"));
     </script>
 </body>
 

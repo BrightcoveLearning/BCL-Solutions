@@ -26,14 +26,17 @@ var BCLSPROXY = (function () {
         colors = require("colors"),
         http = require("http"),
         request = require("request"),
+        aapiToken,
+        pmapiToken,
+        aapiExpires = 0,
+        pmapiExpires =0 ,
+        aapiServer,
+        pmapiServer,
         // functions
         getFormValues,
-        getAccessToken,
-        sendRequest,
-        aapiExpires = 0,
-        pmapiExpires =0,
-        aapiServer,
-        pmapiServer;
+        getAAPIAccessToken,
+        getPMAPIAccessToken,
+        sendRequest;
     /*
      * extract form values from request body
      */
@@ -45,11 +48,12 @@ var BCLSPROXY = (function () {
             i,
             item,
             error = null;
-        // initialize options to null
+        // initialize options to null except requestType to GET
         options.url = null;
         options.client_id = null;
         options.client_secret = null;
         options.requestBody = null;
+        options.requestType = "GET";
         // now split each item into key and value and store in the object
         for (i = 0; i < max; i = i + 1) {
             item = valuesArray[i].split("=");
@@ -69,30 +73,70 @@ var BCLSPROXY = (function () {
         }
     };
     /*
-     * get new access_token
+     * get new Analytics API access_token
      */
-    getAccessToken = function (options, callback) {
+    getAAPIAccessToken = function (options, callback) {
         // base64 encode the ciient_id:client_secret string for basic auth
         var auth_string = new Buffer(options.client_id + ":" + options.client_secret).toString("base64"),
-            bodyObj;
-        request({
-            method: 'POST',
-            url: 'https://oauth.brightcove.com/v3/access_token',
-            headers: {
-                "Authorization": "Basic " + auth_string,
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: 'grant_type=client_credentials'
-        }, function (error, response, body) {
-            // check for errors
-            if (error === null) {
-                // return the access token to the callback
-                bodyObj = JSON.parse(body);
-                callback(null, bodyObj.access_token);
-            } else {
-                callback(error);
-            }
-        });
+            bodyObj,
+            now = new Date().valueOf();
+        if (aapiExpires < now) {
+            request({
+                method: 'POST',
+                url: 'https://oauth.brightcove.com/v3/access_token',
+                headers: {
+                    "Authorization": "Basic " + auth_string,
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: 'grant_type=client_credentials'
+            }, function (error, response, body) {
+                // check for errors
+                if (error === null) {
+                    // return the access token to the callback
+                    bodyObj = JSON.parse(body);
+                    aapiToken = bodyObj.access_token;
+                    aapiExpires = now + (bodyObj.expires_in * 1000);
+                    callback(null, aapiToken);
+                } else {
+                    callback(error);
+                }
+            });
+        } else {
+            callback(null, aapiToken);
+        }
+    };
+    /*
+     * get new Player Management API access_token
+     */
+    getPMAPIAccessToken = function (options, callback) {
+        // base64 encode the ciient_id:client_secret string for basic auth
+        var auth_string = new Buffer(options.client_id + ":" + options.client_secret).toString("base64"),
+            bodyObj,
+            now = new Date().valueOf();
+        if (pmapiExpires < now) {
+            request({
+                method: 'POST',
+                url: 'https://oauth.brightcove.com/v3/access_token',
+                headers: {
+                    "Authorization": "Basic " + auth_string,
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: 'grant_type=client_credentials'
+            }, function (error, response, body) {
+                // check for errors
+                if (error === null) {
+                    // return the access token to the callback
+                    bodyObj = JSON.parse(body);
+                    pmapiToken = bodyObj.access_token;
+                    pmapiExpires = now + (bodyObj.expires_in * 1000);
+                    callback(null, pmapiToken);
+                } else {
+                    callback(error);
+                }
+            });
+        } else {
+            callback(null, aapiToken);
+        }
     };
     /*
      * sends the request to the targeted API
@@ -122,9 +166,12 @@ var BCLSPROXY = (function () {
     aapiServer = http.createServer(function (req, res) {
         var body = "",
             now;
-        // the published version of this proxy accepts requests only from domains that include "brightcove.com"
-        // modify the following line to take requests from other domains
-        // or remove the if block to accept requests from any domain (not recommended!)
+        /* the published version of this proxy accepts requests only from
+         * domains that include "brightcove.com"
+         * modify the following line to take requests from
+         * other domains or remove the if block to
+         * accept requests from any domain (not recommended!)
+         */
         if (req.headers.origin.indexOf("brightcove.com") < 0) {
             res.writeHead(500);
             res.end("Your request cannot be processed; this proxy only handles requests originating from Brightcove servers. If you would like to build your own version of this proxy, see http://docs.brightcove.com/en/perform/oauth-api/guides/quick-start.html");

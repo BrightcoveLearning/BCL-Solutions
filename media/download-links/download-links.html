@@ -127,7 +127,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.2/fastclick.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.3.1/js/foundation.min.js"></script>
-        
+
         <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/highlight.min.js"></script>
 
@@ -186,11 +186,9 @@
                     failObj = {},
                     successObj = {},
                     // logging
-                    bclslog = function (message) {
+                    bclslog = function (context, message) {
                       if (window["console"] && console["log"]) {
-                        var d = new Date();
-                        console.log(d + ": ");
-                        console.log(message);
+                        console.log(context ,message);
                       };
                     },
 
@@ -265,14 +263,15 @@
                             item,
                             rendition,
                             lengthObj = {};
+                        bclslog("jsonData", jsonData);
                         if (isDefined(jsonData.items)) {
-                            bclslog(jsonData.items);
+                            bclslog("items", jsonData.items);
                             itemsMax = jsonData.items.length;
                             for (i = 0; i < itemsMax; i++) {
                                 item = jsonData.items[i];
                                 item.creationDate = new Date(parseInt(item.creationDate));
                                 item.creationDate = item.creationDate.toDateString();
-                                if (item.renditions.length !== 0) {
+                                if (isDefined(item.renditions) && item.renditions.length !== 0) {
                                     item.renditions.sort( function (a, b) {
                                         return b.size - a.size;
                                     });
@@ -293,7 +292,7 @@
                                     item.failMessage = "no renditions";
                                     failObj.items.push(item);
                                 }
-                                
+
                             };
                             $totalCalls.text(callNumber + 1);
                             results = template(successObj);
@@ -311,10 +310,10 @@
                                 $runButton.text("All videos retrieved - Get your data below!")
                                 $totalVideos.html(totalVideos);
                                 writeData();
-                            } 
+                            }
                         } else {
                             bclslog("no items!");
-                            bclslog(jsonData);
+                            bclslog("jsonData", jsonData);
                             if (retries < 5) {
                                     t = window.setTimeout(function () {
                                         makeSecondaryCall(currentFilter);

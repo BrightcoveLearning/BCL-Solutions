@@ -164,6 +164,28 @@ var BCLSPROXY = (function () {
             }
         });
     };
+/*
+ * sends the request to the Analytics API (special case)
+ */
+sendRequest = function (token, options, callback) {
+    var requestOptions = {
+            method: options.requestType,
+            url: options.url,
+            headers: {
+                "Authorization": "Bearer " + token,
+                "Content-Type": "application/json"
+            },
+            body: options.requestBody
+        };
+    request(requestOptions, function (error, response, body) {
+        console.log("error", error);
+        if (error === null) {
+            callback(null, response.headers, body);
+        } else {
+            callback(error);
+        }
+    });
+};
     /*
      * Http Server to handle Analytics API requests
      */
@@ -186,7 +208,7 @@ var BCLSPROXY = (function () {
         req.on("end", function () {
             getFormValues(body, function (error, options) {
                 if (error === null) {
-                    getAccessToken(options, function (error, token) {
+                    getAAPIAccessToken(options, function (error, token) {
                         if (error === null) {
                             sendRequest(token, options, function (error, headers, body) {
                                 if (error === null) {
@@ -237,7 +259,7 @@ var BCLSPROXY = (function () {
         req.on("end", function () {
             getFormValues(body, function (error, options) {
                 if (error === null) {
-                    getAccessToken(options, function (error, token) {
+                    getPMAPIAccessToken(options, function (error, token) {
                         if (error === null) {
                             sendRequest(token, options, function (error, headers, body) {
                                 if (error === null) {

@@ -28,9 +28,7 @@ As written, the proxy listens for requests on different ports depending on which
 * Analytics API calls must directed to port 8002 (e.g. `//solutions.brightcove.com:8002`)
 * Player Management API calls must be directed to port 8003 (e.g. `//solutions.brightcove.com:8003`)
 
-You could modify the proxy to listen for all calls on the same port and use conditional logic to handle any special per-api processing
-
-    }).listen(8002);
+You could modify the proxy to listen for all calls on the same port and use conditional logic to handle any special per-api processing. The reason I am using separate ports for different APIs is to be able to take advantage of the `expires_in` value that the OAuth API returns with the `access_token` to get a new token only if there is not already a valid one.
 
 ## Starting the proxy
 

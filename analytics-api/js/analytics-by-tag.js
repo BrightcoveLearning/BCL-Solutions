@@ -19,6 +19,8 @@ var BCLS = (function ($, window, Pikaday) {
         $playlistInfo = $("#playlistInfo"),
         $mapitoken = $("#mapitoken"),
         $readApiLocation = $("#readApiLocation"),
+        $tags = $("#tags"),
+        $manualEntry = $("#manualEntry"),
         params = {},
 		params2 = {},
         videoOptionTemplate = "{{#items}}<option value=\"{{id}}\">{{name}}</option>{{/items}}",
@@ -103,6 +105,7 @@ var BCLS = (function ($, window, Pikaday) {
         buildRequest,
         isDefined,
         getData,
+        getManualTags,
         processData,
         gettingData = false;
 
@@ -246,6 +249,15 @@ var BCLS = (function ($, window, Pikaday) {
 		return 0;
 	};
 
+    getManualTags = function () {
+        var tagString = removeSpaces($tags.val());
+        $getTags.off("click", getTags);
+        $getTags.attr("class", "bcls-hidden");
+        pageSelectedTagsArray = tagString.split(",");
+        $tagSelectedWrapper.attr("class", "bcls-shown");
+        formatSelectedTags();
+    };
+
 	processSelectedTags = function() {
 		saveSelectedTags();
 		$getVideoMsg.html("");
@@ -355,8 +367,10 @@ var BCLS = (function ($, window, Pikaday) {
 				logit("radioButton value", radioButton[i].value);
 			}
 		}
-		
+
 		// set up the Media API call
+        BCMAPI.url = $readApiLocation.val();
+        BCMAPI.token = $mapitoken.val();
 		BCMAPI.callback = "BCLS.onMAPIresponse2";
 		params2 = {};
 		params2.page_size = id_page_size;
@@ -530,7 +544,7 @@ var BCLS = (function ($, window, Pikaday) {
      processData = function (aapiData) {
 		logit("function", "processData");
 		logit("aapiData", aapiData);
-		 
+
 		if ((totalVideos == 0) || (currentVideoIndex > totalVideos - 1)) {
 			// stop looping
 			return;
@@ -577,7 +591,7 @@ var BCLS = (function ($, window, Pikaday) {
 			currentVideoIndex++;
 			gettingData = true;
 			buildRequest();
-        } 
+        }
     };
 
 	// add date pickers to the date input fields
@@ -602,7 +616,8 @@ var BCLS = (function ($, window, Pikaday) {
         reset();
         buildRequest();
     });
-
+    // listener for manual tag entry
+    $tags.on("change", getManualTags);
     // build request
     $getVideoIds.on("click", function () {
         // get video Ids associated with selected tag values

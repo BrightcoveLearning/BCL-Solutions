@@ -14,7 +14,7 @@
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/styles/github.min.css">
 	<!-- for date picker -->
 	<link href="//docs.brightcove.com/en/styles/pikaday.min.css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="/bcls/analytics-api/css/analytics-by-playlist.css"> 
+	<link rel="stylesheet" type="text/css" href="/bcls/analytics-api/css/analytics-by-playlist.css">
 
 	<style type="text/css">
 		#top {
@@ -44,9 +44,10 @@
 				<h1>Get Analytics by Tag Value</h1>
 				<p class="text-warning">Note: the Analytics API is currently in <strong>Limited Availability</strong>. If you are interested in enabling your account for the beta version of the API, please contact your account manager.</p>
 				<p>This tool allows you to select one or more tags from your account and get analytics data for all the videos which have those tag values.</p>
-				<h3>Notes</h3>
+				<h3>Usage</h3>
 				<ul>
-					<li>You must retrieve tag data, select one or more tags, and then retrieve the associated video ids before submitting the request to the Analytics API &mdash; if you want to get analytics data for individual videos or players, use the <a href="//solutions.brightcove.com/bcls/analytics-api/aapi-request-builder.html">Analytics Request Builder</a>
+					<li>You can either enter a tag (or list of tags, separated by commas) or you can retrieve a list of all tags for your account (note: if you have a lot of videos - 10,000+ - this will take a while, so be patient).</li>
+					<li>Once you have entered or selected one or more tags, indicate whether you want to get analytics for videos that have ALL, ANY, or NONE of those tags, and then retrieve the associated video ids before submitting the request to the Analytics API - if you want to get analytics data for individual videos or players, use the <a href="//solutions.brightcove.com/bcls/analytics-api/aapi-request-builder.html">Analytics Request Builder</a>
 					</li>
 					<li>The returned data includes the data for individual videos plus cumulative or average values for all the videos selected</li>
 					<li>If the returned data does not include items for all videos with the tag, no data was returned for those videos over the time period specified</li>
@@ -81,12 +82,12 @@
 								</tr>
 								<tr>
 									<td>Media API READ Token:
-										<br />(to retrieve videos to report or filter on)</td>
+										<br />(to retrieve videos to report or filter on get this token from your <a href="http://support.brightcove.com/en/video-cloud/docs/managing-media-api-tokens">Account Settings</a>)</td>
 									<td>
 										<input id="mapitoken" class="required aapi-request" type="text" size="60" value="v87kWelIdjUwVm7_Rzv09k-KqtLz-ty8ONbMxVYAI7-Q0eOilegqqg.." />(default: BC Training Videos)</td>
 								</tr>
 								<tr>
-									<td>Media API Location</td>
+									<td>Media API Location (if you are in Japan, select the second option)</td>
 									<td>
 										<select id="readApiLocation" class="required aapi-request">
 											<option value="http://api.brightcove.com/services/library">http://api.brightcove.com/services/post</option>
@@ -99,7 +100,15 @@
 					</div>
 				</fieldset>
 				<fieldset>
-					<legend>Select one or more Tags</legend>
+					<legend>Tags to search by</legend>
+					<p>If you are entering or selecting multiple tags, indicate whether you want to find videos that have ALL, ANY, or NONE of those tags:</p>
+					<form id="radioForm">
+						<input type="radio" name="searchType" value="all" checked> I want the videos with ALL of these tags<br />
+						<input type="radio" name="searchType" value="any"> I want the videos with ANY of these tags<br />
+						<input type="radio" name="searchType" value="none"> I want the videos with NONE of these tags
+					</form>
+					<p id="manualEntry">Enter a tag or multiple tags separated by commas: <input type="text" id="tags" name="tags"></p>
+					<p>Or click the button below to get a list of all tags for your account</p>
 					<p><span class="run-button" id="getTags">Get Tags</span>
 					</p>
 					<div class="bcls-hidden" id="tagSelectWrapper">
@@ -112,11 +121,6 @@
 					<legend>Tags Selected</legend>
 					<div class="bcls-hidden" id="tagSelectedWrapper">
 						<p id="tagsSelected">
-							<form id="radioForm">
-								<input type="radio" name="searchType" value="all" checked> I want the videos with ALL of these tags<br />
-								<input type="radio" name="searchType" value="any"> I want the videos with ANY of these tags<br />
-								<input type="radio" name="searchType" value="none"> I want the videos with NONE of these tags
-							</form>
 							<table class="articleTable" style="table-layout:fixed;word-break:break-all;width:100%">
 								<col width="170px" />
 								<col width="170px" />
@@ -232,7 +236,7 @@
 	<script src="//docs.brightcove.com/en/scripts/format_json.js"></script>
 	<script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
 	<script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
-	<script src="/bcls/analytics-api/js/analytics-by-tag.js"></script> 
+	<script src="/bcls/analytics-api/js/analytics-by-tag.js"></script>
 	<script>
 		$(document).foundation();
 	</script>

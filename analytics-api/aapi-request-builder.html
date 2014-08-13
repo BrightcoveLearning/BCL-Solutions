@@ -11,7 +11,7 @@
         <script src="//use.edgefonts.net/source-code-pro.js"></script>
         <link href="//files.brightcove.com/proxima-nova/font-faces.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/styles/github.min.css">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/github.min.css">
         <!-- for date picker -->
         <link href="//docs.brightcove.com/en/styles/pikaday.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="/bcls/analytics-api/css/aapi-request-builder.css">
@@ -51,13 +51,21 @@
                                     <input id="accountID" class="required account" type="text" size="55" value="20318290001"> (default: BC Training Videos)</td>
                             </tr>
                             <tr>
-                                <td class="align-top no-wrap">Authorization Token:
+                                <td class="align-top no-wrap">Client id:
                                     <sup class="red">*</sup>
                                 </td>
                                 <td>
-                                    <input id="token" class="required account" type="text" size="55" value="15075c51ae4b0af095c9a619a" /> (default: BC Training Videos)
+                                    <input id="client_id_display" class="required account" type="text" size="55" value="" /> (default: BC Training Videos)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="align-top no-wrap">Client secret:
+                                    <sup class="red">*</sup>
+                                </td>
+                                <td>
+                                    <input id="client_secret_display" class="required account" type="text" size="55" value="" /> (default: BC Training Videos)
                                     <p class="text-warning small">
-                                        <sup class="red">*</sup>If your account has been enabled for the Analytics API, this token was emailed to the account administrator when you joined the <strong>limited availability</strong> program.</p>
+                                        <sup class="red">*</sup>You can get your client id and secret using the <a href="https://sadmin.brightcove.com/oauth_module/v1/">OAuth UI</a> If you leave these blank, values for the Brightcove Training Videos account will be used, so you must not change the Account ID.</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -283,17 +291,22 @@
         </div>
         <h2>The API Request</h2>
         <div id="requestSubmitter">
-                <fieldset>
-                    <legend>Generated Request</legend>
-                    <p>API Request</p>
-                    <textarea id="APIrequest" name="request" rows="3" cols="100"></textarea>
-                    <p>Authorization</p>
-                    <div id="authorizationDisplay" class="aapi-request"></div>
-                    <input class="aapi-request" id="authorization" name="authorization" type="hidden" value="" />
-                </fieldset>
-                <p>
-                    <span class="bcls-button" id="submitButton">Submit Request</span>
-                </p>
+
+                <form action="//solutions.brightcove.com:8002">
+                    <fieldset>
+                        <legend>Generated Request</legend>
+                        <p>API Request</p>
+                        <textarea id="APIrequest" name="url" rows="3" cols="100"></textarea>
+                        <input type="hidden" id="client_id" name="client_id" value="">
+                        <input type="hidden" id="client_secret" name="client_secret" value="">
+                        <input type="hidden" id="requestType" name="requestType" value="GET">
+                        <input class="aapi-request" id="authorization" name="authorization" type="hidden" value="" />
+                    </fieldset>
+                    <p>
+                        <input type="submit" id="submit" value="Submit the request">
+                    </p>
+                </form>
+
         </div>
         <div id="response">
             <h2>Response</h2>
@@ -307,11 +320,11 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.2/fastclick.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.3.1/js/foundation.min.js"></script>
     <!-- for date picker -->
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.6.0/moment.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
     <script type="text/javascript" src="//docs.brightcove.com/en/scripts/pikaday.min.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.0.6.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/highlight.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js"></script>
     <script src="//docs.brightcove.com/en/scripts/bc-mapi.js"></script>
     <!-- homegrown utility to format json -->
     <script src="//docs.brightcove.com/en/scripts/format_json.js"></script>

@@ -17,8 +17,12 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         serviceURL,
         $accountID = $("#accountID"),
         account,
-        $token = $("#token"),
-        token,
+        $client_secret_display = $("#client_secret_display"),
+        $client_id_display = $("#client_id_display"),
+        $client_id = $("#client_id"),
+        $client_secret = $("#client_secret"),
+        client_id,
+        client_secret,
         $APIrequestType = $("#requestType"),
         requestType,
         $dimensions = $("#dimensions"),
@@ -199,11 +203,19 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
     // get input field values
     getDataForInputs = function () {
         serviceURL = $serviceURL.val();
-        token = removeSpaces($token.val());
+        client_id = removeSpaces($client_id_display.val());
+        client_secret = removeSpaces($client_secret_display.val());
         account = removeSpaces($accountID.val());
         // check for required fields
-        if (!isDefined(account) || !isDefined(token)) {
-            window.alert("You must provide an account ID and a token");
+        if (!isDefined(account)) {
+            window.alert("You must provide an account ID");
+        }
+        // set client_id and client_secret values
+        if (isDefined(client_id)) {
+            $client_id.val(client_id);
+        }
+        if (isDefined(client_secret)) {
+            $client_secret.val(client_secret);
         }
         requestType = $APIrequestType.val();
         if (isDefined($dimensions.val())) {
@@ -461,7 +473,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         $.ajax({
             url: requestURL,
             headers: {
-                Authorization : "Bearer " + removeSpaces($token.val())
+                "Content-Type" : "application/x-www-form-urlencoded"
             },
             success : function (data) {
                 if (thisRequestType === "analytics") {

@@ -95,6 +95,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         authorization = "",
         endDate = "",
         startDate = "",
+        requestOptions = {},
         // options for different report types
         rollupDimensionOptions = "<option value=\"account\">account</option>",
         rollupFormatOptions = "<option value=\"json\">json</option>",
@@ -462,6 +463,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         // strip trailing ? or & and replace &&s
         trimRequest();
         APIrequest.value = requestURL;
+        requestData.url = requestURL;
     };
     // submit request
     getData = function (requestURL, thisRequestType, dataType) {
@@ -471,10 +473,10 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
             $responseFrame.html("Loading...");
         }
         $.ajax({
-            url: requestURL,
-            headers: {
-                "Content-Type" : "application/x-www-form-urlencoded"
-            },
+            url: "https://solutions.brightcove.com:8002",
+            data: requestData,
+            dataType: "jsonp",
+
             success : function (data) {
                 if (thisRequestType === "analytics") {
                     switch (format) {
@@ -895,6 +897,11 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
     };
     // init
     init = function () {
+        // initialize requestData object
+        requestData.client_id = "4584b1f4-f2fe-479d-aa49-6148568fef50";
+        requestData.client_secret = "gwk6d9gJ7oHwk7DMF3I6k4fxKn2n0qG3oIou0TPq4tATG24OrGPeJO7MUlyWgzFx2fANHU1kiBnwrM2gyntk7w":
+        requestData.requestType = "GET";
+        requestData.url = APIrequest.value;
         // add date pickers to the date input fields
         fromPicker = new Pikaday({
             field: document.getElementById("from"),

@@ -95,7 +95,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         authorization = "",
         endDate = "",
         startDate = "",
-        requestOptions = {},
+        requestData = {},
         // options for different report types
         rollupDimensionOptions = "<option value=\"account\">account</option>",
         rollupFormatOptions = "<option value=\"json\">json</option>",
@@ -307,9 +307,9 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
             fields = null;
         }
         // set up authorization
-        authorization = "Bearer " + token;
-        $authorizationDisplay.html(authorization);
-        $authorization.attr("value", authorization);
+        // authorization = "Bearer " + token;
+        // $authorizationDisplay.html(authorization);
+        // $authorization.attr("value", authorization);
     };
     // build request for input data
     buildDataForInputRequest = function () {
@@ -899,7 +899,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
     init = function () {
         // initialize requestData object
         requestData.client_id = "4584b1f4-f2fe-479d-aa49-6148568fef50";
-        requestData.client_secret = "gwk6d9gJ7oHwk7DMF3I6k4fxKn2n0qG3oIou0TPq4tATG24OrGPeJO7MUlyWgzFx2fANHU1kiBnwrM2gyntk7w":
+        requestData.client_secret = "gwk6d9gJ7oHwk7DMF3I6k4fxKn2n0qG3oIou0TPq4tATG24OrGPeJO7MUlyWgzFx2fANHU1kiBnwrM2gyntk7w";
         requestData.requestType = "GET";
         requestData.url = APIrequest.value;
         // add date pickers to the date input fields
@@ -930,7 +930,12 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         $accountID.on("change", function () {
             window.alert("Remember that if you change the account, you must change the token also!");
         });
-        $token.on("change", function () {
+        $client_id_display.on("change", function () {
+           account = removeSpaces($accountID.val());
+           buildDataForInputRequest();
+           buildRequest();
+        });
+        $client_secret_display.on("change", function () {
            account = removeSpaces($accountID.val());
            buildDataForInputRequest();
            buildRequest();

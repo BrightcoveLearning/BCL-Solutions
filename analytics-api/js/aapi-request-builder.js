@@ -189,9 +189,9 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         init;
 
     // safe console log
-    bclslog = function (m) {
+    bclslog = function (c,m) {
         if (isDefined(window.console)) {
-            window.console.log(m);
+            window.console.log(c,m);
         }
     };
     // more robust test for strings "not defined"
@@ -467,21 +467,24 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
     };
     // submit request
     getData = function (requestURL, thisRequestType, dataType) {
-
+        bclslog("requestURL", requestURL);
         if (thisRequestType === "analytics") {
             // clear the results frame
             $responseFrame.html("Loading...");
         }
+        requestData.url = requestURL;
         $.ajax({
-            url: "https://solutions.brightcove.com:8002",
+            url: "http://solutions.brightcove.com:8002",
+            type: "POST",
             data: requestData,
-            dataType: "jsonp",
-
+            // dataType: "jsonp",
+            //
             success : function (data) {
+                bclslog("data", data);
                 if (thisRequestType === "analytics") {
                     switch (format) {
                     case "json":
-                        $responseFrame.html(BCLSformatJSON.formatJSON(data));
+                        $responseFrame.html(data);
                         break;
                     // else check for CSV
                     case "csv":
@@ -493,6 +496,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
                         break;
                     }
                 } else if (thisRequestType === "data") {
+                    data = JSON.parse(data);
                     if (isDefined(data.items)) {
                         switch (dataType) {
                         case "player":
@@ -544,6 +548,8 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
                 }
             },
             error : function (XMLHttpRequest, textStatus, errorThrown) {
+                bclslog("XMLHttpRequest", XMLHttpRequest);
+                bclslog("textStatus", textStatus);
                 $responseFrame.html("Sorry, your request was not successful. Here is what the server sent back: " + errorThrown);
             }
         });

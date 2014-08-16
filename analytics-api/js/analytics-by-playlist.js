@@ -54,6 +54,7 @@ var BCLS = (function ($, window, Pikaday) {
         $analyticsData = $("#analyticsData"),
         videoIds = [],
         currentVideoIndex = 0,
+        failNumber = 0,
         // functions
         reset,
         logit,
@@ -112,7 +113,7 @@ var BCLS = (function ($, window, Pikaday) {
             dataObj = {},
             result,
             i,
-            iMax = jsonData.items.length;
+            iMax;
 
         // if first run change the button text
         if (firstRun) {
@@ -128,25 +129,35 @@ var BCLS = (function ($, window, Pikaday) {
             firstRun = false;
             getPlaylists();
         } else {
-            // save the items
-            for (i = 0; i < iMax; i++) {
-                playlistData.push(jsonData.items[i]);
-            }
-            // check to see if there are more playlists to fetch
-            if (page_number === (total_pages - 1)) {
-                $getPlaylists.html("No more playlists");
-                $getPlaylists.attr("class", "bcls-hidden");
-                dataObj.items = playlistData;
-                logit("dataObj", dataObj);
-                // populate the playlist selector
-                data = dataObj;
-                result = template(data);
-                $playlistSelector.html(result);
+            if (isDefined(jsonData.items)) {
+                // save the items
+                iMax = jsonData.items.length;
+                for (i = 0; i < iMax; i++) {
+                    playlistData.push(jsonData.items[i]);
+                }
+                // check to see if there are more playlists to fetch
+                if (page_number === (total_pages - 1)) {
+                    $getPlaylists.html("No more playlists");
+                    $getPlaylists.attr("class", "bcls-hidden");
+                    dataObj.items = playlistData;
+                    logit("dataObj", dataObj);
+                    // populate the playlist selector
+                    data = dataObj;
+                    result = template(data);
+                    $playlistSelector.html(result);
+                } else {
+                    // increment page_number
+                    page_number++;
+                    getPlaylists();
+                }
             } else {
-                // increment page_number
-                page_number++;
-                getPlaylists();
+                // bad MAPI response, retry up to 5 times
+                if (failNumber < 6) {
+                    failNumber++;
+                    getPlaylists();
+                }
             }
+
         }
     };
     onPlaylistSelect = function () {
@@ -281,6 +292,8 @@ var BCLS = (function ($, window, Pikaday) {
                 });
             } else {
                 // get the next data set
+                $submitButton.addClass("bcls-hidden");
+                $responseFrame.html("<span style=\"color:#CC0000\">Processing - please wait....</span>")
                 analyticsRequestNumber++;
                 currentVideoIndex++;
                 gettingData = true;

@@ -1,158 +1,255 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bcls-proxy tester</title>
-    <style>
-        body {
-            font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-            font-size: .9em;
-            margin: 30px;
-        }
-        .form-wrapper {
-            display: inline-block;
-            width: 45%;
-            padding: 10px;
-        }
-        iframe {
-            width: 80%;
-            height: 600px;
-            font-family: "Source Code Pro", Monaco, Menlo,  monospace;
-        }
-        input {
-            width: 90%;
-            font-family: "Source Code Pro", Monaco, Menlo,  monospace;
-        }
-        textarea {
-            width: 90%;
-            height: 60px;
-            font-family: "Source Code Pro", Monaco, Menlo,  monospace;
-        }
-        #callBody {
-            height: 100px;
-            font-family: "Source Code Pro", Monaco, Menlo,  monospace;
-        }
-        #submit {
-            width: 20%;
-        }
-        code {
-            font-family: "Source Code Pro", Monaco, Menlo,  monospace;
-        }
-        fieldset {
-            border: 1px solid #66cccc;
-            border-radius: 5px;
-            padding: 5px;
-            margin: 5px;
-        }
-        legend {
-            text-align: center;
-        }
-    </style>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" />
+	<!-- change title to match the h1 heading -->
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.3.1/css/foundation.min.css" />
+	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.3.1/css/normalize.css" />
+	<script src="//use.edgefonts.net/source-code-pro.js"></script>
+	<link href="//files.brightcove.com/proxima-nova/font-faces.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="/en/styles/bcls-doc-site.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/styles/github.min.css">
+	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2728311-29', 'auto');
+  ga('send', 'pageview');
+
+</script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.3.1/js/vendor/modernizr.js"></script>
 </head>
 
 <body>
-    <h1>bcls-proxy tester</h1>
-    <p>Welcome to the Brightcove Learning Services proxy tester. The tester can be used currently for the following APIs:
-        <ul>
-            <li>Perform: Player Management</li>
-            <li>Video Cloud: Analytics</li>
-        </ul>
-    </p>
-    <p>To get a <code>client_id</code> and <code>client_secret</code>, you will need to go to the OAuth UI and register this app:
-        <ul>
-            <li>Perform: <a href="https://studio.brightcove.com/products/perform/admin/oauthsettings">https://studio.brightcove.com/products/perform/admin/oauthsettings</a></li>
-            <li>Video Cloud: <a href="https://sadmin.brightcove.com/oauth_module/v1/">https://sadmin.brightcove.com/oauth_module/v1/</a></li>
-            <li>
-                Video Cloud (Next Generation Player Beta): <a href="https://studio.brightcove.com/products/videocloud/admin/oauthsettings">https://studio.brightcove.com/products/videocloud/admin/oauthsettings</a>
-            </li>
-        </ul>
-    </p>
-    <div class="form-wrapper">
-        <fieldset>
-            <legend>Tester for the Analytics API</legend>
-            <p>Submits to http://solutions.brightcove.com:<strong>8002</strong></p>
-            <form action="//solutions.brightcove.com:8002" method="post" enctype="application/x-www-form-urlencoded" target="aapi_responseFrame">
-                <p>
-                    Client id:
-                    <input name="client_id" id="aapi_client_id" type="text" value="45ddce85-e9e1-4ecc-8562-3f97ead6b048">
-                </p>
-                <p>
-                    Client secret:
-                    <input name="client_secret" id="aapi_client_secret" type="text" value="WnoEbQM6aslaUcY9eqG8AJs8hXvjDjpnxDJYI4JHpdTo7vb1wpBFJMGlYC0BPdvtlZxyhd7UCpn0F1m5wF1Ccw">
-                </p>
-                <p>
-                    Call type:
-                    <select name="requestType" id="aapi_requestType">
-                        <option selected="selected">GET</option>
-                        <option>POST</option>
-                        <option>PUT</option>
-                        <option>PATCH</option>
-                        <option>DELETE</option>
-                    </select>
-                </p>
-                <p>
-                    Call body (optional - include if you need to submit data with the request):<br />
-                    <textarea name="callBody" id="aapi_callBody"></textarea>
-                </p>
-                <p>
-                    Full request URL for the API call:<br />
-                    <textarea name="url" id="aapi_url">https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=account&limit=10&offset=0&fields=all&sort=account&format=json</textarea>
-                </p>
-                <p>
-                    <input id="aapiSubmit" type="submit" value="Submit">
-                </p>
-            </form>
-            <iframe name="aapi_responseFrame" id="aapi_responseFrame" src=""></iframe>
-        </fieldset>
-    </div>
-    <div class="form-wrapper">
-        <fieldset>
-            <legend>Tester for the Player Management API</legend>
-            <p>Submits to http://solutions.brightcove.com:<strong>8003</strong></p>
-            <form action="//solutions.brightcove.com:8003" method="post" enctype="application/x-www-form-urlencoded" target="pmapi_responseFrame">
-                <p>
-                    Client id:
-                    <input name="client_id" id="pmapi_client_id" type="text" value="04ce9029-d61a-4339-83ac-754bb1ad9bc5">
-                </p>
-                <p>
-                    Client secret:
-                    <input name="client_secret" id="pmapi_client_secret" type="text" value="pzj5hkQMN1lFTtLPx52kQJoXkFq0sDUviZ2XSPOp3edHisuLmTXrhqLteVvJASgm4vXWyozeApe3sUQpf6l2JA">
-                </p>
-                <p>
-                    Call type:
-                    <select name="requestType" id="pmapi_requestType">
-                        <option selected="selected">GET</option>
-                        <option>POST</option>
-                        <option>PUT</option>
-                        <option>PATCH</option>
-                        <option>DELETE</option>
-                    </select>
-                </p>
-                <p>
-                    Call body (optional - include if you need to submit data with the request):<br />
-                    <textarea name="callBody" id="pmapi_callBody"></textarea>
-                </p>
-                <p>
-                    Full request URL for the API call:<br />
-                    <textarea name="url" id="pmapi_url">https://players.api.brightcove.com/v1/accounts/57838016001/players</textarea>
-                </p>
-                <p>
-                    <input id="pmapiSubmit" type="submit" value="Submit">
-                </p>
-            </form>
-            <iframe name="pmapi_responseFrame" id="pmapi_responseFrame" src=""></iframe>
-        </fieldset>
-    </div>
-    <script>
-        var aapi_iframe = document.getElementById("aapi_responseFrame"),
+	<!-- header navbar -->
+	<div id="navWrapper" class="fixed"></div>
+	<!-- breadcrumbs -->
+	<nav id="breadCrumbWrapper" class="breadcrumbs show-for-medium-up"></nav>
+	<!-- search -->
+	<div id="searchModal" class="reveal-modal" data-reveal></div>
+	<!-- content -->
+	<!-- content -->
+	<div class="row">
+		<div class="large-2 columns show-for-large-up">
+			<div id="sidenav"></div>
+		</div>
+		<div id="main" class="large-10 small-12 columns">
+			<div id="top" class="section">
+				<h1>bcls-proxy tester</h1>
+			    <p>Welcome to the Brightcove Learning Services proxy tester. The tester can be used currently for the following APIs:
+			        <ul>
+			            <li>Perform: Player Management</li>
+			            <li>Video Cloud: Analytics</li>
+			        </ul>
+			    </p>
+			    <p>To get a <code>client_id</code> and <code>client_secret</code>, you will need to go to the OAuth UI and register this app:
+			        <ul>
+			            <li>Perform: <a href="https://studio.brightcove.com/products/perform/admin/oauthsettings">https://studio.brightcove.com/products/perform/admin/oauthsettings</a></li>
+			            <li>Video Cloud: <a href="https://sadmin.brightcove.com/oauth_module/v1/">https://sadmin.brightcove.com/oauth_module/v1/</a></li>
+			            <li>
+			                Video Cloud (Next Generation Player Beta): <a href="https://studio.brightcove.com/products/videocloud/admin/oauthsettings">https://studio.brightcove.com/products/videocloud/admin/oauthsettings</a>
+			            </li>
+			        </ul>
+			    </p>
+			</div>
+			<div id="aapi" class="section">
+				<h2>Analytics API test</h2>
+				<p>This test sends an Analytics API GET request to the proxy via a form</p>
+				<div class="form-wrapper">
+					<fieldset>
+						<legend>Tester for the Analytics API</legend>
+						<p>Submits to http://solutions.brightcove.com:<strong>8002</strong></p>
+						<form action="//solutions.brightcove.com:8002" method="post" enctype="application/x-www-form-urlencoded" target="aapi_responseFrame">
+							<p>
+								Client id:
+								<input name="client_id" id="aapi_client_id" type="text" value="45ddce85-e9e1-4ecc-8562-3f97ead6b048">
+							</p>
+							<p>
+								Client secret:
+								<input name="client_secret" id="aapi_client_secret" type="text" value="WnoEbQM6aslaUcY9eqG8AJs8hXvjDjpnxDJYI4JHpdTo7vb1wpBFJMGlYC0BPdvtlZxyhd7UCpn0F1m5wF1Ccw">
+							</p>
+							<p>
+								Call type:
+								<select name="requestType" id="aapi_requestType">
+									<option selected="selected">GET</option>
+									<option>POST</option>
+									<option>PUT</option>
+									<option>PATCH</option>
+									<option>DELETE</option>
+								</select>
+							</p>
+							<p>
+								Call body (optional - include if you need to submit data with the request):<br />
+								<textarea name="callBody" id="aapi_callBody"></textarea>
+							</p>
+							<p>
+								Full request URL for the API call:<br />
+								<textarea name="url" id="aapi_url">https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=account&limit=10&offset=0&fields=all&sort=account&format=json</textarea>
+							</p>
+							<p>
+								<input id="aapiSubmit" type="submit" value="Submit">
+							</p>
+						</form>
+						<iframe name="aapi_responseFrame" id="aapi_responseFrame" src=""></iframe>
+					</fieldset>
+				</div>
+			</div>
+			<div id="pmapi" class="section">
+				<h2>Player Management API tester</h2>
+				<p>This test sends a Player Management API POST request via a form.</p>
+				<div class="form-wrapper">
+					<fieldset>
+						<legend>Tester for the Player Management API</legend>
+						<p>Submits to http://solutions.brightcove.com:<strong>8003</strong></p>
+						<form action="//solutions.brightcove.com:8003" method="post" enctype="application/x-www-form-urlencoded" target="pmapi_responseFrame">
+							<p>
+								Client id:
+								<input name="client_id" id="pmapi_client_id" type="text" value="04ce9029-d61a-4339-83ac-754bb1ad9bc5">
+							</p>
+							<p>
+								Client secret:
+								<input name="client_secret" id="pmapi_client_secret" type="text" value="pzj5hkQMN1lFTtLPx52kQJoXkFq0sDUviZ2XSPOp3edHisuLmTXrhqLteVvJASgm4vXWyozeApe3sUQpf6l2JA">
+							</p>
+							<p>
+								Call type:
+								<select name="requestType" id="pmapi_requestType">
+									<option selected="selected">GET</option>
+									<option>POST</option>
+									<option>PUT</option>
+									<option>PATCH</option>
+									<option>DELETE</option>
+								</select>
+							</p>
+							<p>
+								Call body (optional - include if you need to submit data with the request):<br />
+								<textarea name="callBody" id="pmapi_callBody"></textarea>
+							</p>
+							<p>
+								Full request URL for the API call:<br />
+								<textarea name="url" id="pmapi_url">https://players.api.brightcove.com/v1/accounts/57838016001/players</textarea>
+							</p>
+							<p>
+								<input id="pmapiSubmit" type="submit" value="Submit">
+							</p>
+						</form>
+						<iframe name="pmapi_responseFrame" id="pmapi_responseFrame" src=""></iframe>
+					</fieldset>
+				</div>
+			</div>
+			<div class="section" id="ajax">
+				<h2>AJAX test</h2>
+				<p>This test make an Analytics API request via AJAX</p>
+				    <div class="form-wrapper">
+				        <fieldset>
+				            <legend>Tester for the Analytics API (AJAX version)</legend>
+				            <p>Submits to http://solutions.brightcove.com:<strong>8002</strong></p>
+				                <p>
+				                    Client id:
+				                    <input name="client_id" id="ajax_client_id" type="text" value="45ddce85-e9e1-4ecc-8562-3f97ead6b048">
+				                </p>
+				                <p>
+				                    Client secret:
+				                    <input name="client_secret" id="ajax_client_secret" type="text" value="WnoEbQM6aslaUcY9eqG8AJs8hXvjDjpnxDJYI4JHpdTo7vb1wpBFJMGlYC0BPdvtlZxyhd7UCpn0F1m5wF1Ccw">
+				                </p>
+				                <p>
+				                    Call type:
+				                    <select name="requestType" id="ajax_requestType">
+				                        <option selected="selected">GET</option>
+				                        <option>POST</option>
+				                        <option>PUT</option>
+				                        <option>PATCH</option>
+				                        <option>DELETE</option>
+				                    </select>
+				                </p>
+				                <p>
+				                    Call body (optional - include if you need to submit data with the request):<br />
+				                    <textarea name="callBody" id="ajax_callBody"></textarea>
+				                </p>
+				                <p>
+				                    Full request URL for the API call:<br />
+				                    <textarea name="url" id="ajax_url">https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=account&limit=10&offset=0&fields=all&sort=account&format=json</textarea>
+				                </p>
+				                <p>
+				                    <input id="ajaxSubmit" type="submit" value="Submit">
+				                </p>
+				            <pre><code id="ajax_response"></code></pre>
+				        </fieldset>
+				    </div>
+			</div>
+			<div class="section" id="codeForm">
+			    <h2>Sample code: form</h2>
+			    <p>Here is the relavant code:</p>
+				<script src="https://gist.github.com/99a996381b760358456d.js"></script>
+			</div>
+			<div class="section" id="codeAJAX">
+			    <h2>Sample code: AJAX</h2>
+			    <p>Sample code for calling proxy via AJAX</p>
+				<script src="https://gist.github.com/e07841e5fd480ee6334b.js"></script>
+			</div>
+		</div>
+	</div>
+	<!-- bcl scripts -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/gist-embed/1.7/gist-embed.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.2/fastclick.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.3.1/js/foundation.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/highlight.min.js"></script>
+	<script src="/en/scripts/log.js"></script>
+	<script src="/en/scripts/docs-nav-data.min.js"></script>
+	<script src="/en/scripts/bcls-doc-site.js"></script>
+	<script src="/en/scripts/bc-mapi.js"></script>
+	<script>
+		$(document).foundation();
+	</script>
+	<script type="text/javascript">
+		var aapi_iframe = document.getElementById("aapi_responseFrame"),
             pmapi_iframe = document.getElementById("pmapi_responseFrame"),
-            aapi_btn = document.getElementById("aapi_submit"),
-            pmapi_btn = document.getElementById("pmapi_submit");
+            aapi_btn = document.getElementById("aapiSubmit"),
+            pmapi_btn = document.getElementById("pmapiSubmit");
             aapi_btn.addEventListener("click", aapi_iframe.setAttribute("src", "about:blank"));
             pmapi_btn.addEventListener("click", pmapi_iframe.setAttribute("src", "about:blank"));
-    </script>
+	</script>
+	<script>
+	var BCLS = ( function ($) {
+		var $ajax_client_id = $("#ajax_client_id"),
+			$ajax_client_secret = $("#ajax_client_secret"),
+			$ajax_callBody = $("#ajax_callBody"),
+			$ajax_requestType = $("#ajax_requestType"),
+			$ajax_url = $("#ajax_url"),
+			$ajax_submit = $("#ajaxSubmit"),
+			$ajax_response = $("#ajax_response"),
+			submitRequest;
+		// function to submit Request
+		submitRequest = function () {
+			var options = {};
+			options.client_id = $ajax_client_id.val();
+			options.client_secret = $ajax_client_secret.val();
+			options.callBody = $ajax_callBody.val();
+			options.requestType = $ajax_requestType.val();
+			options.url = $ajax_url.val();
+			$.ajax({
+				url: "http://solutions.brightcove.com:8002",
+				type: "POST",
+				data: options,
+				success : function (data) {
+					$ajax_response.html("<p>The proxy sent this data back - now I can do whatever I want with it</p>" + data);
+				},
+				error : function (XMLHttpRequest, textStatus, errorThrown) {
+					$responseFrame.html("Sorry, your request was not successful. Here is what the server sent back: " + errorThrown);
+				}
+			});
+		};
+		$ajax_submit.on("click", submitRequest);
+	})($);
+	</script>
+	<div class="footer text-center"><a href="mailto:docs@brightcove.com">Questions or comments?</a></div>
 </body>
 
 </html>
-</script>

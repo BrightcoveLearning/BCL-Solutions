@@ -187,7 +187,7 @@ var BCLS = (function ($, window, Pikaday) {
 		logit("orginal number of tags: ", tagArray.length);
 		iMax = tagArray.length;
         for (i = 0; i < iMax; i++) {
-			tagArray[i] = removeSpaces(tagArray[i]);
+			tagArray[i] = encodeURIComponent(tagArray[i]);
 		}
 		// remove duplicate values
 		tagArray = removeDuplicateElements(tagArray);

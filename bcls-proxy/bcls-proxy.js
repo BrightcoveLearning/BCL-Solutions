@@ -234,7 +234,8 @@ sendRequest = function (token, options, callback) {
     aapiServer = http.createServer(function (req, res) {
         var body = "",
             // for CORS - AJAX requests send host instead of origin
-            origin = (req.headers.origin || req.headers.host);
+            origin = (req.headers.origin || "*");
+            console.log("origin", origin);
         /* the published version of this proxy accepts requests only from
          * domains that include "brightcove.com"
          * modify the following line to take requests from
@@ -341,7 +342,7 @@ sendRequest = function (token, options, callback) {
     pmapiServer = http.createServer(function (req, res) {
         var body = "",
             // for CORS - AJAX requests send host instead of origin
-            origin = (req.headers.origin || req.headers.host);
+            origin = (req.headers.origin || "*");
         /* the published version of this proxy accepts requests only from
          * domains that include "brightcove.com"
          * modify the following line to take requests from
@@ -448,7 +449,7 @@ sendRequest = function (token, options, callback) {
     apiServer = http.createServer(function (req, res) {
         var body = "",
             // for CORS - AJAX requests send host instead of origin
-            origin = (req.headers.origin || req.headers.host);
+            origin = (req.headers.origin || "*");
         /* the published version of this proxy accepts requests only from
          * domains that include "brightcove.com"
          * modify the following line to take requests from

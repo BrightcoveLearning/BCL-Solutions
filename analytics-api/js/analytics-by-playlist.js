@@ -71,6 +71,7 @@ var BCLS = (function ($, window, Pikaday) {
         deDupe,
         getData,
         processData,
+        doFinalProcessing,
         gettingData = false,
         now = new Date(),
         nowMS = now.valueOf(),
@@ -183,7 +184,8 @@ var BCLS = (function ($, window, Pikaday) {
         var selectedPlaylist = playlistData[(playlistSelector.selectedIndex - 1)];
         videoIds = selectedPlaylist.videoIds;
         logit("videoIds", videoIds);
-        totalVideos = videoIds.length;
+        totalVideos = videoIds.length - 1;
+        logit("totalVideos", totalVideos);
         // undim param input fields
         $aapiParams.attr("class", "bcls-shown");
         $requestSubmitter.attr("class", "bcls-shown");
@@ -277,6 +279,26 @@ var BCLS = (function ($, window, Pikaday) {
             getData();
         }
     };
+    // final Processing
+    doFinalProcessing = function () {
+        gettingData = false;
+        // dedupe the individual video data inArray
+        analyticsData.individual_video_data = deDupe(analyticsData.individual_video_data, "video");
+        analyticsData.average_engagement_score      = analyticsData.average_engagement_score / totalVideos;
+        analyticsData.average_play_rate             = analyticsData.average_play_rate / totalVideos;
+        analyticsData.average_video_engagement_1    = analyticsData.average_video_engagement_1 / totalVideos;
+        analyticsData.average_video_engagement_25   = analyticsData.average_video_engagement_25 / totalVideos;
+        analyticsData.average_video_engagement_50   = analyticsData.average_video_engagement_50 / totalVideos;
+        analyticsData.average_video_engagement_75   = analyticsData.average_video_engagement_75 / totalVideos;
+        analyticsData.average_video_engagement_100  = analyticsData.average_video_engagement_100 / totalVideos;
+        analyticsData.average_video_percent_viewed  = analyticsData.average_video_percent_viewed / analyticsData.total_video_view;
+        $responseFrame.html(BCLSformatJSON.formatJSON(analyticsData));
+        // next line just for this display - remove if reusing this code
+        $('pre code').each(function (i, e) {
+            hljs.highlightBlock(e);
+        });
+    }
+
      // store returned data and do math to sum up playlist totals
      processData = function (aapiData) {
         // check for items
@@ -294,44 +316,33 @@ var BCLS = (function ($, window, Pikaday) {
             analyticsData.average_video_percent_viewed += aapiData.items[0].video_percent_viewed;
             analyticsData.total_video_seconds_viewed += aapiData.items[0].video_seconds_viewed;
             analyticsData.total_video_view += aapiData.items[0].video_view;
-            if (analyticsRequestNumber === (totalVideos - 1)) {
+            if (currentVideoIndex === (totalVideos)) {
                 // all done; time to compute the averages
-                gettingData = false;
-                // dedupe the individual video data inArray
-                analyticsData.individual_video_data = deDupe(analyticsData.individual_video_data, "video");
-                analyticsData.average_engagement_score      = analyticsData.average_engagement_score / totalVideos;
-                analyticsData.average_play_rate             = analyticsData.average_play_rate / totalVideos;
-                analyticsData.average_video_engagement_1    = analyticsData.average_video_engagement_1 / totalVideos;
-                analyticsData.average_video_engagement_25   = analyticsData.average_video_engagement_25 / totalVideos;
-                analyticsData.average_video_engagement_50   = analyticsData.average_video_engagement_50 / totalVideos;
-                analyticsData.average_video_engagement_75   = analyticsData.average_video_engagement_75 / totalVideos;
-                analyticsData.average_video_engagement_100  = analyticsData.average_video_engagement_100 / totalVideos;
-                analyticsData.average_video_percent_viewed  = analyticsData.average_video_percent_viewed / analyticsData.total_video_view;
-                $responseFrame.html(BCLSformatJSON.formatJSON(analyticsData));
-                // next line just for this display - remove if reusing this code
-                $('pre code').each(function (i, e) {
-                    hljs.highlightBlock(e);
-                });
+                doFinalProcessing();
             } else {
                 // get the next data set
                 $submitButton.addClass("bcls-hidden");
                 $responseFrame.html("<span style=\"color:#CC0000\">Processing - please wait....</span>")
-                analyticsRequestNumber++;
                 currentVideoIndex++;
                 gettingData = true;
                 buildRequest();
             }
         } else {
-            // get the next data set
-            analyticsRequestNumber++;
-            currentVideoIndex++;
-            gettingData = true;
-            buildRequest();
+            if (currentVideoIndex === totalVideos) {
+                doFinalProcessing();
+            } else {
+                // get the next data set
+                analyticsRequestNumber++;
+                currentVideoIndex++;
+                gettingData = true;
+                buildRequest();
+            }
         }
     };
     // submit request
     getData = function () {
         var format = $format.val();
+        logit("currentVideoIndex", currentVideoIndex);
         gettingData = true;
         $.ajax({
             url: $request.attr("value"),

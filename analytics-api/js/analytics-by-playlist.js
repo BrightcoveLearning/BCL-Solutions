@@ -68,6 +68,7 @@ var BCLS = (function ($, window, Pikaday) {
         removeSpaces,
         buildRequest,
         isDefined,
+        deDupe,
         getData,
         processData,
         gettingData = false,
@@ -92,6 +93,24 @@ var BCLS = (function ($, window, Pikaday) {
             return false;
         }
     };
+    /*
+    de-dupe array of objects based on selected property
+    note the comparison here is case-sensitive
+    for non-case-sensitive comparison, change
+    targetArray[i].prop to targetArray[i].prop.toLowerCase()
+    */
+    deDupe = function (targetArray, prop) {
+        var i, j, totalItems = targetArray.length;
+        for (i = 0; i < totalItems; i++) {
+            for (j = i + 1; j < totalItems; j++) {
+                if (targetArray[i][prop] === targetArray[j][prop]) {
+                    targetArray.splice(j, 1);
+                }
+            }
+        }
+        return targetArray;
+    };
+
     // reset everything
     reset = function () {
 	    firstRun = true;
@@ -124,7 +143,7 @@ var BCLS = (function ($, window, Pikaday) {
             $playlistSelector.on("change", BCLS.onPlaylistSelect);
             // get total pages
             total_pages = Math.ceil(jsonData.total_count / page_size);
-            logit("total_pages", total_pages);
+            // logit("total_pages", total_pages);
             // turn off firstRun flag
             firstRun = false;
             getPlaylists();
@@ -140,7 +159,7 @@ var BCLS = (function ($, window, Pikaday) {
                     $getPlaylists.html("No more playlists");
                     $getPlaylists.attr("class", "bcls-hidden");
                     dataObj.items = playlistData;
-                    logit("dataObj", dataObj);
+                    // logit("dataObj", dataObj);
                     // populate the playlist selector
                     data = dataObj;
                     result = template(data);
@@ -163,6 +182,7 @@ var BCLS = (function ($, window, Pikaday) {
     onPlaylistSelect = function () {
         var selectedPlaylist = playlistData[(playlistSelector.selectedIndex - 1)];
         videoIds = selectedPlaylist.videoIds;
+        logit("videoIds", videoIds);
         totalVideos = videoIds.length;
         // undim param input fields
         $aapiParams.attr("class", "bcls-shown");
@@ -277,6 +297,8 @@ var BCLS = (function ($, window, Pikaday) {
             if (analyticsRequestNumber === (totalVideos - 1)) {
                 // all done; time to compute the averages
                 gettingData = false;
+                // dedupe the individual video data inArray
+                analyticsData.individual_video_data = deDupe(analyticsData.individual_video_data, "video");
                 analyticsData.average_engagement_score      = analyticsData.average_engagement_score / totalVideos;
                 analyticsData.average_play_rate             = analyticsData.average_play_rate / totalVideos;
                 analyticsData.average_video_engagement_1    = analyticsData.average_video_engagement_1 / totalVideos;

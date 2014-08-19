@@ -21,6 +21,7 @@ var BCLS = (function ($, window, Pikaday) {
         $readApiLocation = $("#readApiLocation"),
         $tags = $("#tags"),
         $manualEntry = $("#manualEntry"),
+        $manualTags = $("#manualTags"),
         params = {},
 		params2 = {},
         videoOptionTemplate = "{{#items}}<option value=\"{{id}}\">{{name}}</option>{{/items}}",
@@ -250,11 +251,12 @@ var BCLS = (function ($, window, Pikaday) {
 	};
 
     getManualTags = function () {
-        var tagString = removeSpaces($tags.val());
+        var tagString = $tags.val();
         $getTags.off("click", getTags);
         $getTags.attr("class", "bcls-hidden");
         pageSelectedTagsArray = tagString.split(",");
         $tagSelectedWrapper.attr("class", "bcls-shown");
+        $getVideoIds.attr("class", "run-button bcls-shown");
         formatSelectedTags();
     };
 
@@ -617,7 +619,7 @@ var BCLS = (function ($, window, Pikaday) {
         buildRequest();
     });
     // listener for manual tag entry
-    $tags.on("change", getManualTags);
+    $manualTags.on("click", getManualTags);
     // build request
     $getVideoIds.on("click", function () {
         // get video Ids associated with selected tag values

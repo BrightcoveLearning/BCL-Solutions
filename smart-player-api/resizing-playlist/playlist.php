@@ -2,7 +2,7 @@
 require_once('../../scripts/bc-mapi.php');
 /* https://github.com/BrightcoveOS/PHP-MAPI-Wrapper
   On a production site use the cache extension */
-  
+
 $read_token = "4padFp2KtFo3R8px9Gy8ugjQ1Pedl6fqsdp71_6Z9b6YOmzse5_G5g..";
 $playlist_id = "1492396528001";
 
@@ -36,11 +36,11 @@ try {
 	</style>
 	<script src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
 	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-	
+
 </head>
 <body>
 	<h1>Server-side playlist example</h1>
-	
+
 	<object id="myExperience" class="BrightcoveExperience">
 	  <param name="bgcolor" value="#000000" />
 	  <param name="width" value="480" />
@@ -52,8 +52,8 @@ try {
 	  <param name="dynamicStreaming" value="true" />
 	  <param name="wmode" value="transparent" />
 	  <param name="@videoPlayer" value="1401169490001" />
-	  <param name="includeAPI" value="true" /> 
-	  <param name="templateLoadHandler" value="onTemplateLoad" />
+	  <param name="includeAPI" value="true" />
+	  <param name="templateLoadHandler" value="onTemplateLoaded" />
 	</object>
 	<div id="playlist">
 <?php

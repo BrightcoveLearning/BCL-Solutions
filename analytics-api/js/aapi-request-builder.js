@@ -23,7 +23,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         $client_secret = $("#client_secret"),
         client_id,
         client_secret,
-        $APIrequestType = $("#requestType"),
+        $APIrequestType = $("#aapiRequestType"),
         requestType,
         $dimensions = $("#dimensions"),
         dimensions,

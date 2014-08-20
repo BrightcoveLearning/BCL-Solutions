@@ -42,7 +42,7 @@
                             <tr>
                                 <td>Service URL:</td>
                                 <td>
-                                    <input id="serviceURL" class="required aapi-request" type="text" size="55" value="https://data.brightcove.com/analytics-api/videocloud" readonly="true" />
+                                    <input id="serviceURL" class="required aapi-request" type="text" size="55" value="https://data.brightcove.com/analytics-api/videocloud" readonly="readonly" />
                                 </td>
                             </tr>
                             <tr>
@@ -80,7 +80,7 @@
                             <tr>
                                 <td>Request Type:</td>
                                 <td>
-                                    <select id="requestType" class="aapi-request">
+                                    <select id="aapiRequestType" class="aapi-request">
                                         <option value="report" selected="selected">Report</option>
                                         <option value="rollup">Roll-up</option>
                                     </select> (default:
@@ -113,7 +113,9 @@
                                     <input class="date-range" id="to" type="text" size="30"> (default: now)</td>
                             </tr>
                             <tr>
-                                <p class="text-warning small">Changing the date range will change other options below - <strong>do this first!</strong></p>
+                                <td colspan="2">
+                                    <p class="text-warning small">Changing the date range will change other options below - <strong>do this first!</strong></p>
+                                </td>
                             </tr>
                             <tr>
                                 <td class="align-top"><strong>Where:</strong></td>
@@ -281,12 +283,12 @@
                         <option value="xlsx">xlsx</option>
                     </select>
                 </p>
-                <p>Notes:
+                <p>Notes:</p>
                     <ol>
                         <li>csv and xlsx for Reports only; for Rollups you will always get JSON</li>
                         <li>If you select xlsx, you will only see a success message here; to download xlxs results, you will have to use the Analytics UI in Video Cloud Studio</li>
                     </ol>
-                </p>
+
             </fieldset>
         </div>
         <h2>The API Request</h2>

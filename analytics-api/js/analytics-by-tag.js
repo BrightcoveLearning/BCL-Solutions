@@ -108,6 +108,7 @@ var BCLS = (function ($, window, Pikaday) {
         getData,
         getManualTags,
         processData,
+        deDupe,
         gettingData = false;
 
     // utilities
@@ -116,13 +117,29 @@ var BCLS = (function ($, window, Pikaday) {
             console.log(context, message);
         }
     };
-    // allow array forEach method in older browsers
+    /*
+    de-dupe array of objects based on selected property
+    note the comparison here is case-sensitive
+    for non-case-sensitive comparison, change
+    targetArray[i].prop to targetArray[i].prop.toLowerCase()
+    */
+    deDupe = function (targetArray, prop) {
+        var i, j, totalItems = targetArray.length;
+        for (i = 0; i < totalItems; i++) {
+            for (j = i + 1; j < totalItems; j++) {
+                if (targetArray[i][prop] === targetArray[j][prop]) {
+                    targetArray.splice(j, 1);
+                }
+            }
+        }
+        return targetArray;
+    };    // allow array forEach method in older browsers
     if ( !Array.prototype.forEach ) {
         Array.prototype.forEach = function(fn, scope) {
             for (var i = 0, len = this.length; i < len; ++i) {
                 fn.call(scope || this, this[i], i, this);
             }
-        }
+        };
     }
     // more robust test for strings "not defined"
     isDefined =  function (v) {
@@ -408,6 +425,7 @@ var BCLS = (function ($, window, Pikaday) {
 			buildRequest();
             $videoIdWrapper.attr("class", "bcls-shown");
             $aapiParams.attr("class", "bcls-shown");
+            $getVideoIds.html("finished getting video ids");
 		}
     };
 
@@ -528,6 +546,7 @@ var BCLS = (function ($, window, Pikaday) {
     getData = function () {
 		logit("function", "getData");
 		var format = $format.val();
+        $responseFrame.html("Getting data...please wait...");
 		gettingData = true;
 		$.ajax({
 			url: $request.attr("value"),
@@ -570,16 +589,20 @@ var BCLS = (function ($, window, Pikaday) {
 		}
 
 		if (analyticsRequestNumber === (totalVideos - 1)) {
-			logit("all done compute averages", "");
+			var returnedVideos;
+            logit("all done compute averages", "");
 			// all done; time to compute the averages
+            // deDupe the individual_video_data Array
+            analyticsData.individual_video_data = deDupe(analyticsData.individual_video_data, "video");
+            returnedVideos = analyticsData.individual_video_data.length;
 			gettingData = false;
-			analyticsData.average_engagement_score      = analyticsData.average_engagement_score / totalVideos;
-			analyticsData.average_play_rate             = analyticsData.average_play_rate / totalVideos;
-			analyticsData.average_video_engagement_1    = analyticsData.average_video_engagement_1 / totalVideos;
-			analyticsData.average_video_engagement_25   = analyticsData.average_video_engagement_25 / totalVideos;
-			analyticsData.average_video_engagement_50   = analyticsData.average_video_engagement_50 / totalVideos;
-			analyticsData.average_video_engagement_75   = analyticsData.average_video_engagement_75 / totalVideos;
-			analyticsData.average_video_engagement_100  = analyticsData.average_video_engagement_100 / totalVideos;
+			analyticsData.average_engagement_score      = analyticsData.average_engagement_score / returnedVideos;
+			analyticsData.average_play_rate             = analyticsData.average_play_rate / returnedVideos;
+			analyticsData.average_video_engagement_1    = analyticsData.average_video_engagement_1 / returnedVideos;
+			analyticsData.average_video_engagement_25   = analyticsData.average_video_engagement_25 / returnedVideos;
+			analyticsData.average_video_engagement_50   = analyticsData.average_video_engagement_50 / returnedVideos;
+			analyticsData.average_video_engagement_75   = analyticsData.average_video_engagement_75 / returnedVideos;
+			analyticsData.average_video_engagement_100  = analyticsData.average_video_engagement_100 / returnedVideos;
 			analyticsData.average_video_percent_viewed  = analyticsData.average_video_percent_viewed / analyticsData.total_video_view;
 			$responseFrame.html(BCLSformatJSON.formatJSON(analyticsData));
 			// next line just for this display - remove if reusing this code
@@ -623,6 +646,8 @@ var BCLS = (function ($, window, Pikaday) {
     // build request
     $getVideoIds.on("click", function () {
         // get video Ids associated with selected tag values
+        $getVideoIds.attr("class", "bcls-hidden");
+        $getVideoIds.html("Getting video ids...please wait");
 		getVideoIds();
     });
 	// send request

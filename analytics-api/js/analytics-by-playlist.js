@@ -281,16 +281,19 @@ var BCLS = (function ($, window, Pikaday) {
     };
     // final Processing
     doFinalProcessing = function () {
+        var returnedVideos;
         gettingData = false;
         // dedupe the individual video data inArray
         analyticsData.individual_video_data = deDupe(analyticsData.individual_video_data, "video");
-        analyticsData.average_engagement_score      = analyticsData.average_engagement_score / totalVideos;
-        analyticsData.average_play_rate             = analyticsData.average_play_rate / totalVideos;
-        analyticsData.average_video_engagement_1    = analyticsData.average_video_engagement_1 / totalVideos;
-        analyticsData.average_video_engagement_25   = analyticsData.average_video_engagement_25 / totalVideos;
-        analyticsData.average_video_engagement_50   = analyticsData.average_video_engagement_50 / totalVideos;
-        analyticsData.average_video_engagement_75   = analyticsData.average_video_engagement_75 / totalVideos;
-        analyticsData.average_video_engagement_100  = analyticsData.average_video_engagement_100 / totalVideos;
+        returnedVideos = analyticsData.individual_video_data.length;
+        logit("returnVideos", returnedVideos);
+        analyticsData.average_engagement_score      = analyticsData.average_engagement_score / returnedVideos;
+        analyticsData.average_play_rate             = analyticsData.average_play_rate / returnedVideos;
+        analyticsData.average_video_engagement_1    = analyticsData.average_video_engagement_1 / returnedVideos;
+        analyticsData.average_video_engagement_25   = analyticsData.average_video_engagement_25 / returnedVideos;
+        analyticsData.average_video_engagement_50   = analyticsData.average_video_engagement_50 / returnedVideos;
+        analyticsData.average_video_engagement_75   = analyticsData.average_video_engagement_75 / returnedVideos;
+        analyticsData.average_video_engagement_100  = analyticsData.average_video_engagement_100 / returnedVideos;
         analyticsData.average_video_percent_viewed  = analyticsData.average_video_percent_viewed / analyticsData.total_video_view;
         $responseFrame.html(BCLSformatJSON.formatJSON(analyticsData));
         // next line just for this display - remove if reusing this code

@@ -468,11 +468,17 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
     // submit request
     getData = function (requestURL, thisRequestType, dataType) {
         bclslog("requestURL", requestURL);
+        bclslog("thisRequestType", thisRequestType);
+        bclslog("dataType", dataType);
         if (thisRequestType === "analytics") {
             // clear the results frame
             $responseFrame.html("Loading...");
         }
         requestData.url = requestURL;
+        requestData.client_id = (isDefined($client_id_display.val())) ? $client_id_display.val() : "4584b1f4-f2fe-479d-aa49-6148568fef50";
+        requestData.client_secret = (isDefined($client_secret_display.val())) ? $client_secret_display.val() :  "gwk6d9gJ7oHwk7DMF3I6k4fxKn2n0qG3oIou0TPq4tATG24OrGPeJO7MUlyWgzFx2fANHU1kiBnwrM2gyntk7w";
+        requestData.requestType = "GET";
+
         $.ajax({
             url: "http://solutions.brightcove.com:8002",
             type: "POST",
@@ -480,7 +486,6 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
             // dataType: "jsonp",
             //
             success : function (data) {
-                bclslog("data", data);
                 if (thisRequestType === "analytics") {
                     switch (format) {
                     case "json":
@@ -496,38 +501,46 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
                         break;
                     }
                 } else if (thisRequestType === "data") {
-                    data = JSON.parse(data);
+                    bclslog("data", data);
                     if (isDefined(data.items)) {
                         switch (dataType) {
                         case "player":
+                            bclslog("player", data);
                             template = Handlebars.compile(playerOptionTemplate);
                             $player.html(template(data));
                             break;
                         case "video":
+                            bclslog("video", data);
                             template = Handlebars.compile(videoOptionTemplate);
                             $video.html(template(data));
                             break;
                         case "destination_domain":
+                            bclslog("destination_domain", data);
                             template = Handlebars.compile(destination_domainOptionTemplate);
                             $destination_domain.html(template(data));
                             break;
                         case "referrer_domain":
+                            bclslog("referrer_domain", data);
                             template = Handlebars.compile(referrer_domainOptionTemplate);
                             $referrer_domain.html(template(data));
                             break;
                         case "search_terms":
+                            bclslog("search_terms", data);
                             template = Handlebars.compile(search_termsOptionTemplate);
                             $search_terms.html(template(data));
                             break;
                         case "country":
+                            bclslog("country", data);
                             template = Handlebars.compile(countryOptionTemplate);
                             $country.html(template(data));
                             break;
                         case "region":
+                            bclslog("region", data);
                             template = Handlebars.compile(regionOptionTemplate);
                             $region.html(template(data));
                             break;
                         case "city":
+                            bclslog("city", data);
                             template = Handlebars.compile(cityOptionTemplate);
                             $city.html(template(data));
                             break;
@@ -536,9 +549,10 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
                             break;
                         }
                         if (dataCallsIndex < (dataCalls.length - 1)) {
+                            bclslog("dataCallsIndex", dataCallsIndex);
                             // get the next data set
                             dataCallsIndex++;
-                            buildDataForInputRequest(dataCalls[dataCallsIndex]);
+                            buildDataForInputRequest();
                         } else {
                             // reset dataCallsIndex
                             dataCallsIndex = 0;
@@ -904,8 +918,8 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
     // init
     init = function () {
         // initialize requestData object
-        requestData.client_id = "4584b1f4-f2fe-479d-aa49-6148568fef50";
-        requestData.client_secret = "gwk6d9gJ7oHwk7DMF3I6k4fxKn2n0qG3oIou0TPq4tATG24OrGPeJO7MUlyWgzFx2fANHU1kiBnwrM2gyntk7w";
+        requestData.client_id = (isDefined($client_id_display.val())) ? $client_id_display.val() : "4584b1f4-f2fe-479d-aa49-6148568fef50";
+        requestData.client_secret = (isDefined($client_secret_display.val())) ? $client_secret_display.val() :  "gwk6d9gJ7oHwk7DMF3I6k4fxKn2n0qG3oIou0TPq4tATG24OrGPeJO7MUlyWgzFx2fANHU1kiBnwrM2gyntk7w";
         requestData.requestType = "GET";
         requestData.url = APIrequest.value;
         // add date pickers to the date input fields
@@ -934,11 +948,10 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         $date_range.on("change", buildDataForInputRequest);
         // event listener for acount and token change
         $accountID.on("change", function () {
-            window.alert("Remember that if you change the account, you must change the token also!");
+            window.alert("Remember that if you change the account, you may need to change the client id and secret also!");
         });
         $client_id_display.on("change", function () {
            account = removeSpaces($accountID.val());
-           buildDataForInputRequest();
            buildRequest();
         });
         $client_secret_display.on("change", function () {
@@ -954,7 +967,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
             getData(APIrequest.value, "analytics");
         });
         // populate data input selectors
-        buildDataForInputRequest(dataCalls[dataCallsIndex]);
+        buildDataForInputRequest();
         // set the initial options for fields and sort
         setFieldsSortOptions();
         // generate initial request

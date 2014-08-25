@@ -204,19 +204,10 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
     // get input field values
     getDataForInputs = function () {
         serviceURL = $serviceURL.val();
-        client_id = removeSpaces($client_id_display.val());
-        client_secret = removeSpaces($client_secret_display.val());
         account = removeSpaces($accountID.val());
         // check for required fields
         if (!isDefined(account)) {
             window.alert("You must provide an account ID");
-        }
-        // set client_id and client_secret values
-        if (isDefined(client_id)) {
-            $client_id.val(client_id);
-        }
-        if (isDefined(client_secret)) {
-            $client_secret.val(client_secret);
         }
         requestType = $APIrequestType.val();
         if (isDefined($dimensions.val())) {
@@ -469,7 +460,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
     getData = function (requestURL, thisRequestType, dataType) {
         bclslog("requestURL", requestURL);
         bclslog("thisRequestType", thisRequestType);
-        bclslog("dataType", dataType);
+        // 1bclslog("dataType", dataType);
         if (thisRequestType === "analytics") {
             // clear the results frame
             $responseFrame.html("Loading...");
@@ -501,7 +492,17 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
                         break;
                     }
                 } else if (thisRequestType === "data") {
-                    bclslog("data", data);
+                    bclslog("raw data", data);
+                    try {
+                        data = JSON.parse(data);
+                    }
+                    catch (e) {
+                        // guess final } was missing
+                        data = data + "}";
+                        data = JSON.parse(data);
+                    }
+                    // bclslog("parsed data", data);
+                    // bclslog("data items defined: ", data.items);
                     if (isDefined(data.items)) {
                         switch (dataType) {
                         case "player":
@@ -558,6 +559,9 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
                             dataCallsIndex = 0;
                         }
 
+                    } else {
+                        // bad response, try again
+                        buildDataForInputRequest();
                     }
                 }
             },
@@ -948,11 +952,11 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         $date_range.on("change", buildDataForInputRequest);
         // event listener for acount and token change
         $accountID.on("change", function () {
-            window.alert("Remember that if you change the account, you may need to change the client id and secret also!");
+            account = removeSpaces($accountID.val());
         });
         $client_id_display.on("change", function () {
-           account = removeSpaces($accountID.val());
-           buildRequest();
+        //    account = removeSpaces($accountID.val());
+        //    buildRequest();
         });
         $client_secret_display.on("change", function () {
            account = removeSpaces($accountID.val());

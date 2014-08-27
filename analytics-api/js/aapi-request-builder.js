@@ -204,19 +204,10 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
     // get input field values
     getDataForInputs = function () {
         serviceURL = $serviceURL.val();
-        client_id = removeSpaces($client_id_display.val());
-        client_secret = removeSpaces($client_secret_display.val());
         account = removeSpaces($accountID.val());
         // check for required fields
         if (!isDefined(account)) {
             window.alert("You must provide an account ID");
-        }
-        // set client_id and client_secret values
-        if (isDefined(client_id)) {
-            $client_id.val(client_id);
-        }
-        if (isDefined(client_secret)) {
-            $client_secret.val(client_secret);
         }
         requestType = $APIrequestType.val();
         if (isDefined($dimensions.val())) {
@@ -306,10 +297,6 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         } else {
             fields = null;
         }
-        // set up authorization
-        // authorization = "Bearer " + token;
-        // $authorizationDisplay.html(authorization);
-        // $authorization.attr("value", authorization);
     };
     // build request for input data
     buildDataForInputRequest = function () {
@@ -473,14 +460,15 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
             $responseFrame.html("Loading...");
         }
         requestData.url = requestURL;
+        requestData.client_id = (isDefined($client_id_display.val())) ? $client_id_display.val() : "4584b1f4-f2fe-479d-aa49-6148568fef50";
+        requestData.client_secret = (isDefined($client_secret_display.val())) ? $client_secret_display.val() :  "gwk6d9gJ7oHwk7DMF3I6k4fxKn2n0qG3oIou0TPq4tATG24OrGPeJO7MUlyWgzFx2fANHU1kiBnwrM2gyntk7w";
+        requestData.requestType = "GET";
+
         $.ajax({
             url: "http://solutions.brightcove.com:8002",
             type: "POST",
             data: requestData,
-            // dataType: "jsonp",
-            //
             success : function (data) {
-                bclslog("data", data);
                 if (thisRequestType === "analytics") {
                     switch (format) {
                     case "json":
@@ -496,38 +484,56 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
                         break;
                     }
                 } else if (thisRequestType === "data") {
-                    data = JSON.parse(data);
+                    bclslog("raw data", data);
+                    try {
+                        data = JSON.parse(data);
+                    }
+                    catch (e) {
+                        // guess final } was missing
+                        data = data + "}";
+                        data = JSON.parse(data);
+                    }
+                    // bclslog("parsed data", data);
+                    // bclslog("data items defined: ", data.items);
                     if (isDefined(data.items)) {
                         switch (dataType) {
                         case "player":
+                            // bclslog("player", data);
                             template = Handlebars.compile(playerOptionTemplate);
                             $player.html(template(data));
                             break;
                         case "video":
+                            // bclslog("video", data);
                             template = Handlebars.compile(videoOptionTemplate);
                             $video.html(template(data));
                             break;
                         case "destination_domain":
+                            // bclslog("destination_domain", data);
                             template = Handlebars.compile(destination_domainOptionTemplate);
                             $destination_domain.html(template(data));
                             break;
                         case "referrer_domain":
+                            // bclslog("referrer_domain", data);
                             template = Handlebars.compile(referrer_domainOptionTemplate);
                             $referrer_domain.html(template(data));
                             break;
                         case "search_terms":
+                            // bclslog("search_terms", data);
                             template = Handlebars.compile(search_termsOptionTemplate);
                             $search_terms.html(template(data));
                             break;
                         case "country":
+                            // bclslog("country", data);
                             template = Handlebars.compile(countryOptionTemplate);
                             $country.html(template(data));
                             break;
                         case "region":
+                            // bclslog("region", data);
                             template = Handlebars.compile(regionOptionTemplate);
                             $region.html(template(data));
                             break;
                         case "city":
+                            // bclslog("city", data);
                             template = Handlebars.compile(cityOptionTemplate);
                             $city.html(template(data));
                             break;
@@ -538,12 +544,15 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
                         if (dataCallsIndex < (dataCalls.length - 1)) {
                             // get the next data set
                             dataCallsIndex++;
-                            buildDataForInputRequest(dataCalls[dataCallsIndex]);
+                            buildDataForInputRequest();
                         } else {
                             // reset dataCallsIndex
                             dataCallsIndex = 0;
                         }
 
+                    } else {
+                        // bad response, try again
+                        buildDataForInputRequest();
                     }
                 }
             },
@@ -904,8 +913,8 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
     // init
     init = function () {
         // initialize requestData object
-        requestData.client_id = "4584b1f4-f2fe-479d-aa49-6148568fef50";
-        requestData.client_secret = "gwk6d9gJ7oHwk7DMF3I6k4fxKn2n0qG3oIou0TPq4tATG24OrGPeJO7MUlyWgzFx2fANHU1kiBnwrM2gyntk7w";
+        requestData.client_id = (isDefined($client_id_display.val())) ? $client_id_display.val() : "4584b1f4-f2fe-479d-aa49-6148568fef50";
+        requestData.client_secret = (isDefined($client_secret_display.val())) ? $client_secret_display.val() :  "gwk6d9gJ7oHwk7DMF3I6k4fxKn2n0qG3oIou0TPq4tATG24OrGPeJO7MUlyWgzFx2fANHU1kiBnwrM2gyntk7w";
         requestData.requestType = "GET";
         requestData.url = APIrequest.value;
         // add date pickers to the date input fields
@@ -934,12 +943,11 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         $date_range.on("change", buildDataForInputRequest);
         // event listener for acount and token change
         $accountID.on("change", function () {
-            window.alert("Remember that if you change the account, you must change the token also!");
+            account = removeSpaces($accountID.val());
         });
         $client_id_display.on("change", function () {
-           account = removeSpaces($accountID.val());
-           buildDataForInputRequest();
-           buildRequest();
+        //    account = removeSpaces($accountID.val());
+        //    buildRequest();
         });
         $client_secret_display.on("change", function () {
            account = removeSpaces($accountID.val());
@@ -954,7 +962,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
             getData(APIrequest.value, "analytics");
         });
         // populate data input selectors
-        buildDataForInputRequest(dataCalls[dataCallsIndex]);
+        buildDataForInputRequest();
         // set the initial options for fields and sort
         setFieldsSortOptions();
         // generate initial request

@@ -297,10 +297,6 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         } else {
             fields = null;
         }
-        // set up authorization
-        // authorization = "Bearer " + token;
-        // $authorizationDisplay.html(authorization);
-        // $authorization.attr("value", authorization);
     };
     // build request for input data
     buildDataForInputRequest = function () {
@@ -459,8 +455,6 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
     // submit request
     getData = function (requestURL, thisRequestType, dataType) {
         bclslog("requestURL", requestURL);
-        bclslog("thisRequestType", thisRequestType);
-        // 1bclslog("dataType", dataType);
         if (thisRequestType === "analytics") {
             // clear the results frame
             $responseFrame.html("Loading...");
@@ -506,42 +500,42 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
                     if (isDefined(data.items)) {
                         switch (dataType) {
                         case "player":
-                            bclslog("player", data);
+                            // bclslog("player", data);
                             template = Handlebars.compile(playerOptionTemplate);
                             $player.html(template(data));
                             break;
                         case "video":
-                            bclslog("video", data);
+                            // bclslog("video", data);
                             template = Handlebars.compile(videoOptionTemplate);
                             $video.html(template(data));
                             break;
                         case "destination_domain":
-                            bclslog("destination_domain", data);
+                            // bclslog("destination_domain", data);
                             template = Handlebars.compile(destination_domainOptionTemplate);
                             $destination_domain.html(template(data));
                             break;
                         case "referrer_domain":
-                            bclslog("referrer_domain", data);
+                            // bclslog("referrer_domain", data);
                             template = Handlebars.compile(referrer_domainOptionTemplate);
                             $referrer_domain.html(template(data));
                             break;
                         case "search_terms":
-                            bclslog("search_terms", data);
+                            // bclslog("search_terms", data);
                             template = Handlebars.compile(search_termsOptionTemplate);
                             $search_terms.html(template(data));
                             break;
                         case "country":
-                            bclslog("country", data);
+                            // bclslog("country", data);
                             template = Handlebars.compile(countryOptionTemplate);
                             $country.html(template(data));
                             break;
                         case "region":
-                            bclslog("region", data);
+                            // bclslog("region", data);
                             template = Handlebars.compile(regionOptionTemplate);
                             $region.html(template(data));
                             break;
                         case "city":
-                            bclslog("city", data);
+                            // bclslog("city", data);
                             template = Handlebars.compile(cityOptionTemplate);
                             $city.html(template(data));
                             break;
@@ -550,7 +544,6 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
                             break;
                         }
                         if (dataCallsIndex < (dataCalls.length - 1)) {
-                            bclslog("dataCallsIndex", dataCallsIndex);
                             // get the next data set
                             dataCallsIndex++;
                             buildDataForInputRequest();

@@ -53,7 +53,7 @@
 					<li>Smart Player API</li>
 				</ul>
 			</div>
-			<div class="section" id="player">
+			<div class="section" id="playersection">
 				<h2>The functional sample</h2>
 				<!-- Start of Brightcove Player -->
 				<script language="JavaScript" type="text/javascript" src="//sadmin.brightcove.com/js/BrightcoveExperiences.js"></script>
@@ -61,8 +61,8 @@
 					<param name="bgcolor" value="#FFFFFF" />
 					<param name="width" value="600" />
 					<param name="height" value="338" />
-					<param name="playerID" value="2081645594001" />
-					<param name="playerKey" value="AQ~~,AAAABLsQgFE~,jGXrTxeVLAQAxWWh5tR_yAk4ujie9FeT" />
+					<param name="playerID" value="3752853845001" />
+					<param name="playerKey" value="AQ~~,AAAABLsQgFE~,jGXrTxeVLARWbzrS4bw4LIzLZKmXotOp" />
 					<param name="isVid" value="true" />
 					<param name="isUI" value="true" />
 					<param name="dynamicStreaming" value="true" />
@@ -105,7 +105,6 @@
 	<script src="/bcls/scripts/prefix.js"></script>
 	<script src="/bcls/scripts/format_json.js"></script>
 	<script src="/bcls/scripts/bc-mapi.js"></script>
-	<script src="/bcls/scripts/log.js"></script>
 	<script>
 		$(document).foundation();
 	</script>
@@ -126,6 +125,7 @@
 					authentication = "",
 					handleBarsTemplate = "{{#items}}<div id=\"{{id}}\" class=\"playlist-item\"><img src=\"{{thumbnailURL}}\" /><p>{{name}}</p></div>{{/items}}",
 					$playlistItems,
+					$firstPlayListItem,
 					$responseFrame = $("#response"),
 					// functions
 					bclslog,
@@ -171,26 +171,44 @@
 						onMAPIresponse: function (jsonData) {
 							// merge the data into the html template using Handlebars
 							var template = Handlebars.compile(handleBarsTemplate),
-								data = jsonData,
-								results = template(data);
+								data,
+								results,
+								tmp = {},
+								i,
+								iMax,
+								item;
+							iMax = jsonData.items.length;
+							tmp.items = [];
+							for (i = 0; i < iMax; i++) {
+								item = jsonData.items[i];
+								if (item !== null) {
+									tmp.items.push(item);
+								}
+							}
+							data = tmp;
+							results = template(data);
 							// inject the HTML for the video list
 							$("#playlist").append(results);
 							// get a reference to the collection of video items
 							$playlistItems = $(".playlist-item");
-						},
-						onTemplateLoad: function (experienceID) {
-							player = brightcove.api.getExperience(experienceID);
-							APIModules = brightcove.api.modules.APIModules;
-							getAnalyticsData();
-						},
-						onTemplateReady: function (evt) {
-							videoPlayer = player.getModule(APIModules.VIDEO_PLAYER);
+							$firstPlayListItem = $(".playlist-item:first");
 							// set up the click event handler for the video items
 							$playlistItems.on("click", function (evt) {
 								videoPlayer.loadVideoByID(parseInt($(this).attr("id")));
 							});
 							// cue the first video item
-							videoPlayer.cueVideoByID(parseInt($playlistItems.eq(0).attr("id")));
+
+	bclslog("first ID", $firstPlayListItem.attr("id"));							videoPlayer.cueVideoByID(parseInt($firstPlayListItem.attr("id")));
+						},
+						onTemplateLoad: function (experienceID) {
+							bclslog("template loaded");
+							player = brightcove.api.getExperience(experienceID);
+							APIModules = brightcove.api.modules.APIModules;
+							videoPlayer = player.getModule(APIModules.VIDEO_PLAYER);
+						},
+						onTemplateReady: function (evt) {
+							getAnalyticsData();
+
 						}
 					};
 				})($, BCMAPI);
@@ -200,7 +218,7 @@
 			$("#js_code").html(BCLSpreFix($("#pageScript").html()));
 			// $("#css_code").html(BCLSpreFix($("#pageStyles").html()));
 			$('pre code').each(function (i, e) {
-				hljs.highlightBlock(e)
+				hljs.highlightBlock(e);
 			});
 		});
 	</script>

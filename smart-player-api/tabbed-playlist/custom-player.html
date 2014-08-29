@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Custom Player</title>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+	
+	<script>
+		$(function () {
+			$("#tabs").tabs();
+		});
+	</script>
+	
+	<style type="text/css">
+		/**********************************************
+      Styles for page
+      **********************************************/
+		#videoInfo {
+			float: left;
+		}
+		#playlist {
+			float: left;
+		}
+		#playlist-item {
+			float: left;
+			width: 230px;
+			height: 90px;
+			background-color: #EEE;
+			font-size: 80%;
+			padding: 5px;
+			margin: 2px;
+		}
+		#playlist-item img {
+			float: left;
+			width: 40%;
+			padding-right: 5px;
+		}
+		#tabs {
+			float: left;
+		}
+		#outerContainer {
+			float: left;
+			width: 75%;
+			padding-right: 25px;
+			padding-bottom: 15px;
+		}
+		#videoWrapper {
+			position: relative;
+			padding-bottom: 56.25%;
+		}
+		.BrightcoveExperience {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- Content ============================================= -->
+	<h1>Custom Player with Playlist</h1>
+	<div id="outerContainer">
+		<div id="videoWrapper">
+			
+			<!-- Start of Brightcove Player -->
+			<div style="display:none"></div>
+			<!--
+					By use of this code snippet, I agree to the Brightcove Publisher T and C 
+					found at https://accounts.brightcove.com/en/terms-and-conditions/. 
+					-->
+			<script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
+			<object id="myExperience922656010001" class="BrightcoveExperience">
+				<param name="bgcolor" value="#FFFFFF" />
+				<param name="width" value="480" />
+				<param name="height" value="270" />
+				<param name="playerID" value="2287523642001" />
+				<param name="playerKey" value="AQ~~,AAAA1oy1bvE~,ALl2ezBj3WFAcF7NTQZX7YGofLZ-RpJP" />
+				<param name="isVid" value="true" />
+				<param name="isUI" value="true" />
+				<param name="dynamicStreaming" value="true" />
+				<param name="@videoPlayer" value="922656010001" />
+				<!-- smart player api params -->
+				<param name="includeAPI" value="true" />
+				<param name="templateLoadHandler" value="onTemplateLoad" />
+				<param name="templateReadyHandler" value="onTemplateReady" />
+			</object>
+			<!-- 
+					This script tag will cause the Brightcove Players defined above it to be created as soon
+					as the line is read by the browser. If you wish to have the player instantiated only after
+					the rest of the HTML is processed and the page load is complete, remove the line.
+					-->
+			<script type="text/javascript">
+				brightcove.createExperiences();
+			</script>
+			<!-- End of Brightcove Player -->
+			
+		</div>
+	</div>
+	
+	<div id="videoInfo">
+		<!--video info diplay area-->
+	</div>
+	
+	<div id="tabs">
+		<ul id="tabNames">
+			<li><a href="#tabs-1"><span id="tabName1"></span></a></li>
+			<li><a href="#tabs-2"><span id="tabName2"></span></a></li>
+		</ul>
+		<div id="tabs-1">
+			<p><span id="tabData1"></span></p>
+		</div>
+		<div id="tabs-2">
+			<p><span id="tabData2"></span></p>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		/******** Any scripts specific to page samples should go here *********/
+		var player,
+			APIModules,
+			videoPlayer,
+			contentModule,
+			// array of playlist IDs - substitute your list of playlist IDs
+			playlistIds = [1323984733001, 1323984734001],
+			numberPlayerIds = playlistIds.length,
+			obj = {},
+			videoDTO = {},
+			str;
+		
+		// utilities
+		logit = function (context, message) {
+			if (console) {
+				console.log(context, message);
+			}
+		};
+		
+		// initialize playlist data array
+		obj.playlistsData = [];
+
+		function onTemplateLoad(experienceID) {
+			logit("EVENT", "onTemplateLoad");
+			player = brightcove.api.getExperience(experienceID);
+			APIModules = brightcove.api.modules.APIModules;
+		};
+
+		function onTemplateReady(evt) {
+			logit("EVENT", "onTemplateReady");
+			videoPlayer = player.getModule(APIModules.VIDEO_PLAYER);
+			contentModule = player.getModule(APIModules.CONTENT);
+			// get video data for current video
+			getVideoData()
+			// get the data for each playlist in the array
+			getPlaylistsData(0);
+		};
+		/**** retrieves the playlists from the Video Cloud service
+		 * because the calls are asynchronous,
+		 * this function needs to keep calling itself
+		 * until it has looped over the entire playlist ids array ****/
+		function getPlaylistsData(counter) {
+			logit("function", "getPlaylistsData");
+			contentModule.getPlaylistByID(playlistIds[counter], function (playlistDTO) {
+				// add playlist data to master array
+				obj.playlistsData.push(playlistDTO);
+				if (counter < numberPlayerIds - 1) {
+					// not done yet, function increments the counter and recalls itself
+					counter++;
+					getPlaylistsData(counter);
+				} else {
+					// now we're done, buid the playlist display
+					buildPlaylistDisplay();
+				}
+			});
+		};
+
+		function buildPlaylistDisplay() {
+			logit("function", "buildPlaylistDisplay");
+			// create the video thumbnail links and write it into the HTML
+			
+			str = "";
+			var current_tab, current_data;
+			for (var i=0; i<numberPlayerIds; i++) {
+				current_tab = "tabName" + (i+1);
+				document.getElementById(current_tab).innerHTML = obj.playlistsData[i].displayName;
+			
+				for (var j in obj.playlistsData[i].videos) {
+					str += "<div id='playlist-item' onClick='playVideo(" + obj.playlistsData[i].videos[j].id + ");'><img src='" + obj.playlistsData[i].videos[j].videoStillURL +
+						"' /><div id='playlist-caption'><span>" +
+						obj.playlistsData[i].videos[j].shortDescription + "</span></div></div>";
+				}
+				current_data = "tabData" + (i+1);
+				document.getElementById(current_data).innerHTML = str;
+				str = "";
+			}
+			
+		};
+
+		function getVideoData() {
+			logit("function", "getVideoData");
+			// get video data
+			videoPlayer.getCurrentVideo(function (videoDTO) {
+				// display video fields
+				str = "<p>" + videoDTO.displayName + "</p>";
+				str += "<p>" + videoDTO.shortDescription + "</p>";
+				if (videoDTO.linkURL) {
+					str += "<p><a href='" + videoDTO.linkURL + "'>" + videoDTO.linkText + "</a></p>";
+				}
+				// display custom fields
+				str += "<ul>";
+				for (var index in videoDTO.customFields) {
+					if (videoDTO.customFields[index].substr(0, 4) == "http") {
+						str += "<li><a href='" + videoDTO.customFields[index] + "'>" + index + "</a></li>";
+					} else {
+						str += "<li>" + videoDTO.customFields[index] + "</li>";
+					}
+				}
+				str += "</ul>";
+				document.getElementById("videoInfo").innerHTML = str;
+			});
+		};
+
+		function playVideo(videoid) {
+			// play selected video
+			if (videoPlayer.canPlayWithoutInteraction()) {
+				videoPlayer.loadVideoByID(videoid);
+			} else {
+				videoPlayer.cueVideoByID(videoid);
+			}
+			// get data for current video
+			getVideoData()
+		};
+	</script>
+</body>
+
+</html>

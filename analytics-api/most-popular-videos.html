@@ -114,8 +114,9 @@
 				var videoArray = [],
 					params = {},
 					player,
-					today = new Date().toISOString().substring(0,9),
-					// start time will be 24 hours ago
+					today = new Date().toISOString(),
+					// need to remove the time part of the iso string
+					todayISO = today.substring(0, today.indexOf("T")),
 					videoPlayer,
 					APIModules,
 					mediaEvent,
@@ -129,17 +130,29 @@
 					$responseFrame = $("#response"),
 					// functions
 					bclslog,
+					isDefined,
 					getAnalyticsData;
+
 				// IE safe logger
 				bclslog = function (context, message) {
 				  if (window["console"] && console["log"]) {
 				    console.log(context, message);
 				  };
 				};
+				bclslog("date", new Date().toISOString());
+				// is defined
+				isDefined = function(x){
+					if(x !== "" &&x !== null &&x !== undefined){
+						return true;
+					} else{
+						return false;
+					}
+				};
 				// get most popular videos today from analytics
 				getAnalyticsData = function () {
 					// build and submit request
-					request = "https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=video&limit=6&sort=video_view&from=" + today;
+					bclslog("today", today);
+					request = "https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=video&limit=6&sort=video_view&from=" + todayISO;
 					aapiRequestOptions.url = request;
 					aapiRequestOptions.requestType = "GET";
 					aapiRequestOptions.client_id = "5746d707-db97-42b2-b4f0-3db890429ef0";
@@ -149,15 +162,21 @@
 						type: "POST",
 						data: aapiRequestOptions,
 						success: function (data) {
+							bclslog("data", data);
 							$responseFrame.html(BCLSformatJSON.formatJSON(data));
 							JSONresponse = JSON.parse(data);
 							// set up the Media API call, using data from the Analytics API call
 							BCMAPI.token = "v87kWelIdjUwVm7_Rzv09k-KqtLz-ty8ONbMxVYAI7-Q0eOilegqqg..";
 							BCMAPI.callback = "BCLS.onMAPIresponse";
 							// JSONresponse from get-popular-video-data.php
-							for (var i = 0, max = JSONresponse.items.length; i < max; i++) {
-								videoArray.push(JSONresponse.items[i].video);
+							if (isDefined(JSONresponse.items) && JSONresponse.items.length > 0) {
+								for (var i = 0, max = JSONresponse.items.length; i < max; i++) {
+									videoArray.push(JSONresponse.items[i].video);
+								}
+							} else {
+								alert("Problem getting data from the Media API; try again later...");
 							}
+
 							params.video_ids = videoArray.join();
 							params.video_fields = "id,name,thumbnailURL";
 							BCMAPI.find("find_videos_by_ids", params);
@@ -169,6 +188,7 @@
 				};
 					return {
 						onMAPIresponse: function (jsonData) {
+							bclslog("jsonData", jsonData);
 							// merge the data into the html template using Handlebars
 							var template = Handlebars.compile(handleBarsTemplate),
 								data,

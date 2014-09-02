@@ -175,8 +175,8 @@
                     },
                     totalCalls = 0,
                     callNumber = 0,
-                    responseStart = "<table><thead><tr><th>Video ID</th><th>Title</th><th>Date Created</th><th>Link</th></tr></thead><tbody>",
-                    dataRowTemplate = "{{#items}}<tr><td>{{id}}</td><td>{{name}}</td><td>{{creationDate}}</td><td><a href=\"{{url}}\" target=\"_blank\">{{url}}</a></td></tr>{{/items}}",
+                    responseStart = "<table><thead><tr><th></th><th>Video ID</th><th>Title</th><th>Date Created</th><th>Link</th></tr></thead><tbody>",
+                    dataRowTemplate = "{{#items}}<tr><td>{{rowNumber}}</td><td>{{id}}</td><td>{{name}}</td><td>{{creationDate}}</td><td><a href=\"{{url}}\" target=\"_blank\">{{url}}</a></td></tr>{{/items}}",
                     responseEnd = "</tbody></table>",
                     responseBody = "",
                     failStart = "<table><thead><tr><th>Video ID</th><th>Title</th><th>Date Created</th><th>Issue</th></tr></thead><tbody>",
@@ -261,7 +261,7 @@
                             rendition,
                             totalFileSize = 0,
                             item,
-                            rendition,
+                            counter = 1,
                             lengthObj = {};
                         bclslog("jsonData", jsonData);
                         if (isDefined(jsonData.items)) {
@@ -275,11 +275,13 @@
                                     item.renditions.sort( function (a, b) {
                                         return b.size - a.size;
                                     });
-                                    renditionsMax = item.renditions.length
+                                    renditionsMax = item.renditions.length;
                                     for (j =0; j < renditionsMax; j++) {
 	                                    rendition = item.renditions[j];
 	                                    if (rendition.url.indexOf("http") === 0) {
-		                                    item.url = rendition.url;
+		                                    item.rowNumber = counter;
+                                            counter++;
+                                            item.url = rendition.url;
 		                                    successObj.items.push(item);
 		                                    break;
 	                                    } else if (j === (renditionsMax - 1)) {
@@ -293,11 +295,11 @@
                                     failObj.items.push(item);
                                 }
 
-                            };
+                            }
                             $totalCalls.text(callNumber + 1);
                             results = template(successObj);
                             failures = failTemplate(failObj);
-                            responseBody += results;
+                            responseBody = results;
                             failBody += failures;
                             callNumber++;
                             remainingCalls--;
@@ -307,7 +309,7 @@
                                 // $runButton.text("Make call number " + (callNumber + 1));
                             } else {
                                 $remainingCalls.text(0);
-                                $runButton.text("All videos retrieved - Get your data below!")
+                                $runButton.text("All videos retrieved - Get your data below!");
                                 $totalVideos.html(totalVideos);
                                 writeData();
                             }
@@ -317,14 +319,14 @@
                             if (retries < 5) {
                                     t = window.setTimeout(function () {
                                         makeSecondaryCall(currentFilter);
-                                    },30000 )
+                                    },30000 );
                             } else {
                                 $errorLog.text("Something went wrong...writing the data we got below. " + "The error code was: " + jsonData.error.code + "and the message was: " + jsonData.error.message);
                                 writeData();
                             }
                         }
                     }
-                }
+                };
             })();
         </script>
         <div class="footer text-center"><a href="mailto:docs@brightcove.com">Questions or comments?</a></div>

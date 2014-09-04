@@ -119,6 +119,7 @@
 		</div>
 	</div>
 	
+	<script src="../../scripts/secondsToTime.js"></script>
 	<script type="text/javascript">
 		/******** Any scripts specific to page samples should go here *********/
 		var player,
@@ -130,7 +131,9 @@
 			numberPlayerIds = playlistIds.length,
 			obj = {},
 			videoDTO = {},
-			str;
+			str,
+			customName,
+			duration;
 		
 		// utilities
 		logit = function (context, message) {
@@ -164,6 +167,7 @@
 		function getPlaylistsData(counter) {
 			logit("function", "getPlaylistsData");
 			contentModule.getPlaylistByID(playlistIds[counter], function (playlistDTO) {
+//				console.log(playlistDTO);
 				// add playlist data to master array
 				obj.playlistsData.push(playlistDTO);
 				if (counter < numberPlayerIds - 1) {
@@ -203,6 +207,7 @@
 			logit("function", "getVideoData");
 			// get video data
 			videoPlayer.getCurrentVideo(function (videoDTO) {
+				console.log(videoDTO);
 				// display video fields
 				str = "<p>" + videoDTO.displayName + "</p>";
 				str += "<p>" + videoDTO.shortDescription + "</p>";
@@ -210,15 +215,35 @@
 					str += "<p><a href='" + videoDTO.linkURL + "'>" + videoDTO.linkText + "</a></p>";
 				}
 				// display custom fields
+				console.log(videoDTO.customFields);
 				str += "<ul>";
+				
 				for (var index in videoDTO.customFields) {
 					if (videoDTO.customFields[index].substr(0, 4) == "http") {
-						str += "<li><a href='" + videoDTO.customFields[index] + "'>" + index + "</a></li>";
+						switch(index) {
+							case "imagepath":
+								customName = "Image Path";
+								break;
+							case "playerurl":
+								customName = "Player URL";
+								break;
+							default:
+								customName = index;
+								break;
+						}
+						str += "<li><a href='" + videoDTO.customFields[index] + "'>" + customName + "</a></li>";
 					} else {
 						str += "<li>" + videoDTO.customFields[index] + "</li>";
 					}
 				}
 				str += "</ul>";
+				
+				//Display duration
+                duration = videoDTO.length;
+				duration = BCLSsecondsToTime(duration / 1000);
+				str += "<p>Video duration: " + duration.m + ":" + duration.s + "</p>";
+				
+				
 				document.getElementById("videoInfo").innerHTML = str;
 			});
 		};

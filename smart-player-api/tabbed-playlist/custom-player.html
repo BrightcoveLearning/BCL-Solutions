@@ -3,16 +3,8 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Custom Player</title>
+	<title>Video Info with Tabbed Playlist</title>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
-	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
-	
-	<script>
-		$(function () {
-			$("#tabs").tabs();
-		});
-	</script>
 	
 	<style type="text/css">
 		/**********************************************
@@ -20,6 +12,12 @@
       **********************************************/
 		#videoInfo {
 			float: left;
+		}
+		.tabs-hide {
+			display: none;
+		}
+		.tabs-show {
+			display: block;
 		}
 		#playlist {
 			float: left;
@@ -32,6 +30,7 @@
 			font-size: 80%;
 			padding: 5px;
 			margin: 2px;
+			cursor: pointer;
 		}
 		#playlist-item img {
 			float: left;
@@ -63,7 +62,7 @@
 
 <body>
 	<!-- Content ============================================= -->
-	<h1>Custom Player with Playlist</h1>
+	<h1>Video Info with Tabbed Playlist</h1>
 	<div id="outerContainer">
 		<div id="videoWrapper">
 			
@@ -106,22 +105,35 @@
 		<!--video info diplay area-->
 	</div>
 	
-	<div id="tabs">
-		<ul id="tabNames">
-			<li><a href="#tabs-1"><span id="tabName1"></span></a></li>
-			<li><a href="#tabs-2"><span id="tabName2"></span></a></li>
-		</ul>
-		<div id="tabs-1">
-			<p><span id="tabData1"></span></p>
-		</div>
-		<div id="tabs-2">
-			<p><span id="tabData2"></span></p>
+	<div id="tab-container" class="tabs-hide">
+		<div id="tabs">
+			<ul id="tabNames">
+				<li><a href="#tabs-1"><span id="tabName1"></span></a></li>
+				<li><a href="#tabs-2"><span id="tabName2"></span></a></li>
+			</ul>
+			<div id="tabs-1">
+				<p><span id="tabData1"></span></p>
+			</div>
+			<div id="tabs-2">
+				<p><span id="tabData2"></span></p>
+			</div>
 		</div>
 	</div>
 	
-	<script src="../../scripts/secondsToTime.js"></script>
+	<!-- jQuery libraries for tabbed navigation -->
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+	<!-- jQuery initialize tabbed navigation -->
+	<script>
+		$(function () {
+			$("#tabs").tabs();
+		});
+	</script>
+	<!-- Brightcove script to convert seconds to time -->
+<!--	<script src="../../scripts/secondsToTime.js"></script> prod-->
+	<script src="../scripts/secondsToTime.js"></script>
+	<!-- custom scripts for the page sample -->
 	<script type="text/javascript">
-		/******** Any scripts specific to page samples should go here *********/
 		var player,
 			APIModules,
 			videoPlayer,
@@ -167,7 +179,6 @@
 		function getPlaylistsData(counter) {
 			logit("function", "getPlaylistsData");
 			contentModule.getPlaylistByID(playlistIds[counter], function (playlistDTO) {
-//				console.log(playlistDTO);
 				// add playlist data to master array
 				obj.playlistsData.push(playlistDTO);
 				if (counter < numberPlayerIds - 1) {
@@ -198,6 +209,7 @@
 				}
 				current_data = "tabData" + (i+1);
 				document.getElementById(current_data).innerHTML = str;
+				document.getElementById("tab-container").className = "tabs-show";
 				str = "";
 			}
 			
@@ -207,16 +219,14 @@
 			logit("function", "getVideoData");
 			// get video data
 			videoPlayer.getCurrentVideo(function (videoDTO) {
-				console.log(videoDTO);
 				// display video fields
-				str = "<p>" + videoDTO.displayName + "</p>";
-				str += "<p>" + videoDTO.shortDescription + "</p>";
+				str = "<p>Display Name: <br/>" + videoDTO.displayName + "</p>";
+				str += "<p> Short Description: <br/>" + videoDTO.shortDescription + "</p>";
 				if (videoDTO.linkURL) {
-					str += "<p><a href='" + videoDTO.linkURL + "'>" + videoDTO.linkText + "</a></p>";
+					str += "<p>Link URL: <br/><a href='" + videoDTO.linkURL + "'>" + videoDTO.linkText + "</a></p>";
 				}
 				// display custom fields
-				console.log(videoDTO.customFields);
-				str += "<ul>";
+				str += "<p style='padding-bottom:0'>Custom Fields: </p><ul>";
 				
 				for (var index in videoDTO.customFields) {
 					if (videoDTO.customFields[index].substr(0, 4) == "http") {
@@ -241,7 +251,7 @@
 				//Display duration
                 duration = videoDTO.length;
 				duration = BCLSsecondsToTime(duration / 1000);
-				str += "<p>Video duration: " + duration.m + ":" + duration.s + "</p>";
+				str += "<p>Video duration: <br/>" + duration.m + ":" + duration.s + "</p>";
 				
 				
 				document.getElementById("videoInfo").innerHTML = str;

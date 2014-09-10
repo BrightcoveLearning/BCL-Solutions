@@ -278,7 +278,7 @@
                                     renditionsMax = item.renditions.length;
                                     for (j =0; j < renditionsMax; j++) {
 	                                    rendition = item.renditions[j];
-	                                    if (rendition.url.indexOf("http") === 0) {
+	                                    if (isDefined(rendition.url) && rendition.url.indexOf("http") === 0) {
 		                                    item.rowNumber = counter;
                                             counter++;
                                             item.url = rendition.url;

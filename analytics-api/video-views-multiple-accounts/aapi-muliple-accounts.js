@@ -304,7 +304,7 @@ var BCLS = (function (window, document, Handlebars, $, Pikaday) {
         // currentVideo = videoData.items[currentVideoIndex].video;
         currentAccount = accountsObj.items[currentAccountIndex];
         if (isDefined(currentAccount)) {
-            callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + currentAccount.id + "/report/?dimensions=" + getSelectedValue(dimensions) + "&from=" + from.value + "&to=" + to.value + "&limit=all" + "&fields=" + selectedFields.join(",");
+            callURL = "https://data.brightcove.com/analytics-api/videocloud/accounts/" + currentAccount.id + "/report/?dimensions=" + getSelectedValue(dimensions) + "&from=" + from.value + "&to=" + to.value + "&limit=all" + "&fields=" + selectedFields.join(",");
         makeAnalyticsCall(callURL);
         } else {
             window.alert("You must add at least one account!");

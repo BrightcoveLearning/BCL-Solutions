@@ -155,7 +155,7 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
         // build the request
         authorization = "Bearer " + removeSpaces($token.val());
         requestURL = $serviceURL.val();
-        requestURL += "/account/" + removeSpaces($accountID.val()) + "/report/?dimensions=video&";
+        requestURL += "/accounts/" + removeSpaces($accountID.val()) + "/report/?dimensions=video&";
         requestURL += "from=" + from + "&";
         // check for limit and offset
         if ($limitText.val() !== "") {

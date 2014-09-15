@@ -441,7 +441,7 @@ var BCLS = (function (window, document, Handlebars, $, datepickr) {
         gettingDataDisplay.innerHTML = "Getting analytics data...";
         // currentVideo = videoData.items[currentVideoIndex].video;
         currentAccount = accountsObj.items[currentAccountIndex];
-        callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + currentAccount.id + "/report/?dimensions=country&from=" + fromDate.value + "&to=" + toDate.value + "&fields=video_view,country,country_name&sort=country_name&format=json&limit=all";
+        callURL = "https://data.brightcove.com/analytics-api/videocloud/accounts/" + currentAccount.id + "/report/?dimensions=country&from=" + fromDate.value + "&to=" + toDate.value + "&fields=video_view,country,country_name&sort=country_name&format=json&limit=all";
         makeAnalyticsCall(callURL);
     };
     addAccount = function () {

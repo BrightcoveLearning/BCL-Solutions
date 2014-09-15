@@ -301,7 +301,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
     // build request for input data
     buildDataForInputRequest = function () {
         var dataType = dataCalls[dataCallsIndex],
-            url = serviceURL + "/account/" + account + "/report" + "?dimensions=" + dataType;
+            url = serviceURL + "/accounts/" + account + "/report" + "?dimensions=" + dataType;
         if (isDefined(from)) {
             url += "&from=" + from;
         }
@@ -371,7 +371,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         // reset requestTrimmed to false in case of regenerate request
         requestTrimmed = false;
         // build the request
-        requestURL = serviceURL + "/account/" + account + "/";
+        requestURL = serviceURL + "/accounts/" + account + "/";
         // is it a report?
         if (requestType === "report") {
             // make sure dimensions is defined

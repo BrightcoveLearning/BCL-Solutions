@@ -113,7 +113,7 @@ var BCLS = (function ($, Handlebars) {
             callType = "analytics";
             currentPlayer = $playerSelector.val();
             currentVideo = $videoSelector.val();
-            callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + $accountID.val()+ "/report/?dimensions=country,city,region&sort_by=" + $sortSelector.val();
+            callURL = "https://data.brightcove.com/analytics-api/videocloud/accounts/" + $accountID.val()+ "/report/?dimensions=country,city,region&sort_by=" + $sortSelector.val();
 
             if (isDefined($fromDate.val())) {
                 callURL += "&from=" + $fromDate.val();
@@ -149,7 +149,7 @@ var BCLS = (function ($, Handlebars) {
             var callURL = "";
             $gettingDataDisplay.text("Getting video data...");
             callType = "videos";
-            callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + $accountID.val()+ "/report/?dimensions=video&limit=200&fields=video,video_name&sort=video_view";
+            callURL = "https://data.brightcove.com/analytics-api/videocloud/accounts/" + $accountID.val()+ "/report/?dimensions=video&limit=200&fields=video,video_name&sort=video_view";
             makeAnalyticsCall(callURL);
         },
         /** get the players for the time period
@@ -161,7 +161,7 @@ var BCLS = (function ($, Handlebars) {
             var callURL = "";
             $gettingDataDisplay.text("Getting player data...");
             callType = "players";
-            callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + $accountID.val()+ "/report/?dimensions=player&limit=100&fields=player,player_name&sort=video_view";
+            callURL = "https://data.brightcove.com/analytics-api/videocloud/accounts/" + $accountID.val()+ "/report/?dimensions=player&limit=100&fields=player,player_name&sort=video_view";
             makeAnalyticsCall(callURL);
         };
     // add date pickers to the date input fields

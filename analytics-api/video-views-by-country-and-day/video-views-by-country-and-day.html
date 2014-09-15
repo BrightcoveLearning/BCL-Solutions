@@ -345,7 +345,7 @@ var BCLS = (function () {
             var callURL;
             gettingDataDisplay.innerHTML = "Getting country data...";
             callType = "countries";
-            callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=country&from=" + daysArray[0] + "&to=" + daysArray[daysArray.length - 1] + "&fields=country,country_name&sort=country_name&format=json&limit=" + callLimit;
+            callURL = "https://data.brightcove.com/analytics-api/videocloud/accounts/" + accountID.value + "/report/?dimensions=country&from=" + daysArray[0] + "&to=" + daysArray[daysArray.length - 1] + "&fields=country,country_name&sort=country_name&format=json&limit=" + callLimit;
             makeAnalyticsCall(callURL);
         },
         // get the analytics data for the videos
@@ -355,7 +355,7 @@ var BCLS = (function () {
             callType = "analytics";
             // currentVideo = videoData.items[currentVideoIndex].video;
             currentDay = daysArray[currentDayIndex];
-            callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=country&from=" + currentDay + "&to=" + currentDay + "&fields=video_view,country,country_name&sort=country_name&format=json&limit=" + callLimit;
+            callURL = "https://data.brightcove.com/analytics-api/videocloud/accounts/" + accountID.value + "/report/?dimensions=country&from=" + currentDay + "&to=" + currentDay + "&fields=video_view,country,country_name&sort=country_name&format=json&limit=" + callLimit;
             makeAnalyticsCall(callURL);
 
         },

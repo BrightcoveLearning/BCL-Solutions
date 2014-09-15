@@ -307,7 +307,7 @@
                 }
                 // submit request
                 getData = function () {
-                    var url = $serviceURL.val() + "/account/" + $accountID.val() + "/report?dimensions=video&where=video==" + videoIds[currentVideoIndex];
+                    var url = $serviceURL.val() + "/accounts/" + $accountID.val() + "/report?dimensions=video&where=video==" + videoIds[currentVideoIndex];
                     logit(url);
                     $.ajax({
                         url: url,

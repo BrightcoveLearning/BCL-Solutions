@@ -152,7 +152,7 @@
 				getAnalyticsData = function () {
 					// build and submit request
 					bclslog("today", today);
-					request = "https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=video&limit=6&sort=video_view&from=" + todayISO;
+					request = "https://data.brightcove.com/analytics-api/videocloud/accounts/20318290001/report/?dimensions=video&limit=6&sort=video_view&from=" + todayISO;
 					aapiRequestOptions.url = request;
 					aapiRequestOptions.requestType = "GET";
 					aapiRequestOptions.client_id = "5746d707-db97-42b2-b4f0-3db890429ef0";

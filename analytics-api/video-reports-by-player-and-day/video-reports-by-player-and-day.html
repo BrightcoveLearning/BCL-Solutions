@@ -375,7 +375,7 @@
                     currentPlayer = playerData.items[currentPlayerIndex].player;
                     // currentVideo = videoData.items[currentVideoIndex].video;
                     currentDay = daysArray[currentDayIndex];
-                    callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=video&from=" + currentDay.from + "&to=" + currentDay.to + "&where=player==" + currentPlayer + "&fields=video_view,video_seconds_viewed,video,video_engagement_100";
+                    callURL = "https://data.brightcove.com/analytics-api/videocloud/accounts/" + accountID.value + "/report/?dimensions=video&from=" + currentDay.from + "&to=" + currentDay.to + "&where=player==" + currentPlayer + "&fields=video_view,video_seconds_viewed,video,video_engagement_100";
                     makeAnalyticsCall(callURL);
 
                 },
@@ -384,7 +384,7 @@
                     var callURL = "";
                     gettingDataDisplay.innerHTML = "Getting video data...";
                     callType = "videos";
-                    callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=video&limit=200&fields=video,video_name&sort=video_view&from=" + dateFromMS + "&to=" + dateToMS;
+                    callURL = "https://data.brightcove.com/analytics-api/videocloud/accounts/" + accountID.value + "/report/?dimensions=video&limit=200&fields=video,video_name&sort=video_view&from=" + dateFromMS + "&to=" + dateToMS;
                     makeAnalyticsCall(callURL);
                 },
                 // get all players for the selected time period
@@ -392,7 +392,7 @@
                     var callURL = "";
                     gettingDataDisplay.innerHTML = "Getting player data...";
                     callType = "players";
-                    callURL = "https://data.brightcove.com/analytics-api/videocloud/account/" + accountID.value + "/report/?dimensions=player&limit=100&fields=player,player_name&sort=video_view&from=" + dateFromMS + "&to=" + dateToMS;
+                    callURL = "https://data.brightcove.com/analytics-api/videocloud/accounts/" + accountID.value + "/report/?dimensions=player&limit=100&fields=player,player_name&sort=video_view&from=" + dateFromMS + "&to=" + dateToMS;
                     makeAnalyticsCall(callURL);
                 };
             // add date pickers to the date input fields

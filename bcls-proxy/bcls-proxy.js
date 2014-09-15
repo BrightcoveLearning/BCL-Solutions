@@ -1,10 +1,12 @@
 /*
  * bcls-proxy
- * Version: 0.1.2
+ * Version: 0.1.3
  ************
  * Change log
- * 0.1.2: added support for AJAX requests
- * 0.1.1: added separate ports per API to take advantage of token expire time
+ * 0.1.3:   add support for Analytics API LA tokens
+ *          check for account match before using existing token
+ * 0.1.2:   added support for AJAX requests
+ * 0.1.1:   added separate ports per API to take advantage of token expire time
  ************
  * Author: Robert Crooks
  * Description: Proxies Brightcove API requests, getting an access token, making the call, and returning
@@ -16,11 +18,14 @@
  *      solutions.brightcove.com:8004 (for other APIs)
  *   target an iframe on your page to display the response (unless using AJAX)
  *   Required fields for the body:
- *       client_id // (get from the Brightcove OAuth UI in Studio)
- *       client_secret // (get from the Brightcove OAuth UI in Studio)
- *       url // the full url for the API call you want to make, including parameters
- *       requestType // (optional, default: GET)GET | POST | PUT | PATCH | DELETE
- *       requestBody // (optional) request body for calls that submit data
+ *       *** client_id      // (get from the Brightcove OAuth UI in Studio)
+ *       *** client_secret  // (get from the Brightcove OAuth UI in Studio)
+ *       url                // the full url for the API call you want to make, including parameters
+ *       requestType        // (optional, default: GET)GET | POST | PUT | PATCH | DELETE
+ *       requestBody        // (optional) request body for calls that submit data
+ *
+ *       *** For the ANALYTICS API *ONLY* you can substitute the following for the client_id and client_secret:
+ *       token              // if you have a permanent token from the Limited Availability program
  *
  * Note: this is a sample only, not a supported Brightcove app
  * It only accepts requests from brightcove domains
@@ -33,6 +38,8 @@ var BCLSPROXY = (function () {
         colors = require("colors"),
         http = require("http"),
         request = require("request"),
+        aapiSettings = {},
+        pmapiSettings = {},
         aapiToken,
         pmapiToken,
         aapiExpires = 0,
@@ -46,7 +53,20 @@ var BCLSPROXY = (function () {
         getPMAPIAccessToken,
         getAccessToken,
         sendRequest,
-        isDefined;
+        isDefined,
+        init;
+    /*
+     * initialize data constructs
+     */
+    init = function () {
+        aapiSettings.aapiToken = "";
+        aapiSettings.aapiExpires = 0;
+        aapi.client_id = "";
+        aapiSettings.client_secret = "";
+        pmapiSettings.aapiExpires = 0;
+        pmapi.client_id = "";
+        pmapiSettings.client_secret = "";
+    };
     /*
      * test for existence
      */
@@ -189,14 +209,14 @@ var BCLSPROXY = (function () {
      */
     sendRequest = function (token, options, callback) {
         var requestOptions = {
-                method: options.requestType,
-                url: options.url,
-                headers: {
-                    "Authorization": "Bearer " + token,
-                    "Content-Type": "application/json"
-                },
-                body: options.requestBody
-            };
+            method: options.requestType,
+            url: options.url,
+            headers: {
+                "Authorization": "Bearer " + token,
+                "Content-Type": "application/json"
+            },
+            body: options.requestBody
+        };
         request(requestOptions, function (error, response, body) {
             console.log("error", error);
             if (error === null) {
@@ -206,11 +226,11 @@ var BCLSPROXY = (function () {
             }
         });
     };
-/*
- * sends the request to the Analytics API (special case)
- */
-sendRequest = function (token, options, callback) {
-    var requestOptions = {
+    /*
+     * sends the request to the Analytics API (special case)
+     */
+    sendRequest = function (token, options, callback) {
+        var requestOptions = {
             method: options.requestType,
             url: options.url,
             headers: {
@@ -219,15 +239,15 @@ sendRequest = function (token, options, callback) {
             },
             body: options.requestBody
         };
-    request(requestOptions, function (error, response, body) {
-        console.log("error", error);
-        if (error === null) {
-            callback(null, response.headers, body);
-        } else {
-            callback(error);
-        }
-    });
-};
+        request(requestOptions, function (error, response, body) {
+            console.log("error", error);
+            if (error === null) {
+                callback(null, response.headers, body);
+            } else {
+                callback(error);
+            }
+        });
+    };
     /*
      * Http Server to handle Analytics API requests
      */
@@ -235,7 +255,7 @@ sendRequest = function (token, options, callback) {
         var body = "",
             // for CORS - AJAX requests send host instead of origin
             origin = (req.headers.origin || "*");
-            console.log("origin", origin);
+        console.log("origin", origin);
         /* the published version of this proxy accepts requests only from
          * domains that include "brightcove.com"
          * modify the following line to take requests from
@@ -244,25 +264,23 @@ sendRequest = function (token, options, callback) {
          * check on host as well as origin for AJAX requests
          */
         if (isDefined(req.headers.origin) && req.headers.origin.indexOf("brightcove.com") < 0) {
-             res.writeHead(
+            res.writeHead(
                 "500",
-                "Error",
-                {
+                "Error", {
                     "access-control-allow-origin": origin,
                     "content-type": "text/plain"
                 }
             );
-             res.end("Your request cannot be processed; this proxy only handles requests originating from Brightcove servers. If you would like to build your own version of this proxy, see http://docs.brightcove.com/en/perform/oauth-api/guides/quick-start.html");
+            res.end("Your request cannot be processed; this proxy only handles requests originating from Brightcove servers. If you would like to build your own version of this proxy, see http://docs.brightcove.com/en/perform/oauth-api/guides/quick-start.html");
         } else if (isDefined(req.headers.host) && req.headers.host.indexOf("brightcove.com") < 0) {
-             res.writeHead(
+            res.writeHead(
                 "500",
-                "Error",
-                {
+                "Error", {
                     "access-control-allow-origin": origin,
                     "content-type": "text/plain"
                 }
             );
-             res.end("Your request cannot be processed; this proxy only handles requests originating from Brightcove servers. If you would like to build your own version of this proxy, see http://docs.brightcove.com/en/perform/oauth-api/guides/quick-start.html");
+            res.end("Your request cannot be processed; this proxy only handles requests originating from Brightcove servers. If you would like to build your own version of this proxy, see http://docs.brightcove.com/en/perform/oauth-api/guides/quick-start.html");
         }
         req.on("data", function (chunk) {
             body += chunk;
@@ -287,21 +305,19 @@ sendRequest = function (token, options, callback) {
                                         // prettify JSON
                                         body = JSON.stringify(JSON.parse(body), true, 2);
                                     }
-                                        res.writeHead(
-                                            "200",
-                                            "OK",
-                                            {
-                                                "access-control-allow-origin": origin,
-                                                "content-type": "text/plain",
-                                                "content-length": body.length
-                                            }
-                                        );
-                                        res.end(body);
+                                    res.writeHead(
+                                        "200",
+                                        "OK", {
+                                            "access-control-allow-origin": origin,
+                                            "content-type": "text/plain",
+                                            "content-length": body.length
+                                        }
+                                    );
+                                    res.end(body);
                                 } else {
                                     res.writeHead(
                                         "500",
-                                        "Error",
-                                        {
+                                        "Error", {
                                             "access-control-allow-origin": origin,
                                             "content-type": "text/plain"
                                         }
@@ -312,8 +328,7 @@ sendRequest = function (token, options, callback) {
                         } else {
                             res.writeHead(
                                 "500",
-                                "Error",
-                                {
+                                "Error", {
                                     "access-control-allow-origin": origin,
                                     "content-type": "text/plain"
                                 }
@@ -324,8 +339,7 @@ sendRequest = function (token, options, callback) {
                 } else {
                     res.writeHead(
                         "500",
-                        "Error",
-                        {
+                        "Error", {
                             "access-control-allow-origin": origin,
                             "content-type": "text/plain"
                         }
@@ -334,7 +348,7 @@ sendRequest = function (token, options, callback) {
                 }
             });
         });
-    // change the following line to have the proxy listen for requests on a different port
+        // change the following line to have the proxy listen for requests on a different port
     }).listen(8002);
     /*
      * Http Server to handle Player Management API requests
@@ -351,25 +365,23 @@ sendRequest = function (token, options, callback) {
          * check on host as well as origin for AJAX requests
          */
         if (isDefined(req.headers.origin) && req.headers.origin.indexOf("brightcove.com") < 0) {
-             res.writeHead(
+            res.writeHead(
                 "500",
-                "Error",
-                {
+                "Error", {
                     "access-control-allow-origin": origin,
                     "content-type": "text/plain"
                 }
             );
-             res.end("Your request cannot be processed; this proxy only handles requests originating from Brightcove servers. If you would like to build your own version of this proxy, see http://docs.brightcove.com/en/perform/oauth-api/guides/quick-start.html");
+            res.end("Your request cannot be processed; this proxy only handles requests originating from Brightcove servers. If you would like to build your own version of this proxy, see http://docs.brightcove.com/en/perform/oauth-api/guides/quick-start.html");
         } else if (isDefined(req.headers.host) && req.headers.host.indexOf("brightcove.com") < 0) {
-             res.writeHead(
+            res.writeHead(
                 "500",
-                "Error",
-                {
+                "Error", {
                     "access-control-allow-origin": origin,
                     "content-type": "text/plain"
                 }
             );
-             res.end("Your request cannot be processed; this proxy only handles requests originating from Brightcove servers. If you would like to build your own version of this proxy, see http://docs.brightcove.com/en/perform/oauth-api/guides/quick-start.html");
+            res.end("Your request cannot be processed; this proxy only handles requests originating from Brightcove servers. If you would like to build your own version of this proxy, see http://docs.brightcove.com/en/perform/oauth-api/guides/quick-start.html");
         }
         req.on("data", function (chunk) {
             body += chunk;
@@ -396,8 +408,7 @@ sendRequest = function (token, options, callback) {
                                     }
                                     res.writeHead(
                                         "200",
-                                        "OK",
-                                        {
+                                        "OK", {
                                             "access-control-allow-origin": origin,
                                             "content-type": "text/plain",
                                             "content-length": body.length
@@ -407,8 +418,7 @@ sendRequest = function (token, options, callback) {
                                 } else {
                                     res.writeHead(
                                         "500",
-                                        "Error",
-                                        {
+                                        "Error", {
                                             "access-control-allow-origin": origin,
                                             "content-type": "text/plain"
                                         }
@@ -419,8 +429,7 @@ sendRequest = function (token, options, callback) {
                         } else {
                             res.writeHead(
                                 "500",
-                                "Error",
-                                {
+                                "Error", {
                                     "access-control-allow-origin": origin,
                                     "content-type": "text/plain"
                                 }
@@ -431,8 +440,7 @@ sendRequest = function (token, options, callback) {
                 } else {
                     res.writeHead(
                         "500",
-                        "Error",
-                        {
+                        "Error", {
                             "access-control-allow-origin": origin,
                             "content-type": "text/plain"
                         }
@@ -441,8 +449,8 @@ sendRequest = function (token, options, callback) {
                 }
             });
         });
-    // change the following line to have the proxy listen for requests on a different port
-}).listen(8003);
+        // change the following line to have the proxy listen for requests on a different port
+    }).listen(8003);
     /*
      * Http Server to handle other API requests
      */
@@ -458,25 +466,23 @@ sendRequest = function (token, options, callback) {
          * check on host as well as origin for AJAX requests
          */
         if (isDefined(req.headers.origin) && req.headers.origin.indexOf("brightcove.com") < 0) {
-             res.writeHead(
+            res.writeHead(
                 "500",
-                "Error",
-                {
+                "Error", {
                     "access-control-allow-origin": origin,
                     "content-type": "text/plain"
                 }
             );
-             res.end("Your request cannot be processed; this proxy only handles requests originating from Brightcove servers. If you would like to build your own version of this proxy, see http://docs.brightcove.com/en/perform/oauth-api/guides/quick-start.html");
+            res.end("Your request cannot be processed; this proxy only handles requests originating from Brightcove servers. If you would like to build your own version of this proxy, see http://docs.brightcove.com/en/perform/oauth-api/guides/quick-start.html");
         } else if (isDefined(req.headers.host) && req.headers.host.indexOf("brightcove.com") < 0) {
-             res.writeHead(
+            res.writeHead(
                 "500",
-                "Error",
-                {
+                "Error", {
                     "access-control-allow-origin": origin,
                     "content-type": "text/plain"
                 }
             );
-             res.end("Your request cannot be processed; this proxy only handles requests originating from Brightcove servers. If you would like to build your own version of this proxy, see http://docs.brightcove.com/en/perform/oauth-api/guides/quick-start.html");
+            res.end("Your request cannot be processed; this proxy only handles requests originating from Brightcove servers. If you would like to build your own version of this proxy, see http://docs.brightcove.com/en/perform/oauth-api/guides/quick-start.html");
         }
         req.on("data", function (chunk) {
             body += chunk;
@@ -501,22 +507,20 @@ sendRequest = function (token, options, callback) {
                                         // prettify JSON
                                         body = JSON.stringify(JSON.parse(body), true, 2);
                                     }
-                                        res.writeHead(
-                                            "200",
-                                            "OK",
-                                            {
-                                                "access-control-allow-origin": origin,
-                                                "content-type": "text/plain",
-                                                "content-length": body.length
-                                            }
-                                        );
-                                        res.end(body);
+                                    res.writeHead(
+                                        "200",
+                                        "OK", {
+                                            "access-control-allow-origin": origin,
+                                            "content-type": "text/plain",
+                                            "content-length": body.length
+                                        }
+                                    );
+                                    res.end(body);
 
                                 } else {
                                     res.writeHead(
                                         "500",
-                                        "Error",
-                                        {
+                                        "Error", {
                                             "access-control-allow-origin": origin,
                                             "content-type": "text/plain"
                                         }
@@ -527,8 +531,7 @@ sendRequest = function (token, options, callback) {
                         } else {
                             res.writeHead(
                                 "500",
-                                "Error",
-                                {
+                                "Error", {
                                     "access-control-allow-origin": origin,
                                     "content-type": "text/plain"
                                 }
@@ -539,8 +542,7 @@ sendRequest = function (token, options, callback) {
                 } else {
                     res.writeHead(
                         "500",
-                        "Error",
-                        {
+                        "Error", {
                             "access-control-allow-origin": origin,
                             "content-type": "text/plain"
                         }
@@ -549,8 +551,8 @@ sendRequest = function (token, options, callback) {
                 }
             });
         });
-    // change the following line to have the proxy listen for requests on a different port
-}).listen(8004);
+        // change the following line to have the proxy listen for requests on a different port
+    }).listen(8004);
     util.puts("http server for Analytics API ".blue + "started ".green.bold + "on port ".blue + "8002 ".yellow);
     util.puts("http server for Player Management API ".blue + "started ".green.bold + "on port ".blue + "8003 ".yellow);
     util.puts("http server for other APIs ".blue + "started ".green.bold + "on port ".blue + "8004 ".yellow);

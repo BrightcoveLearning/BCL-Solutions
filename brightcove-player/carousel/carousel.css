@@ -1,0 +1,96 @@
+/**********************
+ * Carousel Lightbox  *
+ *********************/
+#BCLSlightbox {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 0;
+	margin-left:0;
+	color: white;
+	text-align: center;
+	background-color: #333;
+	border-radius: 5px;
+	z-index:20;
+	overflow: hidden;
+	-webkit-transition: all 500ms cubic-bezier(0.455, 0.030, 0.515, 0.955);
+	-moz-transition: all 500ms cubic-bezier(0.455, 0.030, 0.515, 0.955);
+	-ms-transition: all 500ms cubic-bezier(0.455, 0.030, 0.515, 0.955);
+	-o-transition: all 500ms cubic-bezier(0.455, 0.030, 0.515, 0.955);
+	transition: all 500ms cubic-bezier(0.455, 0.030, 0.515, 0.955); /* easeInOutQuad */
+}
+.BCLSshow {
+	width: 520px;
+	height: 310px;
+	padding: 10px;
+	-webkit-box-shadow:  10px 10px 10px 10px rgba(151, 151, 151, .7);
+	box-shadow:  10px 10px 10px 10px rgba(151, 151, 151, .7);
+}
+.BCLShide {
+	width: 0;
+	height: 0;
+	padding: 0;
+}
+.BrightcoveExperience {
+	margin-top: 10px;
+}
+.BCLSclose {
+	text-align: right;
+	margin-top: -2px;
+	text-decoration: underline;
+	color: #63A7CE;
+	width: 90%;
+	cursor: pointer;
+}
+.player-block {
+	position: relative;
+}
+/* styles for video selector */
+#carousel-outer-container {
+	position: relative;
+	background-color: #F5F5F5;
+	width: 480px;
+	height: 250px;
+	padding: 5px;
+	border: 1px #999 solid;
+	border-radius: 5px;
+}
+#feature-carousel-container {
+	border: none;
+	background-color: #F5F5F5;
+	margin-top: 20px;
+	margin-bottom: 0;
+	padding: 5px;
+}
+#carousel-left img {
+	position: relative;
+	left: -20px;
+	top: 20px;
+}
+#carousel-right img {
+	position: relative;
+	left: 20px;
+	top: 20px;
+}
+div.carousel-caption {
+	padding: 0;
+	width: 200px;
+	height: 30px;
+	opacity: 70% !important;
+}
+div.carousel-caption p {
+	font-size: xx-small !important;
+	padding: 0;
+}
+.tracker-summation-container {
+	top: 185px;
+}
+.carousel-feature img {
+	cursor: pointer;
+}
+#video_1 {
+	width: 480px;
+	height: 270px;
+	margin-left: 20px;
+	margin-top: 10px;
+}

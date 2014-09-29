@@ -92,7 +92,7 @@
 <pre><code>var options = {};
 options.client_id = <strong><em>client_id value</em></strong>;
 options.client_secret = <strong><em>client_secret value</em></strong>;
-options.callBody = <strong><em>callBody value (if any)</em></strong>;
+options.requestBody = <strong><em>requestBody value (if any)</em></strong>;
 options.requestType = <strong><em>requestType value</em></strong>;
 options.url = <strong><em>url value</em></strong>;
 $.ajax({
@@ -138,7 +138,7 @@ $.ajax({
 							</p>
 							<p>
 								Call body (optional - include if you need to submit data with the request):<br />
-								<textarea name="callBody" id="aapi_callBody"></textarea>
+								<textarea name="requestBody" id="aapi_requestBody"></textarea>
 							</p>
 							<p>
 								Full request URL for the API call:<br />
@@ -180,7 +180,7 @@ $.ajax({
 							</p>
 							<p>
 								Call body (optional - include if you need to submit data with the request):<br />
-								<textarea name="callBody" id="aapi_callBody"></textarea>
+								<textarea name="requestBody" id="aapi_requestBody"></textarea>
 							</p>
 							<p>
 								Full request URL for the API call:<br />
@@ -222,7 +222,7 @@ $.ajax({
 							</p>
 							<p>
 								Call body (optional - include if you need to submit data with the request):<br />
-								<textarea name="callBody" id="pmapi_callBody"></textarea>
+								<textarea name="requestBody" id="pmapi_requestBody"></textarea>
 							</p>
 							<p>
 								Full request URL for the API call:<br />
@@ -263,7 +263,7 @@ $.ajax({
 				                </p>
 				                <p>
 				                    Call body (optional - include if you need to submit data with the request):<br />
-				                    <textarea name="callBody" id="ajax_callBody"></textarea>
+				                    <textarea name="requestBody" id="ajax_requestBody"></textarea>
 				                </p>
 				                <p>
 				                    Full request URL for the API call:<br />
@@ -318,7 +318,7 @@ $.ajax({
 	var BCLS = ( function ($) {
 		var $ajax_client_id = $("#ajax_client_id"),
 			$ajax_client_secret = $("#ajax_client_secret"),
-			$ajax_callBody = $("#ajax_callBody"),
+			$ajax_requestBody = $("#ajax_requestBody"),
 			$ajax_requestType = $("#ajax_requestType"),
 			$ajax_url = $("#ajax_url"),
 			$ajax_submit = $("#ajaxSubmit"),
@@ -329,7 +329,7 @@ $.ajax({
 			var options = {};
 			options.client_id = $ajax_client_id.val();
 			options.client_secret = $ajax_client_secret.val();
-			options.callBody = $ajax_callBody.val();
+			options.requestBody = $ajax_requestBody.val();
 			options.requestType = $ajax_requestType.val();
 			options.url = $ajax_url.val();
 			$.ajax({

@@ -3,6 +3,7 @@
  * Version: 0.1.3
  ************
  * Change log
+ * 0.1.4:   add support for pull based ingest, ingest profiles, and cms api
  * 0.1.3:   add support for Analytics API LA tokens
  *          check for account match before using existing token
  * 0.1.2:   added support for AJAX requests
@@ -13,9 +14,12 @@
  * the response to an iframe on the client page
  * Requirements:
  *   POST your request to:
+ *      solutions.brightcove.com:8001 (any API, no check for existing valid token)
  *      solutions.brightcove.com:8002 (for the Analytics API)
  *      solutions.brightcove.com:8003 (for the Player Management API)
- *      solutions.brightcove.com:8004 (for other APIs)
+ *      solutions.brightcove.com:8004 (Pull Based Ingest API)
+ *      solutions.brightcove.com:8005 (Ingest Profiles API)
+ *      solutions.brightcove.com:8006 (CMS API)
  *   target an iframe on your page to display the response (unless using AJAX)
  *   Required fields for the body:
  *       *** client_id      // (get from the Brightcove OAuth UI in Studio)

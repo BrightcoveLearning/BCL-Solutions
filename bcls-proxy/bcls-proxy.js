@@ -38,14 +38,18 @@ var BCLSPROXY = (function () {
         colors = require("colors"),
         http = require("http"),
         request = require("request"),
+        // analytics api
         aapiSettings = {},
-        pmapiSettings = {},
-        aapi_token,
-        pmapi_token,
-        aapi_expires = 0,
-        pmapi_expires = 0,
         aapiServer,
+        // player management api
+        pmapiSettings = {},
         pmapiServer,
+        // pull based ingest api
+        pbiapiSettings = {},
+        // ingest profiles api
+        ipapiSettings = {},
+        // cms api
+        cmsapiSettings = {},
         apiServer, // for other APIs
         // functions
         getFormValues,
@@ -61,11 +65,11 @@ var BCLSPROXY = (function () {
     init = function () {
         aapiSettings.token = null;
         aapiSettings.expires_in = 0;
-        aapi.client_id = null;
+        aapiSettings.client_id = null;
         aapiSettings.client_secret = null;
         pmapiSettings.token = null;
         pmapiSettings.expires_in = 0;
-        pmapi.client_id = null;
+        pmapiSettings.client_id = null;
         pmapiSettings.client_secret = null;
         console.log("init done");
     };
@@ -261,7 +265,8 @@ var BCLSPROXY = (function () {
     aapiServer = http.createServer(function (req, res) {
         var body = "",
             // for CORS - AJAX requests send host instead of origin
-            origin = (req.headers.origin || "*");
+            origin = (req.headers.origin || "*"),
+            now = new Date().valueOf();
         console.log("origin", origin);
         /* the published version of this proxy accepts requests only from
          * domains that include "brightcove.com"
@@ -299,7 +304,7 @@ var BCLSPROXY = (function () {
         req.on("end", function () {
             getFormValues(body, function (error, options) {
                 if (error === null) {
-                    if (!isDefined(options.aapi_token)) {
+                    if (aapiSettings.expires_in < now || aapiSettings.client_id !== options.client_id) {
                         getAAPIAccessToken(options, function (error, token) {
                             if (error === null) {
                                 sendRequest(token, options, function (error, headers, body) {

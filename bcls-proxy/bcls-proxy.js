@@ -75,6 +75,18 @@ var BCLSPROXY = (function () {
         pmapiSettings.expires_in = 0;
         pmapiSettings.client_id = null;
         pmapiSettings.client_secret = null;
+        pbiapiSettings.token = null;
+        pbiapiSettings.expires_in = 0;
+        pbiapiSettings.client_id = null;
+        pbiapiSettings.client_secret = null;
+        ipapiSettings.token = null;
+        ipapiSettings.expires_in = 0;
+        ipapiSettings.client_id = null;
+        ipapiSettings.client_secret = null;
+        cmsapiSettings.token = null;
+        cmsapiSettings.expires_in = 0;
+        cmsapiSettings.client_id = null;
+        cmsapiSettings.client_secret = null;
         console.log("init done");
     };
     /*

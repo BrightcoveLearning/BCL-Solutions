@@ -26,7 +26,7 @@
  *       *** client_secret  // (get from the Brightcove OAuth UI in Studio)
  *       url                // the full url for the API call you want to make, including parameters
  *       requestType        // (optional, default: GET)GET | POST | PUT | PATCH | DELETE
- *       requestBody        // (optional) request body for calls that submit data
+ *       requestBody        // (optional) request body for calls that submit data - must not contain spaces or carriage returns
  *
  *       *** For the ANALYTICS API *ONLY* you can substitute the following for the client_id and client_secret:
  *       aapi_token              // if you have a permanent token from the Limited Availability program
@@ -42,6 +42,7 @@ var BCLSPROXY = (function () {
         colors = require("colors"),
         http = require("http"),
         request = require("request"),
+        options = {},
         // analytics api
         aapiSettings = {},
         aapiServer,
@@ -49,16 +50,17 @@ var BCLSPROXY = (function () {
         pmapiSettings = {},
         pmapiServer,
         // pull based ingest api
+        pbapiServer,
         pbiapiSettings = {},
         // ingest profiles api
+        ipapiServer,
         ipapiSettings = {},
         // cms api
+        cmsapiServer,
         cmsapiSettings = {},
         apiServer, // for other APIs
         // functions
         getFormValues,
-        getAAPIAccessToken,
-        getPMAPIAccessToken,
         getAccessToken,
         sendRequest,
         isDefined,
@@ -68,6 +70,7 @@ var BCLSPROXY = (function () {
      */
     init = function () {
         aapiSettings.token = null;
+        aapiSettings.la_token = null;
         aapiSettings.expires_in = 0;
         aapiSettings.client_id = null;
         aapiSettings.client_secret = null;
@@ -87,6 +90,15 @@ var BCLSPROXY = (function () {
         cmsapiSettings.expires_in = 0;
         cmsapiSettings.client_id = null;
         cmsapiSettings.client_secret = null;
+        // initialize options to null except requestType to GET
+        options.url = null;
+        options.token = null;
+        options.la_token = null;
+        options.client_id = null;
+        options.client_secret = null;
+        options.expires_in = 0;
+        options.requestBody = null;
+        options.requestType = "GET";
         console.log("init done");
     };
     /*
@@ -104,25 +116,29 @@ var BCLSPROXY = (function () {
     getFormValues = function (body, callback) {
         // split the request body string into an array
         var valuesArray = body.split("&"),
-            options = {},
             max = valuesArray.length,
             i,
             item,
             error = null;
-        // initialize options to null except requestType to GET
+        // reset options values
         options.url = null;
+        options.token = null;
+        options.la_token = null;
         options.client_id = null;
         options.client_secret = null;
+        options.expires_in = 0;
         options.requestBody = null;
         options.requestType = "GET";
+
         // now split each item into key and value and store in the object
         for (i = 0; i < max; i = i + 1) {
             item = valuesArray[i].split("=");
             options[item[0]] = item[1];
         }
         // data fixes
-        // decode the URL
+        // decode the URL and request body
         options.url = decodeURIComponent(options.url);
+        options.requestBody = decodeURIComponent(options.requestBody);
         // check for required values
         if (options.client_id === null || options.client_secret === null || options.url === null && options.aapi_token === null) {
             error = "Error: client_id, client_secret, and url for API request are required!";
@@ -225,6 +241,8 @@ var BCLSPROXY = (function () {
             if (error === null) {
                 // return the access token to the callback
                 bodyObj = JSON.parse(body);
+                options.token = bodyObj.access_token;
+                options.expires_in = bodyObj.expires_in;
                 callback(null, bodyObj.access_token);
             } else {
                 callback(error);
@@ -239,29 +257,7 @@ var BCLSPROXY = (function () {
             method: options.requestType,
             url: options.url,
             headers: {
-                "Authorization": "Bearer " + token,
-                "Content-Type": "application/json"
-            },
-            body: options.requestBody
-        };
-        request(requestOptions, function (error, response, body) {
-            console.log("error", error);
-            if (error === null) {
-                callback(null, response.headers, body);
-            } else {
-                callback(error);
-            }
-        });
-    };
-    /*
-     * sends the request to the Analytics API (special case)
-     */
-    sendRequest = function (token, options, callback) {
-        var requestOptions = {
-            method: options.requestType,
-            url: options.url,
-            headers: {
-                "Authorization": "Bearer " + token,
+                "Authorization": "Bearer " + options.token,
                 "Content-Type": "application/json"
             },
             body: options.requestBody
@@ -319,96 +315,98 @@ var BCLSPROXY = (function () {
         }
         req.on("end", function () {
             getFormValues(body, function (error, options) {
-                if (error === null) {
-                    if (aapiSettings.expires_in < now || aapiSettings.client_id !== options.client_id) {
-                        getAAPIAccessToken(options, function (error, token) {
-                            if (error === null) {
-                                sendRequest(token, options, function (error, headers, body) {
-                                    if (error === null) {
-                                        console.log("headers", headers);
-                                        var header;
-                                        for (header in headers) {
-                                            res.setHeader(header, headers[header]);
-                                        }
-                                        if (body.indexOf("{") === 0 || options.url.indexOf("format=json") > -1) {
-                                            // prettify JSON
-                                            body = JSON.stringify(JSON.parse(body), true, 2);
-                                        }
-                                        res.writeHead(
-                                            "200",
-                                            "OK", {
-                                                "access-control-allow-origin": origin,
-                                                "content-type": "text/plain",
-                                                "content-length": body.length
+                if (!isDefined(options.la_token))
+                    if (error === null) {
+
+                        if (aapiSettings.expires_in < now || aapiSettings.client_id !== options.client_id) {
+                            getAAPIAccessToken(options, function (error, token) {
+                                if (error === null) {
+                                    sendRequest(token, options, function (error, headers, body) {
+                                        if (error === null) {
+                                            console.log("headers", headers);
+                                            var header;
+                                            for (header in headers) {
+                                                res.setHeader(header, headers[header]);
                                             }
-                                        );
-                                        res.end(body);
-                                    } else {
-                                        res.writeHead(
-                                            "500",
-                                            "Error", {
-                                                "access-control-allow-origin": origin,
-                                                "content-type": "text/plain"
+                                            if (body.indexOf("{") === 0 || options.url.indexOf("format=json") > -1) {
+                                                // prettify JSON
+                                                body = JSON.stringify(JSON.parse(body), true, 2);
                                             }
-                                        );
-                                        res.end("Your API call was unsuccessful; here is what the server returned: " + error);
-                                    }
-                                });
-                            } else {
-                                res.writeHead(
-                                    "500",
-                                    "Error", {
-                                        "access-control-allow-origin": origin,
-                                        "content-type": "text/plain"
-                                    }
-                                );
-                                res.end("There was a problem getting your access token: " + error);
-                            }
-                        });
-                    } else {
-                        // we have a permanent aapi token
-                        sendRequest(aapiSettings.token, options, function (error, headers, body) {
-                            if (error === null) {
-                                console.log("headers", headers);
-                                var header;
-                                for (header in headers) {
-                                    res.setHeader(header, headers[header]);
+                                            res.writeHead(
+                                                "200",
+                                                "OK", {
+                                                    "access-control-allow-origin": origin,
+                                                    "content-type": "text/plain",
+                                                    "content-length": body.length
+                                                }
+                                            );
+                                            res.end(body);
+                                        } else {
+                                            res.writeHead(
+                                                "500",
+                                                "Error", {
+                                                    "access-control-allow-origin": origin,
+                                                    "content-type": "text/plain"
+                                                }
+                                            );
+                                            res.end("Your API call was unsuccessful; here is what the server returned: " + error);
+                                        }
+                                    });
+                                } else {
+                                    res.writeHead(
+                                        "500",
+                                        "Error", {
+                                            "access-control-allow-origin": origin,
+                                            "content-type": "text/plain"
+                                        }
+                                    );
+                                    res.end("There was a problem getting your access token: " + error);
                                 }
-                                if (body.indexOf("{") === 0 || options.url.indexOf("format=json") > -1) {
-                                    // prettify JSON
-                                    body = JSON.stringify(JSON.parse(body), true, 2);
+                            });
+                        } else {
+                            // we have a permanent aapi token
+                            sendRequest(aapiSettings.token, options, function (error, headers, body) {
+                                if (error === null) {
+                                    console.log("headers", headers);
+                                    var header;
+                                    for (header in headers) {
+                                        res.setHeader(header, headers[header]);
+                                    }
+                                    if (body.indexOf("{") === 0 || options.url.indexOf("format=json") > -1) {
+                                        // prettify JSON
+                                        body = JSON.stringify(JSON.parse(body), true, 2);
+                                    }
+                                    res.writeHead(
+                                        "200",
+                                        "OK", {
+                                            "access-control-allow-origin": origin,
+                                            "content-type": "text/plain",
+                                            "content-length": body.length
+                                        }
+                                    );
+                                    res.end(body);
+                                } else {
+                                    res.writeHead(
+                                        "500",
+                                        "Error", {
+                                            "access-control-allow-origin": origin,
+                                            "content-type": "text/plain"
+                                        }
+                                    );
+                                    res.end("Your API call was unsuccessful; here is what the server returned: " + error);
                                 }
-                                res.writeHead(
-                                    "200",
-                                    "OK", {
-                                        "access-control-allow-origin": origin,
-                                        "content-type": "text/plain",
-                                        "content-length": body.length
-                                    }
-                                );
-                                res.end(body);
-                            } else {
-                                res.writeHead(
-                                    "500",
-                                    "Error", {
-                                        "access-control-allow-origin": origin,
-                                        "content-type": "text/plain"
-                                    }
-                                );
-                                res.end("Your API call was unsuccessful; here is what the server returned: " + error);
-                            }
-                        });
-                    }
-                } else {
-                    res.writeHead(
-                        "500",
-                        "Error", {
-                            "access-control-allow-origin": origin,
-                            "content-type": "text/plain"
+                            });
                         }
-                    );
-                    res.end("There was a problem with your request: " + error);
-                }
+                    } else {
+                        res.writeHead(
+                            "500",
+                            "Error", {
+                                "access-control-allow-origin": origin,
+                                "content-type": "text/plain"
+                            }
+                        );
+                        res.end("There was a problem with your request: " + error);
+                    }
             });
         });
         // change the following line to have the proxy listen for requests on a different port
@@ -464,10 +462,6 @@ var BCLSPROXY = (function () {
                                     var header;
                                     for (header in headers) {
                                         res.setHeader(header, headers[header]);
-                                    }
-                                    if (body.indexOf("{") === 0 || options.url.indexOf("format=json") > -1) {
-                                        // prettify JSON
-                                        body = JSON.stringify(JSON.parse(body), true, 2);
                                     }
                                     res.writeHead(
                                         "200",

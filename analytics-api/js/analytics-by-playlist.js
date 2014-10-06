@@ -304,6 +304,7 @@ var BCLS = (function ($, window, Pikaday) {
 
      // store returned data and do math to sum up playlist totals
      processData = function (aapiData) {
+        logit("aapiData", aapiData);
         // check for items
         if (aapiData.item_count !== 0) {
             // add current data to totals

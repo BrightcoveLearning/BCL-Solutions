@@ -157,6 +157,7 @@
 					aapiRequestOptions.requestType = "GET";
 					aapiRequestOptions.client_id = "5746d707-db97-42b2-b4f0-3db890429ef0";
 					aapiRequestOptions.client_secret = "JBdg3PLg0NarokKjIihxa_05i-YVyvhICWlQ5NXMSlUX9H9tzYqQ8FE-4mMfhAWOMs0KxUHyUN3anzkZSr3Bvg";
+					bclslog("aapiRequestOptions", aapiRequestOptions);
 					$.ajax({
 						url: "http://solutions.brightcove.com:8002",
 						type: "POST",
@@ -171,13 +172,16 @@
 							// JSONresponse from get-popular-video-data.php
 							if (isDefined(JSONresponse.items) && JSONresponse.items.length > 0) {
 								for (var i = 0, max = JSONresponse.items.length; i < max; i++) {
-									videoArray.push(JSONresponse.items[i].video);
+									if (JSONresponse.items[i].video !== null) {
+										videoArray.push(JSONresponse.items[i].video);
+									}
 								}
 							} else {
-								alert("Problem getting data from the Media API; try again later...");
+								alert("Problem getting data from the Analytics API; try again later...");
 							}
 
 							params.video_ids = videoArray.join();
+							bclslog("videoIDs", params.video_ids);
 							params.video_fields = "id,name,thumbnailURL";
 							BCMAPI.find("find_videos_by_ids", params);
 						},

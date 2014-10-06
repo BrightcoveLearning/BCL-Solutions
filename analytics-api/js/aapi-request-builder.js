@@ -543,9 +543,10 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
                             bclslog("Unknown dataType " + dataType);
                             break;
                         }
+                        bclslog("dataCallsIndex", dataCallsIndex);
                         if (dataCallsIndex < (dataCalls.length - 1)) {
                             // get the next data set
-                            bclslog("dataCallsIndex", dataCallsIndex);
+
                             dataCallsIndex++;
                             buildDataForInputRequest();
                         } else {
@@ -563,6 +564,16 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
                 bclslog("XMLHttpRequest", XMLHttpRequest);
                 bclslog("textStatus", textStatus);
                 $responseFrame.html("Sorry, your request was not successful. Here is what the server sent back: " + errorThrown);
+                bclslog("dataCallsIndex", dataCallsIndex);
+                if (dataCallsIndex < (dataCalls.length - 1)) {
+                    // get the next data set
+
+                    dataCallsIndex++;
+                    buildDataForInputRequest();
+                } else {
+                    // reset dataCallsIndex
+                    dataCallsIndex = 0;
+                }
             }
         });
     };

@@ -894,7 +894,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
             $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(destination_domainFields));
                 $sort.html(template(destination_domainFields));
         } else {
-            onDimesionError(vals);
+            // onDimesionError(vals);
         }
         // refresh data input values
         buildRequest();

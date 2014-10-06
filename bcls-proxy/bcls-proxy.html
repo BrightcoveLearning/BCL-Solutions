@@ -6,6 +6,9 @@ code { padding: 0 3px; }
 pre { padding-top: 0.3rem; white-space: normal; }
 @media screen { pre { white-space: pre; } }
 pre code { display: block; padding: 7px; overflow: auto; line-height: 1.4rem; }
+td {
+    padding: 5px;
+}
 
 
 /* -----------------------------------------------------------------------------
@@ -54,27 +57,85 @@ blockquote { border-left: solid 6px #eee; }
 
 <h3>POST your request to:</h3>
 
-<pre><code class="txt">solutions.brightcove.com:8001 (any API, no check for existing valid token)
-solutions.brightcove.com:8002 (for the Analytics API)
-solutions.brightcove.com:8003 (for the Player Management API)
-solutions.brightcove.com:8004 (Pull Based Ingest API)
-solutions.brightcove.com:8005 (Ingest Profiles API)
-solutions.brightcove.com:8006 (CMS API)
-</code></pre>
+<table>
+    <thead>
+        <tr>
+            <th>Server URL</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>solutions.brightcove.com:8001</td>
+            <td>any API, no check for existing valid token (less efficient)</td>
+        </tr>
+        <tr>
+            <td>solutions.brightcove.com:8002</td>
+            <td>Analytics API</td>
+        </tr>
+        <tr>
+            <td>solutions.brightcove.com:8003 </td>
+            <td>Player Management API</td>
+        </tr>
+        <tr>
+            <td>solutions.brightcove.com:8004</td>
+            <td>Dynamic Ingest API</td>
+        </tr>
+        <tr>
+            <td>solutions.brightcove.com:8005</td>
+            <td>Ingest Profiles API</td>
+        </tr>
+        <tr>
+            <td>solutions.brightcove.com:8006</td>
+            <td>CMS API</td>
+        </tr>
+    </tbody>
+</table>
+
 
 <h3>Target an iframe on your page to display the response (unless using AJAX)</h3>
 
 <h3>Required fields for the body:</h3>
 
-<pre><code class="txt">client_id<sup><a href="#n1">[1]</a></sup> // (get from the Brightcove OAuth UI in Studio)
-client_secret<sup><a href="#n1">[1]</a></sup> // (get from the Brightcove OAuth UI in Studio)
-url // the full url for the API call you want to make, including parameters
-requestType  // (optional, default: GET)GET | POST | PUT | PATCH | DELETE
-requestBody  // (optional) request body for calls that submit data
-</code></pre>
-
-<p id="n1"><strong>[1]</strong> For the ANALYTICS API <em>ONLY</em> you can substitute the following for the client_id and client_secret:<br>
-    aapi_token    // if you have a permanent token from the Limited Availability program</p>
+<table>
+    <thead>
+        <tr>
+            <th>Data field</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>client_id</td>
+            <td>yes<sup><a href="#n1">[1]</a></sup></td>
+            <td>get from the Brightcove OAuth UI in Studio<sup><a href="#n2">[2]</a></sup></td>
+        </tr>
+        <tr>
+            <td>client_secret</td>
+            <td>yes<sup><a href="#n1">[1]</a></sup></td>
+            <td>get from the Brightcove OAuth UI in Studio<sup><a href="#n2">[2]</a></sup></td>
+        </tr>
+        <tr>
+            <td>aapi_token</td>
+            <td>no<sup><a href="#n1">[1]</a></sup></td>
+            <td>token for the Analytics API - if you were given one through the Limited Availability program</td>
+        </tr>
+        <tr>
+            <td>requestType</td>
+            <td>no</td>
+            <td>GET (default) | POST | PUT | PATCH | DELETE</td>
+        </tr>
+        <tr>
+            <td>requestBody</td>
+            <td>no</td>
+            <td>request body for calls that submit data - must <strong>not</strong> include spaces or carriage returns</td>
+        </tr>
+    </tbody>
+</table>
+<h5>Notes</h5>
+<p id="n1"><strong>[1]</strong> For the ANALYTICS API <em>ONLY</em> you can substitute the aapi_token for the client_id and client_secret if you have a permanent token from the Limited Availability program</p>
+<p id="n2">Alternatively, you can obtain a client id and secret from the OAuth API directly - see <a href="http://docs.brightcove.com/en/video-cloud/oauth-api/guides/get-client-credentials.html">Getting Client Credentials using CURL</a> or <a href="http://docs.brightcove.com/en/video-cloud/oauth-api/guides/get-client-credentials-postman.html">Getting Client Credentials using Postman</a>.</p>
 
 <h3>Note: this is a sample only, not a supported Brightcove app</h3>
 

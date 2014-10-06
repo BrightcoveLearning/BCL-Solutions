@@ -474,6 +474,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
                 if (thisRequestType === "analytics") {
                     switch (format) {
                     case "json":
+                        data = JSON.stringify(data,null, "    ");
                         $responseFrame.html(data);
                         break;
                     // else check for CSV

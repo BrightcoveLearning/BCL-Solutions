@@ -42,6 +42,11 @@ var BCLSPROXY = (function () {
         colors = require("colors"),
         http = require("http"),
         request = require("request"),
+        // error messages
+        apiError = "Your API call was unsuccessful; here is what the server returned: ",
+        oauthError = "There was a problem getting your access token: ",
+        originError = "Your request cannot be processed; this proxy only handles requests originating from Brightcove servers. If you would like to build your own version of this proxy, see http://docs.brightcove.com/en/perform/oauth-api/guides/quick-start.html",
+        // holder for request options
         options = {},
         // analytics api
         aapiSettings = {},
@@ -64,6 +69,7 @@ var BCLSPROXY = (function () {
         getAccessToken,
         sendRequest,
         isDefined,
+        copyProps,
         init;
     /*
      * initialize data constructs
@@ -102,6 +108,17 @@ var BCLSPROXY = (function () {
         console.log("init done");
     };
     /*
+     * copy properties from one object to another
+     */
+    copyProps = function (obj1, obj2) {
+        var prop;
+        for (prop in obj1) {
+            if (obj1.hasOwnProperty(prop)) {
+                obj2[prop] = obj1[prop];
+            }
+        }
+    };
+    /*
      * test for existence
      */
     isDefined = function (v) {
@@ -114,6 +131,7 @@ var BCLSPROXY = (function () {
      * extract form values from request body
      */
     getFormValues = function (body, callback) {
+        console.log("getting form values");
         // split the request body string into an array
         var valuesArray = body.split("&"),
             max = valuesArray.length,
@@ -135,6 +153,7 @@ var BCLSPROXY = (function () {
             item = valuesArray[i].split("=");
             options[item[0]] = item[1];
         }
+        console.log(options);
         // data fixes
         // decode the URL and request body
         options.url = decodeURIComponent(options.url);
@@ -152,7 +171,7 @@ var BCLSPROXY = (function () {
     /*
      * get new access_token for other APIs
      */
-    getAccessToken = function (options, callback) {
+    getAccessToken = function (callback) {
         // base64 encode the ciient_id:client_secret string for basic auth
         var auth_string = new Buffer(options.client_id + ":" + options.client_secret).toString("base64"),
             bodyObj;
@@ -182,23 +201,45 @@ var BCLSPROXY = (function () {
      * sends the request to the targeted API
      */
     sendRequest = function (callback) {
-        var requestOptions = {
-            method: options.requestType,
-            url: options.url,
-            headers: {
-                "Authorization": "Bearer " + options.token,
-                "Content-Type": "application/json"
+        var requestOptions = {},
+            makeRequest = function () {
+                request(requestOptions, function (error, response, body) {
+                    console.log("error", error);
+                    if (error === null) {
+                        callback(null, response.headers, body);
+                    } else {
+                        callback(error);
+                    }
+                });
             },
-            body: options.requestBody
-        };
-        request(requestOptions, function (error, response, body) {
-            console.log("error", error);
-            if (error === null) {
-                callback(null, response.headers, body);
-            } else {
-                callback(error);
-            }
-        });
+            setRequestOptions = function () {
+                requestOptions = {
+                    method: options.requestType,
+                    url: options.url,
+                    headers: {
+                        "Authorization": "Bearer " + options.token,
+                        "Content-Type": "application/json"
+                    },
+                    body: options.requestBody
+                };
+                // make the request
+                makeRequest();
+            };
+        if (options.token === null) {
+            // get an access token
+            getAccessToken(function (error, token) {
+                if (error === null) {
+                    options.token = token;
+                    setRequestOptions();
+                } else {
+                    callback(error);
+                }
+            });
+        } else {
+            // we already have a token; good to go
+            setRequestOptions();
+        }
+
     };
     /*
      * Http Server to handle Analytics API requests
@@ -225,7 +266,7 @@ var BCLSPROXY = (function () {
                     "content-type": "text/plain"
                 }
             );
-            res.end("Your request cannot be processed; this proxy only handles requests originating from Brightcove servers. If you would like to build your own version of this proxy, see http://docs.brightcove.com/en/perform/oauth-api/guides/quick-start.html");
+            res.end(originError);
         } else if (isDefined(req.headers.host) && req.headers.host.indexOf("brightcove.com") < 0) {
             res.writeHead(
                 "500",
@@ -245,96 +286,57 @@ var BCLSPROXY = (function () {
             body = req.url.substring(2);
         }
         req.on("end", function () {
-            getFormValues(body, function (error, options) {
+            console.log("body", body);
+            getFormValues(body, function (error) {
                 if (error === null) {
-                    if (aapiSettings.client_id !== options.client_id || (aapiSettings.expires_in < now || isDefined(options.aapi_token)) {
-                        getAAPIAccessToken(options, function (error, token) {
-                            if (error === null) {
-                                sendRequest(token, options, function (error, headers, body) {
-                                    if (error === null) {
-                                        console.log("headers", headers);
-                                        var header;
-                                        for (header in headers) {
-                                            res.setHeader(header, headers[header]);
-                                        }
-                                        if (body.indexOf("{") === 0 || options.url.indexOf("format=json") > -1) {
-                                            // prettify JSON
-                                            body = JSON.stringify(JSON.parse(body), true, 2);
-                                        }
-                                        res.writeHead(
-                                            "200",
-                                            "OK", {
-                                                "access-control-allow-origin": origin,
-                                                "content-type": "text/plain",
-                                                "content-length": body.length
-                                            }
-                                        );
-                                        res.end(body);
-                                    } else {
-                                        res.writeHead(
-                                            "500",
-                                            "Error", {
-                                                "access-control-allow-origin": origin,
-                                                "content-type": "text/plain"
-                                            }
-                                        );
-                                        res.end("Your API call was unsuccessful; here is what the server returned: " + error);
-                                    }
-                                });
-                            } else {
-                                res.writeHead(
-                                    "500",
-                                    "Error", {
-                                        "access-control-allow-origin": origin,
-                                        "content-type": "text/plain"
-                                    }
-                                );
-                                res.end("There was a problem getting your access token: " + error);
-                            }
-                        });
-                    } else {
-                        // we have a permanent aapi token
-                        sendRequest(function (error, headers, body) {
-                            if (error === null) {
-                                console.log("headers", headers);
-                                var header;
-                                for (header in headers) {
+                    if (aapiSettings.client_id === options.client_id) {
+                        if (isDefined(options.aapi_token)) {
+                            options.token = options.aapi_token;
+                        } else if (aapiSettings.expires_in < now) {
+                            options.token = aapiSettings.token;
+                        }
+                    }
+                    sendRequest(function (error, headers, body) {
+                        if (error === null) {
+                            // request successful
+                            var header;
+                            // save options to aapiSettings
+                            copyProps(options, aapiSettings);
+                            // return headers from the response
+                            for (header in headers) {
+                                if (headers.hasOwnProperty(header)) {
                                     res.setHeader(header, headers[header]);
                                 }
-                                if (body.indexOf("{") === 0 || options.url.indexOf("format=json") > -1) {
-                                    // prettify JSON
-                                    body = JSON.stringify(JSON.parse(body), true, 2);
-                                }
-                                res.writeHead(
-                                    "200",
-                                    "OK", {
-                                        "access-control-allow-origin": origin,
-                                        "content-type": "text/plain",
-                                        "content-length": body.length
-                                    }
-                                );
-                                res.end(body);
-                            } else {
-                                res.writeHead(
-                                    "500",
-                                    "Error", {
-                                        "access-control-allow-origin": origin,
-                                        "content-type": "text/plain"
-                                    }
-                                );
-                                res.end("Your API call was unsuccessful; here is what the server returned: " + error);
                             }
-                        });
-                    }
-                } else {
-                    res.writeHead(
-                        "500",
-                        "Error", {
-                            "access-control-allow-origin": origin,
-                            "content-type": "text/plain"
+                            // return the body from the response
+                            res.writeHead(
+                                "200",
+                                "OK",
+                                {
+                                    "access-control-allow-origin": origin,
+                                    "content-type": "text/plain",
+                                    "content-length": body.length
+                                }
+                            );
+                            res.end(body);
+                        } else {
+                            // request failed, return api error
+                            res.writeHead(
+                                "500",
+                                "Error",
+                                {
+                                    "access-control-allow-origin": origin,
+                                    "content-type": "text/plain"
+                                }
+                            );
+                            res.end(apiError + error);
                         }
-                    );
-                    res.end("There was a problem with your request: " + error);
+                    });
+                } else {
+                    // there was no data or data was bad - redirect to usage notes
+                    res.statusCode = 302;
+                    res.setHeader("Location", "http://solutions.brightcove.com/bcls/bcls-proxy/bcls-proxy.html");
+                    res.end();
                 }
             });
         });

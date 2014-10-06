@@ -126,12 +126,12 @@
                             <tr>
                                 <td>From:</td>
                                 <td>Date:
-                                    <input class="aapi-request" id="startDate" type="text" size="30">  (default: 30 days ago -- choose the same date for From and To to get a report for that day)</td>
+                                    <input class="aapi-request" id="from" type="text" size="30">  (default: 30 days ago -- choose the same date for From and To to get a report for that day)</td>
                             </tr>
                             <tr>
                                 <td>To:</td>
                                 <td>Date:
-                                    <input class="aapi-request" id="endDate" type="text" size="30"> (default: now)</td>
+                                    <input class="aapi-request" id="to" type="text" size="30"> (default: now)</td>
                             </tr>
                             <tr>
                                 <td class="align-top"><strong>Where:</strong></td>
@@ -363,7 +363,8 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.2/fastclick.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.3.3/js/foundation.min.js"></script>
     <!-- any+time data/time picker -->
-    <script src="//docs.brightcove.com/en/scripts/anytime.5.0.0-1401232312.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
+    <script type="text/javascript" src="//docs.brightcove.com/en/scripts/pikaday.min.js"></script>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/highlight.min.js"></script>

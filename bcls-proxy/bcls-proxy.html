@@ -1,51 +1,12 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><style media="all">/************** BASE CSS **************/
 html, body { margin: 0; padding: 0; }
-body { margin: 0 auto 2rem; padding: 0 2.5rem; max-width: 600px; font-family: Helvetica Neue; font-size: 11.0pt; font-weight: 400; }
-
-h1 { margin-bottom: 0.6rem; font-size: 2rem; }
-h2 { margin: 1.5rem 0 1rem; font-size: 1.5rem; }
-h3 { margin: 1.3rem 0 1rem; font-size: 1.2rem; }
-h4, h5, h6 { font-size: 1rem; }
-
-hr { margin: 2em 0; border: none; height: 3px; }
-
-img { max-width: 100%; }
-p { padding-top: 0.3rem; line-height: 1.5rem; font-size: 0.9rem; }
-
-.img-sandbox-error { padding: 20px 10px; border: solid 1px #ddd; }
-    .img-sandbox-error h2 { margin: 0; text-align: center; font-size: 16px; }
-    .img-sandbox-error p { margin: 0; padding-top: 15px; text-align: center; font-size: 12px; }
-
-table { width: 100%; border-collapse: collapse; border-spacing: 0; }
-    thead th { text-align: left; }
-        thead th[align="center"] { text-align: center; }
-        thead th[align="right"] { text-align: right; }
-    tr { margin: 0; padding: 0; }
-    th, td { margin: 0; padding: .75rem; }
-
-ul, ol { margin: 0; padding: 0 0 0 3rem; }
-  ul ul, ol ol { padding: 0.5rem 0 0.5rem 2rem; }
-ul { list-style-type: disc; }
-  li { padding: 0.15rem 0; font-size: 0.9rem; line-height: 1.4rem; }
-    .checkitem { position: relative; list-style: none; }
-    li p:first-child { margin: 0; padding: 0; }
-
-.checkitem input[type=checkbox] { -webkit-appearance: button; position: absolute; top: 4epx; left: -22px; width: 0.8rem; height: 0.8rem; border: solid 1px #000; border-radius: 2px; }
+body { margin: 0 auto 2rem; padding: 0 1.5rem; max-width: 800px; font-family: Helvetica Neue; font-size: 11.0pt; font-weight: 400; }
 
 code { padding: 0 3px; }
 pre { padding-top: 0.3rem; white-space: normal; }
 @media screen { pre { white-space: pre; } }
 pre code { display: block; padding: 7px; overflow: auto; line-height: 1.4rem; }
 
-blockquote { margin: 1rem 0 1rem 2rem; padding: 0 1rem; }
-    blockquote p { margin: 0; padding-bottom: 1rem; }
-    blockquote p:last-child { padding-bottom: 0.3rem; }
-
-.footnotes { font-size: .9rem; }
-sup a { padding-left: 1px; }
-    .footnotes a, sup a { text-decoration: none; }
-
-.erato-range, .erato-range a { display: inline; margin: 0 !important; padding: 0 !important; width: 0; height: 0; }
 
 /* -----------------------------------------------------------------------------
    github.com style (c) Vasily Polovnyov <vast@whiteants.net>
@@ -56,62 +17,6 @@ sup a { padding-left: 1px; }
   color: #333;
 }
 
-.hljs-comment,
-.hljs-template_comment,
-.diff .hljs-header,
-.hljs-javadoc {
-  color: #998;
-  font-style: italic
-}
-
-.hljs-keyword,
-.css .rule .hljs-keyword,
-.hljs-winutils,
-.javascript .hljs-title,
-.nginx .hljs-title,
-.hljs-subst,
-.hljs-request,
-.hljs-status {
-  color: #333;
-  font-weight: bold
-}
-
-.hljs-number,
-.hljs-hexcolor,
-.ruby .hljs-constant {
-  color: #099;
-}
-
-.hljs-string,
-.hljs-tag .hljs-value,
-.hljs-phpdoc,
-.tex .hljs-formula {
-  color: #d14
-}
-
-.hljs-title,
-.hljs-id,
-.coffeescript .hljs-params,
-.scss .hljs-preprocessor {
-  color: #900;
-  font-weight: bold
-}
-
-.javascript .hljs-title,
-.lisp .hljs-title,
-.clojure .hljs-title,
-.hljs-subst {
-  font-weight: normal
-}
-
-.hljs-class .hljs-title,
-.haskell .hljs-type,
-.vhdl .hljs-literal,
-.tex .hljs-command {
-  color: #458;
-  font-weight: bold
-}
-
 .hljs-tag,
 .hljs-tag .hljs-title,
 .hljs-rules .hljs-property,
@@ -120,89 +25,32 @@ sup a { padding-left: 1px; }
   font-weight: normal
 }
 
-.hljs-attribute,
-.hljs-variable,
-.lisp .hljs-body {
-  color: #008080
-}
-
-.hljs-regexp {
-  color: #009926
-}
-
-.hljs-symbol,
-.ruby .hljs-symbol .hljs-string,
-.lisp .hljs-keyword,
-.tex .hljs-special,
-.hljs-prompt {
-  color: #990073
-}
-
-.hljs-built_in,
-.lisp .hljs-title,
-.clojure .hljs-built_in {
-  color: #0086b3
-}
-
-.hljs-preprocessor,
-.hljs-pragma,
-.hljs-pi,
-.hljs-doctype,
-.hljs-shebang,
-.hljs-cdata {
-  color: #999;
-  font-weight: bold
-}
-
-.hljs-deletion {
-  background: #fdd
-}
-
-.hljs-addition {
-  background: #dfd
-}
-
-.diff .hljs-change {
-  background: #0086b3
-}
-
-.hljs-chunk {
-  color: #aaa
-}
-
 /************** CUSTOM CSS **************/
 body { color: #333; }
 
-hr { background: #eee; }
 a { color: #0060ff; }
     a:hover { color: #0843a3; }
-
-thead th { background: #f8f8f8; }
-th, td { border: solid 1px #eee; }
-
-.checkitem input[type=checkbox] { border: solid 1px #ddd; background-color: #fff; }
-    .checkitem input[type=checkbox]:checked { background-color: #eee; }
 
 code { background: #f5f5f4; }
 blockquote { border-left: solid 6px #eee; }
 
-.footnotes { color: #999; }</style><script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script></head><body><div class="erato-range"><a data-range="0,559" name="0,559"></a></div><h1>bcls-proxy</h1>
+</style><script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script></head><body><div class="erato-range"><a data-range="0,559" name="0,559"></a></div><h1>bcls-proxy</h1>
 
+<h4>Version: 0.1.4<h4>
+<p>Author: Robert Crooks, Director of Learning Services, Brightcove, Inc.</p>
+<p>Description: Proxies Brightcove API requests, getting an access token, making the call, and returning the response to an iframe on the client page. <strong>This proxy will only handle requests originating from a Brightcove domain. For a guide to building a proxy like this one, see <a href="http://docs.brightcove.com/en/video-cloud/oauth-api/guides/quick-start.html">http://docs.brightcove.com/en/video-cloud/oauth-api/guides/quick-start.html</a></strong></p>
+<p>Note: you have probably reached this page because you submitted a request to the proxy that contained no data. See the <a href="#requirements">requirements</a> for using the proxy below.</p>
+<p>Change log</p>
 <ul>
-<li>Version: 0.1.4<br>
-************<br></li>
-<li>Change log<br></li>
 <li>0.1.4:   add support for pull based ingest, ingest profiles, and cms api<br></li>
 <li>0.1.3:   add support for Analytics API LA tokens<br></li>
 <li>         check for account match before using existing token<br></li>
 <li>0.1.2:   added support for AJAX requests<br></li>
-<li>0.1.1:   added separate ports per API to take advantage of token expire time<br>
-************<br>
-Author: Robert Crooks<br>
-Description: Proxies Brightcove API requests, getting an access token, making the call, and returning the response to an iframe on the client page<br></li>
+<li>0.1.1:   added separate ports per API to take advantage of token expire time</li>
+<li>0.1.0:   initial release</li>
 </ul>
 
-<div class="erato-range"><a data-range="559,1946" name="559,1946"></a></div><h2>Requirements:</h2>
+<h2 id="requirements">Requirements:</h2>
 
 <h3>POST your request to:</h3>
 
@@ -218,14 +66,14 @@ solutions.brightcove.com:8006 (CMS API)
 
 <h3>Required fields for the body:</h3>
 
-<pre><code class="txt">client_id **[1]**      // (get from the Brightcove OAuth UI in Studio)
-client_secret **[1]**  // (get from the Brightcove OAuth UI in Studio)
-url                // the full url for the API call you want to make, including parameters
-requestType        // (optional, default: GET)GET | POST | PUT | PATCH | DELETE
-requestBody        // (optional) request body for calls that submit data
+<pre><code class="txt">client_id<sup><a href="#n1">[1]</a></sup> // (get from the Brightcove OAuth UI in Studio)
+client_secret<sup><a href="#n1">[1]</a></sup> // (get from the Brightcove OAuth UI in Studio)
+url // the full url for the API call you want to make, including parameters
+requestType  // (optional, default: GET)GET | POST | PUT | PATCH | DELETE
+requestBody  // (optional) request body for calls that submit data
 </code></pre>
 
-<p><strong>[1]</strong> For the ANALYTICS API <em>ONLY</em> you can substitute the following for the client_id and client_secret:<br>
+<p id="n1"><strong>[1]</strong> For the ANALYTICS API <em>ONLY</em> you can substitute the following for the client_id and client_secret:<br>
     aapi_token    // if you have a permanent token from the Limited Availability program</p>
 
 <h3>Note: this is a sample only, not a supported Brightcove app</h3>

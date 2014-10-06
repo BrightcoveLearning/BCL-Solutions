@@ -17,7 +17,6 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         serviceURL,
         $accountID = $("#accountID"),
         account,
-        $aapi_token = $("#aapi_token"),
         $client_secret_display = $("#client_secret_display"),
         $client_id_display = $("#client_id_display"),
         $client_id = $("#client_id"),
@@ -463,7 +462,6 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         requestData.url = requestURL;
         requestData.client_id = (isDefined($client_id_display.val())) ? $client_id_display.val() : "4584b1f4-f2fe-479d-aa49-6148568fef50";
         requestData.client_secret = (isDefined($client_secret_display.val())) ? $client_secret_display.val() :  "gwk6d9gJ7oHwk7DMF3I6k4fxKn2n0qG3oIou0TPq4tATG24OrGPeJO7MUlyWgzFx2fANHU1kiBnwrM2gyntk7w";
-        requestData.aapi_token = (isDefined($aapi_token.val())) ? $aapi_token.val() : null;
         requestData.requestType = "GET";
 
         $.ajax({
@@ -545,7 +543,6 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
                         }
                         if (dataCallsIndex < (dataCalls.length - 1)) {
                             // get the next data set
-                            bclslog("dataCallsIndex", dataCallsIndex);
                             dataCallsIndex++;
                             buildDataForInputRequest();
                         } else {
@@ -965,7 +962,6 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
             getData(APIrequest.value, "analytics");
         });
         // populate data input selectors
-        bclslog("dataCalls.length", dataCalls.length);
         buildDataForInputRequest();
         // set the initial options for fields and sort
         setFieldsSortOptions();

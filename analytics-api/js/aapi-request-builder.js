@@ -26,6 +26,8 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         $client_secret = $("#client_secret"),
         client_id,
         client_secret,
+        default_client_id = "5746d707-db97-42b2-b4f0-3db890429ef0",
+        default_client_secret = "JBdg3PLg0NarokKjIihxa_05i-YVyvhICWlQ5NXMSlUX9H9tzYqQ8FE-4mMfhAWOMs0KxUHyUN3anzkZSr3Bvg",
         $APIrequestType = $("#aapiRequestType"),
         requestType,
         $dimensions = $("#dimensions"),
@@ -606,16 +608,17 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
             $responseFrame.html("Loading...");
         }
         requestData.url = requestURL;
-        requestData.client_id = (isDefined($client_id_display.val())) ? $client_id_display.val() : "4584b1f4-f2fe-479d-aa49-6148568fef50";
-        requestData.client_secret = (isDefined($client_secret_display.val())) ? $client_secret_display.val() : "gwk6d9gJ7oHwk7DMF3I6k4fxKn2n0qG3oIou0TPq4tATG24OrGPeJO7MUlyWgzFx2fANHU1kiBnwrM2gyntk7w";
+        requestData.client_id = (isDefined($client_id_display.val())) ? $client_id_display.val() : default_client_id;
+        requestData.client_secret = (isDefined($client_secret_display.val())) ? $client_secret_display.val() : default_client_secret;
         requestData.aapi_token = (isDefined($aapi_token.val())) ? $aapi_token.val() : null;
         requestData.requestType = "GET";
-
+        bclslog("requestData", requestData);
         $.ajax({
             url: "http://solutions.brightcove.com:8002",
             type: "POST",
             data: requestData,
             success: function (data) {
+                bclslog("data from proxy", data);
                 if (thisRequestType === "analytics") {
                     switch (format) {
                     case "json":
@@ -1125,9 +1128,12 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
             thisRequestType = "analytics";
             getData(APIrequest.value, "analytics");
         });
+        $prefillButton.on("click", function () {
+            buildDataForInputRequest();
+        });
         // populate data input selectors
         bclslog("dataCalls.length", dataCalls.length);
-        buildDataForInputRequest();
+
         // set the initial options for fields and sort
         setFieldsSortOptions();
         // generate initial request

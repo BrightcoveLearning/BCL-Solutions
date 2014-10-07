@@ -123,7 +123,8 @@ var AAPIPROXY = (function () {
     getAccessToken = function (callback) {
         // base64 encode the ciient_id:client_secret string for basic auth
         var auth_string = new Buffer(options.client_id + ":" + options.client_secret).toString("base64"),
-            bodyObj;
+            bodyObj,
+            now = new Date().valueOf();
         // don't know what API was requested, always get new token
         request({
             method: 'POST',
@@ -141,7 +142,7 @@ var AAPIPROXY = (function () {
                 // return the access token to the callback
                 bodyObj = JSON.parse(body);
                 options.token = bodyObj.access_token;
-                options.expires_in = bodyObj.expires_in;
+                options.expires_in = now + bodyObj.expires_in;
                 callback(null);
             } else {
                 callback(error);
@@ -241,10 +242,11 @@ var AAPIPROXY = (function () {
             // console.log("body", body);
             getFormValues(body, function (error) {
                 if (error === null) {
+                    console.log("aapiSettings", aapiSettings);
                     if (aapiSettings.account === options.account) {
                         if (isDefined(options.aapi_token)) {
                             options.token = options.aapi_token;
-                        } else if (aapiSettings.expires_in < now) {
+                        } else if (aapiSettings.expires_in > now) {
                             options.token = aapiSettings.token;
                         }
                     }

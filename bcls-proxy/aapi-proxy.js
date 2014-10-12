@@ -203,7 +203,55 @@ var AAPIPROXY = (function () {
         var body = "",
             // for CORS - AJAX requests send host instead of origin
             origin = (req.headers.origin || "*"),
-            now = new Date().valueOf();
+            now = new Date().valueOf(),
+            writeData,
+            endRes,
+            resData;
+        endRes = function () {
+            console.log("res ending");
+            res.end();
+        }
+        writeData = function (data, callback) {
+            var numCharacters = data.length,
+                totalChunks = Math.ceil(numCharacters / 2000),
+                i = totalChunks,
+                thisChunk,
+                ok = true,
+                j = 0;
+            write();
+
+            function write() {
+                do {
+                    ok = true;
+                    i -= 1;
+                    console.log("i start of loop", i);
+                    if (i === 0) {
+                        // last time
+                        console.log("last write - j: ", j);
+                        thisChunk = data.substring(j * 2000, numCharacters);
+                        console.log("thisChunk last time", thisChunk);
+                        ok = res.write(thisChunk);
+
+                    } else {
+                        // see if we should continue, or wait
+                        // don't pass the callback, because we're not done yet.
+                        console.log("j", j);
+                        thisChunk = data.substring(j * 2000, (j * 2000) + 2000);
+                        console.log("thisChunk", thisChunk);
+                        // ok = res.write(thisChunk);
+                        res.write(thisChunk);
+                        j++;
+                        console.log("ok", ok);
+                    }
+                } while (i > 0);
+            }
+            callback(ok);
+            // if (i > 0) {
+            //   console.log("had to stop early!")
+            //   // write some more once it drains
+            //   res.once('drain', write);
+            // }
+        };
         console.log("origin", origin);
         /* the published version of this proxy accepts requests only from
          * domains that include "brightcove.com"
@@ -214,7 +262,7 @@ var AAPIPROXY = (function () {
          */
         if (isDefined(req.headers.origin) && req.headers.origin.indexOf("brightcove.com") < 0) {
             res.writeHead(
-                "500",
+                "2000",
                 "Error", {
                     "access-control-allow-origin": origin,
                     "content-type": "text/plain"
@@ -223,7 +271,7 @@ var AAPIPROXY = (function () {
             res.end(originError);
         } else if (isDefined(req.headers.host) && req.headers.host.indexOf("brightcove.com") < 0) {
             res.writeHead(
-                "500",
+                "2000",
                 "Error", {
                     "access-control-allow-origin": origin,
                     "content-type": "text/plain"
@@ -267,15 +315,18 @@ var AAPIPROXY = (function () {
                                 "200",
                                 "OK", {
                                     "access-control-allow-origin": origin,
-                                    "content-type": "text/plain",
+                                    "content-type": "text/chunk",
                                     "content-length": body.length
                                 }
                             );
-                            res.end(body);
+                            // body = JSON.stringify(body);
+                            console.log("body.length", body.length);
+
+
                         } else {
                             // request failed, return api error
                             res.writeHead(
-                                "500",
+                                "2000",
                                 "Error", {
                                     "access-control-allow-origin": origin,
                                     "content-type": "text/plain"
@@ -283,6 +334,20 @@ var AAPIPROXY = (function () {
                             );
                             res.end(apiError + error);
                         }
+                        if (body.length > 2000) {
+                            writeData(body, function (ok) {
+                                console.log("ending...", ok);
+                                if (ok) {
+                                    res.end();
+                                } else {
+                                    var t = setTimeout(endRes, 200);
+                                }
+
+                            });
+                        } else {
+                            res.end(body);
+                        }
+
                     });
                 } else {
                     // there was no data or data was bad - redirect to usage notes

@@ -154,7 +154,8 @@ var BCLSPROXY = (function () {
     getAccessToken = function (callback) {
         // base64 encode the ciient_id:client_secret string for basic auth
         var auth_string = new Buffer(options.client_id + ":" + options.client_secret).toString("base64"),
-            bodyObj;
+            bodyObj,
+            now = new Date().valueOf();
         // don't know what API was requested, always get new token
         request({
             method: 'POST',
@@ -172,7 +173,7 @@ var BCLSPROXY = (function () {
                 // return the access token to the callback
                 bodyObj = JSON.parse(body);
                 options.token = bodyObj.access_token;
-                options.expires_in = bodyObj.expires_in;
+                options.expires_in = now + bodyObj.expires_in;
                 callback(null);
             } else {
                 callback(error);
@@ -318,107 +319,6 @@ var BCLSPROXY = (function () {
         // change the following line to have the proxy listen for requests on a different port
     }).listen(8001);
     /*
-     * Http Server to handle Analytics API requests
-     */
-    aapiServer = http.createServer(function (req, res) {
-        var body = "",
-            // for CORS - AJAX requests send host instead of origin
-            origin = (req.headers.origin || "*"),
-            now = new Date().valueOf();
-        console.log("origin", origin);
-        /* the published version of this proxy accepts requests only from
-         * domains that include "brightcove.com"
-         * modify the following line to take requests from
-         * other domains or remove the if block to
-         * accept requests from any domain (not recommended!)
-         * check on host as well as origin for AJAX requests
-         */
-        if (isDefined(req.headers.origin) && req.headers.origin.indexOf("brightcove.com") < 0) {
-            res.writeHead(
-                "500",
-                "Error",
-                {
-                    "access-control-allow-origin": origin,
-                    "content-type": "text/plain"
-                }
-            );
-            res.end(originError);
-        } else if (isDefined(req.headers.host) && req.headers.host.indexOf("brightcove.com") < 0) {
-            res.writeHead(
-                "500",
-                "Error",
-                {
-                    "access-control-allow-origin": origin,
-                    "content-type": "text/plain"
-                }
-            );
-            res.end("Your request cannot be processed; this proxy only handles requests originating from Brightcove servers. If you would like to build your own version of this proxy, see http://docs.brightcove.com/en/perform/oauth-api/guides/quick-start.html");
-        }
-        req.on("data", function (chunk) {
-            body += chunk;
-        });
-        // handle data on query strings (AJAX requests)
-        if (body === "") {
-            body = req.url.substring(2);
-        }
-        req.on("end", function () {
-            // console.log("body", body);
-            getFormValues(body, function (error) {
-                if (error === null) {
-                    if (aapiSettings.client_id === options.client_id) {
-                        if (isDefined(options.aapi_token)) {
-                            options.token = options.aapi_token;
-                        } else if (aapiSettings.expires_in < now) {
-                            options.token = aapiSettings.token;
-                        }
-                    }
-                    sendRequest(function (error, headers, body) {
-                        if (error === null) {
-                            // request successful
-                            var header;
-                            // save options to aapiSettings
-                            copyProps(options, aapiSettings);
-                            // return headers from the response
-                            for (header in headers) {
-                                if (headers.hasOwnProperty(header)) {
-                                    res.setHeader(header, headers[header]);
-                                }
-                            }
-                            // return the body from the response
-                            res.writeHead(
-                                "200",
-                                "OK",
-                                {
-                                    "access-control-allow-origin": origin,
-                                    "content-type": "text/plain",
-                                    "content-length": body.length
-                                }
-                            );
-                            res.end(body);
-                        } else {
-                            // request failed, return api error
-                            res.writeHead(
-                                "500",
-                                "Error",
-                                {
-                                    "access-control-allow-origin": origin,
-                                    "content-type": "text/plain"
-                                }
-                            );
-                            res.end(apiError + error);
-                        }
-                    });
-                } else {
-                    // there was no data or data was bad - redirect to usage notes
-                    res.statusCode = 302;
-                    res.setHeader("Location", "http://solutions.brightcove.com/bcls/bcls-proxy/bcls-proxy.html");
-                    res.end();
-                }
-            });
-        });
-        // change the following line to have the proxy listen for requests on a different port
-    }).listen(8002);
-    /*
      * Http Server to handle Player Management API requests
      */
     pmapiServer = http.createServer(function (req, res) {
@@ -467,7 +367,7 @@ var BCLSPROXY = (function () {
             getFormValues(body, function (error) {
                 if (error === null) {
                     if (pmapiSettings.client_id === options.client_id) {
-                        if (pmapiSettings.expires_in < now) {
+                        if (pmapiSettings.expires_in > now) {
                             options.token = pmapiSettings.token;
                         }
                     }
@@ -566,7 +466,7 @@ var BCLSPROXY = (function () {
             getFormValues(body, function (error) {
                 if (error === null) {
                     if (diapiSettings.client_id === options.client_id) {
-                        if (diapiSettings.expires_in < now) {
+                        if (diapiSettings.expires_in > now) {
                             options.token = diapiSettings.token;
                         }
                     }
@@ -665,7 +565,7 @@ var BCLSPROXY = (function () {
             getFormValues(body, function (error) {
                 if (error === null) {
                     if (ipapiSettings.client_id === options.client_id) {
-                        if (ipapiSettings.expires_in < now) {
+                        if (ipapiSettings.expires_in > now) {
                             options.token = ipapiSettings.token;
                         }
                     }
@@ -764,7 +664,7 @@ var BCLSPROXY = (function () {
             getFormValues(body, function (error) {
                 if (error === null) {
                     if (cmsapiSettings.client_id === options.client_id) {
-                        if (cmsapiSettings.expires_in < now) {
+                        if (cmsapiSettings.expires_in > now) {
                             options.token = cmsapiSettings.token;
                         }
                     }

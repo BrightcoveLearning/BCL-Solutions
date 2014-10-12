@@ -114,7 +114,8 @@ var APIPROXY = (function () {
     getAccessToken = function (callback) {
         // base64 encode the ciient_id:client_secret string for basic auth
         var auth_string = new Buffer(options.client_id + ":" + options.client_secret).toString("base64"),
-            bodyObj;
+            bodyObj,
+            now = new Date().valueOf();
         // don't know what API was requested, always get new token
         request({
             method: 'POST',
@@ -132,7 +133,7 @@ var APIPROXY = (function () {
                 // return the access token to the callback
                 bodyObj = JSON.parse(body);
                 options.token = bodyObj.access_token;
-                options.expires_in = bodyObj.expires_in;
+                options.expires_in = now + bodyObj.expires_in;
                 callback(null);
             } else {
                 callback(error);

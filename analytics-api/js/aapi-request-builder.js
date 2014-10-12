@@ -72,7 +72,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         sort,
         $fields = $("#fields"),
         fields,
-        dataCalls = ["player", "video", "destination_domain", "referrer_domain", "search_terms", "country", "region", "city"],
+        dataCalls = ["player", "video", "destination_domain", "referrer_domain", "country", "region", "city"],
         dataCallsIndex = 0,
         // for request building
         thisRequestType = "",
@@ -335,7 +335,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         setDimensions,
         onDimesionError,
         init;
-
+        //  "search_terms",
     // safe console log
     bclslog = function (c, m) {
         if (isDefined(window.console)) {
@@ -465,22 +465,22 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
             url += "&fields=video,video_name" + "&sort=video_view" + "&limit=all";
             break;
         case "destination_domain":
-            url += "&fields=destination_domain" + "&sort=video_view" + "&limit=all";
+            url += "&fields=destination_domain" + "&sort=video_view" + "&limit=100";
             break;
         case "referrer_domain":
-            url += "&fields=referrer_domain" + "&sort=video_view" + "&limit=all";
+            url += "&fields=referrer_domain" + "&sort=video_view" + "&limit=70";
             break;
         case "search_terms":
-            url += "&fields=search_terms" + "&sort=video_view" + "&limit=all";
+            url += "&fields=search_terms" + "&sort=video_view" + "&limit=20";
             break;
         case "country":
-            url += "&fields=country,country_name" + "&sort=video_view" + "&limit=all";
+            url += "&fields=country,country_name" + "&sort=video_view" + "&limit=70";
             break;
         case "region":
-            url += "&fields=region,region_name" + "&sort=video_view" + "&limit=all";
+            url += "&fields=region,region_name" + "&sort=video_view" + "&limit=70";
             break;
         case "city":
-            url += "&fields=city" + "&sort=video_view" + "&limit=all";
+            url += "&fields=city" + "&sort=video_view" + "&limit=70";
             break;
         default:
             bclslog("unknown data type " + dataType);
@@ -618,7 +618,19 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
             type: "POST",
             data: requestData,
             success: function (data) {
-                bclslog("data from proxy", data);
+                // bclslog("data from proxy", data);
+                console.log("data", data);
+                try {
+                    data = JSON.parse(data);
+                }
+                catch (e) {
+                    if (data.charAt(data.length - 1) === '"') {
+                        data += '}';
+                    } else {
+                        data += '"}';
+                    }
+                    data = JSON.parse(data);
+                }
                 if (thisRequestType === "analytics") {
                     switch (format) {
                     case "json":
@@ -636,13 +648,6 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
                     }
                 } else if (thisRequestType === "data") {
                     bclslog("raw data", data);
-                    try {
-                        data = JSON.parse(data);
-                    } catch (e) {
-                        // guess final } was missing
-                        data = data + "}";
-                        data = JSON.parse(data);
-                    }
                     // bclslog("parsed data", data);
                     // bclslog("data items defined: ", data.items);
                     if (isDefined(data.items)) {
@@ -701,10 +706,6 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
                             // reset dataCallsIndex
                             dataCallsIndex = 0;
                         }
-
-                    } else {
-                        // bad response, try again
-                        buildDataForInputRequest();
                     }
                 }
             },
@@ -713,15 +714,6 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
                 bclslog("textStatus", textStatus);
                 $responseFrame.html("Sorry, your request was not successful. Here is what the server sent back: " + errorThrown);
                 bclslog("dataCallsIndex", dataCallsIndex);
-                if (dataCallsIndex < (dataCalls.length - 1)) {
-                    // get the next data set
-
-                    dataCallsIndex++;
-                    buildDataForInputRequest();
-                } else {
-                    // reset dataCallsIndex
-                    dataCallsIndex = 0;
-                }
             }
         });
     };
@@ -1130,6 +1122,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         });
         $prefillButton.on("click", function () {
             buildDataForInputRequest();
+            $prefillButton.html("Getting data...please wait");
         });
         // populate data input selectors
         bclslog("dataCalls.length", dataCalls.length);

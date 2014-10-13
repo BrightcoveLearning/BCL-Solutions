@@ -78,11 +78,11 @@
     <div class="erato-range">
         <a data-range="0,559" name="0,559"></a>
     </div>
-    <h1>aapi-proxy</h1>
+    <h1>ipapi-proxy</h1>
 
     <h4>Version: 0.1.0<h4>
 <p>Author: Robert Crooks, Director of Learning Services, Brightcove, Inc.</p>
-<p>Description: Proxies Brightcove Analytics API requests, getting an access token, making the call, and returning the response to an iframe on the client page. <strong>This proxy will only handle requests originating from a Brightcove domain. For a guide to building a proxy like this one, see <a href="http://docs.brightcove.com/en/video-cloud/oauth-api/guides/quick-start.html">http://docs.brightcove.com/en/video-cloud/oauth-api/guides/quick-start.html</a></strong></p>
+<p>Description: Proxies Brightcove Ingest Profiles API requests, getting an access token, making the call, and returning the response to an iframe on the client page. <strong>This proxy will only handle requests originating from a Brightcove domain. For a guide to building a proxy like this one, see <a href="http://docs.brightcove.com/en/video-cloud/oauth-api/guides/quick-start.html">http://docs.brightcove.com/en/video-cloud/oauth-api/guides/quick-start.html</a></strong></p>
 <p>Note: you have probably reached this page because you submitted a request to the proxy that contained no data. See the <a href="#requirements">requirements</a> for using the proxy below.</p>
 <p>Change log</p>
 <ul>
@@ -104,7 +104,7 @@
     <tbody>
         <tr>
             <td>solutions.brightcove.com:8002</td>
-            <td>Analytics API</td>
+            <td>CMS API</td>
         </tr>
     </tbody>
 </table>
@@ -123,26 +123,18 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>account</td>
-            <td>yes</td>
-            <td>account id (get from Studio)</td>
-        </tr>
+
         <tr>
             <td>client_id</td>
             <td>yes<sup><a href="#n1">[1]</a></sup></td>
-            <td>get from the Brightcove OAuth UI in Studio<sup><a href="#n2">[2]</a></sup></td>
+            <td>get from the Brightcove OAuth UI in Studio<sup><a href="#n1">[1]</a></sup></td>
         </tr>
         <tr>
             <td>client_secret</td>
             <td>yes<sup><a href="#n1">[1]</a></sup></td>
-            <td>get from the Brightcove OAuth UI in Studio<sup><a href="#n2">[2]</a></sup></td>
+            <td>get from the Brightcove OAuth UI in Studio<sup><a href="#n1">[1]</a></sup></td>
         </tr>
-        <tr>
-            <td>aapi_token</td>
-            <td>no<sup><a href="#n1">[1]</a></sup></td>
-            <td>token for the Analytics API - if you were given one through the Limited Availability program</td>
-        </tr>
+
         <tr>
             <td>requestType</td>
             <td>no</td>
@@ -151,8 +143,8 @@
     </tbody>
 </table>
 <h5>Notes</h5>
-<p id="n1"><strong>[1]</strong> For the ANALYTICS API you can substitute the aapi_token for the client_id and client_secret if you have a permanent token from the Limited Availability program</p>
-<p id="n2">Alternatively, you can obtain a client id and secret from the OAuth API directly - see <a href="http://docs.brightcove.com/en/video-cloud/oauth-api/guides/get-client-credentials.html">Getting Client Credentials using CURL</a> or <a href="http://docs.brightcove.com/en/video-cloud/oauth-api/guides/get-client-credentials-postman.html">Getting Client Credentials using Postman</a>.</p>
+<p id="n1"><sup>[1]</sup> Alternatively, you can obtain a client id and secret from the OAuth API directly - see <a href="http://docs.brightcove.com/en/video-cloud/oauth-api/guides/get-client-credentials.html">Getting Client Credentials using CURL</a> or <a href="http://docs.brightcove.com/en/video-cloud/oauth-api/guides/get-client-credentials-postman.html">Getting Client Credentials using Postman</a></p>
+
 
 <h3>Note: this is a sample only, not a supported Brightcove app</h3>
 

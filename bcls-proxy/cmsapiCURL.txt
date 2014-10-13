@@ -1,0 +1,23 @@
+curl \
+ --include \
+ --header "Content-Type: application/json" \
+ --header "Authorization: BC_TOKEN AEnTxThUH5OxYSielfphOxc69HdIicUSDd5JGQx7LM540Kd6R9kkFyZoh8MjHgmFxOnHPQdkkkluqJNp21qT8naZraL1l0lKJY185c5iIH0bdOIWh_K9lnY" \
+  --data '{
+  "type": "credential",
+  "maximum_scope": [
+    {
+      "identity": {
+        "type": "video-cloud-account",
+        "account-id": 57838016001
+      },
+      "operations": [
+        "video-cloud/video/profile/read",
+        "video-cloud/video/account/create",
+        "video-cloud/video/account/update"
+      ]
+    }
+  ],
+  "name": "AnalyticsClient",
+  "description": "My analytics app"
+}' \
+https://oauth.brightcove.com/v3/client_credentials

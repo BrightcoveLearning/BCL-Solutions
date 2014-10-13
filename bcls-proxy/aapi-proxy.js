@@ -205,6 +205,7 @@ var AAPIPROXY = (function () {
             origin = (req.headers.origin || "*"),
             now = new Date().valueOf(),
             writeData,
+            bodyBuffer,
             endRes,
             resData;
         endRes = function () {
@@ -340,7 +341,7 @@ var AAPIPROXY = (function () {
                                 if (ok) {
                                     res.end();
                                 } else {
-                                    var t = setTimeout(endRes, 200);
+                                    var t = setTimeout(endRes, 300);
                                 }
 
                             });

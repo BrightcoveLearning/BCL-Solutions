@@ -242,7 +242,7 @@ var BCLSPROXY = (function () {
          * accept requests from any domain (not recommended!)
          * check on host as well as origin for AJAX requests
          */
-        if (isDefined(req.headers.origin) && req.headers.origin.indexOf("brightcove.com") < 0) {
+        if (isDefined(req.headers.origin) && req.headers.origin.indexOf("brightcove.com") < 0 && req.headers.origin.indexOf("localhost") < 0) {
             res.writeHead(
                 "500",
                 "Error",
@@ -252,7 +252,7 @@ var BCLSPROXY = (function () {
                 }
             );
             res.end(originError);
-        } else if (isDefined(req.headers.host) && req.headers.host.indexOf("brightcove.com") < 0) {
+        } else if (isDefined(req.headers.host) && req.headers.host.indexOf("brightcove.com") < 0 && req.headers.host.indexOf("localhost") < 0) {
             res.writeHead(
                 "500",
                 "Error",
@@ -334,7 +334,7 @@ var BCLSPROXY = (function () {
          * accept requests from any domain (not recommended!)
          * check on host as well as origin for AJAX requests
          */
-        if (isDefined(req.headers.origin) && req.headers.origin.indexOf("brightcove.com") < 0) {
+        if (isDefined(req.headers.origin) && req.headers.origin.indexOf("brightcove.com") < 0 && req.headers.origin.indexOf("localhost") < 0) {
             res.writeHead(
                 "500",
                 "Error",
@@ -344,7 +344,7 @@ var BCLSPROXY = (function () {
                 }
             );
             res.end(originError);
-        } else if (isDefined(req.headers.host) && req.headers.host.indexOf("brightcove.com") < 0) {
+        } else if (isDefined(req.headers.host) && req.headers.host.indexOf("brightcove.com") < 0 && req.headers.host.indexOf("localhost") < 0) {
             res.writeHead(
                 "500",
                 "Error",
@@ -433,7 +433,7 @@ var BCLSPROXY = (function () {
          * accept requests from any domain (not recommended!)
          * check on host as well as origin for AJAX requests
          */
-        if (isDefined(req.headers.origin) && req.headers.origin.indexOf("brightcove.com") < 0) {
+        if (isDefined(req.headers.origin) && req.headers.origin.indexOf("brightcove.com") < 0 && req.headers.origin.indexOf("localhost") < 0) {
             res.writeHead(
                 "500",
                 "Error",
@@ -443,7 +443,7 @@ var BCLSPROXY = (function () {
                 }
             );
             res.end(originError);
-        } else if (isDefined(req.headers.host) && req.headers.host.indexOf("brightcove.com") < 0) {
+        } else if (isDefined(req.headers.host) && req.headers.host.indexOf("brightcove.com") < 0 && req.headers.host.indexOf("localhost") < 0) {
             res.writeHead(
                 "500",
                 "Error",
@@ -532,7 +532,7 @@ var BCLSPROXY = (function () {
          * accept requests from any domain (not recommended!)
          * check on host as well as origin for AJAX requests
          */
-        if (isDefined(req.headers.origin) && req.headers.origin.indexOf("brightcove.com") < 0) {
+        if (isDefined(req.headers.origin) && req.headers.origin.indexOf("brightcove.com") < 0 && req.headers.origin.indexOf("localhost") < 0) {
             res.writeHead(
                 "500",
                 "Error",
@@ -542,7 +542,7 @@ var BCLSPROXY = (function () {
                 }
             );
             res.end(originError);
-        } else if (isDefined(req.headers.host) && req.headers.host.indexOf("brightcove.com") < 0) {
+        } else if (isDefined(req.headers.host) && req.headers.host.indexOf("brightcove.com") < 0 && req.headers.host.indexOf("localhost") < 0) {
             res.writeHead(
                 "500",
                 "Error",
@@ -631,7 +631,7 @@ var BCLSPROXY = (function () {
          * accept requests from any domain (not recommended!)
          * check on host as well as origin for AJAX requests
          */
-        if (isDefined(req.headers.origin) && req.headers.origin.indexOf("brightcove.com") < 0) {
+        if (isDefined(req.headers.origin) && req.headers.origin.indexOf("brightcove.com") < 0 && req.headers.origin.indexOf("localhost") < 0) {
             res.writeHead(
                 "500",
                 "Error",
@@ -641,7 +641,7 @@ var BCLSPROXY = (function () {
                 }
             );
             res.end(originError);
-        } else if (isDefined(req.headers.host) && req.headers.host.indexOf("brightcove.com") < 0) {
+        } else if (isDefined(req.headers.host) && req.headers.host.indexOf("brightcove.com") < 0 && req.headers.host.indexOf("localhost") < 0) {
             res.writeHead(
                 "500",
                 "Error",

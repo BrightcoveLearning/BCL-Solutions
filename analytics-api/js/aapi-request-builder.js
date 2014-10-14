@@ -462,7 +462,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
             url += "&fields=player,player_name" + "&sort=video_view" + "&limit=all";
             break;
         case "video":
-            url += "&fields=video,video_name" + "&sort=video_view" + "&limit=all";
+            url += "&fields=video,video_name" + "&sort=video_view" + "&limit=100";
             break;
         case "destination_domain":
             url += "&fields=destination_domain" + "&sort=video_view" + "&limit=100";

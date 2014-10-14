@@ -108,7 +108,7 @@ $.ajax({
 });</code></pre>
 				<p>Also see the <a href="codeAJAX">code for calling via AJAX</a> below.</p>
 				<h3>Origin of the request</h3>
-				<p>By design, this proxy will reject any request that does not originate from a <code>brightcove.com</code> domain (so that no one is tempted to use this unsupported proxy for production apps). You can get round this for local testing, however, if you have a local web server (such as <a href="http://www.mamp.info/en/">MAMP</a> or <a href="https://www.apachefriends.org/index.html">XAMPP</a>). All you need to do is put your app somewhere under your local document root, and then map your localhost IP (usually 127.0.0.1) to some domain like testapps.brightcove.com - you can do this by editing your hosts file directly, or get a handy tool for it like <a href="http://www.macupdate.com/app/mac/40003/hosts">hosts</a> (that one is for Mac).</p>
+				<p>This is <strong>not</strong> a production app. By design, this proxy will reject any request that does not originate from a <code>brightcove.com</code> domain or <code>localhost</code>. You can use this proxy to test your app if you have a local web server (such as <a href="http://www.mamp.info/en/">MAMP</a> or <a href="https://www.apachefriends.org/index.html">XAMPP</a>).</p>
 			</div>
 			<div id="anyapi" class="section">
 				<h2>General API test</h2>

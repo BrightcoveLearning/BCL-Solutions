@@ -205,9 +205,7 @@ var AAPIPROXY = (function () {
             origin = (req.headers.origin || "*"),
             now = new Date().valueOf(),
             writeData,
-            bodyBuffer,
-            endRes,
-            resData;
+            endRes;
         endRes = function () {
             console.log("res ending");
             res.end();
@@ -261,7 +259,7 @@ var AAPIPROXY = (function () {
          * accept requests from any domain (not recommended!)
          * check on host as well as origin for AJAX requests
          */
-        if (isDefined(req.headers.origin) && req.headers.origin.indexOf("brightcove.com") < 0) {
+        if (isDefined(req.headers.origin) && req.headers.origin.indexOf("brightcove.com") < 0 && req.headers.origin.indexOf("localhost") < 0) {
             res.writeHead(
                 "2000",
                 "Error", {
@@ -270,7 +268,7 @@ var AAPIPROXY = (function () {
                 }
             );
             res.end(originError);
-        } else if (isDefined(req.headers.host) && req.headers.host.indexOf("brightcove.com") < 0) {
+        } else if (isDefined(req.headers.host) && req.headers.host.indexOf("brightcove.com") < 0 && req.headers.host.indexOf("localhost") < 0) {
             res.writeHead(
                 "2000",
                 "Error", {
@@ -327,7 +325,7 @@ var AAPIPROXY = (function () {
                         } else {
                             // request failed, return api error
                             res.writeHead(
-                                "2000",
+                                "500",
                                 "Error", {
                                     "access-control-allow-origin": origin,
                                     "content-type": "text/plain"

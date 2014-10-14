@@ -7,7 +7,10 @@ curl \
         "type": "video-cloud-account", "account-id": 57838016001
       },
       "operations": [
-        "video-cloud/video/all"
+        "video-cloud/video/read",
+        "video-cloud/video/update",
+        "video-cloud/ingest-profiles/profile/read",
+        "video-cloud/ingest-profiles/account/read"
       ]
     }
   ]' \

@@ -142,7 +142,7 @@ var AAPIPROXY = (function () {
                 // return the access token to the callback
                 bodyObj = JSON.parse(body);
                 options.token = bodyObj.access_token;
-                options.expires_in = now + bodyObj.expires_in;
+                options.expires_in = now + bodyObj.expires_in * 1000;
                 callback(null);
             } else {
                 callback(error);

@@ -13,8 +13,14 @@
 	<link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/styles/github.min.css">
 	<style>
-	iframe {
-		width: 100%;
+	input, select {
+		max-width: 60%;
+		font-size: .8rem;
+	}
+	textarea {
+		width: 90%;
+		height: 4rem;
+		font-size: .8rem;
 	}
 	</style>
 	<script>
@@ -112,59 +118,12 @@ $.ajax({
 				<p>This is <strong>not</strong> a production app. By design, this proxy will reject any request that does not originate from a <code>brightcove.com</code> domain or <code>localhost</code>. You can use this proxy to test your app if you have a local web server (such as <a href="http://www.mamp.info/en/">MAMP</a> or <a href="https://www.apachefriends.org/index.html">XAMPP</a>).</p>
 			</div>
 
-			<div id="aapi" class="section">
-				<h2>Analytics API test</h2>
-				<p>This test sends an Analytics API GET request to the proxy via a form</p>
-				<div class="form-wrapper">
-					<fieldset>
-						<legend>Tester for the Analytics API</legend>
-						<p>Submits to http://solutions.brightcove.com:<strong>8002</strong></p>
-						<form action="//solutions.brightcove.com:8002" method="post" enctype="application/x-www-form-urlencoded" target="aapi_responseFrame">
-							<p>
-								Account id:
-								<input name="account" id="aapi_account" type="text" value="20318290001">
-							</p>
-							<p>
-								Client id:
-								<input name="client_id" id="aapi_client_id" type="text" value="45ddce85-e9e1-4ecc-8562-3f97ead6b048">
-							</p>
-							<p>
-								Client secret:
-								<input name="client_secret" id="aapi_client_secret" type="text" value="WnoEbQM6aslaUcY9eqG8AJs8hXvjDjpnxDJYI4JHpdTo7vb1wpBFJMGlYC0BPdvtlZxyhd7UCpn0F1m5wF1Ccw">
-							</p>
-							<p>
-								Call type:
-								<select name="requestType" id="aapi_requestType">
-									<option selected="selected">GET</option>
-									<option>POST</option>
-									<option>PUT</option>
-									<option>PATCH</option>
-									<option>DELETE</option>
-								</select>
-							</p>
-							<p>
-								Call body (optional - include if you need to submit data with the request):<br />
-								<textarea name="requestBody" id="aapi_requestBody"></textarea>
-							</p>
-							<p>
-								Full request URL for the API call:<br />
-								<textarea name="url" id="aapi_url">https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=account&limit=10&offset=0&fields=all&sort=account&format=json</textarea>
-							</p>
-							<p>
-								<input id="aapiSubmit" type="submit" value="Submit">
-							</p>
-						</form>
-						<iframe name="aapi_responseFrame" id="aapi_responseFrame" src=""></iframe>
-					</fieldset>
-				</div>
-			</div>
-
 			<div class="section" id="ajax">
 				<h2>Test via AJAX</h2>
 				<p>This test make an Analytics API request via AJAX</p>
 				    <div class="form-wrapper">
 				        <fieldset>
-				            <legend>Tester for the Analytics API (AJAX version)</legend>
+				            <legend>Caller for the Analytics API (AJAX version)</legend>
 				            <p>Submits to http://solutions.brightcove.com:<strong>8002</strong></p>
 				                <p>
 								Account id:
@@ -182,10 +141,6 @@ $.ajax({
 				                    Call type:
 				                    <select name="requestType" id="ajax_requestType">
 				                        <option selected="selected">GET</option>
-				                        <option>POST</option>
-				                        <option>PUT</option>
-				                        <option>PATCH</option>
-				                        <option>DELETE</option>
 				                    </select>
 				                </p>
 				                <p>
@@ -230,11 +185,6 @@ $.ajax({
 	<script>
 		$(document).foundation();
 	</script>
-	<script type="text/javascript">
-		var aapi_iframe = document.getElementById("aapi_responseFrame"),
-            aapi_btn = document.getElementById("aapiSubmit");
-            aapi_btn.addEventListener("click", aapi_iframe.setAttribute("src", "about:blank"));
-	</script>
 	<script>
 	var BCLS = ( function ($) {
 		var $ajax_account = $("#ajax_account"),
@@ -260,10 +210,10 @@ $.ajax({
 				type: "POST",
 				data: options,
 				success : function (data) {
-					$ajax_response.html("<p>The proxy sent this data back - now I can do whatever I want with it</p>" + data);
+					$ajax_response.html(data);
 				},
 				error : function (XMLHttpRequest, textStatus, errorThrown) {
-					$responseFrame.html("Sorry, your request was not successful. Here is what the server sent back: " + errorThrown);
+					$ajax_response.html("Sorry, your request was not successful. Here is what the server sent back: " + errorThrown);
 				}
 			});
 		};

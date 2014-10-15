@@ -13,8 +13,14 @@
 	<link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/styles/github.min.css">
 	<style>
-	iframe {
-		width: 100%;
+	input, select {
+		max-width: 60%;
+		font-size: .8rem;
+	}
+	textarea {
+		width: 90%;
+		height: 4rem;
+		font-size: .8rem;
 	}
 	</style>
 	<script>
@@ -117,51 +123,14 @@ $.ajax({
 			<div id="anyapi" class="section">
 				<h2>General API test</h2>
 				<p>This test sends an Analytics API GET request to the proxy via a form</p>
-				<div class="form-wrapper">
-					<fieldset>
-						<legend>Tester for the Analytics API</legend>
-						<p>Submits to http://solutions.brightcove.com:<strong>8004</strong></p>
-						<form action="//solutions.brightcove.com:8001" method="post" enctype="application/x-www-form-urlencoded" target="aapi_responseFrame">
-							<p>
-								Client id:
-								<input name="client_id" id="aapi_client_id" type="text" value="45ddce85-e9e1-4ecc-8562-3f97ead6b048">
-							</p>
-							<p>
-								Client secret:
-								<input name="client_secret" id="aapi_client_secret" type="text" value="WnoEbQM6aslaUcY9eqG8AJs8hXvjDjpnxDJYI4JHpdTo7vb1wpBFJMGlYC0BPdvtlZxyhd7UCpn0F1m5wF1Ccw">
-							</p>
-							<p>
-								Call type:
-								<select name="requestType" id="aapi_requestType">
-									<option selected="selected">GET</option>
-									<option>POST</option>
-									<option>PUT</option>
-									<option>PATCH</option>
-									<option>DELETE</option>
-								</select>
-							</p>
-							<p>
-								Call body (optional - include if you need to submit data with the request):<br />
-								<textarea name="requestBody" id="aapi_requestBody"></textarea>
-							</p>
-							<p>
-								Full request URL for the API call:<br />
-								<textarea name="url" id="aapi_url">https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=account&limit=10&offset=0&fields=all&sort=account&format=json</textarea>
-							</p>
-							<p>
-								<input id="anyapiSubmit" type="submit" value="Submit">
-							</p>
-						</form>
-						<iframe name="anyapi_responseFrame" id="anyapi_responseFrame" src=""></iframe>
-					</fieldset>
-				</div>
+
 				<div class="section" id="ajax">
 				<h2>Test via AJAX</h2>
 				<p>This test make an Analytics API request via AJAX</p>
 				    <div class="form-wrapper">
 				        <fieldset>
-				            <legend>Tester for the Analytics API (AJAX version)</legend>
-				            <p>Submits to http://solutions.brightcove.com:<strong>8002</strong></p>
+				            <legend>Tester for Brightcove APIs (AJAX version)</legend>
+				            <p>Submits to http://solutions.brightcove.com:<strong>8001</strong></p>
 				                <p>
 								Account id:
 								<input name="account" id="ajax_account" type="text" value="20318290001">
@@ -227,17 +196,7 @@ $.ajax({
 	<script>
 		$(document).foundation();
 	</script>
-	<script type="text/javascript">
-		var aapi_iframe = document.getElementById("aapi_responseFrame"),
-            pmapi_iframe = document.getElementById("pmapi_responseFrame"),
-			anyapi_iframe = document.getElementById("anyapi_responseFrame"),
-            aapi_btn = document.getElementById("aapiSubmit"),
-            pmapi_btn = document.getElementById("pmapiSubmit"),
-			anyapi_btn = document.getElementById("anyapiSubmit");
-            aapi_btn.addEventListener("click", aapi_iframe.setAttribute("src", "about:blank"));
-            pmapi_btn.addEventListener("click", pmapi_iframe.setAttribute("src", "about:blank"));
-			anyapi_btn.addEventListener("click", anyapi_iframe.setAttribute("src", "about:Blank"));
-	</script>
+
 	<script>
 	var BCLS = ( function ($) {
 		var $ajax_client_id = $("#ajax_client_id"),
@@ -247,13 +206,25 @@ $.ajax({
 			$ajax_url = $("#ajax_url"),
 			$ajax_submit = $("#ajaxSubmit"),
 			$ajax_response = $("#ajax_response"),
+			// functions
+			cleanString,
 			submitRequest;
+		// function to remove spaces and line breaks
+		cleanString = function (str) {
+			// remove line breaks
+			str = str.replace(/\s/g, "");
+			// remove spaces
+			// here we have to be careful - spaces fine within strings
+			// but not outside them
+			str = JSON.stringify(JSON.parse(str));
+			return str;
+		};
 		// function to submit Request
 		submitRequest = function () {
 			var options = {};
 			options.client_id = $ajax_client_id.val();
 			options.client_secret = $ajax_client_secret.val();
-			options.requestBody = $ajax_requestBody.val();
+			options.requestBody = cleanString($ajax_requestBody.val());
 			options.requestType = $ajax_requestType.val();
 			options.url = $ajax_url.val();
 			$.ajax({
@@ -264,7 +235,7 @@ $.ajax({
 					$ajax_response.html("<p>The proxy sent this data back - now I can do whatever I want with it</p>" + data);
 				},
 				error : function (XMLHttpRequest, textStatus, errorThrown) {
-					$responseFrame.html("Sorry, your request was not successful. Here is what the server sent back: " + errorThrown);
+					$ajax_response.html("Sorry, your request was not successful. Here is what the server sent back: " + errorThrown);
 				}
 			});
 		};

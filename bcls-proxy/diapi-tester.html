@@ -174,7 +174,7 @@ $.ajax({
 				                </p>
 				                <p>
 				                    Call body (optional - include if you need to submit data with the request):<br />
-				                    <textarea name="requestBody" id="di_requestBody">{"master":{"url":"http://learning-services-media.brightcove.com/Bird_Titmouse.mp4"},"profile":"mp4-only"}</textarea>
+				                    <textarea name="requestBody" id="di_requestBody">{"master":{"url":"http://learning-services-media.brightcove.com/videos/mp4/Bird_Titmouse.mp4"},"profile":"balanced-high-definition"}</textarea>
 				                </p>
 				                <p>
 				                    Full request URL for the API call:<br />
@@ -249,7 +249,7 @@ $.ajax({
 		// function to remove spaces and line breaks
 		cleanString = function (str) {
 			// remove line breaks
-			str = str.replace(/\s/g, "");
+			str = str.replace(/(\r\n|\n|\r)/gm,"");
 			// remove spaces
 			// here we have to be careful - spaces fine within strings
 			// but not outside them

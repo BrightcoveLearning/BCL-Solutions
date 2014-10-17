@@ -315,7 +315,7 @@ var AAPIPROXY = (function () {
                                 "OK", {
                                     "access-control-allow-origin": origin,
                                     "content-type": "text/chunk",
-                                    "content-length": body.length
+                                    "content-length": Buffer.byteLength(body, 'utf8')
                                 }
                             );
                             // body = JSON.stringify(body);

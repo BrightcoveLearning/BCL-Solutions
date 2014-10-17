@@ -210,7 +210,7 @@ var CMSAPIPROXY = (function () {
         }
         writeData = function (data, callback) {
             var numCharacters = data.length,
-                totalChunks = Math.ceil(numCharacters / 2000),
+                totalChunks = Math.ceil(numCharacters / 1024),
                 i = totalChunks,
                 thisChunk,
                 ok = true,
@@ -225,7 +225,7 @@ var CMSAPIPROXY = (function () {
                     if (i === 0) {
                         // last time
                         console.log("last write - j: ", j);
-                        thisChunk = data.substring(j * 2000, numCharacters);
+                        thisChunk = data.substring(j * 1024, numCharacters);
                         console.log("thisChunk last time", thisChunk);
                         ok = res.write(thisChunk);
 
@@ -233,7 +233,7 @@ var CMSAPIPROXY = (function () {
                         // see if we should continue, or wait
                         // don't pass the callback, because we're not done yet.
                         console.log("j", j);
-                        thisChunk = data.substring(j * 2000, (j * 2000) + 2000);
+                        thisChunk = data.substring(j * 1024, (j * 1024) + 1024);
                         console.log("thisChunk", thisChunk);
                         // ok = res.write(thisChunk);
                         res.write(thisChunk);
@@ -309,7 +309,7 @@ var CMSAPIPROXY = (function () {
                                 "OK", {
                                     "access-control-allow-origin": origin,
                                     "content-type": "text/plain",
-                                    "content-length": body.length
+                                    "content-length": Buffer.byteLength(body, 'utf8')
                                 }
                             );
                             res.end(body);
@@ -324,7 +324,7 @@ var CMSAPIPROXY = (function () {
                             );
                             res.end(apiError + error);
                         }
-                        if (body.length > 2000) {
+                        if (body.length > 1024) {
                             writeData(body, function (ok) {
                                 console.log("ending...", ok);
                                 if (ok) {

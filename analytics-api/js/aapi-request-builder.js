@@ -72,7 +72,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         sort,
         $fields = $("#fields"),
         fields,
-        dataCalls = ["player", "video", "destination_domain", "referrer_domain", "country", "region", "city"],
+        dataCalls = ["player", "video", "destination_domain", "referrer_domain", "search_terms", "country", "region", "city"],
         dataCallsIndex = 0,
         // for request building
         thisRequestType = "",
@@ -462,25 +462,25 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
             url += "&fields=player,player_name" + "&sort=video_view" + "&limit=all";
             break;
         case "video":
-            url += "&fields=video,video_name" + "&sort=video_view" + "&limit=100";
+            url += "&fields=video,video_name" + "&sort=video_view" + "&limit=all";
             break;
         case "destination_domain":
-            url += "&fields=destination_domain" + "&sort=video_view" + "&limit=100";
+            url += "&fields=destination_domain" + "&sort=video_view" + "&limit=all";
             break;
         case "referrer_domain":
-            url += "&fields=referrer_domain" + "&sort=video_view" + "&limit=70";
+            url += "&fields=referrer_domain" + "&sort=video_view" + "&limit=all";
             break;
         case "search_terms":
-            url += "&fields=search_terms" + "&sort=video_view" + "&limit=20";
+            url += "&fields=search_terms" + "&sort=video_view" + "&limit=all";
             break;
         case "country":
-            url += "&fields=country,country_name" + "&sort=video_view" + "&limit=70";
+            url += "&fields=country,country_name" + "&sort=video_view" + "&limit=all";
             break;
         case "region":
-            url += "&fields=region,region_name" + "&sort=video_view" + "&limit=70";
+            url += "&fields=region,region_name" + "&sort=video_view" + "&limit=all";
             break;
         case "city":
-            url += "&fields=city" + "&sort=video_view" + "&limit=70";
+            url += "&fields=city" + "&sort=video_view" + "&limit=all";
             break;
         default:
             bclslog("unknown data type " + dataType);

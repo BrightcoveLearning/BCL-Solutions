@@ -212,7 +212,7 @@ $.ajax({
 		// function to remove spaces and line breaks
 		cleanString = function (str) {
 			// remove line breaks
-			str = str.replace(/\s/g, "");
+			str = str.replace(/(\r\n|\n|\r)/gm,"");
 			// remove spaces
 			// here we have to be careful - spaces fine within strings
 			// but not outside them

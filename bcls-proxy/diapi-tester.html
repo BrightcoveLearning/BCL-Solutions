@@ -254,8 +254,9 @@ $.ajax({
 			// here we have to be careful - spaces fine within strings
 			// but not outside them
 			str = JSON.stringify(JSON.parse(str));
-			return str;
+			str = str.replace(/\+/g, " ");
 			bclslog("str cleaned", str);
+			return str;
 		};
 		// set options for the CMS API request
 		setCMSOptions = function () {

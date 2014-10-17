@@ -212,7 +212,7 @@ var AAPIPROXY = (function () {
         }
         writeData = function (data, callback) {
             var numCharacters = data.length,
-                totalChunks = Math.ceil(numCharacters / 2000),
+                totalChunks = Math.ceil(numCharacters / 1024),
                 i = totalChunks,
                 thisChunk,
                 ok = true,
@@ -227,7 +227,7 @@ var AAPIPROXY = (function () {
                     if (i === 0) {
                         // last time
                         console.log("last write - j: ", j);
-                        thisChunk = data.substring(j * 2000, numCharacters);
+                        thisChunk = data.substring(j * 1024, numCharacters);
                         console.log("thisChunk last time", thisChunk);
                         ok = res.write(thisChunk);
 
@@ -235,7 +235,7 @@ var AAPIPROXY = (function () {
                         // see if we should continue, or wait
                         // don't pass the callback, because we're not done yet.
                         console.log("j", j);
-                        thisChunk = data.substring(j * 2000, (j * 2000) + 2000);
+                        thisChunk = data.substring(j * 1024, (j * 1024) + 1024);
                         console.log("thisChunk", thisChunk);
                         // ok = res.write(thisChunk);
                         res.write(thisChunk);
@@ -261,7 +261,7 @@ var AAPIPROXY = (function () {
          */
         if (isDefined(req.headers.origin) && req.headers.origin.indexOf("brightcove.com") < 0 && req.headers.origin.indexOf("localhost") < 0) {
             res.writeHead(
-                "2000",
+                "1024",
                 "Error", {
                     "access-control-allow-origin": origin,
                     "content-type": "text/plain"
@@ -270,7 +270,7 @@ var AAPIPROXY = (function () {
             res.end(originError);
         } else if (isDefined(req.headers.host) && req.headers.host.indexOf("brightcove.com") < 0 && req.headers.host.indexOf("localhost") < 0) {
             res.writeHead(
-                "2000",
+                "1024",
                 "Error", {
                     "access-control-allow-origin": origin,
                     "content-type": "text/plain"
@@ -333,7 +333,7 @@ var AAPIPROXY = (function () {
                             );
                             res.end(apiError + error);
                         }
-                        if (body.length > 2000) {
+                        if (body.length > 1024) {
                             writeData(body, function (ok) {
                                 console.log("ending...", ok);
                                 if (ok) {

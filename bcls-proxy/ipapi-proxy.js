@@ -263,7 +263,7 @@ var IPAPIPROXY = (function () {
                                 "OK", {
                                     "access-control-allow-origin": origin,
                                     "content-type": "text/plain",
-                                    "content-length": body.length
+                                    "content-length": Buffer.byteLength(body, 'utf8')
                                 }
                             );
                             res.end(body);

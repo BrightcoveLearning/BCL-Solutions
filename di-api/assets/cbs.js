@@ -1,5 +1,5 @@
-[
-     {
+var videoData = [];
+videoData[0] = [{
           "name": "StarCrossed_Ep102_16x9_24.wmv",
           "ArchiveURL": "http://archive10.unicornmedia.com/archive/8511f5ed-db4c-41e1-80a0-de106794213f/C607018E-8B5B-11DD-B3ED-D99555D89593/00/9807c80c-df2e-4605-9d78-7b852f567d4e-0.wmv",
           "description": "StarCrossed_Ep102_16x9_24.wmv",
@@ -598,8 +598,8 @@
           "ArchiveURL": "http://archive10.unicornmedia.com/archive/8511f5ed-db4c-41e1-80a0-de106794213f/C607018E-8B5B-11DD-B3ED-D99555D89593/72/6dc6bb91-6111-499d-8619-c01e46c5cbfb-0.mp4",
           "description": "CSI_ep1412_CIAN.mp4",
           "reference_id": "6dc6bb91-6111-499d-8619-c01e46c5cbfb"
-     },
-     {
+     }];
+videoData[1] = [{
           "name": "JERICHO_012_CONTENT_CIAN_DSI-16x9_24_1864.mp4",
           "ArchiveURL": "http://archive10.unicornmedia.com/archive/8511f5ed-db4c-41e1-80a0-de106794213f/C607018E-8B5B-11DD-B3ED-D99555D89593/72/c7d93fc8-02c0-4b08-84c4-9868a4823176-0.mp4",
           "description": "JERICHO_012_CONTENT_CIAN_DSI-16x9_24_1864.mp4",
@@ -1198,8 +1198,8 @@
           "ArchiveURL": "http://archive11.unicornmedia.com/archive/8511f5ed-db4c-41e1-80a0-de106794213f/C607018E-8B5B-11DD-B3ED-D99555D89593/27/65d62641-c259-4ddd-b112-51e7a62ebe78-0.wmv",
           "description": "SurvivorPanamaExileIsland_Ep1201_Spanish_1300K_4x3_30.wmv",
           "reference_id": "65d62641-c259-4ddd-b112-51e7a62ebe78"
-     },
-     {
+     }];
+videoData[2] = [{
           "name": "02B-TST-LIES-30.mp4",
           "ArchiveURL": "http://archive11.unicornmedia.com/archive/8511f5ed-db4c-41e1-80a0-de106794213f/C607018E-8B5B-11DD-B3ED-D99555D89593/27/b83060f7-1593-4155-aae5-01210b29b368-0.mp4",
           "description": "02B-TST-LIES-30.mp4",
@@ -1798,8 +1798,8 @@
           "ArchiveURL": "http://archive11.unicornmedia.com/archive/8511f5ed-db4c-41e1-80a0-de106794213f/C607018E-8B5B-11DD-B3ED-D99555D89593/64/34540651-1505-46b3-9c27-e143bacb109f-0.wmv",
           "description": "Dexter Season 8 Look Ahead_9000K_16x9.wmv",
           "reference_id": "34540651-1505-46b3-9c27-e143bacb109f"
-     },
-     {
+     }];
+videoData[3] = [{
           "name": "ELEMENTARY_211_CIAN.mp4",
           "ArchiveURL": "http://archive11.unicornmedia.com/archive/8511f5ed-db4c-41e1-80a0-de106794213f/C607018E-8B5B-11DD-B3ED-D99555D89593/65/2f78719b-ef4b-41ae-b084-7de069f29677-0.mp4",
           "description": "ELEMENTARY_211_CIAN.mp4",
@@ -2398,8 +2398,8 @@
           "ArchiveURL": "http://archive15.unicornmedia.com/archive/8511f5ed-db4c-41e1-80a0-de106794213f/C607018E-8B5B-11DD-B3ED-D99555D89593/00/3d19b675-f691-41f3-a385-53b976bd9830-0.mp4",
           "description": "MILLERS_ep107_CIAN.mp4",
           "reference_id": "3d19b675-f691-41f3-a385-53b976bd9830"
-     },
-     {
+     }];
+videoData[4] = [{
           "name": "GOODWIFE_ep520_CIAN.mp4",
           "ArchiveURL": "http://archive15.unicornmedia.com/archive/8511f5ed-db4c-41e1-80a0-de106794213f/C607018E-8B5B-11DD-B3ED-D99555D89593/00/c7011ea7-ff3e-47b1-8974-56cef6d20978-0.mp4",
           "description": "GOODWIFE_ep520_CIAN.mp4",
@@ -2998,8 +2998,8 @@
           "ArchiveURL": "http://archive15.unicornmedia.com/archive/8511f5ed-db4c-41e1-80a0-de106794213f/C607018E-8B5B-11DD-B3ED-D99555D89593/48/501e9022-5e7c-4d38-8fba-f87dc412bf26-0.mov",
           "description": "AH_sizzle3 March2014V06 cbs_1280x720_4Mbps.mov",
           "reference_id": "501e9022-5e7c-4d38-8fba-f87dc412bf26"
-     },
-     {
+     }];
+videoData[5] = [{
           "name": "NCISLA_ep516_CIAN.mp4",
           "ArchiveURL": "http://archive15.unicornmedia.com/archive/8511f5ed-db4c-41e1-80a0-de106794213f/C607018E-8B5B-11DD-B3ED-D99555D89593/48/b8ef08b1-ef9c-4e7e-ad0c-9a5b60b92294-0.mp4",
           "description": "NCISLA_ep516_CIAN.mp4",
@@ -3598,8 +3598,8 @@
           "ArchiveURL": "http://archive16.unicornmedia.com/archive/8511f5ed-db4c-41e1-80a0-de106794213f/C607018E-8B5B-11DD-B3ED-D99555D89593/02/12d240ad-f538-4778-ac41-ced7d2b04333-0.mov",
           "description": "NCIS S11 CLSR LK EPK PT2 PREVIEW.mov",
           "reference_id": "12d240ad-f538-4778-ac41-ced7d2b04333"
-     },
-     {
+     }];
+videoData[6] = [{
           "name": "UFDRAMASIZZLE14-INTL Web.m4v",
           "ArchiveURL": "http://archive16.unicornmedia.com/archive/8511f5ed-db4c-41e1-80a0-de106794213f/C607018E-8B5B-11DD-B3ED-D99555D89593/02/900fc4fc-39a9-4df3-93ed-6b52e81bca7f-0.m4v",
           "description": "UFDRAMASIZZLE14-INTL Web.m4v",

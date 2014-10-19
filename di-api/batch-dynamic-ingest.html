@@ -51,7 +51,7 @@
 		</div>
 		<div id="main" class="large-10 small-12 columns">
 			<div id="top" class="section">
-				<h1>diapi-proxy tester</h1>
+				<h1>Batch dynamic ingest tester</h1>
 			    <p>Welcome to the Brightcove Learning Services proxy tester. This tester can be used currently for the following APIs:
 			        <ul>
 			            <li>Perform: Player Management</li>
@@ -133,23 +133,13 @@ $.ajax({
 				    			<p>
 				    				Call type:
 				    				<select name="requestType" id="cms_requestType">
-				    					<option>GET</option>
 				    					<option selected="selected">POST</option>
-				    					<option>PUT</option>
-				    					<option>PATCH</option>
-				    					<option>DELETE</option>
 				    				</select>
 				    			</p>
-				    			<p>
-				    				Call body (optional - include if you need to submit data with the request):<br />
-				    				<textarea name="requestBody" id="cms_requestBody">{"name":"My test Video"}</textarea>
-				    			</p>
+
 				    			<p>
 				    				Full request URL for the API call:<br />
 				    				<textarea name="url" id="cms_url">https://cms.api.brightcove.com/v1beta1/accounts/57838016001/videos</textarea>
-				    			</p>
-				    			<p>
-				    				<input id="cms_Submit" type="submit" value="Submit">
 				    			</p>
 				    		<pre><code id="cms_response"></code></pre>
 				    	</fieldset>
@@ -172,30 +162,21 @@ $.ajax({
 				                        <option>POST</option>
 				                    </select>
 				                </p>
-				                <p>
-				                    Call body (optional - include if you need to submit data with the request):<br />
-				                    <textarea name="requestBody" id="di_requestBody">{"master":{"url":"http://learning-services-media.brightcove.com/Bird_Titmouse.mp4"},"profile":"mp4-only"}</textarea>
-				                </p>
+
 				                <p>
 				                    Full request URL for the API call:<br />
 				                    <textarea name="url" id="di_url">https://ingest.api.brightcove.com/v1/accounts/57838016001/videos/videoId/ingest-requests</textarea>
 				                </p>
 				                <p>
-				                    <input id="di_Submit" type="submit" value="Submit">
+				                    <input id="di_Submit" type="submit" value="Start Ingest">
 				                </p>
 				            <pre><code id="di_response"></code></pre>
 				        </fieldset>
 				    </div>
 			</div>
-			<div class="section" id="codeForm">
-			    <h2>Sample code: form</h2>
-			    <p>Here is the relavant code:</p>
-				<script src="https://gist.github.com/rcrooks/447a1f098c94f8080be2.js"></script>
-			</div>
-			<div class="section" id="codeAJAX">
-			    <h2>Sample code: AJAX</h2>
-			    <p>Sample code for calling proxy via AJAX</p>
-				<script src="https://gist.github.com/e07841e5fd480ee6334b.js"></script>
+			<div class="section" id="logger">
+			    <h2>Log</h2>
+			    <div id="log"></div>
 			</div>
 		</div>
 	</div>
@@ -210,7 +191,7 @@ $.ajax({
 	<script src="//docs.brightcove.com/en/scripts/log.js"></script>
 	<script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
 	<script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
-	<script src="//docs.brightcove.com/en/scripts/bc-mapi.js"></script>
+	<script src="./assets/cbs.js"></script>
 	<script>
 		$(document).foundation();
 	</script>
@@ -219,53 +200,42 @@ $.ajax({
 		var // CMS API stuff
 			$cms_client_id = $("#cms_client_id"),
 			$cms_client_secret = $("#cms_client_secret"),
-			$cms_requestBody = $("#cms_requestBody"),
 			$cms_requestType = $("#cms_requestType"),
 			$cms_url = $("#cms_url"),
-			$cms_submit = $("#cms_Submit"),
 			$cms_response = $("#cms_response"),
 			cmsURL = "http://solutions.brightcove.com:8006",
 			// Dynamic Ingest API stuff
 			$di_client_id = $("#di_client_id"),
 			$di_client_secret = $("#di_client_secret"),
-			$di_requestBody = $("#di_requestBody"),
 			$di_requestType = $("#di_requestType"),
 			$di_url = $("#di_url"),
 			$di_submit = $("#di_Submit"),
 			$di_response = $("#di_response"),
 			diURL = "http://solutions.brightcove.com:8004",
+			totalVideos = videoData.length,
+			$log = $("#log"),
+			i = 0,
+			t1,
+			t2,
 			// functions
 			bclslog,
+			doIngest,
 			submitRequest,
-			cleanString,
 			setCMSOptions,
 			setDIOptions;
 		// IE safe logger
 		bclslog = function (context, message) {
-			if (console) {
-				console.log(context, message);
-			}
-		}
-		// function to remove spaces and line breaks
-		cleanString = function (str) {
-			// remove line breaks
-			str = str.replace(/(\r\n|\n|\r)/gm,"");
-			// remove spaces
-			// here we have to be careful - spaces fine within strings
-			// but not outside them
-			str = JSON.stringify(JSON.parse(str));
-			return str;
-			bclslog("str cleaned", str);
+			$log.append(context + ": " + message + "<br>");
 		};
 		// set options for the CMS API request
 		setCMSOptions = function () {
 			var options = {};
 			options.client_id = $cms_client_id.val();
 			options.client_secret = $cms_client_secret.val();
-			options.requestBody = cleanString($cms_requestBody.val());
+			options.requestBody = '{"name":"' + videoData[i].name + '","description":"' + videoData[i].description + '","reference_id":"' + videoData[i].reference_id + '"}';
 			options.requestType = $cms_requestType.val();
 			options.url = $cms_url.val();
-			bclslog("cms options", options);
+			console.log(options);
 			// now submit the request
 			submitRequest(options, cmsURL, "cms");
 		};
@@ -274,10 +244,9 @@ $.ajax({
 			var options = {};
 			options.client_id = $di_client_id.val();
 			options.client_secret = $di_client_secret.val();
-			options.requestBody = cleanString($di_requestBody.val());
+			options.requestBody = '{"master":{"url":"' + videoData[i].ArchiveURL +'"},"profile":"balanced-high-definition"}';
 			options.requestType = $di_requestType.val();
 			options.url = $di_url.val();
-			bclslog("di options", options);
 			// now submit the request
 			submitRequest(options, diURL, "di");
 		};
@@ -290,18 +259,31 @@ $.ajax({
 				type: "POST",
 				data: options,
 				success : function (data) {
-					bclslog(data);
-					parsedData = JSON.parse(data);
-					switch (type) {
-						case "cms":
-						$cms_response.html(data);
-						$di_url.html("https://ingest.api.brightcove.com/v1/accounts/57838016001/videos/" + parsedData.id +"/ingest-requests");
-						bclslog($di_url.val());
-						break;
-						case "di":
-						$di_response.html(data);
-						break;
+					if (data.indexOf("REFERENCE_ID_IN_USE")> 0) {
+						i++;
+						t1 = setTimeout(setCMSOptions, 1000);
+					} else if (data.indexOf("error_code") > 0) {
+						console.log(data);
+						t1 = setTimeout(setCMSOptions, 1000);
+					} else {
+						console.log(data);
+						parsedData = JSON.parse(data);
+						switch (type) {
+							case "cms":
+							bclslog("CMS response", data);
+							$di_url.html("https://ingest.api.brightcove.com/v1/accounts/57838016001/videos/" + parsedData.id +"/ingest-requests");
+							setDIOptions();
+							break;
+							case "di":
+							bclslog("DI response", data);
+							if (i < totalVideos) {
+								i++;
+								t2 = setTimeout(setCMSOptions, 1000);
+							}
+							break;
+						}
 					}
+
 				},
 				error : function (XMLHttpRequest, textStatus, errorThrown) {
 					switch (type) {
@@ -315,8 +297,7 @@ $.ajax({
 				}
 			});
 		};
-		$cms_submit.on("click", setCMSOptions);
-		$di_submit.on("click", setDIOptions);
+		$di_submit.on("click", setCMSOptions);
 	})($);
 	</script>
 	<div class="footer text-center"><a href="mailto:docs@brightcove.com">Questions or comments?</a></div>

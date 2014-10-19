@@ -1,10 +1,10 @@
 
 curl \
   --include \
-  --header 'Authorization: BC_TOKEN AEnTxTjsDs1LHHehfegLweADhcFYTjZU7WYVrxlDG184Ph_r73XbRX5dltMUyDolNQj3zFkTl6wVDZJskvmvgCbtbPpxu80h5YLJthp8FpM1dvM_6NGoLWs' \
+  --header 'Authorization: BC_TOKEN AEnTxTiuwFJq183ZFnguJD9Qm3_TFCqU1vWru3OFm6_RPizDv7alX2zsKj8HljDfeDaPLrgDG0DgdYEt3JCnpm715KjDK-ImW5M3xer5XLx02AQJJQ8pWj4' \
   --data 'name=SampleClient&maximum_scope=[
     {"identity": {
-        "type": "video-cloud-account", "account-id": 1937897674001
+        "type": "video-cloud-account", "account-id": 3755095928001
       },
       "operations": [
         "video-cloud/video/read",

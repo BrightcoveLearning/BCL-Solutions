@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+
+    </style>
+  </head>
+  <body>
+    <pre id="results"></pre>
+    <script type="text/javascript" src="./assets/cbs7.js"></script>
+    <script>
+      var videoIDs = [],
+          i = 0,
+          iMax = videoData[0].length,
+          callMapi,
+          printResults,
+          onSearchResults,
+          getRefID;
+
+      BCMAPI.url = "http://api.brightcove.com/services/library";
+      BCMAPI.token = "t5TFTPsDxqM_3fXfw1O1EB7OtgQo6sE2XdEJCy-NNnmoFgcUYzpbxw..";
+      BCMAPI.callback = "onSearchResults";
+      params.video_fields = "id";
+
+      getRefID = function () {
+        var refID;
+        if (i < iMax) {
+          refID = videoData[0][i];
+          callMapi(refID);
+        }
+      }
+
+      callMapi = function (refID) {
+        params.all = "reference_id:" + refID;
+        BCMAPI.search(params);
+      }
+
+      onSearchResults = function (data) {
+        console.log("data", data);
+        i++;
+        getRefID();
+      }
+    </script>
+  </body>
+</html>

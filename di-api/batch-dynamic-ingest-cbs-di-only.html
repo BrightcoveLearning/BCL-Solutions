@@ -256,10 +256,10 @@
 				success : function (data) {
 					if (data.indexOf("REFERENCE_ID_IN_USE")> 0) {
 						videoNumber++;
-						t1 = setTimeout(setCMSOptions, 1000);
+						t1 = setTimeout(setDIOptions, 1000);
 					} else if (data.indexOf("error_code") > 0) {
 						console.log(data);
-						t1 = setTimeout(setCMSOptions, 1000);
+						t1 = setTimeout(setDIOptions, 1000);
 					} else {
 						console.log(data);
 						parsedData = JSON.parse(data);
@@ -276,7 +276,7 @@
 							if (videoNumber < totalVideos - 1) {
 								videoNumber++;
 								console.log("videoNumber", videoNumber);
-								t2 = setTimeout(setCMSOptions, 1000);
+								t2 = setTimeout(setDIOptions, 1000);
 							}
 							break;
 						}
@@ -301,7 +301,7 @@
 			totalVideos = videoData[dataSet].length;
 			console.log("totalVideos", totalVideos);
 			videoNumber = 0;
-			setCMSOptions();
+			setDIOptions();
 		});
 		$account_id.on("change", function (){
 			$cms_url.val("https://cms.api.brightcove.com/v1beta1/accounts/" + $account_id.val() + "/videos");

@@ -14,57 +14,87 @@
     <script type="text/javascript" src="./assets/cbs7.js"></script>
     <script>
       var videoIDs = [],
-          i = 0,
-          iMax = videoData[0].length,
+          callNumber = 1,
+          totalCalls = 2,
+          offset = 0,
           params = {},
-          baseURL = "https://cms.api.brightcove.com/v1beta1/accounts/3755095928001/videos?q=referenceID:",
+          baseURL = "https://cms.api.brightcove.com/v1beta1/accounts/3755095928001/videos?q=keywords:unprocessed&limit=100",
+          newVideoData = [],
+          responseData = [],
           results = document.getElementById("results"),
           callMapi,
-          printResults,
-          getRefID;
+          processData,
+          printResults;
 
 
 
-      getRefID = function () {
-        var refID;
-        console.log("iMax", iMax);
-        if (i < iMax) {
-          refID = videoData[0][i].reference_id;
-          console.log("refID", refID);
-          callMapi(refID);
-        } else {
-          printResults();
+      /*
+    find index of an object in array of objects
+    based on some property value
+    returns index if found, otherwise returns -1
+    */
+    findObjectInArray = function (targetArray, objProperty, value) {
+        var i, totalItems = targetArray.length, objFound = false;
+        for (i = 0; i < totalItems; i++) {
+            if (targetArray[i][objProperty] === value) {
+                objFound = true;
+                return i;
+            }
         }
-      }
-
-      callMapi = function (refID) {
-        var options = {};
-      options.client_id = "e1eb6598-2129-4507-a7f5-4a59dc45f01e";
-      options.client_secret = "wx_pO6WXKrpxAgLTuU6uYt9LykQzUopgGN3DdhNRaNynkgUwcse9-2V8Vk8zIbInqYq5wSnGzCH1KqWv6tVN3A";
-      // options.requestBody = cleanString($ajax_requestBody.val());
-      options.requestType = "GET";
-      options.url = baseURL + refID;
-      console.log(options);
-      $.ajax({
-        url: "http://solutions.brightcove.com:8006",
-        type: "POST",
-        data: options,
-        success : function (data) {
-          console.log("data", data);
-          videoIDs.push(data[0].id)
-          i++;
-          // getRefID();
-        },
-        error : function (XMLHttpRequest, textStatus, errorThrown) {
-          results.innerHTML = "Sorry, your request was not successful. Here is what the server sent back: " + errorThrown;
+        if (objFound === false) {
+            return -1;
         }
-      });
-      }
+    };
+    processData = function (responseData) {
+      var imax = responseData.length;
+          for (i = 0; i < imax; i++) {
+              thisDataItem = responseData[i];
+              j = findObjectInArray(videoData[0], "reference_id", thisDataItem.reference_id);
+              if (j > -1) {
+                  thisVideoItem = videoData[0][j];
+                  console.log("thisVideoItem", thisVideoItem);
+                  thisVideoItem.id = thisDataItem.id;
+                  newVideoData.push(thisVideoItem);
+              }
+
+          }
+          console.log("newVideoData", newVideoData);
+    }
+      callMapi = function () {
+        var options = {}, i, imax, j, thisDataItem, thisVideoItem;
+        options.client_id = "e1eb6598-2129-4507-a7f5-4a59dc45f01e";
+        options.client_secret = "wx_pO6WXKrpxAgLTuU6uYt9LykQzUopgGN3DdhNRaNynkgUwcse9-2V8Vk8zIbInqYq5wSnGzCH1KqWv6tVN3A";
+        // options.requestBody = cleanString($ajax_requestBody.val());
+        options.requestType = "GET";
+        options.url = baseURL + "&offset=" + offset;
+        console.log(options);
+        $.ajax({
+          url: "http://solutions.brightcove.com:8006",
+          type: "POST",
+          data: options,
+          success : function (data) {
+            data = JSON.parse(data);
+            console.log("data length", data.length);
+            processData(data);
+            if (callNumber === 1) {
+              callNumber = 2;
+              offset = 100;
+              callMapi();
+            } else {
+              printResults();
+            }
+          },
+          error : function (XMLHttpRequest, textStatus, errorThrown) {
+            results.innerHTML = "Sorry, your request was not successful. Here is what the server sent back: " + errorThrown;
+          }
+        });
+      };
+
       printResults = function () {
         var results = document.getElementById("results");
-        results.innerHTML = JSON.stringify(videoIDs, null, "  ");
+        results.innerHTML = JSON.stringify(newVideoData, null, "  ");
       }
-      getRefID();
+      callMapi()
     </script>
   </body>
 </html>

@@ -110,11 +110,11 @@
 				            <p>Submits to http://solutions.brightcove.com:<strong>8004</strong></p>
 				                <p>
 				                    Client id:
-				                    <input name="client_id" id="di_client_id" type="text" value="1c0fd1ce-64b9-45b7-9472-d933b7fe0ccc">
+				                    <input name="client_id" id="di_client_id" type="text" value="6a0a861f-a1ed-4b69-93f2-80789ef80bc7">
 				                </p>
 				                <p>
 				                    Client secret:
-				                    <input name="client_secret" id="di_client_secret" type="text" value="uCGChFrAiiWRNLT9Cg70dT1LslL8x8fANidiCq7Chu0HW49u803Hc1lc4uJkPVltJBt2RQbDIzzo10z2aO6aBw">
+				                    <input name="client_secret" id="di_client_secret" type="text" value="KiPgTeUYAe3nW0-2vt4ijw_AukT9GmYO_x4CkaDXdabMQIs71rUoEWvjbo20hAGT9uFTLJzyW4XINY7LpfLdHg">
 				                </p>
 				                <p>
 				                    Call type:
@@ -180,7 +180,7 @@
 	<script src="//docs.brightcove.com/en/scripts/log.js"></script>
 	<script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
 	<script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
-	<script src="./assets/cbs3.js"></script>
+	<script src="./assets/cbs8.js"></script>
 	<script>
 		$(document).foundation();
 	</script>
@@ -241,16 +241,17 @@
 			options.client_secret = $di_client_secret.val();
 			options.requestBody = '{"master":{"url":"' + videoData[dataSet][videoNumber].ArchiveURL +'"},"profile":"balanced-high-definition"}';
 			options.requestType = $di_requestType.val();
-			options.url = $di_url.val();
+			options.url = "https://ingest.api.brightcove.com/v1/accounts/57838016001/videos/" +  videoData[dataSet][videoNumber].id + "/ingest-requests";
 			// now submit the request
-			submitRequest(options, diURL, "di");
+			console.log(options);
+			// submitRequest(options, diURL, "di");
 		};
 
 		// function to submit Request
 		submitRequest = function (options, proxyURL, type) {
 			var parsedData = {};
 			$.ajax({
-				url: proxyURL,
+				url: "http://solutions.brightcove.com:8004",
 				type: "POST",
 				data: options,
 				success : function (data) {

@@ -110,11 +110,11 @@
 				            <p>Submits to http://solutions.brightcove.com:<strong>8004</strong></p>
 				                <p>
 				                    Client id:
-				                    <input name="client_id" id="di_client_id" type="text" value="6a0a861f-a1ed-4b69-93f2-80789ef80bc7">
+				                    <input name="client_id" id="di_client_id" type="text" value="ed93a449-f394-48fe-8a2c-48ef8b3207bc">
 				                </p>
 				                <p>
 				                    Client secret:
-				                    <input name="client_secret" id="di_client_secret" type="text" value="KiPgTeUYAe3nW0-2vt4ijw_AukT9GmYO_x4CkaDXdabMQIs71rUoEWvjbo20hAGT9uFTLJzyW4XINY7LpfLdHg">
+				                    <input name="client_secret" id="di_client_secret" type="text" value="EqG88mS2Bo8zfMaw6hnJX7YkfOWw_eGXHWD89UFNfU1JcbANL8IbUS67Wd9sPlIpknBMiM2Oujxad58dtGutCw">
 				                </p>
 				                <p>
 				                    Call type:
@@ -180,7 +180,7 @@
 	<script src="//docs.brightcove.com/en/scripts/log.js"></script>
 	<script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
 	<script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
-	<script src="./assets/cbs8.js"></script>
+	<script src="./assets/cbs10.js"></script>
 	<script>
 		$(document).foundation();
 	</script>
@@ -241,10 +241,10 @@
 			options.client_secret = $di_client_secret.val();
 			options.requestBody = '{"master":{"url":"' + videoData[dataSet][videoNumber].ArchiveURL +'"},"profile":"balanced-high-definition"}';
 			options.requestType = $di_requestType.val();
-			options.url = "https://ingest.api.brightcove.com/v1/accounts/57838016001/videos/" +  videoData[dataSet][videoNumber].id + "/ingest-requests";
+			options.url = "https://ingest.api.brightcove.com/v1/accounts/3755095928001/videos/" +  videoData[dataSet][videoNumber].id + "/ingest-requests";
 			// now submit the request
 			console.log(options);
-			// submitRequest(options, diURL, "di");
+			submitRequest(options, diURL, "di");
 		};
 
 		// function to submit Request

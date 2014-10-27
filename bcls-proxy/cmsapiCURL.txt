@@ -1,14 +1,14 @@
 
 curl \
   --include \
-  --header 'Authorization: BC_TOKEN AEnTxTiuwFJq183ZFnguJD9Qm3_TFCqU1vWru3OFm6_RPizDv7alX2zsKj8HljDfeDaPLrgDG0DgdYEt3JCnpm715KjDK-ImW5M3xer5XLx02AQJJQ8pWj4' \
-  --data 'name=SampleClient&maximum_scope=[
-    {"identity": {
-        "type": "video-cloud-account", "account-id": 3755095928001
+  --header "Authorization: BC_TOKEN AEnTxTgjoRWwYZPY98EVEU1g6FmCCd6kikUxl1qFzT1mYM6JLLnuwRhyYyFaZGF87NwqCWeUFSlEAbECHMkKDWJcP9YKQemII2miwVYcspLnt6z1xS1BwVI" \
+  --data 'name=SampleClient&maximum_scope=[{
+      "identity": {
+        "type": "video-cloud-account",
+        "account-id": 20318290001
       },
       "operations": [
         "video-cloud/video/all"
       ]
-    }
-  ]' \
-  https://oauth.brightcove.com/v3/client_credentials
+    }]' \
+https://oauth.brightcove.com/v3/client_credentials

@@ -32,9 +32,9 @@ var GETCLIENTCREDENTIALS = (function () {
      */
     init = function () {
         // initialize options to null except requestType to GET
-        options.url = null;
-        options.token = null;
-        options.aapi_token = null;
+        options.account_id = null;
+        options.BC_TOKEN = null;
+        options.api = null;
         options.client_id = null;
         options.client_secret = null;
         options.expires_in = 0;

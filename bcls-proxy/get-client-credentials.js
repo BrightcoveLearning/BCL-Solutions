@@ -24,7 +24,6 @@ var GETCLIENTCREDENTIALS = (function () {
         // functions
         getFormValues,
         getClientCredentials,
-        sendRequest,
         isDefined,
         init;
     /*
@@ -34,11 +33,7 @@ var GETCLIENTCREDENTIALS = (function () {
         // initialize options to null except requestType to GET
         options.account_id = null;
         options.BC_TOKEN = null;
-        options.api = null;
-        options.client_id = null;
-        options.client_secret = null;
-        options.expires_in = 0;
-        options.requestBody = null;
+        options.operations = null;
         options.requestType = "GET";
         console.log("init done");
     };
@@ -57,17 +52,17 @@ var GETCLIENTCREDENTIALS = (function () {
     getFormValues = function (body, callback) {
         console.log("getting form values");
         // split the request body string into an array
-        var valuesArray = body.split("&"),
+        var bodyDecoded = decodeURIComponent(body),
+            valuesArray = bodyDecoded.split("&"),
             max = valuesArray.length,
             i,
             item,
             error = null;
+        console.log("valuesArray",valuesArray)
         // reset options values
         options.BC_TOKEN = null;
-        options.api = null;
         options.operations = [];
-        options.requestType = "GET";
-
+        options.product = null;
         // now split each item into key and value and store in the object
         for (i = 0; i < max; i = i + 1) {
             item = valuesArray[i].split("=");
@@ -76,12 +71,7 @@ var GETCLIENTCREDENTIALS = (function () {
         console.log(options);
         // data fixes
         // decode the URL and request body
-        options.url = decodeURIComponent(options.url);
-        options.requestBody = decodeURIComponent(options.requestBody);
-        // check for required values
-        if (options.client_id === null || options.client_secret === null || (options.url === null && options.aapi_token === null)) {
-            error = "Error: your request did not contain the correct data - please see http://solutions.brightcove.com/bcls/bcls-proxy/bcls-proxy.html for usage instructions";
-        }
+        options.operations = decodeURIComponent(options.operations);
         if (error === null) {
             callback(null);
         } else {
@@ -89,82 +79,34 @@ var GETCLIENTCREDENTIALS = (function () {
         }
     };
     /*
-     * get new access_token for other APIs
+     * get client credentials
      */
     getClientCredentials = function (callback) {
         // base64 encode the ciient_id:client_secret string for basic auth
-        var auth_string = new Buffer(options.client_id + ":" + options.client_secret).toString("base64"),
-            bodyObj,
-            now = new Date().valueOf();
+        var auth_string = new Buffer(options.BC_TOKEN).toString("base64"),
+            reqBody = 'name=SampleApp&maximum_scope=[{"identity":{"type":"' + options.product + '","account-id":' + options.account_id + '},"operations":' + options.operations + '}]',
+            bodyObj;
+            console.log("reqBody", reqBody);
+            auth_string = "BC_TOKEN " + auth_string;
         // don't know what API was requested, always get new token
         request({
             method: 'POST',
-            url: 'https://oauth.brightcove.com/v3/access_token?grant_type=client_credentials',
+            url: 'https://oauth.brightcove.com/v3/client_credentials',
             headers: {
-                "Authorization": "Basic " + auth_string,
-                "Content-Type": "application/json"
+                "Authorization": auth_string
             },
-            body: 'grant_type=client_credentials'
+            body: reqBody
         }, function (error, response, body) {
             // check for errors
             console.log("error", error);
             console.log("body", body);
             if (error === null) {
-                // return the access token to the callback
-                bodyObj = JSON.parse(body);
-                options.token = bodyObj.access_token;
-                options.expires_in = now + bodyObj.expires_in * 1000;
-                callback(null);
+                // return the response token to the callback
+                callback(null, response.headers, body);
             } else {
                 callback(error);
             }
         });
-    };
-    /*
-     * sends the request to the targeted API
-     */
-    sendRequest = function (callback) {
-        var requestOptions = {},
-            makeRequest = function () {
-                console.log("requestOptions", requestOptions);
-                request(requestOptions, function (error, response, body) {
-                    console.log("body", body);
-                    console.log("error", error);
-                    if (error === null) {
-                        callback(null, response.headers, body);
-                    } else {
-                        callback(error);
-                    }
-                });
-            },
-            setRequestOptions = function () {
-                requestOptions = {
-                    method: options.requestType,
-                    url: options.url,
-                    headers: {
-                        "Authorization": "Bearer " + options.token,
-                        "Content-Type": "application/json"
-                    },
-                    body: options.requestBody
-                };
-
-                // make the request
-                makeRequest();
-            };
-        if (options.token === null) {
-            // get an access token
-            getClientCredentials(function (error) {
-                if (error === null) {
-                    setRequestOptions();
-                } else {
-                    callback(error);
-                }
-            });
-        } else {
-            // we already have a token; good to go
-            setRequestOptions();
-        }
-
     };
     /*
      * Http Server to handle other API requests
@@ -172,8 +114,7 @@ var GETCLIENTCREDENTIALS = (function () {
     clientCredentialsServer = http.createServer(function (req, res) {
         var body = "",
             // for CORS - AJAX requests send host instead of origin
-            origin = (req.headers.origin || "*"),
-            now = new Date().valueOf();
+            origin = (req.headers.origin || "*");
         console.log("origin", origin);
         /* the published version of this proxy accepts requests only from
          * domains that include "brightcove.com"
@@ -212,7 +153,8 @@ var GETCLIENTCREDENTIALS = (function () {
             // console.log("body", body);
             getFormValues(body, function (error) {
                 if (error === null) {
-                    sendRequest(function (error, headers, body) {
+
+                    getClientCredentials(function (error, headers, body) {
                         if (error === null) {
                             // request successful
                             var header;
@@ -247,15 +189,15 @@ var GETCLIENTCREDENTIALS = (function () {
                 } else {
                     // there was no data or data was bad - redirect to usage notes
                     res.statusCode = 302;
-                    res.setHeader("Location", "http://solutions.brightcove.com/bcls/bcls-proxy/bcls-proxy.html");
+                    res.setHeader("Location", "http://solutions.brightcove.com/bcls/bcls-proxy/get-client-credentials.html");
                     res.end();
                 }
             });
         });
         // change the following line to have the proxy listen for requests on a different port
-    }).listen(8001);
+    }).listen(8020);
 
-    util.puts("http server for any API ".blue + "started ".green.bold + "on port ".blue + "8001 ".yellow);
+    util.puts("http server for client credentials ".blue + "started ".green.bold + "on port ".blue + "8020 ".yellow);
     // initialize
     init();
 })();

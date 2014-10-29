@@ -107,6 +107,7 @@ var AAPIPROXY = (function () {
         // decode the URL and request body
         options.url = decodeURIComponent(options.url);
         options.requestBody = decodeURIComponent(options.requestBody);
+        options.requestBody = options.requestBody.replace(/\+/g, " ");
         // check for required values
         if ((options.client_id === null || options.client_secret === null) && (options.account === null && options.aapi_token === null)) {
             error = "Error: your request did not contain the correct data - please see http://solutions.brightcove.com/bcls/bcls-proxy/aapi-proxy.html for usage instructions";

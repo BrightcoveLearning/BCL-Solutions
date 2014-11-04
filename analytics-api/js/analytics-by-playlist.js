@@ -68,6 +68,7 @@ var BCLS = (function ($, window, Pikaday) {
         currentVideoIndex = 0,
         failNumber = 0,
         aapiFailNumber = 0,
+        requestData = {},
         // functions
         reset,
         logit,
@@ -83,8 +84,6 @@ var BCLS = (function ($, window, Pikaday) {
         isDefined,
         deDupe,
         getData,
-        processData,
-        doFinalProcessing,
         gettingData = false,
         now = new Date(),
         nowMS = now.valueOf(),
@@ -248,14 +247,14 @@ var BCLS = (function ($, window, Pikaday) {
         $required.each(function () {
             $this = $(this);
             if ($this.val === "") {
-                window.alert("You must provide a service URL, account ID, and a token");
+                window.alert("You must provide an account ID, and a token or client credentials");
                 // stop right here
                 return;
             }
         });
         // reset requestTrimmed to false in case of regenerate request
         requestTrimmed = false;
-        requestURL = $serviceURL.val();
+        requestURL = "https://data.brightcove.com/analytics-api/videocloud";
         requestURL += "/accounts/" + removeSpaces($accountID.val()) + "/";
         // report dimensions
         requestURL += "report/";
@@ -287,98 +286,25 @@ var BCLS = (function ($, window, Pikaday) {
         $authorization.attr("value", authorization);
         // if getting data initiated, get data
         if (gettingData) {
-            getData(requestURL);
-        }
-    };
-    // final Processing
-    doFinalProcessing = function () {
-        var returnedVideos;
-        gettingData = false;
-        // dedupe the individual video data inArray
-        analyticsData.individual_video_data = deDupe(analyticsData.individual_video_data, "video");
-        returnedVideos = analyticsData.individual_video_data.length;
-        logit("returnVideos", returnedVideos);
-        analyticsData.average_engagement_score      = analyticsData.average_engagement_score / returnedVideos;
-        analyticsData.average_play_rate             = analyticsData.average_play_rate / returnedVideos;
-        analyticsData.average_video_engagement_1    = analyticsData.average_video_engagement_1 / returnedVideos;
-        analyticsData.average_video_engagement_25   = analyticsData.average_video_engagement_25 / returnedVideos;
-        analyticsData.average_video_engagement_50   = analyticsData.average_video_engagement_50 / returnedVideos;
-        analyticsData.average_video_engagement_75   = analyticsData.average_video_engagement_75 / returnedVideos;
-        analyticsData.average_video_engagement_100  = analyticsData.average_video_engagement_100 / returnedVideos;
-        analyticsData.average_video_percent_viewed  = analyticsData.average_video_percent_viewed / analyticsData.total_video_view;
-        $responseFrame.html(BCLSformatJSON.formatJSON(analyticsData));
-        // next line just for this display - remove if reusing this code
-        $('pre code').each(function (i, e) {
-            hljs.highlightBlock(e);
-        });
-    }
-
-     // store returned data and do math to sum up playlist totals
-     processData = function (aapiData) {
-        var itemsMax, i, item;
-        logit("aapiData", aapiData);
-        // check for items
-        if (aapiData.item_count !== 0) {
-            itemsMax = aapiData.items.length;
-            for (i = 0; i < itemsMax; i++) {
-                item = aapiData.items[i];
-                // add current data to totals
-                analyticsData.individual_video_data.push(item);
-                analyticsData.average_engagement_score += item.engagement_score;
-                analyticsData.average_play_rate += item.play_rate;
-                analyticsData.average_video_engagement_1 += item.video_engagement_1;
-                analyticsData.average_video_engagement_25 += item.video_engagement_25;
-                analyticsData.average_video_engagement_50 += item.video_engagement_50;
-                analyticsData.average_video_engagement_75 += item.video_engagement_75;
-                analyticsData.average_video_engagement_100 += item.video_engagement_100;
-                analyticsData.total_video_impression += item.video_impression;
-                analyticsData.average_video_percent_viewed += item.video_percent_viewed;
-                analyticsData.total_video_seconds_viewed += item.video_seconds_viewed;
-                analyticsData.total_video_view += item.video_view;
-            }
-            // now do the final processing to compute averages and display results
-            doFinalProcessing();
-        } else if (aapiFailNumber < 6) {
-            // something went wrong; try once more
-            aapiFailNumber++;
-            buildRequest();
-        } else {
-            // apparently we failed to get analytics data
-            $responseFrame.html("Unable to get analytics data...please try again later.")
+            getData();
         }
     };
     // submit request
     getData = function () {
-        logit("currentVideoIndex", currentVideoIndex);
-        gettingData = true;
-        $.ajax({
-            url: $request.attr("value"),
-            headers: {
-                Authorization : $authorization.attr("value")
-            },
-            success : function(data) {
-                processData(data);
-            },
-            error : function (XMLHttpRequest, textStatus, errorThrown) {
-                $responseFrame.html("Sorry, your request was not successful. Here is what the server sent back: " + errorThrown);
-            }
-        });
-    };
-    getData = function (requestURL) {
-        bclslog("requestURL", requestURL);
+        logit("requestURL", requestURL);
         $responseFrame.html("Loading...");
         requestData.url = requestURL;
         requestData.client_id = (isDefined($client_id_display.val())) ? $client_id_display.val() : default_client_id;
         requestData.client_secret = (isDefined($client_secret_display.val())) ? $client_secret_display.val() : default_client_secret;
         requestData.aapi_token = (isDefined($aapi_token.val())) ? $aapi_token.val() : null;
         requestData.requestType = "GET";
-        bclslog("requestData", requestData);
+        logit("requestData", requestData);
         $.ajax({
             url: "http://solutions.brightcove.com:8002",
             type: "POST",
             data: requestData,
             success : function(data) {
-                processData(data);
+                $responseFrame.html(BCLSformatJSON.formatJSON(JSON.parse(data)));
             },
             error : function (XMLHttpRequest, textStatus, errorThrown) {
                 $responseFrame.html("Sorry, your request was not successful. Here is what the server sent back: " + errorThrown);

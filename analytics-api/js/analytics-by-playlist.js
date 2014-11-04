@@ -14,8 +14,20 @@ var BCLS = (function ($, window, Pikaday) {
         videoOptionTemplate = "{{#items}}<option value=\"{{id}}\">{{name}}</option>{{/items}}",
         // aapi stuff
         $serviceURL = $("#serviceURL"),
+        account_id,
+        aapi_token,
+        $aapi_token = $("#aapi_token"),
+        $client_secret_display = $("#client_secret_display"),
+        $client_id_display = $("#client_id_display"),
+        $client_id = $("#client_id"),
+        $client_secret = $("#client_secret"),
+        client_id,
+        client_secret,
+        default_client_id = "5746d707-db97-42b2-b4f0-3db890429ef0",
+        default_client_secret = "JBdg3PLg0NarokKjIihxa_05i-YVyvhICWlQ5NXMSlUX9H9tzYqQ8FE-4mMfhAWOMs0KxUHyUN3anzkZSr3Bvg",
+        $APIrequestType = $("#aapiRequestType"),
+        requestType,
         $accountID = $("#accountID"),
-        $token = $("#token"),
         $dimension = $("#dimension"),
         fromPicker,
         toPicker,
@@ -55,6 +67,7 @@ var BCLS = (function ($, window, Pikaday) {
         videoIds = [],
         currentVideoIndex = 0,
         failNumber = 0,
+        aapiFailNumber = 0,
         // functions
         reset,
         logit,
@@ -242,15 +255,13 @@ var BCLS = (function ($, window, Pikaday) {
         });
         // reset requestTrimmed to false in case of regenerate request
         requestTrimmed = false;
-        // build the request
-        authorization = "Bearer " + removeSpaces($token.val());
         requestURL = $serviceURL.val();
         requestURL += "/accounts/" + removeSpaces($accountID.val()) + "/";
         // report dimensions
         requestURL += "report/";
         requestURL += "?dimensions=video&";
         // add video filter
-        requestURL += "where=video==" + videoIds[currentVideoIndex] ;
+        requestURL += "where=video==" + videoIds.join() ;
         // check for player filter
         if ($player.val() !== "") {
             requestURL += ";player==" + $player.val() + "&";
@@ -276,7 +287,7 @@ var BCLS = (function ($, window, Pikaday) {
         $authorization.attr("value", authorization);
         // if getting data initiated, get data
         if (gettingData) {
-            getData();
+            getData(requestURL);
         }
     };
     // final Processing
@@ -304,48 +315,40 @@ var BCLS = (function ($, window, Pikaday) {
 
      // store returned data and do math to sum up playlist totals
      processData = function (aapiData) {
+        var itemsMax, i, item;
         logit("aapiData", aapiData);
         // check for items
         if (aapiData.item_count !== 0) {
-            // add current data to totals
-            analyticsData.individual_video_data.push(aapiData);
-            analyticsData.average_engagement_score += aapiData.items[0].engagement_score;
-            analyticsData.average_play_rate += aapiData.items[0].play_rate;
-            analyticsData.average_video_engagement_1 += aapiData.items[0].video_engagement_1;
-            analyticsData.average_video_engagement_25 += aapiData.items[0].video_engagement_25;
-            analyticsData.average_video_engagement_50 += aapiData.items[0].video_engagement_50;
-            analyticsData.average_video_engagement_75 += aapiData.items[0].video_engagement_75;
-            analyticsData.average_video_engagement_100 += aapiData.items[0].video_engagement_100;
-            analyticsData.total_video_impression += aapiData.items[0].video_impression;
-            analyticsData.average_video_percent_viewed += aapiData.items[0].video_percent_viewed;
-            analyticsData.total_video_seconds_viewed += aapiData.items[0].video_seconds_viewed;
-            analyticsData.total_video_view += aapiData.items[0].video_view;
-            if (currentVideoIndex === (totalVideos)) {
-                // all done; time to compute the averages
-                doFinalProcessing();
-            } else {
-                // get the next data set
-                $submitButton.addClass("bcls-hidden");
-                $responseFrame.html("<span style=\"color:#CC0000\">Processing - please wait....</span>")
-                currentVideoIndex++;
-                gettingData = true;
-                buildRequest();
+            itemsMax = aapiData.items.length;
+            for (i = 0; i < itemsMax; i++) {
+                item = aapiData.items[i];
+                // add current data to totals
+                analyticsData.individual_video_data.push(item);
+                analyticsData.average_engagement_score += item.engagement_score;
+                analyticsData.average_play_rate += item.play_rate;
+                analyticsData.average_video_engagement_1 += item.video_engagement_1;
+                analyticsData.average_video_engagement_25 += item.video_engagement_25;
+                analyticsData.average_video_engagement_50 += item.video_engagement_50;
+                analyticsData.average_video_engagement_75 += item.video_engagement_75;
+                analyticsData.average_video_engagement_100 += item.video_engagement_100;
+                analyticsData.total_video_impression += item.video_impression;
+                analyticsData.average_video_percent_viewed += item.video_percent_viewed;
+                analyticsData.total_video_seconds_viewed += item.video_seconds_viewed;
+                analyticsData.total_video_view += item.video_view;
             }
+            // now do the final processing to compute averages and display results
+            doFinalProcessing();
+        } else if (aapiFailNumber < 6) {
+            // something went wrong; try once more
+            aapiFailNumber++;
+            buildRequest();
         } else {
-            if (currentVideoIndex === totalVideos) {
-                doFinalProcessing();
-            } else {
-                // get the next data set
-                analyticsRequestNumber++;
-                currentVideoIndex++;
-                gettingData = true;
-                buildRequest();
-            }
+            // apparently we failed to get analytics data
+            $responseFrame.html("Unable to get analytics data...please try again later.")
         }
     };
     // submit request
     getData = function () {
-        var format = $format.val();
         logit("currentVideoIndex", currentVideoIndex);
         gettingData = true;
         $.ajax({
@@ -361,6 +364,28 @@ var BCLS = (function ($, window, Pikaday) {
             }
         });
     };
+    getData = function (requestURL) {
+        bclslog("requestURL", requestURL);
+        $responseFrame.html("Loading...");
+        requestData.url = requestURL;
+        requestData.client_id = (isDefined($client_id_display.val())) ? $client_id_display.val() : default_client_id;
+        requestData.client_secret = (isDefined($client_secret_display.val())) ? $client_secret_display.val() : default_client_secret;
+        requestData.aapi_token = (isDefined($aapi_token.val())) ? $aapi_token.val() : null;
+        requestData.requestType = "GET";
+        bclslog("requestData", requestData);
+        $.ajax({
+            url: "http://solutions.brightcove.com:8002",
+            type: "POST",
+            data: requestData,
+            success : function(data) {
+                processData(data);
+            },
+            error : function (XMLHttpRequest, textStatus, errorThrown) {
+                $responseFrame.html("Sorry, your request was not successful. Here is what the server sent back: " + errorThrown);
+            }
+        });
+};
+
     // get a playlist collection
     getPlaylists = function () {
         // set up the Media API call, using data from the Analytics API call

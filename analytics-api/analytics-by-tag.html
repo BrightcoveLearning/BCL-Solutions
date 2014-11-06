@@ -62,7 +62,7 @@
 						<table>
 							<tbody>
 								<tr>
-									<td>Service URL:</td>
+									<td>Analytics API Service URL:</td>
 									<td>
 										<input id="serviceURL" class="required aapi-request" type="text" size="55" value="https://data.brightcove.com/analytics-api/videocloud" />
 									</td>
@@ -77,9 +77,26 @@
 									</td>
 									<td>
 										<input id="token" class="required aapi-request" type="text" size="55" value="15075c51ae4b0af095c9a619a" />(default: BC Training Videos)
-										<p> <sup class="red">*</sup>If your account has been enabled for the Analytics API, this token was emailed to the account administrator when you joined the <strong>limited availability</strong> program.</p>
+										<p> <sup class="red">*</sup>If your account has been enabled for the Analytics API, this token was emailed to the account administrator when you joined the <strong>limited availability</strong> program. If you do not have a token, you can get your <strong>client id and secret</strong> using the <a href="https://sadmin.brightcove.com/oauth_module/v1/">OAuth UI</a> and enter them below.</p>
 									</td>
 								</tr>
+								<tr>
+					                <td class="align-top no-wrap">Client id:
+					                    <sup class="red">*</sup>
+					                </td>
+					                <td>
+					                    <input id="client_id_display" class="required account" type="text" size="55" value="" />(default: BC Training Videos)
+					                </td>
+					            </tr>
+					            <tr>
+					                <td class="align-top no-wrap">Client secret:
+					                    <sup class="red">*</sup>
+					                </td>
+					                <td>
+					                    <input id="client_secret_display" class="required account" type="text" size="55" value="" />(default: BC Training Videos)
+
+					                </td>
+					            </tr>
 								<tr>
 									<td>Media API READ Token:
 										<br />(to retrieve videos to report or filter on get this token from your <a href="http://support.brightcove.com/en/video-cloud/docs/managing-media-api-tokens">Account Settings</a>)</td>
@@ -97,6 +114,7 @@
 								</tr>
 							</tbody>
 						</table>
+
 					</div>
 				</fieldset>
 				<fieldset>

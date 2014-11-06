@@ -28,7 +28,7 @@ var BCLS = (function ($, window, Pikaday) {
         // aapi stuff
         $serviceURL = $("#serviceURL"),
         $accountID = $("#accountID"),
-        $token = $("#token"),
+        $aapiToken = $("#token"),
         $dimension = $("#dimension"),
         fromPicker,
         toPicker,
@@ -76,40 +76,39 @@ var BCLS = (function ($, window, Pikaday) {
         $analyticsData = $("#analyticsData"),
         videoIds = [],
         currentVideoIndex = 0,
-        // functions
-        reset,
-        logit,
         firstRun = true,
-        onMAPIresponse,
-		onMAPIresponse2,
-		removeDuplicateElements,
-		results,
-		compareFields,
-		processSelectedTags,
-		saveSelectedTags,
-		formatSelectedTags,
-		addTagsToTable,
-		appendSelectedTags,
-		formatTagsString,
 		paramString = "",
 		tabTableString = "",
 		videoTableString = "",
 		errMsg = "",
-		prepAnalyticsRequest,
-        addArrayItems,
         analyticsRequestNumber = 0,
         totalVideos = 0,
 		selectCount = 0,
 		rowCount = 1,
+        gettingData = false;
+        // functions
+        reset,
+        logit,
+        onMAPIresponse,
+        onMAPIresponse2,
+        removeDuplicateElements,
+        results,
+        compareFields,
+        processSelectedTags,
+        saveSelectedTags,
+        formatSelectedTags,
+        addTagsToTable,
+        appendSelectedTags,
+        formatTagsString,
+        prepAnalyticsRequest,
+        addArrayItems,
         trimRequest,
         removeSpaces,
         buildRequest,
         isDefined,
         getData,
         getManualTags,
-        processData,
         deDupe,
-        gettingData = false;
 
     // utilities
     logit = function (context, message) {
@@ -322,7 +321,7 @@ var BCLS = (function ($, window, Pikaday) {
         $getVideoIds.removeClass("bcls-hidden").addClass("bcls-shown");
     };
 
-	addTagsToTable = function (currentArray,tableString) {
+	addTagsToTable = function (currentArray, tableString) {
         logit("function", "addTagsToTable");
 		var i;
 		for (i=0; i<currentArray.length; i++) {
@@ -449,22 +448,6 @@ var BCLS = (function ($, window, Pikaday) {
 		$numVideoIds.html(videoIdArray.length);
     };
 
-	prepAnalyticsRequest = function () {
-		// initialize video info in analyticsData
-        analyticsData.average_engagement_score = 0;
-        analyticsData.average_play_rate = 0;
-        analyticsData.average_video_engagement_1 = 0;
-        analyticsData.average_video_engagement_25 = 0;
-        analyticsData.average_video_engagement_50 = 0;
-        analyticsData.average_video_engagement_75 = 0;
-        analyticsData.average_video_engagement_100 = 0;
-        analyticsData.total_video_impression = 0;
-        analyticsData.average_video_percent_viewed = 0;
-        analyticsData.total_video_seconds_viewed = 0;
-        analyticsData.total_video_view = 0;
-        analyticsData.individual_video_data = [];
-		currentVideoIndex = 0;
-	};
     removeSpaces = function (str) {
         if (isDefined(str)) {
             str = str.replace(/\s+/g, '');
@@ -503,7 +486,6 @@ var BCLS = (function ($, window, Pikaday) {
         // reset requestTrimmed to false in case of regenerate request
         requestTrimmed = false;
         // build the request
-        authorization = "Bearer " + removeSpaces($token.val());
         requestURL = $serviceURL.val();
         requestURL += "/accounts/" + removeSpaces($accountID.val()) + "/";
         // report dimensions
@@ -512,7 +494,7 @@ var BCLS = (function ($, window, Pikaday) {
         // add video filter
 		logit("current video index: ", currentVideoIndex);
 		logit("current video: ", videoIdArray[currentVideoIndex]);
-		requestURL += "where=video==" + videoIdArray[currentVideoIndex];
+		requestURL += "where=video==" + videoIdArray.join();
         // check for player filter
         if ($player.val() !== "") {
             requestURL += ";player==" + $player.val() + "&";
@@ -533,7 +515,6 @@ var BCLS = (function ($, window, Pikaday) {
         // strip trailing ? or & and replace &&s
         trimRequest();
         $request.html(requestURL);
-        $authorizationDisplay.html(authorization);
         $request.attr("value", requestURL);
         $authorization.attr("value", authorization);
         // if getting data initiated, get data
@@ -544,79 +525,25 @@ var BCLS = (function ($, window, Pikaday) {
 
 	// submit request
     getData = function () {
-		logit("function", "getData");
-		var format = $format.val();
-        $responseFrame.html("Getting data...please wait...");
-		gettingData = true;
-		$.ajax({
-			url: $request.attr("value"),
-			headers: {
-				Authorization : $authorization.attr("value")
-			},
-			success : function(data) {
-				processData(data);
-			},
-			error : function (XMLHttpRequest, textStatus, errorThrown) {
-				$responseFrame.html("Sorry, your request was not successful. Here is what the server sent back: " + errorThrown);
-			}
-		});
-    };
-     // store returned data and do math to sum up playlist totals
-     processData = function (aapiData) {
-		logit("function", "processData");
-		logit("aapiData", aapiData);
-
-		if ((totalVideos == 0) || (currentVideoIndex > totalVideos - 1)) {
-			// stop looping
-			return;
-		}
-
-        // check for items
-        if (aapiData.item_count !== 0) {
-            // add current data to totals
-            analyticsData.individual_video_data.push(aapiData);
-            analyticsData.average_engagement_score += aapiData.items[0].engagement_score;
-            analyticsData.average_play_rate += aapiData.items[0].play_rate;
-            analyticsData.average_video_engagement_1 += aapiData.items[0].video_engagement_1;
-            analyticsData.average_video_engagement_25 += aapiData.items[0].video_engagement_25;
-            analyticsData.average_video_engagement_50 += aapiData.items[0].video_engagement_50;
-            analyticsData.average_video_engagement_75 += aapiData.items[0].video_engagement_75;
-            analyticsData.average_video_engagement_100 += aapiData.items[0].video_engagement_100;
-            analyticsData.total_video_impression += aapiData.items[0].video_impression;
-            analyticsData.average_video_percent_viewed += aapiData.items[0].video_percent_viewed;
-            analyticsData.total_video_seconds_viewed += aapiData.items[0].video_seconds_viewed;
-            analyticsData.total_video_view += aapiData.items[0].video_view;
-		}
-
-		if (analyticsRequestNumber === (totalVideos - 1)) {
-			var returnedVideos;
-            logit("all done compute averages", "");
-			// all done; time to compute the averages
-            // deDupe the individual_video_data Array
-            analyticsData.individual_video_data = deDupe(analyticsData.individual_video_data, "video");
-            returnedVideos = analyticsData.individual_video_data.length;
-			gettingData = false;
-			analyticsData.average_engagement_score      = analyticsData.average_engagement_score / returnedVideos;
-			analyticsData.average_play_rate             = analyticsData.average_play_rate / returnedVideos;
-			analyticsData.average_video_engagement_1    = analyticsData.average_video_engagement_1 / returnedVideos;
-			analyticsData.average_video_engagement_25   = analyticsData.average_video_engagement_25 / returnedVideos;
-			analyticsData.average_video_engagement_50   = analyticsData.average_video_engagement_50 / returnedVideos;
-			analyticsData.average_video_engagement_75   = analyticsData.average_video_engagement_75 / returnedVideos;
-			analyticsData.average_video_engagement_100  = analyticsData.average_video_engagement_100 / returnedVideos;
-			analyticsData.average_video_percent_viewed  = analyticsData.average_video_percent_viewed / analyticsData.total_video_view;
-			$responseFrame.html(BCLSformatJSON.formatJSON(analyticsData));
-			// next line just for this display - remove if reusing this code
-			$('pre code').each(function (i, e) {
-				hljs.highlightBlock(e);
-				});
-        } else {
-			// get the next data set
-			logit("get next data set", "");
-			analyticsRequestNumber++;
-			currentVideoIndex++;
-			gettingData = true;
-			buildRequest();
-        }
+        logit("requestURL", requestURL);
+        $responseFrame.html("Loading...");
+        requestData.url = requestURL;
+        requestData.client_id = (isDefined($client_id_display.val())) ? $client_id_display.val() : default_client_id;
+        requestData.client_secret = (isDefined($client_secret_display.val())) ? $client_secret_display.val() : default_client_secret;
+        requestData.aapi_token = (isDefined($aapi_token.val())) ? $aapi_token.val() : null;
+        requestData.requestType = "GET";
+        logit("requestData", requestData);
+        $.ajax({
+            url: "http://solutions.brightcove.com:8002",
+            type: "POST",
+            data: requestData,
+            success : function(data) {
+                $responseFrame.html(BCLSformatJSON.formatJSON(JSON.parse(data)));
+            },
+            error : function (XMLHttpRequest, textStatus, errorThrown) {
+                $responseFrame.html("Sorry, your request was not successful. Here is what the server sent back: " + errorThrown);
+            }
+        });
     };
 
 	// add date pickers to the date input fields

@@ -260,13 +260,14 @@ var BCLS = (function ($, window, Pikaday) {
         requestURL += "report/";
         requestURL += "?dimensions=video&";
         // add video filter
-        requestURL += "where=video==" + videoIds.join() ;
+        requestURL += "where=video==" + videoIds.join();
         // check for player filter
         if ($player.val() !== "") {
             requestURL += ";player==" + $player.val() + "&";
         } else {
             requestURL += "&";
         }
+        requestURL += "format=" + $format.val() + "&";
         // check for time filters
         startDate = from.value;
         if (startDate !== " ") {
@@ -310,7 +311,7 @@ var BCLS = (function ($, window, Pikaday) {
                 $responseFrame.html("Sorry, your request was not successful. Here is what the server sent back: " + errorThrown);
             }
         });
-};
+    };
 
     // get a playlist collection
     getPlaylists = function () {

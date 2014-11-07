@@ -85,7 +85,7 @@ var BCLS = (function ($, window, Pikaday) {
         totalVideos = 0,
 		selectCount = 0,
 		rowCount = 1,
-        gettingData = false;
+        gettingData = false,
         // functions
         reset,
         logit,

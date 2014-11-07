@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+#videoPlayer2 .vjs-control-bar {
+    display: block;
+  }
+  #videoPlayer1 .vjs-control-bar {
+    display: none;
+  }
+  #videoPlayer1 .vjs-big-play-button {
+    background-color: #ffcccc;
+    opacity: .5;
+    width: 50px;
+    height: 40px;
+}
+    </style>
+  </head>
+  <body>
+    <video id="videoPlayer1"
+  data-account="1507807800001"
+  data-player="26712545-cade-49c0-a939-f5b0659e0697"
+  data-embed="default"
+  data-video-id="2114345471001"
+
+  class="video-js" controls></video>
+<script src="//players.brightcove.net/1507807800001/26712545-cade-49c0-a939-f5b0659e0697_default/index.min.js"></script>
+
+    <video id="videoPlayer2"
+  data-account="1507807800001"
+  data-player="26712545-cade-49c0-a939-f5b0659e0697"
+  data-embed="default"
+  data-video-id="2114345471001"
+
+  class="video-js" controls></video>
+<script src="//players.brightcove.net/1507807800001/26712545-cade-49c0-a939-f5b0659e0697_default/index.min.js"></script>
+
+    <script>
+    var BCLS = ( function () {
+  var playButton = document.getElementsByClassName("vjs-big-play-button")[0];
+  var controlBar = document.getElementsByClassName("vjs-control-bar")[0];
+  playButton.setAttribute("id", "myPlayButton");
+  controlBar.setAttribute("id", "myControlBar");
+  return {
+
+  }
+})();
+    </script>
+  </body>
+</html>

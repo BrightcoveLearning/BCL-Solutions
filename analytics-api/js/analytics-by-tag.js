@@ -86,13 +86,13 @@ var BCLS = (function ($, window, Pikaday) {
 		selectCount = 0,
 		rowCount = 1,
         gettingData = false,
+        results,
         // functions
         reset,
-        logit,
+        bclslog,
         onMAPIresponse,
         onMAPIresponse2,
         removeDuplicateElements,
-        results,
         compareFields,
         processSelectedTags,
         saveSelectedTags,
@@ -111,7 +111,7 @@ var BCLS = (function ($, window, Pikaday) {
         deDupe,
 
     // utilities
-    logit = function (context, message) {
+    bclslog = function (context, message) {
         if (console) {
             console.log(context, message);
         }
@@ -181,7 +181,7 @@ var BCLS = (function ($, window, Pikaday) {
 		$tagSelector.html("<option>processing...</option>");
     };
     onMAPIresponse = function(jsonData) {
-		logit("jsonData", jsonData);
+		bclslog("jsonData", jsonData);
         var i,
             iMax;
 		if (jsonData.error) {
@@ -201,7 +201,7 @@ var BCLS = (function ($, window, Pikaday) {
 		}
 
 		// remove spaces
-		logit("orginal number of tags: ", tagArray.length);
+		bclslog("orginal number of tags: ", tagArray.length);
 		iMax = tagArray.length;
         for (i = 0; i < iMax; i++) {
 			tagArray[i] = encodeURIComponent(tagArray[i]);
@@ -284,7 +284,7 @@ var BCLS = (function ($, window, Pikaday) {
 	};
 
 	saveSelectedTags = function () {
-        logit("function", "saveSelectedTags");
+        bclslog("function", "saveSelectedTags");
         $tagSelectedWrapper.attr("class", "bcls-shown");
 		pageSelectedTagsArray = [];
 		var i;
@@ -293,13 +293,13 @@ var BCLS = (function ($, window, Pikaday) {
 				pageSelectedTagsArray.push(tagSelector.options[i].value);
 			}
 		}
-		logit("pageSelectedTagsArray", pageSelectedTagsArray);
+		bclslog("pageSelectedTagsArray", pageSelectedTagsArray);
 
 		formatSelectedTags();
     };
 
 	formatSelectedTags = function () {
-        logit("function","formatSelectedTags");
+        bclslog("function","formatSelectedTags");
 
 		selectCount = 0;
 		rowCount = 1;
@@ -310,8 +310,8 @@ var BCLS = (function ($, window, Pikaday) {
 
 		tabTableString += "</tr>";
 
-		logit("row count= ", rowCount);
-		logit(tabTableString);
+		bclslog("row count= ", rowCount);
+		bclslog(tabTableString);
 
 		// inject the HTML for the video list
 		$tagsSelectedTable.html(tabTableString);
@@ -322,7 +322,7 @@ var BCLS = (function ($, window, Pikaday) {
     };
 
 	addTagsToTable = function (currentArray, tableString) {
-        logit("function", "addTagsToTable");
+        bclslog("function", "addTagsToTable");
 		var i;
 		for (i=0; i<currentArray.length; i++) {
 			if (rowCount > 5) {
@@ -337,7 +337,7 @@ var BCLS = (function ($, window, Pikaday) {
     };
 
 	appendSelectedTags = function () {
-        logit("function", "appendSelectedTags");
+        bclslog("function", "appendSelectedTags");
 
 		var i;
 		for (i = 0; i < pageSelectedTagsArray.length; i++) {
@@ -346,7 +346,7 @@ var BCLS = (function ($, window, Pikaday) {
     };
 
 	formatTagsString = function () {
-        logit("function", "formatTagsString");
+        bclslog("function", "formatTagsString");
 		var i,
             iMax = totalSelectedTagsArray.length;
 		for (i = 0; i < iMax; i++) {
@@ -356,14 +356,14 @@ var BCLS = (function ($, window, Pikaday) {
 
 	// call the Media API to get all videoids for selected tag values
     getVideoIds = function () {
-        logit("function", "getVideoIds");
+        bclslog("function", "getVideoIds");
 
 		appendSelectedTags();
 		formatTagsString();
-		logit("totalSelectedTagsArray", totalSelectedTagsArray);
+		bclslog("totalSelectedTagsArray", totalSelectedTagsArray);
 
 		if (totalSelectedTagsArray.length === 0) {
-			logit("no tags: ", "please select a tag");
+			bclslog("no tags: ", "please select a tag");
 			$getVideoMsg.html("Please select one or more tag values.");
 		} else {
 			$getVideoMsg.html("");
@@ -377,12 +377,12 @@ var BCLS = (function ($, window, Pikaday) {
     };
 
 	getVideoIdsRequest = function () {
-        logit("function", "getVideoIdsRequest");
+        bclslog("function", "getVideoIdsRequest");
         var searchType;
 		for (var i = 0, length = radioButton.length; i < length; i++){
 			if (radioButton[i].checked) {
 				searchType = radioButton[i].value;
-				logit("radioButton value", radioButton[i].value);
+				bclslog("radioButton value", radioButton[i].value);
 			}
 		}
 
@@ -400,9 +400,9 @@ var BCLS = (function ($, window, Pikaday) {
     };
 
 	onMAPIresponse2 = function(jsonData) {
-		logit("function", "onMAPIresponse2");
-		logit("BCMAPI.request", BCMAPI.request);
-		logit("jsonData", jsonData);
+		bclslog("function", "onMAPIresponse2");
+		bclslog("BCMAPI.request", BCMAPI.request);
+		bclslog("jsonData", jsonData);
         var i,
             iMax = jsonData.items.length;
 
@@ -429,8 +429,8 @@ var BCLS = (function ($, window, Pikaday) {
     };
 
 	formatVideoIds = function () {
-        logit("function", "formatVideoIds");
-		logit("videoIdArray", videoIdArray);
+        bclslog("function", "formatVideoIds");
+		bclslog("videoIdArray", videoIdArray);
 
 		rowCount = 1;
 		videoTableString = "<tr>";
@@ -439,8 +439,8 @@ var BCLS = (function ($, window, Pikaday) {
 
 		videoTableString += "</tr>";
 
-		logit("row count= ", rowCount);
-		logit("videoTableString", videoTableString);
+		bclslog("row count= ", rowCount);
+		bclslog("videoTableString", videoTableString);
 
 		// inject the HTML for the video list
 		$videoIdTable.html(videoTableString);
@@ -473,7 +473,7 @@ var BCLS = (function ($, window, Pikaday) {
     };
 
     buildRequest = function () {
-		logit("function", "buildRequest");
+		bclslog("function", "buildRequest");
 		// check for required fields
         $required.each(function () {
             $this = $(this);
@@ -492,8 +492,8 @@ var BCLS = (function ($, window, Pikaday) {
         requestURL += "report/";
         requestURL += "?dimensions=video&";
         // add video filter
-		logit("current video index: ", currentVideoIndex);
-		logit("current video: ", videoIdArray[currentVideoIndex]);
+		bclslog("current video index: ", currentVideoIndex);
+		bclslog("current video: ", videoIdArray[currentVideoIndex]);
 		requestURL += "where=video==" + videoIdArray.join();
         // check for player filter
         if ($player.val() !== "") {
@@ -525,14 +525,14 @@ var BCLS = (function ($, window, Pikaday) {
 
 	// submit request
     getData = function () {
-        logit("requestURL", requestURL);
+        bclslog("requestURL", requestURL);
         $responseFrame.html("Loading...");
         requestData.url = requestURL;
         requestData.client_id = (isDefined($client_id_display.val())) ? $client_id_display.val() : default_client_id;
         requestData.client_secret = (isDefined($client_secret_display.val())) ? $client_secret_display.val() : default_client_secret;
         requestData.aapi_token = (isDefined($aapi_token.val())) ? $aapi_token.val() : null;
         requestData.requestType = "GET";
-        logit("requestData", requestData);
+        bclslog("requestData", requestData);
         $.ajax({
             url: "http://solutions.brightcove.com:8002",
             type: "POST",
@@ -579,7 +579,7 @@ var BCLS = (function ($, window, Pikaday) {
     });
 	// send request
     $submitButton.on("click", function () {
-        logit("submit button", "clicked");
+        bclslog("submit button", "clicked");
 		$responseFrame.html("");
 		analyticsRequestNumber = 0;
 		currentVideoIndex = 0;

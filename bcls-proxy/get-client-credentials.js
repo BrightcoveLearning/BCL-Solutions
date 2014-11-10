@@ -12,7 +12,7 @@ var GETCLIENTCREDENTIALS = (function () {
     "use strict";
     var util = require("util"),
         colors = require("colors"),
-        http = require("http"),
+        var https = require('https'),
         request = require("request"),
         // error messages
         apiError = "Your API call was unsuccessful; here is what the server returned: ",
@@ -111,7 +111,7 @@ var GETCLIENTCREDENTIALS = (function () {
     /*
      * Http Server to handle other API requests
      */
-    clientCredentialsServer = http.createServer(function (req, res) {
+    clientCredentialsServer = https.createServer(function (req, res) {
         var body = "",
             // for CORS - AJAX requests send host instead of origin
             origin = (req.headers.origin || "*");

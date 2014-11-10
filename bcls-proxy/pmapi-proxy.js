@@ -16,7 +16,7 @@ var PMAPIPROXY = (function () {
     "use strict";
     var util = require("util"),
         colors = require("colors"),
-        http = require("http"),
+        var https = require('https'),
         request = require("request"),
         // error messages
         apiError = "Your API call was unsuccessful; here is what the server returned: ",
@@ -196,7 +196,7 @@ var PMAPIPROXY = (function () {
     /*
      * Http Server to handle Player Management API requests
      */
-    pmapiServer = http.createServer(function (req, res) {
+    pmapiServer = https.createServer(function (req, res) {
         var body = "",
             // for CORS - AJAX requests send host instead of origin
             origin = (req.headers.origin || "*"),

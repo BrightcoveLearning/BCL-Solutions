@@ -16,7 +16,7 @@ var IPAPIPROXY = (function () {
     "use strict";
     var util = require("util"),
         colors = require("colors"),
-        http = require("http"),
+        var https = require('https'),
         request = require("request"),
         // error messages
         apiError = "Your API call was unsuccessful; here is what the server returned: ",
@@ -198,7 +198,7 @@ var IPAPIPROXY = (function () {
     /*
      * Ingest Profiles API
      */
-    ipapiServer = http.createServer(function (req, res) {
+    ipapiServer = https.createServer(function (req, res) {
         var body = "",
             // for CORS - AJAX requests send host instead of origin
             origin = (req.headers.origin || "*"),

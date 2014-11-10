@@ -20,7 +20,7 @@ var BCLSPROXY = (function () {
     "use strict";
     var util = require("util"),
         colors = require("colors"),
-        http = require("http"),
+        var https = require('https'),
         request = require("request"),
         // error messages
         apiError = "Your API call was unsuccessful; here is what the server returned: ",
@@ -230,7 +230,7 @@ var BCLSPROXY = (function () {
     /*
      * Http Server to handle other API requests
      */
-    apiServer = http.createServer(function (req, res) {
+    apiServer = https.createServer(function (req, res) {
         var body = "",
             // for CORS - AJAX requests send host instead of origin
             origin = (req.headers.origin || "*"),
@@ -322,7 +322,7 @@ var BCLSPROXY = (function () {
     /*
      * Http Server to handle Player Management API requests
      */
-    pmapiServer = http.createServer(function (req, res) {
+    pmapiServer = https.createServer(function (req, res) {
         var body = "",
             // for CORS - AJAX requests send host instead of origin
             origin = (req.headers.origin || "*"),
@@ -421,7 +421,7 @@ var BCLSPROXY = (function () {
     /*
      * Dynamic Ingest API
      */
-    diapiServer = http.createServer(function (req, res) {
+    diapiServer = https.createServer(function (req, res) {
         var body = "",
             // for CORS - AJAX requests send host instead of origin
             origin = (req.headers.origin || "*"),
@@ -520,7 +520,7 @@ var BCLSPROXY = (function () {
     /*
      * Ingest Profiles API
      */
-    ipapiServer = http.createServer(function (req, res) {
+    ipapiServer = https.createServer(function (req, res) {
         var body = "",
             // for CORS - AJAX requests send host instead of origin
             origin = (req.headers.origin || "*"),
@@ -619,7 +619,7 @@ var BCLSPROXY = (function () {
     /*
      * CMS API
      */
-    cmsapiServer = http.createServer(function (req, res) {
+    cmsapiServer = https.createServer(function (req, res) {
         var body = "",
             // for CORS - AJAX requests send host instead of origin
             origin = (req.headers.origin || "*"),

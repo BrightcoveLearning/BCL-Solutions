@@ -64,15 +64,15 @@
 					</ul>
 				<p>You can also get your credentials via CURL or Postman - see:</p>
 				<ul>
-					<li><a href="http://docs.brightcove.com/en/video-cloud/oauth-api/guides/get-client-credentials.html">Get Client Credentials Using CURL</a></li>
-					<li><a href="http://docs.brightcove.com/en/video-cloud/oauth-api/guides/get-client-credentials-postman.html">Get Client Credentials Using Postman</a></li>
+					<li><a href="https://docs.brightcove.com/en/video-cloud/oauth-api/guides/get-client-credentials.html">Get Client Credentials Using CURL</a></li>
+					<li><a href="https://docs.brightcove.com/en/video-cloud/oauth-api/guides/get-client-credentials-postman.html">Get Client Credentials Using Postman</a></li>
 				</ul>
 			</div>
 			<div class="section" id="usingProxy">
 			    <h2>Using the Proxy</h2>
 			    <p>To use the proxy, you submit your API requests, with some additional information, to one of the following URLs:</p>
 				<ul>
-					<li>Player Management API: http://solutions.brightcove.com:8005</li>
+					<li>Player Management API: https://solutions.brightcove.com:8005</li>
 				</ul>
 				<h3>Calling the proxy via a form</h3>
 				<p>Create a form with the <code>action</code> pointing to one of the addresses above, and set the <code>target</code> to the id of an iframe in the page, or some server-side app you will use to process the data. Your form must include the following named fields:</p>
@@ -93,7 +93,7 @@ options.requestBody = <strong><em>requestBody value (if any)</em></strong>;
 options.requestType = <strong><em>requestType value</em></strong>;
 options.url = <strong><em>url value</em></strong>;
 $.ajax({
-	url: "http://solutions.brightcove.com:8005",
+	url: "https://solutions.brightcove.com:8005",
 	type: "POST",
 	data: options,
 	success : function (data) {
@@ -105,7 +105,7 @@ $.ajax({
 });</code></pre>
 				<p>Also see the <a href="codeAJAX">code for calling via AJAX</a> below.</p>
 				<h3>Origin of the request</h3>
-				<p>This is <strong>not</strong> a production app. By design, this proxy will reject any request that does not originate from a <code>brightcove.com</code> domain or <code>localhost</code>. You can use this proxy to test your app if you have a local web server (such as <a href="http://www.mamp.info/en/">MAMP</a> or <a href="https://www.apachefriends.org/index.html">XAMPP</a>).</p>
+				<p>This is <strong>not</strong> a production app. By design, this proxy will reject any request that does not originate from a <code>brightcove.com</code> domain or <code>localhost</code>. You can use this proxy to test your app if you have a local web server (such as <a href="https://www.mamp.info/en/">MAMP</a> or <a href="https://www.apachefriends.org/index.html">XAMPP</a>).</p>
 			</div>
 
 			<div class="section" id="ajax">
@@ -114,7 +114,7 @@ $.ajax({
 				    <div class="form-wrapper">
 				        <fieldset>
 				            <legend>Tester for the Ingest Profiles API (AJAX version)</legend>
-				            <p>Submits to http://solutions.brightcove.com:<strong>8005</strong></p>
+				            <p>Submits to https://solutions.brightcove.com:<strong>8005</strong></p>
 				                <p>
 				                    Client id:
 				                    <input name="client_id" id="ajax_client_id" type="text" value="c953f97a-1050-4597-a22e-46ea68f8143b">
@@ -139,7 +139,7 @@ $.ajax({
 				                </p>
 				                <p>
 				                    Full request URL for the API call:<br />
-				                    <textarea name="url" id="ajax_url">http://ingestion.api.brightcove.com/v1/accounts/57838016001/profiles</textarea>
+				                    <textarea name="url" id="ajax_url">https://ingestion.api.brightcove.com/v1/accounts/57838016001/profiles</textarea>
 				                </p>
 				                <p>
 				                    <input id="ajaxSubmit" type="submit" value="Submit">
@@ -200,7 +200,7 @@ $.ajax({
 			options.requestType = $ajax_requestType.val();
 			options.url = $ajax_url.val();
 			$.ajax({
-				url: "http://solutions.brightcove.com:8005",
+				url: "https://solutions.brightcove.com:8005",
 				type: "POST",
 				data: options,
 				success : function (data) {

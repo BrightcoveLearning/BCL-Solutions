@@ -16,7 +16,7 @@ var CMSAPIPROXY = (function () {
     "use strict";
     var util = require("util"),
         colors = require("colors"),
-        http = require("http"),
+        var https = require('https'),
         request = require("request"),
         // error messages
         apiError = "Your API call was unsuccessful; here is what the server returned: ",
@@ -198,7 +198,7 @@ var CMSAPIPROXY = (function () {
     /*
      * Ingest Profiles API
      */
-    cmsapiServer = http.createServer(function (req, res) {
+    cmsapiServer = https.createServer(function (req, res) {
         var body = "",
             // for CORS - AJAX requests send host instead of origin
             origin = (req.headers.origin || "*"),

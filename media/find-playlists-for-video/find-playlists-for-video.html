@@ -12,6 +12,17 @@
   <link rel="stylesheet" type="text/css" href="/en/styles/bcls-doc-site.css" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/styles/github.min.css" />
     <link rel="stylesheet" type="text/css" href="/en/styles/anytime.c.css" />
+    <script>
+        // force into https mode if not already there -- currently not used
+        forceSecure = function () {
+            var pageURL = window.location.href,
+                pageProtocol = window.location.protocol;
+            if (pageProtocol === "http:") {
+                window.location.href = pageURL.replace("http:", "https:");
+            }
+        };
+    </script>
+
   <script type="text/javascript">
   <!--//--><![CDATA[//><!--
 	var _gaq = _gaq || [];
@@ -75,7 +86,7 @@
             <p>Return videos that have <code>all</code> of these terms:<br /><input name="all" id="all" type="text" size="100" value="sea"></p>
             <p>Return videos that have <code>any</code> of these terms:<br /><input name="any" id="any" type="text" size="100" value="tag:sealife"></p>
             <p>Return videos that have <code>none</code> of these terms:<br /><input name="none" id="none" type="text" size="100" value="private"></p>
-         
+
             <p>Page size: <input name="videoSize" id="videoSize" type="text" size="10" value="5">
             &nbsp; Page number:
               <select id="pageNumber">
@@ -88,8 +99,8 @@
           </div>
           <br/>
           <p class="text-warning">After you select the <strong>Search for Videos</strong> button, your video list will appear in the <strong>Select a Video</strong> drop-down menu below.</p>
-          
-          
+
+
           <div class="section" id="searchplaylist">
             <h2><a name="searchplaylist"></a>Search playlists for video</h2>
             <p>Select a video:
@@ -147,7 +158,7 @@
             <br/>
             <p>Total playlists: <input name="totalItems" id="totalItems" type="text" readonly="readonly" value="???"></p>
             <p><span id="errorMsg" style="color:red"></span></p>
-            
+
           </div>
           <div class="section" id="apirequest">
             <h2><a name="apirequest"></a>Media API Request</h2>
@@ -198,7 +209,7 @@
 		});
       BCL.htmlTemplate = "<ul>{{#items}}<li>Playlist name: {{name}}<ul><li>Playlist type: {{#ifCond 'EXPLICIT' playlistType}}Manual{{else}}Smart{{/ifCond}} ({{playlistType}}) </li><li>Tags: {{filterTags}}</li></ul></li>{{/items}}</ul>"
       BCL.doSearchVideos = function() {
-		// call the Media API to return all the video data for the specified account  
+		// call the Media API to return all the video data for the specified account
         if (document.getElementById("token") == "" || document.getElementById("url").value == "") {
           alert("Please enter a valid token and service URL");
         }
@@ -224,49 +235,49 @@
         BCL.params.get_item_count = true;
         BCMAPI.search(BCL.params);
       }
-	  
+
 	  BCL.onSearchResponse = function(jsonData) {
         //console.log(jsonData);
-		
+
 		// output request to retrieve videos
         document.getElementById("mapiRequest1").innerHTML = BCMAPI.request;
-		
+
 		// create the video list and format in HTML
 		var str = "";
 		for (var i in jsonData.items) {
 			// format the video drop-down menu items
 			str += "<option value='"+ jsonData.items[i].id +
-			"' >" + jsonData.items[i].name + "</option>";	
+			"' >" + jsonData.items[i].name + "</option>";
 		}
 		// inject the video list into the video drop-down menu
 		document.getElementById("videoList").innerHTML = str;
-		
+
 		// remove any option elements from previous requests
 		var numberOfPages = Math.ceil(jsonData.total_count/jsonData.page_size);
 		if(BCL.pageNumber.length > numberOfPages) {
-			for (var i = numberOfPages; i < BCL.pageNumber.length; i++) {	
+			for (var i = numberOfPages; i < BCL.pageNumber.length; i++) {
 				console.log(BCL.pageNumber[i]);
 				BCL.pageNumber.remove(i);
 				i--;
 			}
 		}
 		// add option elements for each page in returned data
-		for (var i = 1; i < numberOfPages; i++) {	
+		for (var i = 1; i < numberOfPages; i++) {
 			if (!BCL.pageNumber[i]) {
 				var option = document.createElement("option");
 				option.text = i;
 				BCL.pageNumber.add(option,null);
 			}
         }
-		
+
 		// set the number of videos returned
 		document.getElementById("totalVideos").value = jsonData.total_count;
       }
-	  
+
 	  BCL.doSearchPlaylists = function(videoId) {
         console.log(videoId);
 		BCL.videoId = videoId;
-		
+
 		if (BCL.videoId !== "none") {
 			// call the Media API to get all the playlists for this account
 			BCMAPI.callback = "BCL.onPlaylistResponse";
@@ -287,12 +298,12 @@
 			document.getElementById("errorMsg").innerHTML = "Please select a video from the drop-down menu before selecting the <strong>Search for Playlists</strong> button.";
 		}
       }
-	  
+
 	  BCL.onPlaylistResponse = function(jsonData) {
-		
+
 		// search the playlist data for the videoId selected
 		var videoIdFound = false;
-		
+
 		console.log("search for playlists");
 		console.log(jsonData);
 		for (var i in jsonData.items) {
@@ -311,7 +322,7 @@
 			}
 		}
 		jsonData.items = jsonData.items.filter(function() { return true; }); // works with JS 1.6 and above
-			
+
 		// output request and response
         document.getElementById("mapiRequest2").innerHTML = BCMAPI.request;
 		console.log(jsonData);
@@ -320,8 +331,8 @@
 			delete jsonData.page_size;
 			delete jsonData.page_number;
 			jsonData.total_count = jsonData.items.length;
-		} 
-		
+		}
+
         document.getElementById("mapiResponse").innerHTML = JSON.stringify(jsonData,null,2);
 		// create HTML from response and output using Handlebars
         var template = Handlebars.compile(BCL.htmlTemplate);
@@ -330,7 +341,7 @@
         // update form values
         document.getElementById("htmlOutput").innerHTML = results;
       }
-	  
+
       // Return an array of the selected option values
       getSelectValues = function(select) {
         var result = [];

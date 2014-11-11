@@ -78,7 +78,7 @@
 			    <h2>Using the Proxy</h2>
 			    <p>To use the proxy, you submit your API requests, with some additional information, to one of the following URLs:</p>
 				<ul>
-					<li>Player Management API: https://solutions.brightcove.com:8003</li>
+					<li>Player Management API: http://solutions.brightcove.com:8003</li>
 				</ul>
 				<h3>Calling the proxy via a form</h3>
 				<p>Create a form with the <code>action</code> pointing to one of the addresses above, and set the <code>target</code> to the id of an iframe in the page, or some server-side app you will use to process the data. Your form must include the following named fields:</p>
@@ -99,7 +99,7 @@ options.requestBody = <strong><em>requestBody value (if any)</em></strong>;
 options.requestType = <strong><em>requestType value</em></strong>;
 options.url = <strong><em>url value</em></strong>;
 $.ajax({
-	url: "https://solutions.brightcove.com:8004",
+	url: "http://solutions.brightcove.com:8004",
 	type: "POST",
 	data: options,
 	success : function (data) {
@@ -121,7 +121,7 @@ $.ajax({
 				    <div class="form-wrapper">
 				    	<fieldset>
 				    		<legend>Caller for the CMS API</legend>
-				    		<p>Submits to https://solutions.brightcove.com:<strong>8006</strong></p>
+				    		<p>Submits to http://solutions.brightcove.com:<strong>8006</strong></p>
 				    			<p>
 				    				Client id:
 				    				<input name="client_id" id="cms_client_id" type="text" value="f05869d2-f201-47d1-9606-aaafa66fea6e">
@@ -157,7 +157,7 @@ $.ajax({
 				    <div class="form-wrapper">
 				        <fieldset>
 				            <legend>Caller for the Dynamic Ingest API (AJAX version)</legend>
-				            <p>Submits to https://solutions.brightcove.com:<strong>8004</strong></p>
+				            <p>Submits to http://solutions.brightcove.com:<strong>8004</strong></p>
 				                <p>
 				                    Client id:
 				                    <input name="client_id" id="di_client_id" type="text" value="73ccf8b5-0f53-4219-a52b-bcca818eee50">
@@ -224,7 +224,7 @@ $.ajax({
 			$cms_url = $("#cms_url"),
 			$cms_submit = $("#cms_Submit"),
 			$cms_response = $("#cms_response"),
-			cmsURL = "https://solutions.brightcove.com:8006",
+			cmsURL = "http://solutions.brightcove.com:8006",
 			// Dynamic Ingest API stuff
 			$di_client_id = $("#di_client_id"),
 			$di_client_secret = $("#di_client_secret"),
@@ -233,7 +233,7 @@ $.ajax({
 			$di_url = $("#di_url"),
 			$di_submit = $("#di_Submit"),
 			$di_response = $("#di_response"),
-			diURL = "https://solutions.brightcove.com:8004",
+			diURL = "http://solutions.brightcove.com:8004",
 			// functions
 			bclslog,
 			submitRequest,

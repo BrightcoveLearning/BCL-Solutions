@@ -17,6 +17,17 @@
         <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/css/foundation.min.css" />
         <script src="//use.edgefonts.net/source-code-pro.js"></script>
         <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
+        <script>
+            // force into https mode if not already there -- currently not used
+            forceSecure = function () {
+                var pageURL = window.location.href,
+                    pageProtocol = window.location.protocol;
+                if (pageProtocol === "http:") {
+                    window.location.href = pageURL.replace("http:", "https:");
+                }
+            };
+        </script>
+
         <style>
             /* element styles */
             #top {

@@ -78,7 +78,7 @@
 			    <h2>Using the Proxy</h2>
 			    <p>To use the proxy, you submit your API requests, with some additional information, to one of the following URLs:</p>
 				<ul>
-					<li>Player Management API: https://solutions.brightcove.com:8006</li>
+					<li>Player Management API: http://solutions.brightcove.com:8006</li>
 				</ul>
 				<h3>Calling the proxy via a form</h3>
 				<p>Create a form with the <code>action</code> pointing to one of the addresses above, and set the <code>target</code> to the id of an iframe in the page, or some server-side app you will use to process the data. Your form must include the following named fields:</p>
@@ -99,7 +99,7 @@ options.requestBody = <strong><em>requestBody value (if any)</em></strong>;
 options.requestType = <strong><em>requestType value</em></strong>;
 options.url = <strong><em>url value</em></strong>;
 $.ajax({
-	url: "https://solutions.brightcove.com:8006",
+	url: "http://solutions.brightcove.com:8006",
 	type: "POST",
 	data: options,
 	success : function (data) {
@@ -120,7 +120,7 @@ $.ajax({
 				    <div class="form-wrapper">
 				        <fieldset>
 				            <legend>Tester for the CMS API (AJAX version)</legend>
-				            <p>Submits to https://solutions.brightcove.com:<strong>8006</strong></p>
+				            <p>Submits to http://solutions.brightcove.com:<strong>8006</strong></p>
 				                <p>
 				                    Client id:
 				                    <input name="client_id" id="ajax_client_id" type="text" value="f05869d2-f201-47d1-9606-aaafa66fea6e">
@@ -219,7 +219,7 @@ $.ajax({
 			options.requestType = $ajax_requestType.val();
 			options.url = $ajax_url.val();
 			$.ajax({
-				url: "https://solutions.brightcove.com:8006",
+				url: "http://solutions.brightcove.com:8006",
 				type: "POST",
 				data: options,
 				success : function (data) {

@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />		
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     <style>
-      
+
     </style>
+        <script>
+        // force into https mode if not already there -- currently not used
+        forceSecure = function () {
+            var pageURL = window.location.href,
+                pageProtocol = window.location.protocol;
+            if (pageProtocol === "http:") {
+                window.location.href = pageURL.replace("http:", "https:");
+            }
+        };
+    </script>
+
   </head>
   <body>
     <h1>Hello</h1>
@@ -29,7 +40,7 @@
     	BCMAPI.search(params);
     });
 
-    
+
     </script>
       <div class="footer text-center"><a href="mailto:docs@brightcove.com">Questions or comments?</a></div>
 	</body>

@@ -29,6 +29,17 @@
     <link href="https://c15024195.ssl.cf2.rackcdn.com/25863d5695cd56b44c02d6b08a4b310fe9e4455a.css" rel="stylesheet" type="text/css" >
         <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
     <script src="/bcls/media/api-test-tool/js/mapi-test-tool-main.js" type="text/javascript"></script>
+    <script>
+        // force into https mode if not already there -- currently not used
+        forceSecure = function () {
+            var pageURL = window.location.href,
+                pageProtocol = window.location.protocol;
+            if (pageProtocol === "http:") {
+                window.location.href = pageURL.replace("http:", "https:");
+            }
+        };
+    </script>
+
         <style>
             /* element styles */
             #top {

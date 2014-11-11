@@ -12,6 +12,17 @@
   <link rel="stylesheet" type="text/css" href="/en/styles/bcls-doc-site.css" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/styles/github.min.css" />
     <link rel="stylesheet" type="text/css" href="/en/styles/anytime.c.css" />
+    <script>
+        // force into https mode if not already there -- currently not used
+        forceSecure = function () {
+            var pageURL = window.location.href,
+                pageProtocol = window.location.protocol;
+            if (pageProtocol === "http:") {
+                window.location.href = pageURL.replace("http:", "https:");
+            }
+        };
+    </script>
+
   <script type="text/javascript">
   <!--//--><![CDATA[//><!--
 	var _gaq = _gaq || [];
@@ -61,7 +72,7 @@
       <div id="main" class="span10">
         <div id="top" class="section">
             <h1 id="bclPageHeading">Media API Sample: Find Videos in a Playlist</h1>
-            <p>This example lets you choose a playlist, then all the videos in that playlist are returned. For both the playlist you select, and the videos that are in that playlist, you choose which properties should be returned.</p>            
+            <p>This example lets you choose a playlist, then all the videos in that playlist are returned. For both the playlist you select, and the videos that are in that playlist, you choose which properties should be returned.</p>
             <p>This example uses the <code>find_all_playlists()</code> READ method to return a list of playlists and populates them in a drop-down menu. </p>
             <p>You can then select a playlist from the drop-down menu and perform a search on the selected playist id. This search uses the <code>find_playlist_by_id()</code> READ method to return data for the selected playlist.</p>
             <p class="text-warning">Since there is no Media API method to limit the playlists returned, this example retrieves all playlists in your account. <span style="color:red;">Warning: If you have a large number of playlists in your account this example could take some time to process.</span></p>
@@ -80,12 +91,12 @@
             </p>
             <p class="text-warning">Only the first page is available until you make a search; then the available pages are recalculated.</p>
             <p>Total playlists: <input name="totalPlaylists" id="totalPlaylists" type="text" readonly="readonly" value="???"></p>
-            
+
             <p><span class="BCL-btn" onclick="BCL.doSearchPlaylists()">Search for Playlists</span></p>
           </div>
           <br/>
           <p class="text-warning">After you select the <strong>Search for Playlists</strong> button, your Playlist items will appear in the <strong>Select a Playlist</strong> drop-down menu below.</p>
-          
+
           <div class="section" id="searchforvideos">
             <h2><a name="searchforvideos"></a>Search for videos</h2>
             <p>Select a playlist:
@@ -93,7 +104,7 @@
                 <option>none</option>
               </select>
             </p>
-            
+
             <p>Playlist fields to return:
               <select id="playlistFields" multiple="multiple" size="10">
                 <option selected="selected">id</option>
@@ -151,7 +162,7 @@
             <p><span class="BCL-btn" onclick="BCL.doFindPlaylist(playlistMenu.value)">Return Playlist Data</span></p>
             <br/>
             <p><span id="errorMsg" style="color:red"></span></p>
-            
+
           </div>
           <div class="section" id="apirequest">
             <h2><a name="apirequest"></a>Media API Request</h2>
@@ -201,7 +212,7 @@
 		  return options.inverse(this);
 		});
 	  BCL.htmlTemplate = "<ul><li>Playlist name: {{name}}<ul><li>Playlist type: {{#ifCond 'EXPLICIT' playlistType}}Manual{{else}}Smart{{/ifCond}} ({{playlistType}}) </li><li>Video names: {{#videos}}{{#if @index}}, {{/if}}{{name}}{{/videos}}</li></ul></li></ul>"
-      
+
 	  BCL.doSearchPlaylists = function() {
         console.log("retrieve playlists");
 		// call the Media API to get all the playlists for this account
@@ -220,25 +231,25 @@
 		BCL.params.get_item_count = true;
 		BCMAPI.find(BCL.method,BCL.params);
       }
-	  
+
 	  BCL.onPlaylistResponse = function(jsonData) {
         //console.log(jsonData);
 		// output request to retrieve videos
         document.getElementById("mapiRequest1").innerHTML = BCMAPI.request;
-		
+
 		// create the playlist item list and write it into the HTML
 		var str = "";
 		for (var i in jsonData.items) {
 			// format the video drop-down menu items
 			str += "<option value='"+ jsonData.items[i].id +
-			"' >" + jsonData.items[i].name + "</option>";	
+			"' >" + jsonData.items[i].name + "</option>";
 		}
 		// inject the playlist items into the drop-down menu
 		document.getElementById("playlistMenu").innerHTML = str;
 		// remove any option elements from previous requests
 		var numberOfPages = Math.ceil(jsonData.total_count/jsonData.page_size);
 		if(BCL.pageNumber.length > numberOfPages) {
-			for (var i = numberOfPages; i < BCL.pageNumber.length; i++) {	
+			for (var i = numberOfPages; i < BCL.pageNumber.length; i++) {
 				console.log(BCL.pageNumber[i]);
 				BCL.pageNumber.remove(i);
 				i--;
@@ -250,15 +261,15 @@
 				var option = document.createElement("option");
 				option.text = i;
 				BCL.pageNumber.add(option,null);
-			} 
+			}
         }
 		// set the number of videos returned
 		document.getElementById("totalPlaylists").value = jsonData.total_count;
       }
-	  
+
 	  BCL.doFindPlaylist = function(playlistId) {
         //console.log(playlistId);
-		
+
 		if (playlistId !== "none") {
 			// call the Media API to find the playlist data for the selected playlist id
 			BCMAPI.callback = "BCL.onFindPlaylistResponse";
@@ -274,11 +285,11 @@
 			document.getElementById("errorMsg").innerHTML = "Please select a playlist from the drop-down menu before selecting the <strong>Return Playlist Data</strong> button.";
 		}
       }
-	  
+
 	  BCL.onFindPlaylistResponse = function(jsonData) {
 	  	console.log("Find Playlist Response");
 		//console.log(jsonData);
-			
+
 		// output request and response
         document.getElementById("mapiRequest2").innerHTML = BCMAPI.request;
         document.getElementById("mapiResponse").innerHTML = JSON.stringify(jsonData,null,2);
@@ -289,7 +300,7 @@
         // update form values
         document.getElementById("htmlOutput").innerHTML = results;
       }
-	  
+
       // Return an array of the selected option values
       getSelectValues = function(select) {
         var result = [];

@@ -31,6 +31,17 @@
           margin: 10px;
       }
 		</style>
+    <script>
+        // force into https mode if not already there -- currently not used
+        forceSecure = function () {
+            var pageURL = window.location.href,
+                pageProtocol = window.location.protocol;
+            if (pageProtocol === "http:") {
+                window.location.href = pageURL.replace("http:", "https:");
+            }
+        };
+    </script>
+
 	</head>
 	<body>
 		<h2>Thumbnail List</h2>

@@ -12,6 +12,16 @@
         <script src="https://c15024195.ssl.cf2.rackcdn.com/e94bf8326a9b8f90488e1ddfcd9c536157d88782.js" type="text/javascript"></script>
         <script src="https://c15024195.ssl.cf2.rackcdn.com/b363491a69a7767225addcc178abc87ef7e8fdf4.js" type="text/javascript"></script>
         <link rel='icon' type='image/png' href='https://c15024195.ssl.cf2.rackcdn.com/9c078b405ee46aec670a2dd6c1660c0ef2d581f7.png' />
+        <script>
+            // force into https mode if not already there -- currently not used
+            forceSecure = function () {
+                var pageURL = window.location.href,
+                    pageProtocol = window.location.protocol;
+                if (pageProtocol === "http:") {
+                    window.location.href = pageURL.replace("http:", "https:");
+                }
+            };
+        </script>
 
     </head>
 

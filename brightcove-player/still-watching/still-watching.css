@@ -1,0 +1,22 @@
+/**
+ * Still Watching
+ */
+/* hide the overlay */
+.hide-overlay .vjs-overlay {
+  display: none;
+}
+/* format the overlay */
+.vjs-overlay {
+  width: 100%;
+  color: #FFF;
+  background-color: rgba(255, 255, 255, 0.6);
+  left: 0;
+  font-size: 2em;
+  text-align: center;
+  cursor: pointer;
+}
+/* set player size */
+.video-js {
+  width: 640px;
+  height: 360px;
+}

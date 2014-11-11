@@ -55,7 +55,7 @@ videojs.plugin('lightbox', function() {
 		}
 	];
 	
-	console.log("here in lightbox plugin");
+	console.log("here in lightbox plugin 817");
 	
 	function buildPlaylistData() {
 		// build the scroller of video thumbnails and descriptions
@@ -67,8 +67,8 @@ videojs.plugin('lightbox', function() {
 		}
 		document.getElementById("scroller").innerHTML = str;
 		
-		scroller.onclick = function(e) {
-			// console.log("EVENT.onClick video:" + e.target.id);
+		document.getElementById("scroller").onclick = function(e) {
+			//console.log("EVENT.onClick video:" + e.target.id);
 			// load the selected video
 			myPlayer.src(playlistData[e.target.id].sources);
 			// reveal the lightbox
@@ -78,7 +78,7 @@ videojs.plugin('lightbox', function() {
 			myPlayer.play();
 		}
 		
-		playerClose.onclick = function(e) {
+		document.getElementById("playerClose").onclick = function(e) {
 			myPlayer.pause();
 			// hide the lightbox
 			document.getElementById("playerLightbox").className = "playerHide";

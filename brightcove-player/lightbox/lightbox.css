@@ -1,6 +1,9 @@
 /********************
  * Simple Lightbox  *
  ********************/
+.player-block {
+  position: relative;
+}
 #playerLightbox {
 	position: absolute;
 	top: 0;

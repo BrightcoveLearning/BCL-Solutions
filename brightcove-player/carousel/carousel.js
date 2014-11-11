@@ -9,7 +9,7 @@ videojs.plugin('carousel', function() {
 		$close = $(".BCLSclose"),
 		// vars for Handlebars
 		videosTemplate = "{{#each items}}<div class=\"carousel-feature\"><img alt=\"{{name}}\" class=\"carousel-image\" src=\"{{thumbnailURL}}\" width=\"180\" height=\"96\" data-id=\"{{id}}\" /><div class=\"carousel-caption\"><p>{{shortDescription}}</p></div></div>{{/each}}",
-		carouselNavigation = "<div id=\"carousel-left\"><img src=\"/en/scripts/jQuery-Feature-Carousel/images/arrow-left.png\" /></div><div id=\"carousel-right\"><img src=\"/en/scripts/jQuery-Feature-Carousel/images/arrow-right.png\" /></div>",
+		carouselNavigation = "<div id=\"carousel-left\"><img src=\"http://solutions.brightcove.com/bcls/scripts/jQuery-Feature-Carousel/images/arrow-left.png\" /></div><div id=\"carousel-right\"><img src=\"http://solutions.brightcove.com/bcls/scripts/jQuery-Feature-Carousel/images/arrow-right.png\" /></div>",
 		template,
 		data,
 		results,
@@ -79,11 +79,8 @@ videojs.plugin('carousel', function() {
 		]};
 	
 	
-	console.log("here in carousel plugin");
-	
 	function buildPlaylistData() {
 			  
-	  console.log("here in build carousel");
 	  // build the related videos carousel
 	  template = Handlebars.compile(videosTemplate);
 	  results = template(playlistData);
@@ -94,7 +91,7 @@ videojs.plugin('carousel', function() {
 		  smallFeatureHeight:		.7,
 		  "trackerIndividual" : false
 	  });
-	  console.log("carousel instantiated");
+	 
 		// add event listener for clicks on videos
 		$(".carousel-image").on("click", showAndLoad);
 		$("#but_prev").click(function () {
@@ -118,7 +115,6 @@ videojs.plugin('carousel', function() {
 	buildPlaylistData();
 	
 	function showAndLoad(videoID) {
-		console.log("showAndLoad");
 		// make sure the player is loaded
 		if (playerLoaded) {
 		  // load the video
@@ -132,7 +128,6 @@ videojs.plugin('carousel', function() {
 	  };
 
 	function hideAndStop() {
-		console.log("hideAndStop");
 		// pause the video
 		myPlayer.pause();
 

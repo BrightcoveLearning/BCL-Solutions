@@ -1,0 +1,105 @@
+{
+  "Extensions":{
+    "once":{
+      "contenturi":"http://onceux.unicornmedia.com/now/ads/vmap/od/auto/1234",
+      "contentlength":"105.867",
+      "payloadlength":"196.067"
+    }
+  },
+  "adBreaks":[
+    {
+      "breakType":"linear",
+      "breakId":"PreRoll_0_0",
+      "timeOffset":"start",
+      "AdSource":{
+        "allowMultipleAds":"true",
+        "followRedirects":"true",
+        "id":"0",
+        "VASTData":{
+          "VAST":{
+            "Ad":{
+              "id":"UmdemoAds",
+              "Inline":{
+                "AdSystem":"UnicornInternal",
+                "AdTitle":"videoadvertisement",
+                "Description":"video ad",
+                "Impression":"http://impressionurl1.demo.url.com/impression/demoAdstwo",
+                "Creatives":{
+                  "Creative":[
+                    {
+                      "Linear":{
+                        "Duration":"00:00:30.0666666+00:00",
+                        "TrackingEvents":{
+                          "Tracking":[
+                            {
+                              "event":"start",
+                              "offset":"0",
+                              "text":"http://trackingurl.demo.url.com/start/demoAdstwo"
+                            },
+                            {
+                              "event":"firstQuartile",
+                              "offset":"7",
+                              "text":"http://trackingurl.demo.url.com/firstQuartile/demoAdstwo"
+                            },
+                            {
+                              "event":"midpoint",
+                              "offset":"15",
+                              "text":"http://trackingurl.demo.url.com/midpoint/demoAdstwo"
+                            },
+                            {
+                              "event":"thirdQuartile",
+                              "offset":"22",
+                              "text":"http://trackingurl.demo.url.com/thirdQuartile/demoAdstwo"
+                            },
+                            {
+                              "event":"complete",
+                              "offset":"30",
+                              "text":"http://trackingurl.demo.url.com/complete/demoAdstwo"
+                            }
+                          ]
+                        },
+                        "VideoClicks":{
+                          "ClickThrough":{
+                            "id":"abc",
+                            "text":"http://www.demoAds.com/static/images/global/logo.png"
+                          },
+                          "ClickTracking":{
+                            "id":"",
+                            "text":"http://www.clicktracking.com/test?click"
+                          }
+                        },
+                        "MediaFiles":{
+
+                        }
+                      }
+                    },
+                    "CompanionAds": {
+                      "Companion":{
+                        "id": "54061052904921234300x250",
+                        "width": "300",
+                        "height": "250",
+                        "CompanionClickThrough": "http: //www.starbucks.com/static/images/global/logo.png",
+                        "TrackingEvents": {
+                            "Tracking": [
+                                {
+                                  "event": "creativeView",
+                                  "url": "http: //companiontrack.demo.url.com/companion/starbuckstwo"
+                                }
+                            ]
+                        },
+                        "StaticResource": {
+                          "creativeType": "image/jpeg",
+                          "url": "http: //demo.umedia.com/jes/ads/starbuckstwo300.jpg"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

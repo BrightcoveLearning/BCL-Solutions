@@ -1,6 +1,9 @@
 /**********************
  * Carousel Lightbox  *
  *********************/
+.player-block {
+  position: relative;
+}  
 #BCLSlightbox {
 	position: absolute;
 	top: 0;
@@ -41,9 +44,6 @@
 	color: #63A7CE;
 	width: 90%;
 	cursor: pointer;
-}
-.player-block {
-	position: relative;
 }
 /* styles for video selector */
 #carousel-outer-container {

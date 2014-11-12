@@ -259,7 +259,12 @@
 						t1 = setTimeout(setCMSOptions, 1000);
 					} else if (data.indexOf("error_code") > 0) {
 						console.log(data);
-						t1 = setTimeout(setCMSOptions, 1000);
+						if (type === "cms") {
+							t1 = setTimeout(setCMSOptions, 1000);
+						} else {
+							t1 = setTimeout(setDIOptions, 1000);
+						}
+
 					} else {
 						console.log(data);
 						parsedData = JSON.parse(data);

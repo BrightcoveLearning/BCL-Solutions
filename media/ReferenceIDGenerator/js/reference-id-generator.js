@@ -22,7 +22,7 @@ var BCLS = ( function () {
         f.videosWithoutReferenceIdsLabel.innerHTML = "";
         f.getTotalVideos.disabled = false;
         f.updateVideosBtn.disabled = true;
-		f.getVideosWithoutReferenceIds.disabled = true; 
+		f.getVideosWithoutReferenceIds.disabled = true;
       },
       returnCurrentTime = function () {
         currentDate = new Date();
@@ -175,7 +175,7 @@ var BCLS = ( function () {
 		f.getTotalVideos.disabled = false;
         f.getTotalVideos.loadingMode(false);
         f.getTotalVideos.value = "Load";
-		  
+
         result = result;
 
         if(result.error != null) {
@@ -195,7 +195,7 @@ var BCLS = ( function () {
           f.getTotalVideos.loadingMode(true);
 
           req = app.readApiLocation + "?";
-          req += "&token=" + acc.readToken + "&command=find_all_videos&get_item_count=true&page_size=" + app.pageSize + "&callback=" + "BCLS.onTotalVideosResult";
+          req += "&token=" + acc.readToken + "&command=search_videos&get_item_count=true&page_size=" + app.pageSize + "&callback=" + "BCLS.onTotalVideosResult";
 
           var scriptElem = document.createElement('script');
           scriptElem.setAttribute('src', req);
@@ -314,9 +314,9 @@ var BCLS = ( function () {
           }
           f.getTotalVideos.loadingMode = function(v) {
             if(v) { my = setInterval("BCLS.f.getTotalVideos.scrollBtn()",500); }
-            else { 
-				clearInterval(my); 
-		    } 
+            else {
+				clearInterval(my);
+		    }
           }
         f.getVideosWithoutReferenceIds = document.getElementById("getVideosWithoutReferenceIds");
         f.getVideosWithoutReferenceIds.addEventListener("click", loadVideosWithoutReferenceIds);
@@ -332,8 +332,8 @@ var BCLS = ( function () {
         }
         f.getVideosWithoutReferenceIds.loadingMode = function(v) {
           if(v) { my = setInterval("BCLS.f.getVideosWithoutReferenceIds.scrollBtn()",500); }
-          else { 
-			  clearInterval(my); 
+          else {
+			  clearInterval(my);
 		  }
         }
         f.totalVideosLabel = document.getElementById("totalVideosLabel");

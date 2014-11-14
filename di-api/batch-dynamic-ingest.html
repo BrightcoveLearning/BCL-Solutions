@@ -23,16 +23,6 @@
 		font-size: .8rem;
 	}
 	</style>
-	<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-2728311-29', 'auto');
-  ga('send', 'pageview');
-
-</script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/js/vendor/modernizr.js"></script>
 </head>
 
@@ -43,7 +33,6 @@
 	<nav id="breadCrumbWrapper" class="breadcrumbs show-for-medium-up"></nav>
 	<!-- search -->
 	<div id="searchModal" class="reveal-modal" data-reveal></div>
-	<!-- content -->
 	<!-- content -->
 	<div class="row">
 		<div class="large-2 columns show-for-large-up">
@@ -72,20 +61,42 @@
 			</div>
 
 			<div class="section" id="ajax">
-				<h2>Ingest Test</h2>
-
+				<h2>Ingest</h2>
+				<p>This script expects a data set in this form:</p>
+<pre><code>var videoData = [
+  {
+    "name": "Video 1 title",
+    "ArchiveURL": "URL for video 1 file",
+    "description": "Video 1 description",
+    "reference_id": "video-1-reference-id"
+  },
+  {
+    "name": "Video 2 title",
+    "ArchiveURL": "URL for video 2 file",
+    "description": "Video 2 description",
+    "reference_id": "video-2-reference-id"
+  },
+  ... (more videos) ...
+]
+</code></pre>
+				<p>This data can be created as a separate .js file and included in the page via a <code>script</code> tag.</p>
+				<p>We recommend that you ingest no more than 30 videos at a time.</p>
 				<p class="BCL-aside">Note: in its current form, the Dynamic Ingest API requires a preliminary call to the <a href="//solutions.brightcove.com:8006">CMS API</a> to create a catalog entry for the video and get a video ID.</p>
 				    <div class="form-wrapper">
 				    	<fieldset>
 				    		<legend>Inputs for the CMS API</legend>
 				    		<p>Submits to http://solutions.brightcove.com:<strong>8006</strong></p>
 				    			<p>
+				    				Account:
+				    				<input name="account_id" id="account_id" type="text" value="">
+				    			</p>
+				    			<p>
 				    				Client id:
-				    				<input name="client_id" id="cms_client_id" type="text" value="f05869d2-f201-47d1-9606-aaafa66fea6e">
+				    				<input name="client_id" id="cms_client_id" type="text" value="">
 				    			</p>
 				    			<p>
 				    				Client secret:
-				    				<input name="client_secret" id="cms_client_secret" type="text" value="2F4CvF8DER1j3fmQr3TjKSmD6jMfvigM3HwCVkdhykvYOOUamFYeu9U8fRpks-EH7PCJcthc8IsEPT3bAnAqNQ">
+				    				<input name="client_secret" id="cms_client_secret" type="text" value="">
 				    			</p>
 				    			<p>
 				    				Call type:
@@ -96,7 +107,7 @@
 
 				    			<p>
 				    				Full request URL for the API call:<br />
-				    				<textarea name="url" id="cms_url">https://cms.api.brightcove.com/v1beta1/accounts/57838016001/videos</textarea>
+				    				<textarea name="url" id="cms_url">https://cms.api.brightcove.com/v1beta1/accounts/{enter account id above}/videos</textarea>
 				    			</p>
 				    	</fieldset>
 				    </div>
@@ -106,11 +117,11 @@
 				            <p>Submits to http://solutions.brightcove.com:<strong>8004</strong></p>
 				                <p>
 				                    Client id:
-				                    <input name="client_id" id="di_client_id" type="text" value="73ccf8b5-0f53-4219-a52b-bcca818eee50">
+				                    <input name="client_id" id="di_client_id" type="text" value="1c0fd1ce-64b9-45b7-9472-d933b7fe0ccc">
 				                </p>
 				                <p>
 				                    Client secret:
-				                    <input name="client_secret" id="di_client_secret" type="text" value="KK4aX159iruoCwnAoGPfE6Pad2OI74t3iS7ElvicpHU2rN2DnrxhnkxaWwqOcxNQpVWzXgctPe4FoZQJMzcE8g">
+				                    <input name="client_secret" id="di_client_secret" type="text" value="uCGChFrAiiWRNLT9Cg70dT1LslL8x8fANidiCq7Chu0HW49u803Hc1lc4uJkPVltJBt2RQbDIzzo10z2aO6aBw">
 				                </p>
 				                <p>
 				                    Call type:
@@ -121,37 +132,8 @@
 
 				                <p>
 				                    Full request URL for the API call:<br />
-				                    <textarea name="url" id="di_url">https://ingest.api.brightcove.com/v1/accounts/57838016001/videos/videoId/ingest-requests</textarea>
+				                    <textarea name="url" id="di_url">https://ingest.api.brightcove.com/v1/accounts/{enter account id above}/videos/{video ID will be assigned automatically}/ingest-requests</textarea>
 				                </p>
-								<p>Data sets</p>
-								<p>
-								<input type="radio" value="0" name="dataSet"> 0
-								<input type="radio" value="1" name="dataSet"> 1
-								<input type="radio" value="2" name="dataSet"> 2
-								<input type="radio" value="3" name="dataSet"> 3
-								<input type="radio" value="4" name="dataSet"> 4
-								<input type="radio" value="5" name="dataSet"> 5
-								<input type="radio" value="6" name="dataSet"> 6
-								<input type="radio" value="7" name="dataSet"> 7
-								<input type="radio" value="8" name="dataSet"> 8
-								<input type="radio" value="9" name="dataSet"> 9
-								<input type="radio" value="10" name="dataSet"> 10
-								<input type="radio" value="11" name="dataSet"> 11
-								<input type="radio" value="12" name="dataSet"> 12
-								<input type="radio" value="13" name="dataSet"> 13
-								<input type="radio" value="14" name="dataSet"> 14
-								<input type="radio" value="15" name="dataSet"> 15
-								<input type="radio" value="16" name="dataSet"> 16
-								<input type="radio" value="17" name="dataSet"> 17
-								<input type="radio" value="18" name="dataSet"> 18
-								<input type="radio" value="19" name="dataSet"> 19
-								<input type="radio" value="20" name="dataSet"> 20
-								<input type="radio" value="21" name="dataSet"> 21
-								<input type="radio" value="22" name="dataSet"> 22
-								<input type="radio" value="23" name="dataSet"> 23
-								<input type="radio" value="24" name="dataSet"> 24
-								<input type="radio" value="25" name="dataSet"> 25
-								</p>
 				                <p>
 				                    <input id="di_Submit" type="submit" value="Start Ingest">
 				                </p>
@@ -176,13 +158,17 @@
 	<script src="//docs.brightcove.com/en/scripts/log.js"></script>
 	<script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
 	<script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
-	<script src="./assets/cbs.js"></script>
+
+	<!-- the script below should point your data set -->
+	<script src=""></script>
+
 	<script>
 		$(document).foundation();
 	</script>
 	<script>
 	var BCLS = ( function ($) {
 		var // CMS API stuff
+			$account_id = $("#account_id"),
 			$cms_client_id = $("#cms_client_id"),
 			$cms_client_secret = $("#cms_client_secret"),
 			$cms_requestType = $("#cms_requestType"),
@@ -196,30 +182,32 @@
 			$di_url = $("#di_url"),
 			$di_submit = $("#di_Submit"),
 			$di_response = $("#di_response"),
-			$dataSet = $("#dataSet").
 			diURL = "http://solutions.brightcove.com:8004",
-			totalVideos = videoData.length,
-			$log = $("#log"),
-			dataSet = 0,
+			totalVideos,
+			logger = document.getElementById("log").innerHTML,
 			videoNumber = 0,
 			t1,
 			t2,
+			totalIngested = 0,
 			// functions
 			bclslog,
 			doIngest,
 			submitRequest,
 			setCMSOptions,
 			setDIOptions;
+
 		// IE safe logger
 		bclslog = function (context, message) {
-			$log.append(context + ": " + message + "<br>");
+			logger += context + ": " + message + "<br>";
 		};
 		// set options for the CMS API request
 		setCMSOptions = function () {
 			var options = {};
+			videoData[videoNumber].description = videoData[videoNumber].description.substr(0, 250);
+			console.log("description", videoData[videoNumber].description);
 			options.client_id = $cms_client_id.val();
 			options.client_secret = $cms_client_secret.val();
-			options.requestBody = '{"name":"' + videoData[dataSet][videoNumber].name + '","description":"' + videoData[dataSet][videoNumber].description + '","reference_id":"' + videoData[dataSet][videoNumber].reference_id + '"}';
+			options.requestBody = '{"name":"' + videoData[videoNumber].name + '","description":"' + videoData[videoNumber].description + '","reference_id":"' + videoData[videoNumber].reference_id + '"}';
 			options.requestType = $cms_requestType.val();
 			options.url = $cms_url.val();
 			console.log(options);
@@ -231,7 +219,7 @@
 			var options = {};
 			options.client_id = $di_client_id.val();
 			options.client_secret = $di_client_secret.val();
-			options.requestBody = '{"master":{"url":"' + videoData[dataSet][videoNumber].ArchiveURL +'"},"profile":"balanced-high-definition"}';
+			options.requestBody = '{"master":{"url":"' + videoData[videoNumber].ArchiveURL +'"},"profile":"balanced-high-definition"}';
 			options.requestType = $di_requestType.val();
 			options.url = $di_url.val();
 			// now submit the request
@@ -258,13 +246,16 @@
 						switch (type) {
 							case "cms":
 							bclslog("CMS response", data);
-							$di_url.html("https://ingest.api.brightcove.com/v1/accounts/57838016001/videos/" + parsedData.id +"/ingest-requests");
+							$di_url.html("https://ingest.api.brightcove.com/v1/accounts/" + $account_id.val() + "/videos/" + parsedData.id +"/ingest-requests");
 							setDIOptions();
 							break;
 							case "di":
 							bclslog("DI response", data);
-							if (videoNumber < totalVideos) {
+							totalIngested++;
+							console.log("totalIngested", totalIngested);
+							if (videoNumber < totalVideos - 1) {
 								videoNumber++;
+								console.log("videoNumber", videoNumber);
 								t2 = setTimeout(setCMSOptions, 1000);
 							}
 							break;
@@ -285,13 +276,18 @@
 			});
 		};
 		$di_submit.on("click", function () {
-			dataSet = $dataSet.val();
+			var i, descr;
+			totalVideos = videoData.length;
+			console.log("totalVideos", totalVideos);
 			videoNumber = 0;
 			setCMSOptions();
 		});
+		$account_id.on("change", function (){
+			$cms_url.val("https://cms.api.brightcove.com/v1beta1/accounts/" + $account_id.val() + "/videos");
+			$di_url.val("")
+		});
 	})($);
 	</script>
-	<div class="footer text-center"><a href="mailto:docs@brightcove.com">Questions or comments?</a></div>
 </body>
 
 </html>

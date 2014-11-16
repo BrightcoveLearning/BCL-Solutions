@@ -2,6 +2,16 @@
 <html lang="en">
 
 <head>
+	<script type="text/javascript">
+		// force into https mode if not already there
+		forceSecure = function () {
+		    var pageURL = window.location.href,
+		        pageProtocol = window.location.protocol;
+		    if (pageProtocol === "http:") {
+		        window.location.href = pageURL.replace("http:", "https:");
+		    }
+		};
+	</script>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" />
 	<!-- change title to match the h1 heading -->
@@ -213,9 +223,9 @@ $.ajax({
 
 		// is defined
 		isDefined = function(x){
-			if(x !== "" &&x !== null &&x !== undefined){
+			if(x !== "" &&x !== null &&x !== undefined) {
 				return true;
-			} else{
+			} else {
 				return false;
 			}
 		};

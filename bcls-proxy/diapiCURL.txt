@@ -1,9 +1,12 @@
+
+
 curl \
   --include \
-  --header 'Authorization: BC_TOKEN AEnTxTg4L5A_Cj5qMlT39F8jnbfhqsFHneBXymrQBo7R-bNwGGn3KDG6XqeOC36JRmHQVLw56si2yt-z48qGEFPn-vlXNvzmr9diO0SZfJLj1vcfDivy_nI' \
-  --data 'name=SampleClient&maximum_scope=[
-    {"identity": {
-        "type": "video-cloud-account", "account-id": 3755095928001
+  --header "Authorization: BC_TOKEN BC_TOKEN_HERE_DON'T_DELETE_TRAILING_QUOTATION_MARK" \
+  --data 'name=your credential name&maximum_scope=[{
+      "identity": {
+        "type": "video-cloud-account",
+        "account-id": ACCOUNT_ID_HERE_CHANGE_VALUE_ABOVE_TO_"perform-account"_FOR_PERFORM
       },
       "operations": [
         "video-cloud/ingest-profiles/account/read",
@@ -11,23 +14,6 @@ curl \
         "video-cloud/video/all",
         "video-cloud/player/all"
       ]
-    }
-  ]' \
-  https://oauth.brightcove.com/v3/client_credentials
+    }]' \
+https://oauth.brightcove.com/v3/client_credentials
 
-  curl \
-  --include \
-  --header 'Authorization: BC_TOKEN AEnTxTg4L5A_Cj5qMlT39F8jnbfhqsFHneBXymrQBo7R-bNwGGn3KDG6XqeOC36JRmHQVLw56si2yt-z48qGEFPn-vlXNvzmr9diO0SZfJLj1vcfDivy_nI' \
-  --data 'name=SampleClient&maximum_scope=[
-    {"identity": {
-        "type": "video-cloud-account", "account-id": 57838016001
-      },
-      "operations": [
-        "video-cloud/ingest-profiles/account/read",
-        "video-cloud/ingest-profiles/profile/read",
-        "video-cloud/video/all",
-        "video-cloud/player/all"
-      ]
-    }
-  ]' \
-  https://oauth.brightcove.com/v3/client_credentials

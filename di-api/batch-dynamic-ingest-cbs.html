@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" />
+	<!-- change title to match the h1 heading -->
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/css/foundation.min.css" />
+	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/css/normalize.css" />
+	<script src="//use.edgefonts.net/source-code-pro.js"></script>
+	<link href="//files.brightcove.com/proxima-nova/font-faces.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/styles/github.min.css">
+	<style>
+	input, select {
+		max-width: 60%;
+		font-size: .8rem;
+	}
+	textarea {
+		width: 90%;
+		height: 4rem;
+		font-size: .8rem;
+	}
+	</style>
+	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2728311-29', 'auto');
+  ga('send', 'pageview');
+
+</script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/js/vendor/modernizr.js"></script>
+</head>
+
+<body>
+	<!-- header navbar -->
+	<div id="navWrapper" class="fixed"></div>
+	<!-- breadcrumbs -->
+	<nav id="breadCrumbWrapper" class="breadcrumbs show-for-medium-up"></nav>
+	<!-- search -->
+	<div id="searchModal" class="reveal-modal" data-reveal></div>
+	<!-- content -->
+	<!-- content -->
+	<div class="row">
+		<div class="large-2 columns show-for-large-up">
+			<div id="sidenav"></div>
+		</div>
+		<div id="main" class="large-10 small-12 columns">
+			<div id="top" class="section">
+				<h1>Batch dynamic ingest tester</h1>
+			    <p>This is a sample of batch ingest using the Dynamic Ingest API.</p>
+			</div>
+			<div class="section" id="gettingCredentials">
+				<h2>Getting Credentials</h2>
+				<p>To get a <code>client_id</code> and <code>client_secret</code>, you will need to go to the OAuth UI and register this app:</p>
+					<ul>
+						<li>Perform: <a href="https://studio.brightcove.com/products/perform/admin/oauthsettings">https://studio.brightcove.com/products/perform/admin/oauthsettings</a></li>
+						<li>Video Cloud: <a href="https://sadmin.brightcove.com/oauth_module/v1/">https://sadmin.brightcove.com/oauth_module/v1/</a></li>
+						<li>
+							Video Cloud (Next Generation Player Beta): <a href="https://studio.brightcove.com/products/videocloud/admin/oauthsettings">https://studio.brightcove.com/products/videocloud/admin/oauthsettings</a>
+						</li>
+					</ul>
+				<p>You can also get your credentials via CURL or Postman - see:</p>
+				<ul>
+					<li><a href="http://docs.brightcove.com/en/video-cloud/oauth-api/guides/get-client-credentials.html">Get Client Credentials Using CURL</a></li>
+					<li><a href="http://docs.brightcove.com/en/video-cloud/oauth-api/guides/get-client-credentials-postman.html">Get Client Credentials Using Postman</a></li>
+				</ul>
+			</div>
+
+			<div class="section" id="ajax">
+				<h2>Ingest Test</h2>
+
+				<p class="BCL-aside">Note: in its current form, the Dynamic Ingest API requires a preliminary call to the <a href="//solutions.brightcove.com:8006">CMS API</a> to create a catalog entry for the video and get a video ID.</p>
+				    <div class="form-wrapper">
+				    	<fieldset>
+				    		<legend>Inputs for the CMS API</legend>
+				    		<p>Submits to http://solutions.brightcove.com:<strong>8006</strong></p>
+				    			<p>
+				    				Account:
+				    				<input name="account_id" id="account_id" type="text" value="3755095928001">
+				    			</p>
+				    			<p>
+				    				Client id:
+				    				<input name="client_id" id="cms_client_id" type="text" value="e1eb6598-2129-4507-a7f5-4a59dc45f01e">
+				    			</p>
+				    			<p>
+				    				Client secret:
+				    				<input name="client_secret" id="cms_client_secret" type="text" value="wx_pO6WXKrpxAgLTuU6uYt9LykQzUopgGN3DdhNRaNynkgUwcse9-2V8Vk8zIbInqYq5wSnGzCH1KqWv6tVN3A">
+				    			</p>
+				    			<p>
+				    				Call type:
+				    				<select name="requestType" id="cms_requestType">
+				    					<option selected="selected">POST</option>
+				    				</select>
+				    			</p>
+
+				    			<p>
+				    				Full request URL for the API call:<br />
+				    				<textarea name="url" id="cms_url">https://cms.api.brightcove.com/v1beta1/accounts/3755095928001/videos</textarea>
+				    			</p>
+				    	</fieldset>
+				    </div>
+				    <div class="form-wrapper">
+				        <fieldset>
+				            <legend>Inputs for the Dynamic Ingest API (AJAX version)</legend>
+				            <p>Submits to http://solutions.brightcove.com:<strong>8004</strong></p>
+				                <p>
+				                    Client id:
+				                    <input name="client_id" id="di_client_id" type="text" value="1c0fd1ce-64b9-45b7-9472-d933b7fe0ccc">
+				                </p>
+				                <p>
+				                    Client secret:
+				                    <input name="client_secret" id="di_client_secret" type="text" value="uCGChFrAiiWRNLT9Cg70dT1LslL8x8fANidiCq7Chu0HW49u803Hc1lc4uJkPVltJBt2RQbDIzzo10z2aO6aBw">
+				                </p>
+				                <p>
+				                    Call type:
+				                    <select name="requestType" id="di_requestType">
+				                        <option>POST</option>
+				                    </select>
+				                </p>
+
+				                <p>
+				                    Full request URL for the API call:<br />
+				                    <textarea name="url" id="di_url">https://ingest.api.brightcove.com/v1/accounts/57838016001/videos/videoId/ingest-requests</textarea>
+				                </p>
+								<p>Data sets</p>
+								<p>
+								<input type="radio" value="0" name="dataSet" checked> 0<br>
+								<input type="radio" value="1" name="dataSet"> 1<br>
+								<input type="radio" value="2" name="dataSet"> 2<br>
+								<input type="radio" value="3" name="dataSet"> 3<br>
+								<input type="radio" value="4" name="dataSet"> 4<br>
+								<input type="radio" value="5" name="dataSet"> 5<br>
+								<input type="radio" value="6" name="dataSet"> 6<br>
+								<input type="radio" value="7" name="dataSet"> 7<br>
+								<input type="radio" value="8" name="dataSet"> 8<br>
+								<input type="radio" value="9" name="dataSet"> 9<br>
+								<input type="radio" value="10" name="dataSet"> 10<br>
+								<input type="radio" value="11" name="dataSet"> 11<br>
+								<input type="radio" value="12" name="dataSet"> 12<br>
+								<input type="radio" value="13" name="dataSet"> 13<br>
+								<input type="radio" value="14" name="dataSet"> 14<br>
+								<input type="radio" value="15" name="dataSet"> 15<br>
+								<input type="radio" value="16" name="dataSet"> 16<br>
+								<input type="radio" value="17" name="dataSet"> 17<br>
+								<input type="radio" value="18" name="dataSet"> 18<br>
+								<input type="radio" value="19" name="dataSet"> 19<br>
+								<input type="radio" value="20" name="dataSet"> 20<br>
+								<input type="radio" value="21" name="dataSet"> 21<br>
+								<input type="radio" value="22" name="dataSet"> 22<br>
+								<input type="radio" value="23" name="dataSet"> 23<br>
+								<input type="radio" value="24" name="dataSet"> 24<br>
+								<input type="radio" value="25" name="dataSet"> 25<br>
+								</p>
+				                <p>
+				                    <input id="di_Submit" type="submit" value="Start Ingest">
+				                </p>
+				            <pre><code id="di_response"></code></pre>
+				        </fieldset>
+				    </div>
+			</div>
+			<div class="section" id="logger">
+			    <h2>Log</h2>
+			    <div id="log"></div>
+			</div>
+		</div>
+	</div>
+	<!-- bcl scripts -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/gist-embed/1.7/gist-embed.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.2/fastclick.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/js/foundation.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/highlight.min.js"></script>
+	<script src="//docs.brightcove.com/en/scripts/log.js"></script>
+	<script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
+	<script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
+	<script src="cbs-21.js"></script>
+	<script>
+		$(document).foundation();
+	</script>
+	<script>
+	var BCLS = ( function ($) {
+		var // CMS API stuff
+			$account_id = $("#account_id"),
+			$cms_client_id = $("#cms_client_id"),
+			$cms_client_secret = $("#cms_client_secret"),
+			$cms_requestType = $("#cms_requestType"),
+			$cms_url = $("#cms_url"),
+			$cms_response = $("#cms_response"),
+			cmsURL = "http://solutions.brightcove.com:8006",
+			// Dynamic Ingest API stuff
+			$di_client_id = $("#di_client_id"),
+			$di_client_secret = $("#di_client_secret"),
+			$di_requestType = $("#di_requestType"),
+			$di_url = $("#di_url"),
+			$di_submit = $("#di_Submit"),
+			$di_response = $("#di_response"),
+			diURL = "http://solutions.brightcove.com:8004",
+			totalVideos,
+			logger = document.getElementById("log").innerHTML,
+			dataSet = 0,
+			videoNumber = 0,
+			t1,
+			t2,
+			totalIngested = 0,
+			// functions
+			bclslog,
+			doIngest,
+			submitRequest,
+			setCMSOptions,
+			setDIOptions;
+
+		// IE safe logger
+		bclslog = function (context, message) {
+			logger += context + ": " + message + "<br>";
+		};
+		// set options for the CMS API request
+		setCMSOptions = function () {
+			var options = {};
+			videoData[dataSet][videoNumber].description = videoData[dataSet][videoNumber].description.substr(0, 250);
+			console.log("description", videoData[dataSet][videoNumber].description);
+			options.client_id = $cms_client_id.val();
+			options.client_secret = $cms_client_secret.val();
+			options.requestBody = '{"name":"' + videoData[dataSet][videoNumber].name + '","description":"' + videoData[dataSet][videoNumber].description + '","reference_id":"' + videoData[dataSet][videoNumber].reference_id + '"}';
+			options.requestType = $cms_requestType.val();
+			options.url = $cms_url.val();
+			console.log(options);
+			// now submit the request
+			submitRequest(options, cmsURL, "cms");
+		};
+	    // set options for the Dynamic Ingest API request
+		setDIOptions = function () {
+			var options = {};
+			options.client_id = $di_client_id.val();
+			options.client_secret = $di_client_secret.val();
+			options.requestBody = '{"master":{"url":"' + videoData[dataSet][videoNumber].ArchiveURL +'"},"profile":"balanced-high-definition"}';
+			options.requestType = $di_requestType.val();
+			options.url = $di_url.val();
+			// now submit the request
+			submitRequest(options, diURL, "di");
+		};
+
+		// function to submit Request
+		submitRequest = function (options, proxyURL, type) {
+			var parsedData = {};
+			$.ajax({
+				url: proxyURL,
+				type: "POST",
+				data: options,
+				success : function (data) {
+					if (data.indexOf("REFERENCE_ID_IN_USE")> 0) {
+						videoNumber++;
+						t1 = setTimeout(setCMSOptions, 1000);
+					} else if (data.indexOf("error_code") > 0) {
+						console.log(data);
+						if (type === "cms") {
+							t1 = setTimeout(setCMSOptions, 1000);
+						} else {
+							t1 = setTimeout(setDIOptions, 1000);
+						}
+
+					} else {
+						console.log(data);
+						parsedData = JSON.parse(data);
+						switch (type) {
+							case "cms":
+							bclslog("CMS response", data);
+							$di_url.html("https://ingest.api.brightcove.com/v1/accounts/" + $account_id.val() + "/videos/" + parsedData.id +"/ingest-requests");
+							setDIOptions();
+							break;
+							case "di":
+							bclslog("DI response", data);
+							totalIngested++;
+							console.log("totalIngested", totalIngested);
+							if (videoNumber < totalVideos - 1) {
+								videoNumber++;
+								console.log("videoNumber", videoNumber);
+								t2 = setTimeout(setCMSOptions, 1000);
+							}
+							break;
+						}
+					}
+
+				},
+				error : function (XMLHttpRequest, textStatus, errorThrown) {
+					switch (type) {
+						case "cms":
+						$cms_response.html("The called failed; here's what the server sent back: " + errorThrown);
+						break;
+						case "di":
+						$di_response.html("The called failed; here's what the server sent back: " + errorThrown);
+						break;
+					}
+				}
+			});
+		};
+		$di_submit.on("click", function () {
+			var i, descr;
+			dataSet = $("input[name='dataSet']:checked").val();
+			totalVideos = videoData[dataSet].length;
+			console.log("totalVideos", totalVideos);
+			videoNumber = 0;
+			setCMSOptions();
+		});
+		$account_id.on("change", function (){
+			$cms_url.val("https://cms.api.brightcove.com/v1beta1/accounts/" + $account_id.val() + "/videos");
+		});
+	})($);
+	</script>
+	<div class="footer text-center"><a href="mailto:docs@brightcove.com">Questions or comments?</a></div>
+</body>
+
+</html>

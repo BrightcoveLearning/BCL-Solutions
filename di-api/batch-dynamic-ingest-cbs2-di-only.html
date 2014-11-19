@@ -160,7 +160,7 @@
 	<script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
 
 	<!-- the script below should point your data set -->
-	<script src="cbs-23.js"></script>
+	<script src="cbs-25.js"></script>
 
 	<script>
 		$(document).foundation();
@@ -221,10 +221,10 @@
 			var options = {};
 			options.client_id = $di_client_id.val();
 			options.client_secret = $di_client_secret.val();
-			options.requestBody = '{"master":{"url":"' + videoData[videoNumber].ArchiveURL +'"},"profile":"balanced-high-definition"}';
+			options.requestBody = '{"master":{"url":"' + videoData[videoNumber].archiveURL +'"},"profile":"balanced-high-definition"}';
 			options.requestType = $di_requestType.val();
-			options.url = $di_url.val();
-			console.log("dioptions", "options");
+			options.url = "https://ingest.api.brightcove.com/v1/accounts/" + $account_id.val() + "/videos/" + videoData[videoNumber].id +"/ingest-requests"
+			console.log("dioptions", options);
 			// now submit the request
 			submitRequest(options, diURL, "di");
 		};
@@ -269,7 +269,7 @@
 							if (videoNumber < totalVideos - 1) {
 								videoNumber++;
 								console.log("videoNumber", videoNumber);
-								t2 = setTimeout(setCMSOptions, 1000);
+								t2 = setTimeout(setDIOptions, 1000);
 							}
 							break;
 						}
@@ -297,7 +297,7 @@
 			totalVideos = videoData.length;
 			console.log("totalVideos", totalVideos);
 			videoNumber = 0;
-			setCMSOptions();
+			setDIOptions();
 		});
 		$account_id.on("change", function (){
 			$cms_url.val("https://cms.api.brightcove.com/v1beta1/accounts/" + $account_id.val() + "/videos");

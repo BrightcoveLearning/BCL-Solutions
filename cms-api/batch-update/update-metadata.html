@@ -3,7 +3,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Get API Client Credentials</title>
+	<title>Batch update Using CMS API</title>
 	<style>
 	body {
 		font-family: Helvetica, Arial, sans-serif;
@@ -30,20 +30,20 @@
 </head>
 
 <body>
-	<h1>API Tester</h1>
+	<h1>Batch update Using CMS API</h1>
     <fieldset>
         <legend>Inputs</legend>
         <p>
 			Account ID:
-			<input size="60" id="account_id" type="text" value="3755095928001">
+			<input size="60" id="account_id" type="text" value="57838016001">
 		</p>
         <p>
 			Client ID:
-			<input size="60" id="client_id" type="text" value="e1eb6598-2129-4507-a7f5-4a59dc45f01e">
+			<input size="60" id="client_id" type="text" value="f05869d2-f201-47d1-9606-aaafa66fea6e">
 		</p>
         <p>
 			Client Secret:
-			<input size="120" id="client_secret" type="text" value="wx_pO6WXKrpxAgLTuU6uYt9LykQzUopgGN3DdhNRaNynkgUwcse9-2V8Vk8zIbInqYq5wSnGzCH1KqWv6tVN3A">
+			<input size="120" id="client_secret" type="text" value="2F4CvF8DER1j3fmQr3TjKSmD6jMfvigM3HwCVkdhykvYOOUamFYeu9U8fRpks-EH7PCJcthc8IsEPT3bAnAqNQ">
 		</p>
 
 		<p><button id="setRequest">Submit Request</button></p>
@@ -56,7 +56,7 @@
 		</p>
         <pre><code id="response"></code></pre>
     </fieldset>
-    <script type="text/javascript" src="cbs/cbs-metadata-update.js"></script>
+    <script type="text/javascript" src="assets/bcl-metadata-update.js"></script>
 	<script>
 	var BCLS = ( function (window, document, videoData) {
 		var account_id_field = document.getElementById("account_id"),
@@ -81,7 +81,6 @@
 			cleanString,
 			cleanUpData,
 			submitRequest,
-			processData,
 			setRequest,
 			logResponse,
 			init;
@@ -136,31 +135,8 @@
 
 		}
 		// function to set the request
-		processData = function (data) {
-			var i, j, iMax, jMax;
-			data = JSON.parse(data);
-			console.log("data", data);
-			iMax = videoData.length;
-			jMax = data.length;
-			console.log("iMax", iMax);
-			console.log("jMax", jMax);
-			for (i = 0; i < iMax; i++) {
-					console.log("videoDataItemName", videoData[i]["name"]);
-				for (j = 0; j < jMax; j++) {
-					console.log("dataItemName", data[j]["name"]);
-					if (videoData[i]["name"] === data[j]["name"]) {
-						videoData[i].id = data[j]["id"];
-						console.log("match", videoData[i].id);
-					}
-				}
-			}
-			if (callNumber < 5) {
-				callNumber++;
-				offset = offset + 100;
-				setRequest();
-			} else {
-				response.innerHTML = JSON.stringify(videoData, null, "  ");
-			}
+		logResponse = function (data) {
+			response.innerHTML += data + "<br />"
 		}
 		// function to make API request
 		submitRequest = function () {
@@ -182,7 +158,7 @@
 					    }
 					  }
 					  catch(e) {
-					    alert('Caught Exception: ' + e.description);
+					    alert('Caught Exception: ' + e);
 					  }
 				};
 			if (account_id === null || client_id === null || client_secret === null) {
@@ -192,16 +168,16 @@
 			// get latest request URL in case use edited it
 			apiRequest = cleanString(apiRequest_field.value);
 			// set up request data
-			requestData = "client_id=" + client_id + "&client_secret=" + client_secret + "&url=" + encodeURIComponent(apiRequest) + "requestBody=" + encodeURIComponent(requestBody);
+			requestData = "client_id=" + client_id + "&client_secret=" + client_secret + "&url=" + encodeURIComponent(apiRequest) + "&requestBody=" + encodeURIComponent(requestBody) + "&requestType=PATCH";
 			console.log("requestData", requestData);
 			// set response handler
-			// httpRequest.onreadystatechange = getResponse;
+			httpRequest.onreadystatechange = getResponse;
 			// open the request
-			// httpRequest.open("POST", proxyURL);
+			httpRequest.open("POST", proxyURL);
 			// set headers
-			// httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			// open and send request
-			// httpRequest.send(requestData);
+			httpRequest.send(requestData);
 		};
 		// init function to set up event listeners
 		init = function () {

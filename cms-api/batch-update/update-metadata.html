@@ -19,8 +19,9 @@
 	}
 	textarea {
 		width: 95%;
-		height: 3rem;
-		font-size: 1rem;
+		height: 300px;
+		font-family: monospace;
+		font-size: small;
 	}
 	input, pre, code, textarea {
 		font-size: 1rem;
@@ -45,7 +46,29 @@
 			Client Secret:
 			<input size="120" id="client_secret" type="text" value="2F4CvF8DER1j3fmQr3TjKSmD6jMfvigM3HwCVkdhykvYOOUamFYeu9U8fRpks-EH7PCJcthc8IsEPT3bAnAqNQ">
 		</p>
-
+		<p>
+			Video metadata for update:
+			<textarea id="videoData">[
+     {
+          "name": "Betty Boop Full Movie",
+          "id": "96851865001",
+          "description": "",
+          "reference_id": "f4631c7c-a724-4226-920f-29de042e35c8"
+     },
+     {
+          "name": "Water-Liquid-Flow",
+          "id": "1194921693001",
+          "description": "Water flowing",
+          "reference_id": "f7d11d8b-d87a-499a-a64b-6ec14f243eb6"
+     },
+     {
+          "name": "Wildlife_Zebra",
+          "id": "734484324001",
+          "description": "The striped mammal",
+          "reference_id": "f4f8adef-2df8-49bf-84cd-95d31b20a7a2"
+     }
+]</textarea>
+		</p>
 		<p><button id="setRequest">Submit Request</button></p>
     </fieldset>
     <fieldset>
@@ -56,9 +79,8 @@
 		</p>
         <pre><code id="response"></code></pre>
     </fieldset>
-    <script type="text/javascript" src="assets/bcl-metadata-update.js"></script>
 	<script>
-	var BCLS = ( function (window, document, videoData) {
+	var BCLS = ( function (window, document) {
 		var account_id_field = document.getElementById("account_id"),
 			account_id,
 			client_id_field = document.getElementById("client_id"),
@@ -70,11 +92,13 @@
             apiRequest_field = document.getElementById("apiRequest"),
 			submit_button = document.getElementById("submit"),
 			response = document.getElementById("response"),
-			totalVideos = videoData.length,
+			totalVideos = 0,
 			offset = 0,
 			callNumber = 0,
 			requestBody,
-			// note videoData comes from script included above this one
+			videoData_display = document.getElementById("videoData"),
+			videoData,
+			t1,
 			currentVideo,
 			// functions
 			isDefined,
@@ -105,6 +129,7 @@
 			for (i = 0; i < iMax; i++) {
 				item = videoData[i];
 				// truncate over-long descriptions
+				console.log(item.description.length);
 				if (item.description.length > 255) {
 					item.description = item.description.substr(0, 250) + "...";
 				}
@@ -117,17 +142,17 @@
 		}
 		// function to set up request
 		setRequest = function () {
-			var item = videoData[callNumber];
-			console.log("item", item);
 			// trim any leading/trailing spaces from the input strings
 			account_id = cleanString(account_id_field.value);
 			client_id = cleanString(client_id_field.value);
 			client_secret = cleanString(client_secret_field.value);
+			videoData = JSON.parse(videoData_display.value);
+			totalVideos = videoData.length;
+			cleanUpData();
 			currentVideo = videoData[callNumber];
 			if (isDefined(currentVideo)) {
 				apiRequest = "https://cms.api.brightcove.com/v1beta1/accounts/" + account_id + "/videos/" + currentVideo.id;
-				requestBody = '{"description":"' + item.description + '","reference_id":"' + item.reference_id + '"}';
-				console.log("requestBody", requestBody);
+				requestBody = '{"description":"' + currentVideo.description + '","reference_id":"' + currentVideo.reference_id + '"}';
 				// display the request URL
 				apiRequest_field.innerHTML = apiRequest;
 				submitRequest();
@@ -136,7 +161,7 @@
 		}
 		// function to set the request
 		logResponse = function (data) {
-			response.innerHTML += data + "<br />"
+			response.innerHTML += data + ",<br />"
 		}
 		// function to make API request
 		submitRequest = function () {
@@ -169,7 +194,6 @@
 			apiRequest = cleanString(apiRequest_field.value);
 			// set up request data
 			requestData = "client_id=" + client_id + "&client_secret=" + client_secret + "&url=" + encodeURIComponent(apiRequest) + "&requestBody=" + encodeURIComponent(requestBody) + "&requestType=PATCH";
-			console.log("requestData", requestData);
 			// set response handler
 			httpRequest.onreadystatechange = getResponse;
 			// open the request
@@ -183,12 +207,11 @@
 		init = function () {
 			// event listeners
 			setRequest_btn.addEventListener("click", setRequest);
-			cleanUpData();
 		}
 		// initialize - set up data
 		init();
 
-	})(window, document, videoData);
+	})(window, document);
 	</script>
 </body>
 

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+
+    </style>
+  </head>
+  <body>
+  <h4>timeouts</h4>
+<pre><code id="results1"></code></pre>
+<h4>bad refids</h4>
+<pre><code id="results2"></code></pre>
+<h4>description too long</h4>
+<pre><code id="results3"></code></pre>
+<script type="text/javascript" src="assets/cbs-metadata-update.js"></script>
+<script type="text/javascript" src="assets/videos-updated.js"></script>
+    <script>
+    var updated = videosUpdated.length,
+        originals = videoData.length,
+        toDo = [],
+        refIDs = [],
+        desTooLong = [],
+        i,
+        item,
+        results1 = document.getElementById("results1"),
+        results2 = document.getElementById("results2"),
+        results3 = document.getElementById("results3"),
+        isDefined;
+    console.log("updated", updated);
+    console.log("originals", originals);
+    // is defined
+    isDefined = function(x){
+        if(x !== "" && x !== null && x !== undefined){
+            return true;
+        } else{
+            return false;
+        }
+    };
+    for (i = 0; i < updated; i++) {
+        item = videosUpdated[i];
+        if (isDefined(item.timeouterror)) {
+            toDo.push(videoData[i]);
+        } else if (isDefined(item.validationerror)) {
+            desTooLong.push(videoData[i]);
+        } else if (isDefined(item.refiderror)) {
+            refIDs.push(videoData[i]);
+        }
+    }
+    console.log("desTooLong", desTooLong);
+    results1.innerHTML = JSON.stringify(toDo, null, "  ");
+    results2.innerHTML = JSON.stringify(refIDs, null, "  ");
+    results3.innerHTML = JSON.stringify(desTooLong, null, "  ");
+    </script>
+  </body>
+</html>

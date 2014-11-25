@@ -3,7 +3,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Get API Client Credentials</title>
+	<title>Batch update Using CMS API</title>
 	<style>
 	body {
 		font-family: Helvetica, Arial, sans-serif;
@@ -30,7 +30,7 @@
 </head>
 
 <body>
-	<h1>API Tester</h1>
+	<h1>Batch update Using CMS API</h1>
     <fieldset>
         <legend>Inputs</legend>
         <p>
@@ -56,7 +56,7 @@
 		</p>
         <pre><code id="response"></code></pre>
     </fieldset>
-    <script type="text/javascript" src="cbs/cbs-metadata-update.js"></script>
+    <script type="text/javascript" src="assets/cbs-updates2.js"></script>
 	<script>
 	var BCLS = ( function (window, document, videoData) {
 		var account_id_field = document.getElementById("account_id"),
@@ -81,7 +81,6 @@
 			cleanString,
 			cleanUpData,
 			submitRequest,
-			processData,
 			setRequest,
 			logResponse,
 			init;
@@ -106,9 +105,9 @@
 			for (i = 0; i < iMax; i++) {
 				item = videoData[i];
 				// truncate over-long descriptions
-				if (item.description.length > 255) {
-					item.description = item.description.substr(0, 250) + "...";
-				}
+				item.long_description = item.description;
+				item.description = item.description.substr(0, 120) + "...";
+				console.log("description", item.description);
 				// use name for missing descriptions
 				if (item.description === "") {
 					item.description = item.name;
@@ -127,7 +126,7 @@
 			currentVideo = videoData[callNumber];
 			if (isDefined(currentVideo)) {
 				apiRequest = "https://cms.api.brightcove.com/v1beta1/accounts/" + account_id + "/videos/" + currentVideo.id;
-				requestBody = '{"description":"' + item.description + '","reference_id":"' + item.reference_id + '"}';
+				requestBody = '{"description":"' + item.description + '","reference_id":"' + item.reference_id + '","long_description":"' + item.long_description + '"}';
 				console.log("requestBody", requestBody);
 				// display the request URL
 				apiRequest_field.innerHTML = apiRequest;
@@ -136,31 +135,8 @@
 
 		}
 		// function to set the request
-		processData = function (data) {
-			var i, j, iMax, jMax;
-			data = JSON.parse(data);
-			console.log("data", data);
-			iMax = videoData.length;
-			jMax = data.length;
-			console.log("iMax", iMax);
-			console.log("jMax", jMax);
-			for (i = 0; i < iMax; i++) {
-					console.log("videoDataItemName", videoData[i]["name"]);
-				for (j = 0; j < jMax; j++) {
-					console.log("dataItemName", data[j]["name"]);
-					if (videoData[i]["name"] === data[j]["name"]) {
-						videoData[i].id = data[j]["id"];
-						console.log("match", videoData[i].id);
-					}
-				}
-			}
-			if (callNumber < 5) {
-				callNumber++;
-				offset = offset + 100;
-				setRequest();
-			} else {
-				response.innerHTML = JSON.stringify(videoData, null, "  ");
-			}
+		logResponse = function (data) {
+			response.innerHTML += data + "<br />"
 		}
 		// function to make API request
 		submitRequest = function () {
@@ -182,7 +158,7 @@
 					    }
 					  }
 					  catch(e) {
-					    alert('Caught Exception: ' + e.description);
+					    alert('Caught Exception: ' + e);
 					  }
 				};
 			if (account_id === null || client_id === null || client_secret === null) {
@@ -192,22 +168,23 @@
 			// get latest request URL in case use edited it
 			apiRequest = cleanString(apiRequest_field.value);
 			// set up request data
-			requestData = "client_id=" + client_id + "&client_secret=" + client_secret + "&url=" + encodeURIComponent(apiRequest) + "requestBody=" + encodeURIComponent(requestBody);
+			requestData = "client_id=" + client_id + "&client_secret=" + client_secret + "&url=" + encodeURIComponent(apiRequest) + "&requestBody=" + encodeURIComponent(requestBody) + "&requestType=PATCH";
 			console.log("requestData", requestData);
 			// set response handler
-			// httpRequest.onreadystatechange = getResponse;
+			httpRequest.onreadystatechange = getResponse;
 			// open the request
-			// httpRequest.open("POST", proxyURL);
+			httpRequest.open("POST", proxyURL);
 			// set headers
-			// httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			// open and send request
-			// httpRequest.send(requestData);
+			httpRequest.send(requestData);
 		};
 		// init function to set up event listeners
 		init = function () {
 			// event listeners
 			setRequest_btn.addEventListener("click", setRequest);
 			cleanUpData();
+			console.log("totalVideos", totalVideos);
 		}
 		// initialize - set up data
 		init();

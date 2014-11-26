@@ -41,17 +41,17 @@
 		<div id="main" class="large-10 small-12 columns">
 			<div id="top" class="section">
 				<h1>Batch dynamic ingest tester</h1>
-			    <p>This is a sample of batch ingest using the Dynamic Ingest API. To get access tokens and make the API calls, it uses a proxy built by Brightcove Learning services. The proxies run at:</p>
+			    <p>This is a sample of batch ingest using the Dynamic Ingest API. To get access tokens and make the API calls, it uses proxies built by Brightcove Learning services. The proxies run at:</p>
 			    <ul>
-			    	<li>solutions.brightcove.com:</li>
-			    	<li></li>
+			    	<li>solutions.brightcove.com:8006 (for the CMS API)</li>
+			    	<li>solutions.brightcove.com:8004 (for the DI API)</li>
 			    </ul>
+			    <p>You may also use these proxies for testing from <strong>localhost</strong>, but not for production - the proxies will only accept requests from Brightcove domains or localhost. See <a href="//docs.brightcove.com/en/video-cloud/oauth-api/getting-started/quick-start.html">Oauth Quick Start</a> for a guide to building a simple proxy of your own.</p>
 			</div>
 			<div class="section" id="gettingCredentials">
 				<h2>Getting Credentials</h2>
 				<p>To get a <code>client_id</code> and <code>client_secret</code>, you will need to go to the OAuth UI and register this app:</p>
 					<ul>
-						<li>Perform: <a href="https://studio.brightcove.com/products/perform/admin/oauthsettings">https://studio.brightcove.com/products/perform/admin/oauthsettings</a></li>
 						<li>Video Cloud: <a href="https://sadmin.brightcove.com/oauth_module/v1/">https://sadmin.brightcove.com/oauth_module/v1/</a></li>
 						<li>
 							Video Cloud (Next Generation Player Beta): <a href="https://studio.brightcove.com/products/videocloud/admin/oauthsettings">https://studio.brightcove.com/products/videocloud/admin/oauthsettings</a>
@@ -91,27 +91,50 @@
 				    		<legend>Inputs for the CMS API</legend>
 				    		<p>Submits to http://solutions.brightcove.com:<strong>8006</strong></p>
 				    			<p>
-				    				Account:
+				    				Account: (defaults to Brightcove sample account)
 				    				<input name="account_id" id="account_id" type="text" value="">
 				    			</p>
 				    			<p>
-				    				Client id:
+				    				Client id: (defaults to Brightcove sample account)
 				    				<input name="client_id" id="cms_client_id" type="text" value="">
 				    			</p>
 				    			<p>
-				    				Client secret:
+				    				Client secret: (defaults to Brightcove sample account)
 				    				<input name="client_secret" id="cms_client_secret" type="text" value="">
 				    			</p>
 				    			<p>
-				    				Call type:
-				    				<select name="requestType" id="cms_requestType">
-				    					<option selected="selected">POST</option>
-				    				</select>
+				    				Video data:
+				    				<textarea id="videoData">[
+    {
+        "name": "Woodpecker",
+        "description": "A bird that hunts insects inside wood",
+        "url": "http://learning-services-media.brightcove.com/videos/mp4/Bird_Woodpecker.mp4",
+        "reference_id": "Bird_Woodpecker.mp4"
+    },
+    {
+        "name": "Chickadee",
+        "description": "A small friendly bird",
+        "url": "http://learning-services-media.brightcove.com/videos/mp4/Bird_Chickadee.mp4",
+        "reference_id": "Bird_Chickadee.mp4"
+    },
+    {
+        "name": "Great Blue Heron",
+        "description": "Pair of great blue herons",
+        "url": "http://learning-services-media.brightcove.com/videos/mp4/greatblueheron.mp4",
+        "reference_id": "greatblueheron.mp4"
+    },
+    {
+        "name": "Great Horned Owl",
+        "description": "Mother and child owls",
+        "url": "http://learning-services-media.brightcove.com/videos/mp4/greathornedowl.mp4",
+        "reference_id": "greathornedowl.mp4"
+    }
+]</textarea>
 				    			</p>
-
 				    			<p>
 				    				Full request URL for the API call:<br />
-				    				<textarea name="url" id="cms_url">https://cms.api.brightcove.com/v1beta1/accounts/{enter account id above}/videos</textarea>
+				    				<textarea name="url" id="cms_url">https://cms.api.brightcove.com/v1beta1/accounts/{account id}/videos</textarea>
+				    				(automatically generated - for information only)
 				    			</p>
 				    	</fieldset>
 				    </div>
@@ -136,7 +159,8 @@
 
 				                <p>
 				                    Full request URL for the API call:<br />
-				                    <textarea name="url" id="di_url">https://ingest.api.brightcove.com/v1/accounts/{enter account id above}/videos/{video ID will be assigned automatically}/ingest-requests</textarea>
+				                    <textarea name="url" id="di_url">https://ingest.api.brightcove.com/v1/accounts/{account id}/videos/{video ID}/ingest-requests</textarea>
+				                    (automatically generated - for information only)
 				                </p>
 				                <p>
 				                    <input id="di_Submit" type="submit" value="Start Ingest">
@@ -159,7 +183,6 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/js/foundation.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/highlight.min.js"></script>
-	<script src="//docs.brightcove.com/en/scripts/log.js"></script>
 	<script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
 	<script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
 

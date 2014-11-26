@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Woodpecker",
+        "description": "A bird that hunts insects inside wood",
+        "url": "http://learning-services-media.brightcove.com/videos/mp4/Bird_Woodpecker.mp4",
+        "reference_id": "Bird_Woodpecker.mp4"
+    },
+    {
+        "name": "Chickadee",
+        "description": "A small friendly bird",
+        "url": "http://learning-services-media.brightcove.com/videos/mp4/Bird_Chickadee.mp4",
+        "reference_id": "Bird_Chickadee.mp4"
+    },
+    {
+        "name": "Great Blue Heron",
+        "description": "Pair of great blue herons",
+        "url": "http://learning-services-media.brightcove.com/videos/mp4/greatblueheron.mp4",
+        "reference_id": "greatblueheron.mp4"
+    },
+    {
+        "name": "Great Horned Owl",
+        "description": "Mother and child owls",
+        "url": "http://learning-services-media.brightcove.com/videos/mp4/greathornedowl.mp4",
+        "reference_id": "greathornedowl.mp4"
+    }
+]

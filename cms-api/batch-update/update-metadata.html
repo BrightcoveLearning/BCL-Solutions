@@ -129,8 +129,7 @@
 			for (i = 0; i < iMax; i++) {
 				item = videoData[i];
 				// truncate over-long descriptions
-				console.log(item.description.length);
-				if (item.description.length > 255) {
+				if (item.description.length > 120) {
 					item.description = item.description.substr(0, 250) + "...";
 				}
 				// use name for missing descriptions
@@ -142,13 +141,7 @@
 		}
 		// function to set up request
 		setRequest = function () {
-			// trim any leading/trailing spaces from the input strings
-			account_id = cleanString(account_id_field.value);
-			client_id = cleanString(client_id_field.value);
-			client_secret = cleanString(client_secret_field.value);
-			videoData = JSON.parse(videoData_display.value);
-			totalVideos = videoData.length;
-			cleanUpData();
+
 			currentVideo = videoData[callNumber];
 			if (isDefined(currentVideo)) {
 				apiRequest = "https://cms.api.brightcove.com/v1beta1/accounts/" + account_id + "/videos/" + currentVideo.id;
@@ -206,7 +199,18 @@
 		// init function to set up event listeners
 		init = function () {
 			// event listeners
-			setRequest_btn.addEventListener("click", setRequest);
+			setRequest_btn.addEventListener("click", function () {
+				// trim any leading/trailing spaces from the input strings
+				account_id = cleanString(account_id_field.value);
+				client_id = cleanString(client_id_field.value);
+				client_secret = cleanString(client_secret_field.value);
+				// get and clean up video data
+				videoData = JSON.parse(videoData_display.value);
+				totalVideos = videoData.length;
+				cleanUpData();
+				// set up the request
+				setRequest();
+			});
 		}
 		// initialize - set up data
 		init();

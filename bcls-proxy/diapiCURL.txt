@@ -17,3 +17,20 @@ curl \
     }]' \
 https://oauth.brightcove.com/v3/client_credentials
 
+
+curl \
+  --include \
+  --header "Authorization: BC_TOKEN AEnTxTgaa6h4H3HZiAWD219d1LN-cOQPTxRXehdKmmxXuQFkVZXfmhzUSPzGIJGdr6lnPfklS4CxOec3UuLfBe9aGYegwJEROsoY0KfA6L9BhHdu68b_WSA" \
+  --data 'name=DISample&maximum_scope=[{
+      "identity": {
+        "type": "video-cloud-account",
+        "account-id": 57838016001
+      },
+      "operations": [
+        "video-cloud/ingest-profiles/account/read",
+        "video-cloud/ingest-profiles/profile/read",
+        "video-cloud/video/all"
+      ]
+    }]' \
+https://oauth.brightcove.com/v3/client_credentials
+

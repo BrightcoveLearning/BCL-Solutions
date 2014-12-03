@@ -7,36 +7,14 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <!-- Fav and touch icons -->
-        <link rel="shortcut icon" href="/bcls/assets/images/favicon.ico">
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
         <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/css/foundation.min.css" />
         <script src="//use.edgefonts.net/source-code-pro.js"></script>
-        <link href="//files.brightcove.com/proxima-nova/font-faces.css" rel="stylesheet" type="text/css">
-        <script>
-            // force into https mode if not already there -- currently not used
-            forceSecure = function () {
-                var pageURL = window.location.href,
-                    pageProtocol = window.location.protocol;
-                if (pageProtocol === "http:") {
-                    window.location.href = pageURL.replace("http:", "https:");
-                }
-            };
-        </script>
 
-        <script type="text/javascript">
-
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-33930315-1']);
-            _gaq.push(['_trackPageview']);
-
-            (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
-
-        </script>
         <style>
+            body {
+                margin: 6rem;
+            }
             .label {
                 border-radius: 5px;
             }
@@ -147,12 +125,9 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
 
-<script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
-<script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
-<script type="text/javascript" src="/bcls/media/ReferenceIDGenerator/js/reference-id-generator.js"></script>
+<script type="text/javascript" src="js/reference-id-generator.js"></script>
     <script>
         $(document).foundation();
     </script>
-    <div class="footer text-center"><a href="mailto:docs@brightcove.com">Questions or comments?</a></div>
 	</body>
 </html>

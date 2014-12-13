@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+
+    </style>
+  </head>
+  <body>
+    <pre id="results"></pre>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="./assets/CBSTVD-retranscode-full.js"></script>
+    <script>
+      var videoIDs = [],
+          callNumber = 0,
+          totalCalls = 29,
+          offset = 0,
+          params = {},
+          baseURL = "https://cms.api.brightcove.com/v1beta1/accounts/3755095928001/videos?limit=100",
+          responseData = [],
+          results = document.getElementById("results"),
+          deDupe,
+          processData,
+          isDefined,
+          printResults;
+
+
+      // is defined
+      isDefined = function(x){
+            if( x !== "" && x !== null && x !== undefined){
+                  return true;
+            } else{
+                  return false;
+            }
+      };
+      /*
+      de-dupe array of objects based on selected property
+      note the comparison here is case-sensitive
+      for non-case-sensitive comparison, change
+      targetArray[i].prop to targetArray[i].prop.toLowerCase()
+      */
+      deDupe = function (targetArray, prop) {
+          console.log("targetArray", targetArray);
+          var i, j;
+          for (i = 0; i < targetArray.length; i++) {
+              for (j = i + 1; j < targetArray.length; j++) {
+                 if  (isDefined(targetArray[i][prop])) {
+                    if (targetArray[i][prop] === targetArray[j][prop]) {
+                        targetArray.splice(j, 1);
+                    }
+                  } else {
+                    console.log(targetArray[i]);
+                  }
+              }
+          }
+          return targetArray;
+      };
+
+      /*
+      find index of an object in array of objects
+      based on some property value
+      returns index if found, otherwise returns -1
+      */
+      findObjectInArray = function (targetArray, objProperty, value) {
+          var i, totalItems = targetArray.length, objFound = false;
+          for (i = 0; i < totalItems; i++) {
+              if (targetArray[i][objProperty] === value) {
+                  objFound = true;
+                  return i;
+              }
+          }
+          if (objFound === false) {
+              return -1;
+          }
+      };
+      processData = function (responseData) {
+        videoData = deDupe(videoData, "reference_id");
+        printResults();
+      }
+
+      printResults = function () {
+        var results = document.getElementById("results");
+        results.innerHTML = JSON.stringify(videoData, null, "  ");
+      }
+      processData();
+    </script>
+  </body>
+</html>

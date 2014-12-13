@@ -4,7 +4,7 @@
 "reference_id": "bc_player",
 "tags": ["training", "sample", "captions"],
 	"text_tracks": [
-		{"src": "http://learning-services-media.brightcove.com/captions/bc_smart.vtt", "kind": "captions", "srclang": "en", "label": "English", "default": "true" }
+		{"src": "http://learning-services-media.brightcove.com/captions/bc_smart.vtt", "kind": "captions", "srclang": "en", "label": "English", "default": true }
 		,
 		{"src": "http://learning-services-media.brightcove.com/captions/bc_smart_ja.vtt", "kind": "captions", "srclang": "ja", "label": "日本人" }
 		,

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+      body {
+        margin: 50px;
+        font-family: Helvetica, Arial, sans-serif;
+      }
+      iframe {
+        width: 100%;
+        height: 600px;
+      }
+      h1 {
+        font-size: 1.5 em;
+      }
+      h2 {
+          font-size: 1.2 em;
+        }
+    </style>
+  </head>
+  <body>
+    <h1>Tester for the Once Notification Logger</h1>
+    <p>The Once Notification Logger is a simple node.js app that listens for notifications from the Brightcove Once service and writes them to a log. This tester sends a simple test message to the logger to ensure and displays the log in an iframe so that you can see the message appended to it.</p>
+    <button id="submitBtn">Send a test message to the log</button>
+    <h2>The Once Notifications Log</h2>
+    <iframe src="once-log.txt"></iframe>
+    <script>
+    var BCLS = ( function () {
+      var now = new Date().toISOString(),
+        message = {"code": "test", "message": "testing", "date": now},
+        requestData = JSON.stringify(message),
+        submitBtn = document.getElementById("submitBtn"),
+        sendMessage,
+        init;
+
+        init = function (document) {
+          submitBtn.addEventListener("click", sendMessage);
+          console.log("init finished")
+        };
+
+        sendMessage = function () {
+          var httpRequest = new XMLHttpRequest(),
+            loggerURL = "//solutions.brightcove.com:9001/",
+            getResponse = function () {
+              try {
+                  if (httpRequest.readyState === 4) {
+                    if (httpRequest.status === 200) {
+                      logResponse(httpRequest.responseText);
+                      alert("Message sent - check the log");
+                    } else {
+                      alert("There was a problem with the request. Request returned " + httpRequest.status);
+                    }
+                  }
+                }
+                catch(e) {
+                  alert('Caught Exception: ' + e);
+                }
+            };
+          // set response handler
+          httpRequest.onreadystatechange = getResponse;
+          // open the request
+          httpRequest.open("POST", loggerURL);
+          // set headers
+          httpRequest.setRequestHeader("Content-Type", "application/json");
+          // open and send request
+          httpRequest.send(requestData);
+
+        };
+        init();
+      return {
+
+      }
+    })(document);
+    </script>
+  </body>
+</html>

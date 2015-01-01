@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+      body {
+        margin: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <pre id="results"></pre>
+    <script>
+      var a = {items: ["a","b"]},
+          b = {items: ["d","e","f"]},
+          c = {items: ["g","h","i"]},
+          d = {items: ["j","k","l"]},
+          e = {items: ["d","e","f","m"]},
+          f = {items: ["g","h","i","n"]},
+          g = {items: ["j","k","l","o"]},
+          results = document.getElementById("results"),
+          dedupe,
+          combineArrays;
+      dedupe = function (arr) {
+        var i,
+            len = arr.length,
+            out = [],
+            obj = {};
+
+        for (i = 0; i < len; i++) {
+            obj[arr[i]] = 0;
+        }
+        for (i in obj) {
+            out.push(i);
+        }
+        return out;
+    };
+    combineArrays = function (arr) {
+        var i,
+            iMax = arr.length,
+            out = {};
+        out.items = [];
+        for (i = 0; i < iMax; i++) {
+            out.items = out.items.concat(arr[i].items);
+        }
+        out.items = dedupe(out.items);
+        return out;
+    };
+    results.innerHTML += "a = " + a.items.join(",") + "<br>";
+    results.innerHTML += "b = " + b.items.join(",") + "<br>";
+    results.innerHTML += "c = " + c.items.join(",") + "<br>";
+    results.innerHTML += "d = " + d.items.join(",") + "<br>";
+    results.innerHTML += "e = " + e.items.join(",") + "<br>";
+    results.innerHTML += "f = " + f.items.join(",") + "<br>";
+    results.innerHTML += "g = " + g.items.join(",") + "<br>";
+    results.innerHTML += "a+b = " + combineArrays([a,b]).items.join(",") + "<br>";
+    results.innerHTML += "a+b+c+d = " + combineArrays([a,b,c,d]).items.join(",") + "<br>";
+    results.innerHTML += "a+b+c+d+e+f+g = " + combineArrays([a,b,c,d,e,f,g]).items.join(",") + "<br>";
+    </script>
+  </body>
+</html>

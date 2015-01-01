@@ -1,7 +1,7 @@
 var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) {
     "use strict";
     var // templates for data input options
-        dimensionOptionTemplate = "{{#dimensions}}<option>{{this}}</option>{{/dimensions}}",
+        dimensionOptionTemplate = "{{#}}<option>{{this}}</option>{{/dimensions}}",
         videoOptionTemplate = "{{#items}}<option value=\"{{video}}\">{{video_name}}</option>{{/items}}",
         playerOptionTemplate = "{{#items}}<option value=\"{{player}}\">{{player_name}}</option>{{/items}}",
         destination_domainOptionTemplate = "{{#items}}<option>{{destination_domain}}</option>{{/items}}",
@@ -102,7 +102,221 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         rollupDimensionOptions = "<option value=\"account\">account</option>",
         rollupFormatOptions = "<option value=\"json\">json</option>",
         reportFormatOptions = "<option value=\"json\">json</option><option value=\"csv\">csv</option><option value=\"xlsx\">xlxs</option>",
-        // functions to be defined
+        // fields for different dimensions
+        baseFields = {
+            "items": ["engagement_score", "play_rate", "player_load", "video_impression", "video_view", "video_percent_viewed", "video_seconds_viewed"]
+        },
+        accountFields = {
+            "items": ["account", "active_media", "bytes_delivered", "bytes_in", "bytes_out", "bytes_overhead", "bytes_player", "bytes_stored", "cdn_log_line", "chimera_report", "content_delivered", "daily_unique_viewers", "drm_bytes_packaged", "engagement_score", "licenses_served", "play_rate", "player_load", "video_engagement_1", "video_engagement_25", "video_engagement_50", "video_engagement_75", "video_engagement_100", "video_impression", "video_percent_viewed", "video_seconds_viewed", "video_view"]
+        },
+        videoFields = {
+            "items": baseFields.items.concat(["video", "video_name", "video_duration", "video_engagement", "video_engagement_1", "video_engagement_25", "video_engagement_50", "video_engagement_75", "video_engagement_100", "bytes_delivered", "content_delivered"])
+        },
+        playerFields = {
+            "items": baseFields.items.concat(["player", "player_name", "video_duration", "video_engagement", "video_engagement_1", "video_engagement_25", "video_engagement_50", "video_engagement_75", "video_engagement_100"])
+        },
+        dayFields = {
+            "items": ["account", "active_media", "bytes_delivered", "bytes_in", "bytes_out", "bytes_overhead", "bytes_player", "bytes_stored", "cdn_log_line", "chimera_report", "content_delivered", "daily_unique_viewers", "day", "drm_bytes_packaged", "engagement_score", "licenses_served", "play_rate", "player_load", "video_engagement_1", "video_engagement_25", "video_engagement_50", "video_engagement_75", "video_engagement_100", "video_impression", "video_percent_viewed", "video_seconds_viewed", "video_view"]
+        },
+        countryFields = {
+            "items": baseFields.items.concat(["country", "country_name"])
+        },
+        cityFields = {
+            "items": baseFields.items.concat(["city"])
+        },
+        regionFields = {
+            "items": baseFields.items.concat(["region"])
+        },
+        destination_domainFields = {
+            "items": baseFields.items.concat(["destination_domain"])
+        },
+        referrer_domainFields = {
+            "items": baseFields.items.concat(["player_load", "referrer_domain"])
+        },
+        source_typeFields = {
+            "items": baseFields.items.concat(["player_load", "source_type"])
+        },
+        search_termsFields = {
+            "items": baseFields.items.concat(["player_load", "search_terms"])
+        },
+        device_typeFields = {
+            "items": baseFields.items.concat(["player_load", "device_type"])
+        },
+        device_osFields = {
+            "items": baseFields.items.concat(["player_load", "device_os"])
+        },
+        accountVideoFields = {
+            "items": videoFields.items.concat(["account"])
+        },
+        accountPlayerFields = {
+            "items": playerFields.items.concat(["account"])
+        },
+        accountReferrer_domainFields = {
+            "items": referrer_domainFields.items.concat(["account"])
+        },
+        accountSource_typeFields = {
+            "items": source_typeFields.items.concat(["account"])
+        },
+        accountSearch_termsFields = {
+            "items": search_termsFields.items.concat(["account"])
+        },
+        accountDevice_typeFields = {
+            "items": device_typeFields.items.concat(["account"])
+        },
+        accountDevice_osFields = {
+            "items": device_osFields.items.concat(["account"])
+        },
+        playerVideoFields = {
+            "items": videoFields.items.concat(["player", "player_name"])
+        },
+        playerReferrer_domainFields = {
+            "items": referrer_domainFields.items.concat(["player", "player_name"])
+        },
+        playerSource_typeFields = {
+            "items": source_typeFields.items.concat(["player", "player_name"])
+        },
+        playerSearch_termsFields = {
+            "items": search_termsFields.items.concat(["player", "player_name"])
+        },
+        playerDevice_typeFields = {
+            "items": device_typeFields.items.concat(["player", "player_name"])
+        },
+        playerDevice_osFields = {
+            "items": device_osFields.items.concat(["player", "player_name"])
+        },
+        videoReferrer_domainFields = {
+            "items": referrer_domainFields.items.concat(["video", "video_name"])
+        },
+        videoSource_typeFields = {
+            "items": source_typeFields.items.concat(["video", "video_name"])
+        },
+        videoSearch_termsFields = {
+            "items": search_termsFields.items.concat(["video", "video_name"])
+        },
+        videoDevice_typeFields = {
+            "items": device_typeFields.items.concat(["video", "video_name"])
+        },
+        videoDevice_osFields = {
+            "items": device_osFields.items.concat(["video", "video_name"])
+        },
+        countryCityFields = {
+            "items": cityFields.items.concat(["country", "country_name", "dma"])
+        },
+        countryRegionFields = {
+            "items": regionFields.items.concat(["country", "country_name"])
+        },
+        cityRegionFields = {
+            "items": regionFields.items.concat(["city"])
+        },
+        referrer_domainSource_typeFields = {
+            "items": referrer_domainFields.items.concat(["source_type"])
+        },
+        referrer_domainSearch_termsFields = {
+            "items": referrer_domainFields.items.concat(["search_terms"])
+        },
+        source_typeSearch_termsFields = {
+            "items": source_typeFields.items.concat(["search_terms"])
+        },
+        device_typeDevice_osFields = {
+            "items": device_typeFields.items.concat(["device_os"])
+        },
+        accountPlayerVideoFields = {
+            "items": playerVideoFields.items.concat(["account"])
+        },
+        accountPlayerReferrer_domainFields = {
+            "items": playerReferrer_domainFields.items.concat(["account"])
+        },
+        accountPlayerSource_typeFields = {
+            "items": playerSource_typeFields.items.concat(["account"])
+        },
+        accountPlayerSearch_termsFields = {
+            "items": playerSearch_termsFields.items.concat(["account"])
+        },
+        accountVideoReferrer_domainFields = {
+            "items": videoReferrer_domainFields.items.concat(["account"])
+        },
+        accountVideoSource_typeFields = {
+            "items": videoSource_typeFields.items.concat(["account"])
+        },
+        accountVideoSearch_termsFields = {
+            "items": videoSearch_termsFields.items.concat(["account"])
+        },
+        accountReferrer_domainSource_typeFields = {
+            "items": referrer_domainSource_typeFields.items.concat(["account"])
+        },
+        accountReferrer_domainSearch_termsFields = {
+            "items": referrer_domainSearch_termsFields.items.concat(["account"])
+        },
+        accountSource_typeSearch_termsFields = {
+            "items": source_typeSearch_termsFields.items.concat(["account"])
+        },
+        accountDevice_typeDevice_osFields = {
+            "items": device_typeDevice_osFields.items.concat(["account"])
+        },
+        playerReferrer_domainSource_typeFields = {
+            "items": referrer_domainSource_typeFields.items.concat(["player", "player_name"])
+        },
+        playerReferrer_domainSearch_termsFields = {
+            "items": referrer_domainSearch_termsFields.items.concat(["player", "player_name"])
+        },
+        playerSource_typeSearch_termsFields = {
+            "items": source_typeSearch_termsFields.items.concat(["player", "player_name"])
+        },
+        playerDevice_typeDevice_osFields = {
+            "items": device_typeDevice_osFields.items.concat(["player", "player_name"])
+        },
+        videoReferrer_domainSource_typeFields = {
+            "items": referrer_domainSource_typeFields.items.concat(["video", "video_name"])
+        },
+        videoReferrer_domainSearch_termsFields = {
+            "items": referrer_domainSearch_termsFields.items.concat(["video", "video_name"])
+        },
+        videoSource_typeSearch_termsFields = {
+            "items": source_typeSearch_termsFields.items.concat(["video", "video_name"])
+        },
+        videoDevice_typeDevice_osFields = {
+            "items": device_typeDevice_osFields.items.concat(["video", "video_name"])
+        },
+        countryCityRegionFields = {
+            "items": countryRegionFields.items.concat(["city"])
+        },
+        referrer_domainSource_typeSearch_termsFields = {
+            "items": referrer_domainSource_typeFields.items.concat(["search_terms"])
+        },
+        accountPlayerReferrer_domainSource_typeFields = {
+            "items": accountPlayerReferrer_domainFields.items.concat(["source_type"])
+        },
+        accountPlayerReferrer_domainSearch_termsFields = {
+            "items": accountPlayerReferrer_domainFields.items.concat(["search_terms"])
+        },
+        accountPlayerSource_typeSearch_termsFields = {
+            "items": accountPlayerSource_typeFields.items.concat(["search_terms"])
+        },
+        accountVideoReferrer_domainSource_typeFields = {
+            "items": accountVideoReferrer_domainFields.items.concat(["source_type"])
+        },
+        accountVideoReferrer_domainSearch_termsFields = {
+            "items": accountVideoReferrer_domainFields.items.concat(["search_terms"])
+        },
+        accountVideoSource_typeSearch_termsFields = {
+            "items": accountVideoSource_typeFields.items.concat(["search_terms"])
+        },
+        accountReferrer_domainSource_typeSearch_termsFields = {
+            "items": accountReferrer_domainSource_typeFields.items.concat(["search_terms"])
+        },
+        playerReferrer_domainSource_typeSearch_termsFields = {
+            "items": playerReferrer_domainSource_typeFields.items.concat(["search_terms"])
+        },
+        videoReferrer_domainSource_typeSearch_termsFields = {
+            "items": videoReferrer_domainSource_typeFields.items.concat(["search_terms"])
+        },
+        accountPlayerReferrer_domainSource_typeSearch_termsFields = {
+            "items": accountPlayerReferrer_domainSource_typeFields.items.concat(["video", "video_name"])
+        },
+        accountVideoReferrer_domainSource_typeSearch_termsFields = {
+            "items": accountVideoReferrer_domainSource_typeFields.items.concat(["video", "video_name"])
+        },
+        // functions to be defined"
         bclslog,
         getDataForInputs,
         buildDataForInputRequest,
@@ -116,8 +330,6 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         setFieldsSortOptions,
         setDimensions,
         onDimesionError,
-        dedupe,
-        combineArrays,
         init;
         //  "search_terms",
     // safe console log
@@ -132,37 +344,6 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
             return true;
         }
         return false;
-    };
-    // dedupe simple array
-    dedupe = function (arr) {
-        var i,
-            len = arr.length,
-            out = [],
-            obj = {};
-
-        for (i = 0; i < len; i++) {
-            obj[arr[i]] = 0;
-        }
-        for (i in obj) {
-            out.push(i);
-        }
-        return out;
-    };
-    /*
-     * combine and dedupe multiple arrays
-     * arguments: arr (an array of the arrays you want to combine)
-     * dependencies: dedupe()
-     */
-    combineArrays = function (arr) {
-        var i,
-            iMax = arr.length,
-            out = {};
-        out.items = [];
-        for (i = 0; i < iMax; i++) {
-            out.items = out.items.concat(arr[i].items);
-        }
-        out.items = dedupe(out.items);
-        return out;
     };
     // get input field values
     getDataForInputs = function () {
@@ -596,72 +777,72 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
             has_destination_domain = true;
         }
         if (has_day) {
-            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(aapi_model.dayFields));
-            $sort.html(template(aapi_model.dayFields));
+            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(dayFields));
+            $sort.html(template(dayFields));
         } else if (has_account) { // account combinations
             if (has_player) {
                 if (has_video) {
-                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.accountFields,aapi_model.playerFields,aapi_model.videoFields])));
-                    $sort.html(template(combineArrays([aapi_model.accountFields,aapi_model.playerFields,aapi_model.videoFields])));
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountPlayerVideoFields));
+                    $sort.html(template(accountPlayerVideoFields));
                 } else if (has_referrer_domain) {
                     if (has_source_type) {
                         if (has_search_terms) {
-                            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.accountFields, aapi_model.playerFields, aapi_model.referrer_domainFields, aapi_model.source_typeFields, aapi_model.search_termsFields])));
-                            $sort.html(template(combineArrays([aapi_model.accountFields, aapi_model.playerFields, aapi_model.referrer_domainFields, aapi_model.source_typeFields, aapi_model.search_termsFields])));
+                            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountPlayerReferrer_domainSource_typeSearch_termsFields));
+                            $sort.html(template(accountPlayerReferrer_domainSource_typeSearch_termsFields));
                         } else {
-                            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.accountFields, aapi_model.playerFields, aapi_model.referrer_domainFields, aapi_model.source_typeFields])));
-                            $sort.html(template(combineArrays([aapi_model.accountFields, aapi_model.playerFields, aapi_model.referrer_domainFields, aapi_model.source_typeFields])));
+                            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountPlayerReferrer_domainSource_typeFields));
+                            $sort.html(template(accountPlayerReferrer_domainSource_typeFields));
                         }
                     } else if (has_search_terms) {
-                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.accountFields, aapi_model.playerFields, aapi_model.referrer_domainFields, aapi_model.search_termsFields])));
-                        $sort.html(template(combineArrays([aapi_model.accountFields, aapi_model.playerFields, aapi_model.referrer_domainFields, aapi_model.search_termsFields])));
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountPlayerReferrer_domainSearch_termsFields));
+                        $sort.html(template(accountPlayerReferrer_domainSearch_termsFields));
                     } else {
-                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.accountFields, aapi_model.playerFields, aapi_model.referrer_domainFields])));
-                        $sort.html(template(combineArrays([aapi_model.accountFields, aapi_model.playerFields, aapi_model.referrer_domainFields])));
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountPlayerReferrer_domainFields));
+                        $sort.html(template(accountPlayerReferrer_domainFields));
                     }
                 } else if (has_source_type) {
                     if (has_search_terms) {
-                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.accountFields, aapi_model.playerFields, aapi_model.source_typeFields, aapi_model.search_termsFields])));
-                        $sort.html(template(combineArrays([aapi_model.accountFields, aapi_model.playerFields, aapi_model.source_typeFields, aapi_model.search_termsFields])));
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountPlayerSource_typeSearch_termsFields));
+                        $sort.html(template(accountPlayerSource_typeSearch_termsFields));
                     } else {
-                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.accountFields, aapi_model.playerFields, aapi_model.source_typeFields])));
-                        $sort.html(template(combineArrays([aapi_model.accountFields, aapi_model.playerFields, aapi_model.source_typeFields])));
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountPlayerSource_typeFields));
+                        $sort.html(template(accountPlayerSource_typeFields));
                     }
                 } else if (has_search_terms) {
-                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.accountFields, aapi_model.playerFields, aapi_model.search_termsFields])));
-                    $sort.html(template(combineArrays([aapi_model.accountFields, aapi_model.playerFields, aapi_model.search_termsFields])));
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountPlayerSearch_termsFields));
+                    $sort.html(template(accountPlayerSearch_termsFields));
                 } else {
-                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.accountFields, aapi_model.playerFields])));
-                    $sort.html(template(combineArrays([aapi_model.accountFields, aapi_model.playerFields])));
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountPlayerFields));
+                    $sort.html(template(accountPlayerFields));
                 }
             } else if (has_video) {
                 if (has_referrer_domain) {
                     if (has_source_type) {
                         if (has_search_terms) {
-                            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.accountFields, aapi_model.videoFields, aapi_model.referrer_domainFields, aapi_model.source_typeFields, aapi_model.search_termsFields])));
-                            $sort.html(template(combineArrays([aapi_model.accountFields, aapi_model.videoFields, aapi_model.referrer_domainFields, aapi_model.source_typeFields, aapi_model.search_termsFields])));
+                            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountVideoReferrer_domainSource_typeSearch_termsFields));
+                            $sort.html(template(accountVideoReferrer_domainSource_typeSearch_termsFields));
                         } else {
-                            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.accountFields, aapi_model.videoFields, aapi_model.referrer_domainFields, aapi_model.source_typeFields])));
-                            $sort.html(template(combineArrays([aapi_model.accountFields, aapi_model.videoFields, aapi_model.referrer_domainFields, aapi_model.source_typeFields])));
+                            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountVideoReferrer_domainSource_typeFields));
+                            $sort.html(template(accountVideoReferrer_domainSource_typeFields));
                         }
                     } else if (has_search_terms) {
-                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.accountFields, aapi_model.videoFields, aapi_model.referrer_domainFields, aapi_model.search_termsFields])));
-                        $sort.html(template(combineArrays([aapi_model.accountFields, aapi_model.videoFields, aapi_model.referrer_domainFields, aapi_model.search_termsFields])));
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountVideoReferrer_domainSearch_termsFields));
+                        $sort.html(template(accountVideoReferrer_domainSearch_termsFields));
                     } else {
-                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.accountFields, aapi_model.videoFields, aapi_model.referrer_domainFields])));
-                        $sort.html(template(combineArrays([aapi_model.accountFields, aapi_model.videoFields, aapi_model.referrer_domainFields])));
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountVideoReferrer_domainFields));
+                        $sort.html(template(accountVideoReferrer_domainFields));
                     }
                 } else if (has_source_type) {
                     if (has_search_terms) {
-                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.accountFields, aapi_model.videoFields, aapi_model.source_typeFields, aapi_model.search_termsFields])));
-                        $sort.html(template(combineArrays([aapi_model.accountFields, aapi_model.videoFields, aapi_model.source_typeFields, aapi_model.search_termsFields])));
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountVideoSource_typeSearch_termsFields));
+                        $sort.html(template(accountVideoSource_typeSearch_termsFields));
                     } else {
-                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.accountFields, aapi_model.videoFields, aapi_model.source_typeFields])));
-                        $sort.html(template(combineArrays([aapi_model.accountFields, aapi_model.videoFields, aapi_model.source_typeFields])));
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountVideoSource_typeFields));
+                        $sort.html(template(accountVideoSource_typeFields));
                     }
                 } else if (has_search_terms) {
-                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.accountFields, aapi_model.videoFields, aapi_model.search_termsFields])));
-                    $sort.html(template(combineArrays([aapi_model.accountFields, aapi_model.videoFields, aapi_model.search_termsFields])));
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountVideoSearch_termsFields));
+                    $sort.html(template(accountVideoSearch_termsFields));
                 } else {
                     $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountVideoFields));
                     $sort.html(template(accountVideoFields));
@@ -669,130 +850,130 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
             } else if (has_referrer_domain) {
                 if (has_source_type) {
                     if (has_search_terms) {
-                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.accountFields, aapi_model.referrer_domainFields, aapi_model.source_typeFields, aapi_model.search_termsFields])));
-                        $sort.html(template(combineArrays([aapi_model.accountFields, aapi_model.referrer_domainFields, aapi_model.source_typeFields, aapi_model.search_termsFields])));
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountReferrer_domainSource_typeSearch_termsFields));
+                        $sort.html(template(accountReferrer_domainSource_typeSearch_termsFields));
                     } else {
-                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.accountFields, aapi_model.referrer_domainFields, aapi_model.source_typeFields])));
-                        $sort.html(template(combineArrays([aapi_model.accountFields, aapi_model.referrer_domainFields, aapi_model.source_typeFields])));
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountReferrer_domainSource_typeFields));
+                        $sort.html(template(accountReferrer_domainSource_typeFields));
                     }
                 } else if (has_search_terms) {
-                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.accountFields, aapi_model.referrer_domainFields, aapi_model.search_termsFields])));
-                    $sort.html(template(combineArrays([aapi_model.accountFields, aapi_model.referrer_domainFields, aapi_model.search_termsFields])));
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountReferrer_domainSearch_termsFields));
+                    $sort.html(template(accountReferrer_domainSearch_termsFields));
                 } else {
-                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.accountFields, aapi_model.referrer_domainFields])));
-                    $sort.html(template(combineArrays([aapi_model.accountFields, aapi_model.referrer_domainFields])));
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountReferrer_domainFields));
+                    $sort.html(template(accountReferrer_domainFields));
                 }
             } else if (has_source_type) {
                 if (has_search_terms) {
-                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.accountFields, aapi_model.source_typeFields, aapi_model.search_termsFields])));
-                    $sort.html(template(combineArrays([aapi_model.accountFields, aapi_model.source_typeFields, aapi_model.search_termsFields])));
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountSource_typeSearch_termsFields));
+                    $sort.html(template(accountSource_typeSearch_termsFields));
                 } else {
-                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.accountFields, aapi_model.source_typeFields])));
-                    $sort.html(template(combineArrays([aapi_model.accountFields, aapi_model.source_typeFields])));
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountSource_typeFields));
+                    $sort.html(template(accountSource_typeFields));
                 }
             } else if (has_search_terms) {
-                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.accountFields, aapi_model.search_termsFields])));
-                $sort.html(template(combineArrays([aapi_model.accountFields, aapi_model.search_termsFields])));
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountSearch_termsFields));
+                $sort.html(template(accountSearch_termsFields));
             } else if (has_device_type) {
                 if (has_device_os) {
-                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.accountFields, aapi_model.device_typeFields, aapi_model.device_osFields])));
-                    $sort.html(template(combineArrays([aapi_model.accountFields, aapi_model.device_typeFields, aapi_model.device_osFields])));
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountDevice_typeDevice_osFields));
+                    $sort.html(template(accountDevice_typeDevice_osFields));
                 } else {
-                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.accountFields, aapi_model.device_typeFields])));
-                    $sort.html(template(combineArrays([aapi_model.accountFields, aapi_model.device_typeFields])));
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountDevice_typeFields));
+                    $sort.html(template(accountDevice_typeFields));
                 }
             } else if (has_device_os) {
-                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.accountFields, aapi_model.device_osFields])));
-                $sort.html(template(combineArrays([aapi_model.accountFields, aapi_model.device_osFields])));
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountDevice_osFields));
+                $sort.html(template(accountDevice_osFields));
             } else {
-                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(aapi_model.accountFields));
-                $sort.html(template(aapi_model.accountFields));
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(accountFields));
+                $sort.html(template(accountFields));
             }
         } else if (has_player) { // player combinations
             if (has_video) {
-                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.playerFields, aapi_model.videoFields])));
-                $sort.html(template(combineArrays([aapi_model.playerFields, aapi_model.videoFields])));
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(playerVideoFields));
+                $sort.html(template(playerVideoFields));
             } else if (has_referrer_domain) {
                 if (has_source_type) {
                     if (has_search_terms) {
-                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.playerFields, aapi_model.referrer_domainFields, aapi_model.source_typeFields, aapi_model.search_termsFields])));
-                        $sort.html(template(combineArrays([aapi_model.playerFields, aapi_model.referrer_domainFields, aapi_model.source_typeFields, aapi_model.search_termsFields])));
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(playerReferrer_domainSource_typeSearch_termsFields));
+                        $sort.html(template(playerReferrer_domainSource_typeSearch_termsFields));
                     } else {
-                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.playerFields, aapi_model.referrer_domainFields, aapi_model.source_typeFields])));
-                        $sort.html(template(combineArrays([aapi_model.playerFields, aapi_model.referrer_domainFields, aapi_model.source_typeFields])));
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(playerReferrer_domainSource_typeFields));
+                        $sort.html(template(playerReferrer_domainSource_typeFields));
                     }
                 } else if (has_search_terms) {
-                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.playerFields, aapi_model.referrer_domainFields, aapi_model.search_termsFields])));
-                    $sort.html(template(combineArrays([aapi_model.playerFields, aapi_model.referrer_domainFields, aapi_model.search_termsFields])));
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(playerReferrer_domainSearch_termsFields));
+                    $sort.html(template(playerReferrer_domainSearch_termsFields));
                 }
             } else if (has_source_type) {
                 if (has_search_terms) {
-                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.playerFields, aapi_model.source_typeFields, aapi_model.search_termsFields])));
-                    $sort.html(template(combineArrays([aapi_model.playerFields, aapi_model.source_typeFields, aapi_model.search_termsFields])));
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(playerSource_typeSearch_termsFields));
+                    $sort.html(template(playerSource_typeSearch_termsFields));
                 } else {
-                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.playerFields, aapi_model.source_typeFields])));
-                    $sort.html(template(combineArrays([aapi_model.playerFields, aapi_model.source_typeFields])));
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(playerSource_typeFields));
+                    $sort.html(template(playerSource_typeFields));
                 }
             } else if (has_search_terms) {
-                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.playerFields, aapi_model.search_termsFields])));
-                $sort.html(template(combineArrays([aapi_model.playerFields, aapi_model.search_termsFields])));
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(playerSearch_termsFields));
+                $sort.html(template(playerSearch_termsFields));
             } else if (has_device_type) {
                 if (has_device_os) {
-                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.playerFields, aapi_model.device_typeFields, aapi_model.device_osFields])));
-                    $sort.html(template(combineArrays([aapi_model.playerFields, aapi_model.device_typeFields, aapi_model.device_osFields])));
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(playerDevice_typeDevice_osFields));
+                    $sort.html(template(playerDevice_typeDevice_osFields));
                 } else {
-                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.playerFields, aapi_model.device_typeFields])));
-                    $sort.html(template(combineArrays([aapi_model.playerFields, aapi_model.device_typeFields])));
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(playerDevice_typeFields));
+                    $sort.html(template(playerDevice_typeFields));
                 }
             } else if (has_device_os) {
-                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.playerFields, aapi_model.device_osFields])));
-                $sort.html(template(combineArrays([aapi_model.playerFields, aapi_model.device_osFields])));
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(playerDevice_osFields));
+                $sort.html(template(playerDevice_osFields));
             } else {
-                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(aapi_model.playerFields));
-                $sort.html(template(aapi_model.playerFields));
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(playerFields));
+                $sort.html(template(playerFields));
             }
         } else if (has_video) { // video combinations
             if (has_referrer_domain) {
                 if (has_source_type) {
                     if (has_search_terms) {
-                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.videoFields, aapi_model.referrer_domainFields, aapi_model.source_typeFields, aapi_model.search_termsFields])));
-                        $sort.html(template(combineArrays([aapi_model.videoFields, aapi_model.referrer_domainFields, aapi_model.source_typeFields, aapi_model.search_termsFields])));
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(videoReferrer_domainSource_typeSearch_termsFields));
+                        $sort.html(template(videoReferrer_domainSource_typeSearch_termsFields));
                     } else {
-                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.videoFields, aapi_model.referrer_domainFields, aapi_model.source_typeFields])));
-                        $sort.html(template(combineArrays([aapi_model.videoFields, aapi_model.referrer_domainFields, aapi_model.source_typeFields])));
+                        $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(videoReferrer_domainSource_typeFields));
+                        $sort.html(template(videoReferrer_domainSource_typeFields));
                     }
                 } else if (has_search_terms) {
-                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.videoFields, aapi_model.referrer_domainFields, aapi_model.search_termsFields])));
-                    $sort.html(template(combineArrays([aapi_model.videoFields, aapi_model.referrer_domainFields, aapi_model.search_termsFields])));
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(videoReferrer_domainSearch_termsFields));
+                    $sort.html(template(videoReferrer_domainSearch_termsFields));
                 } else {
-                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.videoFields, aapi_model.videoReferrer_domainFields])));
-                    $sort.html(template(combineArrays([aapi_model.videoFields, aapi_model.videoReferrer_domainFields])));
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(videoReferrer_domainFields));
+                    $sort.html(template(videoReferrer_domainFields));
                 }
             } else if (has_source_type) {
                 if (has_search_terms) {
-                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.videoFields, aapi_model.source_typeFields, aapi_model.search_termsFields])));
-                    $sort.html(combineArrays([aapi_model.videoFields, aapi_model.source_typeFields, aapi_model.search_termsFields]));
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(videoSource_typeSearch_termsFields));
+                    $sort.html(template(videoSource_typeSearch_termsFields));
                 } else {
-                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.videoFields, aapi_model.source_typeFields])));
-                    $sort.html(template(combineArrays([aapi_model.videoFields, aapi_model.source_typeFields])));
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(videoSource_typeFields));
+                    $sort.html(template(videoSource_typeFields));
                 }
             } else if (has_search_terms) {
-                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.videoFields, aapi_model.search_termsFields])));
-                $sort.html(template(combineArrays([aapi_model.videoFields, aapi_model.search_termsFields])));
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(videoSearch_termsFields));
+                $sort.html(template(videoSearch_termsFields));
             } else if (has_device_type) {
                 if (has_device_os) {
-                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.videoFields, aapi_model.device_typeFields, aapi_model.device_osFields])));
-                    $sort.html(template(combineArrays([aapi_model.videoFields, aapi_model.device_typeFields, aapi_model.device_osFields])));
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(videoDevice_typeDevice_osFields));
+                    $sort.html(template(videoDevice_typeDevice_osFields));
                 } else {
-                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.videoFields, aapi_model.device_typeFields])));
-                    $sort.html(template(combineArrays([aapi_model.videoFields, aapi_model.device_typeFields])));
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(videoDevice_typeFields));
+                    $sort.html(template(videoDevice_typeFields));
                 }
             } else if (has_device_os) {
-                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.videoFields, aapi_model.device_osFields])));
-                $sort.html(template(combineArrays([aapi_model.videoFields, aapi_model.device_osFields])));
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(videoDevice_osFields));
+                $sort.html(template(videoDevice_osFields));
             } else {
-                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(aapi_model.videoFields));
-                $sort.html(template(aapi_model.videoFields));
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(videoFields));
+                $sort.html(template(videoFields));
             }
         } else if (has_country) { // country combinations
             if (has_city) {
@@ -871,7 +1052,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
     setDimensions = function () {
         if ($APIrequestType.val() === "report") {
             template = Handlebars.compile(dimensionOptionTemplate);
-            $dimensions.html(template(aapi_model));
+            $dimensions.html(template(dimensionsObj));
             $dimensions.children("option").filter(":first").attr("selected", "selected");
             $format.html(reportFormatOptions);
         } else {

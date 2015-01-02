@@ -1,4 +1,4 @@
-var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) {
+var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON, aapi_model) {
     "use strict";
     var // templates for data input options
         dimensionOptionTemplate = "{{#dimensions}}<option>{{this}}</option>{{/dimensions}}",
@@ -538,6 +538,7 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
     };
     // set the options for the fields and sort
     setFieldsSortOptions = function () {
+        bclslog("setting fields options");
         var vals = $dimensions.val(),
             has_account = false,
             has_day = false,
@@ -594,6 +595,9 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         }
         if ($.inArray("destination_domain", vals) > -1) {
             has_destination_domain = true;
+        }
+        if ($.inArray("destination_path", vals) > -1) {
+            has_destination_path = true;
         }
         if (has_day) {
             $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(aapi_model.dayFields));
@@ -797,71 +801,79 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         } else if (has_country) { // country combinations
             if (has_city) {
                 if (has_region) {
-                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(countryCityRegionFields));
-                    $sort.html(template(countryCityRegionFields));
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.countryFields, aapi_model.cityFields, aapi_model.regionFields])));
+                    $sort.html(template(combineArrays([aapi_model.countryFields, aapi_model.cityFields, aapi_model.regionFields])));
                 } else {
-                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(countryCityFields));
-                    $sort.html(template(countryCityFields));
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.countryFields, aapi_model.cityFields])));
+                    $sort.html(template(combineArrays([aapi_model.countryFields, aapi_model.cityFields])));
                 }
             } else if (has_region) {
-                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(countryRegionFields));
-                $sort.html(template(countryRegionFields));
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.countryFields, aapi_model.regionFields])));
+                $sort.html(template(combineArrays([aapi_model.countryFields, aapi_model.regionFields])));
             } else {
-                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(countryFields));
-                $sort.html(template(countryFields));
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(aapi_model.countryFields));
+                $sort.html(template(aapi_model.countryFields));
             }
         } else if (has_city) { // city combinations
             if (has_region) {
-                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(cityRegionFields));
-                $sort.html(template(cityRegionFields));
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.cityFields, aapi_model.regionFields])));
+                $sort.html(template(combineArrays([aapi_model.cityFields, aapi_model.regionFields])));
             } else {
-                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(cityFields));
-                $sort.html(template(cityFields));
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(aapi_model.cityFields));
+                $sort.html(template(aapi_model.cityFields));
             }
         } else if (has_region) {
-            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(regionFields));
-            $sort.html(template(regionFields));
+            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(aapi_model.regionFields));
+            $sort.html(template(aapi_model.regionFields));
         } else if (has_referrer_domain) { // referrer_domain combinations
             if (has_source_type) {
                 if (has_search_terms) {
-                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(referrer_domainSource_typeSearch_termsFields));
-                    $sort.html(template(referrer_domainSource_typeSearch_termsFields));
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.referrer_domainFields, aapi_model.source_typeFields, aapi_model.search_termsFields])));
+                    $sort.html(template(combineArrays([aapi_model.referrer_domainFields, aapi_model.source_typeFields, aapi_model.search_termsFields])));
                 } else {
-                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(referrer_domainSource_typeFields));
-                    $sort.html(template(referrer_domainSource_typeFields));
+                    $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.referrer_domainFields, aapi_model.source_typeFields])));
+                    $sort.html(template(combineArrays([aapi_model.referrer_domainFields, aapi_model.source_typeFields])));
                 }
             } else if (has_search_terms) {
-                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(referrer_domainSearch_termsFields));
-                $sort.html(template(referrer_domainSearch_termsFields));
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.referrer_domainFields, aapi_model.search_termsFields])));
+                $sort.html(template(combineArrays([aapi_model.referrer_domainFields, aapi_model.search_termsFields])));
             } else {
-                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(referrer_domainFields));
-                $sort.html(template(referrer_domainFields));
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(aapi_model.referrer_domainFields));
+                $sort.html(template(aapi_model.referrer_domainFields));
             }
         } else if (has_source_type) { // source_type combinations
             if (has_search_terms) {
-                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(source_typeSearch_termsFields));
-                $sort.html(template(source_typeSearch_termsFields));
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.source_typeFields, aapi_model.search_termsFields])));
+                $sort.html(template(combineArrays([aapi_model.source_typeFields, aapi_model.search_termsFields])));
             } else {
-                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(source_typeFields));
-                $sort.html(template(source_typeFields));
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(aapi_model.source_typeFields));
+                $sort.html(template(aapi_model.source_typeFields));
             }
         } else if (has_search_terms) { // search_terms combinations
-            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(search_termsFields));
-            $sort.html(template(search_termsFields));
+            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(aapi_model.search_termsFields));
+            $sort.html(template(aapi_model.search_termsFields));
         } else if (has_device_type) { // device_type combinations
             if (has_device_os) {
-                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(device_typeDevice_osFields));
-                $sort.html(template(device_typeDevice_osFields));
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.device_typeFields, aapi_model.device_osFields])));
+                $sort.html(template(combineArrays([aapi_model.device_typeFields, aapi_model.device_osFields])));
             } else {
-                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(device_typeFields));
-                $sort.html(template(device_typeFields));
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(aapi_model.device_typeFields));
+                $sort.html(template(aapi_model.device_typeFields));
             }
         } else if (has_device_os) { // device_os combinations
-            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(device_osFields));
-            $sort.html(template(device_osFields));
+            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(aapi_model.device_osFields));
+            $sort.html(template(aapi_model.device_osFields));
         } else if (has_destination_domain) { // destination_domain combinations
-            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(destination_domainFields));
-            $sort.html(template(destination_domainFields));
+            if (has_destination_path) {
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(combineArrays([aapi_model.destination_domainFields, aapi_model.destination_pathFields])));
+                $sort.html(template(combineArrays([aapi_model.destination_domainFields, aapi_model.destination_pathFields])));
+            } else {
+                $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(aapi_model.destination_domainFields));
+                $sort.html(template(aapi_model.destination_domainFields));
+            }
+        } else if (has_destination_path) {
+            $fields.html("<option value=\"all\" selected=\"true\">all</option>" + template(aapi_model.destination_pathFields));
+            $sort.html(template(aapi_model.destination_pathFields));
         } else {
             onDimesionError(vals);
         }
@@ -953,4 +965,4 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON) 
         buildRequest: buildRequest,
         onGetVideos: onGetVideos
     };
-})($, window, document, Pikaday, Handlebars, BCLSformatJSON);
+})($, window, document, Pikaday, Handlebars, BCLSformatJSON, aapi_model);

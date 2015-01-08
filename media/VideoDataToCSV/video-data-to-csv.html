@@ -102,6 +102,7 @@
         <p>
         <p>Media API READ token:
             <input id="token" type="text" size="60" value="WDGO_XdKqXVJRVGtrNuGLxCYDNoR-SvA5yUqX2eE6KjgefOxRzQilw..">
+    
             <span id="runButton" class="button">Run the Report</span>
         </p>
         <p class="text-warning">Developers: this is all created client-side, so use view source to see the code. You can change the fields by modifying
@@ -120,12 +121,14 @@
             <p>Total videos in your library:
                 <span id="totalVideos"></span>
             </p>
+			<p id="errorLog"></p>
         </div>
         <h2>Detailed Data in CSV format</h2>
         <p>
             <span class="button" id="selectData">Select the data</span>
         </p>
-        <textarea id="response"></textarea>
+        <textarea id="response" rows="10"></textarea>
+		<br/>
     </div>
 </div>
         <!-- scripts -->
@@ -158,6 +161,9 @@
                     filterArray = ["DELETED", "INACTIVE", "PLAYABLE"],
                     currentFilterIndex = 0,
                     currentFilter = "",
+					errorText = "",
+					$errorLog = $("#errorLog"),
+                	retries = 0,
                     method = "find_modified_videos",
                     primaryParams = {
                         callback: "BCLS.primaryCallResponse",
@@ -175,7 +181,7 @@
                         page_size: 100,
                         page_number: 0,
                         sort_by: "CREATION_DATE",
-                        get_item_count: true,
+                        get_item_count: false, // should this be false?
                         video_fields: "id,name,shortDescription,length,lastModifiedDate"
                     },
                     totalCalls = 0,
@@ -183,26 +189,70 @@
                     responseStart = "\"Video ID\",\"Title\",\"Description\",\"Running Time\",\"Last Updated\",\"Status\"\r",
                     dataRowTemplate = "{{#items}}\"{{id}}\",\"{{name}}\",\"{{shortDescription}}\",\"{{length}}\",\"{{lastModifiedDate}}\",\"{{status}}\"\r{{/items}}",
                     responseBody = "",
+					
+					// logging
+					bclslog = function (message) {
+						if (window["console"] && console["log"]) {
+							var d = new Date();
+							console.log(d + ": ");
+							console.log(message);
+						};
+					},
+					
+					// more robust test for "not defined"
+					isDefined = function (v) {
+						if (v !== "" && v !== null && v !== undefined) {
+							return true;
+						} else {
+							return false;
+						}
+					},
+					
+					// write the data to the page
+					writeData = function () {
+						document.getElementById("response").innerHTML = responseStart + responseBody;
+					},
 
                     makePrimaryCall = function(filter) {
+                        // get total number of records and determine number of calls to make based on page size
                         BCMAPI.token = $token.val();
                         BCMAPI.url = $serviceURL.val();
                         primaryParams.filter = filter;
                         BCMAPI.find(method, primaryParams);
                     },
                     makeSecondaryCall = function(filter) {
+						// get video item data
                         secondaryParams.filter = filter;
                         secondaryParams.page_number = callNumber;
+						$runButton.html("processing...please wait");
                         BCMAPI.find(method, secondaryParams);
                     },
                     runReport = function() {
                         currentFilter = filterArray[currentFilterIndex];
                         makePrimaryCall(currentFilter);
-                    };
-                $runButton.on("click", runReport);
+                    },
+					resetReport = function() {
+						totalVideos = 0;
+						currentFilterIndex = 0;
+						retries = 0,
+						totalCalls = 0,
+                    	callNumber = 0,
+						document.getElementById("response").innerHTML = "";
+						responseBody = "";
+					};
+              
+				$runButton.on("click", function(){
+					resetReport();
+					runReport();
+				});
+				$token.on("change", function () {
+					resetReport();
+					$runButton.text("Run report");
+				});
                 $selectData.on("click", function() {
                     document.getElementById("response").select();
                 });
+				
                 return {
                     primaryCallResponse: function(jsonData) {
                         document.getElementById(currentFilter).innerHTML = jsonData.total_count;
@@ -217,28 +267,50 @@
                             results,
                             item,
                             lengthObj = {};
-                        for (var i = 0, max = jsonData.items.length; i < max; i++) {
-                            item = jsonData.items[i];
-                            item.id = item.id.toString();
-                            item.status = currentFilter.toLowerCase();
-                            lengthObj = BCLSsecondsToTime(item.length / 1000);
-                            item.length = lengthObj.h + ":" + lengthObj.m + ":" + lengthObj.s;
-                            item.lastModifiedDate = new Date(parseInt(item.lastModifiedDate));
-                        };
-                        data = jsonData;
-                        results = template(data);
-                        responseBody += results;
-                        callNumber++;
-                        if (callNumber <= totalCalls) {
-                            makeSecondaryCall(currentFilter);
-                        } else if (currentFilterIndex == filterArray.length - 1) {
-                            $totalVideos.html(totalVideos);
-                            document.getElementById("response").innerHTML = responseStart + responseBody;
-                        } else {
-                            currentFilterIndex++;
-                            currentFilter = filterArray[currentFilterIndex];
-                            makePrimaryCall(currentFilter);
-                        }
+						
+						if (isDefined(jsonData.items)) {
+							for (var i = 0, max = jsonData.items.length; i < max; i++) {
+								item = jsonData.items[i];
+								item.id = item.id.toString();
+								item.status = currentFilter.toLowerCase();
+								lengthObj = BCLSsecondsToTime(item.length / 1000);
+								item.length = lengthObj.h + ":" + lengthObj.m + ":" + lengthObj.s;
+								item.lastModifiedDate = new Date(parseInt(item.lastModifiedDate));
+							};
+							data = jsonData;
+							results = template(data);
+							responseBody += results;
+							callNumber++;
+							if (callNumber <= totalCalls) {
+								makeSecondaryCall(currentFilter);
+							} else if (currentFilterIndex == filterArray.length - 1) {
+								$totalVideos.html(totalVideos);
+								$runButton.html("Run the Report");
+								writeData();
+							} else {
+								currentFilterIndex++;
+								currentFilter = filterArray[currentFilterIndex];
+								makePrimaryCall(currentFilter);
+							}
+						} else {
+							bclslog("no items!");
+							bclslog(jsonData);
+							if (retries < 5) {
+								retries++;
+								t = window.setTimeout(function () {
+									makeSecondaryCall(currentFilter);
+								}, 30000) 
+							} else {
+								$runButton.html("Run the Report");
+								writeData();
+								errorText = "Something went wrong...writing the data we got below.";
+								if (isDefined(jsonData.error)) {
+									errorText += " The error code was: " + jsonData.error.code + "and the message was: " + jsonData.error.message;
+								}
+								$errorLog.addClass("text-warning");
+								$errorLog.text(errorText);
+							}
+						}
                     }
                 }
             })();

@@ -1,0 +1,149 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style media="all">/************** BASE CSS **************/
+html, body { margin: 0; padding: 0; }
+body { margin: 0 auto 2rem; padding: 0 1.5rem; max-width: 800px; font-family: Helvetica Neue; font-size: 11.0pt; font-weight: 400; }
+
+code { padding: 0 3px; }
+pre { padding-top: 0.3rem; white-space: normal; }
+@media screen { pre { white-space: pre; } }
+pre code { display: block; padding: 7px; overflow: auto; line-height: 1.4rem; }
+td {
+    padding: 5px;
+}
+
+
+/* -----------------------------------------------------------------------------
+   github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+----------------------------------------------------------------------------- */
+
+.hljs {
+  display: block; padding: 0.5rem;
+  color: #333;
+}
+
+.hljs-tag,
+.hljs-tag .hljs-title,
+.hljs-rules .hljs-property,
+.django .hljs-tag .hljs-keyword {
+  color: #000080;
+  font-weight: normal
+}
+
+/************** CUSTOM CSS **************/
+body { color: #333; }
+
+a { color: #0060ff; }
+    a:hover { color: #0843a3; }
+
+code { background: #f5f5f4; }
+blockquote { border-left: solid 6px #eee; }
+
+</style><script src="https://yandex.st/highlightjs/8.0/highlight.min.js"></script></head><body><div class="erato-range"><a data-range="0,559" name="0,559"></a></div><h1>bcls-proxy</h1>
+
+<h4>Version: 0.1.4<h4>
+<p>Author: Robert Crooks, Director of Learning Services, Brightcove, Inc.</p>
+<p>Description: Proxies Brightcove API requests, getting an access token, making the call, and returning the response to an iframe on the client page. <strong>This proxy will only handle requests originating from a Brightcove domain or localhost. For a guide to building a proxy like this one, see <a href="https://docs.brightcove.com/en/video-cloud/oauth-api/guides/quick-start.html">https://docs.brightcove.com/en/video-cloud/oauth-api/guides/quick-start.html</a></strong></p>
+<p>This is <strong>not</strong> a production app. By design, this proxy will reject any request that does not originate from a <code>brightcove.com</code> domain or <code>localhost</code>. You can use this proxy to test your app if you have a local web server (such as <a href="https://www.mamp.info/en/">MAMP</a> or <a href="https://www.apachefriends.org/index.html">XAMPP</a>).</p>
+<p>Note: you have probably reached this page because you submitted a request to the proxy that contained no data. See the <a href="#requirements">requirements</a> for using the proxy below.</p>
+<p>Change log</p>
+<ul>
+<li>0.1.4:   add support for pull based ingest, ingest profiles, and cms api<br></li>
+<li>0.1.3:   add support for Analytics API LA tokens<br></li>
+<li>         check for account match before using existing token<br></li>
+<li>0.1.2:   added support for AJAX requests<br></li>
+<li>0.1.1:   added separate ports per API to take advantage of token expire time</li>
+<li>0.1.0:   initial release</li>
+</ul>
+
+<h2 id="requirements">Requirements:</h2>
+
+<h3>POST your request to:</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>Server URL</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>solutions.brightcove.com:8001</td>
+            <td>any API, no check for existing valid token (less efficient)</td>
+        </tr>
+        <tr>
+            <td>solutions.brightcove.com:8002</td>
+            <td>Analytics API</td>
+        </tr>
+        <tr>
+            <td>solutions.brightcove.com:8003 </td>
+            <td>Player Management API</td>
+        </tr>
+        <tr>
+            <td>solutions.brightcove.com:8004</td>
+            <td>Dynamic Ingest API</td>
+        </tr>
+        <tr>
+            <td>solutions.brightcove.com:8005</td>
+            <td>Ingest Profiles API</td>
+        </tr>
+        <tr>
+            <td>solutions.brightcove.com:8006</td>
+            <td>CMS API</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h3>Target an iframe on your page to display the response (unless using AJAX)</h3>
+
+<h3>Required fields for the body:</h3>
+<p>These should be submitted with a <code>Content-Type</code>:<code>application/x-www-form-urlencoded</code> header, and the <code>url</code> should be <code>encodeURIComponent</code> encoded.</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Data field</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>client_id</td>
+            <td>yes<sup><a href="#n1">[1]</a></sup></td>
+            <td>get from the Brightcove OAuth UI in Studio<sup><a href="#n2">[2]</a></sup></td>
+        </tr>
+        <tr>
+            <td>client_secret</td>
+            <td>yes<sup><a href="#n1">[1]</a></sup></td>
+            <td>get from the Brightcove OAuth UI in Studio<sup><a href="#n2">[2]</a></sup></td>
+        </tr>
+        <tr>
+            <td>aapi_token</td>
+            <td>no<sup><a href="#n1">[1]</a></sup></td>
+            <td>token for the Analytics API - if you were given one through the Limited Availability program</td>
+        </tr>
+        <tr>
+            <td>requestType</td>
+            <td>no</td>
+            <td>GET (default) | POST | PUT | PATCH | DELETE</td>
+        </tr>
+        <tr>
+            <td>requestBody</td>
+            <td>no</td>
+            <td>request body for calls that submit data - must <strong>not</strong> include spaces or carriage returns</td>
+        </tr>
+    </tbody>
+</table>
+<h5>Notes</h5>
+<p id="n1"><strong>[1]</strong> For the ANALYTICS API <em>ONLY</em> you can substitute the aapi_token for the client_id and client_secret if you have a permanent token from the Limited Availability program</p>
+<p id="n2">Alternatively, you can obtain a client id and secret from the OAuth API directly - see <a href="https://docs.brightcove.com/en/video-cloud/oauth-api/guides/get-client-credentials.html">Getting Client Credentials using CURL</a> or <a href="https://docs.brightcove.com/en/video-cloud/oauth-api/guides/get-client-credentials-postman.html">Getting Client Credentials using Postman</a>.</p>
+
+<h3>Note: this is a sample only, not a supported Brightcove app</h3>
+
+<ul>
+<li>It only accepts requests from brightcove domains or localhost</li>
+<li>If you would like to use the code to build your own proxy, see:<br>
+ <a href="https://docs.brightcove.com/en/video-cloud/oauth-api/guides/quick-start.html">https://docs.brightcove.com/en/video-cloud/oauth-api/guides/quick-start.html</a><br></li>
+</ul>
+<script>hljs.initHighlightingOnLoad();</script></body></html>

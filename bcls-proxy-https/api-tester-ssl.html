@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<script type="text/javascript">
+		// force into https mode if not already there
+		forceSecure = function () {
+		    var pageURL = window.location.href,
+		        pageProtocol = window.location.protocol;
+		    if (pageProtocol === "http:") {
+		        window.location.href = pageURL.replace("http:", "https:");
+		    }
+		};
+	</script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" />
+	<!-- change title to match the h1 heading -->
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css" />
+	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/normalize.css" />
+	<script src="//use.edgefonts.net/source-code-pro.js"></script>
+	<link href="//files.brightcove.com/proxima-nova/font-faces.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+	<style>
+	input, select {
+		max-width: 60%;
+		font-size: .8rem;
+	}
+	textarea {
+		width: 90%;
+		height: 4rem;
+		font-size: .8rem;
+	}
+	</style>
+	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2728311-29', 'auto');
+  ga('send', 'pageview');
+
+</script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/vendor/modernizr.js"></script>
+</head>
+
+<body>
+	<!-- header navbar -->
+	<div id="navWrapper" class="fixed"></div>
+	<!-- breadcrumbs -->
+	<nav id="breadCrumbWrapper" class="breadcrumbs show-for-medium-up"></nav>
+	<!-- search -->
+	<div id="searchModal" class="reveal-modal" data-reveal></div>
+	<!-- content -->
+	<!-- content -->
+	<div class="row">
+		<div class="large-2 columns show-for-large-up">
+			<div id="sidenav"></div>
+		</div>
+		<div id="main" class="large-10 small-12 columns">
+			<div id="top" class="section">
+				<h1>api-proxy tester</h1>
+			    <p>Welcome to the Brightcove Learning Services proxy tester. The tester can be used currently for the following APIs:
+			        <ul>
+			            <li>Perform, Video Cloud: Player Management</li>
+			            <li>Video Cloud: Analytics</li>
+			            <li>Video Cloud: Dynamic Ingest</li>
+			            <li>Video Cloud: CMS</li>
+			            <li>Video Cloud: Ingest Profiles</li>
+			        </ul>
+			    </p>
+			    <p class="text-warning">Note: this is least efficient proxy, as it does not check to see if a valid access token already exists. For best results, use the proxy for the specific api you are calling - see <a href="http://solutions.brightcove.com/bcls/bcls-proxy/index.html">http://solutions.brightcove.com/bcls/bcls-proxy/index.html</a> for available proxies.</p>
+			</div>
+			<div class="section" id="gettingCredentials">
+				<h2>Getting Credentials</h2>
+				<p>To get a <code>client_id</code> and <code>client_secret</code>, you will need to go to the OAuth UI and register this app:</p>
+					<ul>
+						<li>Perform: <a href="https://studio.brightcove.com/products/perform/admin/oauthsettings">https://studio.brightcove.com/products/perform/admin/oauthsettings</a></li>
+						<li>Video Cloud: <a href="https://sadmin.brightcove.com/oauth_module/v1/">https://sadmin.brightcove.com/oauth_module/v1/</a></li>
+						<li>
+							Video Cloud (Next Generation Player Beta): <a href="https://studio.brightcove.com/products/videocloud/admin/oauthsettings">https://studio.brightcove.com/products/videocloud/admin/oauthsettings</a>
+						</li>
+					</ul>
+				<p>You can also get your credentials via CURL or Postman - see:</p>
+				<ul>
+					<li><a href="https://docs.brightcove.com/en/video-cloud/oauth-api/guides/get-client-credentials.html">Get Client Credentials Using CURL</a></li>
+					<li><a href="https://docs.brightcove.com/en/video-cloud/oauth-api/guides/get-client-credentials-postman.html">Get Client Credentials Using Postman</a></li>
+				</ul>
+			</div>
+			<div class="section" id="usingProxy">
+			    <h2>Using the Proxy</h2>
+			    <p>To use the proxy, you submit your API requests, with some additional information, to one of the following URLs:</p>
+				<ul>
+					<li>Analytics API: http://solutions.brightcove.com:8001</li>
+					<li>Player Management API: http://solutions.brightcove.com:8003</li>
+					<li>Other APIs (if you can get the credentials): http://solutions.brightcove.com:8004</li>
+				</ul>
+				<h3>Calling the proxy via a form</h3>
+				<p>Create a form with the <code>action</code> pointing to one of the addresses above, and set the <code>target</code> to the id of an iframe in the page, or some server-side app you will use to process the data. Your form must include the following named fields:</p>
+				<ul>
+					<li><code>client_id</code>: your client_id</li>
+					<li><code>client_secret</code>: your client_secret</li>
+					<li><code>url</code>: the full URL for your API request</li>
+					<li><code>requestType</code>: GET (default) | POST | PUT | DELETE</li>
+					<li><code>requestBody</code>: the request body (optional)</li>
+				</ul>
+				<p>Also see the <a href="codeForm">sample code for form submission</a> below.</p>
+				<h3>Calling the proxy via AJAX</h3>
+				<p>Making the call via AJAX is useful if you need to return the data to the page to process it in some way. Here I am assuming you will use AJAX via the jquery AJAX method, but that is not a requirement. Here is what it would look like:</p>
+<pre><code>var options = {};
+options.client_id = <strong><em>client_id value</em></strong>;
+options.client_secret = <strong><em>client_secret value</em></strong>;
+options.requestBody = <strong><em>requestBody value (if any)</em></strong>;
+options.requestType = <strong><em>requestType value</em></strong>;
+options.url = <strong><em>url value</em></strong>;
+$.ajax({
+	url: "http://solutions.brightcove.com:8001",
+	type: "POST",
+	data: options,
+	success : function (data) {
+		// process your data here
+	},
+	error : function (XMLHttpRequest, textStatus, errorThrown) {
+		// error handling code here
+	}
+});</code></pre>
+				<p>Also see the <a href="codeAJAX">code for calling via AJAX</a> below.</p>
+				<h3>Origin of the request</h3>
+				<p>This is <strong>not</strong> a production app. By design, this proxy will reject any request that does not originate from a <code>brightcove.com</code> domain or <code>localhost</code>. You can use this proxy to test your app if you have a local web server (such as <a href="https://www.mamp.info/en/">MAMP</a> or <a href="https://www.apachefriends.org/index.html">XAMPP</a>).</p>
+			</div>
+			<div id="anyapi" class="section">
+				<h2>General API test</h2>
+				<p>This test sends an Analytics API GET request to the proxy via a form</p>
+
+				<div class="section" id="ajax">
+				<h2>Test via AJAX</h2>
+				<p>This test make an Analytics API request via AJAX</p>
+				    <div class="form-wrapper">
+				        <fieldset>
+				            <legend>Tester for Brightcove APIs (AJAX version)</legend>
+				            <p>Submits to http://solutions.brightcove.com:<strong>8001</strong></p>
+				                <p>
+								Account id:
+								<input name="account" id="ajax_account" type="text" value="20318290001">
+							</p>
+				                <p>
+				                    Client id:
+				                    <input name="client_id" id="ajax_client_id" type="text" value="5746d707-db97-42b2-b4f0-3db890429ef0">
+				                </p>
+				                <p>
+				                    Client secret:
+				                    <input name="client_secret" id="ajax_client_secret" type="text" value="JBdg3PLg0NarokKjIihxa_05i-YVyvhICWlQ5NXMSlUX9H9tzYqQ8FE-4mMfhAWOMs0KxUHyUN3anzkZSr3Bvg">
+				                </p>
+				                <p>
+				                    Call type:
+				                    <select name="requestType" id="ajax_requestType">
+				                        <option selected="selected">GET</option>
+				                        <option>POST</option>
+				                        <option>PUT</option>
+				                        <option>PATCH</option>
+				                        <option>DELETE</option>
+				                    </select>
+				                </p>
+				                <p>
+				                    Call body (optional - include if you need to submit data with the request):<br />
+				                    <textarea name="requestBody" id="ajax_requestBody"></textarea>
+				                </p>
+				                <p>
+				                    Full request URL for the API call:<br />
+				                    <textarea name="url" id="ajax_url">https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=account&limit=10&offset=0&fields=all&sort=account&format=json</textarea>
+				                </p>
+				                <p>
+				                    <input id="ajaxSubmit" type="submit" value="Submit">
+				                </p>
+				            <pre><code id="ajax_response"></code></pre>
+				        </fieldset>
+				    </div>
+			</div>
+			</div>
+			<div class="section" id="codeForm">
+			    <h2>Sample code: form</h2>
+			    <p>Here is the relavant code:</p>
+				<script src="https://gist.github.com/rcrooks/447a1f098c94f8080be2.js"></script>
+			</div>
+			<div class="section" id="codeAJAX">
+			    <h2>Sample code: AJAX</h2>
+			    <p>Sample code for calling proxy via AJAX</p>
+				<script src="https://gist.github.com/e07841e5fd480ee6334b.js"></script>
+			</div>
+		</div>
+	</div>
+	<!-- bcl scripts -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/gist-embed/1.9/gist-embed.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.3/fastclick.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+	<script src="//docs.brightcove.com/en/scripts/log.js"></script>
+	<script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
+	<script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
+	<script src="//docs.brightcove.com/en/scripts/bc-mapi.js"></script>
+	<script>
+		$(document).foundation();
+	</script>
+
+	<script>
+	var BCLS = ( function ($) {
+		var $ajax_client_id = $("#ajax_client_id"),
+			$ajax_client_secret = $("#ajax_client_secret"),
+			$ajax_requestBody = $("#ajax_requestBody"),
+			$ajax_requestType = $("#ajax_requestType"),
+			$ajax_url = $("#ajax_url"),
+			$ajax_submit = $("#ajaxSubmit"),
+			$ajax_response = $("#ajax_response"),
+			// functions
+			cleanString,
+			submitRequest,
+			isDefined;
+
+		// is defined
+		isDefined = function(x){
+			if(x !== "" &&x !== null &&x !== undefined) {
+				return true;
+			} else {
+				return false;
+			}
+		};
+		// function to remove spaces and line breaks
+		cleanString = function (str) {
+			// remove line breaks
+			str = str.replace(/(\r\n|\n|\r)/gm,"");
+			// remove spaces
+			// here we have to be careful - spaces fine within strings
+			// but not outside them
+			if (isDefined(str)) {
+				str = JSON.stringify(JSON.parse(str));
+			}
+
+			return str;
+		};
+		// function to submit Request
+		submitRequest = function () {
+			var options = {};
+			options.client_id = $ajax_client_id.val();
+			options.client_secret = $ajax_client_secret.val();
+			options.requestBody = cleanString($ajax_requestBody.val());
+			options.requestType = $ajax_requestType.val();
+			options.url = $ajax_url.val();
+			$.ajax({
+				url: "//solutions.brightcove.com:8001",
+				type: "POST",
+				data: options,
+				success : function (data) {
+					$ajax_response.html("<p>The proxy sent this data back - now I can do whatever I want with it</p>" + data);
+				},
+				error : function (XMLHttpRequest, textStatus, errorThrown) {
+					$ajax_response.html("Sorry, your request was not successful. Here is what the server sent back: " + errorThrown);
+				}
+			});
+		};
+		$ajax_submit.on("click", submitRequest);
+	})($);
+	</script>
+	<div class="footer text-center"><a id="feedbackMail" href="mailto:docs@brightcove.com">Questions or comments?</a></div>
+    <script>
+	var feedbackMail = document.getElementById("feedbackMail");
+	feedbackMail.setAttribute("href", "mailto:docs@brightcove.com?subject=question regarding " + encodeURI(document.location.href));
+	</script>
+</body>
+
+</html>

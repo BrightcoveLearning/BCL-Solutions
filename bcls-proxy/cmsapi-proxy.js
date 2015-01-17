@@ -16,17 +16,14 @@ var CMSAPIPROXY = (function () {
     "use strict";
     var util = require("util"),
         colors = require("colors"),
-        https = require('https'),
+        http = require('http'),
         request = require("request"),
-        fs = require("fs"),
         // error messages
         apiError = "Your API call was unsuccessful; here is what the server returned: ",
         oauthError = "There was a problem getting your access token: ",
         originError = "Your request cannot be processed; this proxy only handles requests originating from Brightcove servers. If you would like to build your own version of this proxy, see http://docs.brightcove.com/en/perform/oauth-api/guides/quick-start.html",
         // holder for request options
         options = {},
-        // holder for server options
-        serverOptions = {},
         // ingest profiles api
         cmsapiServer,
         cmsapiSettings = {},
@@ -55,16 +52,8 @@ var CMSAPIPROXY = (function () {
         options.expires_in = 0;
         options.requestBody = null;
         options.requestType = "GET";
-        // set server options
-        serverOptions.key = fs.readFileSync("key.pem");
-        serverOptions.cert = fs.readFileSync("key-cert.pem");
-        // serverOptions.key = fs.readFileSync("/home/bcls/cert/solutions_brightcove_com.key");
-        // serverOptions.cert = fs.readFileSync("/home/bcls/cert/solutions_brightcove_com.crt");
-        console.log("serverOptions", serverOptions);
         console.log("init done");
     };
-    // initialize
-    init();
     /*
      * copy properties from one object to another
      */
@@ -209,7 +198,7 @@ var CMSAPIPROXY = (function () {
     /*
      * Ingest Profiles API
      */
-    cmsapiServer = https.createServer(serverOptions, function (req, res) {
+    cmsapiServer = http.createServer(function (req, res) {
         var body = "",
             // for CORS - AJAX requests send host instead of origin
             origin = (req.headers.origin || "*"),
@@ -363,4 +352,6 @@ var CMSAPIPROXY = (function () {
     }).listen(8006);
 
     util.puts("http server for CMS API ".blue + "started ".green.bold + "on port ".blue + "8006 ".yellow);
+    // initialize
+    init();
 })();

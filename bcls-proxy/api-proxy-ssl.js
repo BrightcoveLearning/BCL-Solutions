@@ -39,6 +39,8 @@ var APIPROXY = (function () {
      * initialize data constructs
      */
     init = function () {
+        var certArray = fs.readdirSync("/home/bcls/cert/");
+        console.log("certArray", certArray);
         // initialize options to null except requestType to GET
         options.url = null;
         options.token = null;
@@ -49,15 +51,11 @@ var APIPROXY = (function () {
         options.requestBody = null;
         options.requestType = "GET";
         // set server options
-        serverOptions.key = fs.readFileSync("key.pem");
-        serverOptions.cert = fs.readFileSync("key-cert.pem");
-        // serverOptions.key = fs.readFileSync("/home/bcls/cert/solutions_brightcove_com.key");
-        // serverOptions.cert = fs.readFileSync("/home/bcls/cert/solutions_brightcove_com.crt");
+        serverOptions.key = fs.readFileSync("/home/bcls/cert/solutions_brightcove_com.key");
+        serverOptions.cert = fs.readFileSync("/home/bcls/cert/solutions_brightcove_com.crt");
         console.log("serverOptions", serverOptions);
         console.log("init done");
     };
-    // initialize
-    init();
     /*
      * copy properties from one object to another
      */
@@ -288,5 +286,6 @@ var APIPROXY = (function () {
     }).listen(8001);
 
     util.puts("http server for any API ".blue + "started ".green.bold + "on port ".blue + "8001 ".yellow);
-
+    // initialize
+    init();
 })();

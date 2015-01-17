@@ -182,7 +182,9 @@ var BCLS = (function ($, window, Pikaday) {
         BCMAPI.callback = "BCLS.onMAPIresponse";
         params.page_size = page_size;
         params.page_number = page_number;
-        params.get_item_count = true;
+        if (firstRun) {
+            params.get_item_count = true;
+        }
 		params.video_fields = "tags";
         bclslog("mapitoken", BCMAPI.token);
 		BCMAPI.search(params);
@@ -194,7 +196,21 @@ var BCLS = (function ($, window, Pikaday) {
             iMax;
 		if (jsonData.error) {
 			errMsg = "Error code: " + jsonData.code + "Error msg: " + jsonData.error;
-			t = setTimeout(getTags(), 30000);
+            bclslog("errMsg", errMsg);
+            /*
+             * we'll assume the error was a timeout, wait 20 sec, and try again
+             * after 5 total errors, we'll assume something worse is going on,
+             * give up, and dump out the results we have so far
+             */
+            mapiErrorCount++;
+            if (mapiErrorCount < 5) {
+                t = setTimeout(getTags(), 20000);
+            } else {
+                // inject the HTML for the video list
+                results = template(tagArray);
+                $tagSelector.html(results);
+                tagArray = [];
+            }
 			return;
 		}
 

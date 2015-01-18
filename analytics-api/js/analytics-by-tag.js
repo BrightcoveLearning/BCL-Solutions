@@ -92,8 +92,6 @@ var BCLS = (function ($, window, Pikaday) {
         requestData = {},
         default_client_id = "4584b1f4-f2fe-479d-aa49-6148568fef50",
         default_client_secret = "gwk6d9gJ7oHwk7DMF3I6k4fxKn2n0qG3oIou0TPq4tATG24OrGPeJO7MUlyWgzFx2fANHU1kiBnwrM2gyntk7w",
-        t,
-        mapiErrorCount = 0,
         // functions
         reset,
         bclslog,
@@ -182,11 +180,8 @@ var BCLS = (function ($, window, Pikaday) {
         BCMAPI.callback = "BCLS.onMAPIresponse";
         params.page_size = page_size;
         params.page_number = page_number;
-        if (firstRun) {
-            params.get_item_count = true;
-        }
+        params.get_item_count = true;
 		params.video_fields = "tags";
-        bclslog("mapitoken", BCMAPI.token);
 		BCMAPI.search(params);
 		$tagSelector.html("<option>processing...</option>");
     };
@@ -196,21 +191,7 @@ var BCLS = (function ($, window, Pikaday) {
             iMax;
 		if (jsonData.error) {
 			errMsg = "Error code: " + jsonData.code + "Error msg: " + jsonData.error;
-            bclslog("errMsg", errMsg);
-            /*
-             * we'll assume the error was a timeout, wait 20 sec, and try again
-             * after 5 total errors, we'll assume something worse is going on,
-             * give up, and dump out the results we have so far
-             */
-            mapiErrorCount++;
-            if (mapiErrorCount < 5) {
-                t = setTimeout(getTags(), 20000);
-            } else {
-                // inject the HTML for the video list
-                results = template(tagArray);
-                $tagSelector.html(results);
-                tagArray = [];
-            }
+			$tagSelector.html("<option>" + errMsg + "</option>");
 			return;
 		}
 

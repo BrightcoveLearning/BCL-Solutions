@@ -52,6 +52,7 @@ var BCLS = (function ($, window, Pikaday) {
         $requestInputs = $(".aapi-request"),
         $directVideoInput = $("#directVideoInput"),
         $responseFrame = $("#responseFrame"),
+        $errorLog = $("#errorLog"),
         $this,
         separator = "",
         requestTrimmed = false,
@@ -83,12 +84,15 @@ var BCLS = (function ($, window, Pikaday) {
 		tabTableString = "",
 		videoTableString = "",
 		errMsg = "",
-        analyticsRequestNumber = 0,
         totalVideos = 0,
 		selectCount = 0,
 		rowCount = 1,
         gettingData = false,
         results,
+        aapiCalls,
+        aapiCallNumber = 0,
+        numberOfAnalyticsCalls = 0,
+        analyticsData,
         requestData = {},
         default_client_id = "4584b1f4-f2fe-479d-aa49-6148568fef50",
         default_client_secret = "gwk6d9gJ7oHwk7DMF3I6k4fxKn2n0qG3oIou0TPq4tATG24OrGPeJO7MUlyWgzFx2fANHU1kiBnwrM2gyntk7w",
@@ -106,6 +110,9 @@ var BCLS = (function ($, window, Pikaday) {
         appendSelectedTags,
         formatTagsString,
         prepAnalyticsRequest,
+        parseData,
+        processAnalyticsData,
+        displayAnalyticsData,
         addArrayItems,
         trimRequest,
         removeSpaces,
@@ -424,8 +431,6 @@ var BCLS = (function ($, window, Pikaday) {
 			formatVideoIds();
 			totalSelectedTagsArray = [];
 			totalVideos = videoIdArray.length;
-			prepAnalyticsRequest();
-			currentVideoIndex = 0;
 			buildRequest();
             $videoIdWrapper.attr("class", "bcls-shown");
             $aapiParams.attr("class", "bcls-shown");
@@ -476,12 +481,62 @@ var BCLS = (function ($, window, Pikaday) {
             }
         }
     };
-    // prepare aapi request
-    prepAnalyticsRequest = function () {
-        bclslog("videoIdArray", videoIdArray);
+    // display the analytics data
+    displayAnalyticsData = function () {
+        // calculate averages where necessary
+        analyticsData.summary.engagement_score = analyticsData.summary.engagement_score / numberOfAnalyticsCalls;
+        analyticsData.summary.video_engagement_1 = analyticsData.summary.video_engagement_1 / numberOfAnalyticsCalls;
+        analyticsData.summary.video_engagement_75 = analyticsData.summary.video_engagement_75 / numberOfAnalyticsCalls;
+        analyticsData.summary.video_engagement_25 = analyticsData.summary.video_engagement_25 / numberOfAnalyticsCalls;
+        analyticsData.summary.video_percent_viewed = analyticsData.summary.video_percent_viewed / numberOfAnalyticsCalls;
+        analyticsData.summary.play_rate = analyticsData.summary.play_rate / numberOfAnalyticsCalls;
+        analyticsData.summary.video_engagement_50 = analyticsData.summary.video_engagement_50 / numberOfAnalyticsCalls;
+        analyticsData.summary.video_engagement_100 = analyticsData.summary.video_engagement_100 / numberOfAnalyticsCalls;
+
+        // display the data
+        $responseFrame.html(JSON.stringify(analyticsData, null, "  "));
+    };
+
+    // process analytics data
+    processAnalyticsData = function (jsonData) {
+        bclslog("jsonData", jsonData);
+        analyticsData.item_count += jsonData.item_count;
+        analyticsData.items = analyticsData.items.concat(jsonData.items);
+        analyticsData.summary.engagement_score += jsonData.summary.engagement_score;
+        analyticsData.summary.video_engagement_1 += jsonData.summary.video_engagement_1;
+        analyticsData.summary.bytes_delivered += jsonData.summary.bytes_delivered;
+        analyticsData.summary.video_engagement_75 += jsonData.summary.video_engagement_75;
+        analyticsData.summary.video_seconds_viewed += jsonData.summary.video_seconds_viewed;
+        analyticsData.summary.video_engagement_25 += jsonData.summary.video_engagement_25;
+        analyticsData.summary.video_percent_viewed += jsonData.summary.video_percent_viewed;
+        analyticsData.summary.video_impression += jsonData.summary.video_impression;
+        analyticsData.summary.video_view += jsonData.summary.video_view;
+        analyticsData.summary.play_rate += jsonData.summary.play_rate;
+        analyticsData.summary.video_engagement_50 += jsonData.summary.video_engagement_50;
+        analyticsData.summary.video_engagement_100 += jsonData.summary.video_engagement_100;
+        analyticsData.summary.video = analyticsData.summary.video.concat(jsonData.summary.video);
+        analyticsData.summary.account = jsonData.summary.account;
+        // continue if there are more videos
+        bclslog("numberOfAnalyticsCalls", numberOfAnalyticsCalls);
+        bclslog("aapiCallNumber", aapiCallNumber);
+        bclslog("aapiCalls", aapiCalls);
+        if (numberOfAnalyticsCalls < aapiCalls) {
+            aapiCallNumber++;
+            buildRequest();
+        } else {
+            gettingData = false;
+            displayAnalyticsData();
+        }
+
+    };
+
+    prepAnalyticsRequest = function() {
+        // calculate number of calls - no more than 150 per call
+        aapiCalls = Math.ceil(videoIdArray.length / 150);
     }
     buildRequest = function () {
 		bclslog("function", "buildRequest");
+        var tmpArray
 		// check for required fields
         $required.each(function () {
             $this = $(this);
@@ -491,6 +546,8 @@ var BCLS = (function ($, window, Pikaday) {
                 return;
             }
         });
+        // set tmpArray for a slice of 150
+        tmpArray = videoIdArray.slice(aapiCallNumber * 150, (aapiCallNumber * 150) + 149)
         // reset requestTrimmed to false in case of regenerate request
         requestTrimmed = false;
         // build the request
@@ -500,9 +557,8 @@ var BCLS = (function ($, window, Pikaday) {
         requestURL += "report/";
         requestURL += "?dimensions=video&";
         // add video filter
-		bclslog("current video index: ", currentVideoIndex);
-		bclslog("current video: ", videoIdArray[currentVideoIndex]);
-		requestURL += "where=video==" + videoIdArray.join();
+
+		requestURL += "where=video==" + tmpArray.join();
         // check for player filter
         if ($player.val() !== "") {
             requestURL += ";player==" + $player.val() + "&";
@@ -531,8 +587,18 @@ var BCLS = (function ($, window, Pikaday) {
         }
     };
 
+    // parse analytics api response, throw exception on failure
+    parseData = function (data) {
+        if (data.indexOf("{") > -1) {
+            return JSON.parse(data);
+        } else {
+            throw "Could not get good data from the Analytics API - here's what was returned: " + data + "<br>We'll go ahead and display any data already received below";
+        }
+    }
+
 	// submit request
     getData = function () {
+        var jsonData, t;
         bclslog("requestURL", requestURL);
         $responseFrame.html("Loading...");
         requestData.url = requestURL;
@@ -546,10 +612,23 @@ var BCLS = (function ($, window, Pikaday) {
             type: "POST",
             data: requestData,
             success : function(data) {
-                $responseFrame.html(BCLSformatJSON.formatJSON(JSON.parse(data)));
+                numberOfAnalyticsCalls++;
+                try {
+                   jsonData = parseData(data);
+                   processAnalyticsData(jsonData);
+                }
+                catch (e) {
+                   // statements to handle any exceptions
+                   $errorLog.html(e);
+                   // go ahead and display any data we already got
+                   displayAnalyticsData();
+                }
+                // $responseFrame.html(BCLSformatJSON.formatJSON(JSON.parse(data)));
             },
             error : function (XMLHttpRequest, textStatus, errorThrown) {
-                $responseFrame.html("Sorry, your request was not successful. Here is what the server sent back: " + errorThrown);
+                $responseFrame.html("Sorry, your request was not successful. Here is what the server sent back: " + errorThrown + "<br>We'll go ahead and display any data already received below");
+                // go ahead and display any data we already got
+                displayAnalyticsData();
             }
         });
     };
@@ -565,6 +644,25 @@ var BCLS = (function ($, window, Pikaday) {
 		format: 'YYYY-MM-DD',
 		onSelect: buildRequest
 	});
+
+    // initialize the anayticsData object
+    analyticsData.item_count = 0;
+    analyticsData.items = [];
+    analyticsData.summary = {};
+    analyticsData.summary.engagement_score = 0;
+    analyticsData.summary.video_engagement_1 = 0;
+    analyticsData.summary.bytes_delivered = 0;
+    analyticsData.summary.video_engagement_75 = 0;
+    analyticsData.summary.video_seconds_viewed = 0;
+    analyticsData.summary.video_engagement_25 = 0;
+    analyticsData.summary.video_percent_viewed = 0;
+    analyticsData.summary.video_impression = 0;
+    analyticsData.summary.video_view = 0;
+    analyticsData.summary.play_rate = 0;
+    analyticsData.summary.video_engagement_50 = 0;
+    analyticsData.summary.video_engagement_100 = 0;
+    analyticsData.summary.video =[];
+    analyticsData.summary.account = "";
 
     // set event listeners
     $getTags.on("click", getTags);
@@ -589,11 +687,10 @@ var BCLS = (function ($, window, Pikaday) {
     $submitButton.on("click", function () {
         bclslog("submit button", "clicked");
 		$responseFrame.html("");
-		analyticsRequestNumber = 0;
-		currentVideoIndex = 0;
-		prepAnalyticsRequest();
+		numberOfAnalyticsCalls = 0;
+        prepAnalyticsRequest();
+        gettingData = true;
         buildRequest();
-		getData();
     });
 
     // generate initial request

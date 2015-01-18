@@ -485,13 +485,13 @@ var BCLS = (function ($, window, Pikaday) {
     displayAnalyticsData = function () {
         // calculate averages where necessary
         analyticsData.summary.engagement_score = analyticsData.summary.engagement_score / numberOfAnalyticsCalls;
-        analyticsData.summary.video_engagement_1 = analyticsData.summary.video_engagement_1 / numberOfAnalyticsCalls;
-        analyticsData.summary.video_engagement_75 = analyticsData.summary.video_engagement_75 / numberOfAnalyticsCalls;
-        analyticsData.summary.video_engagement_25 = analyticsData.summary.video_engagement_25 / numberOfAnalyticsCalls;
-        analyticsData.summary.video_percent_viewed = analyticsData.summary.video_percent_viewed / numberOfAnalyticsCalls;
+        analyticsData.summary.video_percent_viewed = analyticsData.summary.video_percent_viewed / analyticsData.item_count;
         analyticsData.summary.play_rate = analyticsData.summary.play_rate / numberOfAnalyticsCalls;
-        analyticsData.summary.video_engagement_50 = analyticsData.summary.video_engagement_50 / numberOfAnalyticsCalls;
-        analyticsData.summary.video_engagement_100 = analyticsData.summary.video_engagement_100 / numberOfAnalyticsCalls;
+        analyticsData.summary.video_engagement_1 = analyticsData.summary.video_engagement_1 / analyticsData.item_count;
+        analyticsData.summary.video_engagement_25 = analyticsData.summary.video_engagement_25 / analyticsData.item_count;
+        analyticsData.summary.video_engagement_50 = analyticsData.summary.video_engagement_50 / analyticsData.item_count;
+        analyticsData.summary.video_engagement_75 = analyticsData.summary.video_engagement_75 / analyticsData.item_count;
+        analyticsData.summary.video_engagement_100 = analyticsData.summary.video_engagement_100 / analyticsData.item_count;
 
         // display the data
         $responseFrame.html(JSON.stringify(analyticsData, null, "  "));
@@ -514,8 +514,8 @@ var BCLS = (function ($, window, Pikaday) {
         analyticsData.summary.play_rate += jsonData.summary.play_rate;
         analyticsData.summary.video_engagement_50 += jsonData.summary.video_engagement_50;
         analyticsData.summary.video_engagement_100 += jsonData.summary.video_engagement_100;
-        analyticsData.summary.video = analyticsData.summary.video.concat(jsonData.summary.video);
-        analyticsData.summary.account = jsonData.summary.account;
+        analyticsData.video = analyticsData.video.concat(jsonData.video);
+        analyticsData.account = jsonData.account;
         // continue if there are more videos
         bclslog("numberOfAnalyticsCalls", numberOfAnalyticsCalls);
         bclslog("aapiCallNumber", aapiCallNumber);
@@ -661,8 +661,8 @@ var BCLS = (function ($, window, Pikaday) {
     analyticsData.summary.play_rate = 0;
     analyticsData.summary.video_engagement_50 = 0;
     analyticsData.summary.video_engagement_100 = 0;
-    analyticsData.summary.video =[];
-    analyticsData.summary.account = "";
+    analyticsData.video =[];
+    analyticsData.account = "";
 
     // set event listeners
     $getTags.on("click", getTags);

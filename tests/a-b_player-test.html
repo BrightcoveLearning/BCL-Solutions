@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+        <style>
+            body {
+                margin: 50px;
+            }
+        </style>
+    </head>
+    <body>
+<div id="playerWrapper"></div>
+<script>
+    var BCLS = ( function (document) {
+        var playerWrapper = document.getElementById("playerWrapper"),
+            ranNum = Math.random() * 10,
+            smartABplayer = "<iframe src=\"http://link.brightcove.com/services/player/bcpid3997555815001?bckey=AQ~~,AAAABLsQgFE~,jGXrTxeVLARh2hSB1nSiiJfmuDOvQnO3&bctid=2423810273001&autoStart=false\" style=\"width:640px;height:360px\"></iframe>",
+            ngABplayer = "<iframe width='640' height='360' src='//players.brightcove.net/20318290001/e47f79fc-8ffd-43a8-8c37-983765c5f5c6_default/index.html' allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>";
+        if (ranNum > 5) {
+            playerWrapper.innerHTML = ngABplayer;
+        } else {
+            playerWrapper.innerHTML = smartABplayer;
+        }
+    })(document);
+</script>
+    </body>
+</html>

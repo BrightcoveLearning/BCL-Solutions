@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>David Meeting Ad Info Notes</title>
+</head>
+
+<body>
+  <h1>***David Meeting Ad Info Notes***</h1>
+  <br />
+  <h1>Basic vocabulary</h1>
+  <h3>Ad types</h3>
+  <ul>
+    <li>Linear ads: Ads that occur during playback, take up time in the timeline (example is a pre-roll)</li>
+    <li>Non-linear ads: Does not interrupt playback; overlay and companion ads are examples</li>
+  </ul>
+  <h3>Ad standards</h3>
+  <ul>
+    <li>
+      <p>VMAP: &quot;ad playlist&quot;; specifies pre-roll, mid-roll(s) and post-roll (URL to a VMAP document); format is XML</p>
+      <ul>
+        <li>DFP calls VMAP documents &quot;ad rules&quot;; with ad rules you can configure all your ads on the server and any client who understands ad rules behaves the same; in &quot;bad old days&quot; ad configuration at the client; logic moved into publishing
+          system</li>
+      </ul>
+    </li>
+    <li>
+      <p>VAST: Individual ad details; VMAP points to a VAST document with information about the ad</p>
+    </li>
+    <li>Example VAST from Network tab in Chrome Dev Tools</li>
+		    <p><img src="vast-response.png"></p>
+    <li>
+      <p>VPAID: Like VAST, but a standard for interactive ads; ad contains a quiz or goofy game (no BC Player support yet)</p>
+    </li>
+  </ul>
+  <h1>IMA Plugin information</h1>
+  <ul>
+    <li>
+      <p>IMA constraint: 2 versions of IMA library, Flash or HTML version, cannot use both</p>
+      <ul>
+        <li>default settings for plugin use Flash if available (because Flash ads are so prevalent)</li>
+        <li>In config options for plugin can switch default to HTML (<strong>adTechOrder</strong>)</li>
+        <li>Desktop default Flash, mobile default HTML</li>
+      </ul>
+    </li>
+    <li>
+      <p>Basic implementation of IMA Plugin</p>
+      <ul>
+        <li>Include JavaScript for plugin</li>
+        <li>Add IMA Plugin to player</li>
+        <li>Provide serverURL to ad tag</li>
+        <li>Sample config</li>
+		    <p><img src="plugin-simple-config.png"></p>
+      </ul>
+    </li>
+    <li>
+      <p>Dynamic Ad Targeting: Configuration of IMA Plugin done after gathering customer info (for example viewers age, then select ad rule)</p>
+      <ul>
+        <li>Include JavaScript for plugin</li>
+        <li>Call IMA plugin and pass options at that point
+          <ul>
+            <li>myPlayer.ima3({ serverURL: ...})</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Companion ads: IMA Plugin will deal with linear ads and overlays seamlessly, companion ads can be tricky since communication between the player and the rest of the page must occur; ; ; use In-page embed implementation</li>
+    <ul>
+    	<li>Use Google Publisher Tags (GPT) library and will automatically fill the companion ad blocks</li>
+    	<li>Good tutorial available on IMA site</li>
+    	<li>Use In-page embed implementation for companion ads since iframe can't interact with parent page</li>
+    	<li>Example: JS and HTML for companion ad</li>
+		    <p><img src="companion-ad-script.png"></p>
+		    <p><img src="companion-ad-html.png"></p>
+    </ul>
+  </ul>
+  <h1>Resources</h1>
+  <ul>
+    <li>General IMA info: <a href="https://developers.google.com/interactive-media-ads/">https://developers.google.com/interactive-media-ads/</a>
+    </li>
+    <li>Troubleshooting: Video Suite Inspector (https://developers.google.com/interactive-media-ads/docs/vastinspector_dual) tests if video tag/server working
+    	<ul><li>BE SURE to test if URL works before using with BC PLayer, checks for compatible ad server; if won't work here it won't work in BC Player</li></ul>
+    </li>
+  </ul>
+  <h1>This is Brightcove Player's "ad API"</h1>
+  <ul>
+  	<li>https://github.com/videojs/videojs-contrib-ads: Interesting for PARTNERS who are writing own ad implementation</li>
+    <li>From the site "The videojs-contrib-ads plugin provides common functionality needed by video advertisement libraries working with video.js. It takes care of a number of concerns for you, reducing the code you have to write for your ad integration."</li>
+    <li>Use case: Way to show bumpers that have different style than ads</li>
+  </ul>
+</body>
+
+</html>

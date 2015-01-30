@@ -1,0 +1,10 @@
+mediaURL:
+'http://cdn5.unicornmedia.com/now/stitched/mp4/95ea75e1-dd2a-4aea-851a-28f46f8e8195/00000000-0000-0000-0000-000000000000/3a41c6e4-93a3-4108-8995-64ffca7b9106/9b118b95-38df-4b99-bb50-8f53d62f6ef8/0/0/105/1438852996/content.mp4';
+
+metaDataURL:
+
+'http://oas0-qa.unicornmedia.com/now/ads/vmap/od/auto/b8f575ef-380d-4e1a-a5d1-22bdf95619fa/2ad573ed-b5c8-4058-a146-8b572071480e/9449ae81-2976-44a6-b8bb-cfc08f7120d9'
+
+'http://oas0-qa.unicornmedia.com/now/ads/vmap/od/auto/b8f575ef-380d-4e1a-a5d1-22bdf95619fa/62c6f2f0-d05e-42a4-bc8b-4d87ccc31b72/4e8d8b0e-d794-40c0-8d58-965645767b83/content.once'
+
+'http://oas0-qa.unicornmedia.com/now/ads/vmap/od/auto/96c78eda-0f69-4904-a312-74178d053a73/589a95bf-3f35-47c3-8d9a-09ea84b5cc51/3e460bbb-db1a-40f8-a715-3d3a3864eba1?umoprofiles=8c913e59-c00a-4d37-925b-27b6ed698fcc,681f29c5-81eb-4229-9801-ebe21531a57c'

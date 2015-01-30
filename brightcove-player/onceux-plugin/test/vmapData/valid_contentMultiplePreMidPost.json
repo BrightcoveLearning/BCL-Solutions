@@ -1,0 +1,341 @@
+{
+    "Extensions": {
+        "once": {
+            "contentlength": "123.1333",
+            "contenturi": "http://onceapi0-qa.unicornmedia.com/now/stitched/mp4/96c78eda-0f69-4904-a31\u2026e-aef2-fe97c7ed215b/content.mp4?oasid=ccff7110-a31e-4cba-9325-cd13484b8752",
+            "payloadlength": "401.3333"
+        }
+    },
+    "adRolls": [
+        {
+            "linearAds": [
+                {
+                    "AdSource": {
+                        "VASTData": {
+                            "VAST": {
+                                "Ad": {
+                                    "Inline": {
+                                        "Creatives": {
+                                            "Creative": [
+                                                {
+                                                    "Linear": {
+                                                        "Duration": "00:00:32.0000000+00:00",
+                                                        "VideoClicks": {
+                                                            "ClickThrough": {
+                                                                "url": ""
+                                                            },
+                                                            "ClickTracking": {
+                                                                "id": "FWc_1085022.0",
+                                                                "url": "http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&n=168234&t=134332\u2026adid=1085022&reid=609199&arid=0&auid=&cn=defaultClick&et=c&_cc=&tpos=0&cr="
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "Impression": "http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&n=168234&t=134332\u20263120.,13120.,1343325920,1&tpos=0&iw=&uxnw=&uxss=&uxct=&metr=121&init=1&cr="
+                                    },
+                                    "id": "exxon"
+                                }
+                            }
+                        },
+                        "id": "0"
+                    },
+                    "breakId": "PreRoll_0_0",
+                    "breakType": "linear",
+                    "timeOffset": "start"
+                },
+                {
+                    "AdSource": {
+                        "VASTData": {
+                            "VAST": {
+                                "Ad": {
+                                    "Inline": {
+                                        "Creatives": {
+                                            "Creative": [
+                                                {
+                                                    "Linear": {
+                                                        "Duration": "00:00:32.0000000+00:00",
+                                                        "VideoClicks": {
+                                                            "ClickThrough": {
+                                                                "url": ""
+                                                            },
+                                                            "ClickTracking": {
+                                                                "id": "FWc_1085022.0",
+                                                                "url": "http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&n=168234&t=134332\u2026adid=1085022&reid=609199&arid=0&auid=&cn=defaultClick&et=c&_cc=&tpos=0&cr="
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "Impression": "http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&n=168234&t=134332\u20263120.,13120.,1343325920,1&tpos=0&iw=&uxnw=&uxss=&uxct=&metr=121&init=1&cr="
+                                    },
+                                    "id": "exxon"
+                                }
+                            }
+                        },
+                        "id": "1"
+                    },
+                    "breakId": "PreRoll_0_1",
+                    "breakType": "linear",
+                    "timeOffset": "start"
+                },
+                {
+                    "AdSource": {
+                        "VASTData": {
+                            "VAST": {
+                                "Ad": {
+                                    "Inline": {
+                                        "Creatives": {
+                                            "Creative": [
+                                                {
+                                                    "Linear": {
+                                                        "Duration": "00:00:30.1666666+00:00",
+                                                        "VideoClicks": {
+                                                            "ClickThrough": {
+                                                                "id": "GDFP",
+                                                                "url": "http://dpl02.qa.unicornapp.com/aclk?sa=L&ai=CwzrApOykUb7UIa-TlALB1oCQD-LSkb\u2026ient=ca-pub-0775588607848145&adurl=http://www.facebook.com/SchickHydroSilk"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "Impression": "http://dpl02.qa.unicornapp.com/podposition10/pagead/adview?ai=BrPD0pOykUb7U\u2026JlYW0vaGFydG9mZGl4aWVfeGJvePgCgtIekAOsApgD4AOoAwHgBAGgBiM&sigh=kmNW7UR3GOA"
+                                    },
+                                    "id": "95863418"
+                                }
+                            }
+                        },
+                        "id": "2"
+                    },
+                    "breakId": "PreRoll_0_2",
+                    "breakType": "linear",
+                    "timeOffset": "start"
+                },
+                {
+                    "AdSource": {
+                        "VASTData": {
+                            "VAST": {
+                                "Ad": {
+                                    "Inline": {
+                                        "Creatives": {
+                                            "Creative": [
+                                                {
+                                                    "Linear": {
+                                                        "Duration": "00:00:29.9666666+00:00",
+                                                        "VideoClicks": {
+                                                            "ClickThrough": {
+                                                                "id": "GDFP",
+                                                                "url": "http://dpl02.qa.unicornapp.com/aclk?sa=L&ai=C3BzIpOykUcDUIa-TlALB1oCQD4q398\u2026p://ad.doubleclick.net/clk%3B270116543%3B96083136%3Be%3Bpc%3D%5BTPAS_ID%5D"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "Impression": "http://dpl02.qa.unicornapp.com/podpositionempty/pagead/adview?ai=Bs-8RpOykU\u2026yZWFtL2hhcnRvZmRpeGllX3hib3j4AoLSHpADrAKYA-ADqAMB4AQBoAYj&sigh=WVIgymJcYUs"
+                                    },
+                                    "id": "12841124"
+                                }
+                            }
+                        },
+                        "id": "3"
+                    },
+                    "breakId": "PreRoll_0_3",
+                    "breakType": "linear",
+                    "timeOffset": "start"
+                }
+            ]
+        },
+        {
+            "linearAds": [
+                {
+                    "AdSource": {
+                        "VASTData": {
+                            "VAST": {
+                                "Ad": {
+                                    "Inline": {
+                                        "Creatives": {
+                                            "Creative": [
+                                                {
+                                                    "Linear": {
+                                                        "Duration": "00:00:32.0000000+00:00",
+                                                        "VideoClicks": {
+                                                            "ClickThrough": {
+                                                                "url": ""
+                                                            },
+                                                            "ClickTracking": {
+                                                                "id": "FWc_1085022.0",
+                                                                "url": "http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&n=168234&t=134332\u2026adid=1085022&reid=609199&arid=0&auid=&cn=defaultClick&et=c&_cc=&tpos=0&cr="
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "Impression": "http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&n=168234&t=134332\u20263120.,13120.,1343325920,1&tpos=0&iw=&uxnw=&uxss=&uxct=&metr=121&init=1&cr="
+                                    },
+                                    "id": "exxon"
+                                }
+                            }
+                        },
+                        "id": "4"
+                    },
+                    "breakId": "MidRoll_60_0",
+                    "breakType": "linear",
+                    "timeOffset": "00:01:00.0000"
+                },
+                {
+                    "AdSource": {
+                        "VASTData": {
+                            "VAST": {
+                                "Ad": {
+                                    "Inline": {
+                                        "Creatives": {
+                                            "Creative": [
+                                                {
+                                                    "Linear": {
+                                                        "Duration": "00:00:30.0000000+00:00",
+                                                        "VideoClicks": {
+                                                            "ClickThrough": {
+                                                                "url": "http://dpl02.qa.unicornapp.com/rhythm/_final/dp/B0034G4P7Q/?tag=sonypicturese-20"
+                                                            },
+                                                            "ClickTracking": {
+                                                                "id": "Rhythm NewMedia",
+                                                                "url": "http://ads.rnmd.net/adClicked?requestId=20891189551339710916281449&action=1\u2026id=1707914&personCookie=208.91.189.55.39d02856-c094-46fa-b84e-cd17c70e77b6"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "Impression": "http://dpl02.qa.unicornapp.com/rhythm_final/impression/ads.rnmd.net/adAck?r\u2026=208.91.189.55.39d02856-c094-46fa-b84e-cd17c70e77b6&appId=66&completed=100"
+                                    },
+                                    "id": "nike-adcache-ctadaptive"
+                                }
+                            }
+                        },
+                        "id": "5"
+                    },
+                    "breakId": "MidRoll_60_1",
+                    "breakType": "linear",
+                    "timeOffset": "00:01:00.0000"
+                }
+            ]
+        },
+        {
+            "linearAds": [
+                {
+                    "AdSource": {
+                        "VASTData": {
+                            "VAST": {
+                                "Ad": {
+                                    "Inline": {
+                                        "Creatives": {
+                                            "Creative": [
+                                                {
+                                                    "Linear": {
+                                                        "Duration": "00:00:32.0000000+00:00",
+                                                        "VideoClicks": {
+                                                            "ClickThrough": {
+                                                                "url": ""
+                                                            },
+                                                            "ClickTracking": {
+                                                                "id": "FWc_1085022.0",
+                                                                "url": "http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&n=168234&t=134332\u2026adid=1085022&reid=609199&arid=0&auid=&cn=defaultClick&et=c&_cc=&tpos=0&cr="
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "Impression": "http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&n=168234&t=134332\u20263120.,13120.,1343325920,1&tpos=0&iw=&uxnw=&uxss=&uxct=&metr=121&init=1&cr="
+                                    },
+                                    "id": "exxon"
+                                }
+                            }
+                        },
+                        "id": "6"
+                    },
+                    "breakId": "MidRoll_120_0",
+                    "breakType": "linear",
+                    "timeOffset": "00:01:59.9666"
+                }
+            ]
+        },
+        {
+            "linearAds": [
+                {
+                    "AdSource": {
+                        "VASTData": {
+                            "VAST": {
+                                "Ad": {
+                                    "Inline": {
+                                        "Creatives": {
+                                            "Creative": [
+                                                {
+                                                    "Linear": {
+                                                        "Duration": "00:00:30.0333333+00:00",
+                                                        "VideoClicks": {
+                                                            "ClickThrough": {
+                                                                "url": "http://dpl02.qa.unicornapp.com/clickthrough/shadow01.yumenetworks.com/dynam\u202639594772FB31&tracker=0rO0ABXchAAAAAQAAAAACS10_AQAADKgAABuqAAABzhpRgQwba_DR"
+                                                            },
+                                                            "ClickTracking": {
+                                                                "url": ""
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "Impression": "http://dpl02.qa.unicornapp.com/impression/shadow01.yumenetworks.com/dynamic\u202610_AQAADKgAABuqAAABzhpRgQwba_DR&sessionId=0A20011601388696577839594772FB31"
+                                    },
+                                    "id": "7082"
+                                }
+                            }
+                        },
+                        "id": "7"
+                    },
+                    "breakId": "PostRoll_123_0",
+                    "breakType": "linear",
+                    "timeOffset": "end"
+                },
+                {
+                    "AdSource": {
+                        "VASTData": {
+                            "VAST": {
+                                "Ad": {
+                                    "Inline": {
+                                        "Creatives": {
+                                            "Creative": [
+                                                {
+                                                    "Linear": {
+                                                        "Duration": "00:00:30.0333333+00:00",
+                                                        "VideoClicks": {
+                                                            "ClickThrough": {
+                                                                "id": "GDFP",
+                                                                "url": "http://dpl02.qa.unicornapp.com/aclk?sa=L&ai=B83pQXwY-UYSZKIumlASQo4GQBeSc9c\u2026059349485773808&adurl=http://www.gamespot.com/contests/unicorn-apocalypse/"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "Impression": "http://dpl02.qa.unicornapp.com/4/impression1/pagead/adview?ai=BDegMXwY-Ufzc\u2026A6gINLzgwMjYvQ0FOL2Nic_gCgtIekAOsApgD4AOoAwHQBJBO4AQBoAYk&sigh=_KKCCFB_JLQ"
+                                    },
+                                    "id": "AdCacheTest1"
+                                }
+                            }
+                        },
+                        "id": "8"
+                    },
+                    "breakId": "PostRoll_123_1",
+                    "breakType": "linear",
+                    "timeOffset": "end"
+                }
+            ]
+        }
+    ]
+}

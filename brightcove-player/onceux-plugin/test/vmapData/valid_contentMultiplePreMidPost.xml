@@ -1,0 +1,581 @@
+<vmap:VMAP version="1.0" xmlns:uo="uo" xmlns:vmap="http://www.iab.net/vmap-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <vmap:Extensions>
+    <uo:unicornOnce ttl="600" contenturi="http://onceapi0-qa.unicornmedia.com/now/stitched/mp4/96c78eda-0f69-4904-a312-74178d053a73/eb4a3afd-db21-4ea3-b9e3-642376bc27e5/3a41c6e4-93a3-4108-8995-64ffca7b9106/f556a122-2e69-467e-aef2-fe97c7ed215b/content.mp4?oasid=690f8162-5501-4d64-b20b-160d1508c74e" contentlength="123.1333" payloadlength="401.3333" contextid="690f8162-5501-4d64-b20b-160d1508c74e" />
+    <uo:contentImpressions />
+    <uo:requestParameters />
+  </vmap:Extensions>
+  <vmap:AdBreak breakType="linear" breakId="PreRoll_0_0" timeOffset="start">
+    <vmap:AdSource allowMultipleAds="true" followRedirects="true" id="0">
+      <vmap:VASTData>
+        <VAST xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <Ad id="exxon">
+            <InLine>
+              <AdSystem>FreeWheel</AdSystem>
+              <AdTitle>Unknown</AdTitle>
+              <Impression id="FWi_1085022.0">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=defaultImpression&amp;et=i&amp;_cc=1085022,609199,13120.,13120.,1343325920,1&amp;tpos=0&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121&amp;init=1&amp;cr=</Impression>
+              <Impression>http://dpl02.qa.unicornapp.com/freewheel/wrapper2/impression/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=defaultImpression&amp;et=i&amp;_cc=1123397,629832,,13120.,1339713806,1&amp;tpos=0&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121&amp;init=1&amp;cr=</Impression>
+              <Impression>http://dpl02.qa.unicornapp.com/podposition2/impression/pagead/adview?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=echOpNh9_ko</Impression>
+              <Creatives>
+                <Creative sequence="1">
+                  <Linear>
+                    <Duration>00:00:32.0000000+00:00</Duration>
+                    <TrackingEvents>
+                      <Tracking event="firstQuartile" offset="8">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=firstQuartile&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="midpoint" offset="16">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=midPoint&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="thirdQuartile" offset="24">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=thirdQuartile&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="complete" offset="32">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=complete&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="mute">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_mute&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="unmute">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_un-mute&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="collapse">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_collapse&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="expand">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_expand&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="pause">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_pause&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="resume">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_resume&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="rewind">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_rewind&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="acceptInvitation">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_accept-invitation&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="close">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_close&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="start" offset="0">http://dpl02.qa.unicornapp.com/podposition2/start/linear/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=part2viewed</Tracking>
+                      <Tracking event="firstQuartile" offset="8">http://dpl02.qa.unicornapp.com/podposition2/firstquartile/linear/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=videoplaytime25</Tracking>
+                      <Tracking event="midpoint" offset="16">http://dpl02.qa.unicornapp.com/podposition2/linear/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=videoplaytime50</Tracking>
+                      <Tracking event="thirdQuartile" offset="24">http://dpl02.qa.unicornapp.com/podposition2/thirdquartile/linear/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=videoplaytime75</Tracking>
+                      <Tracking event="complete" offset="32">http://dpl02.qa.unicornapp.com/podposition2/complete/linear/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=videoplaytime100</Tracking>
+                      <Tracking event="mute">http://dpl02.qa.unicornapp.com/podposition2/mute/linear/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=admute</Tracking>
+                      <Tracking event="unmute">http://dpl02.qa.unicornapp.com/podposition2/unmute/linear/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=adunmute</Tracking>
+                      <Tracking event="rewind">http://dpl02.qa.unicornapp.com/podposition2/rewind/linear/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=adrewind</Tracking>
+                      <Tracking event="pause">http://dpl02.qa.unicornapp.com/podposition2/pause/linear/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=adpause</Tracking>
+                      <Tracking event="resume">http://dpl02.qa.unicornapp.com/podposition2/resume/linear/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=adresume</Tracking>
+                      <Tracking event="fullscreen">http://dpl02.qa.unicornapp.com/podposition2/fullscreen/linear/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=adfullscreen</Tracking>
+                      <Tracking event="acceptInvitation">http://dpl02.qa.unicornapp.com/podposition2/acceptinvitation/linear/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=acceptinvitation</Tracking>
+                      <Tracking event="creativeView">http://dpl02.qa.unicornapp.com/podposition2/creativeview1/linear/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=vast_creativeview</Tracking>
+                      <Tracking event="creativeView">http://dpl02.qa.unicornapp.com/podposition2/creativeview2/cgi-bin/m?ci=ENT21192&amp;am=4&amp;ep=1&amp;at=view&amp;rt=banner&amp;st=image&amp;ca=1213P-179-164&amp;cr=34728779018&amp;pc=145516178&amp;r=1181970027</Tracking>
+                    </TrackingEvents>
+                    <AdParameters />
+                    <VideoClicks>
+                      <ClickThrough />
+                      <ClickTracking id="FWc_1085022.0">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=defaultClick&amp;et=c&amp;_cc=&amp;tpos=0&amp;cr=</ClickTracking>
+                      <ClickTracking id="FWc_1123397.0">http://2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=defaultClick&amp;et=c&amp;_cc=&amp;tpos=0&amp;cr=</ClickTracking>
+                      <ClickTracking id="GDFP">http://dpl02.qa.unicornapp.com/podposition2/clicktracking/aclk?sa=L&amp;ai=CVHdzpOykUb_UIa-TlALB1oCQD6LS98cFAAAQASCygYwpUMCZht4FYMn-y4bEo8gXyAEF4AIAqAMBqgRgT9C3pKO5vfD6Kmsq3WxMMwx2mHHn_tR5CRevRZ4K18B7q5hlzFlu--0MoMOXQ-frdfUndxGPPFtvpm1DroZHGqsekaBwgNvQxxXoPSvnH_b4SlOw3e7l1xQJWdaPtV6l4AQBoAYk&amp;num=0&amp;sig=AOD64_3AU87dl7gbpGeVCmbNsDzAwemNVw&amp;client=ca-pub-0775588607848145</ClickTracking>
+                    </VideoClicks>
+                    <MediaFiles />
+                  </Linear>
+                </Creative>
+                <Creative sequence="1">
+                  <NonLinearAds>
+                    <TrackingEvents>
+                      <Tracking event="start">http://dpl02.qa.unicornapp.com/podposition2/nonlinear/start/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=part2viewed</Tracking>
+                      <Tracking event="firstQuartile">http://dpl02.qa.unicornapp.com/podposition2/nonlinear/firstquartile/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=videoplaytime25</Tracking>
+                      <Tracking event="midpoint">http://dpl02.qa.unicornapp.com/podposition2/nonlinear/midpoint/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=videoplaytime50</Tracking>
+                      <Tracking event="thirdQuartile">http://dpl02.qa.unicornapp.com/podposition2/nonlinear/thirdquartile/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=videoplaytime75</Tracking>
+                      <Tracking event="complete">http://dpl02.qa.unicornapp.com/podposition2/nonlinear/complete/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=videoplaytime100</Tracking>
+                      <Tracking event="close">http://dpl02.qa.unicornapp.com/podposition2/nonlinear/close/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=overlayadclose</Tracking>
+                      <Tracking event="mute">http://dpl02.qa.unicornapp.com/podposition2/nonlinear/mute/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=admute</Tracking>
+                      <Tracking event="unmute">http://dpl02.qa.unicornapp.com/podposition2/nonlinear/unmute/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=adunmute</Tracking>
+                      <Tracking event="rewind">http://dpl02.qa.unicornapp.com/podposition2/nonlinear/rewind/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=adrewind</Tracking>
+                      <Tracking event="pause">http://dpl02.qa.unicornapp.com/podposition2/nonlinear/pause/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=adpause</Tracking>
+                      <Tracking event="resume">http://dpl02.qa.unicornapp.com/podposition2/nonlinear/resume/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=adresume</Tracking>
+                      <Tracking event="fullscreen">http://dpl02.qa.unicornapp.com/podposition2/nonlinear/fullscreen/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=adfullscreen</Tracking>
+                      <Tracking event="expand">http://dpl02.qa.unicornapp.com/podposition2/nonlinear/expand/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=adexpand</Tracking>
+                      <Tracking event="collapse">http://dpl02.qa.unicornapp.com/podposition2/nonlinear/collapse/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=adcollapse</Tracking>
+                      <Tracking event="acceptInvitation">http://dpl02.qa.unicornapp.com/podposition2/nonlinear/acceptinvitation/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=acceptinvitation</Tracking>
+                      <Tracking event="creativeView">http://dpl02.qa.unicornapp.com/podposition2/nonlinear/creativeview1/pagead/conversion/?ai=BOOkapOykUb_UIa-TlALB1oCQD6LS98cFAAAAEAEgsoGMKTgAWIq6_K-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYAqi7AsACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=zbIsi_gUFWk&amp;label=vast_creativeview</Tracking>
+                      <Tracking event="creativeView">http://dpl02.qa.unicornapp.com/podposition2/nonlinear/creativeview2/cgi-bin/m?ci=ENT21192&amp;am=4&amp;ep=1&amp;at=view&amp;rt=banner&amp;st=image&amp;ca=1213P-179-164&amp;cr=34728779018&amp;pc=145516178&amp;r=1181970027</Tracking>
+                    </TrackingEvents>
+                    <NonLinear id="" width="480" height="360" scalable="false" maintainAspectRatio="false" minSuggestedDuration="00:00:30.0000000+00:00" />
+                  </NonLinearAds>
+                </Creative>
+              </Creatives>
+              <Extensions>
+                <Extension>
+                  <ad ownerId="789" adId="adId" />
+                </Extension>
+                <Extension type="geo">
+                  <Bandwidth>4</Bandwidth>
+                </Extension>
+                <Extension type="pod" sequence="2" />
+              </Extensions>
+            </InLine>
+          </Ad>
+        </VAST>
+      </vmap:VASTData>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+  <vmap:AdBreak breakType="linear" breakId="PreRoll_0_1" timeOffset="start">
+    <vmap:AdSource allowMultipleAds="true" followRedirects="true" id="1">
+      <vmap:VASTData>
+        <VAST xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <Ad id="exxon">
+            <InLine>
+              <AdSystem>FreeWheel</AdSystem>
+              <AdTitle>Unknown</AdTitle>
+              <Impression id="FWi_1085022.0">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=defaultImpression&amp;et=i&amp;_cc=1085022,609199,13120.,13120.,1343325920,1&amp;tpos=0&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121&amp;init=1&amp;cr=</Impression>
+              <Impression>http://dpl02.qa.unicornapp.com/freewheel/wrapper2/impression/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=defaultImpression&amp;et=i&amp;_cc=1123397,629832,,13120.,1339713806,1&amp;tpos=0&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121&amp;init=1&amp;cr=</Impression>
+              <Impression>http://dpl02.qa.unicornapp.com/pagead/adview?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=Zel_Q9n35Fo</Impression>
+              <Creatives>
+                <Creative sequence="1">
+                  <Linear>
+                    <Duration>00:00:32.0000000+00:00</Duration>
+                    <TrackingEvents>
+                      <Tracking event="firstQuartile" offset="8">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=firstQuartile&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="midpoint" offset="16">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=midPoint&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="thirdQuartile" offset="24">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=thirdQuartile&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="complete" offset="32">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=complete&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="mute">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_mute&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="unmute">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_un-mute&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="collapse">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_collapse&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="expand">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_expand&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="pause">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_pause&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="resume">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_resume&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="rewind">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_rewind&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="acceptInvitation">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_accept-invitation&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="close">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_close&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="start" offset="0">http://dpl02.qa.unicornapp.com/podposition5/linear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=part2viewed</Tracking>
+                      <Tracking event="firstQuartile" offset="8">http://dpl02.qa.unicornapp.com/podposition5/linear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=videoplaytime25</Tracking>
+                      <Tracking event="midpoint" offset="16">http://dpl02.qa.unicornapp.com/podposition5/linear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=videoplaytime50</Tracking>
+                      <Tracking event="thirdQuartile" offset="24">http://dpl02.qa.unicornapp.com/podposition5/linear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=videoplaytime75</Tracking>
+                      <Tracking event="complete" offset="32">http://dpl02.qa.unicornapp.com/podposition5/linear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=videoplaytime100</Tracking>
+                      <Tracking event="mute">http://dpl02.qa.unicornapp.com/podposition5/linear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=admute</Tracking>
+                      <Tracking event="unmute">http://dpl02.qa.unicornapp.com/podposition5/linear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=adunmute</Tracking>
+                      <Tracking event="rewind">http://dpl02.qa.unicornapp.com/podposition5/linear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=adrewind</Tracking>
+                      <Tracking event="pause">http://dpl02.qa.unicornapp.com/podposition5/linear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=adpause</Tracking>
+                      <Tracking event="resume">http://dpl02.qa.unicornapp.com/podposition5/linear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=adresume</Tracking>
+                      <Tracking event="fullscreen">http://dpl02.qa.unicornapp.com/podposition5/linear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=adfullscreen</Tracking>
+                      <Tracking event="acceptInvitation">http://dpl02.qa.unicornapp.com/podposition5/linear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=acceptinvitation</Tracking>
+                      <Tracking event="creativeView">http://dpl02.qa.unicornapp.com/podposition5/linear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=vast_creativeview</Tracking>
+                      <Tracking event="creativeView">http://secure-us.imrworldwide.com/cgi-bin/m?ci=ent30463&amp;am=4&amp;ep=1&amp;at=view&amp;rt=banner&amp;st=image&amp;ca=1213P-410-61&amp;cr=34727080298&amp;pc=145516178&amp;r=1901049760</Tracking>
+                    </TrackingEvents>
+                    <AdParameters />
+                    <VideoClicks>
+                      <ClickThrough />
+                      <ClickTracking id="FWc_1085022.0">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=defaultClick&amp;et=c&amp;_cc=&amp;tpos=0&amp;cr=</ClickTracking>
+                      <ClickTracking id="FWc_1123397.0">http://2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=defaultClick&amp;et=c&amp;_cc=&amp;tpos=0&amp;cr=</ClickTracking>
+                      <ClickTracking id="GDFP">http://dpl02.qa.unicornapp.com/aclk?sa=L&amp;ai=C0paLpOykUcHUIa-TlALB1oCQD-KUzccFAAAQASCygYwpUMCZht4FYMn-y4bEo8gXyAEF4AIAqAMBqgRgT9CQ-6aaeoTjK9nVyzpGm-Zmr6Htrkl2iPQYl-Cn-Hq0Lr8BRuubVgR0TK_-de_aDlawfO144AHbbNOISR3WbZOTu5YPC2phF13Qta16-qoRsizDd0h_upLEvriL5gEB4AQBoAYk&amp;num=0&amp;sig=AOD64_2uYRwiZHpkN6VrwpZ7DRS0MFwa8w&amp;client=ca-pub-0775588607848145</ClickTracking>
+                    </VideoClicks>
+                    <MediaFiles />
+                  </Linear>
+                </Creative>
+                <Creative sequence="1">
+                  <NonLinearAds>
+                    <TrackingEvents>
+                      <Tracking event="start">http://dpl02.qa.unicornapp.com/podposition5/nonlinear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=part2viewed</Tracking>
+                      <Tracking event="firstQuartile">http://dpl02.qa.unicornapp.com/podposition5/nonlinear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=videoplaytime25</Tracking>
+                      <Tracking event="midpoint">http://dpl02.qa.unicornapp.com/podposition5/nonlinear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=videoplaytime50</Tracking>
+                      <Tracking event="thirdQuartile">http://dpl02.qa.unicornapp.com/podposition5/nonlinear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=videoplaytime75</Tracking>
+                      <Tracking event="complete">http://dpl02.qa.unicornapp.com/podposition5/nonlinear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=videoplaytime100</Tracking>
+                      <Tracking event="close">http://dpl02.qa.unicornapp.com/podposition5/nonlinear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=overlayadclose</Tracking>
+                      <Tracking event="mute">http://dpl02.qa.unicornapp.com/podposition5/nonlinear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=admute</Tracking>
+                      <Tracking event="unmute">http://dpl02.qa.unicornapp.com/podposition5/nonlinear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=adunmute</Tracking>
+                      <Tracking event="rewind">http://dpl02.qa.unicornapp.com/podposition5/nonlinear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=adrewind</Tracking>
+                      <Tracking event="pause">http://dpl02.qa.unicornapp.com/podposition5/nonlinear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=adpause</Tracking>
+                      <Tracking event="resume">http://dpl02.qa.unicornapp.com/podposition5/nonlinear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=adresume</Tracking>
+                      <Tracking event="fullscreen">http://dpl02.qa.unicornapp.com/podposition5/nonlinear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=adfullscreen</Tracking>
+                      <Tracking event="expand">http://dpl02.qa.unicornapp.com/podposition5/nonlinear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=adexpand</Tracking>
+                      <Tracking event="collapse">http://dpl02.qa.unicornapp.com/podposition5/nonlinear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=adcollapse</Tracking>
+                      <Tracking event="acceptInvitation">http://dpl02.qa.unicornapp.com/podposition5/nonlinear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=acceptinvitation</Tracking>
+                      <Tracking event="creativeView">http://dpl02.qa.unicornapp.com/podposition5/nonlinear/pagead/conversion/?ai=BcH4PpOykUcHUIa-TlALB1oCQD-KUzccFAAAAEAEgsoGMKTgAWOrilK-BAWDJ_suGxKPIF7oBCzQ4MHgzNjBfeG1syAEF2gEFaHR0cDqYApaJBMACAuACAOoCJi80MjY2L2N3dHYuZnVsbHN0cmVhbS9oYXJ0b2ZkaXhpZV94Ym94-AKC0h6QA6wCmAPgA6gDAeAEAaAGJA&amp;sigh=6pyGPpUBtO8&amp;label=vast_creativeview</Tracking>
+                      <Tracking event="creativeView">http://secure-us.imrworldwide.com/cgi-bin/m?ci=ent30463&amp;am=4&amp;ep=1&amp;at=view&amp;rt=banner&amp;st=image&amp;ca=1213P-410-61&amp;cr=34727080298&amp;pc=145516178&amp;r=1901049760</Tracking>
+                    </TrackingEvents>
+                    <NonLinear id="" width="480" height="360" scalable="false" maintainAspectRatio="false" minSuggestedDuration="00:00:30.0000000+00:00" />
+                  </NonLinearAds>
+                </Creative>
+              </Creatives>
+              <Extensions>
+                <Extension>
+                  <ad ownerId="789" adId="adId" />
+                </Extension>
+                <Extension type="geo">
+                  <Bandwidth>4</Bandwidth>
+                </Extension>
+                <Extension type="pod" sequence="3" />
+              </Extensions>
+            </InLine>
+          </Ad>
+        </VAST>
+      </vmap:VASTData>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+  <vmap:AdBreak breakType="linear" breakId="PreRoll_0_2" timeOffset="start">
+    <vmap:AdSource allowMultipleAds="true" followRedirects="true" id="2">
+      <vmap:VASTData>
+        <VAST xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <Ad id="95863418">
+            <InLine>
+              <AdSystem>GDFP</AdSystem>
+              <AdTitle>video</AdTitle>
+              <Description>video ad</Description>
+              <Survey>http://dpl02.qa.unicornapp.com/podposition10/cgi-bin/m?ci=ENT29622&amp;am=4&amp;ep=1&amp;at=view&amp;rt=banner&amp;st=image&amp;ca=1213P-240-16&amp;cr=33567367298&amp;pc=145516178&amp;r=360294534</Survey>
+              <Error>http://dpl02.qa.unicornapp.com/podposition10/error/pagead/conversion/?ai=BrPD0pOykUb7UIa-TlALB1oCQD-LSkbAFAAAAEAEgsoGMKTgAUPTJuZP4_____wFYgsGVhn1gyf7LhsSjyBe6AQs0ODB4MzYwX3htbMgBBdoBBWh0dHA6mAKOqATAAgLgAgDqAiYvNDI2Ni9jd3R2LmZ1bGxzdHJlYW0vaGFydG9mZGl4aWVfeGJvePgCgtIekAOsApgD4AOoAwHgBAGgBiM&amp;sigh=9hFZJgo26cE&amp;label=videoplayfailed</Error>
+              <Impression>http://dpl02.qa.unicornapp.com/podposition10/pagead/adview?ai=BrPD0pOykUb7UIa-TlALB1oCQD-LSkbAFAAAAEAEgsoGMKTgAUPTJuZP4_____wFYgsGVhn1gyf7LhsSjyBe6AQs0ODB4MzYwX3htbMgBBdoBBWh0dHA6mAKOqATAAgLgAgDqAiYvNDI2Ni9jd3R2LmZ1bGxzdHJlYW0vaGFydG9mZGl4aWVfeGJvePgCgtIekAOsApgD4AOoAwHgBAGgBiM&amp;sigh=kmNW7UR3GOA</Impression>
+              <Creatives>
+                <Creative sequence="1">
+                  <Linear>
+                    <Duration>00:00:30.1666666+00:00</Duration>
+                    <TrackingEvents>
+                      <Tracking event="start" offset="0">http://dpl02.qa.unicornapp.com/podposition10/linear/pagead/conversion/?ai=BrPD0pOykUb7UIa-TlALB1oCQD-LSkbAFAAAAEAEgsoGMKTgAUPTJuZP4_____wFYgsGVhn1gyf7LhsSjyBe6AQs0ODB4MzYwX3htbMgBBdoBBWh0dHA6mAKOqATAAgLgAgDqAiYvNDI2Ni9jd3R2LmZ1bGxzdHJlYW0vaGFydG9mZGl4aWVfeGJvePgCgtIekAOsApgD4AOoAwHgBAGgBiM&amp;sigh=9hFZJgo26cE&amp;label=part2viewed</Tracking>
+                      <Tracking event="firstQuartile" offset="7">http://dpl02.qa.unicornapp.com/podposition10/linearpagead/conversion/?ai=BrPD0pOykUb7UIa-TlALB1oCQD-LSkbAFAAAAEAEgsoGMKTgAUPTJuZP4_____wFYgsGVhn1gyf7LhsSjyBe6AQs0ODB4MzYwX3htbMgBBdoBBWh0dHA6mAKOqATAAgLgAgDqAiYvNDI2Ni9jd3R2LmZ1bGxzdHJlYW0vaGFydG9mZGl4aWVfeGJvePgCgtIekAOsApgD4AOoAwHgBAGgBiM&amp;sigh=9hFZJgo26cE&amp;label=videoplaytime25</Tracking>
+                      <Tracking event="midpoint" offset="15">http://dpl02.qa.unicornapp.com/podposition10/linearpagead/conversion/?ai=BrPD0pOykUb7UIa-TlALB1oCQD-LSkbAFAAAAEAEgsoGMKTgAUPTJuZP4_____wFYgsGVhn1gyf7LhsSjyBe6AQs0ODB4MzYwX3htbMgBBdoBBWh0dHA6mAKOqATAAgLgAgDqAiYvNDI2Ni9jd3R2LmZ1bGxzdHJlYW0vaGFydG9mZGl4aWVfeGJvePgCgtIekAOsApgD4AOoAwHgBAGgBiM&amp;sigh=9hFZJgo26cE&amp;label=videoplaytime50</Tracking>
+                      <Tracking event="thirdQuartile" offset="22">http://dpl02.qa.unicornapp.com/podposition10/linearpagead/conversion/?ai=BrPD0pOykUb7UIa-TlALB1oCQD-LSkbAFAAAAEAEgsoGMKTgAUPTJuZP4_____wFYgsGVhn1gyf7LhsSjyBe6AQs0ODB4MzYwX3htbMgBBdoBBWh0dHA6mAKOqATAAgLgAgDqAiYvNDI2Ni9jd3R2LmZ1bGxzdHJlYW0vaGFydG9mZGl4aWVfeGJvePgCgtIekAOsApgD4AOoAwHgBAGgBiM&amp;sigh=9hFZJgo26cE&amp;label=videoplaytime75</Tracking>
+                      <Tracking event="complete" offset="30">http://dpl02.qa.unicornapp.com/podposition10/linearpagead/conversion/?ai=BrPD0pOykUb7UIa-TlALB1oCQD-LSkbAFAAAAEAEgsoGMKTgAUPTJuZP4_____wFYgsGVhn1gyf7LhsSjyBe6AQs0ODB4MzYwX3htbMgBBdoBBWh0dHA6mAKOqATAAgLgAgDqAiYvNDI2Ni9jd3R2LmZ1bGxzdHJlYW0vaGFydG9mZGl4aWVfeGJvePgCgtIekAOsApgD4AOoAwHgBAGgBiM&amp;sigh=9hFZJgo26cE&amp;label=videoplaytime100</Tracking>
+                      <Tracking event="mute">http://dpl02.qa.unicornapp.com/podposition10/linearpagead/conversion/?ai=BrPD0pOykUb7UIa-TlALB1oCQD-LSkbAFAAAAEAEgsoGMKTgAUPTJuZP4_____wFYgsGVhn1gyf7LhsSjyBe6AQs0ODB4MzYwX3htbMgBBdoBBWh0dHA6mAKOqATAAgLgAgDqAiYvNDI2Ni9jd3R2LmZ1bGxzdHJlYW0vaGFydG9mZGl4aWVfeGJvePgCgtIekAOsApgD4AOoAwHgBAGgBiM&amp;sigh=9hFZJgo26cE&amp;label=admute</Tracking>
+                      <Tracking event="unmute">http://dpl02.qa.unicornapp.com/podposition10/linearpagead/conversion/?ai=BrPD0pOykUb7UIa-TlALB1oCQD-LSkbAFAAAAEAEgsoGMKTgAUPTJuZP4_____wFYgsGVhn1gyf7LhsSjyBe6AQs0ODB4MzYwX3htbMgBBdoBBWh0dHA6mAKOqATAAgLgAgDqAiYvNDI2Ni9jd3R2LmZ1bGxzdHJlYW0vaGFydG9mZGl4aWVfeGJvePgCgtIekAOsApgD4AOoAwHgBAGgBiM&amp;sigh=9hFZJgo26cE&amp;label=adunmute</Tracking>
+                      <Tracking event="rewind">http://dpl02.qa.unicornapp.com/podposition10/linearpagead/conversion/?ai=BrPD0pOykUb7UIa-TlALB1oCQD-LSkbAFAAAAEAEgsoGMKTgAUPTJuZP4_____wFYgsGVhn1gyf7LhsSjyBe6AQs0ODB4MzYwX3htbMgBBdoBBWh0dHA6mAKOqATAAgLgAgDqAiYvNDI2Ni9jd3R2LmZ1bGxzdHJlYW0vaGFydG9mZGl4aWVfeGJvePgCgtIekAOsApgD4AOoAwHgBAGgBiM&amp;sigh=9hFZJgo26cE&amp;label=adrewind</Tracking>
+                      <Tracking event="pause">http://dpl02.qa.unicornapp.com/podposition10/linearpagead/conversion/?ai=BrPD0pOykUb7UIa-TlALB1oCQD-LSkbAFAAAAEAEgsoGMKTgAUPTJuZP4_____wFYgsGVhn1gyf7LhsSjyBe6AQs0ODB4MzYwX3htbMgBBdoBBWh0dHA6mAKOqATAAgLgAgDqAiYvNDI2Ni9jd3R2LmZ1bGxzdHJlYW0vaGFydG9mZGl4aWVfeGJvePgCgtIekAOsApgD4AOoAwHgBAGgBiM&amp;sigh=9hFZJgo26cE&amp;label=adpause</Tracking>
+                      <Tracking event="resume">http://dpl02.qa.unicornapp.com/podposition10/linearpagead/conversion/?ai=BrPD0pOykUb7UIa-TlALB1oCQD-LSkbAFAAAAEAEgsoGMKTgAUPTJuZP4_____wFYgsGVhn1gyf7LhsSjyBe6AQs0ODB4MzYwX3htbMgBBdoBBWh0dHA6mAKOqATAAgLgAgDqAiYvNDI2Ni9jd3R2LmZ1bGxzdHJlYW0vaGFydG9mZGl4aWVfeGJvePgCgtIekAOsApgD4AOoAwHgBAGgBiM&amp;sigh=9hFZJgo26cE&amp;label=adresume</Tracking>
+                      <Tracking event="fullscreen">http://dpl02.qa.unicornapp.com/podposition10/linearpagead/conversion/?ai=BrPD0pOykUb7UIa-TlALB1oCQD-LSkbAFAAAAEAEgsoGMKTgAUPTJuZP4_____wFYgsGVhn1gyf7LhsSjyBe6AQs0ODB4MzYwX3htbMgBBdoBBWh0dHA6mAKOqATAAgLgAgDqAiYvNDI2Ni9jd3R2LmZ1bGxzdHJlYW0vaGFydG9mZGl4aWVfeGJvePgCgtIekAOsApgD4AOoAwHgBAGgBiM&amp;sigh=9hFZJgo26cE&amp;label=adfullscreen</Tracking>
+                      <Tracking event="acceptInvitation">http://dpl02.qa.unicornapp.com/podposition10/linearpagead/conversion/?ai=BrPD0pOykUb7UIa-TlALB1oCQD-LSkbAFAAAAEAEgsoGMKTgAUPTJuZP4_____wFYgsGVhn1gyf7LhsSjyBe6AQs0ODB4MzYwX3htbMgBBdoBBWh0dHA6mAKOqATAAgLgAgDqAiYvNDI2Ni9jd3R2LmZ1bGxzdHJlYW0vaGFydG9mZGl4aWVfeGJvePgCgtIekAOsApgD4AOoAwHgBAGgBiM&amp;sigh=9hFZJgo26cE&amp;label=acceptinvitation</Tracking>
+                      <Tracking event="creativeView">http://dpl02.qa.unicornapp.com/podposition10/linearpagead/conversion/?ai=BrPD0pOykUb7UIa-TlALB1oCQD-LSkbAFAAAAEAEgsoGMKTgAUPTJuZP4_____wFYgsGVhn1gyf7LhsSjyBe6AQs0ODB4MzYwX3htbMgBBdoBBWh0dHA6mAKOqATAAgLgAgDqAiYvNDI2Ni9jd3R2LmZ1bGxzdHJlYW0vaGFydG9mZGl4aWVfeGJvePgCgtIekAOsApgD4AOoAwHgBAGgBiM&amp;sigh=9hFZJgo26cE&amp;label=vast_creativeview</Tracking>
+                      <Tracking event="creativeView">http://secure-us.imrworldwide.com/cgi-bin/m?ci=ENT29622&amp;am=4&amp;ep=1&amp;at=view&amp;rt=banner&amp;st=image&amp;ca=1213P-240-16&amp;cr=33567367298&amp;pc=145516178&amp;r=1212205489</Tracking>
+                    </TrackingEvents>
+                    <VideoClicks>
+                      <ClickThrough id="GDFP">http://dpl02.qa.unicornapp.com/aclk?sa=L&amp;ai=CwzrApOykUb7UIa-TlALB1oCQD-LSkbAFAAAQASCygYwpUPTJuZP4_____wFgyf7LhsSjyBfIAQXgAgCoAwGqBF9P0Nuhil_cylk0R2jP7EjAbSv6emxw7Or1HSZD5Dp2MiTeTIU4qt1zy59U2RKFpmMD4Sq2gv2sAaMMKy_EujBPi4tBBQXlLI1fI7US_6Sa4xfNZB7GzvKsaXhTzweU0OAEAaAGIw&amp;num=0&amp;sig=AOD64_0VYP39qH0i65NKG3u51Skjo3LV1Q&amp;client=ca-pub-0775588607848145&amp;adurl=http://www.facebook.com/SchickHydroSilk</ClickThrough>
+                    </VideoClicks>
+                    <MediaFiles />
+                  </Linear>
+                </Creative>
+              </Creatives>
+              <Extensions>
+                <Extension type="geo">
+                  <Bandwidth>4</Bandwidth>
+                </Extension>
+                <Extension type="pod" sequence="10" />
+              </Extensions>
+            </InLine>
+          </Ad>
+        </VAST>
+      </vmap:VASTData>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+  <vmap:AdBreak breakType="linear" breakId="PreRoll_0_3" timeOffset="start">
+    <vmap:AdSource allowMultipleAds="true" followRedirects="true" id="3">
+      <vmap:VASTData>
+        <VAST xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <Ad id="12841124">
+            <InLine>
+              <AdSystem>GDFP</AdSystem>
+              <AdTitle>video</AdTitle>
+              <Description>video ad</Description>
+              <Survey>http://dpl02.qa.unicornapp.com/podpositionempty/cgi-bin/m?ci=ENT21192&amp;am=4&amp;ep=1&amp;at=view&amp;rt=banner&amp;st=image&amp;ca=1213P-179-149&amp;cr=34728778538&amp;pc=145516178&amp;r=638319766</Survey>
+              <Error>http://dpl02.qa.unicornapp.com/podpositionempty/pagead/conversion/?ai=Bs-8RpOykUcDUIa-TlALB1oCQD4q398cFAAAAEAEgsoGMKTgAUOLclaj9_____wFYqrb8r4EBYMn-y4bEo8gXugELNDgweDM2MF94bWzIAQXaAQVodHRwOpgCqLsCwAIC4AIA6gImLzQyNjYvY3d0di5mdWxsc3RyZWFtL2hhcnRvZmRpeGllX3hib3j4AoLSHpADrAKYA-ADqAMB4AQBoAYj&amp;sigh=JSGUJ5zQmx4&amp;label=videoplayfailed</Error>
+              <Impression>http://dpl02.qa.unicornapp.com/podpositionempty/pagead/adview?ai=Bs-8RpOykUcDUIa-TlALB1oCQD4q398cFAAAAEAEgsoGMKTgAUOLclaj9_____wFYqrb8r4EBYMn-y4bEo8gXugELNDgweDM2MF94bWzIAQXaAQVodHRwOpgCqLsCwAIC4AIA6gImLzQyNjYvY3d0di5mdWxsc3RyZWFtL2hhcnRvZmRpeGllX3hib3j4AoLSHpADrAKYA-ADqAMB4AQBoAYj&amp;sigh=WVIgymJcYUs</Impression>
+              <Creatives>
+                <Creative sequence="1">
+                  <Linear>
+                    <Duration>00:00:29.9666666+00:00</Duration>
+                    <TrackingEvents>
+                      <Tracking event="start" offset="0">http://dpl02.qa.unicornapp.com/podpositionempty/linear/pagead/conversion/?ai=Bs-8RpOykUcDUIa-TlALB1oCQD4q398cFAAAAEAEgsoGMKTgAUOLclaj9_____wFYqrb8r4EBYMn-y4bEo8gXugELNDgweDM2MF94bWzIAQXaAQVodHRwOpgCqLsCwAIC4AIA6gImLzQyNjYvY3d0di5mdWxsc3RyZWFtL2hhcnRvZmRpeGllX3hib3j4AoLSHpADrAKYA-ADqAMB4AQBoAYj&amp;sigh=JSGUJ5zQmx4&amp;label=part2viewed</Tracking>
+                      <Tracking event="firstQuartile" offset="7">http://dpl02.qa.unicornapp.com/podpositionempty/linear/pagead/conversion/?ai=Bs-8RpOykUcDUIa-TlALB1oCQD4q398cFAAAAEAEgsoGMKTgAUOLclaj9_____wFYqrb8r4EBYMn-y4bEo8gXugELNDgweDM2MF94bWzIAQXaAQVodHRwOpgCqLsCwAIC4AIA6gImLzQyNjYvY3d0di5mdWxsc3RyZWFtL2hhcnRvZmRpeGllX3hib3j4AoLSHpADrAKYA-ADqAMB4AQBoAYj&amp;sigh=JSGUJ5zQmx4&amp;label=videoplaytime25</Tracking>
+                      <Tracking event="midpoint" offset="15">http://dpl02.qa.unicornapp.com/podpositionempty/linear/pagead/conversion/?ai=Bs-8RpOykUcDUIa-TlALB1oCQD4q398cFAAAAEAEgsoGMKTgAUOLclaj9_____wFYqrb8r4EBYMn-y4bEo8gXugELNDgweDM2MF94bWzIAQXaAQVodHRwOpgCqLsCwAIC4AIA6gImLzQyNjYvY3d0di5mdWxsc3RyZWFtL2hhcnRvZmRpeGllX3hib3j4AoLSHpADrAKYA-ADqAMB4AQBoAYj&amp;sigh=JSGUJ5zQmx4&amp;label=videoplaytime50</Tracking>
+                      <Tracking event="thirdQuartile" offset="22">http://dpl02.qa.unicornapp.com/podpositionempty/linear/pagead/conversion/?ai=Bs-8RpOykUcDUIa-TlALB1oCQD4q398cFAAAAEAEgsoGMKTgAUOLclaj9_____wFYqrb8r4EBYMn-y4bEo8gXugELNDgweDM2MF94bWzIAQXaAQVodHRwOpgCqLsCwAIC4AIA6gImLzQyNjYvY3d0di5mdWxsc3RyZWFtL2hhcnRvZmRpeGllX3hib3j4AoLSHpADrAKYA-ADqAMB4AQBoAYj&amp;sigh=JSGUJ5zQmx4&amp;label=videoplaytime75</Tracking>
+                      <Tracking event="complete" offset="30">http://dpl02.qa.unicornapp.com/podpositionempty/linear/pagead/conversion/?ai=Bs-8RpOykUcDUIa-TlALB1oCQD4q398cFAAAAEAEgsoGMKTgAUOLclaj9_____wFYqrb8r4EBYMn-y4bEo8gXugELNDgweDM2MF94bWzIAQXaAQVodHRwOpgCqLsCwAIC4AIA6gImLzQyNjYvY3d0di5mdWxsc3RyZWFtL2hhcnRvZmRpeGllX3hib3j4AoLSHpADrAKYA-ADqAMB4AQBoAYj&amp;sigh=JSGUJ5zQmx4&amp;label=videoplaytime100</Tracking>
+                      <Tracking event="mute">http://dpl02.qa.unicornapp.com/podpositionempty/linear/pagead/conversion/?ai=Bs-8RpOykUcDUIa-TlALB1oCQD4q398cFAAAAEAEgsoGMKTgAUOLclaj9_____wFYqrb8r4EBYMn-y4bEo8gXugELNDgweDM2MF94bWzIAQXaAQVodHRwOpgCqLsCwAIC4AIA6gImLzQyNjYvY3d0di5mdWxsc3RyZWFtL2hhcnRvZmRpeGllX3hib3j4AoLSHpADrAKYA-ADqAMB4AQBoAYj&amp;sigh=JSGUJ5zQmx4&amp;label=admute</Tracking>
+                      <Tracking event="unmute">http://dpl02.qa.unicornapp.com/podpositionempty/linear/pagead/conversion/?ai=Bs-8RpOykUcDUIa-TlALB1oCQD4q398cFAAAAEAEgsoGMKTgAUOLclaj9_____wFYqrb8r4EBYMn-y4bEo8gXugELNDgweDM2MF94bWzIAQXaAQVodHRwOpgCqLsCwAIC4AIA6gImLzQyNjYvY3d0di5mdWxsc3RyZWFtL2hhcnRvZmRpeGllX3hib3j4AoLSHpADrAKYA-ADqAMB4AQBoAYj&amp;sigh=JSGUJ5zQmx4&amp;label=adunmute</Tracking>
+                      <Tracking event="rewind">http://dpl02.qa.unicornapp.com/podpositionempty/linear/pagead/conversion/?ai=Bs-8RpOykUcDUIa-TlALB1oCQD4q398cFAAAAEAEgsoGMKTgAUOLclaj9_____wFYqrb8r4EBYMn-y4bEo8gXugELNDgweDM2MF94bWzIAQXaAQVodHRwOpgCqLsCwAIC4AIA6gImLzQyNjYvY3d0di5mdWxsc3RyZWFtL2hhcnRvZmRpeGllX3hib3j4AoLSHpADrAKYA-ADqAMB4AQBoAYj&amp;sigh=JSGUJ5zQmx4&amp;label=adrewind</Tracking>
+                      <Tracking event="pause">http://dpl02.qa.unicornapp.com/podpositionempty/linear/pagead/conversion/?ai=Bs-8RpOykUcDUIa-TlALB1oCQD4q398cFAAAAEAEgsoGMKTgAUOLclaj9_____wFYqrb8r4EBYMn-y4bEo8gXugELNDgweDM2MF94bWzIAQXaAQVodHRwOpgCqLsCwAIC4AIA6gImLzQyNjYvY3d0di5mdWxsc3RyZWFtL2hhcnRvZmRpeGllX3hib3j4AoLSHpADrAKYA-ADqAMB4AQBoAYj&amp;sigh=JSGUJ5zQmx4&amp;label=adpause</Tracking>
+                      <Tracking event="resume">http://dpl02.qa.unicornapp.com/podpositionempty/linear/pagead/conversion/?ai=Bs-8RpOykUcDUIa-TlALB1oCQD4q398cFAAAAEAEgsoGMKTgAUOLclaj9_____wFYqrb8r4EBYMn-y4bEo8gXugELNDgweDM2MF94bWzIAQXaAQVodHRwOpgCqLsCwAIC4AIA6gImLzQyNjYvY3d0di5mdWxsc3RyZWFtL2hhcnRvZmRpeGllX3hib3j4AoLSHpADrAKYA-ADqAMB4AQBoAYj&amp;sigh=JSGUJ5zQmx4&amp;label=adresume</Tracking>
+                      <Tracking event="fullscreen">http://dpl02.qa.unicornapp.com/podpositionempty/linear/pagead/conversion/?ai=Bs-8RpOykUcDUIa-TlALB1oCQD4q398cFAAAAEAEgsoGMKTgAUOLclaj9_____wFYqrb8r4EBYMn-y4bEo8gXugELNDgweDM2MF94bWzIAQXaAQVodHRwOpgCqLsCwAIC4AIA6gImLzQyNjYvY3d0di5mdWxsc3RyZWFtL2hhcnRvZmRpeGllX3hib3j4AoLSHpADrAKYA-ADqAMB4AQBoAYj&amp;sigh=JSGUJ5zQmx4&amp;label=adfullscreen</Tracking>
+                      <Tracking event="acceptInvitation">http://dpl02.qa.unicornapp.com/podpositionempty/linear/pagead/conversion/?ai=Bs-8RpOykUcDUIa-TlALB1oCQD4q398cFAAAAEAEgsoGMKTgAUOLclaj9_____wFYqrb8r4EBYMn-y4bEo8gXugELNDgweDM2MF94bWzIAQXaAQVodHRwOpgCqLsCwAIC4AIA6gImLzQyNjYvY3d0di5mdWxsc3RyZWFtL2hhcnRvZmRpeGllX3hib3j4AoLSHpADrAKYA-ADqAMB4AQBoAYj&amp;sigh=JSGUJ5zQmx4&amp;label=acceptinvitation</Tracking>
+                      <Tracking event="creativeView">http://dpl02.qa.unicornapp.com/podpositionempty/linear/pagead/conversion/?ai=Bs-8RpOykUcDUIa-TlALB1oCQD4q398cFAAAAEAEgsoGMKTgAUOLclaj9_____wFYqrb8r4EBYMn-y4bEo8gXugELNDgweDM2MF94bWzIAQXaAQVodHRwOpgCqLsCwAIC4AIA6gImLzQyNjYvY3d0di5mdWxsc3RyZWFtL2hhcnRvZmRpeGllX3hib3j4AoLSHpADrAKYA-ADqAMB4AQBoAYj&amp;sigh=JSGUJ5zQmx4&amp;label=vast_creativeview</Tracking>
+                      <Tracking event="creativeView">http://ad.doubleclick.net/ad/N2724.CWTV/B6968084.35;sz=1x1;ord=2123382575?</Tracking>
+                      <Tracking event="creativeView">http://secure-us.imrworldwide.com/cgi-bin/m?ci=ENT21192&amp;am=4&amp;ep=1&amp;at=view&amp;rt=banner&amp;st=image&amp;ca=1213P-179-149&amp;cr=34728778538&amp;pc=145516178&amp;r=807692179</Tracking>
+                    </TrackingEvents>
+                    <VideoClicks>
+                      <ClickThrough id="GDFP">http://dpl02.qa.unicornapp.com/aclk?sa=L&amp;ai=C3BzIpOykUcDUIa-TlALB1oCQD4q398cFAAAQASCygYwpUOLclaj9_____wFgyf7LhsSjyBfIAQXgAgCoAwGqBGBP0Kef4Qby85ZTXHNbD8mjvdVa3G_znm0oBgGNcKd6R07ihxI1rlhwGEY-0lV_Gd7necjqc8fv4lERiLuOOJbKBEvv9YSvLtvK5Qe6NiUc_pQ1LQtxVVH6CQXL_CzPnUPgBAGgBiM&amp;num=0&amp;sig=AOD64_3PUz1wjU3IqPR8qrDaaA9iWE0WuQ&amp;client=ca-pub-0775588607848145&amp;adurl=http://ad.doubleclick.net/clk%3B270116543%3B96083136%3Be%3Bpc%3D%5BTPAS_ID%5D</ClickThrough>
+                    </VideoClicks>
+                    <MediaFiles />
+                  </Linear>
+                </Creative>
+              </Creatives>
+              <Extensions>
+                <Extension type="geo">
+                  <Bandwidth>4</Bandwidth>
+                </Extension>
+                <Extension type="pod" sequence="" />
+              </Extensions>
+            </InLine>
+          </Ad>
+        </VAST>
+      </vmap:VASTData>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+  <vmap:AdBreak breakType="linear" breakId="MidRoll_60_0" timeOffset="00:01:00.0000">
+    <vmap:AdSource allowMultipleAds="true" followRedirects="true" id="4">
+      <vmap:VASTData>
+        <VAST xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <Ad id="exxon">
+            <InLine>
+              <AdSystem>FreeWheel</AdSystem>
+              <AdTitle>Unknown</AdTitle>
+              <Impression id="FWi_1085022.0">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=defaultImpression&amp;et=i&amp;_cc=1085022,609199,13120.,13120.,1343325920,1&amp;tpos=0&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121&amp;init=1&amp;cr=</Impression>
+              <Impression>http://dpl02.qa.unicornapp.com/freewheel/wrapper2/impression/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=defaultImpression&amp;et=i&amp;_cc=1123397,629832,,13120.,1339713806,1&amp;tpos=0&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121&amp;init=1&amp;cr=</Impression>
+              <Impression>http://dpl02.qa.unicornapp.com/freewheel/wrapper1/impression/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=defaultImpression&amp;et=i&amp;_cc=1123397,629832,,13120.,1339713806,1&amp;tpos=0&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121&amp;init=1&amp;cr=</Impression>
+              <Creatives>
+                <Creative AdID="1123397">
+                  <Linear>
+                    <Duration>00:00:32.0000000+00:00</Duration>
+                    <TrackingEvents>
+                      <Tracking event="firstQuartile" offset="8">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=firstQuartile&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="midpoint" offset="16">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=midPoint&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="thirdQuartile" offset="24">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=thirdQuartile&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="complete" offset="32">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=complete&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="mute">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_mute&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="unmute">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_un-mute&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="collapse">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_collapse&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="expand">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_expand&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="pause">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_pause&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="resume">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_resume&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="rewind">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_rewind&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="acceptInvitation">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_accept-invitation&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="close">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_close&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="firstQuartile" offset="8">http://dpl02.qa.unicornapp.com/freewheel/wrapper1/firstquartile/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=firstQuartile&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="midpoint" offset="16">http://dpl02.qa.unicornapp.com/freewheel/wrapper1/midpoint/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=midPoint&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="thirdQuartile" offset="24">http://dpl02.qa.unicornapp.com/freewheel/wrapper1/thirdquartile/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=thirdQuartile&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="complete" offset="32">http://dpl02.qa.unicornapp.com/freewheel/wrapper1/complete/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=complete&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="mute">http://dpl02.qa.unicornapp.com/freewheel/wrapper1/mute/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=_mute&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="unmute">http://dpl02.qa.unicornapp.com/freewheel/wrapper1/unmute/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=_un-mute&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="collapse">http://dpl02.qa.unicornapp.com/freewheel/wrapper1/collapse/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=_collapse&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="expand">http://dpl02.qa.unicornapp.com/freewheel/wrapper1/expand/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=_expand&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="pause">http://dpl02.qa.unicornapp.com/freewheel/wrapper1/pause/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=_pause&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="resume">http://dpl02.qa.unicornapp.com/freewheel/wrapper1/resume/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=_resume&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="rewind">http://dpl02.qa.unicornapp.com/freewheel/wrapper1/rewind/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=_rewind&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="acceptInvitation">http://dpl02.qa.unicornapp.com/freewheel/wrapper1/acceptinvitation/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=_accept-invitation&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="close">http://dpl02.qa.unicornapp.com/freewheel/wrapper1/close/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=_close&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                    </TrackingEvents>
+                    <AdParameters />
+                    <VideoClicks>
+                      <ClickThrough />
+                      <ClickTracking id="FWc_1085022.0">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=defaultClick&amp;et=c&amp;_cc=&amp;tpos=0&amp;cr=</ClickTracking>
+                      <ClickTracking id="FWc_1123397.0">http://2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=defaultClick&amp;et=c&amp;_cc=&amp;tpos=0&amp;cr=</ClickTracking>
+                      <ClickTracking id="FWc_1123397.0">http://2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=defaultClick&amp;et=c&amp;_cc=&amp;tpos=0&amp;cr=</ClickTracking>
+                    </VideoClicks>
+                    <MediaFiles />
+                  </Linear>
+                </Creative>
+              </Creatives>
+              <Extensions>
+                <Extension>
+                  <ad ownerId="789" adId="adId" />
+                </Extension>
+              </Extensions>
+            </InLine>
+          </Ad>
+        </VAST>
+      </vmap:VASTData>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+  <vmap:AdBreak breakType="linear" breakId="MidRoll_60_1" timeOffset="00:01:00.0000">
+    <vmap:AdSource allowMultipleAds="true" followRedirects="true" id="5">
+      <vmap:VASTData>
+        <VAST xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <Ad id="nike-adcache-ctadaptive">
+            <InLine>
+              <AdSystem>Rhythm NewMedia</AdSystem>
+              <AdTitle>zSDKTest_Antoine_video_socialnetwork</AdTitle>
+              <Description>Rhythm NewMedia</Description>
+              <Impression id="Rhythm NewMedia">http://dpl02.qa.unicornapp.com/rhythm_final/impression/ads.rnmd.net/adAck?requestId=20891189551339710916281449&amp;id=1707914&amp;personCookie=208.91.189.55.39d02856-c094-46fa-b84e-cd17c70e77b6&amp;appId=66&amp;completed=100</Impression>
+              <Creatives>
+                <Creative sequence="1">
+                  <Linear>
+                    <Duration>00:00:30.0000000+00:00</Duration>
+                    <TrackingEvents>
+                      <Tracking event="firstQuartile" offset="7">http://dpl02.qa.unicornapp.com/rhythm_final/freewheel/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=firstQuartile&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="midpoint" offset="15">http://dpl02.qa.unicornapp.com/rhythm_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=midPoint&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="thirdQuartile" offset="22">http://dpl02.qa.unicornapp.com/rhythm_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=thirdQuartile&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="complete" offset="30">http://dpl02.qa.unicornapp.com/rhythm_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=complete&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="mute">http://dpl02.qa.unicornapp.com/rhythm_final/mute/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_mute&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="unmute">http://dpl02.qa.unicornapp.com/rhythm_final/unmute/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_un-mute&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                    </TrackingEvents>
+                    <VideoClicks>
+                      <ClickThrough>http://dpl02.qa.unicornapp.com/rhythm/_final/dp/B0034G4P7Q/?tag=sonypicturese-20</ClickThrough>
+                      <ClickTracking id="Rhythm NewMedia">http://ads.rnmd.net/adClicked?requestId=20891189551339710916281449&amp;action=10&amp;id=1707914&amp;personCookie=208.91.189.55.39d02856-c094-46fa-b84e-cd17c70e77b6</ClickTracking>
+                    </VideoClicks>
+                    <MediaFiles />
+                  </Linear>
+                </Creative>
+              </Creatives>
+              <Extensions>
+                <Extension>
+                  <overlay videoFade="0.4">
+                    <ad-element type="info">
+                      <bounds x="440" y="280" height="30" width="30" />
+                      <animation entry="slideup" exit="slidedown" />
+                      <action info="1" type="page" />
+                      <pages>
+                        <page num="0" />
+                      </pages>
+                    </ad-element>
+                    <ad-element type="close">
+                      <bounds x="10" y="10" height="30" width="30" />
+                      <animation entry="slidedown" exit="slideup" />
+                      <action info="0" type="page" />
+                      <pages>
+                        <page num="1" />
+                      </pages>
+                    </ad-element>
+                    <ad-element type="url">
+                      <bounds x="205" y="251" height="59" width="69" />
+                      <animation entry="slideup" exit="slidedown" />
+                      <action info="http://www.amazon.com/dp/B0034G4P7Q/?tag=sonypicturese-20" type="url" />
+                      <pages>
+                        <page num="1" />
+                      </pages>
+                    </ad-element>
+                  </overlay>
+                  <contentId>-1</contentId>
+                </Extension>
+              </Extensions>
+            </InLine>
+          </Ad>
+        </VAST>
+      </vmap:VASTData>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+  <vmap:AdBreak breakType="linear" breakId="MidRoll_120_0" timeOffset="00:01:59.9666">
+    <vmap:AdSource allowMultipleAds="true" followRedirects="true" id="6">
+      <vmap:VASTData>
+        <VAST xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <Ad id="exxon">
+            <InLine>
+              <AdSystem>FreeWheel</AdSystem>
+              <AdTitle>Unknown</AdTitle>
+              <Impression id="FWi_1085022.0">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=defaultImpression&amp;et=i&amp;_cc=1085022,609199,13120.,13120.,1343325920,1&amp;tpos=0&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121&amp;init=1&amp;cr=</Impression>
+              <Impression>http://dpl02.qa.unicornapp.com/freewheel/wrapper2/impression/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=defaultImpression&amp;et=i&amp;_cc=1123397,629832,,13120.,1339713806,1&amp;tpos=0&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121&amp;init=1&amp;cr=</Impression>
+              <Impression>http://dpl02.qa.unicornapp.com/freewheel/wrapper1/impression/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=defaultImpression&amp;et=i&amp;_cc=1123397,629832,,13120.,1339713806,1&amp;tpos=0&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121&amp;init=1&amp;cr=</Impression>
+              <Creatives>
+                <Creative AdID="1123397">
+                  <Linear>
+                    <Duration>00:00:32.0000000+00:00</Duration>
+                    <TrackingEvents>
+                      <Tracking event="firstQuartile" offset="8">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=firstQuartile&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="midpoint" offset="16">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=midPoint&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="thirdQuartile" offset="24">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=thirdQuartile&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="complete" offset="32">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=complete&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="mute">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_mute&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="unmute">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_un-mute&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="collapse">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_collapse&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="expand">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_expand&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="pause">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_pause&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="resume">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_resume&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="rewind">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_rewind&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="acceptInvitation">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_accept-invitation&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="close">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=_close&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="firstQuartile" offset="8">http://dpl02.qa.unicornapp.com/freewheel/wrapper1/firstquartile/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=firstQuartile&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="midpoint" offset="16">http://dpl02.qa.unicornapp.com/freewheel/wrapper1/midpoint/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=midPoint&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="thirdQuartile" offset="24">http://dpl02.qa.unicornapp.com/freewheel/wrapper1/thirdquartile/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=thirdQuartile&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="complete" offset="32">http://dpl02.qa.unicornapp.com/freewheel/wrapper1/complete/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=complete&amp;et=i&amp;_cc=&amp;tpos=0&amp;init=1&amp;iw=&amp;uxnw=&amp;uxss=&amp;uxct=&amp;metr=121</Tracking>
+                      <Tracking event="mute">http://dpl02.qa.unicornapp.com/freewheel/wrapper1/mute/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=_mute&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="unmute">http://dpl02.qa.unicornapp.com/freewheel/wrapper1/unmute/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=_un-mute&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="collapse">http://dpl02.qa.unicornapp.com/freewheel/wrapper1/collapse/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=_collapse&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="expand">http://dpl02.qa.unicornapp.com/freewheel/wrapper1/expand/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=_expand&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="pause">http://dpl02.qa.unicornapp.com/freewheel/wrapper1/pause/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=_pause&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="resume">http://dpl02.qa.unicornapp.com/freewheel/wrapper1/resume/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=_resume&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="rewind">http://dpl02.qa.unicornapp.com/freewheel/wrapper1/rewind/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=_rewind&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="acceptInvitation">http://dpl02.qa.unicornapp.com/freewheel/wrapper1/acceptinvitation/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=_accept-invitation&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                      <Tracking event="close">http://dpl02.qa.unicornapp.com/freewheel/wrapper1/close/2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=_close&amp;et=s&amp;_cc=&amp;tpos=0</Tracking>
+                    </TrackingEvents>
+                    <AdParameters />
+                    <VideoClicks>
+                      <ClickThrough />
+                      <ClickTracking id="FWc_1085022.0">http://dpl02.qa.unicornapp.com/freewheel_final/l/1?s=b151&amp;n=168234&amp;t=1343325920105958003&amp;adid=1085022&amp;reid=609199&amp;arid=0&amp;auid=&amp;cn=defaultClick&amp;et=c&amp;_cc=&amp;tpos=0&amp;cr=</ClickTracking>
+                      <ClickTracking id="FWc_1123397.0">http://2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=defaultClick&amp;et=c&amp;_cc=&amp;tpos=0&amp;cr=</ClickTracking>
+                      <ClickTracking id="FWc_1123397.0">http://2912a.v.fwmrm.net/ad/l/1?s=b060&amp;t=1339713806542489130&amp;adid=1123397&amp;reid=629832&amp;arid=0&amp;auid=&amp;cn=defaultClick&amp;et=c&amp;_cc=&amp;tpos=0&amp;cr=</ClickTracking>
+                    </VideoClicks>
+                    <MediaFiles />
+                  </Linear>
+                </Creative>
+              </Creatives>
+              <Extensions>
+                <Extension>
+                  <ad ownerId="789" adId="adId" />
+                </Extension>
+              </Extensions>
+            </InLine>
+          </Ad>
+        </VAST>
+      </vmap:VASTData>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+  <vmap:AdBreak breakType="linear" breakId="PostRoll_123_0" timeOffset="end">
+    <vmap:AdSource allowMultipleAds="true" followRedirects="true" id="7">
+      <vmap:VASTData>
+        <VAST xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <Ad id="7082">
+            <InLine>
+              <AdSystem>YuMe</AdSystem>
+              <AdTitle>loreal video w companion banner</AdTitle>
+              <Description />
+              <Impression>http://dpl02.qa.unicornapp.com/impression/shadow01.yumenetworks.com/dynamic_watchedchapter_1_3240_0_0.gif?tracker=0rO0ABXchAAAAAQAAAAACS10_AQAADKgAABuqAAABzhpRgQwba_DR&amp;sessionId=0A20011601388696577839594772FB31</Impression>
+              <Creatives>
+                <Creative AdID="6015">
+                  <Linear>
+                    <Duration>00:00:30.0333333+00:00</Duration>
+                    <TrackingEvents>
+                      <Tracking event="firstQuartile" offset="7">http://dpl02.qa.unicornapp.com/firstquartile/shadow01.yumenetworks.com/dynamic_watchedchapter_1_3240_0_25.gif?tracker=0rO0ABXchAAAAAQAAAAACS10_AQAADKgAABuqAAABzhpRgQwba_DR&amp;sessionId=0A20011601388696577839594772FB31</Tracking>
+                      <Tracking event="midpoint" offset="15">http://dpl02.qa.unicornapp.com/midpoint/shadow01.yumenetworks.com/dynamic_watchedchapter_1_3240_0_50.gif?tracker=0rO0ABXchAAAAAQAAAAACS10_AQAADKgAABuqAAABzhpRgQwba_DR&amp;sessionId=0A20011601388696577839594772FB31</Tracking>
+                      <Tracking event="thirdQuartile" offset="22">http://dpl02.qa.unicornapp.com/thirdquartile/shadow01.yumenetworks.com/dynamic_watchedchapter_1_3240_0_75.gif?tracker=0rO0ABXchAAAAAQAAAAACS10_AQAADKgAABuqAAABzhpRgQwba_DR&amp;sessionId=0A20011601388696577839594772FB31</Tracking>
+                      <Tracking event="complete" offset="30">http://dpl02.qa.unicornapp.com/complete/shadow01.yumenetworks.com/dynamic_watchedchapter_1_3240_0_100.gif?tracker=0rO0ABXchAAAAAQAAAAACS10_AQAADKgAABuqAAABzhpRgQwba_DR&amp;sessionId=0A20011601388696577839594772FB31</Tracking>
+                    </TrackingEvents>
+                    <VideoClicks>
+                      <ClickThrough>http://dpl02.qa.unicornapp.com/clickthrough/shadow01.yumenetworks.com/dynamic_moreinfo.html?ref=http%3A%2F%2Fwww.loreal.com&amp;placement_id=3240&amp;ctype=3&amp;sessionId=0A20011601388696577839594772FB31&amp;tracker=0rO0ABXchAAAAAQAAAAACS10_AQAADKgAABuqAAABzhpRgQwba_DR</ClickThrough>
+                      <ClickTracking />
+                    </VideoClicks>
+                    <MediaFiles />
+                  </Linear>
+                </Creative>
+                <Creative AdID="6015">
+                  <CompanionAds>
+                    <Companion width="300" height="250">
+                      <StaticResource creativeType="image/jpeg">http://shadowcdn-01.yumenetworks.com/ym/229/WlnUPvXQ.jpg</StaticResource>
+                      <TrackingEvents>
+                        <Tracking event="creativeView">http://dpl02.qa.unicornapp.com/creativeview/shadow01.yumenetworks.com/dynamic_customization_2328_4_1_0.gif?tracker=0rO0ABXchAAAAAQAAAAACS10_AQAADKgAABuqAAABzhpRgQwba_DR&amp;sessionId=0A20011601388696577839594772FB31</Tracking>
+                      </TrackingEvents>
+                      <CompanionClickThrough>http://dpl02.qa.unicornapp.com/compandionclickthrough/shadow01.yumenetworks.com/dynamic_moreinfo.html?ref=http%3A%2F%2Fwww.loreal.com&amp;placement_id=3240&amp;ctype=4&amp;cid=2328&amp;sessionId=0A20011601388696577839594772FB31&amp;tracker=0rO0ABXchAAAAAQAAAAACS10_AQAADKgAABuqAAABzhpRgQwba_DR</CompanionClickThrough>
+                    </Companion>
+                  </CompanionAds>
+                </Creative>
+              </Creatives>
+            </InLine>
+          </Ad>
+        </VAST>
+      </vmap:VASTData>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+  <vmap:AdBreak breakType="linear" breakId="PostRoll_123_1" timeOffset="end">
+    <vmap:AdSource allowMultipleAds="true" followRedirects="true" id="8">
+      <vmap:VASTData>
+        <VAST xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <Ad id="AdCacheTest1">
+            <InLine>
+              <AdSystem>GDFP</AdSystem>
+              <AdTitle>AdCacheTest1</AdTitle>
+              <Description>video ad</Description>
+              <Error>http://dpl02.qa.unicornapp.com/pagead/conversion/?ai=B83pQXwY-UYSZKIumlASQo4GQBeSc9csDAAAAEAEgvNGUGjgAUJmh_dD9_____wFY7IKG9VNgyf7LhsSjyBe6AQozMDB4NjBfeG1syAEF2gEFaHR0cDqYAtyIAcACAuACAOoCDS84MDI2L0NBTi9jYnP4AoLSHpADrAKYA-ADqAMB4AQBoAYj&amp;sigh=CzadGCN7Zd0&amp;label=videoplayfailed</Error>
+              <Impression>http://dpl02.qa.unicornapp.com/4/impression1/pagead/adview?ai=BDegMXwY-UfzcJ4umlASQo4GQBYylj80DAAAAEAEgvNGUGjgAWJzIjsBSYMn-y4bEo8gXugEKMzAweDYwX3htbMgBBdoBBWh0dHA6wAIC4AIA6gINLzgwMjYvQ0FOL2Nic_gCgtIekAOsApgD4AOoAwHQBJBO4AQBoAYk&amp;sigh=_KKCCFB_JLQ</Impression>
+              <Creatives>
+                <Creative sequence="1">
+                  <Linear>
+                    <Duration>00:00:30.0333333+00:00</Duration>
+                    <TrackingEvents>
+                      <Tracking event="start" offset="0">http://dpl02.qa.unicornapp.com/4/start/linear/pagead/conversion/?ai=BDegMXwY-UfzcJ4umlASQo4GQBYylj80DAAAAEAEgvNGUGjgAWJzIjsBSYMn-y4bEo8gXugEKMzAweDYwX3htbMgBBdoBBWh0dHA6wAIC4AIA6gINLzgwMjYvQ0FOL2Nic_gCgtIekAOsApgD4AOoAwHQBJBO4AQBoAYk&amp;sigh=sxvDZ5ZG_ZM&amp;label=part2viewed</Tracking>
+                      <Tracking event="firstQuartile" offset="7">http://dpl02.qa.unicornapp.com/4/firstQuartile/linear/pagead/conversion/?ai=BDegMXwY-UfzcJ4umlASQo4GQBYylj80DAAAAEAEgvNGUGjgAWJzIjsBSYMn-y4bEo8gXugEKMzAweDYwX3htbMgBBdoBBWh0dHA6wAIC4AIA6gINLzgwMjYvQ0FOL2Nic_gCgtIekAOsApgD4AOoAwHQBJBO4AQBoAYk&amp;sigh=sxvDZ5ZG_ZM&amp;label=videoplaytime25</Tracking>
+                      <Tracking event="midpoint" offset="15">http://dpl02.qa.unicornapp.com/4/midpoint/linear/pagead/conversion/?ai=BDegMXwY-UfzcJ4umlASQo4GQBYylj80DAAAAEAEgvNGUGjgAWJzIjsBSYMn-y4bEo8gXugEKMzAweDYwX3htbMgBBdoBBWh0dHA6wAIC4AIA6gINLzgwMjYvQ0FOL2Nic_gCgtIekAOsApgD4AOoAwHQBJBO4AQBoAYk&amp;sigh=sxvDZ5ZG_ZM&amp;label=videoplaytime50</Tracking>
+                      <Tracking event="thirdQuartile" offset="22">http://dpl02.qa.unicornapp.com/4/thirdQuartile/linear/pagead/conversion/?ai=BDegMXwY-UfzcJ4umlASQo4GQBYylj80DAAAAEAEgvNGUGjgAWJzIjsBSYMn-y4bEo8gXugEKMzAweDYwX3htbMgBBdoBBWh0dHA6wAIC4AIA6gINLzgwMjYvQ0FOL2Nic_gCgtIekAOsApgD4AOoAwHQBJBO4AQBoAYk&amp;sigh=sxvDZ5ZG_ZM&amp;label=videoplaytime75</Tracking>
+                      <Tracking event="complete" offset="30">http://dpl02.qa.unicornapp.com/4/complete/linear/pagead/conversion/?ai=BDegMXwY-UfzcJ4umlASQo4GQBYylj80DAAAAEAEgvNGUGjgAWJzIjsBSYMn-y4bEo8gXugEKMzAweDYwX3htbMgBBdoBBWh0dHA6wAIC4AIA6gINLzgwMjYvQ0FOL2Nic_gCgtIekAOsApgD4AOoAwHQBJBO4AQBoAYk&amp;sigh=sxvDZ5ZG_ZM&amp;label=videoplaytime100</Tracking>
+                    </TrackingEvents>
+                    <VideoClicks>
+                      <ClickThrough id="GDFP">http://dpl02.qa.unicornapp.com/aclk?sa=L&amp;ai=B83pQXwY-UYSZKIumlASQo4GQBeSc9csDAAAAEAEgvNGUGjgAUJmh_dD9_____wFY7IKG9VNgyf7LhsSjyBe6AQozMDB4NjBfeG1syAEF2gEFaHR0cDqYAtyIAcACAuACAOoCDS84MDI2L0NBTi9jYnP4AoLSHpADrAKYA-ADqAMB4AQBoAYj&amp;num=0&amp;sig=AOD64_3dDdIAleCkKEmgQw9oUPzaMUjDtA&amp;client=ca-pub-6059349485773808&amp;adurl=http://www.gamespot.com/contests/unicorn-apocalypse/</ClickThrough>
+                    </VideoClicks>
+                    <MediaFiles />
+                  </Linear>
+                </Creative>
+              </Creatives>
+              <Extensions>
+                <Extension type="geo">
+                  <Bandwidth>4</Bandwidth>
+                </Extension>
+                <Extension type="waterfall" fallback_index="4" />
+              </Extensions>
+            </InLine>
+          </Ad>
+        </VAST>
+      </vmap:VASTData>
+    </vmap:AdSource>
+  </vmap:AdBreak>
+</vmap:VMAP>

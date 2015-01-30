@@ -1,0 +1,23 @@
+{
+    "browser"  : true,
+    "curly": true,
+    "eqeqeq": true,
+    "quotmark" : "single",
+    "trailing" : true,
+    "undef"    : true,
+    "predef"   : [
+        "videojs",
+        "sinon",
+        "validVMAP",
+        "validAdRollVMAP",
+        "validNoAdsVMAP",
+        "validSkipOffsetVMAP",
+        "validPreRollJson",
+        "validMidRollJson",
+        "validPostRollJson",
+        "validVMAPJson",
+        "validAdRollVMAPJson",
+        "invalidVMAPJson",
+        "invalidVMAP"
+    ]
+}

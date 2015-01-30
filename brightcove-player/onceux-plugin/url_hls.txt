@@ -1,0 +1,2 @@
+mediaURL:
+'http://once.unicornmedia.com/now/ctadaptive/m3u8/77128e82-3acd-4064-ab71-f6de437aba5d/da63d706-dae8-4110-9035-e7e79b753ed0/f1a96e7e-d5b8-4737-a527-45c0f79702d9/content.m3u8';

@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Video.js OnceUX</title>
+  <link rel="stylesheet" href="../node_modules/qunitjs/qunit/qunit.css">
+  <link rel="stylesheet" href="../lib/videojs-onceux.css">
+  <link rel="stylesheet" href="../node_modules/videojs-contrib-ads/src/videojs.ads.css">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <!-- Load QUnit (test framework) and Blanket (code coverage) -->
+  <script src="../node_modules/qunitjs/qunit/qunit.js"></script>
+  <script src="../node_modules/blanket/dist/qunit/blanket.min.js"></script>
+  <script>
+    if (location.href.match(/(\?|&)gruntReport($|&|=)/)) {
+       blanket.options("reporter", "../node_modules/grunt-blanket-qunit/reporter/grunt-reporter.js");
+    }
+  </script>
+  <!-- Load sinon server for fakeXHR -->
+  <script src="../node_modules/sinon/pkg/sinon.js"></script>
+  <!--[if IE]>
+  <script>
+    console.log('Running on IE');
+  </script>
+  <script src="../node_modules/sinon/pkg/sinon-ie.js"></script>
+  <![endif]-->
+  <script>
+    test('the environment is sane', function() {
+      ok(true, 'everything is swell');
+    });
+  </script>
+
+  <!-- Load the test data -->
+  <script src="vmapData/testData.js"></script>
+  <!-- Load the dependecies -->
+  <script src="../node_modules/video.js/dist/video-js/video.js"></script>
+  <!-- media sources plugin -->
+  <script src="../node_modules/videojs-contrib-hls/node_modules/videojs-contrib-media-sources/src/videojs-media-sources.js"></script>
+  <!-- hls plugin -->
+  <script src="../node_modules/videojs-contrib-hls/src/videojs-hls.js"></script>
+  <!-- contrib-ads plugin -->
+  <script src="../node_modules/videojs-contrib-ads/src/videojs.ads.js"></script>
+  <!-- overlays plugin -->
+  <script src="../node_modules/videojs-overlay/lib/videojs-overlay.js"></script>
+  <!-- seek events plugin -->
+  <script src="../node_modules/videojs-seek-events/lib/videojs-seek-events.js"></script>
+
+  <!-- Load the main scripts -->
+  <script src="../lib/videojs-onceux.js" data-cover></script>
+  <script src="../lib/vmap-parser.js" data-cover></script>
+  <script src="../lib/absolute-timeline.js" data-cover></script>
+  <script src="../lib/ad-tracking.js" data-cover></script>
+  <script src="../lib/default-overlays.js" data-cover></script>
+  <script src="../lib/controls.js" data-cover></script>
+  <!-- Load the test scripts -->
+  <script src="videojs-onceux.test.js"></script>
+  <script src="absolute-timeline.test.js"></script>
+  <script src="vmap-parser.test.js"></script>
+  <script src="ad-tracking.test.js"></script>
+  <script src="default-overlays.test.js"></script>
+  <script src="controls.test.js"></script>
+</body>
+</html>

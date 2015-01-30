@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Force IE into standards mode -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" charset="utf-8"/>
+  <!-- VideoJS (IE requires this in the head)-->
+  <script src="node_modules/video.js/dist/video-js/video.dev.js"></script>
+  <title>Video.js OnceUX</title>
+  <link href="node_modules/video.js/dist/video-js/video-js.css" rel="stylesheet">
+  <link href="node_modules/videojs-contrib-ads/src/videojs.ads.css" rel="stylesheet">
+  <link href="lib/videojs-onceux.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .info {
+      background-color: #eee;
+      border: thin solid #333;
+      border-radius: 3px;
+      padding: 0 5px;
+      text-align: center;
+    }
+    .logger {
+      left: 620px;
+      position: absolute;
+      color: black;
+    }
+    .companion {
+      padding-top: 300px;
+    }
+    .video-js {
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <div class="info">
+    <p>
+      You can see the Video.js Onceux plugin in action below.
+      Look at the source of this page to see how to use it with your videos.
+    </p>
+  </div>
+  <label for="cb"><input id="cb" type="checkbox" onclick="handleClick(this);">Override vmap call with object</label>
+  <video id="video"
+         class="video-js vjs-default-skin"
+         height="300"
+         width="600"
+         >
+    <p>
+      Your browser doesn't support video. Please <a href="http://browsehappy.com/">upgrade your browser</a> to see the example.
+    </p>
+  </video>
+  <div id="eventLogger" class='logger'></div>
+  <div id="imageContainer" class='companion'></div>
+  <!-- media sources plugin -->
+  <script src="node_modules/videojs-contrib-hls/node_modules/videojs-contrib-media-sources/src/videojs-media-sources.js"></script>
+
+  <!-- hls plugin -->
+  <script src="node_modules/videojs-contrib-hls/src/videojs-hls.js"></script>
+
+  <!-- segment handling -->
+  <script src="node_modules/videojs-contrib-hls/src/xhr.js"></script>
+  <script src="node_modules/videojs-contrib-hls/src/flv-tag.js"></script>
+  <script src="node_modules/videojs-contrib-hls/src/exp-golomb.js"></script>
+  <script src="node_modules/videojs-contrib-hls/src/h264-stream.js"></script>
+  <script src="node_modules/videojs-contrib-hls/src/aac-stream.js"></script>
+  <script src="node_modules/videojs-contrib-hls/src/segment-parser.js"></script>
+
+  <!-- m3u8 handling -->
+  <script src="node_modules/videojs-contrib-hls/src/stream.js"></script>
+  <script src="node_modules/videojs-contrib-hls/src/m3u8/m3u8-parser.js"></script>
+  <script src="node_modules/videojs-contrib-hls/src/playlist-loader.js"></script>
+
+  <script src="node_modules/videojs-contrib-hls/node_modules/pkcs7/dist/pkcs7.unpad.js"></script>
+  <script src="node_modules/videojs-contrib-hls/src/decrypter.js"></script>
+
+  <script src="node_modules/videojs-contrib-hls/src/bin-utils.js"></script>
+
+  <!-- contrib-ads plugin -->
+  <script src="node_modules/videojs-contrib-ads/src/videojs.ads.js"></script>
+  <!-- overlays plugin -->
+  <script src="node_modules/videojs-overlay/lib/videojs-overlay.js"></script>
+  <!-- seek events plugin -->
+  <script src="node_modules/videojs-seek-events/lib/videojs-seek-events.js"></script>
+  <!-- anayltics plugin -->
+  <script src="node_modules/videojs-bc-analytics/lib/videojs-bc-analytics.js"></script>
+
+  <!-- OnceUX plugin -->
+  <script src="lib/videojs-onceux.js"></script>
+  <script src="lib/vmap-parser.js"></script>
+  <script src="lib/absolute-timeline.js"></script>
+  <script src="lib/ad-tracking.js"></script>
+  <script src="lib/default-overlays.js"></script>
+  <script src="lib/controls.js"></script>
+
+  <!-- test data -->
+  <script src="test/vmapData/testData.js"></script>
+
+  <script>
+    var
+      player = videojs('video', {
+        nativeControlsForTouch: false,
+        techOrder: ['hls','html5','flash'],
+        'vtt.js': 'node_modules/video.js/node_modules/vtt.js/dist/vtt.js',
+        techOrder: ['hls','html5','flash'],
+        html5: {
+          nativeCaptions: false,
+        }
+      }),
+      events,
+      eventIndex,
+      eventLogger = document.getElementById('eventLogger'),
+      options = {
+        verbose: true,
+        //contentHeader override for HLS polyfills
+        contentHeaders: false,
+
+        //metadataUri: 'http://onceux.unicornmedia.com/now/ads/vmap/od/auto/f1e8b045-e52e-4636-9459-818da5f90bab/3aaf99a3-57d7-4a8d-8dd9-2c6f671d77e1/5a985fe9-dd01-4c7a-8acb-8eba719b7a02/content.once?timedtextextension=vtt'
+
+        //Pre, Mid, Post Ads
+        metadataUri: 'http://onceux.unicornmedia.com/now/ads/vmap/od/auto/95ea75e1-dd2a-4aea-851a-28f46f8e8195/43f54cc0-aa6b-4b2c-b4de-63d707167bf9/9b118b95-38df-4b99-bb50-8f53d62f6ef8??umtp=0'
+
+        // pre-roll ad
+        //metadataUri : 'http://onceux-qa.unicornmedia.com/now/ads/vmap/od/auto/96c78eda-0f69-4904-a312-74178d053a73/4e34103b-aa25-4f77-9285-1959ddb813ee/f556a122-2e69-467e-aef2-fe97c7ed215b'
+
+        // mid-roll ad
+        //metadataUri: 'http://onceux-qa.unicornmedia.com/now/ads/vmap/od/auto/96c78eda-0f69-4904-a312-74178d053a73/673073ef-1790-42f5-903f-9205b2ff3fef/b8475d50-c8d8-4ca9-9217-5b6298d19541'
+
+        //Multiple pre, mid, post ads
+        //metadataUri : 'http://onceux-qa.unicornmedia.com/now/ads/vmap/od/auto/96c78eda-0f69-4904-a312-74178d053a73/eb4a3afd-db21-4ea3-b9e3-642376bc27e5/f556a122-2e69-467e-aef2-fe97c7ed215b/content.once'
+
+        //No Ads
+        //metadataUri: 'http://onceux-qa.unicornmedia.com/now/ads/vmap/od/auto/96c78eda-0f69-4904-a312-74178d053a73/c08044c5-d687-413c-a6cb-0fa6a27e77b3/432e97b1-77a3-4f89-ae1d-1838f36da071'
+        
+        //Skippable Ad
+        //metadataUri: 'http://onceux.unicornmedia.com/now/ads/vmap/od/auto/f1e8b045-e52e-4636-9459-818da5f90bab/3aaf99a3-57d7-4a8d-8dd9-2c6f671d77e1/0a10b34f-85e7-44a8-a4fb-4a1b7c9e97ac/content.once'
+
+        //Once Content-Type Testing
+        // Pre and post rolls
+        //metadataUri: 'http://onceux-qa.unicornmedia.com/now/ads/vmap/od/auto/57106360-1837-4dff-8604-593f04ec33ee/1fa28ca1-3fb8-4b5a-a1bb-cf61ab4cc5ee/4004c530-4336-457c-bf57-2b8f760187e8/content.once'
+        // Mid rolls
+        //metadataUri: 'http://onceux-qa.unicornmedia.com/now/ads/vmap/od/auto/57106360-1837-4dff-8604-593f04ec33ee/1fa28ca1-3fb8-4b5a-a1bb-cf61ab4cc5ee/8f1c9db6-0bc1-4b93-8a2e-5b133bc9fa5a/content.once'
+      },
+      handleClick = function(cb) {
+        if (cb.checked === true) {
+          player.onceux({vmap: validMidRollVMAPJson});
+        } else {
+          player.onceux(options);
+        }
+      };
+
+    videojs.options.flash.swf = 'node_modules/video.js/dist/video-js/video-js.swf';
+
+    //initialize a standard player
+    player.ready(function() {
+      player.el().className = player.el().className.replace('vjs-controls-disabled', 'vjs-controls-enabled');
+
+      //Invoke analytics plugin.
+      player.bcAnalytics({
+        account: 1338901990,
+        player: 'bc-once',
+        analyticsUrl: 'http://metrics.aws-qa.rnatest.brightcove.com/',
+        verbose: false
+      });
+
+      var removeCompanionAds = function(event) {
+        var
+          companionAd = event.linearAd.companionAd,
+          imageContainer = document.getElementById('imageContainer'),
+          img;
+
+        if (companionAd) {
+          img = document.getElementsByTagName('img')[0];
+          if (img) {
+            imageContainer.removeChild(img);
+          }
+        }
+      };
+
+      player.onceux(options);
+
+      //listen for companionad creativeView event to display the companion ad
+      player.on('onceux-companionad-creativeView', function(event) {
+        var
+          companionAd = event.linearAd.companionAd,
+          url = companionAd.StaticResource.url,
+          clickThroughUrl = companionAd.CompanionClickThrough,
+          height = companionAd.height,
+          width = companionAd.width,
+          imageContainer = document.getElementById('imageContainer'),
+          img;
+
+        if (!document.querySelectorAll('img')[0]) {
+          img = document.createElement('img');
+          img.src = url;
+          img.height = height;
+          img.width = width;
+          img.style.cursor = 'pointer';
+          imageContainer.appendChild(img);
+
+          //attach the click event on img attribue to enable companion click through
+          img.addEventListener('click', function() {
+            if (clickThroughUrl) {
+              window.open(clickThroughUrl, '_blank');
+            }
+          });
+        }
+
+      });
+
+      //listen for linearad complete and linear ad skipped events.
+      //and remove the companion ad banner when they fire.
+      player.on('onceux-linearad-complete', function(event) {
+        removeCompanionAds(event);
+      });
+
+      player.on('onceux-linearad-skipped', function(event) {
+        console.log('skipped ad ', event);
+        removeCompanionAds(event);
+      });
+
+      events = [
+        'onceux-linearad-start',
+        'onceux-linearad-impression',
+        'onceux-linearad-firstQuartile',
+        'onceux-linearad-midpoint',
+        'onceux-linearad-thirdQuartile',
+        'onceux-linearad-complete',
+        'onceux-adroll-start',
+        'onceux-adroll-complete',
+        'onceux-ads-complete',
+        'onceux-linearad-mute',
+        'onceux-linearad-unmute',
+        'onceux-linearad-pause',
+        'onceux-linearad-resume',
+        'onceux-companionad-creativeView',
+        'onceux-linearad-skipped',
+        'ended'
+      ];
+      for (eventIndex = 0; eventIndex < events.length; eventIndex++) {
+        eventType = events[eventIndex];
+        console.log(eventType);
+        player.on(eventType, function(event) {
+          eventLogger.innerHTML += event.type + '<br/>';
+        });
+      }
+    });
+
+    //######### SKIP BEHAVIOR EXAMPLES ########
+    /*skip all ads
+    player.ready(function() {
+      player.onceux({
+        hideOverlay: false,
+        verbose: true,
+        //Pre, Mid, Post Ads
+        metadataUri : 'http://onceux.unicornmedia.com/now/ads/vmap/od/auto/95ea75e1-dd2a-4aea-851a-28f46f8e8195/43f54cc0-aa6b-4b2c-b4de-63d707167bf9/9b118b95-38df-4b99-bb50-8f53d62f6ef8??umtp=0'
+      });
+      player.on('onceux-linearad-start', function(event) {
+        console.log('onceux-linearad-start');
+        player.onceux.seekAds(event.linearAd.absoluteEndTime);
+      });
+    });*/
+
+  </script>
+</body>
+</html>

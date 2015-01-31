@@ -126,7 +126,7 @@ var BCLS = (function ($, window, document, BCMAPI, Pikaday, Handlebars) {
             }
         }
         return targetArray;
-    };    // allow array forEach method in older browsers
+    }; // allow array forEach method in older browsers
     if (!Array.prototype.forEach) {
         Array.prototype.forEach = function (fn, scope) {
             var i, len = this.length;
@@ -136,7 +136,7 @@ var BCLS = (function ($, window, document, BCMAPI, Pikaday, Handlebars) {
         };
     }
     // more robust test for strings "not defined"
-    isDefined =  function (v) {
+    isDefined = function (v) {
         if (v !== "" && v !== null && v !== "undefined" && v !== undefined) {
             return true;
         }
@@ -154,7 +154,6 @@ var BCLS = (function ($, window, document, BCMAPI, Pikaday, Handlebars) {
         $getVideoIds.attr("class", "bcls-hidden");
         page_number = 0;
         tagButtonClicked = true;
-        currentVideoIndex = 0;
     };
     // call the Media API to get a list of tags for an account
     getTags = function () {
@@ -602,7 +601,7 @@ var BCLS = (function ($, window, document, BCMAPI, Pikaday, Handlebars) {
             url: "http://solutions.brightcove.com:8002",
             type: "POST",
             data: requestData,
-            success : function (data) {
+            success: function (data) {
                 numberOfAnalyticsCalls++;
                 try {
                     jsonData = parseData(data);
@@ -615,7 +614,7 @@ var BCLS = (function ($, window, document, BCMAPI, Pikaday, Handlebars) {
                 }
                 // $responseFrame.html(BCLSformatJSON.formatJSON(JSON.parse(data)));
             },
-            error : function (XMLHttpRequest, textStatus, errorThrown) {
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
                 $responseFrame.html("Sorry, your request was not successful. Here is what the server sent back: " + errorThrown + "<br>We'll go ahead and display any data already received below");
                 // go ahead and display any data we already got
                 displayAnalyticsData();
@@ -686,7 +685,7 @@ var BCLS = (function ($, window, document, BCMAPI, Pikaday, Handlebars) {
     // generate initial request
     buildRequest();
     return {
-        onMAPIresponse : onMAPIresponse,
-        onMAPIresponse2 : onMAPIresponse2
+        onMAPIresponse: onMAPIresponse,
+        onMAPIresponse2: onMAPIresponse2
     };
 })($, window, document, BCMAPI, Pikaday, Handlebars);

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<VAST version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vast.xsd">
+    <Ad id="232859236">
+        <InLine>
+            <AdSystem version="2.0">DART_DFP</AdSystem>
+            <Creatives>
+                <Creative sequence="1" AdID="">
+                    <Linear>
+                        <Duration>00:00:13</Duration>
+                        <VideoClicks>
+                            <ClickThrough><![CDATA[https://www.google.com/search?q=%22ginger%20ale%22]]></ClickThrough>
+                        </VideoClicks>
+                        <MediaFiles>
+                            <MediaFile id="6" delivery="progressive" type="video/mp4" bitrate="0" width="480" height="272">
+                                <![CDATA[http://brightcove.vo.llnwd.net/e1/pd/1338901990/1338901990_1702011570001_video-hendersons.mp4?pub-id=1338901990]]>
+                            </MediaFile>
+                        </MediaFiles>
+                    </Linear>
+                </Creative>
+            </Creatives>
+        </InLine>
+    </Ad>
+</VAST>

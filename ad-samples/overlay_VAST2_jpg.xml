@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VAST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="vast2.xsd" version="2.0.1">
+	<Ad id="myad">
+		<InLine>
+			<AdSystem>DART</AdSystem>
+			<AdTitle>VAST2/overlay_VAST2_jpg.xml</AdTitle>
+			<Description>Description: Overlay 480x90 PNG</Description>
+			<Impression>
+				<![CDATA[@@BC_IMPRESSION_SERVER_URL@@;trackPoint=start;frmt=17;duration=13;adServerName=Network@@AD_REQUEST_INFO@@]]>
+			</Impression>
+			<Creatives>
+				<Creative> 
+					<NonLinearAds>
+						<TrackingEvents>
+							<Tracking event="start">
+								<![CDATA[http://solutions.brightcove.com/apadhye/ads/impressionserver;trackPoint=trackstart;frmt=0;duration=13;adServerName=AdNetwork;@@AD_REQUEST_INFO@@]]>
+							</Tracking>
+							<Tracking event="start">
+								<![CDATA[http://solutions.brightcove.com/apadhye/ads/impressionserver;trackPoint=trackstart;frmt=0;duration=13;adServerName=Advertiser;@@AD_REQUEST_INFO@@]]>
+							</Tracking>
+							<Tracking event="midpoint">
+								<![CDATA[http://solutions.brightcove.com/apadhye/ads/impressionserver;trackPoint=mid;frmt=1;duration=13;adServerName=Network@@AD_REQUEST_INFO@@]]>
+							</Tracking>
+							<Tracking event="complete">
+								<![CDATA[http://solutions.brightcove.com/apadhye/ads/impressionserver;trackPoint=end;frmt=1;duration=13;adServerName=Network@@AD_REQUEST_INFO@@]]>
+							</Tracking>
+						</TrackingEvents>
+						<NonLinear id="overlay" minSuggestedDuration="00:00:05" width="480" height="90"
+							scalable="true" maintainAspectRatio="true">
+							<StaticResource creativeType="image/png"
+								><![CDATA[http://solutions.brightcove.com/apadhye/ads/overlay_480x90.png?params=@@AD_REQUEST_INFO@@;creative=overlay]]></StaticResource>
+							<NonLinearClickThrough>
+								<![CDATA[http://www.brightcove.com?clickThrough=overlay_VAST_png]]>
+							</NonLinearClickThrough>
+						</NonLinear>
+					</NonLinearAds>
+				</Creative>
+			</Creatives>
+		</InLine>
+	</Ad>
+</VAST>

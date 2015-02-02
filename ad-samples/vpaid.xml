@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VAST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="vast_2.0.1-creativeView.xsd"
+ version="2.0">
+<Ad id="linear ad">
+    <InLine>
+      <AdSystem>2.0</AdSystem>
+      <AdTitle>VPAID Example</AdTitle>
+      <Impression id="DBCK">http://cs1.brightcodes.net/_erika/ad/imp/1x1.gif?impression=vpaid</Impression>
+      <Creatives>
+        <Creative>
+          <Linear>
+            <Duration>00:00:12</Duration>
+            <MediaFiles>
+              <MediaFile apiFramework="VPAID" width="480" height="360" >
+                <![CDATA[http://solutions.brightcove.com/eburbach/ad/ExampleVPAID.swf]]>
+              </MediaFile>
+            </MediaFiles>
+          </Linear>
+        </Creative>
+      </Creatives>
+    </InLine>
+  </Ad>
+</VAST>

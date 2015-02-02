@@ -1,0 +1,77 @@
+<VAST version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vast.xsd"> 
+	<Ad id="1234567890"> 
+		<InLine> 
+			<AdSystem version="2.0">STATIC XML</AdSystem> 
+			<AdTitle /> 
+			<Description>Brightcove Ad</Description> 
+			<Survey /> 
+			<Impression id="CS">
+				<![CDATA[http://cs1.brightcodes.net/_example/img/1x1.gif?impression=linearAd]]>
+			</Impression> 
+			<Creatives> 
+				<Creative sequence="1" AdID=""> 
+					<Linear> 
+						<Duration>00:00:04</Duration> 
+						<TrackingEvents> 
+							<Tracking event="start">
+								<![CDATA[http://cs1.brightcodes.net/_example/img/1x1.gif?trackEvent=adStart_linearAd]]>
+							</Tracking> 
+							<Tracking event="midpoint">
+								<![CDATA[http://cs1.brightcodes.net/_example/img/1x1.gif?trackEvent=midpoint_linearAd]]>
+							</Tracking> 
+							<Tracking event="firstQuartile">
+								<![CDATA[http://cs1.brightcodes.net/_example/img/1x1.gif?trackEvent=firstQuartile_linearAd]]>
+							</Tracking> 
+							<Tracking event="thirdQuartile">
+								<![CDATA[http://cs1.brightcodes.net/_example/img/1x1.gif?trackEvent=thirdQuartile_linearAd]]>
+							</Tracking> 
+							<Tracking event="complete">
+								<![CDATA[http://cs1.brightcodes.net/_example/img/1x1.gif?trackEvent=complete_linearAd]]>
+							</Tracking> 
+							<Tracking event="mute">
+								<![CDATA[http://cs1.brightcodes.net/_example/img/1x1.gif?trackEvent=mute_linearAd]]>
+							</Tracking> 
+							<Tracking event="pause">
+								<![CDATA[http://cs1.brightcodes.net/_example/img/1x1.gif?trackEvent=pause_linearAd]]>
+							</Tracking> 
+							<Tracking event="fullscreen">
+								<![CDATA[http://cs1.brightcodes.net/_example/img/1x1.gif?trackEvent=fullscreen_linearAd]]>
+							</Tracking> 
+						</TrackingEvents> 
+						<AdParameters /> 
+						<VideoClicks> 
+							<ClickThrough>
+								<![CDATA[http://www.brightcove.com]]>
+							</ClickThrough> 
+							<ClickTracking id="DART">
+								<![CDATA[http://cs1.brightcodes.net/_example/img/1x1.gif?clickTracking=linearAd]]>
+							</ClickTracking> 
+						</VideoClicks> 
+						<MediaFiles> 
+							<MediaFile id="1" delivery="progressive" type="video/mp4" bitrate="448" width="672" height="380">
+								<![CDATA[http://brightcove.vo.llnwd.net/pd15/media/29906152001/201404/1287/29906152001_3505812241001_bc-2014.mp4]]>
+							</MediaFile> 
+						</MediaFiles> 
+					</Linear> 
+				</Creative> 
+				<Creative sequence="1" AdID=""> 
+<CompanionAds>
+     <Companion id="" width="300" height="60" expandedWidth="300" expandedHeight="60">
+         <TrackingEvents>
+            <Tracking event="start">
+                <![CDATA[http://cs1.brightcodes.net/_example/img/1x1.gif?trackEvent=adStart_companionAd]]>
+            </Tracking>
+         </TrackingEvents>
+         <StaticResource creativeType="image/jpeg">
+              <![CDATA[http://aka-cdn-ns.adtech.de/apps/11/Ad9302539St10Sz16Sq105128166V0Id3/vod_football_btsport_static_pl_action_300x60.jpg]]>
+         </StaticResource>
+         <CompanionClickThrough>
+              <![CDATA[http://adserver.adtech.de/adlink/327/4591553/0/16/AdId=9302539;BnId=3;itime=746955464;key=key1+key2;kr3397=2602530;kr3393=2966912;kvpartnerid=13388;kp=202656;nodecode=yes;link=http://ad-emea.doubleclick.net/clk;271966294;97709546;g]]>
+         </CompanionClickThrough> 
+     </Companion>
+</CompanionAds> 
+				</Creative> 
+				</Creatives> 
+		</InLine> 
+	</Ad> 
+</VAST>

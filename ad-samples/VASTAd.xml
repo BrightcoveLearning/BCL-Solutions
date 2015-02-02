@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VAST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="vast2.xsd" version="2.0.0">
+	<Ad id="myad">
+		<InLine>
+			<AdSystem>DART</AdSystem>
+			<AdTitle>VASTAd.xml</AdTitle>
+			<Description>This is a test XML created for testing VAST. It contains only BC supported
+				tags for a video ad with two tracking URLs per tracking Event. There are no
+				companions, extensions, non-linear ads, survey URLs or Error URLs. Other format
+				files will contain these elements for later testing. </Description>
+			<Creatives>
+				<Creative id="BCID9001000">
+					<Linear>
+						<Duration>00:00:13</Duration>
+						<TrackingEvents>
+							<Tracking event="start">
+								<![CDATA[
+									http://solutions.brightcove.com/apadhye/ads/impressionserver;trackPoint=start2;frmt=0;duration=13;adServerName=Advertiser,01,start;@@AD_REQUEST_INFO@@
+								]]>
+							</Tracking>
+							<Tracking event="midpoint">
+								<![CDATA[
+									http://solutions.brightcove.com/apadhye/ads/impressionserver;trackPoint=midpoint;frmt=0;duration=13;adServerName=AdNetwork,00,midpoint;@@AD_REQUEST_INFO@@
+								]]>
+							</Tracking>
+							<Tracking event="complete">
+								<![CDATA[
+									http://solutions.brightcove.com/apadhye/ads/impressionserver;trackPoint=complete;frmt=0;duration=13;adServerName=AdNetwork,00,complete;@@AD_REQUEST_INFO@@
+								]]>
+							</Tracking>
+							<Tracking event="firstQuartile">
+								<![CDATA[
+									http://solutions.brightcove.com/apadhye/ads/impressionserver;trackPoint=firstQuartile;frmt=0;duration=13;adServerName=Advertiser,00,firstQuartile;@@AD_REQUEST_INFO@@
+								]]>
+							</Tracking>
+							<Tracking event="thirdQuartile">
+								<![CDATA[
+									http://solutions.brightcove.com/apadhye/ads/impressionserver;trackPoint=thirdQuartile;frmt=0;duration=13;adServerName=Advertiser,00,thirdQuartile;@@AD_REQUEST_INFO@@
+								]]>
+							</Tracking>
+							<Tracking event="complete">
+								<![CDATA[http://solutions.brightcove.com/apadhye/ads/impressionserver;trackPoint=complete;frmt=0;duration=13;adServerName=AdNetwork,00,complete;@@AD_REQUEST_INFO@@]]>
+							</Tracking>
+						</TrackingEvents>
+						<VideoClicks>
+							<ClickThrough>
+								<![CDATA[http://www.brightcove.com/?gingerale]]>
+							</ClickThrough>
+						</VideoClicks>
+						<MediaFiles>
+							<MediaFile delivery="progressive" bitrate="466" width="480" height="360"
+								type="video/mp4">
+								<![CDATA[http://solutions.brightcove.com/apadhye/ads/stapler.mp4?params=adServerName=Advertiser;@@AD_REQUEST_INFO@@;creative=video]]>
+							</MediaFile>
+							<MediaFile delivery="streaming" bitrate="466" width="480" height="360"
+								type="video/mp4">
+								<![CDATA[http://solutions.brightcove.com/apadhye/ads/stapler.mp4?params=adServerName=Advertiser;@@AD_REQUEST_INFO@@;creative=video]]>
+							</MediaFile>
+						</MediaFiles>
+					</Linear>
+
+				</Creative>
+			</Creatives>
+		</InLine>
+	</Ad>
+</VAST>

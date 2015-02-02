@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<Playlist> 
+	<Preroll> 
+		<Ad> 
+			<![CDATA[ http://pubads.g.doubleclick.net/gampad/ads?sz=400x300&iu=/14016748/bcbumper&ciu_szs&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=[referrer_url]&correlator=[timestamp]]]>
+		</Ad> 
+			</Preroll> 
+	<Midroll timeOffset="00:00:30"> 
+		<Ad> 
+			<![CDATA[ http://pubads.g.doubleclick.net/gampad/ads?sz=400x300&iu=/14016748/Countdown_Only&ciu_szs&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=[referrer_url]&correlator=[timestamp]]]>
+		</Ad> 
+	</Midroll> 
+		<Postroll> 
+		<Ad> 
+			<![CDATA[ http://pubads.g.doubleclick.net/gampad/ads?sz=400x300&iu=/14016748/VAST_linear_video&ciu_szs&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=[referrer_url]&correlator=[timestamp]]]>
+		</Ad> 
+			</Postroll> 
+</Playlist>

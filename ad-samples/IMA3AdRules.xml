@@ -1,0 +1,13 @@
+<Playlist>
+	<Preroll>
+		<Ad>
+			<![CDATA[http://solutions.brightcove.com/apadhye/ads/videoAdShort.xml]]>
+		</Ad>
+	</Preroll>
+	<Postroll>
+		<Ad>
+			<![CDATA[http://solutions.brightcove.com/apadhye/ads/videoAdShort.xml]]>
+		</Ad>
+	</Postroll>
+
+</Playlist>

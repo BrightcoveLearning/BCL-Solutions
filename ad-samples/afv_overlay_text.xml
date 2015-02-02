@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE GSP SYSTEM "contentxml.dtd">
+<GSP VER="3.2">
+    <ADS>
+        <AD n="1"
+         type="text/narrow"
+         url="@@BC_CLICKTHROUGH_URL@@?tag=ad&amp;frmt=text_overlay&amp;params=@@AD_REQUEST_INFO@@;"
+         visible_url="google.com">
+            <LINE1>
+                Carrie Underwood Tickets
+            </LINE1>
+            <LINE2>
+                Carrie Underwood Concert Tickets.
+            </LINE2>
+            <LINE3>
+                Unique Tickets Others Don&amp;#39;t Have.
+            </LINE3>
+            <REGIONNAME />
+            <BIDTYPE>
+                CPC
+            </BIDTYPE>
+            <VIEWURL>
+                @@BC_IMPRESSION_SERVER_URL@@;trackPoint=start;googleTag=viewurl;frmt=text_overlay;@@AD_REQUEST_INFO@@;
+            </VIEWURL>
+            <CREATIVECONVURL>
+                @@BC_IMPRESSION_SERVER_URL@@;trackPoint=creativeConversionURL;frmt=text_overlay;@@AD_REQUEST_INFO@@;
+            </CREATIVECONVURL>
+        </AD>
+    </ADS>
+    <UI>
+        <config>
+            <context data="default"/>
+            <params>
+                <attribution_text data="Ads by Google"/>
+                <enable_companion_banner bool="true"/>
+                <attribution_url data="https://www.google.com/adsense/support/bin/request.py?contact=afv_violation"/>
+            </params>
+        </config>
+    </UI>
+    <REQUEST_TOKEN>
+        MAA74lsCWSwKEwjKwe2os66gAhVbceUKHUw_0ukQARgCINnLhwdCAA
+    </REQUEST_TOKEN>
+</GSP>

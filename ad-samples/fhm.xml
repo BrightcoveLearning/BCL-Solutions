@@ -1,0 +1,59 @@
+<VAST xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0">
+	<Ad id="361397">
+		<InLine>
+			<AdSystem version="2.0">VINDICO</AdSystem>
+			<AdTitle>
+				<![CDATA[221341 NHS - Jan2014-March2014 - PRE ROLL VIDEO_FLV]]>
+			</AdTitle>
+			<Error>
+				<![CDATA[http://mpp2.vindicosuite.com/event/e=10;l=153601;b=2688873;c=631682;smuid=BChhPziJGpaqeC;msd=;ta=3760844;tk=93520;cr=4153397093;href=]]>
+			</Error>
+			<Impression id="PIRANHA">
+				<![CDATA[http://x2.vindicosuite.com/dserve/t=d;l=153601;c=631682;b=2688873;ta=3760844;cr=3915784773;smuid=BChhPziJGpaqeC;ts=3760844;]]>
+			</Impression>
+			<Impression id="VINDICO">
+				<![CDATA[http://ts.vindicosuite.com/Tracking/V3/Instream/Impression/?0|2213|139924|203818|17683|72801|undefined|2152|6044|546|BBEEND|&amp;iari=361397&amp;ximpid=153601&amp;cb=1393260267&amp;internalRedirect=false]]>
+			</Impression>
+			<Impression id="COMSCORE">
+				<![CDATA[http://b.scorecardresearch.com/p?c1=1&amp;c2=3000027&amp;c3=&amp;c4=&amp;c5=01&amp;cA1=3&amp;cA2=2101&amp;cA3=631682&amp;cA4=2688873&amp;cA5=153601&amp;cA6=1&amp;rn=1393260267]]>
+			</Impression>
+			<Impression id="ComscoreVOX">
+				<![CDATA[http://b.scorecardresearch.com/p?c1=1&amp;c2=15796101&amp;c3=&amp;c4=&amp;c5=01&amp;cA1=3&amp;cA2=2101&amp;cA3=631682&amp;cA4=2688873&amp;cA5=153601&amp;cA6=2&amp;rn=1393260267]]>
+			</Impression>
+			<Impression id="ADTRICITYVAST">
+				<![CDATA[http://ver-adt-cm.vindicosuite.com/track/vpixel?event=1&amp;pt=0&amp;pid=2213&amp;lid=139924&amp;aid=546&amp;cid=17683&amp;crid=72801&amp;ppid=0&amp;plid=153601&amp;pbid=<pbid>&amp;clid=2&amp;dur=15&amp;adw=[AdSizeWidth]&amp;adh=[AdSizeHeight]&amp;rn=1393260267]]>
+			</Impression>
+			<Impression>
+				<![CDATA[http://ad-emea.doubleclick.net/ad/N5960.152914.SPECIFICMEDIA.CO.UK/B7997762;sz=1x1;ord=1393260267?]]>
+			</Impression>
+			<Creatives>
+				<Creative AdID="361397" id="203818" sequence="1">
+					<Linear>
+						<Duration>00:00:15</Duration>
+						<TrackingEvents>
+							<Tracking event="start">
+								<![CDATA[http://ts.vindicosuite.com/Tracking/V3/Instream/Impression/?start|2213|139924|203818|17683|72801|undefined|2152|6044|546|BBEEND|&amp;iari=361397&amp;ximpid=153601&amp;cb=1393260267&amp;internalRedirect=false]]>
+							</Tracking>
+				</TrackingEvents>
+						<VideoClicks>
+							<ClickThrough>
+								<![CDATA[http://ts.vindicosuite.com/Tracking/V3/Instream/Clickthrough/?2213|139924|203818|17683|72801|undefined|2152|6044|546|BBEEND|&amp;iari=361397&amp;ximpid=153601&amp;cb=1393260267]]>
+							</ClickThrough>
+							<ClickTracking>
+								<![CDATA[http://ts.vindicosuite.com/Tracking/V3/Instream/Impression/?vct|2213|139924|203818|17683|72801|undefined|2152|6044|546|BBEEND|&amp;iari=361397&amp;ximpid=153601&amp;cb=1393260267&amp;internalRedirect=false]]>
+							</ClickTracking>
+							<ClickTracking>
+								<![CDATA[http://x2.vindicosuite.com/click/v=4;m=3;l=153601;c=631682;b=2688873;ts=20140224164427;ui=Re8Ep6gwlZXfGfuLRTeY5AiPFtcEKv9G59OtV0LkkFXWOKvAfU-7_39MPUBQj3O-pXvU33n_yeks9saXSBovYA;dct=]]>
+							</ClickTracking>
+						</VideoClicks>
+						<MediaFiles>
+							<MediaFile delivery="progressive" bitrate="400" width="640" height="360" type="video/x-flv">
+								<![CDATA[http://vindicoasset.edgesuite.net/Repository/CampaignCreative/Campaign_17683/INSTREAMAD/226270_NHS_1280x720_V2_F6.flv]]>
+							</MediaFile>
+						</MediaFiles>
+					</Linear>
+				</Creative>
+			</Creatives>
+		</InLine>
+	</Ad>
+</VAST>

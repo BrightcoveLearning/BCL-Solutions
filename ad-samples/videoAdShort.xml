@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<VAST version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vast.xsd">
+    <Ad id="232859236">
+        <InLine>
+            <AdSystem>DART</AdSystem>
+            <Creatives>
+                <Creative AdID="Stapler">
+                    <Linear>
+                        <Duration>00:00:7</Duration>
+			   <TrackingEvents>
+                            <Tracking event="start">
+                                <![CDATA[http://solutions.brightcove.com/apadhye/ads/impressionserver;trackPoint=trackstart;frmt=0;duration=13;adServerName=AdNetwork;@@AD_REQUEST_INFO@@]]>
+                            </Tracking>
+                            <Tracking event="midpoint">
+                                <![CDATA[http://solutions.brightcove.com/apadhye/ads/impressionserver;trackPoint=mid;frmt=0;duration=13;adServerName=AdNetwork;@@AD_REQUEST_INFO@@]]>
+                            </Tracking>
+                            <Tracking event="complete">
+                                <![CDATA[http://solutions.brightcove.com/apadhye/ads/impressionserver;trackPoint=end;frmt=0;duration=13;adServerName=AdNetwork;@@AD_REQUEST_INFO@@]]>
+                            </Tracking>
+                            <Tracking event="complete">
+                                <![CDATA[http://solutions.brightcove.com/apadhye/ads/impressionserver;trackPoint=trackend2;frmt=0;duration=13;adServerName=Advertiser;@@AD_REQUEST_INFO@@]]>
+                            </Tracking>
+                        </TrackingEvents>
+                        <VideoClicks>
+                            <ClickThrough><![CDATA[http://en.wikipedia.org/wiki/File:Swingline-stapler.jpg]]></ClickThrough>
+                        </VideoClicks>
+                        <MediaFiles>
+                            <MediaFile delivery="progressive" type="video/mp4" bitrate="0" width="480" height="272">
+                                <![CDATA[http://solutions.brightcove.com/apadhye/ads/stapler.mp4?@@AD_REQUEST_INFO@@;creative=video]]>
+                            </MediaFile>
+                        </MediaFiles>
+                    </Linear>
+                </Creative>
+            </Creatives>
+        </InLine>
+    </Ad>
+</VAST>

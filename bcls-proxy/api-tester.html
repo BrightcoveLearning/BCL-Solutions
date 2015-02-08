@@ -221,16 +221,18 @@ $.ajax({
 		};
 		// function to remove spaces and line breaks
 		cleanString = function (str) {
-			// remove line breaks
-			str = str.replace(/(\r\n|\n|\r)/gm,"");
-			// remove spaces
-			// here we have to be careful - spaces fine within strings
-			// but not outside them
-			if (isDefined(str)) {
+			if (str !== "") {
+				// remove line breaks
+				str = str.replace(/(\r\n|\n|\r)/gm,"");
+				// remove spaces
+				// here we have to be careful - spaces fine within strings
+				// but not outside them
 				str = JSON.stringify(JSON.parse(str));
+				return str;
+			} else {
+				return;
 			}
 
-			return str;
 		};
 		// function to submit Request
 		submitRequest = function () {

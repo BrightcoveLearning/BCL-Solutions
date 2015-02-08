@@ -123,17 +123,17 @@ $.ajax({
 				            <p>Submits to http://solutions.brightcove.com:<strong>8006</strong></p>
 				                <p>
 				                    Client id:
-				                    <input name="client_id" id="ajax_client_id" type="text" value="f05869d2-f201-47d1-9606-aaafa66fea6e">
+				                    <input name="client_id" id="ajax_client_id" type="text" value="578b5b79-0883-47bb-a231-4fb5692ecd9c">
 				                </p>
 				                <p>
 				                    Client secret:
-				                    <input name="client_secret" id="ajax_client_secret" type="text" value="2F4CvF8DER1j3fmQr3TjKSmD6jMfvigM3HwCVkdhykvYOOUamFYeu9U8fRpks-EH7PCJcthc8IsEPT3bAnAqNQ">
+				                    <input name="client_secret" id="ajax_client_secret" type="text" value="spF_alkXCIJydgUluDNCWKxmk0-bvy-WI6PCxT2DzPo_JlwP-yDedLGqW4qIhXYh0eJyALABE5wHNPeS0CZmUw">
 				                </p>
 				                <p>
 				                    Call type:
 				                    <select name="requestType" id="ajax_requestType">
-				                        <option>GET</option>
-				                        <option selected="selected">POST</option>
+				                        <option selected="selected">GET</option>
+				                        <option>POST</option>
 				                        <option>PUT</option>
 				                        <option>PATCH</option>
 				                        <option>DELETE</option>
@@ -179,15 +179,6 @@ $.ajax({
 	<script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
 	<script src="//docs.brightcove.com/en/scripts/bc-mapi.js"></script>
 	<script>
-		$(document).foundation();
-	</script>
-	<script type="text/javascript">
-		var cmsapi_iframe = document.getElementById("cmsapi_responseFrame"),
-			cmsapi_btn = document.getElementById("cmsapiSubmit"),
-			cmsapi_btn.addEventListener("click", cmsapi_iframe.setAttribute("src", "about:blank"));
-
-	</script>
-	<script>
 	var BCLS = ( function ($) {
 		var $ajax_client_id = $("#ajax_client_id"),
 			$ajax_client_secret = $("#ajax_client_secret"),
@@ -201,13 +192,18 @@ $.ajax({
 			submitRequest;
 		// function to remove spaces and line breaks
 		cleanString = function (str) {
-			// remove line breaks
-			str = str.replace(/(\r\n|\n|\r)/gm,"");
-			// remove spaces
-			// here we have to be careful - spaces fine within strings
-			// but not outside them
-			str = JSON.stringify(JSON.parse(str));
-			return str;
+			if (str !== "") {
+				// remove line breaks
+				str = str.replace(/(\r\n|\n|\r)/gm,"");
+				// remove spaces
+				// here we have to be careful - spaces fine within strings
+				// but not outside them
+				str = JSON.stringify(JSON.parse(str));
+				return str;
+			} else {
+				return;
+			}
+
 		};
 
 		// function to submit Request
@@ -233,6 +229,10 @@ $.ajax({
 		$ajax_submit.on("click", submitRequest);
 	})($);
 	</script>
+		<script>
+		$(document).foundation();
+	</script>
+
 	<div class="footer text-center"><a href="mailto:docs@brightcove.com">Questions or comments?</a></div>
 </body>
 

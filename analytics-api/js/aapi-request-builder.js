@@ -435,16 +435,18 @@ var BCLS = (function ($, window, document, Pikaday, Handlebars, BCLSformatJSON, 
             success: function (data) {
                 // bclslog("data from proxy", data);
                 console.log("data", data);
-                try {
-                    data = JSON.parse(data);
-                }
-                catch (e) {
-                    if (data.charAt(data.length - 1) === '"') {
-                        data += '}';
-                    } else {
-                        data += '"}';
+                if ($format.val() === "json") {
+                    try {
+                        data = JSON.parse(data);
                     }
-                    data = JSON.parse(data);
+                    catch (e) {
+                        if (data.charAt(data.length - 1) === '"') {
+                            data += '}';
+                        } else {
+                            data += '"}';
+                        }
+                        data = JSON.parse(data);
+                    }
                 }
                 if (thisRequestType === "analytics") {
                     switch (format) {

@@ -47,6 +47,7 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
         buildRequest,
         isDefined,
         getData,
+        bclslog,
         jsonToCSV;
     // implement array forEach method in older browsers
     if (!Array.prototype.forEach) {
@@ -56,6 +57,14 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
             }
         };
     }
+    /*************************
+    logging
+    *************************/
+    bclslog = function (context, message) {
+        if (window["console"] && console["log"]) {
+          console.log(context, message);
+        };
+    };
 
     // implement array indexOf method for older browsers
     if (!Array.prototype.indexOf) {
@@ -102,6 +111,7 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
     // handler for MAPI call
     onGetVideos = function (JSONdata) {
         var itemsMax, item;
+        bclslog("jsonData", JSONdata);
         itemsMax = JSONdata.items.length;
         videoCount += itemsMax;
         for (i = 0; i < itemsMax; i++) {

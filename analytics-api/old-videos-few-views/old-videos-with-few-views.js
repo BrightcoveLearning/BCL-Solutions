@@ -124,6 +124,8 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
             getVideos();
         } else {
             $limitText.val(videoCount);
+            $submitButton.html("Generate Report");
+            $submitButton.on("click", getData);
             buildRequest();
         }
     };
@@ -266,7 +268,10 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
 
     // set event listeners
     $mapitoken.on("change", function () {
+        videoData = {};
         getVideos();
+        $submitButton.html("Getting video data...please wait...");
+        $submitButton.off("click", getData);
     });
     // listener for videos request
     $requestInputs.on("change", buildRequest);

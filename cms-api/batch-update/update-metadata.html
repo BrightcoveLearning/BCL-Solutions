@@ -144,7 +144,7 @@
 
 			currentVideo = videoData[callNumber];
 			if (isDefined(currentVideo)) {
-				apiRequest = "https://cms.api.brightcove.com/v1beta1/accounts/" + account_id + "/videos/" + currentVideo.id;
+				apiRequest = "https://cms.api.brightcove.com/v1/accounts/" + account_id + "/videos/" + currentVideo.id;
 				requestBody = '{"description":"' + currentVideo.description + '","reference_id":"' + currentVideo.reference_id + '"}';
 				// display the request URL
 				apiRequest_field.innerHTML = apiRequest;

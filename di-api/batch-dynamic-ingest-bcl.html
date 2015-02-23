@@ -101,7 +101,7 @@
 
 				    			<p>
 				    				Full request URL for the API call:<br />
-				    				<textarea name="url" id="cms_url">https://cms.api.brightcove.com/v1beta1/accounts/57838016001/videos</textarea>
+				    				<textarea name="url" id="cms_url">https://cms.api.brightcove.com/v1/accounts/57838016001/videos</textarea>
 				    			</p>
 				    	</fieldset>
 				    </div>
@@ -302,7 +302,7 @@
 			setCMSOptions();
 		});
 		$account_id.on("change", function (){
-			$cms_url.val("https://cms.api.brightcove.com/v1beta1/accounts/" + $account_id.val() + "/videos");
+			$cms_url.val("https://cms.api.brightcove.com/v1/accounts/" + $account_id.val() + "/videos");
 		});
 	})($);
 	</script>

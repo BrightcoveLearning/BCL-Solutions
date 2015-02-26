@@ -128,7 +128,7 @@ var BCLS = (function ($, Handlebars) {
                     callURL += "&where=player==" + currentPlayer;
                 }
             } else if (isDefined(currentVideo)) {
-                callURL += "video==" + currentVideo;
+                callURL += "&where=video==" + currentVideo;
             }
             if (isDefined($limit.val())) {
                 callURL += "&limit=" + $limit.val();

@@ -1,0 +1,18 @@
+
+curl \
+  -k \
+  --include \
+  --header "Authorization: BC_TOKEN AK0spCaR1WpcM4WwxCKl5u6RyBOFzuXW_noWm0qvX2f2n6YQ9IhKBqoDb5MikrIgWW4xwguXR9VlLlyaPx4UjsJBIuEjJDBQzzVkCA2oizwuBWrvqdHMlSQ" \
+  --data 'name=SampleClient&maximum_scope=[{
+      "identity": {
+        "type": "video-cloud-account",
+        "account-id": 57838016001
+      },
+      "operations": [
+        "video-cloud/analytics/read"
+      ]
+    }]' \
+https://oauth.staging.brightcove.com/v3/client_credentials
+
+
+AK0spCaR1WpcM4WwxCKl5u6RyBOFzuXW_noWm0qvX2f2n6YQ9IhKBqoDb5MikrIgWW4xwguXR9VlLlyaPx4UjsJBIuEjJDBQzzVkCA2oizwuBWrvqdHMlSQ

@@ -1,0 +1,12 @@
+/***************************
+ * Overlay Button          *
+ ***************************/
+/* hide the overlay */
+.hide-overlay .vjs-overlay {
+  display: none;
+}
+/* set player size */
+.video-js {
+  width: 640px;
+  height: 360px;
+}

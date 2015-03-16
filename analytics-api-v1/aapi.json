@@ -1,0 +1,24 @@
+{
+    "report": {
+        "parameters": {
+            "dimensions": {
+                "values": [
+                    {
+                        "metrics": [
+                            
+                        ],
+                        "name": "day"
+                    },
+                    "video",
+                    "player"
+                ],
+                "default": "",
+                "type": "string",
+                "required": true
+            }
+        }
+    },
+    "rollup": {
+        
+    }
+}

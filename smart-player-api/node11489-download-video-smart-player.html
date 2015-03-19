@@ -1,32 +1,41 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
-    
-  <head>
-      <title>Download Sample</title>
-  </head>
-  
-  <body>
-    <h1>Sample of Automating Provision of Video Download</h1>
-    <p>Play a video to see the download link appear below the player.</p>
 
-    <div id="playerBlock">
+<head>
+	<title>Download Sample</title>
+</head>
+
+<body>
+	<h1>Sample of Automating Provision of Video Download</h1>
+	<p>Play a video to see the download link appear below the player.</p>
+	<div id="playerBlock">
         <!-- Start of Brightcove Player -->
-        <script language="JavaScript" type="text/javascript" src="//sadmin.brightcove.com/js/BrightcoveExperiences.js"></script>
-        <div style="display:none"></div>
-        <object id="myExperience" class="BrightcoveExperience">
-            <param name="bgcolor" value="#FFFFFF" />
-            <param name="width" value="960" />
-            <param name="height" value="445" />
-            <param name="playerID" value="876399696001" />
-            <param name="playerKey" value="AQ~~,AAAADXdqFgE~,aEKmio9UXaiXzpQG9K_R6AJJs_1C0Vjy" />
-            <param name="isVid" value="true" />
-            <param name="isUI" value="true" />
-            <param name="dynamicStreaming" value="true" />
 
-            <!-- smart player api params -->
-            <param name="includeAPI" value="true" />
-            <param name="templateLoadHandler" value="onPlayerLoaded" />
-            <param name="templateReadyHandler" value="onPlayerReady" />
+        <div style="display:none">
+
+        </div>
+
+        <!--
+        By use of this code snippet, I agree to the Brightcove Publisher T and C 
+        found at https://accounts.brightcove.com/en/terms-and-conditions/. 
+        -->
+
+        <script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
+
+        <object id="myExperience" class="BrightcoveExperience">
+          <param name="bgcolor" value="#FFFFFF" />
+          <param name="width" value="960" />
+          <param name="height" value="445" />
+          <param name="playerID" value="4120338079001" />
+          <param name="playerKey" value="AQ~~,AAABmA9XpXk~,-Kp7jNgisrdUptobknHXwZg_vxBmY7lb" />
+          <param name="isVid" value="true" />
+          <param name="isUI" value="true" />
+          <param name="dynamicStreaming" value="true" />
+          <!-- smart player api params -->
+          <param name="includeAPI" value="true" />
+          <param name="templateLoadHandler" value="onPlayerLoaded" />
+          <param name="templateReadyHandler" value="onPlayerReady" />
+
         </object>
 
         <!-- 
@@ -34,67 +43,70 @@
         as the line is read by the browser. If you wish to have the player instantiated only after
         the rest of the HTML is processed and the page load is complete, remove the line.
         -->
-        <script src="//docs.brightcove.com/en/scripts/https-fix.js"></script><script type="text/javascript">brightcove.createExperiences();</script>
+        <script type="text/javascript">brightcove.createExperiences();</script>
+
         <!-- End of Brightcove Player -->
-    </div>
+        
+	</div>
+	<div id="downloadLink"></div>
+    
+	<!-- add MAPI wrapper from http://opensource.brightcove.com/ -->
+	<script type="text/javascript" src="http://files.brightcove.com/bc-mapi.js"></script>
+    
+	<!-- custom script -->
+	<script type="text/javascript">
+		var player,
+			videoPlayer,
+			APIModules,
+			mediaEvent,
+			listeningForChangeEvent = false;
 
-    <div id="downloadLink"></div>
-    <!-- add MAPI wrapper from http://opensource.brightcove.com/ -->
-    <script type="text/javascript" src="http://files.brightcove.com/bc-mapi.js"></script>
-    <!-- custom script -->
-    <script type="text/javascript">
+		function onPlayerLoaded(id) {
+			player = brightcove.api.getExperience(id);
+			APIModules = brightcove.api.modules.APIModules;
+			mediaEvent = brightcove.api.events.MediaEvent;
+		}
 
-        var player,
-            videoPlayer,
-            APIModules,
-            mediaEvent,
-            listeningForChangeEvent=false;
+		function onPlayerReady(event) {
+			videoPlayer = player.getModule(APIModules.VIDEO_PLAYER);
+			videoPlayer.getCurrentVideo(function (videoDTO) {
+				videoPlayer.addEventListener(mediaEvent.BEGIN, onMediaBegin);
+			})
+		}
 
-        function onPlayerLoaded(id) {
-            player = brightcove.api.getExperience(id);
-            APIModules = brightcove.api.modules.APIModules;
-            mediaEvent = brightcove.api.events.MediaEvent;
-        }
+		function onMediaBegin(event) {
+			getDownloadLink(event.media.id);
+		}
 
-        function onPlayerReady(event) {
-            videoPlayer = player.getModule(APIModules.VIDEO_PLAYER);
-            videoPlayer.getCurrentVideo( function(videoDTO) {
-              videoPlayer.addEventListener(mediaEvent.BEGIN, onMediaBegin);
-            })
-        }
+		function getDownloadLink(id) {
+			// Use media API to get URL to video
+			//
+			// object for search parameters
+			var searchParams = new Object();
+			// set Media API token - MUST BE URL ACCESS READ token!!
+			BCMAPI.token = "XGuquNMCweRY0D3tt_VUotzuyIASMAzhUS4F8ZIWa_e0cYlKpA4WtQ..";
+			// set callback for Media API call
+			BCMAPI.callback = "onSearchResult";
+			// set command
+			BCMAPI.command = "find_video_by_id";
+			// set search params
+			searchParams.video_id = id;
+			// need this if the delivery for the account is streaming, and Universal Delivery Service must be enabled!
+			searchParams.media_delivery = "HTTP";
+			// just get the field we need for better performance
+			searchParams.video_fields = "FLVURL";
+			// execute the search
+			BCMAPI.find(BCMAPI.command, searchParams);
+		}
 
-        function onMediaBegin(event) {
-             getDownloadLink(event.media.id);
-        }
-
-        function getDownloadLink(id) {
-            // Use media API to get URL to video
-            //
-            // object for search parameters
-            var searchParams = new Object();
-            // set Media API token - MUST BE URL ACCESS READ token!!
-            BCMAPI.token = "jskS1rEtQHy9exQKoc14IcMq8v5x2gCP6yaB7d0hraRtO__6HUuxMg..";
-            // set callback for Media API call
-            BCMAPI.callback = "onSearchResult";
-            // set command
-            BCMAPI.command = "find_video_by_id";
-            // set search params
-            searchParams.video_id = id;
-            // need this if the delivery for the account is streaming, and Universal Delivery Service must be enabled!
-            searchParams.media_delivery = "HTTP";
-            // just get the field we need for better performance
-            searchParams.video_fields = "FLVURL";
-            // execute the search
-            BCMAPI.find(BCMAPI.command, searchParams);
-        }
-
-        function onSearchResult(jsondata) {
-            // create the link and write it into the HTML
-            var str = "";
-            str += "<a href='" + jsondata.FLVURL + "'>Download the Video</a>";
-            document.getElementById("downloadLink").innerHTML = str;
-        }
-    </script>
-  </body>
+		function onSearchResult(jsondata) {
+            console.log(jsondata);
+			// create the link and write it into the HTML
+			var str = "";
+			str += "<a href='" + jsondata.FLVURL + "'>Download the Video</a>";
+			document.getElementById("downloadLink").innerHTML = str;
+		}
+	</script>
+</body>
 
 </html>

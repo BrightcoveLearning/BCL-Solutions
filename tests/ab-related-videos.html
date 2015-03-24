@@ -165,8 +165,8 @@
 
                     <!-- smart player api params -->
                     <param name="includeAPI" value="true" />
-                    <param name="templateLoadHandler" value="onTemplateLoad" />
-                    <param name="templateReadyHandler" value="onTemplateReady" />
+                    <param name="templateLoadHandler" value="BCLS.onTemplateLoad" />
+                    <param name="templateReadyHandler" value="BCLS.onTemplateReady" />
                 </object>
 
                 <!--
@@ -193,19 +193,18 @@
 
 
     <!-- bcl scripts -->
-    <script src="/en/scripts/bc-mapi.js"></script>
+    <script src="//docs.brightcove.com/en/scripts/bc-mapi.js"></script>
+    <script src="//docs.brightcove.com/en/scripts/secondsToTime.js"></script>
     <script id="pageScript" type="text/javascript">
 
 	  // custom script for related videos scroller
-		var BCLS = ( function () {
+		var BCLS = ( function (window, document, BCMAPI) {
       var player,
       APIModules,
       videoPlayer,
       mediaEvent,
       videoDTO = {},
       relatedVideos = {},
-      // for Media API call
-      params = {},
       // functions
       onTemplateLoad,
       onTemplateReady,
@@ -216,6 +215,23 @@
       playVideo,
       bclslog;
 
+    /**
+     * Logging function - safe for IE
+     * @param  {string} context description of the data
+     * @param  {*} message the data to be logged by the console
+     * @return {}
+     */
+    bclslog = function (context, message) {
+        if (window["console"] && console["log"]) {
+          console.log(context, message);
+        };
+        return;
+    };
+
+    /**
+     * Template load handler
+     * @param {string} player id
+     */
     onTemplateLoad = function(experienceID){
       bclslog("EVENT: onTemplateLoad");
       // get a reference to the player, API Modules and Events
@@ -224,6 +240,10 @@
       mediaEvent = brightcove.api.events.MediaEvent;
     };
 
+    /**
+     * Template ready handler
+     * @param {object} player ready event object
+     */
     onTemplateReady = function(evt) {
       bclslog("EVENT.onTemplateReady");
       // get references to modules
@@ -233,20 +253,27 @@
       videoPlayer.addEventListener(mediaEvent.CHANGE, onMediaChange);
 
       // get current video
-            getVideoData();
+      getVideoData();
     };
-    /* function to get current video DTO */
+    /**
+     * function to get current video DTO
+     * @param {function} callback
+     */
     getVideoData = function() {
       videoPlayer.getCurrentVideo( function(videoDTO) {
         //var currentVideoID = videoDTO.id;
         getRelatedVideos(videoDTO);
       });
     };
-    /* function to get related videos */
+    /**
+     * function to get related videos
+     * @param {object} video data object
+     */
     getRelatedVideos = function(videoDTO) {
-      params.any = [];
+      var params.any = [];
       // token, URL, and callback for Media API calls
       // note that customers in Japan use a different url
+      // replace the BCMAPI token value with your own READ token
       BCMAPI.token = "WDGO_XdKqXVJRVGtrNuGLxCYDNoR-SvA5yUqX2eE6KjgefOxRzQilw..";
       BCMAPI.url = "//api.brightcove.com/services/library";
       BCMAPI.callback = "onGetVideos";
@@ -288,18 +315,30 @@
       // inject the video scroller items into the scroller container
       document.getElementById("scroller").innerHTML = str;
     };
-    /* media CHANGE handler */
+
+    /**
+     * media CHANGE handler
+     * @param {object} media change event object
+     */
     onMediaChange = function(evt) {
       // get related video data
       getVideoData();
-        };
-        /* media COMPLETE handler */
-        var onMediaComplete = function(evt) {
+    };
+
+    /**
+     * media COMPLETE handler
+     * @param {object} media complete event
+     */
+    onMediaComplete = function(evt) {
       // show the related video scroller
-            showRelatedVideos();
-        };
-    /* function to play a video */
-    var playVideo = function(currentVideo) {
+      showRelatedVideos();
+    };
+
+    /**
+     * function to play a video
+     * @param {string} video id for the video to be played
+     */
+    playVideo = function(currentVideo) {
       bclslog("EVENT.onClick " + currentVideo);
       bclslog(relatedVideos.items[currentVideo].shortDescription);
 
@@ -308,7 +347,8 @@
       // hide the related video scroller
       hideRelatedVideos();
     };
-    /* function to hide the related videos */
+    /**
+     * function to hide the related videos */
     hideRelatedVideos = function() {
       document.getElementById("scroller").style.overflowX = "hidden";
       document.getElementById("scroller-outer-container").className = "scrollerHide";
@@ -325,12 +365,32 @@
         "onMediaComplete": onMediaComplete,
         "playVideo"      : playVideo
       }
-    })();
+    })(window, document, BCMAPI);
 
 
 	  // end of custom script for related videos scroller
 
     </script>
+    <script>
+      // script for switching between flash and html -- testing only
 
+      /**
+       * switch for flash/html
+      */
+      // for development purposes only: reopen page with HTML5 player
+      document.getElementById("switchToHTML5").addEventListener("click",  function() {
+          var separator = "?";
+          if (document.location.href.indexOf("?", 0) > -1) {
+           separator = "&";
+          };
+          window.location = document.location.href + separator + "forceHTML=true";
+      });
+      // for development purposes only: switch back to Flash
+      document.getElementById("switchToFlash").addEventListener("click",  function() {
+          var startOfQuery = document.location.href.indexOf("forceHTML", 0) -1;
+          window.location = document.location.href.substring(0, startOfQuery);
+      });
+
+    </script>
 	</body>
 </html>

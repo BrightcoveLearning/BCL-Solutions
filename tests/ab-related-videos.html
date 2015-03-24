@@ -2,86 +2,105 @@
 <html lang="en">
 
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" />
-        <title id="bclPageTitle">Smart Player API / Media API Sample: Simple Related Videos Scroller</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" />
+      <title id="bclPageTitle">Smart Player API / Media API Sample: Simple Related Videos Scroller</title>
 
-        <!-- styles for related videos scroller -->
-        <style id="pageStyles">
-		  .player-outer-block {
-			position: static;
-			height: 270px;
-			width: 480px;
-			min-height: 270px;
-		  }
-		  .player-block {
-			position: relative;
-		  }
-		  .BrightcoveExperience {
-			position: absolute;
-		  }
+      <!-- styles for related videos scroller -->
+      <style id="pageStyles">
+  		  /* for test page only */
+        body {
+          font-family: Helvetica, Arial, sans-serif;
+          margin: 10%;
+        }
+        .button {
+          background-color: #333333;
+          color: #F5F5F5;
+          padding: 5px;
+          border-radius: 5px;
+          margin-bottom: 20px;
+          font-size: x-small;
+        }
+        .buttons {
+          margin-bottom: 20px;
+        }
 
-		  /* styles for video selector */
-		  #scroller-outer-container {
-			position: absolute;
-			width: 480px;
-			height: 270px;
-			background-color: #090909;
-			background-image: -webkit-gradient(linear, left top, left bottom, from(#090909), to(#303233));
-			background-image: -webkit-linear-gradient(top, #090909, #303233);
-			background-image: -moz-linear-gradient(top, #090909, #303233);
-			background-image: -o-linear-gradient(top, #090909, #303233);
-			background-image: -ms-linear-gradient(top, #090909, #303233);
-			background-image: linear-gradient(top, #090909, #303233);
-			filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#090909', EndColorStr='#303233');
-		  }
-		  #scroller {
-			position: absolute;
-			background-color: #000;
-			border: none;
-			margin-bottom: 0 !important;
-			padding: 0px;
-			top: 33px;
-			bottom: 30px;
-			left: 15px;
-			width: 450px;
-			overflow-x: hidden;
-			overflow-y: hidden;
-			white-space: nowrap;
-		  }
-		  #scroller-item {
-			display:inline-block;
-			height: 100%;
-			width: 270px;
-			margin: 0 !important;
-		  }
+        /* for player and scroller */
+        .player-outer-block {
+  			position: static;
+  			height: 270px;
+  			width: 480px;
+  			min-height: 270px;
+  		  }
+  		  .player-block {
+  			position: relative;
+  		  }
+  		  .BrightcoveExperience {
+  			position: absolute;
+  		  }
 
-		  #scroller img {
-			height: 100%;
-			width: 100%;
-			cursor: pointer;
-			vertical-align: top; /* this prevents vertical whitespace */
-		  }
+  		  /* styles for video selector */
+  		  #scroller-outer-container {
+  			position: absolute;
+  			width: 480px;
+  			height: 270px;
+  			background-color: #090909;
+  			background-image: -webkit-gradient(linear, left top, left bottom, from(#090909), to(#303233));
+  			background-image: -webkit-linear-gradient(top, #090909, #303233);
+  			background-image: -moz-linear-gradient(top, #090909, #303233);
+  			background-image: -o-linear-gradient(top, #090909, #303233);
+  			background-image: -ms-linear-gradient(top, #090909, #303233);
+  			background-image: linear-gradient(top, #090909, #303233);
+  			filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#090909', EndColorStr='#303233');
+  		  }
+  		  #scroller {
+  			position: absolute;
+  			background-color: #000;
+  			border: none;
+  			margin-bottom: 0 !important;
+  			padding: 0px;
+  			top: 33px;
+  			bottom: 30px;
+  			left: 15px;
+  			width: 450px;
+        overflow: hidden;
+  			/*overflow-x: hidden;
+  			overflow-y: hidden;*/
+  			white-space: nowrap;
+  		  }
+  		  #scroller-item {
+  			display:inline-block;
+  			height: 100%;
+  			width: 270px;
+  			margin: 0 !important;
+  		  }
 
-		  div.scroller-caption {
-			position: relative;
-			bottom: 30px;
-			width: 100%;
-			height: 30px;
-			text-align:center;
-			background-color: #313131;
-			opacity: .7 !important;
-		  }
-		  div.scroller-caption span {
-			font-size: small !important;
-			color: #FFF;
-		  }
-		  .scrollerHide {
-			visibility: hidden;
-		  }
-		  .scrollerShow {
-			visibility: visible;
-		  }
+  		  #scroller img {
+  			height: 100%;
+  			width: 100%;
+  			cursor: pointer;
+  			vertical-align: top; /* this prevents vertical whitespace */
+  		  }
+
+  		  div.scroller-caption {
+  			position: relative;
+  			bottom: 30px;
+  			width: 100%;
+  			height: 30px;
+  			text-align:center;
+  			background-color: #313131;
+  			opacity: .7 !important;
+  		  }
+  		  div.scroller-caption span {
+  			font-size: small !important;
+  			color: #FFF;
+  		  }
+  		  .scrollerHide {
+  			visibility: hidden;
+  		  }
+  		  .scrollerShow {
+  			visibility: visible;
+  		  }
 
     	</style>
     </head>
@@ -140,7 +159,7 @@
             <p class="text-warning">Note: the buttons below are for development purposes only &mdash; do not use in production.</p>
 
             <!-- buttons to switch between HTML and Flash Players -->
-            <div id="modeSwitch">
+            <div id="modeSwitch" class="buttons">
                 <span class="button" id="switchToHTML5" style="margin-bottom: 20px;margin-right: 10px;">Switch to HTML5 Player</span>
                 <span class="button" id="switchToFlash" style="margin-bottom: 20px;">Switch to Flash Player</span>
            </div><!-- div id="modeSwitch" -->
@@ -156,6 +175,7 @@
                     <param name="bgcolor" value="#FFFFFF" />
                     <param name="width" value="480" />
                     <param name="height" value="270" />
+                    <param name="wmode" value="transparent" />
                     <param name="playerID" value="921267190001" />
                     <param name="playerKey" value="AQ~~,AAAA1oy1bvE~,ALl2ezBj3WG3MLvDx9F9zkV06cNK00ey" />
                     <param name="isVid" value="true" />
@@ -180,7 +200,7 @@
 
                 <!-- This is the container for the horizontal scroller -->
                 <div id="scroller-outer-container" class="scrollerHide">
-
+                  <p><strong style="color:#F5F5F5;margin:5px;">Related Videos</strong></p>
                   <div id="scroller">
                       <!-- This container is for the clickable video still images -->
                   </div>
@@ -261,6 +281,7 @@
      */
     getVideoData = function() {
       videoPlayer.getCurrentVideo( function(videoDTO) {
+        bclslog("videoDTO", videoDTO),
         //var currentVideoID = videoDTO.id;
         getRelatedVideos(videoDTO);
       });
@@ -270,7 +291,8 @@
      * @param {object} video data object
      */
     getRelatedVideos = function(videoDTO) {
-      var params.any = [];
+      var params = {};
+      params.any = [];
       // token, URL, and callback for Media API calls
       // note that customers in Japan use a different url
       // replace the BCMAPI token value with your own READ token
@@ -295,12 +317,9 @@
     };
     /* callback for Media API calls */
     onGetVideos = function(JSONdata) {
-      // display the request (for this sample only)
-      document.getElementById("mediaAPIrequest").innerHTML = BCMAPI.request;
-      //$("#mediaAPIrequest").html(BCMAPI.request);
 
       relatedVideos = JSONdata;
-      bclslog(relatedVideos);
+      bclslog("relatedVideos", relatedVideos);
       // create the related video thumbnail links in the scroller and write it into the HTML
       var str = "";
       for (var i in relatedVideos.items) {
@@ -309,7 +328,7 @@
         var length = formattedLength.m + ":" + formattedLength.s;
         // format the video scroller item
         str += "<div id='scroller-item'><img src='"+relatedVideos.items[i].videoStillURL+
-        "' onClick='playVideo("+i+");'/><div class=\"scroller-caption\"><span>"+
+        "' onClick='BCLS.playVideo("+i+");'/><div class=\"scroller-caption\"><span>"+
         relatedVideos.items[i].shortDescription+"&nbsp;&nbsp;["+length+"]</span></div></div>";
       }
       // inject the video scroller items into the scroller container

@@ -1,0 +1,23 @@
+/***************************
+ * Live Custom Error       *
+ ***************************/
+/* hide the overlay */
+.hide-overlay .vjs-overlay {
+		display: none;
+}
+/* overlay position */
+.vjs-overlay {
+		top:0;
+		left:0;
+		padding: 0;
+}
+/* overlay image dimensions */
+.vjs-overlay img {
+		height: 440px;
+		width: 560px;
+}
+/* player dimensions */
+.video-js {
+		height: 440px;
+		width: 560px;
+}

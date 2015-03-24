@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" />
+        <title id="bclPageTitle">Smart Player API / Media API Sample: Simple Related Videos Scroller</title>
+
+        <!-- styles for related videos scroller -->
+        <style id="pageStyles">
+		  .player-outer-block {
+			position: static;
+			height: 270px;
+			width: 480px;
+			min-height: 270px;
+		  }
+		  .player-block {
+			position: relative;
+		  }
+		  .BrightcoveExperience {
+			position: absolute;
+		  }
+
+		  /* styles for video selector */
+		  #scroller-outer-container {
+			position: absolute;
+			width: 480px;
+			height: 270px;
+			background-color: #090909;
+			background-image: -webkit-gradient(linear, left top, left bottom, from(#090909), to(#303233));
+			background-image: -webkit-linear-gradient(top, #090909, #303233);
+			background-image: -moz-linear-gradient(top, #090909, #303233);
+			background-image: -o-linear-gradient(top, #090909, #303233);
+			background-image: -ms-linear-gradient(top, #090909, #303233);
+			background-image: linear-gradient(top, #090909, #303233);
+			filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#090909', EndColorStr='#303233');
+		  }
+		  #scroller {
+			position: absolute;
+			background-color: #000;
+			border: none;
+			margin-bottom: 0 !important;
+			padding: 0px;
+			top: 33px;
+			bottom: 30px;
+			left: 15px;
+			width: 450px;
+			overflow-x: hidden;
+			overflow-y: hidden;
+			white-space: nowrap;
+		  }
+		  #scroller-item {
+			display:inline-block;
+			height: 100%;
+			width: 270px;
+			margin: 0 !important;
+		  }
+
+		  #scroller img {
+			height: 100%;
+			width: 100%;
+			cursor: pointer;
+			vertical-align: top; /* this prevents vertical whitespace */
+		  }
+
+		  div.scroller-caption {
+			position: relative;
+			bottom: 30px;
+			width: 100%;
+			height: 30px;
+			text-align:center;
+			background-color: #313131;
+			opacity: .7 !important;
+		  }
+		  div.scroller-caption span {
+			font-size: small !important;
+			color: #FFF;
+		  }
+		  .scrollerHide {
+			visibility: hidden;
+		  }
+		  .scrollerShow {
+			visibility: visible;
+		  }
+
+    	</style>
+    </head>
+
+    <body>
+  <!-- header navbar -->
+            <h1 id="bclPageHeading">Smart Player API / Media API Sample: Simple Related Videos Scroller</h1>
+            <!-- content starts here -->
+
+            <!-- Start of content -->
+
+            <p class="BCL-objective">This sample uses the Smart Player API and the Media API together to create and display a custom list of related videos when the video in the player completes.</p>
+            <div class="text-warning">
+              <h3>3rd party libraries used in this sample</h3>
+              <p>Note: 3rd party libraries are used to simplify the JavaScript in the sample. These libraries are not supported by Brightcove. All functionality can be reproduced in ordinary JavaScript.</p>
+              <ul>
+                <li><a href="//docs.brightcove.com/en/video-cloud/open-source/">JavaScript MAPI Wrapper</a></li>
+              </ul>
+        </div><!-- div id="top" -->
+
+        <!-- every div class section must have an id -->
+        <!--break-->
+        <div id="resources" class="section">
+        <!-- h2 contents will be in page navigation label - 21 characters (including spaces) maximum -->
+          <h2><a name="resources"></a>API resources used</h2>
+          <h3>Smart Player API</h3>
+          <p>This sample uses the following Smart Player API resources</p>
+          <h4>Modules and methods</h4>
+          <ul>
+            <li>VIDEO_PLAYER
+              <ul>
+                <li>getCurrentVideo()</li>
+                <li>loadVideoByID()</li>
+              </ul>
+            </li>
+          </ul>
+          <h4>Events</h4>
+          <ul>
+            <li>templateLoad</li>
+            <li>templateReady</li>
+            <li>Media: COMPLETE</li>
+          	<li>Media: CHANGE</li>
+          </ul>
+          <h3>Media API</h3>
+        <p>This sample uses the following Media API resources</p>
+        <h4>Methods</h4>
+        <ul>
+          <li>search_videos</li>
+        </ul>
+        </div><!-- div id="resources" -->
+
+        <div id="player" class="section">
+            <!-- h2 contents will be in page navigation label - 21 characters (including spaces) maximum -->
+            <h2><a name="player"></a>The player</h2>
+            <p>A standard Chromeless Video Player is used for this sample.</p>
+            <p class="text-warning">Note: the buttons below are for development purposes only &mdash; do not use in production.</p>
+
+            <!-- buttons to switch between HTML and Flash Players -->
+            <div id="modeSwitch">
+                <span class="button" id="switchToHTML5" style="margin-bottom: 20px;margin-right: 10px;">Switch to HTML5 Player</span>
+                <span class="button" id="switchToFlash" style="margin-bottom: 20px;">Switch to Flash Player</span>
+           </div><!-- div id="modeSwitch" -->
+
+            <!-- custom code for related videos in horizontal scroller -->
+           <div class="player-outer-block">
+             <div class="player-block">
+
+                <!-- Start of Brightcove Player -->
+                <script language="JavaScript" type="text/javascript" src="//sadmin.brightcove.com/js/BrightcoveExperiences.js"></script>
+
+                <object id="myExperience921494004001" class="BrightcoveExperience">
+                    <param name="bgcolor" value="#FFFFFF" />
+                    <param name="width" value="480" />
+                    <param name="height" value="270" />
+                    <param name="playerID" value="921267190001" />
+                    <param name="playerKey" value="AQ~~,AAAA1oy1bvE~,ALl2ezBj3WG3MLvDx9F9zkV06cNK00ey" />
+                    <param name="isVid" value="true" />
+                    <param name="isUI" value="true" />
+                    <param name="dynamicStreaming" value="true" />
+                    <param name="@videoPlayer" value="921494004001" />
+
+                    <!-- smart player api params -->
+                    <param name="includeAPI" value="true" />
+                    <param name="templateLoadHandler" value="onTemplateLoad" />
+                    <param name="templateReadyHandler" value="onTemplateReady" />
+                </object>
+
+                <!--
+                This script tag will cause the Brightcove Players defined above it to be created as soon
+                as the line is read by the browser. If you wish to have the player instantiated only after
+                the rest of the HTML is processed and the page load is complete, remove the line.
+                -->
+                <script src="//docs.brightcove.com/en/scripts/https-fix.js"></script><script type="text/javascript">brightcove.createExperiences();</script>
+
+                <!-- End of Brightcove Player -->
+
+                <!-- This is the container for the horizontal scroller -->
+                <div id="scroller-outer-container" class="scrollerHide">
+
+                  <div id="scroller">
+                      <!-- This container is for the clickable video still images -->
+                  </div>
+
+                </div>
+
+              </div><!-- div class="player-block" -->
+            </div><!-- div class="player-outer-block" -->
+         </div><!-- div id="player" -->
+
+
+    <!-- bcl scripts -->
+    <script src="/en/scripts/bc-mapi.js"></script>
+    <script id="pageScript" type="text/javascript">
+
+	  // custom script for related videos scroller
+		var BCLS = ( function () {
+      var player,
+      APIModules,
+      videoPlayer,
+      mediaEvent,
+      videoDTO = {},
+      relatedVideos = {},
+      // for Media API call
+      params = {},
+      // functions
+      onTemplateLoad,
+      onTemplateReady,
+      getVideoData,
+      getRelatedVideos,
+      onMediaChange,
+      onMediaComplete,
+      playVideo,
+      bclslog;
+
+    onTemplateLoad = function(experienceID){
+      bclslog("EVENT: onTemplateLoad");
+      // get a reference to the player, API Modules and Events
+      player = brightcove.api.getExperience(experienceID);
+      APIModules = brightcove.api.modules.APIModules;
+      mediaEvent = brightcove.api.events.MediaEvent;
+    };
+
+    onTemplateReady = function(evt) {
+      bclslog("EVENT.onTemplateReady");
+      // get references to modules
+      videoPlayer = player.getModule(APIModules.VIDEO_PLAYER);
+      // add media CHANGE and COMPLETE event listerers
+      videoPlayer.addEventListener(mediaEvent.COMPLETE, onMediaComplete);
+      videoPlayer.addEventListener(mediaEvent.CHANGE, onMediaChange);
+
+      // get current video
+            getVideoData();
+    };
+    /* function to get current video DTO */
+    getVideoData = function() {
+      videoPlayer.getCurrentVideo( function(videoDTO) {
+        //var currentVideoID = videoDTO.id;
+        getRelatedVideos(videoDTO);
+      });
+    };
+    /* function to get related videos */
+    getRelatedVideos = function(videoDTO) {
+      params.any = [];
+      // token, URL, and callback for Media API calls
+      // note that customers in Japan use a different url
+      BCMAPI.token = "WDGO_XdKqXVJRVGtrNuGLxCYDNoR-SvA5yUqX2eE6KjgefOxRzQilw..";
+      BCMAPI.url = "//api.brightcove.com/services/library";
+      BCMAPI.callback = "onGetVideos";
+      // fix tags from the DTO to search tags
+      for (i = 0, max = videoDTO.tags.length; i < max; i++) {
+        videoDTO.tags[i] = "tag:" + videoDTO.tags[i];
+      };
+      params.any = videoDTO.tags;
+      // add matches on custom field "videotopic"
+      params.any.push("videotopic:" + videoDTO.customFields.videotopic)
+      // exclude training videos and the current title
+      params.none = ["tag:training", videoDTO.displayName];
+      // specify fields we need
+      params.video_fields = "id,name,shortDescription,length,videoStillURL";
+      // we'll get back 10 videos - can be any number up to 100 (the default)
+      params.page_size = 10;
+      // do the search
+      BCMAPI.search(params);
+    };
+    /* callback for Media API calls */
+    onGetVideos = function(JSONdata) {
+      // display the request (for this sample only)
+      document.getElementById("mediaAPIrequest").innerHTML = BCMAPI.request;
+      //$("#mediaAPIrequest").html(BCMAPI.request);
+
+      relatedVideos = JSONdata;
+      bclslog(relatedVideos);
+      // create the related video thumbnail links in the scroller and write it into the HTML
+      var str = "";
+      for (var i in relatedVideos.items) {
+        // convert video length to human-readable format
+        var formattedLength = BCLSsecondsToTime(relatedVideos.items[i].length / 1000);
+        var length = formattedLength.m + ":" + formattedLength.s;
+        // format the video scroller item
+        str += "<div id='scroller-item'><img src='"+relatedVideos.items[i].videoStillURL+
+        "' onClick='playVideo("+i+");'/><div class=\"scroller-caption\"><span>"+
+        relatedVideos.items[i].shortDescription+"&nbsp;&nbsp;["+length+"]</span></div></div>";
+      }
+      // inject the video scroller items into the scroller container
+      document.getElementById("scroller").innerHTML = str;
+    };
+    /* media CHANGE handler */
+    onMediaChange = function(evt) {
+      // get related video data
+      getVideoData();
+        };
+        /* media COMPLETE handler */
+        var onMediaComplete = function(evt) {
+      // show the related video scroller
+            showRelatedVideos();
+        };
+    /* function to play a video */
+    var playVideo = function(currentVideo) {
+      bclslog("EVENT.onClick " + currentVideo);
+      bclslog(relatedVideos.items[currentVideo].shortDescription);
+
+      // load and play the selected video
+      videoPlayer.loadVideoByID(relatedVideos.items[currentVideo].id);
+      // hide the related video scroller
+      hideRelatedVideos();
+    };
+    /* function to hide the related videos */
+    hideRelatedVideos = function() {
+      document.getElementById("scroller").style.overflowX = "hidden";
+      document.getElementById("scroller-outer-container").className = "scrollerHide";
+    };
+     /* function to show the related videos */
+    showRelatedVideos = function() {
+      document.getElementById("scroller").style.overflowX = "scroll";
+      document.getElementById("scroller-outer-container").className = "scrollerShow";
+    };
+      return {
+        "onTemplateLoad" : onTemplateLoad,
+        "onTemplateReady": onTemplateReady,
+        "onMediaChange"  : onMediaChange,
+        "onMediaComplete": onMediaComplete,
+        "playVideo"      : playVideo
+      }
+    })();
+
+
+	  // end of custom script for related videos scroller
+
+    </script>
+
+	</body>
+</html>

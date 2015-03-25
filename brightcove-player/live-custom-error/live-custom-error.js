@@ -4,24 +4,35 @@
 videojs.plugin('liveCustomError', function() {
     
     var myPlayer = this,
-        overlayDisplayed;
+        showOverlay = false;
+        
+        myPlayer.errors({
+            'errors': {
+                '2': {
+                    'headline': 'The Live Event you are trying to watch is either unavailable or has not started',
+                    'type': 'MEDIA_UNAVAILABLE',
+                }
+            }
+        }); 
+        
+        myPlayer.on("error", handleError);
+        
+        function handleError(err) {
+            var errNo = myPlayer.error().code;
+            var duration = myPlayer.duration();
+
+            if ((errNo == '2') && (duration=='0')) {
+                showOverlay = true;
+            }
+		}	
      
 		myPlayer.ready(function(){
-				console.log("ready");
-
-				myPlayer.addClass("hide-overlay");
-				overlayDisplayed = false;
-
-				myPlayer.on("error", handleError);
-
-				function handleError(err) {
-						var errNo = myPlayer.error().code;
-						var duration = myPlayer.duration();
-
-						if ((errNo == '2') && (duration=='0')) {
-								myPlayer.removeClass("hide-overlay");
-								overlayDisplayed=true;
-						}
-				}	
+            if (showOverlay) {
+                // show overlay image 
+                myPlayer.removeClass("hide-overlay"); 
+            } else {
+                // hide overlay image
+                myPlayer.addClass("hide-overlay");
+            }
 		});
 });

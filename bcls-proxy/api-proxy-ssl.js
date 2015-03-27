@@ -39,7 +39,7 @@ var APIPROXY = (function () {
      * initialize data constructs
      */
     init = function () {
-        var certArray = fs.readdirSync("/home/bcls/cert/");
+        var certArray = fs.readdirSync("/Users/rcrooks/Sites/");
         console.log("certArray", certArray);
         // initialize options to null except requestType to GET
         options.url = null;
@@ -51,8 +51,10 @@ var APIPROXY = (function () {
         options.requestBody = null;
         options.requestType = "GET";
         // set server options
-        serverOptions.key = fs.readFileSync("/home/bcls/cert/solutions_brightcove_com.key");
-        serverOptions.cert = fs.readFileSync("/home/bcls/cert/solutions_brightcove_com.crt");
+        serverOptions.key = fs.readFileSync("/Users/rcrooks/Sites/host-2.key");
+        serverOptions.cert = fs.readFileSync("/Users/rcrooks/Sites/host-2.crt");
+        serverOptions.requestCert =        false;
+    serverOptions.rejectUnauthorized = false;
         console.log("serverOptions", serverOptions);
         console.log("init done");
     };
@@ -283,7 +285,7 @@ var APIPROXY = (function () {
             });
         });
         // change the following line to have the proxy listen for requests on a different port
-    }).listen(8001);
+    }).listen(8011);
 
     util.puts("http server for any API ".blue + "started ".green.bold + "on port ".blue + "8001 ".yellow);
     // initialize

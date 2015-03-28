@@ -8,9 +8,6 @@
   */
   function GetToken( $url, $method, $data, $headers )
   {
-    echo $url;
-    echo $method;
-    echo "";
     $context = stream_context_create(array
     (
       "http" => array(
@@ -19,7 +16,10 @@
         "content" => http_build_query( $data )
       )
     ));
-    return file_get_contents($url, false, $context);
+    echo json_encode($context);
+    $results = file_get_contents($url, false, $context);
+    echo $results;
+    return $results;
   }
 	/*!
   | @ Sends the request
@@ -41,14 +41,13 @@
   }
 
   // request params from the $_POST
-  $request = $_POST["url"];
-  $client_id = $_POST["client_id"];
-  $client_secret = $_POST["client_secret"];
-  $data = $_POST["requestBody"];
-  $requestType = $_POST["requestType"];
+  $request = "https://cms.api.brightcove.com/v1/accounts/57838016001/videos";
+  $client_id = "578b5b79-0883-47bb-a231-4fb5692ecd9c";
+  $client_secret = "spF_alkXCIJydgUluDNCWKxmk0-bvy-WI6PCxT2DzPo_JlwP-yDedLGqW4qIhXYh0eJyALABE5wHNPeS0CZmUw";
+  $data = null;
+  $requestType = "GET";
   // create the auth string to get a token
   $authStr = base64_encode($client_id . ":" . $client_secret);
-
   // set up auth params for getting token
   $authURL = "https://oauth.brightcove.com/v3/access_token";
   $authBody = array(

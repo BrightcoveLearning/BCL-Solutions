@@ -20,7 +20,7 @@
       "http" => array(
         "method" => $method,
         "header" => $headers,
-        "content" => http_build_query( $data )
+        "content" => json_encode($data)
       )
     ));
     return file_get_contents($url, false, $context);
@@ -56,15 +56,16 @@
     $access_token = $resultData["access_token"];
 
     // set up the API call
-    // no data to submit
-    $data = array();
-    // get current time and 24 hours ago in milliseconds
-    $to = time() * 1000;
-    $from = $to - (24 * 60 * 60 * 1000);
-
-    $method = "GET";
+    // get data
+    // $postData = $_POST["requestBody"];
+    // if ($postData === null || $postData === "") {
+    //     $data = array();
+    // } else {
+    //     $data = json_decode($postData);
+    // }
+    $method = $_POST["requestType"];
     // get the URL and authorization info from the form data
-    $request = "https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=video&limit=6&sort=video_view" . "&from=" . $from . "&to=" . $to;
+    $request = $_POST["url"];
     // add headers
     $headers = array(
         1 => "Authorization: Bearer {$access_token}",

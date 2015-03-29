@@ -132,10 +132,10 @@ $.ajax({
 				                <p>
 				                    Call type:
 				                    <select name="requestType" id="ajax_requestType">
-				                        <option selected="selected">GET</option>
+				                        <option>GET</option>
 				                        <option>POST</option>
 				                        <option>PUT</option>
-				                        <option>PATCH</option>
+				                        <option selected="selected">PATCH</option>
 				                        <option>DELETE</option>
 				                    </select>
 				                </p>
@@ -145,7 +145,7 @@ $.ajax({
 				                </p>
 				                <p>
 				                    Full request URL for the API call:<br />
-				                    <textarea name="url" id="ajax_url">https://cms.api.brightcove.com/v1/accounts/57838016001/videos</textarea>
+				                    <textarea name="url" id="ajax_url">https://cms.api.brightcove.com/v1/accounts/57838016001/videos/4113599998001</textarea>
 				                </p>
 				                <p>
 				                    <input id="ajaxSubmit" type="submit" value="Submit">
@@ -215,7 +215,7 @@ $.ajax({
 			options.requestType = $ajax_requestType.val();
 			options.url = $ajax_url.val();
 			$.ajax({
-				url: "http://solutions.brightcove.com:8006",
+				url: "http://solutions.brightcove.com/bcls/bcls-proxy/bcls-proxy.php",
 				type: "POST",
 				data: options,
 				success : function (data) {

@@ -57,12 +57,11 @@
 
     // set up the API call
     // get data
-    // $postData = $_POST["requestBody"];
-    // if ($postData === null || $postData === "") {
-    //     $data = array();
-    // } else {
-    //     $data = json_decode($postData);
-    // }
+    if ($_POST["requestBody"]) {
+        $data = json_decode($_POST["requestBody"]);
+    } else {
+        $data = array();
+    }
     $method = $_POST["requestType"];
     // get the URL and authorization info from the form data
     $request = $_POST["url"];

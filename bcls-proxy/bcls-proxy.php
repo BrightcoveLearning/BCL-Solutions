@@ -1,16 +1,20 @@
 <?php
+    /**
+     * bcls-proxy.php - proxy for Brightcove RESTful APIs
+     * gets an access token, makes the request, and returns the response
+     * Accessing:
+     *     URL: https://solutions.brightcove.com/bcls/bcls-proxy/bcsl-proxy.php
+     *         (note you should *always* access the proxy via HTTPS)
+     *     Method: POST
+     * Inputs
+     */
 
-  /*!
-  | @ Sends the request
-  | @param $url string API request url
-  | @param $method string HTTP method for the
-  | @return string
-  */
-  function GetToken( $url, $method, $data, $headers )
-  {
-    echo $url;
-    echo $method;
-    echo "";
+    /**
+     * @ Sends the request
+     * @return string
+     */
+    function SendRequest( $url, $method, $data, $headers )
+    {
     $context = stream_context_create(array
     (
       "http" => array(
@@ -20,52 +24,54 @@
       )
     ));
     return file_get_contents($url, false, $context);
-  }
-	/*!
-  | @ Sends the request
-  | @param $url string API request url
-  | @param $method string HTTP method for the
-  | @return string
-  */
-  function SendRequest( $url, $method = "GET", $data = array(), $headers = array("Content-type: application/json") )
-  {
-    $context = stream_context_create(array
-    (
-      "http" => array(
-        "method" => $method,
-        "header" => $headers,
-        "content" => http_build_query( $data )
-      )
+    }
+    // set up request for access token
+    $data = array();
+
+    $client_id = $_POST["client_id"];
+    $client_secret = $_POST["client_secret"];
+    $auth_string = "{$client_id}:{$client_secret}";
+    $request = "https://oauth.brightcove.com/v3/access_token?grant_type=client_credentials";
+    $ch = curl_init($request);
+    curl_setopt_array($ch, array(
+        CURLOPT_POST => TRUE,
+        CURLOPT_RETURNTRANSFER => TRUE,
+        CURLOPT_SSL_VERIFYPEER => FALSE,
+        CURLOPT_USERPWD => $auth_string,
+        CURLOPT_HTTPHEADER => array(
+            'Content-type: application/x-www-form-urlencoded'
+        ),
+        CURLOPT_POSTFIELDS => $data
     ));
-    return file_get_contents($url, false, $context);
-  }
+    $result = curl_exec($ch);
+    curl_close($ch);
 
-  // request params from the $_POST
-  $request = $_POST["url"];
-  $client_id = $_POST["client_id"];
-  $client_secret = $_POST["client_secret"];
-  $data = $_POST["requestBody"];
-  $requestType = $_POST["requestType"];
-  // create the auth string to get a token
-  $authStr = base64_encode($client_id . ":" . $client_secret);
+    // Check for errors
+    if($response === FALSE){
+        die(curl_error($ch));
+    }
 
-  // set up auth params for getting token
-  $authURL = "https://oauth.brightcove.com/v3/access_token";
-  $authBody = array(
-      1 => "grant_type=client_credentials"
-    );
-  $authHeaders = array(
-    1 => "Content-type: application/x-www-form-urlencoded",
-    2 => "Authorization: Basic" . $authStr
-    );
-  $authMethod = "POST";
+    // Decode the response
+    $resultData = json_decode($result, TRUE);
+    $access_token = $resultData["access_token"];
 
-  $authReponse = GetToken($authURL, $authMethod, $authBody, $authHeaders);
-  $authReponse = json_decode($authReponse);
-  $access_token = $authReponse["access_token"];
-  // add headers
-  $headers = array(1 => "Authorization: Bearer" . $access_token);
-  //send the http request
-  $result = SendRequest($request, $requestType, $data, $headers);
-  echo json_encode($access_token);
+    // set up the API call
+    // no data to submit
+    $data = array();
+    // get current time and 24 hours ago in milliseconds
+    $to = time() * 1000;
+    $from = $to - (24 * 60 * 60 * 1000);
+
+    $method = "GET";
+    // get the URL and authorization info from the form data
+    $request = "https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=video&limit=6&sort=video_view" . "&from=" . $from . "&to=" . $to;
+    // add headers
+    $headers = array(
+        1 => "Authorization: Bearer {$access_token}",
+        2 => "Content-type: application/x-www-form-urlencoded"
+        );
+
+    //send the http request
+    $result = SendRequest($request, $method, $data, $headers);
+    echo $result;
 ?>

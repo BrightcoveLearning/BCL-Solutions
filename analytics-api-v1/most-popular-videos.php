@@ -2,16 +2,16 @@
 /*!
 | @ Sends the request
 | @return string
-*/
+ */
 function SendRequest($url, $method, $data, $headers) {
 	$context = stream_context_create(array
-	(
-	"http"     => array(
-		"method"  => $method,
-		"header"  => $headers,
-		"content" => http_build_query($data)
-		)
-	));
+		(
+			"http"     => array(
+				"method"  => $method,
+				"header"  => $headers,
+				"content" => http_build_query($data)
+			)
+		));
 	return file_get_contents($url, false, $context);
 }
 // set up request for access token
@@ -23,15 +23,15 @@ $auth_string   = "{$client_id}:{$client_secret}";
 $request       = "https://oauth.brightcove.com/v3/access_token?grant_type=client_credentials";
 $ch            = curl_init($request);
 curl_setopt_array($ch, array(
-	CURLOPT_POST           => TRUE,
-	CURLOPT_RETURNTRANSFER => TRUE,
-	CURLOPT_SSL_VERIFYPEER => FALSE,
-	CURLOPT_USERPWD        => $auth_string,
-	CURLOPT_HTTPHEADER     => array(
-		'Content-type: application/x-www-form-urlencoded',
-	),
-	CURLOPT_POSTFIELDS => $data
-));
+		CURLOPT_POST           => TRUE,
+		CURLOPT_RETURNTRANSFER => TRUE,
+		CURLOPT_SSL_VERIFYPEER => FALSE,
+		CURLOPT_USERPWD        => $auth_string,
+		CURLOPT_HTTPHEADER     => array(
+			'Content-type: application/x-www-form-urlencoded',
+		),
+		CURLOPT_POSTFIELDS => $data
+	));
 $result = curl_exec($ch);
 curl_close($ch);
 
@@ -62,24 +62,12 @@ $headers = array(
 
 //send the http request
 $result = SendRequest($request, $method, $data, $headers);
-// decode the response
-$analyticsData = json_decode($result, TRUE);
-var_dump($analyticsData);
-
-// now prepare the CMS API request
-$videosArray = array();
-for ($i = 0;i < count($analyticsData["items"]); $i++) {
-	$request = "https://cms.api.brightcove.com/v1/accounts/20318290001/videos/{$analyticsData["items"][$i]["video"]}";
-	// get the video data and add it to the videos array
-	$videosArray[] = SendRequest($request, $method, $data, $headers);
-}
-$videoData = json_encode($videosArray);
 ?>
 
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Analytics API Response</title>
+	<title>Most Popular Videos</title>
 	<script src="//use.edgefonts.net/source-code-pro.js"></script>
 	<link rel="stylesheet" href="/bcls/scripts/highlight/styles/magula.css">
 	<link href="//files.brightcove.com/proxima-nova/font-faces.css" rel="stylesheet" type="text/css">
@@ -105,10 +93,10 @@ $videoData = json_encode($videosArray);
 	</style>
 </head>
 <body>
-	<h1>Most Popular Videos: Analytics API / Media API / Smart Player API</h1>
+	<h1>Most Popular Videos</h1>
 	<div class="section" id="top">
 		<h2>Introduction</h2>
-		<p>This sample shows the most popular videos of the day and uses the Smart Player API to load them into a player.</p>
+		<p>This sample retrieves the popular videos of the day using the Analytics API, gets the video data using the Media API, creates a playlist of the videos, and uses the Brightcove Player API to load the videos into the player.</p>
 	</div>
 	<div class="section" id="player">
 		<h2>The functional sample</h2>
@@ -138,45 +126,15 @@ $videoData = json_encode($videosArray);
 		<p>The Analytics API part here is simple: request a report on dimension <code>video</code>, set the <code>limit</code> to the number of videos you want to display, sort the results by <code>video_view</code>, and set the <code>from</code> and <code>to</code> parameters to the appropriate start and end times. In this example we are reporting on the period starting 24 hours before now &mdash; for a very active Video Cloud account, you may want to use a shorter period.</p>
 		<p class="text-warning">Note that the Analytics API call is made using PHP, because the server does not currently permit cross-domain requests. In this example, the results from this request are simply set as the value of a JavaScript variable, and all other processing is handled on the client side.</p>
 		<h4>PHP Code for the Analytics API request:</h4>
-		<pre><code>
-			&lt;?php
-			/*!
-			| @ Sends the request
-			| @return string
-			*/
-			function SendRequest( $url, $method = "GET", $data = array(), $headers = array("Content-type: application/x-www-form-urlencoded") )
-			{
-				$context = stream_context_create(array
-				(
-				"http" =&gt; array(
-				"method" =&gt; $method,
-				"header" =&gt; $headers,
-				"content" =&gt; http_build_query( $data )
-				)
-				));
-				return file_get_contents($url, false, $context);
-			}
-			// no data to submit
-			$data = array();
-			// get current time and 24 hours ago in milliseconds
-			$to = time() * 1000;
-			$from = $to - (24 * 60 * 60 * 1000);
-			// get the URL and authorization info from the form data
-			$request = "https://data.brightcove.com/analytics-api/videocloud/account/20318290001/report/?dimensions=video&amp;limit=6&amp;sort=video_view" . "&amp;from=" . $from . "&amp;to=" . $to;
-			// add headers
-			$headers = array(1 =&gt; "Authorization: Bearer 15075c51ae4b0af095c9a619a");
-			//send the http request
-			$result = SendRequest($request, $method = "GET", $data, $headers);
-			?&gt;
-		</code></pre>
+		<p><script src="https://gist.github.com/524bf403f871721777a9.js"></script></p>
 		<h3>The Media API part</h3>
 		<p>Using the video ids from the returned Analytics data (the <code>video</code> metric) and the open source Media API wrapper for JavaScript, we call the <code>find_videos_by_ids</code> method to return the <code>id</code>, <code>name</code>, and the <code>thumbnailURL</code> for each of the most viewed videos. This data is used to populate the Popular Videos list, using the Handlebars templating system to simplify the code.</p>
 		<h3>The Smart Player API part</h3>
 		<p>The Smart Player API is simply used to cue and load videos. In the handler for the <code>templateReady</code> event, we get a reference to the <code>VIDEO_PLAYER</code> module, and then set up a listener for click events on the video items, loading the respective item into the player when it is clicked. We also cue the first the video so that player will not be initially empty.</p>
 		<h4>CSS code for Media and Smart Player API</h4>
-		<pre><code id="css_code"></code></pre>
+		<p><script src="https://gist.github.com/6825feaa251e9f4035ec.js"></script></p>
 		<h4>JavaScript code for Media and Smart Player API</h4>
-		<pre><code id="js_code"></code></pre>
+		<p><script src="https://gist.github.com/f6f9363f5f92a8791bcb.js"></script></p>
 	</div>
 	<!-- display the result -->
 	<pre><code id="response"></code></pre>
@@ -189,7 +147,7 @@ $videoData = json_encode($videosArray);
 	<script src="/bcls/scripts/log.js"></script>
 	<script id="pageScript">
 	var BCLS = ( function () {
-		var JSONresponse = <?php echo $videoData;?>,
+		var JSONresponse = <?php echo $result;?>,
 		videoArray = [],
 		params = {},
 		player,

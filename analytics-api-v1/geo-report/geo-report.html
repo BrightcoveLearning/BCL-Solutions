@@ -10,8 +10,6 @@
 
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css" />
     <script src="//use.edgefonts.net/source-code-pro.js"></script>
-    <link href="//files.brightcove.com/proxima-nova/font-faces.css" rel="stylesheet" type="text/css">
-    <link href="/bcls/bootstrap/css/style.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
     <!-- for date picker -->
     <link href="/bcls/scripts/datepickr_2/datepickr.css" rel="stylesheet">
@@ -72,8 +70,12 @@
                                     <td><input id="accountID" class="required aapi-request" type="text" size="55" value="20318290001"> (default: BC Training Videos)</td>
                                 </tr>
                                 <tr>
-                                    <td class="align-top no-wrap">Authorization Token:<sup class="red">*</sup></td>
-                                    <td><input id="token" class="required aapi-request" type="text" size="55" value="15075c51ae4b0af095c9a619a" /> (default: BC Training Videos)<p><sup class="red">*</sup>If your account has been enabled for the Analytics API, this token was emailed to the account administrator when you joined the <strong>limited availability</strong> program.</p></td>
+                                    <td class="align-top no-wrap">Client ID:</td>
+                                    <td><input id="client_id" class="required aapi-request" type="text" size="100" /> (default: BC Training Videos)</td>
+                                </tr>
+                                <tr>
+                                    <td class="align-top no-wrap">Client secret:</td>
+                                    <td><input id="client_secret" class="required aapi-request" type="text" size="100" /> (default: BC Training Videos)</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -114,10 +116,9 @@
                     <p>
                         <span class="BCL-btn" id="getData">Get Data for the Account</span>
                     </p>
-                    <h2>Video and Player Options</h2>
-                    <p>To get results for a specific video and/or player, make a selection below</p>
+                    <h2>Video  Options</h2>
+                    <p>To get results for a specific video, make a selection below</p>
                     <p>
-                        <select id="playerSelector"></select>
                         <select id="videoSelector"></select>
                     </p>
                     <p class="text-warning" id="gettingDataDisplay"></p>

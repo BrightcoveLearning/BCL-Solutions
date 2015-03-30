@@ -75,13 +75,16 @@ $result = SendRequest($request, $method, $data, $headers);
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/normalize.css" />
   <script src="//use.edgefonts.net/source-code-pro.js"></script>
   <link href="//files.brightcove.com/proxima-nova/font-faces.css" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" type="text/css" href="/en/styles/bcls-doc-site.css">
+  <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
   <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  m=s.getElementsByTagName(o)[0];
+a.async=1;
+a.src=g;
+m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
   ga('create', 'UA-2728311-29', 'auto');
@@ -119,10 +122,7 @@ $result = SendRequest($request, $method, $data, $headers);
   <div id="searchModal" class="reveal-modal" data-reveal></div>
   <!-- content -->
     <div class="row">
-        <div class="large-2 columns show-for-large-up">
-            <div id="sidenav"></div>
-        </div>
-        <div id="main" class="large-10 small-12 columns">
+        <div id="main" class="large-12 small-12 columns">
       <div id="top" class="section">
 		<h1>Most Popular Videos</h1>
 		</div>
@@ -133,23 +133,12 @@ $result = SendRequest($request, $method, $data, $headers);
 	<div class="section" id="player">
 		<h2>The functional sample</h2>
 		<!-- Start of Brightcove Player -->
-		<script language="JavaScript" type="text/javascript" src="https://sadmin.brightcove.com/js/BrightcoveExperiences.js"></script>
-		<object id="myExperience" class="BrightcoveExperience">
-			<param name="bgcolor" value="#FFFFFF" />
-			<param name="width" value="659" />
-			<param name="height" value="371" />
-			<param name="playerID" value="2081645594001" />
-			<param name="playerKey" value="AQ~~,AAAABLsQgFE~,jGXrTxeVLAQAxWWh5tR_yAk4ujie9FeT" />
-			<param name="isVid" value="true" />
-			<param name="isUI" value="true" />
-			<param name="dynamicStreaming" value="true" />
-			<param name="includeAPI" value="true" />
-			<param name="templateLoadHandler" value="BCLS.onTemplateLoad" />
-			<param name="templateReadyHandler" value="BCLS.onTemplateReady" />
-		</object>
+		<video data-account="20318290001" data-player="c9b8844f-c361-490b-9d0d-acc33ff0e968" data-embed="default" data-video-id="" class="video-js" controls></video>
+        <script src="//players.brightcove.net/20318290001/c9b8844f-c361-490b-9d0d-acc33ff0e968_default/index.min.js"></script>
+
 		<!-- End of Brightcove Player -->
 		<div id="playlist" class="playlist">
-			<h4>Most popular videos</h4>
+			<h4 style="margin: 5px;">Most popular videos</h4>
 		</div>
 	</div>
 	<div class="section" id="logic">
@@ -173,16 +162,15 @@ $result = SendRequest($request, $method, $data, $headers);
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.3/fastclick.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js"></script>
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
-  <script src="/en/scripts/log.js"></script>
-    <script src="/en/scripts/docs-nav-data.min.js"></script>
-    <script src="/en/scripts/bcls-doc-site.js"></script>
-    <script src="/en/scripts/bc-mapi.js"></script>
+    <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
+    <script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
+    <script src="//docs.brightcove.com/en/scripts/bc-mapi.js"></script>
 	<script id="pageScript">
-	var BCLS = ( function (BCMAPI) {
+	var BCLS = ( function ($, Handlebars, BCMAPI) {
 		var JSONresponse = <?php echo $result;?>,
 			videoArray = [],
 			params = {},
@@ -191,24 +179,38 @@ $result = SendRequest($request, $method, $data, $headers);
 			APIModules,
 			mediaEvent,
 			handleBarsTemplate = "{{#items}}<div id=\"{{id}}\" class=\"playlist-item\"><img src=\"{{thumbnailURL}}\" width=\"160\" height=\"90\" /><p>{{name}}</p></div>{{/items}}",
-			$playlistItems;
-			console.log(JSONresponse);
+			$playlistItems,
+            /**
+             * Logging function - safe for IE
+             * @param  {string} context description of the data
+             * @param  {*} message the data to be logged by the console
+             * @return {}
+             */
+            bclslog = function (context, message) {
+                if (window["console"] && console["log"]) {
+                  console.log(context, message);
+                };
+                return;
+            };
+			bclslog("JSONresponse", JSONresponse);
 			// set up the Media API call, using data from the Analytics API call
 			BCMAPI.url = "http://api.brightcove.com/services/library";
 			BCMAPI.token = "v87kWelIdjUwVm7_Rzv09k-KqtLz-ty8ONbMxVYAI7-Q0eOilegqqg..";
 			BCMAPI.callback = "BCLS.onMAPIresponse";
 		for (var i = 0, max = JSONresponse.items.length; i < max; i++) {
-			videoArray.push(JSONresponse.items[i].video);
+			if (JSONresponse.items[i].video !== null) {
+                videoArray.push(JSONresponse.items[i].video);
+            }
 		}
-		console.log("videoArray", videoArray);
+		bclslog("videoArray", videoArray);
 		params.video_ids = videoArray.join();
 		params.video_fields = "id,name,thumbnailURL";
 		BCMAPI.find("find_videos_by_ids", params);
 		// dump the raw response into the page
-		$("#response").html(BCLSformatJSON.formatJSON(JSONresponse));
+		$("#response").html(JSONresponse);
 		return {
 			onMAPIresponse : function(jsonData) {
-				console.log("jsondata", jsonData);
+				bclslog("jsondata", jsonData);
 				// merge the data into the html template using Handlebars
 				var template = Handlebars.compile(handleBarsTemplate),
 				data = jsonData,
@@ -217,30 +219,11 @@ $result = SendRequest($request, $method, $data, $headers);
 				$("#playlist").append(results);
 				// get a reference to the collection of video items
 				$playlistItems = $(".playlist-item");
-			},
-			onTemplateLoad : function(experienceID) {
-				player = brightcove.api.getExperience(experienceID);
-				APIModules = brightcove.api.modules.APIModules;
-			},
-			onTemplateReady : function(evt) {
-				videoPlayer = player.getModule(APIModules.VIDEO_PLAYER);
-				// set up the click event handler for the video items
-				$playlistItems.on("click", function(evt) {
-					videoPlayer.loadVideoByID(parseInt($(this).attr("id")));
-				});
-				// cue the first video item
-				videoPlayer.cueVideoByID(parseInt($playlistItems.eq(0).attr("id")));
 			}
 		}
-	})();
+	})($, Handlebars, BCMAPI);
 	</script>
-	<script>
-	$(document).ready(function(BCMAPI){
-		$("#js_code").html(BCLSpreFix($("#pageScript").html()));
-		$("#css_code").html(BCLSpreFix($("#pageStyles").html()));
-		$('pre code').each(function(i, e) {hljs.highlightBlock(e)});
-	});
-	</script>
+
     <script>
         $(document).foundation();
     </script>

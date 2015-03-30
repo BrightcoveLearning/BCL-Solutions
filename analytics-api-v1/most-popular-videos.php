@@ -2,7 +2,7 @@
 /*!
 | @ Sends the request
 | @return string
-*/
+ */
 function SendRequest($url, $method, $data, $headers) {
 	$context = stream_context_create(array
 		(
@@ -15,22 +15,22 @@ function SendRequest($url, $method, $data, $headers) {
 	return file_get_contents($url, false, $context);
 }
 // set up request for access token
-$data = array();
+$data          = array();
 $client_id     = "5746d707-db97-42b2-b4f0-3db890429ef0";
 $client_secret = "JBdg3PLg0NarokKjIihxa_05i-YVyvhICWlQ5NXMSlUX9H9tzYqQ8FE-4mMfhAWOMs0KxUHyUN3anzkZSr3Bvg";
 $auth_string   = "{$client_id}:{$client_secret}";
 $request       = "https://oauth.brightcove.com/v3/access_token?grant_type=client_credentials";
 $ch            = curl_init($request);
 curl_setopt_array($ch, array(
-	CURLOPT_POST           => TRUE,
-	CURLOPT_RETURNTRANSFER => TRUE,
-	CURLOPT_SSL_VERIFYPEER => FALSE,
-	CURLOPT_USERPWD        => $auth_string,
-	CURLOPT_HTTPHEADER     => array(
-		'Content-type: application/x-www-form-urlencoded',
-	),
-	CURLOPT_POSTFIELDS => $data
-));
+		CURLOPT_POST           => TRUE,
+		CURLOPT_RETURNTRANSFER => TRUE,
+		CURLOPT_SSL_VERIFYPEER => FALSE,
+		CURLOPT_USERPWD        => $auth_string,
+		CURLOPT_HTTPHEADER     => array(
+			'Content-type: application/x-www-form-urlencoded',
+		),
+		CURLOPT_POSTFIELDS => $data
+	));
 $result = curl_exec($ch);
 curl_close($ch);
 // Check for errors
@@ -44,8 +44,8 @@ $access_token = $resultData["access_token"];
 // no data to submit
 $data = array();
 // get current time and 24 hours ago in milliseconds
-$to   = time()*1000;
-$from = $to-(24*60*60*1000);
+$to     = time()*1000;
+$from   = $to-(24*60*60*1000);
 $method = "GET";
 // get the URL and authorization info from the form data
 $request = "https://analytics.api.brightcove.com/v1/data?accounts=20318290001&dimensions=video&limit=6&sort=video_view&fields=video&from={$from}&to={$to}";
@@ -164,11 +164,11 @@ $result = SendRequest($request, $method, $data, $headers);
 		<script src="//docs.brightcove.com/en/scripts/bc-mapi.js"></script>
 <script id="pageScript">
 var BCLS = (function ($, Handlebars, BCMAPI) {
-	var JSONresponse = <?php echo $result; ?> ,
+	var JSONresponse = <?php echo $result;?> ,
 	videoArray = [],
 	params = {},
 	player,
-	videoPlayer,
+	myPlayer,
 	APIModules,
 	mediaEvent,
 	handleBarsTemplate = "{{#items}}<div id=\"{{id}}\" class=\"playlist-item\"><img src=\"{{thumbnailURL}}\" width=\"160\" height=\"90\" /><p>{{name}}</p></div>{{/items}}",
@@ -216,7 +216,10 @@ var BCLS = (function ($, Handlebars, BCMAPI) {
 			$("#playlist").append(results);
 			// get a reference to the collection of video items
 			$playlistItems = $(".playlist-item");
-		}
+		},
+        playVideo: function (videoID) {
+
+        }
 	}
 })($, Handlebars, BCMAPI);
 </script>

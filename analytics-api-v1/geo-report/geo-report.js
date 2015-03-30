@@ -62,13 +62,18 @@ var BCLS = (function ($, Handlebars) {
             // set up options
             options.url = callURL;
             options.requestType = "GET";
-            options.client_id = (isDefined($client_id.val())) ? $client_id.val():client_id;
-            options.client_secret = (isDefined($client_secret.val())) ? $client_secret.val():client_secret;
+            options.client_id = (isDefined($client_id.val())) ? $client_id.val() : client_id;
+            options.client_secret = (isDefined($client_secret.val())) ? $client_secret.val() : client_secret;
             $.ajax({
                 url: proxyURL,
                 data: options,
                 success : function (data) {
                     var template, i, itemsmax, item, selectedGeo = $geoSelector.val();
+                    try {
+                       var data = JSON.parse(data);
+                    } catch(e) {
+                       alert('invalid json');
+                    }
                     switch (callType) {
                         case "videos":
                             // populate the video selector
@@ -98,11 +103,11 @@ var BCLS = (function ($, Handlebars) {
         // get the analytics data for the videos
         getAnalyticsData = function () {
             var callURL;
-            accountID = (isDefined($accountID.val())) ? $accountID.val():accountID
+            accountID = (isDefined($accountID.val())) ? $accountID.val() : accountID;
             $gettingDataDisplay.text("Getting analytics data...");
             callType = "analytics";
             currentVideo = $videoSelector.val();
-            callURL = "https://analytics.api.brightcove.com/v1/data?accounts=" + $accountID.val()+ "&dimensions=country,city,region&limit=all";
+            callURL = "https://analytics.api.brightcove.com/v1/data?accounts=" + accountID + "&dimensions=country,city,region&limit=all";
 
             if (isDefined($fromDate.val())) {
                 callURL += "&from=" + $fromDate.val();
@@ -124,10 +129,10 @@ var BCLS = (function ($, Handlebars) {
         */
         getVideoData = function () {
             var callURL = "";
-            accountID = (isDefined($accountID.val())) ? $accountID.val():accountID;
+            accountID = (isDefined($accountID.val())) ? $accountID.val() : accountID;
             $gettingDataDisplay.text("Getting video data...");
             callType = "videos";
-            callURL = "https://analytics.api.brightcove.com/v1/data?accounts=" + $accountID.val()+ "&dimensions=video&limit=all&fields=video,video_name&sort=video_view";
+            callURL = "https://analytics.api.brightcove.com/v1/data?accounts=" + accountID + "&dimensions=video&limit=all&fields=video,video_name&sort=video_view";
             $requestURL.text(callURL);
             makeAnalyticsCall(callURL, callType);
         };
@@ -153,6 +158,5 @@ var BCLS = (function ($, Handlebars) {
     })
     // get initial players and video data
     getVideoData();
-    return {
-    };
+    return {};
 })($, Handlebars);

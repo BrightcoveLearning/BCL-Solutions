@@ -66,12 +66,30 @@ $result = SendRequest($request, $method, $data, $headers);
 
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Most Popular Videos</title>
-	<script src="//use.edgefonts.net/source-code-pro.js"></script>
-	<link rel="stylesheet" href="/bcls/scripts/highlight/styles/magula.css">
-	<link href="//files.brightcove.com/proxima-nova/font-faces.css" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" type="text/css" href="/bcls/styles/bcls-solutions.css">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" />
+  <!-- change title to match the h1 heading -->
+  <title>Player System Overview</title>
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css" />
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/normalize.css" />
+  <script src="//use.edgefonts.net/source-code-pro.js"></script>
+  <link href="//files.brightcove.com/proxima-nova/font-faces.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="/en/styles/bcls-doc-site.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2728311-29', 'auto');
+  ga('send', 'pageview');
+
+</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/vendor/modernizr.js"></script>
+  </head>
 	<style id="pageStyles">
 	.playlist {
 		color: #f5f5f5;
@@ -93,8 +111,22 @@ $result = SendRequest($request, $method, $data, $headers);
 	</style>
 </head>
 <body>
-	<h1>Most Popular Videos</h1>
-	<div class="section" id="top">
+  <!-- header navbar -->
+	<div id="navWrapper" class="fixed"></div>
+	<!-- breadcrumbs -->
+	<nav id="breadCrumbWrapper" class="breadcrumbs show-for-medium-up"></nav>
+  <!-- search -->
+  <div id="searchModal" class="reveal-modal" data-reveal></div>
+  <!-- content -->
+    <div class="row">
+        <div class="large-2 columns show-for-large-up">
+            <div id="sidenav"></div>
+        </div>
+        <div id="main" class="large-10 small-12 columns">
+      <div id="top" class="section">
+		<h1>Most Popular Videos</h1>
+		</div>
+	<div class="section" id="introduction">
 		<h2>Introduction</h2>
 		<p>This sample retrieves the popular videos of the day using the Analytics API, gets the video data using the Media API, creates a playlist of the videos, and uses the Brightcove Player API to load the videos into the player.</p>
 	</div>
@@ -138,32 +170,37 @@ $result = SendRequest($request, $method, $data, $headers);
 	</div>
 	<!-- display the result -->
 	<pre><code id="response"></code></pre>
-	<script src="/bcls/scripts/jquery-1.9.1.min.js"></script>
-	<script src="/bcls/scripts/handlebars.js"></script>
-	<script src="/bcls/scripts/prefix.js"></script>
-	<script src="/bcls/scripts/highlight/highlight.pack.js"></script>
-	<script src="/bcls/scripts/format_json.js"></script>
-	<script src="/bcls/scripts/bc-mapi.js"></script>
-	<script src="/bcls/scripts/log.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.3/fastclick.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js"></script>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+  <script src="/en/scripts/log.js"></script>
+    <script src="/en/scripts/docs-nav-data.min.js"></script>
+    <script src="/en/scripts/bcls-doc-site.js"></script>
+    <script src="/en/scripts/bc-mapi.js"></script>
 	<script id="pageScript">
-	var BCLS = ( function () {
+	var BCLS = ( function (BCMAPI) {
 		var JSONresponse = <?php echo $result;?>,
-		videoArray = [],
-		params = {},
-		player,
-		videoPlayer,
-		APIModules,
-		mediaEvent,
-		handleBarsTemplate = "{{#items}}<div id=\"{{id}}\" class=\"playlist-item\"><img src=\"{{thumbnailURL}}\" width=\"160\" height=\"90\" /><p>{{name}}</p></div>{{/items}}",
-		$playlistItems;
-		console.log(JSONresponse);
-		// set up the Media API call, using data from the Analytics API call
-		BCMAPI.url = "http://api.brightcove.com/services/library";
-		BCMAPI.token = "v87kWelIdjUwVm7_Rzv09k-KqtLz-ty8ONbMxVYAI7-Q0eOilegqqg..";
-		BCMAPI.callback = "BCLS.onMAPIresponse";
+			videoArray = [],
+			params = {},
+			player,
+			videoPlayer,
+			APIModules,
+			mediaEvent,
+			handleBarsTemplate = "{{#items}}<div id=\"{{id}}\" class=\"playlist-item\"><img src=\"{{thumbnailURL}}\" width=\"160\" height=\"90\" /><p>{{name}}</p></div>{{/items}}",
+			$playlistItems;
+			console.log(JSONresponse);
+			// set up the Media API call, using data from the Analytics API call
+			BCMAPI.url = "http://api.brightcove.com/services/library";
+			BCMAPI.token = "v87kWelIdjUwVm7_Rzv09k-KqtLz-ty8ONbMxVYAI7-Q0eOilegqqg..";
+			BCMAPI.callback = "BCLS.onMAPIresponse";
 		for (var i = 0, max = JSONresponse.items.length; i < max; i++) {
 			videoArray.push(JSONresponse.items[i].video);
 		}
+		console.log("videoArray", videoArray);
 		params.video_ids = videoArray.join();
 		params.video_fields = "id,name,thumbnailURL";
 		BCMAPI.find("find_videos_by_ids", params);
@@ -171,6 +208,7 @@ $result = SendRequest($request, $method, $data, $headers);
 		$("#response").html(BCLSformatJSON.formatJSON(JSONresponse));
 		return {
 			onMAPIresponse : function(jsonData) {
+				console.log("jsondata", jsonData);
 				// merge the data into the html template using Handlebars
 				var template = Handlebars.compile(handleBarsTemplate),
 				data = jsonData,
@@ -197,11 +235,14 @@ $result = SendRequest($request, $method, $data, $headers);
 	})();
 	</script>
 	<script>
-	$(document).ready(function(){
+	$(document).ready(function(BCMAPI){
 		$("#js_code").html(BCLSpreFix($("#pageScript").html()));
 		$("#css_code").html(BCLSpreFix($("#pageStyles").html()));
 		$('pre code').each(function(i, e) {hljs.highlightBlock(e)});
 	});
 	</script>
+    <script>
+        $(document).foundation();
+    </script>
 </body>
 </html>

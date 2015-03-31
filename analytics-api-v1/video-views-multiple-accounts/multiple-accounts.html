@@ -23,17 +23,17 @@
     <link rel="shortcut icon" href="/bcls/assets/images/favicon.ico">
     <style type="text/css">
     .BCL-btn {
-	    white-space: nowrap;
-	    font-size: small;
+        white-space: nowrap;
+        font-size: small;
     }
     textarea {
         font-size: x-small;
     }
     .success {
-	    color: #327b2a
+        color: #327b2a
     }
     .failure {
-	    color: #a51d1d
+        color: #a51d1d
     }
     td {
         vertical-align: top;
@@ -48,13 +48,13 @@
 </head>
 
 <body>
-	<!-- header navbar -->
-	<div id="navWrapper" class="fixed"></div>
-	<!-- breadcrumbs -->
-	<nav id="breadCrumbWrapper" class="breadcrumbs show-for-medium-up"></nav>
-	<!-- search -->
-	<div id="searchModal" class="reveal-modal" data-reveal></div>
-	<!-- content -->
+    <!-- header navbar -->
+    <div id="navWrapper" class="fixed"></div>
+    <!-- breadcrumbs -->
+    <nav id="breadCrumbWrapper" class="breadcrumbs show-for-medium-up"></nav>
+    <!-- search -->
+    <div id="searchModal" class="reveal-modal" data-reveal></div>
+    <!-- content -->
     <div class="row">
         <div class="large-2 columns show-for-large-up">
             <div id="sidenav"></div>
@@ -62,8 +62,13 @@
         <div id="main" class="large-10 small-12 columns">
             <div class="section" id="top">
                 <h1>Analytics Report for Multiple Accounts</h1>
-                <p class="BCL-aside">This sample has been removed, because it is no longer relevant with the v1 release of the Analytics API, which allows you to request reports on multiple accounts in a single request. See the <a href="//docs.brightcove.com/en/video-cloud/analytics-api/getting-started/migration-guide.html#reportChanges">Migration Guide</a></p>
+                <div class="BCL-aside">
+                    <p>Note: the v1 version of the Analytics API makes generating reports very simple. Only a single api call using the parameter <code>accounts=account1_id,account2_id,account3_id</code> is all it takes.</p>
+                    <p>In addition, the Analytics Report Builder will allow you to generate reports on multiple accounts. The Report Builder is currently in pre-release mode as part of the new Brightcove Studio - if you are interested in getting access to it, contact your account manager.</p>
+                    <p>For these reasons, this sample has been retired.</p>
+                </div>
             </div>
+
         </div>
     </div>
 <!-- jquery used for the AJAX calls -->
@@ -89,9 +94,9 @@
 </script>
     <div class="footer text-center"><a id="feedbackMail" href="mailto:docs@brightcove.com">Questions or comments?</a></div>
     <script>
-	var feedbackMail = document.getElementById("feedbackMail");
-	feedbackMail.setAttribute("href", "mailto:docs@brightcove.com?subject=question regarding " + encodeURI(document.location.href));
-	</script>
-	</body>
+    var feedbackMail = document.getElementById("feedbackMail");
+    feedbackMail.setAttribute("href", "mailto:docs@brightcove.com?subject=question regarding " + encodeURI(document.location.href));
+    </script>
+    </body>
 
 </html>

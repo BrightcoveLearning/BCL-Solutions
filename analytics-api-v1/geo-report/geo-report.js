@@ -85,7 +85,7 @@ var BCLS = (function (window, document, $, Handlebars) {
                     var template, i, itemsmax, item, selectedGeo = $geoSelector.val();
                     try {
                        var data = JSON.parse(data);
-                    } catch(e) {
+                    } catch (e) {
                        alert('invalid json');
                     }
                     switch (callType) {

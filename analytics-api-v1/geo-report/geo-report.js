@@ -1,4 +1,4 @@
-var BCLS = (function ($, Handlebars) {
+var BCLS = (function (window, document, $, Handlebars) {
     "use strict";
     var proxyURL = "http://solutions.brightcove.com/bcls/bcls-proxy/bcls-proxy.php",
         $accountID = $("#accountID"),
@@ -9,7 +9,6 @@ var BCLS = (function ($, Handlebars) {
         client_secret = "JBdg3PLg0NarokKjIihxa_05i-YVyvhICWlQ5NXMSlUX9H9tzYqQ8FE-4mMfhAWOMs0KxUHyUN3anzkZSr3Bvg",
         $videoSelector = $("#videoSelector"),
         $geoSelector = $("#geoSelector"),
-        $sortSelector = $("#sortSelector"),
         $reportTableBody = $("#reportTableBody"),
         $fromDate = $("#fromDatePicker"),
         $toDate = $("#toDatePicker"),
@@ -23,6 +22,18 @@ var BCLS = (function ($, Handlebars) {
         dataDisplayBodyTemplate = "{{#items}}<tr><td>{{country_name}}</td><td>{{region_name}}</td><td>{{city}}</td><td>{{video_view}}</td><td>{{average_seconds_viewed}}</td></tr>{{/items}}",
         videoSelectTemplate = "<option value=\"\">Select a video</option>{{#items}}<option value=\"{{video}}\">{{video_name}}</options>{{/items}}",
         callType,
+        /**
+         * Logging function - safe for IE
+         * @param  {string} context description of the data
+         * @param  {*} message the data to be logged by the console
+         * @return {}
+         */
+        bclslog = function (context, message) {
+            if (window["console"] && console["log"]) {
+              console.log(context, message);
+            };
+            return;
+        },
         // more robust test for strings "not defined"
         isDefined =  function (v) {
             if(v !== "" && v !== null && v !== "undefined") { return true; }
@@ -64,8 +75,11 @@ var BCLS = (function ($, Handlebars) {
             options.requestType = "GET";
             options.client_id = (isDefined($client_id.val())) ? $client_id.val() : client_id;
             options.client_secret = (isDefined($client_secret.val())) ? $client_secret.val() : client_secret;
+            options.requestBody = null;
+            bclslog("options", options);
             $.ajax({
                 url: proxyURL,
+                type: "POST",
                 data: options,
                 success : function (data) {
                     var template, i, itemsmax, item, selectedGeo = $geoSelector.val();
@@ -89,7 +103,7 @@ var BCLS = (function ($, Handlebars) {
                                 chartData.push([item[selectedGeo], item.video_view]);
                             }
                             analyticsData = data;
-                            $gettingDataDisplay.text("Data retrieved - " + callNumber + " API calls made");
+                            $gettingDataDisplay.text("Data retrieved");
                             displayData();
                             break;
                 }
@@ -107,8 +121,7 @@ var BCLS = (function ($, Handlebars) {
             $gettingDataDisplay.text("Getting analytics data...");
             callType = "analytics";
             currentVideo = $videoSelector.val();
-            callURL = "https://analytics.api.brightcove.com/v1/data?accounts=" + accountID + "&dimensions=country,city,region&limit=all";
-
+            callURL = "https://analytics.api.brightcove.com/v1/data?accounts=" + accountID + "&dimensions=" + $geoSelector.val() + "&limit=all&fields=country,country_name,video_view,video_seconds_viewed";
             if (isDefined($fromDate.val())) {
                 callURL += "&from=" + $fromDate.val();
             }
@@ -159,4 +172,4 @@ var BCLS = (function ($, Handlebars) {
     // get initial players and video data
     getVideoData();
     return {};
-})($, Handlebars);
+})(window, document, $, Handlebars);

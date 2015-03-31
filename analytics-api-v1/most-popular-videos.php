@@ -94,18 +94,18 @@ $result = SendRequest($request, $method, $data, $headers);
 			overflow-y: scroll;
 			padding: 5px;
 			text-align: center;
-			margin-right: 100px;
+			margin-right: 110px;
 			float: right;
 		}
 		.playlist-item {
 			cursor: pointer;
 			font-size: small;
-			margin: 10px 0;
+			margin: 0;
 			text-align: center;
 		}
-		div.video-js {
+		/*div.video-js {
 			max-width: 640px;
-		}
+		}*/
 		</style>
 	</head>
 	<body>
@@ -184,42 +184,58 @@ var BCLS = (function ($, Handlebars, BCMAPI) {
 			console.log(context, message);
 		};
 		return;
-	};
+	},
+    onMAPIresponse = function (jsonData) {
+        bclslog("jsondata", jsonData);
+        // merge the data into the html template using Handlebars
+        var template = Handlebars.compile(handleBarsTemplate),
+            data = jsonData,
+            results = template(data);
+        // inject the HTML for the video list
+        $("#playlist").append(results);
+        // get a reference to the collection of video items
+        $playlistItems = $(".playlist-item");
+        $playlistItems.on("click", function () {
+            changeVideo($(this).attr("id"));
+        });
+        loadVideo($playlistItems[0].id)
+    },
+    changeVideo = function (videoID) {
+        myPlayer.catalog.getVideo(videoID, function (error, video) {
+            myPlayer.catalog.load(video);
+            myPlayer.play();
+        })
+    },
+    loadVideo = function (videoID) {
+        myPlayer.catalog.getVideo(videoID, function (error, video) {
+            myPlayer.catalog.load(video);
+        })
+    };
 	bclslog("JSONresponse", JSONresponse);
-	// set up the Media API call, using data from the Analytics API call
-	BCMAPI.url = "http://api.brightcove.com/services/library";
-	BCMAPI.token = "v87kWelIdjUwVm7_Rzv09k-KqtLz-ty8ONbMxVYAI7-Q0eOilegqqg..";
-	BCMAPI.callback = "BCLS.onMAPIresponse";
-	for (var i = 0, max = JSONresponse.items.length; i < max; i++) {
-		if (JSONresponse.items[i].video !== null) {
-			videoArray.push(JSONresponse.items[i].video);
-		}
-	}
-	bclslog("videoArray", videoArray);
-	params.video_ids = videoArray.join();
-	params.video_fields = "id,name,thumbnailURL";
-	BCMAPI.find("find_videos_by_ids", params);
-	// dump the raw response into the page
-	$("#response").html(JSONresponse);
 
-	videojs('myPlayerID').ready(function(){
-	  var myPlayer = this;
+
+	videojs('myPlayerID').ready(function ()  {
+        myPlayer = this;
+        // set up the Media API call, using data from the Analytics API call
+        BCMAPI.url = "http://api.brightcove.com/services/library";
+        BCMAPI.token = "v87kWelIdjUwVm7_Rzv09k-KqtLz-ty8ONbMxVYAI7-Q0eOilegqqg..";
+        BCMAPI.callback = "BCLS.onMAPIresponse";
+        for (var i = 0, max = JSONresponse.items.length; i < max; i++) {
+            if (JSONresponse.items[i].video !== null) {
+                videoArray.push(JSONresponse.items[i].video);
+            }
+        }
+        bclslog("videoArray", videoArray);
+        params.video_ids = videoArray.join();
+        params.video_fields = "id,name,thumbnailURL";
+        BCMAPI.find("find_videos_by_ids", params);
+        // dump the raw response into the page
+        $("#response").html(JSONresponse);
 	});
 	return {
-		onMAPIresponse: function (jsonData) {
-			bclslog("jsondata", jsonData);
-			// merge the data into the html template using Handlebars
-			var template = Handlebars.compile(handleBarsTemplate),
-				data = jsonData,
-				results = template(data);
-			// inject the HTML for the video list
-			$("#playlist").append(results);
-			// get a reference to the collection of video items
-			$playlistItems = $(".playlist-item");
-		},
-        playVideo: function (videoID) {
-
-        }
+		"onMAPIresponse": onMAPIresponse,
+        "changeVideo": changeVideo,
+        "loadVideo": loadVideo
 	}
 })($, Handlebars, BCMAPI);
 </script>

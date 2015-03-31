@@ -103,9 +103,6 @@ $result = SendRequest($request, $method, $data, $headers);
 			margin: 0;
 			text-align: center;
 		}
-		/*div.video-js {
-			max-width: 640px;
-		}*/
 		</style>
 	</head>
 	<body>
@@ -141,15 +138,15 @@ $result = SendRequest($request, $method, $data, $headers);
 			<p>The Analytics API part here is simple: request a report on dimension <code>video</code>, set the <code>limit</code> to the number of videos you want to display, sort the results by <code>video_view</code>, and set the <code>from</code> and <code>to</code> parameters to the appropriate start and end times. In this example we are reporting on the period starting 24 hours before now - for a very active Video Cloud account, you may want to use a shorter period.</p>
 			<p class="text-warning">Note that the Analytics API call is made using PHP, because the server does not currently permit cross-domain requests. In this example, the results from this request are simply set as the value of a JavaScript variable, and all other processing is handled on the client side.</p>
 			<h4>PHP Code for the Analytics API request:</h4>
-			<p><script src="https://gist.github.com/524bf403f871721777a9.js"></script></p>
+			<p><script src="https://gist.github.com/cc3f1fca3b7108413d50.js"></script></p>
 			<h3>The Media API part</h3>
 			<p>Using the video ids from the returned Analytics data (the <code>video</code> metric) and the open source Media API wrapper for JavaScript, we call the <code>find_videos_by_ids</code> method to return the <code>id</code>, <code>name</code>, and the <code>thumbnailURL</code> for each of the most viewed videos. This data is used to populate the Popular Videos list, using the Handlebars templating system to simplify the code.</p>
 			<h3>The Smart Player API part</h3>
 			<p>The Smart Player API is simply used to cue and load videos. In the handler for the <code>templateReady</code> event, we get a reference to the <code>VIDEO_PLAYER</code> module, and then set up a listener for click events on the video items, loading the respective item into the player when it is clicked. We also cue the first the video so that player will not be initially empty.</p>
 			<h4>CSS code for Media and Smart Player API</h4>
-			<p><script src="https://gist.github.com/6825feaa251e9f4035ec.js"></script></p>
+			<p><script src="https://gist.github.com/65f86eb5c7995f627396.js"></script></p>
 			<h4>JavaScript code for Media and Smart Player API</h4>
-			<p><script src="https://gist.github.com/f6f9363f5f92a8791bcb.js"></script></p>
+			<p><script src="https://gist.github.com/c4fd4a8cb4541c5475b8.js"></script></p>
 		</div>
 		<!-- display the result -->
 <pre><code id="response"></code></pre>
@@ -164,7 +161,7 @@ $result = SendRequest($request, $method, $data, $headers);
 		<script src="//docs.brightcove.com/en/scripts/bc-mapi.js"></script>
 <script id="pageScript">
 var BCLS = (function ($, Handlebars, BCMAPI) {
-	var JSONresponse = <?php echo $result;?> ,
+	var JSONresponse = <?php echo $result;?>,
 	videoArray = [],
 	params = {},
 	player,

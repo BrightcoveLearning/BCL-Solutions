@@ -13,27 +13,12 @@
  * @post {string} client_id - OAuth2 client id with sufficient permissions for the request
  * @post {string} client_secret - OAuth2 client secret with sufficient permissions for the request
  *
- * @returns {string} $result - JSON response received from the API
+ * @returns {string} $response - JSON response received from the API
  */
 
 // CORS enablement
 header("Access-Control-Allow-Origin: *");
 
-/**
- * @ Sends the request
- * @return string
- */
-function SendRequest($url, $method, $data, $headers) {
-	$context = stream_context_create(array
-		(
-			"http"     => array(
-				"method"  => $method,
-				"header"  => $headers,
-				"content" => json_encode($data)
-			)
-		));
-	return file_get_contents($url, false, $context);
-}
 // set up request for access token
 $data = array();
 
@@ -52,7 +37,7 @@ curl_setopt_array($ch, array(
 		),
 		CURLOPT_POSTFIELDS => $data
 	));
-$result = curl_exec($ch);
+$response = curl_exec($ch);
 curl_close($ch);
 
 // Check for errors
@@ -61,8 +46,8 @@ if ($response === FALSE) {
 }
 
 // Decode the response
-$resultData   = json_decode($result, TRUE);
-$access_token = $resultData["access_token"];
+$responseData = json_decode($response, TRUE);
+$access_token = $responseData["access_token"];
 
 // set up the API call
 // get data
@@ -83,10 +68,30 @@ $request = $_POST["url"];
 // add headers
 $headers = array(
 	1=> "Authorization: Bearer {$access_token}",
-	2=> "Content-type: application/x-www-form-urlencoded",
+	2=> "Content-type: application/json",
 );
 
 //send the http request
-$result = SendRequest($request, $method, $data, $headers);
-echo $result;
+$ch = curl_init($request);
+curl_setopt_array($ch, array(
+		CURLOPT_CUSTOMREQUEST  => $method,
+		CURLOPT_RETURNTRANSFER => TRUE,
+		CURLOPT_SSL_VERIFYPEER => FALSE,
+		CURLOPT_HTTPHEADER     => array(
+			'Content-type: application/json',
+			"Authorization: Bearer {$access_token}",
+		),
+		CURLOPT_POSTFIELDS => json_encode($data)
+	));
+$response = curl_exec($ch);
+curl_close($ch);
+
+// Check for errors
+if ($response === FALSE) {
+	die(curl_error($ch));
+}
+
+// Decode the response
+$responseData = json_decode($response, TRUE);
+echo $response;
 ?>

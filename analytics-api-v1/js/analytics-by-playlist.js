@@ -58,7 +58,6 @@ var BCLS = (function ($, window, Pikaday) {
         $playlistSelectWrapper = $("#playlistSelectWrapper"),
         $playlistSelector = $("#playlistSelector"),
         playlistSelector = document.getElementById("playlistSelector"),
-        $analyticsData = $("#analyticsData"),
         videoIds = [],
         currentVideoIndex = 0,
         failNumber = 0,
@@ -77,7 +76,6 @@ var BCLS = (function ($, window, Pikaday) {
         removeSpaces,
         buildRequest,
         isDefined,
-        deDupe,
         getData,
         gettingData = false,
         now = new Date(),
@@ -101,24 +99,6 @@ var BCLS = (function ($, window, Pikaday) {
             return false;
         }
     };
-    /*
-    de-dupe array of objects based on selected property
-    note the comparison here is case-sensitive
-    for non-case-sensitive comparison, change
-    targetArray[i].prop to targetArray[i].prop.toLowerCase()
-    */
-    deDupe = function (targetArray, prop) {
-        var i, j, totalItems = targetArray.length;
-        for (i = 0; i < totalItems; i++) {
-            for (j = i + 1; j < totalItems; j++) {
-                if (targetArray[i][prop] === targetArray[j][prop]) {
-                    targetArray.splice(j, 1);
-                }
-            }
-        }
-        return targetArray;
-    };
-
     // reset everything
     reset = function () {
 	    firstRun = true;
@@ -196,21 +176,6 @@ var BCLS = (function ($, window, Pikaday) {
         // undim param input fields
         $aapiParams.attr("class", "bcls-shown");
         $requestSubmitter.attr("class", "bcls-shown");
-        // set playlist info in analyticsData
-        analyticsData.playlist_id = selectedPlaylist.id;
-        analyticsData.playlist_name = selectedPlaylist.name;
-        analyticsData.average_engagement_score = 0;
-        analyticsData.average_play_rate = 0;
-        analyticsData.average_video_engagement_1 = 0;
-        analyticsData.average_video_engagement_25 = 0;
-        analyticsData.average_video_engagement_50 = 0;
-        analyticsData.average_video_engagement_75 = 0;
-        analyticsData.average_video_engagement_100 = 0;
-        analyticsData.total_video_impression = 0;
-        analyticsData.average_video_percent_viewed = 0;
-        analyticsData.total_video_seconds_viewed = 0;
-        analyticsData.total_video_view = 0;
-        analyticsData.individual_video_data = [];
         buildRequest();
     };
     removeSpaces = function (str) {
@@ -250,7 +215,7 @@ var BCLS = (function ($, window, Pikaday) {
         // reset requestTrimmed to false in case of regenerate request
         requestTrimmed = false;
         requestURL = "https://analytics.api.brightcove.com/v1/data";
-        requestURL += "?accounts=" + removeSpaces($accountID.val()) + "/";
+        requestURL += "?accounts=" + removeSpaces($accountID.val());
         // report dimensions
         requestURL += "&dimensions=video";
         // add video filter
@@ -259,20 +224,18 @@ var BCLS = (function ($, window, Pikaday) {
         if ($player.val() !== "") {
             requestURL += ";player==" + $player.val();
         }
-        requestURL += "&format=" + $format.val() + "&";
+        requestURL += "&format=" + $format.val();
         // check for time filters
         startDate = from.value;
         if (startDate !== " ") {
-            requestURL += "from=" + startDate + "&";
+            requestURL += "&from=" + startDate;
         }
         endDate = to.value;
         if (endDate !== " ") {
-            requestURL += "to=" + endDate + "&";
+            requestURL += "&to=" + endDate;
         }
         // add limit and fields
-        requestURL += "limit=all&fields=engagement_score,play_rate,video,video_duration,video_engagement_1,video_engagement_100,video_engagement_25,video_engagement_50,video_engagement_75,video_impression,video_name,video_percent_viewed,video_seconds_viewed,video_view";
-        // add format
-        requestURL += "format=" + $format.val();
+        requestURL += "&limit=all&fields=engagement_score,play_rate,video,video_duration,video_engagement_1,video_engagement_100,video_engagement_25,video_engagement_50,video_engagement_75,video_impression,video_name,video_percent_viewed,video_seconds_viewed,video_view";
 
         // strip trailing ? or & and replace &&s
         trimRequest();
@@ -302,7 +265,7 @@ var BCLS = (function ($, window, Pikaday) {
                 } catch (e) {
                    alert('invalid json');
                 }
-                $responseFrame.html(BCLSformatJSON.formatJSON(JSON.parse(data)));
+                $responseFrame.html(BCLSformatJSON.formatJSON(data));
             },
             error : function (XMLHttpRequest, textStatus, errorThrown) {
                 $responseFrame.html("Sorry, your request was not successful. Here is what the server sent back: " + errorThrown);

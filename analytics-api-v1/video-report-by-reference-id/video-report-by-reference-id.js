@@ -1,22 +1,9 @@
 var BCLS = (function ($, window, AnyTime, BCMAPI, Handlebars, BCLSformatJSON) {
     "use strict";
-    var // media api stuff
-        $sortBy = $("#sortBy"),
-        $getVideosButton = $("#getVideosButton"),
-        $videoSelector = $("#videoSelector"),
-        $sortOrder = $("#sortOrder"),
-        $mapitoken = $("#mapitoken"),
-        $readApiLocation = $("#readApiLocation"),
-        videoData = {},
-        analyticsData = {},
-        pageNumber = 0,
-        params = {},
-        referenceIdLookup = {},
-        videoOptionTemplate = "<option value=\"\">Select a video for a report only on that video</option>{{#items}}<option value=\"{{id}}\">{{referenceId}} | {{name}}</option>{{/items}}",
-        // aapi stuff
+    var // aapi stuff
         $serviceURL = $("#serviceURL"),
         $accountID = $("#accountID"),
-        $token = $("#token"),
+        $client_id = $("#token"),
         $requestType = $("#requestType"),
         $dimension = $("#dimension"),
         $startDate = $("#startDate"),

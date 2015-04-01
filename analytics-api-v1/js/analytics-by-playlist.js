@@ -13,7 +13,7 @@ var BCLS = (function ($, window, Pikaday) {
         params = {},
         videoOptionTemplate = "{{#items}}<option value=\"{{id}}\">{{name}}</option>{{/items}}",
         // aapi stuff
-        proxyURL = "http://solutions.brightcove.com/bcls/bcls-proxy/bcls-proxy.php",
+        proxyURL = "https://solutions.brightcove.com/bcls/bcls-proxy/bcls-proxy.php",
         $serviceURL = $("#serviceURL"),
         account_id,
         $client_secret_display = $("#client_secret_display"),
@@ -63,7 +63,7 @@ var BCLS = (function ($, window, Pikaday) {
         currentVideoIndex = 0,
         failNumber = 0,
         aapiFailNumber = 0,
-        requestData = {},
+        requestOptions = {},
         // functions
         reset,
         bclslog,
@@ -242,27 +242,24 @@ var BCLS = (function ($, window, Pikaday) {
         $required.each(function () {
             $this = $(this);
             if ($this.val === "") {
-                window.alert("You must provide an account ID, and a token or client credentials");
+                window.alert("You must provide client credentials");
                 // stop right here
                 return;
             }
         });
         // reset requestTrimmed to false in case of regenerate request
         requestTrimmed = false;
-        requestURL = "https://analytics.api.brightcove.com/v1";
-        requestURL += "/accounts/" + removeSpaces($accountID.val()) + "/";
+        requestURL = "https://analytics.api.brightcove.com/v1/data";
+        requestURL += "?accounts=" + removeSpaces($accountID.val()) + "/";
         // report dimensions
-        requestURL += "report/";
-        requestURL += "?dimensions=video&";
+        requestURL += "&dimensions=video";
         // add video filter
-        requestURL += "where=video==" + videoIds.join();
+        requestURL += "&where=video==" + videoIds.join();
         // check for player filter
         if ($player.val() !== "") {
-            requestURL += ";player==" + $player.val() + "&";
-        } else {
-            requestURL += "&";
+            requestURL += ";player==" + $player.val();
         }
-        requestURL += "format=" + $format.val() + "&";
+        requestURL += "&format=" + $format.val() + "&";
         // check for time filters
         startDate = from.value;
         if (startDate !== " ") {
@@ -273,13 +270,14 @@ var BCLS = (function ($, window, Pikaday) {
             requestURL += "to=" + endDate + "&";
         }
         // add limit and fields
-        requestURL += "limit=all&fields=all";
+        requestURL += "limit=all&fields=engagement_score,play_rate,video,video_duration,video_engagement_1,video_engagement_100,video_engagement_25,video_engagement_50,video_engagement_75,video_impression,video_name,video_percent_viewed,video_seconds_viewed,video_view";
+        // add format
+        requestURL += "format=" + $format.val();
+
         // strip trailing ? or & and replace &&s
         trimRequest();
         $request.html(requestURL);
-        $authorizationDisplay.html(authorization);
         $request.attr("value", requestURL);
-        $authorization.attr("value", authorization);
         // if getting data initiated, get data
         if (gettingData) {
             getData();
@@ -289,17 +287,21 @@ var BCLS = (function ($, window, Pikaday) {
     getData = function () {
         bclslog("requestURL", requestURL);
         $responseFrame.html("Loading...");
-        requestData.url = requestURL;
-        requestData.client_id = (isDefined($client_id_display.val())) ? $client_id_display.val() : default_client_id;
-        requestData.client_secret = (isDefined($client_secret_display.val())) ? $client_secret_display.val() : default_client_secret;
-        requestData.aapi_token = (isDefined($aapi_token.val())) ? $aapi_token.val() : null;
-        requestData.requestType = "GET";
-        bclslog("requestData", requestData);
+        requestOptions.url = requestURL;
+        requestOptions.client_id = (isDefined($client_id_display.val())) ? $client_id_display.val() : default_client_id;
+        requestOptions.client_secret = (isDefined($client_secret_display.val())) ? $client_secret_display.val() : default_client_secret;
+        requestOptions.requestType = "GET";
+        bclslog("requestOptions", requestOptions);
         $.ajax({
-            url: "http://solutions.brightcove.com:8002",
+            url: proxyURL,
             type: "POST",
-            data: requestData,
+            data: requestOptions,
             success : function(data) {
+                try {
+                   var data = JSON.parse(data);
+                } catch (e) {
+                   alert('invalid json');
+                }
                 $responseFrame.html(BCLSformatJSON.formatJSON(JSON.parse(data)));
             },
             error : function (XMLHttpRequest, textStatus, errorThrown) {

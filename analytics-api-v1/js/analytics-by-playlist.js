@@ -13,10 +13,9 @@ var BCLS = (function ($, window, Pikaday) {
         params = {},
         videoOptionTemplate = "{{#items}}<option value=\"{{id}}\">{{name}}</option>{{/items}}",
         // aapi stuff
+        proxyURL = "http://solutions.brightcove.com/bcls/bcls-proxy/bcls-proxy.php",
         $serviceURL = $("#serviceURL"),
         account_id,
-        aapi_token,
-        $aapi_token = $("#aapi_token"),
         $client_secret_display = $("#client_secret_display"),
         $client_id_display = $("#client_id_display"),
         $client_id = $("#client_id"),
@@ -37,8 +36,6 @@ var BCLS = (function ($, window, Pikaday) {
         $player = $("#player"),
         $requestButton = $("#requestButton"),
         $request = $("#request"),
-        $authorization = $("#authorization"),
-        $authorizationDisplay = $("#authorizationDisplay"),
         $requestForm = $("#requestForm"),
         $aapiParams = $("#aapiParams"),
         $requestSubmitter = $("#requestSubmitter"),
@@ -56,8 +53,6 @@ var BCLS = (function ($, window, Pikaday) {
         authorization = "",
         endDate = "",
         startDate = "",
-        rollupDimensionOptions = "<option value=\"account\">account</option>",
-        reportDimensionOptions = "<option value=\"player\">player</option><option value=\"video\">video</option><option value=\"referrer_domain\">referrer_domain</option><option value=\"source_type\">source_type</option><option value=\"search_terms\">search_terms</option><option value=\"device_type\">device_type</option><option value=\"device_os\">device_os</option>",
         $getPlaylists = $("#getPlaylists"),
         handleBarsTemplate = "<option>Select a Playlist</option>{{#items}}<option value=\"{{id}}\">{{name}}</option>{{/items}}",
         $playlistSelectWrapper = $("#playlistSelectWrapper"),
@@ -71,7 +66,7 @@ var BCLS = (function ($, window, Pikaday) {
         requestData = {},
         // functions
         reset,
-        logit,
+        bclslog,
         firstRun = true,
         onPlaylistSelect,
         onMAPIresponse,
@@ -92,7 +87,7 @@ var BCLS = (function ($, window, Pikaday) {
         nowISO = now.toISOString(),
         fromISO = fromDate.toISOString();
     // utilities
-    logit = function (context, message) {
+    bclslog = function (context, message) {
         if (console) {
             console.log(context, message);
         }
@@ -137,8 +132,8 @@ var BCLS = (function ($, window, Pikaday) {
 	    page_number = 0;
     };
     onMAPIresponse = function(jsonData) {
-        logit("jsonData", jsonData);
-        logit("page_number", page_number);
+        bclslog("jsonData", jsonData);
+        bclslog("page_number", page_number);
         // merge the data into the html template using Handlebars
         var template = Handlebars.compile(handleBarsTemplate),
             data,
@@ -156,7 +151,7 @@ var BCLS = (function ($, window, Pikaday) {
             $playlistSelector.on("change", BCLS.onPlaylistSelect);
             // get total pages
             total_pages = Math.ceil(jsonData.total_count / page_size);
-            // logit("total_pages", total_pages);
+            // bclslog("total_pages", total_pages);
             // turn off firstRun flag
             firstRun = false;
             getPlaylists();
@@ -172,7 +167,7 @@ var BCLS = (function ($, window, Pikaday) {
                     $getPlaylists.html("No more playlists");
                     $getPlaylists.attr("class", "bcls-hidden");
                     dataObj.items = playlistData;
-                    // logit("dataObj", dataObj);
+                    // bclslog("dataObj", dataObj);
                     // populate the playlist selector
                     data = dataObj;
                     result = template(data);
@@ -195,9 +190,9 @@ var BCLS = (function ($, window, Pikaday) {
     onPlaylistSelect = function () {
         var selectedPlaylist = playlistData[(playlistSelector.selectedIndex - 1)];
         videoIds = selectedPlaylist.videoIds;
-        logit("videoIds", videoIds);
+        bclslog("videoIds", videoIds);
         totalVideos = videoIds.length - 1;
-        logit("totalVideos", totalVideos);
+        bclslog("totalVideos", totalVideos);
         // undim param input fields
         $aapiParams.attr("class", "bcls-shown");
         $requestSubmitter.attr("class", "bcls-shown");
@@ -254,7 +249,7 @@ var BCLS = (function ($, window, Pikaday) {
         });
         // reset requestTrimmed to false in case of regenerate request
         requestTrimmed = false;
-        requestURL = "https://data.brightcove.com/analytics-api/videocloud";
+        requestURL = "https://analytics.api.brightcove.com/v1";
         requestURL += "/accounts/" + removeSpaces($accountID.val()) + "/";
         // report dimensions
         requestURL += "report/";
@@ -292,14 +287,14 @@ var BCLS = (function ($, window, Pikaday) {
     };
     // submit request
     getData = function () {
-        logit("requestURL", requestURL);
+        bclslog("requestURL", requestURL);
         $responseFrame.html("Loading...");
         requestData.url = requestURL;
         requestData.client_id = (isDefined($client_id_display.val())) ? $client_id_display.val() : default_client_id;
         requestData.client_secret = (isDefined($client_secret_display.val())) ? $client_secret_display.val() : default_client_secret;
         requestData.aapi_token = (isDefined($aapi_token.val())) ? $aapi_token.val() : null;
         requestData.requestType = "GET";
-        logit("requestData", requestData);
+        bclslog("requestData", requestData);
         $.ajax({
             url: "http://solutions.brightcove.com:8002",
             type: "POST",
@@ -316,7 +311,7 @@ var BCLS = (function ($, window, Pikaday) {
     // get a playlist collection
     getPlaylists = function () {
         // set up the Media API call, using data from the Analytics API call
-        logit("firstRun", firstRun);
+        bclslog("firstRun", firstRun);
         BCMAPI.url = $readApiLocation.val();
         BCMAPI.token = $mapitoken.val();
         BCMAPI.callback = "BCLS.onMAPIresponse";

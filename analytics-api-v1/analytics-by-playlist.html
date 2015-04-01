@@ -42,11 +42,10 @@
 			<!-- main content starts here -->
 			<div class="section" id="top">
 				<h1>Get Analytics for a Playlist</h1>
-				<p class="text-warning">Note: the Analytics API is currently in <strong>Limited Availability</strong>. If you are interested in enabling your account for the beta version of the API, please contact your account manager.</p>
 				<p>This tool allows you to select a playlist from your account and get analytics data for all the videos in the playlist.</p>
 				<h3>Notes</h3>
 				<ul>
-					<li>You must retrieve playlist data and select a playlist before submitting the request to the Analytics API &mdash; if you want to get analytics data for individual videos or players, use the <a href="//solutions.brightcove.com/bcls/analytics-api/aapi-request-builder.html">Analytics Request Builder</a>
+					<li>You must retrieve playlist data and select a playlist before submitting the request to the Analytics API</a>
 					</li>
 					<li>If any of the videos are also published in single video players, or in multiple playlists, you will need to specify the player to get accurate data for a specific playlist</li>
 					<li>The returned data includes the data for individual videos plus cumulative or average values for the playlist</li>
@@ -60,11 +59,7 @@
 				    <legend>Analytics API Options</legend>
 					<p>Video Cloud Account (Publisher ID):</p>
 					<p><input id="accountID" class="required aapi-request" type="text" size="55" value="20318290001">(default: BC Training Videos)</p>
-				    <p>If you participated in the Limited Availability program and received a token for the Analytics API, enter it here:</p>
-				    <p>Token:
-				        <input id="aapi_token" type="text" size="55" value="" />
-				    </p>
-				    <p>Otherwise, enter your client id and client secret:<sup class="red"><a href="#n1">[1]</a></sup>
+				    <p>Enter your client id and client secret:<sup class="red"><a href="#n1">[1]</a></sup>
 				    </p>
 				    <table>
 				        <tbody>
@@ -96,7 +91,7 @@
 				            </tr>
 				        </tbody>
 				    </table>
-				    <p class="text-warning small" id="n1"><sup class="red">[1]</sup>You can get your client id and secret using the <a href="https://sadmin.brightcove.com/oauth_module/v1/">OAuth UI</a> If you leave these blank, values for the Brightcove Training Videos account will be used, so you must not change the Account ID.</p>
+				    <p class="text-warning small" id="n1"><sup class="red">[1]</sup> See <a href="//docs.brightcove.com/en/video-cloud/analytics-api/guides/managing-api-credentials.html">Managing API Credentials</a> for information on getting client credentials.</p>
 				</fieldset>
 				<fieldset>
 					<legend>Media API Options</legend>
@@ -164,9 +159,6 @@
 					<legend>Generated Request</legend>
 					<p>API Request</p>
 					<textarea id="request" name="request" rows="3" cols="100"></textarea>
-					<p>Authorization</p>
-					<div id="authorizationDisplay" class="aapi-request"></div>
-					<input class="aapi-request" id="authorization" name="authorization" type="hidden" value="" />
 				</fieldset>
 				<p> <span class="bcls-button" id="submitButton">Submit Request</span>
 				</p>

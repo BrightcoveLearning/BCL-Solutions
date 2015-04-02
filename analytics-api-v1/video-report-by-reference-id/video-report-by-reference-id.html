@@ -43,7 +43,7 @@
         <!-- main content starts here -->
         <div class="section" id="top">
           <h1>Video Report by Reference ID</h1>
-                <p>This sample allows you to get reports on videos by the video reference ID.</p>
+                <p>This sample allows you to get reports on videos by the video reference ID and return the results in JSON or CSV format.</p>
         </div>
         <h2>Request Options</h2>
         <p>Where no default value is indicated, there is none.</p>
@@ -56,7 +56,7 @@
                             <tr>
                                 <td>Service URL:</td>
                                 <td>
-                                    <input id="serviceURL" class="required aapi-request" readonly="readonly" type="text" size="55" value="https://analytics.api.brightcove.com/v1" />
+                                    <input id="serviceURL" class="required aapi-request" type="text" size="55" value="https://analytics.api.brightcove.com/v1" />
                                 </td>
                             </tr>
                             <tr>
@@ -65,25 +65,21 @@
                                     <input id="accountID" class="required aapi-request" type="text" size="55" value="20318290001"> (default: BC Training Videos)</td>
                             </tr>
                             <tr>
-                                <td class="align-top no-wrap">Client id:
-                                    <sup class="red">*</sup>
-                                </td>
+                                <td class="align-top no-wrap">Client id:</td>
                                 <td>
-                                    <input id="client_id" class="required account" type="text" size="55" value="" />(default: BC Training Videos)
+                                    <input id="client_id" class="required aapi-request" type="text" size="100" value="" />(default: BC Training Videos)
+                                    <p>
+                                </td>
+                            </tr><tr>
+                                <td class="align-top no-wrap">Client secret:</td>
+                                <td>
+                                    <input id="client_secret" class="required aapi-request" type="text" size="100" value="" />(default: BC Training Videos)
+                                    <p>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="align-top no-wrap">Client secret:
-                                    <sup class="red">*</sup>
-                                </td>
-                                <td>
-                                    <input id="client_secret" class="required account" type="text" size="55" value="" />(default: BC Training Videos)
-
-                                </td>
-                            </tr>
+                             <tr>
                         </tbody>
                     </table>
-                    <p class="text-warning small" id="n1"><sup class="red">[1]</sup> See <a href="//docs.brightcove.com/en/video-cloud/analytics-api/guides/managing-api-credentials.html">Managing API Credentials</a> for information on getting client credentials.</p>
                 </div>
             </fieldset>
             <fieldset>
@@ -94,27 +90,16 @@
                             <tr>
                                 <td>From:</td>
                                 <td>Date:
-                                    <input class="aapi-request" id="startDate" type="text" size="30"> Time:
-                                    <input class="aapi-request" id="startTime" type="text" size="40"> (default: 30 days ago)</td>
+                                <input class="date-range" id="from" type="text" size="30">  (default: 30 days ago -- choose the same date for From and To to get a report for that day)</td>
                             </tr>
                             <tr>
                                 <td>To:</td>
                                 <td>Date:
-                                    <input class="aapi-request" id="endDate" type="text" size="30"> Time:
-                                    <input class="aapi-request" id="endTime" type="text" size="40"> (default: now</td>
+                                <input class="date-range" id="to" type="text" size="30"> (default: now)</td>
                             </tr>
                             <tr>
-                                <td>Reference id (enter one or more reference ids separated by spaces):</td>
-                                <td>
-                                    <input class="aapi-request" id="reference_id" type="text" size="60">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Format:</td>
-                                <td><select name="format_json" id="">
-                                    <option selected="selected" value="json">json</option>
-                                    <option value="csv">csv</option>
-                                </select></td>
+                                <td>Reference ids (add one or more reference ids separated by commas - default: <code>Gallery 1, Gallery 2, Gallery 3</code>):</td>
+                                <td><input class="aapi-request" id="reference_id" type="text" size="70"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -137,37 +122,36 @@
                 <p>
                     <span class="bcls-button" id="selectData">Select the Data to Copy</span>
                 </p>
-            <textarea id="responseFrame" rows="20"></textarea>
+<pre><code id="responseFrame"></code></pre>
         </div>
     </div>
 </div>
-        <!-- scripts -->
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- scripts -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.3/fastclick.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js"></script>
-        <!-- migrate plugin to enable any+time to work -->
+    <!-- migrate plugin to enable any+time to work -->
 
-        <!-- any+time data/time picker -->
-        <script src="//docs.brightcove.com/en/scripts/anytime.5.0.0-1401232312.min.js"></script>
-        <link href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css" rel="stylesheet" type="text/css" />
+    <!-- any+time data/time picker -->
+    <script type="text/javascript" src="//docs.brightcove.com/en/scripts/pikaday.min.js"></script>
 
-        <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
-        <script src="//docs.brightcove.com/en/scripts/bc-mapi.js"></script>
-        <!-- homegrown utility to format json -->
-        <script src="//docs.brightcove.com/en/scripts/format_json.js"></script>
-        <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
-        <script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
-        <script src="/bcls/analytics-api/video-report-by-reference-id/video-report-by-reference-id.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script src="//docs.brightcove.com/en/scripts/bc-mapi.js"></script>
+    <!-- homegrown utility to format json -->
+    <script src="//docs.brightcove.com/en/scripts/format_json.js"></script>
+    <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
+    <script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
+    <script src="./video-report-by-reference-id.js"></script>
+    <div class="footer text-center"><a id="feedbackMail" href="mailto:docs@brightcove.com">Questions or comments?</a></div>
+    <script>
+    var feedbackMail = document.getElementById("feedbackMail");
+    feedbackMail.setAttribute("href", "mailto:docs@brightcove.com?subject=question regarding " + encodeURI(document.location.href));
+    </script>
     <script>
         $(document).foundation();
     </script>
-        <div class="footer text-center"><a id="feedbackMail" href="mailto:docs@brightcove.com">Questions or comments?</a></div>
-    <script>
-	var feedbackMail = document.getElementById("feedbackMail");
-	feedbackMail.setAttribute("href", "mailto:docs@brightcove.com?subject=question regarding " + encodeURI(document.location.href));
-	</script>
 	</body>
 
 </html>

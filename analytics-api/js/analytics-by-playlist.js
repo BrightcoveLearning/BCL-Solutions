@@ -53,7 +53,6 @@ var BCLS = (function ($, window, Pikaday) {
         requestTrimmed = false,
         lastChar = "",
         requestURL = "",
-        authorization = "",
         endDate = "",
         startDate = "",
         rollupDimensionOptions = "<option value=\"account\">account</option>",

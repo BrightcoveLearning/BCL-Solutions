@@ -3,7 +3,8 @@ var BCLS = (function ($, window, AnyTime, BCMAPI, Handlebars, BCLSformatJSON) {
     var // aapi stuff
         $serviceURL = $("#serviceURL"),
         $accountID = $("#accountID"),
-        $client_id = $("#token"),
+        $client_id = $("#client_id"),
+        $client_secret = $("#client_secret"),
         $requestType = $("#requestType"),
         $dimension = $("#dimension"),
         $startDate = $("#startDate"),
@@ -11,12 +12,7 @@ var BCLS = (function ($, window, AnyTime, BCMAPI, Handlebars, BCLSformatJSON) {
         $endDate = $("#endDate"),
         $endTime = $("#endTime"),
         $whereInputs = $(".where-input"),
-        $limit = $("#limit"),
-        $limitText = $("#limitText"),
-        $offset = $("#offset"),
-        $offsetText = $("#offsetText"),
-        $sort = $("#sort"),
-        $fields = $("#fields"),
+        $reference_id = $("#reference_id")
         $request = $("#request"),
         $authorization = $("#authorization"),
         $authorizationDisplay = $("#authorizationDisplay"),
@@ -38,46 +34,6 @@ var BCLS = (function ($, window, AnyTime, BCMAPI, Handlebars, BCLSformatJSON) {
         startDate = "",
         i,
         len,
-        // options for different report types
-        rollupDimensionOptions = "<option value=\"account\">account</option>",
-        reportDimensionOptions = "<option value=\"account\">account</option><option value=\"player\">player</option><option value=\"referrer_domain\">referrer_domain</option><option value=\"source_type\">source_type</option><option value=\"search_terms\">search_terms</option><option value=\"device_type\">device_type</option><option value=\"device_os\">device_os</option>",
-        rollupFormatOptions = "<option value=\"json\">json</option>",
-        reportFormatOptions = "<option value=\"json\">json</option><option value=\"cvs\">cvs</option><option value=\"xlsx\">xlxs</option>",
-        // fields for different dimensions
-        baseFields = "<option value=\"engagement_score\">engagement_score</option><option value=\"play_rate\">play_rate</option><option value=\"video_impression\">video_impression</option><option value=\"video_view\">video_view</option><option value=\"video_percent_viewed\">video_percent_viewed</option><option value=\"video_seconds_viewed\">video_seconds_viewed</option>",
-        accountFields = baseFields + "<option value=\"account\">account</option><option value=\"active_media\">active_media</option><option value=\"bytes_delivered\">bytes_delivered</option><option value=\"bytes_in\">bytes_in</option><option value=\"bytes_out\">bytes_out</option><option value=\"bytes_overhead\">bytes_overhead</option><option value=\"bytes_player\">bytes_player</option><option value=\"bytes_player\">bytes_player</option><option value=\"play_rate\">play_rate</option><option value=\"video_engagement_1\">video_engagement_1</option><option value=\"video_engagement_25\">video_engagement_25</option><option value=\"video_engagement_50\">video_engagement_50</option><option value=\"video_engagement_75\">video_engagement_75</option><option value=\"video_engagement_100\">video_engagement_100</option>",
-        videoFields = baseFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option><option value=\"video_duration\">video_duration</option><option value=\"video_engagement\">video_engagement</option>i<option value=\"video_engagement_1\">video_engagement_1</option><option value=\"video_engagement_25\">video_engagement_25</option><option value=\"video_engagement_50\">video_engagement_50</option><option value=\"video_engagement_75\">video_engagement_75</option><option value=\"video_engagement_100\">video_engagement_100</option>",
-        playerFields = baseFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option><option value=\"player_load\">player_load</option><option value=\"video_engagement\">video_engagement</option>",
-        dayFields = baseFields + "<option value=\"active_media\">active_media</option><option value=\"bytes_delivered\">bytes_delivered</option><option value=\"bytes_in\">bytes_in</option><option value=\"bytes_out\">bytes_out</option><option value=\"bytes_overhead\">bytes_overhead</option><option value=\"bytes_player\">bytes_player</option><option value=\"bytes_stored\">bytes_stored</option><option value=\"day\">day</option><option value=\"player_load\">player_load</option><option value=\"video_engagement\">video_engagement</option>",
-        referrer_domainFields = baseFields + "<option value=\"player_load\">player_load</option><option value=\"referrer_domain\">referrer_domain</option>",
-        source_typeFields = baseFields + "<option value=\"player_load\">player_load</option><option value=\"source_type\">source_type</option>",
-        search_termsFields = baseFields + "<option value=\"player_load\">player_load</option><option value=\"search_terms\">search_terms</option>",
-        device_typeFields = baseFields + "<option value=\"player_load\">player_load</option><option value=\"device_type\">device_type</option>",
-        device_osFields = baseFields + "<option value=\"player_load\">player_load</option><option value=\"device_os\">device_os</option>",
-        accountVideoFields = videoFields + "<option value=\"account\">account</option>",
-        playerVideoFields = videoFields + "<option value=\"player\">player</option><option value=\"player_name\">player_name</option>",
-        referrer_domainSource_typeFields = referrer_domainFields + "<option value=\"source_type\">source_type</option>",
-        referrer_domainSearch_termsFields = referrer_domainFields + "<option value=\"search_terms\">search_terms</option>",
-        source_typeSearch_termsFields = source_typeFields + "<option value=\"search_terms\">search_terms</option>",
-        device_typeDevice_osFields = device_typeFields + "<option value=\"device_os\">device_os</option>",
-        videoReferrer_domainFields = referrer_domainFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
-        videoSource_typeFields = source_typeFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
-        videoSearch_termsFields = search_termsFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
-        videoDevice_typeFields = device_typeFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
-        videoDevice_osFields = device_osFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
-        accountPlayerVideoFields = playerVideoFields + "<option value=\"account\">account</option>",
-        accountVideoReferrer_domainFields = videoReferrer_domainFields + "<option value=\"account\">account</option>",
-        accountVideoSource_typeFields = videoSource_typeFields + "<option value=\"account\">account</option>",
-        accountVideoSearch_termsFields = videoSearch_termsFields + "<option value=\"account\">account</option>",
-        videoReferrer_domainSource_typeFields = referrer_domainSource_typeFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
-        videoReferrer_domainSearch_termsFields = referrer_domainSearch_termsFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
-        videoSource_typeSearch_termsFields = source_typeSearch_termsFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
-        videoDevice_typeDevice_osFields = device_typeDevice_osFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
-        accountVideoReferrer_domainSource_typeFields = accountVideoReferrer_domainFields + "<option value=\"source_type\">source_type</option>",
-        accountVideoReferrer_domainSearch_termsFields = accountVideoReferrer_domainFields + "<option value=\"search_terms\">search_terms</option>",
-        accountVideoSource_typeSearch_termsFields = accountVideoSource_typeFields + "<option value=\"search_terms\">search_terms</option>",
-        videoReferrer_domainSource_typeSearch_termsFields = videoReferrer_domainSource_typeFields + "<option value=\"search_terms\">search_terms</option>",
-        accountVideoReferrer_domainSource_typeSearch_termsFields = accountVideoReferrer_domainSource_typeFields + "<option value=\"video\">video</option><option value=\"video_name\">video_name</option>",
         // functions to be defined
         getVideos,
         getSelectedVideoAnalytics,
@@ -131,40 +87,6 @@ var BCLS = (function ($, window, AnyTime, BCMAPI, Handlebars, BCLSformatJSON) {
             return true;
         } else { return false; }
     };
-    // get videos via MAPI
-    getVideos = function () {
-        BCMAPI.url = $readApiLocation.val();
-        BCMAPI.callback = "BCLS.onGetVideos";
-        BCMAPI.token = $mapitoken.val();
-        params.page_number = pageNumber;
-        params.page_size = 100;
-        params.sort_by = $sortBy.val() + ":" + $sortOrder.val();
-        params.video_fields = "id,name,referenceId";
-        params.get_item_count = true;
-        BCMAPI.search(params);
-
-    };
-    // handler for MAPI call
-    onGetVideos = function (JSONdata) {
-        var template, result, i, itemsMax, item;
-        videoData.items = videoData.items.concat(JSONdata.items);
-        if (videoData.items.length < JSONdata.total_count) {
-            pageNumber++;
-            getVideos();
-        } else {
-            itemsMax = videoData.items.length;
-            for (i = 0; i < itemsMax; i++) {
-                item = videoData.items[i];
-                referenceIdLookup[item.id] = item.referenceId;
-            }
-            $limitText.val(itemsMax);
-            template = Handlebars.compile(videoOptionTemplate);
-            result = template(videoData);
-            $videoSelector.html(result);
-            buildRequest();
-        }
-
-    };
     removeSpaces = function (str) {
         if (isDefined(str)) {
             str = str.replace(/\s+/g, "");
@@ -197,7 +119,7 @@ var BCLS = (function ($, window, AnyTime, BCMAPI, Handlebars, BCLSformatJSON) {
         $required.each(function () {
             $this = $(this);
             if ($this.val === "") {
-                window.alert("You must provide a service URL, account ID, and a token");
+                window.alert("You must provide client credentials");
                 // stop right here
                 return;
             }
@@ -205,25 +127,21 @@ var BCLS = (function ($, window, AnyTime, BCMAPI, Handlebars, BCLSformatJSON) {
         // reset requestTrimmed to false in case of regenerate request
         requestTrimmed = false;
         // build the request
-        authorization = "Bearer " + removeSpaces($token.val());
         requestURL = $serviceURL.val();
-        requestURL += "/accounts/" + removeSpaces($accountID.val()) + "/report/?dimensions=video";
-        if (isDefined($dimension.val())) {
-            requestURL += "," + $dimension.val() + "&";
-        } else {
-            requestURL += "&";
-        }
+        requestURL += "/data?accounts=" + removeSpaces($accountID.val()) + "dimensions=video";
         // check for time filters
         startDate = $startDate.val() + " " + $startTime.val();
         if (startDate !== " ") {
             startDate = new Date(startDate).getTime();
-            requestURL += "from=" + startDate + "&";
+            requestURL += "&from=" + startDate ;
         }
         endDate = $endDate.val() + " " + $endTime.val();
         if (endDate !== " ") {
             endDate = new Date(endDate).getTime();
-            requestURL += "to=" + endDate + "&";
+            requestURL += "&to=" + endDate;
         }
+        // add fields and limit
+        requestURL += "&limit=all&fields=engagement_score,play_rate,video,video_duration,video_engagement_1,video_engagement_100,video_engagement_25,video_engagement_50,video_engagement_75,video_impression,video_name,video_percent_viewed,video_seconds_viewed,video_view,video.reference_id";
         // check for where filters
         $whereInputs.each(function () {
             var dimension;

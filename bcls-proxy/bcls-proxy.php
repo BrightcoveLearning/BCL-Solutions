@@ -93,5 +93,6 @@ if ($response === FALSE) {
 
 // Decode the response
 $responseData = json_decode($response, TRUE);
+// return the response to the AJAX caller
 echo $response;
 ?>

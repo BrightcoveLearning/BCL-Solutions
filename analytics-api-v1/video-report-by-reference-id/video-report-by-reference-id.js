@@ -103,6 +103,7 @@ var BCLS = (function ($, window, Pikaday, BCLSformatJSON) {
         $responseFrame.html("Loading...");
         $.ajax({
             url: proxyURL,
+            type: "POST",
             data: options,
             success : function (data) {
                 try {

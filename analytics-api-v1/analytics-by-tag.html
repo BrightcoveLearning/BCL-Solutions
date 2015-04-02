@@ -13,7 +13,8 @@
         <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/anytime.5.0.0-1401232312.min.css">
+        <!-- for date picker -->
+    <link href="//docs.brightcove.com/en/styles/pikaday.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="/bcls/analytics-api/css/aapi-request-builder.css">
         <style type="text/css">
             #top {
@@ -42,8 +43,8 @@
         <div class="large-12 large-centered small-12 small-centered">
         <!-- main content starts here -->
         <div class="section" id="top">
-          <h1>Video Report by Reference ID</h1>
-                <p>This sample allows you to get reports on videos by the video reference ID and return the results in JSON or CSV format.</p>
+          <h1>Video Report by Tags</h1>
+                <p>This sample allows you to get reports on videos by the tags and return the results in JSON or CSV format.</p>
         </div>
         <h2>Request Options</h2>
         <p>Where no default value is indicated, there is none.</p>
@@ -98,8 +99,8 @@
                                 <input class="date-range" id="to" type="text" size="30"> (default: now)</td>
                             </tr>
                             <tr>
-                                <td>Reference ids (add one or more reference ids separated by commas - default: <code>Gallery 1, Gallery 2, Gallery 3</code>):</td>
-                                <td><input class="aapi-request" id="tag" type="text" size="70"></td>
+                                <td>Reference ids (add one or more reference ids separated by commas - default: <code>analytics essentials, training on demand/code>):</td>
+                                <td><input class="aapi-request" id="tags" type="text" size="70"></td>
                             </tr>
                         </tbody>
                     </table>

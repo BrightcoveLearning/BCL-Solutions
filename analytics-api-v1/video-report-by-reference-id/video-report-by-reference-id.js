@@ -5,9 +5,9 @@ var BCLS = (function ($, window, Pikaday, BCLSformatJSON) {
         $accountID = $("#accountID"),
         accountID = "20318290001",
         $client_id = $("#client_id"),
-        client_id = "5746d707-db97-42b2-b4f0-3db890429ef0",
+        client_id = "742d6440-58d1-49ed-b2fb-f60d33bf02ae",
         $client_secret = $("#client_secret"),
-        client_secret = "JBdg3PLg0NarokKjIihxa_05i-YVyvhICWlQ5NXMSlUX9H9tzYqQ8FE-4mMfhAWOMs0KxUHyUN3anzkZSr3Bvg",
+        client_secret = "xs3vuzzKPz5fWHInsON26SXOL54X1GObFW70KylVqdVuIHdkqwqlCs9yVSCRF3i5u_0NcNb7MrzntCLaveZmeQ",
         $requestType = $("#requestType"),
         fromPicker,
         toPicker,
@@ -71,8 +71,6 @@ var BCLS = (function ($, window, Pikaday, BCLSformatJSON) {
     buildRequest = function () {
         var account_id = (isDefined($accountID.val())) ? $accountID.val() : accountID;
         reference_id = (isDefined($reference_id.val())) ? $reference_id.val() : reference_id;
-        // reset where to false in case this is a new request
-        where = false;
         // build the request
         requestURL = $serviceURL.val();
         requestURL += "/data?accounts=" + account_id + "&dimensions=video";
@@ -88,7 +86,7 @@ var BCLS = (function ($, window, Pikaday, BCLSformatJSON) {
         // add limit and fields
         requestURL += "&limit=all&fields=engagement_score,play_rate,video,video_duration,video_engagement_1,video_engagement_100,video_engagement_25,video_engagement_50,video_engagement_75,video_impression,video_name,video_percent_viewed,video_seconds_viewed,video_view,video.reference_id";
         // add ref id filter
-        requestURL += "&where=video.q==refernce_id:" + removeSpaces(reference_id);
+        requestURL += "&where=video.q==reference_id:" + removeSpaces(reference_id);
         $request.html(requestURL);
         $request.attr("value", requestURL);
     };
@@ -105,9 +103,7 @@ var BCLS = (function ($, window, Pikaday, BCLSformatJSON) {
         $responseFrame.html("Loading...");
         $.ajax({
             url: proxyURL,
-            headers: {
-                Authorization : $authorization.attr("value")
-            },
+            data: options,
             success : function (data) {
                 try {
                    var data = JSON.parse(data);

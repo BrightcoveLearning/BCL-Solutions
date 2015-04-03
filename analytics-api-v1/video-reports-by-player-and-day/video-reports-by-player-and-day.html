@@ -68,12 +68,22 @@
                                     <td>Video Cloud Account (Publisher ID):</td>
                                     <td><input id="accountID" class="required aapi-request" type="text" size="55" value="20318290001"> (default: BC Training Videos)</td>
                                 </tr>
-                                <tr>
-                                    <td class="align-top no-wrap">Authorization Token:<sup class="red">*</sup></td>
-                                    <td><input id="token" class="required aapi-request" type="text" size="55" value="15075c51ae4b0af095c9a619a" /> (default: BC Training Videos)<p><sup class="red">*</sup>If your account has been enabled for the Analytics API, this token was emailed to the account administrator when you joined the <strong>limited availability</strong> program.</p></td>
+                                    <tr>
+                                    <td class="align-top no-wrap">Client id:</td>
+                                    <td>
+                                        <input id="client_id" class="required aapi-request" type="text" size="100" value="" />(default: BC Training Videos)
+                                        <p>
+                                    </td>
+                                </tr><tr>
+                                    <td class="align-top no-wrap">Client secret:</td>
+                                    <td>
+                                        <input id="client_secret" class="required aapi-request" type="text" size="100" value="" />(default: BC Training Videos)
+                                        <p>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
+                    <p class="text-warning small" id="n1"><sup class="red">[1]</sup> See <a href="//docs.brightcove.com/en/video-cloud/analytics-api/guides/managing-api-credentials.html">Managing API Credentials</a> for information on getting client credentials.</p>
                     </div>
                 </fieldset>
                 <fieldset>
@@ -140,18 +150,17 @@
     <script type="text/javascript" src="/bcls/scripts/datepickr_2/datepickr.min.js"></script>
     <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
     <script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
-    <script>
-        $(document).foundation();
-    </script>
     <script id="pageScript" type="text/javascript">
         var BCLS = (function () {
             var callNumber = 0,
                 accountID = document.getElementById("accountID"),
-                token = document.getElementById("token"),
+                client_id = document.getElementById("client_id"),
+                client_secret = document.getElementById("client_secret"),
                 dateSelector = document.getElementById("dateSelector"),
                 playerSelector = document.getElementById("playerSelector"),
                 videoSelector = document.getElementById("videoSelector"),
                 reportTableBody = document.getElementById("reportTableBody"),
+                proxyURL = "https://solutions.brightcove.com/bcls/bcls-proxy/bcls-proxy.php",
                 currentPlayerIndex = 0,
                 currentVideoIndex = 0,
                 currentDayIndex = 0,
@@ -182,6 +191,14 @@
                 playerSelectTemplate = "{{#items}}<option value=\"{{player}}\">{{player_name}}</options>{{/items}}",
                 videoSelectTemplate = "{{#items}}<option value=\"{{video}}\">{{video_name}}</options>{{/items}}",
                 callType,
+                  // more robust test for strings "not defined"
+                isDefined = function(v) {
+                    if (v !== "" && v !== null && v !== "undefined" && v !== undefined) {
+                      return true;
+                    } else {
+                      return false;
+                    }
+                },
                 getMonthName = function (month) {
                     var name;
                     switch (month) {
@@ -278,13 +295,24 @@
                     }
                 },
                 makeAnalyticsCall = function (callURL) {
+                    var options = {};
+                    options.client_id = (isDefined(client_id.value)) ? client_id.value : "742d6440-58d1-49ed-b2fb-f60d33bf02ae";
+                    options.client_secret = (isDefined(client_secret.value)) ? client_secret.value : "xs3vuzzKPz5fWHInsON26SXOL54X1GObFW70KylVqdVuIHdkqwqlCs9yVSCRF3i5u_0NcNb7MrzntCLaveZmeQ";
+                    options.url = callURL;
+                    options.requestMethod = "GET";
+                    options.requestData = null;
+
                     $.ajax({
-                    url: callURL,
-                    headers: {
-                        Authorization : "Bearer " + token.value
-                    },
+                    url: proxyURL,
+                    type: "POST",
+                    data: options,
                     success : function (data) {
                         var template, results, i, j, k, player, video, itemsmax, analytics, item, newItem = {}, thisVideo;
+                        try {
+                          var data = JSON.parse(data);
+                        } catch (e) {
+                          alert('invalid json');
+                        }
                         switch (callType) {
                             case "players":
                                 callNumber++;
@@ -369,30 +397,33 @@
                 },
                 // get the analytics data for the videos
                 getAnalyticsData = function () {
-                    var callURL;
+                    var callURL,
+                    account_id = (isDefined(accountID.value)) ? accountID.value : "20318290001";
                     gettingDataDisplay.innerHTML = "Getting analytics data...";
                     callType = "analytics";
                     currentPlayer = playerData.items[currentPlayerIndex].player;
                     // currentVideo = videoData.items[currentVideoIndex].video;
                     currentDay = daysArray[currentDayIndex];
-                    callURL = "https://data.brightcove.com/analytics-api/videocloud/accounts/" + accountID.value + "/report/?dimensions=video&from=" + currentDay.from + "&to=" + currentDay.to + "&where=player==" + currentPlayer + "&fields=video_view,video_seconds_viewed,video,video_engagement_100";
+                    callURL = "https://analytics.api.brightcove.com/v1/data?accounts=" + account_id + "&dimensions=video&from=" + currentDay.from + "&to=" + currentDay.to + "&where=player==" + currentPlayer + "&fields=video_view,video_seconds_viewed,video,video_engagement_100";
                     makeAnalyticsCall(callURL);
 
                 },
                 // get the video analytics data
                 getVideoData = function () {
                     var callURL = "";
+                    account_id = (isDefined(accountID.value)) ? accountID.value : "20318290001",
                     gettingDataDisplay.innerHTML = "Getting video data...";
                     callType = "videos";
-                    callURL = "https://data.brightcove.com/analytics-api/videocloud/accounts/" + accountID.value + "/report/?dimensions=video&limit=200&fields=video,video_name&sort=video_view&from=" + dateFromMS + "&to=" + dateToMS;
+                    callURL = "https://analytics.api.brightcove.com/v1/data?accounts=" + account_id + "&dimensions=video&limit=200&fields=video,video_name&sort=video_view&from=" + dateFromMS + "&to=" + dateToMS;
                     makeAnalyticsCall(callURL);
                 },
                 // get all players for the selected time period
                 getPlayersData = function () {
                     var callURL = "";
+                    account_id = (isDefined(accountID.value)) ? accountID.value : "20318290001",
                     gettingDataDisplay.innerHTML = "Getting player data...";
                     callType = "players";
-                    callURL = "https://data.brightcove.com/analytics-api/videocloud/accounts/" + accountID.value + "/report/?dimensions=player&limit=100&fields=player,player_name&sort=video_view&from=" + dateFromMS + "&to=" + dateToMS;
+                    callURL = "https://analytics.api.brightcove.com/v1/data?accounts=" + account_id + "&dimensions=player&limit=100&fields=player,player_name&sort=video_view&from=" + dateFromMS + "&to=" + dateToMS;
                     makeAnalyticsCall(callURL);
                 };
             // add date pickers to the date input fields
@@ -435,6 +466,9 @@
 	var feedbackMail = document.getElementById("feedbackMail");
 	feedbackMail.setAttribute("href", "mailto:docs@brightcove.com?subject=question regarding " + encodeURI(document.location.href));
 	</script>
+    <script>
+        $(document).foundation();
+    </script>
 	</body>
 
 </html>

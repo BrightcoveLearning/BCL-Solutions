@@ -44,7 +44,6 @@
           <h1>Identifying Low-Performing Content</h1>
                 <p>This sample uses the Media API and the Analytics API together to compile a list of videos with less than five views over the past 1-6 months (you can specify the period). The output includes the creation date for the video, and you can exclude videos published within the last 1-12 months if you like. The results can be returned in JSON or CSV format.</p>
         </div>
-        <p class="text-warning">Note: the Analytics API is currently in <strong>Limited Availability</strong>. If you are interested in enabling your account for the beta version of the API, please contact your account manager.</p>
         <h2>Request Options</h2>
         <p>Where no default value is indicated, there is none.</p>
         <div id="inputFields" class="input-fields">
@@ -56,7 +55,7 @@
                             <tr>
                                 <td>Service URL:</td>
                                 <td>
-                                    <input id="serviceURL" class="required aapi-request" type="text" size="55" value="https://data.brightcove.com/analytics-api/videocloud" />
+                                    <input id="serviceURL" class="required aapi-request" type="text" size="55" value="https://analytics.api.brightcove.com/v1" />
                                 </td>
                             </tr>
                             <tr>
@@ -65,13 +64,16 @@
                                     <input id="accountID" class="required aapi-request" type="text" size="55" value="20318290001"> (default: BC Training Videos)</td>
                             </tr>
                             <tr>
-                                <td class="align-top no-wrap">Authorization Token:
-                                    <sup class="red">*</sup>
-                                </td>
+                                <td class="align-top no-wrap">Client id:</td>
                                 <td>
-                                    <input id="token" class="required aapi-request" type="text" size="55" value="15075c51ae4b0af095c9a619a" /> (default: BC Training Videos)
-                                    <p class="small">
-                                        <sup class="red">*</sup>If your account has been enabled for the Analytics API, this token was emailed to the account administrator when you joined the <strong>limited availability</strong> program.</p>
+                                    <input id="client_id" class="required aapi-request" type="text" size="100" value="" />(default: BC Training Videos)
+                                    <p>
+                                </td>
+                            </tr><tr>
+                                <td class="align-top no-wrap">Client secret:</td>
+                                <td>
+                                    <input id="client_secret" class="required aapi-request" type="text" size="100" value="" />(default: BC Training Videos)
+                                    <p>
                                 </td>
                             </tr>
                              <tr>
@@ -91,6 +93,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    <p class="text-warning small" id="n1"><sup class="red">[1]</sup> See <a href="//docs.brightcove.com/en/video-cloud/analytics-api/guides/managing-api-credentials.html">Managing API Credentials</a> for information on getting client credentials.</p>
                 </div>
             </fieldset>
             <fieldset>
@@ -205,10 +208,10 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.3/fastclick.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js"></script>
         <!-- migrate plugin to enable any+time to work -->
-        
+
         <!-- any+time data/time picker -->
         <link href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css" rel="stylesheet" type="text/css" />
-        
+
         <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
         <script src="//docs.brightcove.com/en/scripts/bc-mapi.js"></script>

@@ -322,9 +322,9 @@
                     success : function (data) {
                         var template, results, i, j, k, player, video, itemsmax, analytics, item, newItem = {}, thisVideo;
                         try {
-                          var data = JSON.parse(data);
+                            var data = JSON.parse(data);
                         } catch (e) {
-                          alert('invalid json');
+                            alert('invalid json');
                         }
                         switch (callType) {
                             case "players":
@@ -339,7 +339,7 @@
                                     playerData.items[i].player_name = (isDefined(playerData.items[i].player_name)) ? playerData.items[i].player_name : "noPlayerName";
                                     if (isDefined(playerData.items[i].player)) {
                                         analyticsData[playerData.items[i].player] = {};
-                                        analyticsData[playerData.items[i].player].player_name = (isDefined(playerData.items[i].player_name)) ? playerData.items[i].player_name : "name undefined";
+                                        analyticsData[playerData.items[i].player].player_name = playerData.items[i].player_name;
                                     analyticsData[playerData.items[i].player].items = [];
                                     }
                                 }

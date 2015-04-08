@@ -66,10 +66,10 @@ if ($_POST["requestType"]) {
 // get the URL and authorization info from the form data
 $request = $_POST["url"];
 // add headers
-$headers = array(
-	1=> "Authorization: Bearer {$access_token}",
-	2=> "Content-type: application/json",
-);
+// $headers = array(
+// 	1=> "Authorization: Bearer {$access_token}",
+// 	2=> "Content-type: application/json",
+// );
 
 //send the http request
 $ch = curl_init($request);
@@ -92,7 +92,7 @@ if ($response === FALSE) {
 }
 
 // Decode the response
-$responseData = json_decode($response, TRUE);
+// $responseData = json_decode($response, TRUE);
 // return the response to the AJAX caller
 echo $response;
 ?>

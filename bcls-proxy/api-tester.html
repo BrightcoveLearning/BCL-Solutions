@@ -248,6 +248,8 @@ $.ajax({
 				data: options,
 				success : function (data) {
 					$ajax_response.html("<p>The proxy sent this data back - now I can do whatever I want with it</p>" + data);
+					$ajax_response.html("<p>The proxy sent this data back - now I can do whatever I want with it</p>" + JSON.stringify(JSON.parse(data),false, "  "));
+
 				},
 				error : function (XMLHttpRequest, textStatus, errorThrown) {
 					$ajax_response.html("Sorry, your request was not successful. Here is what the server sent back: " + errorThrown + "<br>" + textStatus);

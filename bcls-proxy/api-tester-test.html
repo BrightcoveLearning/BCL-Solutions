@@ -243,12 +243,12 @@ $.ajax({
 			options.requestType = $ajax_requestType.val();
 			options.url = $ajax_url.val();
 			$.ajax({
-				url: "https://solutions.brightcove.com/bcls/bcls-proxy/bcls-proxy.php",
+				url: "https://solutions.brightcove.com/bcls/bcls-proxy/bcls-proxy-test.php",
 				type: "POST",
 				data: options,
 				success : function (data) {
-					$ajax_response.html("<p>The proxy sent this data back - now I can do whatever I want with it</p>" + data);
-					$ajax_response.html("<p>The proxy sent this data back - now I can do whatever I want with it</p>" + JSON.stringify(JSON.parse(data),false, "  "));
+					$ajax_response.html(data);
+					//$ajax_response.html("<p>The proxy sent this data back - now I can do whatever I want with it</p>" + JSON.stringify(JSON.parse(data),false, "  "));
 
 				},
 				error : function (XMLHttpRequest, textStatus, errorThrown) {

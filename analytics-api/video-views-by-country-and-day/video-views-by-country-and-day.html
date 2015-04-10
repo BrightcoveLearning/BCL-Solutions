@@ -68,11 +68,22 @@
                                     <td><input id="accountID" class="required aapi-request" type="text" size="55" value="20318290001"> (default: BC Training Videos)</td>
                                 </tr>
                                 <tr>
-                                    <td class="align-top no-wrap">Authorization Token:<sup class="red">*</sup></td>
-                                    <td><input id="token" class="required aapi-request" type="text" size="55" value="15075c51ae4b0af095c9a619a" /> (default: BC Training Videos)<p><sup class="red">*</sup>If your account has been enabled for the Analytics API, this token was emailed to the account administrator when you joined the <strong>limited availability</strong> program.</p></td>
+                                    <td class="align-top no-wrap">Client id:</td>
+                                    <td>
+                                        <input id="client_id" class="required aapi-request" type="text" size="100" value="" />(default: BC Training Videos)
+                                        <p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="align-top no-wrap">Client secret:</td>
+                                    <td>
+                                        <input id="client_secret" class="required aapi-request" type="text" size="100" value="" />(default: BC Training Videos)
+                                        <p>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
+                    <p class="text-warning small" id="n1"><sup class="red">[1]</sup> See <a href="//docs.brightcove.com/en/video-cloud/analytics-api/guides/managing-api-credentials.html">Managing API Credentials</a> for information on getting client credentials.</p>
                     </div>
                 </fieldset>
                 <fieldset>
@@ -96,7 +107,7 @@
                 <p>
                     Date: <select id="dateSelector">
                         <option value="all" selected="selected">All</option>
-                    </select> 
+                    </select>
                     Country: <select id="countrySelector">
                             <option value="all" selected="selected">All</option>
                         </select>
@@ -124,7 +135,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.3/fastclick.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js"></script>
     <link href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css" rel="stylesheet" type="text/css" />
-    
+
     <!-- handlebars used to merge data with HTML strings -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
@@ -139,16 +150,19 @@
         $(document).foundation();
     </script>
     <script id="pageScript" type="text/javascript">
-var BCLS = (function () {
+var BCLS = (function ($, window, document, datepickr) {
     "use strict";
-    var callNumber = 0,
+    var proxyURL = "https://solutions.brightcove.com/bcls/bcls-proxy/bcls-proxy.php",
+        callNumber = 0,
         callType = "",
         // call limit will be reset once we know how many countries have data for the period
         callLimit = 200,
         accountID = document.getElementById("accountID"),
-        token = document.getElementById("token"),
+        client_id = document.getElementById("client_id"),
+        client_secret = document.getElementById("client_secret"),
         dateSelector = document.getElementById("dateSelector"),
         reportTableBody = document.getElementById("reportTableBody"),
+        account_id,
         currentDayIndex = 0,
         currentDay,
         dayMax,
@@ -168,7 +182,35 @@ var BCLS = (function () {
         countryDisplayTemplate = "{{#items}}<option value=\"{{country}}\">{{country_name}}</option>{{/items}}",
         dateDisplayTemplate = "{{#items}}<option value=\"{{date}}\">{{date}}</option>{{/items}}",
         dataDisplayBodyTemplate = "<tr><th colspan=\"2\">{{date}}</th></tr>{{#items}}<tr><td>{{country_name}}</td><td>{{video_view}}</td></tr>{{/items}}",
-        // return iso date for JS date
+        /**
+         * tests for all the ways a variable might be undefined or not have a value
+         * @param {*} x the variable to test
+         * @return {Boolean} true if variable is defined and has a value
+         */
+        isDefined = function(x){
+            if( x !== "" && x !== null && x !== undefined && x !== NaN && x !== {} && x !== []){
+                return true;
+            } else{
+                return false;
+            }
+        },
+        /**
+         * Logging function - safe for IE
+         * @param  {string} context description of the data
+         * @param  {*} message the data to be logged by the console
+         * @return {}
+         */
+        bclslog = function (context, message) {
+            if (window["console"] && console["log"]) {
+              console.log(context, message);
+            };
+            return;
+        },
+        /**
+         * function that returns iso date for JS date object
+         * @param {date} date the date object
+         * @return {string} iso date string
+         */
         dateToISO = function (date) {
             var y = date.getFullYear(),
                 m = date.getMonth(),
@@ -237,6 +279,7 @@ var BCLS = (function () {
         },
         displayData = function () {
             var displayStr, template, tempObj = {}, barChartData, chart, day, i, item, thisDay, totalItems, selectedDate, selectedCountry;
+            bclslog("analyticsData", analyticsData);
             // clear the table body
             reportTableBody.innerHTML = "";
             template = Handlebars.compile(dataDisplayBodyTemplate);
@@ -269,7 +312,7 @@ var BCLS = (function () {
                 // a specific data is selected
                 selectedDate = getSelectValue(dateSelector);
                 reportTableBody.innerHTML += template(analyticsData[selectedDate]);
-                
+
             } else {
                 // a specific date and country are selected
                 selectedDate = getSelectValue(dateSelector);
@@ -288,74 +331,86 @@ var BCLS = (function () {
             }
         },
         makeAnalyticsCall = function (callURL) {
-            var newItem;
+            var newItem = {}, options = {};
+            options.client_id = (isDefined(client_id.value)) ? client_id.value : "742d6440-58d1-49ed-b2fb-f60d33bf02ae";
+            options.client_secret = (isDefined(client_secret.value)) ? client_secret.value : "xs3vuzzKPz5fWHInsON26SXOL54X1GObFW70KylVqdVuIHdkqwqlCs9yVSCRF3i5u_0NcNb7MrzntCLaveZmeQ";
+            options.url = callURL;
+            options.requestMethod = "GET";
+            options.requestData = null;
+
             $.ajax({
-            url: callURL,
-            headers: {
-                Authorization : "Bearer " + token.value
-            },
-            success : function (data) {
-                var template, results, i, player, video, analytics, item, itemsMax, newItem = {}, str = "", thisVideo;
-                callNumber++;
-                itemsMax = data.items.length;
-                switch (callType) {
-                    case "countries":
-                    str = "";
-                    for (i = 0; i < itemsMax; i++) {
-                        item = data.items[i];
-                        str += "<option value=\"" + item.country + "\">" + item.country_name + "</option>";
+                url: proxyURL,
+                type: "POST",
+                data: options,
+                success : function (data) {
+                    var template, results, i, player, video, analytics, item, itemsMax, newItem = {}, str = "", thisVideo;
+                    try {
+                      var data = JSON.parse(data);
+                    } catch (e) {
+                      alert('invalid json');
                     }
-                    countrySelector.innerHTML = "<option value=\"all\" selected=\"selected\">All</option>" + str;
-                    gettingDataDisplay.innerHTML = "Country data retrieved!"
-                    getData.innerHTML = "Get Analytics Data";
-                    getAnalyticsData();
-                    callLimit = itemsMax;
-                    break;
-                    case "analytics":
-                    analyticsData[currentDay] = {};
-                    analyticsData[currentDay].date = currentDay;
-                    analyticsData[currentDay].items = [];
-                    for (i = 0; i < itemsMax; i++) {
-                        newItem = {};
-                        item = data.items[i];
-                        newItem.video_view = item.video_view;
-                        newItem.country = item.country;
-                        newItem.country_name = item.country_name;
-                        analyticsData[currentDay].items.push(newItem);
-                    }
-                    if (currentDayIndex < dayMax - 1) {
-                        currentDayIndex++;
+                    callNumber++;
+                    itemsMax = data.items.length;
+                    switch (callType) {
+                        case "countries":
+                        str = "";
+                        for (i = 0; i < itemsMax; i++) {
+                            item = data.items[i];
+                            str += "<option value=\"" + item.country + "\">" + item.country_name + "</option>";
+                        }
+                        countrySelector.innerHTML = "<option value=\"all\" selected=\"selected\">All</option>" + str;
+                        gettingDataDisplay.innerHTML = "Country data retrieved!"
+                        getData.innerHTML = "Get Analytics Data";
                         getAnalyticsData();
-                    } else {
-                        gettingDataDisplay.innerHTML = "Data retrieved - " + callNumber + " API calls made. See and filter your data below.";
-                        displayData();
+                        callLimit = itemsMax;
+                        break;
+                        case "analytics":
+                        analyticsData[currentDay] = {};
+                        analyticsData[currentDay].date = currentDay;
+                        analyticsData[currentDay].items = [];
+                        for (i = 0; i < itemsMax; i++) {
+                            newItem = {};
+                            item = data.items[i];
+                            newItem.video_view = item.video_view;
+                            newItem.country = item.country;
+                            newItem.country_name = item.country_name;
+                            analyticsData[currentDay].items.push(newItem);
+                        }
+                        if (currentDayIndex < dayMax - 1) {
+                            currentDayIndex++;
+                            getAnalyticsData();
+                        } else {
+                            gettingDataDisplay.innerHTML = "Data retrieved - " + callNumber + " API calls made. See and filter your data below.";
+                            displayData();
+                        }
                     }
-                }
-            },
-            error : function (XMLHttpRequest, textStatus, errorThrown)
-                {
-                    if (window.console) {
-                        console.log("Request was not successful. Here's what the server sent back: " + errorThrown);
+                },
+                error : function (XMLHttpRequest, textStatus, errorThrown)
+                    {
+                        if (window.console) {
+                            console.log("Request was not successful. Here's what the server sent back: " + errorThrown);
+                        }
                     }
-                }
-            });
+                });
         },
         // get country data
         getCountryData = function () {
             var callURL;
+            account_id = (isDefined(accountID.value)) ? accountID.value : "20318290001",
             gettingDataDisplay.innerHTML = "Getting country data...";
             callType = "countries";
-            callURL = "https://data.brightcove.com/analytics-api/videocloud/accounts/" + accountID.value + "/report/?dimensions=country&from=" + daysArray[0] + "&to=" + daysArray[daysArray.length - 1] + "&fields=country,country_name&sort=country_name&format=json&limit=" + callLimit;
+            callURL = "https://analytics.api.brightcove.com/v1/data?accounts=" + account_id + "&dimensions=country&from=" + daysArray[0] + "&to=" + daysArray[daysArray.length - 1] + "&fields=country,country_name&sort=country_name&format=json&limit=" + callLimit;
             makeAnalyticsCall(callURL);
         },
         // get the analytics data for the videos
         getAnalyticsData = function () {
             var callURL;
+            account_id = (isDefined(accountID.value)) ? accountID.value : "20318290001",
             gettingDataDisplay.innerHTML = "Getting analytics data...";
             callType = "analytics";
             // currentVideo = videoData.items[currentVideoIndex].video;
             currentDay = daysArray[currentDayIndex];
-            callURL = "https://data.brightcove.com/analytics-api/videocloud/accounts/" + accountID.value + "/report/?dimensions=country&from=" + currentDay + "&to=" + currentDay + "&fields=video_view,country,country_name&sort=country_name&format=json&limit=" + callLimit;
+            callURL = "https://analytics.api.brightcove.com/v1/data?accounts=" + account_id + "&dimensions=country&from=" + currentDay + "&to=" + currentDay + "&fields=video_view,country,country_name&sort=country_name&format=json&limit=" + callLimit;
             makeAnalyticsCall(callURL);
 
         },
@@ -404,7 +459,7 @@ var BCLS = (function () {
     dateSelector.addEventListener("change", displayData);
     return {
     }
-})();
+})($, window, document, datepickr);
     </script>
     <div class="footer text-center"><a id="feedbackMail" href="mailto:docs@brightcove.com">Questions or comments?</a></div>
     <script>

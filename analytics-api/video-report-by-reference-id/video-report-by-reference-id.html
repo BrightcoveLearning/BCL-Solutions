@@ -12,7 +12,9 @@
         <link href="//files.brightcove.com/proxima-nova/font-faces.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
-        <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/anytime.5.0.0-1401232312.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
+        <!-- for date picker -->
+    <link href="//docs.brightcove.com/en/styles/pikaday.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="/bcls/analytics-api/css/aapi-request-builder.css">
         <style type="text/css">
             #top {
@@ -43,118 +45,36 @@
         <div class="section" id="top">
           <h1>Video Report by Reference ID</h1>
                 <p>This sample allows you to get reports on videos by the video reference ID and return the results in JSON or CSV format.</p>
-                <p class="text-warning">Note: the Analytics API is currently in <strong>Limited Availability</strong>. If you are interested in enabling your account for the beta version of the API, please contact your account manager.</p>
         </div>
         <h2>Request Options</h2>
         <p>Where no default value is indicated, there is none.</p>
         <div id="inputFields" class="input-fields">
             <fieldset>
                 <legend>Basic Information</legend>
-                <div id="basicInfo">
+                <p>By default, you will get results from the Brightcove Training Videos account.</p>
+                <p><span class="bcls-button" id="useMyAccount">Use My Account Instead</span></p>
+                <div id="basicInfo" class="height-zero">
                     <table>
                         <tbody>
-                            <tr>
-                                <td>Service URL:</td>
-                                <td>
-                                    <input id="serviceURL" class="required aapi-request" type="text" size="55" value="https://data.brightcove.com/analytics-api/videocloud" />
-                                </td>
-                            </tr>
                             <tr>
                                 <td>Video Cloud Account (Publisher ID):</td>
                                 <td>
-                                    <input id="accountID" class="required aapi-request" type="text" size="55" value="20318290001"> (default: BC Training Videos)</td>
+                                    <input id="accountID" class="required aapi-request" type="text" size="55"></td>
                             </tr>
                             <tr>
-                                <td class="align-top no-wrap">Authorization Token:
-                                    <sup class="red">*</sup>
-                                </td>
+                                <td class="align-top no-wrap">Client id:</td>
                                 <td>
-                                    <input id="token" class="required aapi-request" type="text" size="55" value="15075c51ae4b0af095c9a619a" /> (default: BC Training Videos)
-                                    <p class="small">
-                                        <sup class="red">*</sup>If your account has been enabled for the Analytics API, this token was emailed to the account administrator when you joined the <strong>limited availability</strong> program.</p>
+                                    <input id="client_id" class="required aapi-request" type="text" size="100" value="" /><p>
                                 </td>
-                            </tr>
-                             <tr>
-                                <td>Media API READ Token:</td>
+                            </tr><tr>
+                                <td class="align-top no-wrap">Client secret:</td>
                                 <td>
-                                    <input id="mapitoken" type="text" size="60" value="v87kWelIdjUwVm7_Rzv09k-KqtLz-ty8ONbMxVYAI7-Q0eOilegqqg.." /> (default: BC Training Videos)
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Media API Location</td>
-                                <td>
-                                    <select id="readApiLocation">
-                                        <option value="http://api.brightcove.com/services/library">http://api.brightcove.com/services/library (all accounts except those in Japan)</option>
-                                        <option value="http://api.brightcove.co.jp/services/library">http://api.brightcove.co.jp/services/library (Japan)</option>
-                                    </select>
+                                    <input id="client_secret" class="required aapi-request" type="text" size="100" value="" /><p>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                </div>
-            </fieldset>
-            <fieldset>
-            	<legend>Videos</legend>
-            	<div id="videos">
-            		<table>
-            			<tbody>
-            				<tr>
-							<tr>
-								<td>Sort videos by:</td>
-								<td>
-									<select id="sortBy">
-										<option value="DISPLAY_NAME">Video Name</option>
-										<option value="REFERENCE_ID">Reference ID</option>
-										<option value="PUBLISH_DATE" selected="selected">Date Published</option>
-										<option value="CREATION_DATE">Date Created</option>
-										<option value="MODIFIED_DATE">Date Last Modified</option>
-										<option value="START_DATE">Date Scheduled to Start</option>
-										<option value="PLAYS_TRAILING_WEEK">Trailing Week Plays</option>
-										<option value="PLAYS_TOTAL">All-Time Plays</option>
-									</select>
-									<select id="sortOrder">
-										<option value="ASC">Ascending</option>
-										<option value="DESC" selected="selected">Descending</option>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<span id="getVideosButton" class="bcls-button">Get videos for the account</span>
-								</td>
-							</tr>
-							<tr>
-								<td>Select a video <span class="small">Reference ID (if any) is shown before the video title</span><br />(If no video is selected, a report on all videos will be generated)</td>
-								<td>
-									<select id="videoSelector" class="where-input"></select>
-								</td>
-							</tr>
-            			</tbody>
-            		</table>
-            	</div>
-            </fieldset>
-            <fieldset>
-                <legend>Add Dimension</legend>
-                <div id="typeAndDimsion">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>Dimensions:
-                                <br /><span class="small">(you can add the following dimensions to your report &mdash; any single dimension will work; if you add multiple dimensions, some combinations will not work &mdash; you will receive a warning if you select an invalid combination of dimensions)<span></span></span></td>
-                                <td>
-                                    <select id="dimension" class="required aapi-request" multiple="true" size="7">
-                                        <option value="account">account</option>
-                                        <option value="player">player</option>
-                                        <option value="referrer_domain">referrer_domain</option>
-                                        <option value="source_type">source_type</option>
-                                        <option value="search_terms">search_terms</option>
-                                        <option value="device_type">device_type</option>
-                                        <option value="device_os">device_os</option>
-                                    </select>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <p class="text-warning small" id="n1"><sup class="red">[1]</sup> See <a href="//docs.brightcove.com/en/video-cloud/analytics-api/guides/managing-api-credentials.html">Managing API Credentials</a> for information on getting client credentials.</p>
                 </div>
             </fieldset>
             <fieldset>
@@ -165,125 +85,16 @@
                             <tr>
                                 <td>From:</td>
                                 <td>Date:
-                                    <input class="aapi-request" id="startDate" type="text" size="30"> Time:
-                                    <input class="aapi-request" id="startTime" type="text" size="40"> (default: 30 days ago)</td>
+                                <input class="date-range" id="from" type="text" size="30">  (default: 30 days ago -- choose the same date for From and To to get a report for that day)</td>
                             </tr>
                             <tr>
                                 <td>To:</td>
                                 <td>Date:
-                                    <input class="aapi-request" id="endDate" type="text" size="30"> Time:
-                                    <input class="aapi-request" id="endTime" type="text" size="40"> (default: now</td>
+                                <input class="date-range" id="to" type="text" size="30"> (default: now)</td>
                             </tr>
                             <tr>
-                                <td>Where:</td>
-                                <td>
-                                    <table class="where-terms">
-                                        <tbody>
-                                            <tr>
-                                                <td>Player ID =</td>
-                                                <td>
-                                                    <input id="player" class="where-input aapi-request" type="text" size="40" value="" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Referring Domain =</td>
-                                                <td>
-                                                    <input id="referrer_domain" class="where-input aapi-request" type="text" size="40" value="" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Source Type =</td>
-                                                <td>
-                                                    <select id="source_type" class="where-input aapi-request">
-                                                        <option value="">&nbsp;</option>
-                                                        <option value="direct">direct</option>
-                                                        <option value="referral">referral</option>
-                                                        <option value="organic_search">organic_search</option>
-                                                        <option value="paid_search">paid_search</option>
-                                                        <option value="secure_search">secure_search</option>
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Search Terms =</td>
-                                                <td>
-                                                    <input id="search_terms" class="where-input aapi-request" type="text" size="40" value="" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Device Type =</td>
-                                                <td>
-                                                    <select id="device_type" class="where-input aapi-request">
-                                                        <option value="">&nbsp;</option>
-                                                        <option value="mobile">mobile</option>
-                                                        <option value="tablet">tablet</option>
-                                                        <option value="tv">tv</option>
-                                                        <option value="desktop">desktop</option>
-                                                        <option value="other">other</option>
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Device OS =</td>
-                                                <td colspan="2">
-                                                    <select id="device_os" class="where-input aapi-request">
-                                                        <option value="">&nbsp;</option>
-                                                        <option value="android">android</option>
-                                                        <option value="bada">bada</option>
-                                                        <option value="tv">tv</option>
-                                                        <option value="ios">ios</option>
-                                                        <option value="rim">rim</option>
-                                                        <option value="symbian">symbian</option>
-                                                        <option value="web_os">web_os</option>
-                                                        <option value="windows">windows</option>
-                                                        <option value="os_x">os_x</option>
-                                                        <option value="mac">mac</option>
-                                                        <option value="linux">linux</option>
-                                                        <option value="other">other</option>
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Limit:</td>
-                                <td>
-                                    <select class="aapi-request" id="limit">
-                                        <option value="">&nbsp;</option>
-                                        <option value="1">1</option>
-                                        <option value="5">5</option>
-                                        <option value="10">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                    </select> or specify:
-                                    <input class="aapi-request" id="limitText" type="text" size="10"> <br /><span class="small">(by default all videos that have analytics data for the date range will be returned)</span></td>
-                            </tr>
-                            <tr>
-                                <td>Offset:</td>
-                                <td>
-                                    <select class="aapi-request" id="offset">
-                                        <option value="">&nbsp;</option>
-                                        <option value="0">0</option>
-                                        <option value="5">5</option>
-                                        <option value="10">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                    </select> or specify:
-                                    <input class="aapi-request" id="offsetText" type="text" size="10"> (default: 0)</td>
-                            </tr>
-                            <tr>
-                                <td>Fields:</td>
-                                <td><select class="aapi-request" id="fields" multiple="true"></select></td>
-                            </tr>
-                            <tr>
-                                <td>Sort by:</td>
-                                <td>
-                                    <select class="aapi-request" id="sort"></select>
-                                </td>
+                                <td>Reference ids (add one or more reference ids separated by commas - default: <code>Gallery 1, Gallery 2, Gallery 3</code>):</td>
+                                <td><input class="aapi-request" id="reference_id" type="text" size="70"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -296,9 +107,6 @@
                     <legend>Generated Request</legend>
                     <p>API Request</p>
                     <textarea id="request" name="request" rows="3" cols="100"></textarea>
-                    <p>Authorization</p>
-                    <div id="authorizationDisplay" class="aapi-request"></div>
-                    <input class="aapi-request" id="authorization" name="authorization" type="hidden" value="" />
                 </fieldset>
                 <p>
                     <span class="bcls-button" id="submitButton">Get Analytics Data</span>
@@ -307,40 +115,38 @@
         <div id="response">
             <h2>Response</h2>
                 <p>
-                    <span class="bcls-button" id="csvButton">Convert Data to CSV</span>
                     <span class="bcls-button" id="selectData">Select the Data to Copy</span>
                 </p>
-            <textarea id="responseFrame" rows="20"></textarea>
+<pre><code id="responseFrame"></code></pre>
         </div>
     </div>
 </div>
-        <!-- scripts -->
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- scripts -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.3/fastclick.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js"></script>
-        <!-- migrate plugin to enable any+time to work -->
+    <!-- migrate plugin to enable any+time to work -->
 
-        <!-- any+time data/time picker -->
-        <script src="//docs.brightcove.com/en/scripts/anytime.5.0.0-1401232312.min.js"></script>
-        <link href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css" rel="stylesheet" type="text/css" />
+    <!-- any+time data/time picker -->
+    <script type="text/javascript" src="//docs.brightcove.com/en/scripts/pikaday.min.js"></script>
 
-        <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
-        <script src="//docs.brightcove.com/en/scripts/bc-mapi.js"></script>
-        <!-- homegrown utility to format json -->
-        <script src="//docs.brightcove.com/en/scripts/format_json.js"></script>
-        <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
-        <script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
-        <script src="/bcls/analytics-api/video-report-by-reference-id/video-report-by-reference-id.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script src="//docs.brightcove.com/en/scripts/bc-mapi.js"></script>
+    <!-- homegrown utility to format json -->
+    <script src="//docs.brightcove.com/en/scripts/format_json.js"></script>
+    <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
+    <script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
+    <script src="./video-report-by-reference-id.js"></script>
+    <div class="footer text-center"><a id="feedbackMail" href="mailto:docs@brightcove.com">Questions or comments?</a></div>
+    <script>
+    var feedbackMail = document.getElementById("feedbackMail");
+    feedbackMail.setAttribute("href", "mailto:docs@brightcove.com?subject=question regarding " + encodeURI(document.location.href));
+    </script>
     <script>
         $(document).foundation();
     </script>
-        <div class="footer text-center"><a id="feedbackMail" href="mailto:docs@brightcove.com">Questions or comments?</a></div>
-    <script>
-	var feedbackMail = document.getElementById("feedbackMail");
-	feedbackMail.setAttribute("href", "mailto:docs@brightcove.com?subject=question regarding " + encodeURI(document.location.href));
-	</script>
 	</body>
 
 </html>

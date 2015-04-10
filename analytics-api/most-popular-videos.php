@@ -62,11 +62,10 @@ $result = SendRequest($request, $method, $data, $headers);
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" />
 		<!-- change title to match the h1 heading -->
-		<title>Player System Overview</title>
+		<title>Most Popular Videos</title>
 		<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css" />
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/normalize.css" />
 		<script src="//use.edgefonts.net/source-code-pro.js"></script>
-		<link href="//files.brightcove.com/proxima-nova/font-faces.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
 		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
@@ -128,7 +127,7 @@ $result = SendRequest($request, $method, $data, $headers);
 				<p style="margin: 5px; color: #F5F5F5;">Most popular videos</p>
 			</div>
 				<!-- Start of Brightcove Player -->
-			<video  id="myPlayerID" width="640" height="360" data-account="20318290001" data-player="c9b8844f-c361-490b-9d0d-acc33ff0e968" data-embed="default" data-video-id="" class="video-js" controls></video>
+			<video  id="myPlayerID" style="width:640px;height:360px;" width="640" height="360" data-account="20318290001" data-player="c9b8844f-c361-490b-9d0d-acc33ff0e968" data-embed="default" data-video-id="" class="video-js" controls></video>
 			<script src="//players.brightcove.net/20318290001/c9b8844f-c361-490b-9d0d-acc33ff0e968_default/index.min.js"></script>
 			<!-- End of Brightcove Player -->
 		</div>
@@ -141,11 +140,11 @@ $result = SendRequest($request, $method, $data, $headers);
 			<p><script src="https://gist.github.com/cc3f1fca3b7108413d50.js"></script></p>
 			<h3>The Media API part</h3>
 			<p>Using the video ids from the returned Analytics data (the <code>video</code> metric) and the open source Media API wrapper for JavaScript, we call the <code>find_videos_by_ids</code> method to return the <code>id</code>, <code>name</code>, and the <code>thumbnailURL</code> for each of the most viewed videos. This data is used to populate the Popular Videos list, using the Handlebars templating system to simplify the code.</p>
-			<h3>The Smart Player API part</h3>
-			<p>The Smart Player API is simply used to cue and load videos. In the handler for the <code>templateReady</code> event, we get a reference to the <code>VIDEO_PLAYER</code> module, and then set up a listener for click events on the video items, loading the respective item into the player when it is clicked. We also cue the first the video so that player will not be initially empty.</p>
-			<h4>CSS code for Media and Smart Player API</h4>
+			<h3>The Brightcove Player API part</h3>
+			<p>The Brightcove Player API is simply used to cue and load videos.</p>
+			<h4>CSS code for the playlist and player</h4>
 			<p><script src="https://gist.github.com/65f86eb5c7995f627396.js"></script></p>
-			<h4>JavaScript code for Media and Smart Player API</h4>
+			<h4>JavaScript</h4>
 			<p><script src="https://gist.github.com/c4fd4a8cb4541c5475b8.js"></script></p>
 		</div>
 		<!-- display the result -->

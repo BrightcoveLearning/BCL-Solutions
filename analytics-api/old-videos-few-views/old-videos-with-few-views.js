@@ -9,9 +9,14 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
         pageNumber = 0,
         params = {},
         // aapi stuff
+        proxyURL = "https://solutions.brightcove.com/bcls/bcls-proxy/bcls-proxy.php",
         $serviceURL = $("#serviceURL"),
         $accountID = $("#accountID"),
-        $token = $("#token"),
+        account_id = "20318290001",
+        $client_id = $("#client_id"),
+        $client_secret = $("#client_secret"),
+        client_id = "742d6440-58d1-49ed-b2fb-f60d33bf02ae",
+        client_secret = "xs3vuzzKPz5fWHInsON26SXOL54X1GObFW70KylVqdVuIHdkqwqlCs9yVSCRF3i5u_0NcNb7MrzntCLaveZmeQ",
         $limitText = $("#limitText"),
         $offset = $("#offset"),
         $offsetText = $("#offsetText"),
@@ -154,50 +159,48 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
     };
     // construct the request
     buildRequest = function () {
-        $required.each(function () {
-            $this = $(this);
-            if ($this.val === "") {
-                window.alert("You must provide a service URL, account ID, and a token");
-                // stop right here
-                return;
-            }
-        });
-        // reset requestTrimmed to false in case of regenerate request
-        requestTrimmed = false;
         // build the request
-        authorization = "Bearer " + removeSpaces($token.val());
+        account_id = (isDefined($accountID.val())) ? $accountID.val() : account_id;
+
         requestURL = $serviceURL.val();
-        requestURL += "/accounts/" + removeSpaces($accountID.val()) + "/report/?dimensions=video&";
-        requestURL += "from=" + from + "&";
+        requestURL += "/data?accounts=" + account_id + "&dimensions=video";
+        requestURL += "&from=" + from;
         // check for limit and offset
         if ($limitText.val() !== "") {
-            requestURL += "limit=" + removeSpaces($limitText.val()) + "&";
+            requestURL += "&limit=" + removeSpaces($limitText.val());
         }
         if ($offsetText.val() !== "") {
-            requestURL += "offset=" + removeSpaces($offsetText.val()) + "&";
+            requestURL += "&offset=" + removeSpaces($offsetText.val());
         } else if ($offset.val() !== "") {
-            requestURL += "offset=" + $offset.val() + "&";
+            requestURL += "offset=" + $offset.val();
         }
         // add fields
-        requestURL += "fields=video,engagement_score,video_view,video_percent_viewed";
+        requestURL += "&fields=video,engagement_score,video_view,video_percent_viewed";
         // strip trailing ? or & and replace &&s
-        trimRequest();
         $request.html(requestURL);
-        $authorizationDisplay.html(authorization);
         $request.attr("value", requestURL);
-        $authorization.attr("value", authorization);
     };
     // submit request
     getData = function () {
-        var itemsMax, item, video;
+        var itemsMax, item, video, options = {};
         // clear the results frame
         $responseFrame.html("Loading...");
+        options.client_id = (isDefined($client_id.val())) ? $client_id.val() : client_id;
+        options.client_secret = (isDefined($client_secret.val())) ? $client_secret.val() : client_secret;
+        options.url = $request.val();
+        options.requestType = "GET";
+        options.requestBody = null;
+        bclslog("options", options);
         $.ajax({
-            url: $request.attr("value"),
-            headers: {
-                Authorization : $authorization.attr("value")
-            },
+            url: proxyURL,
+            type: "POST",
+            data: options,
             success : function (data) {
+                try {
+                  var data = JSON.parse(data);
+                } catch (e) {
+                  alert('invalid json');
+                }
                 minViews = $includeVideos.val();
                 itemsMax = data.items.length;
                 // add analytics data to video data

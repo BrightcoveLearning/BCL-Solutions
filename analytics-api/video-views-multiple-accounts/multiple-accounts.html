@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Analytics API Solution: Video Views Report for Multiple Accounts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Robert Crooks">
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css" />
+    <script src="//use.edgefonts.net/source-code-pro.js"></script>
+    <link href="//files.brightcove.com/proxima-nova/font-faces.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
+    <!-- for date picker -->
+    <link href="//docs.brightcove.com/en/styles/pikaday.min.css" rel="stylesheet">
+
+
+    <!-- Fav and touch icons -->
+    <link rel="shortcut icon" href="/bcls/assets/images/favicon.ico">
+    <style type="text/css">
+    .BCL-btn {
+        white-space: nowrap;
+        font-size: small;
+    }
+    textarea {
+        font-size: x-small;
+    }
+    .success {
+        color: #327b2a
+    }
+    .failure {
+        color: #a51d1d
+    }
+    td {
+        vertical-align: top;
+    }
+    #detailTable, #top {
+        padding-top: 120px;
+        margin-top: -80px;
+    }
+    </style>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/vendor/modernizr.js"></script>
+
+</head>
+
+<body>
+    <!-- header navbar -->
+    <div id="navWrapper" class="fixed"></div>
+    <!-- breadcrumbs -->
+    <nav id="breadCrumbWrapper" class="breadcrumbs show-for-medium-up"></nav>
+    <!-- search -->
+    <div id="searchModal" class="reveal-modal" data-reveal></div>
+    <!-- content -->
+    <div class="row">
+        <div class="large-2 columns show-for-large-up">
+            <div id="sidenav"></div>
+        </div>
+        <div id="main" class="large-10 small-12 columns">
+            <div class="section" id="top">
+                <h1>Analytics Report for Multiple Accounts</h1>
+                <div class="BCL-aside">
+                    <p>Note: the v1 version of the Analytics API makes generating reports very simple. Only a single api call using the parameter <code>accounts=account1_id,account2_id,account3_id</code> is all it takes.</p>
+                    <p>In addition, the Analytics Report Builder will allow you to generate reports on multiple accounts. The Report Builder is currently in pre-release mode as part of the new Brightcove Studio - if you are interested in getting access to it, contact your account manager.</p>
+                    <p>For these reasons, this sample has been retired.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+<!-- jquery used for the AJAX calls -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.3/fastclick.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css" rel="stylesheet" type="text/css" />
+
+<!-- handlebars used to merge data with HTML strings -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<!-- for date picker -->
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+<script type="text/javascript" src="//docs.brightcove.com/en/scripts/pikaday.min.js"></script>
+<script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
+<script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
+<script src="aapi-muliple-accounts.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
+<script id="pageScript" type="text/javascript">
+</script>
+    <div class="footer text-center"><a id="feedbackMail" href="mailto:docs@brightcove.com">Questions or comments?</a></div>
+    <script>
+    var feedbackMail = document.getElementById("feedbackMail");
+    feedbackMail.setAttribute("href", "mailto:docs@brightcove.com?subject=question regarding " + encodeURI(document.location.href));
+    </script>
+    </body>
+
+</html>

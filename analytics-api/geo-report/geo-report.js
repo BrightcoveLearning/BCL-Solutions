@@ -1,6 +1,8 @@
 var BCLS = (function (window, document, $, Handlebars) {
     "use strict";
     var proxyURL = "http://solutions.brightcove.com/bcls/bcls-proxy/bcls-proxy.php",
+        useMyAccount = document.getElementById("useMyAccount"),
+        basicInfo = document.getElementById("basicInfo"),
         $accountID = $("#accountID"),
         accountID = "20318290001",
         $client_id = $("#client_id"),
@@ -160,7 +162,9 @@ var BCLS = (function (window, document, $, Handlebars) {
     });
 
     // set event listeners
-
+    useMyAccount.addEventListener("click", function () {
+        basicInfo.className = "height-auto";
+    });
     $videoSelector.on("change", function () {
         getAnalyticsData();
     });

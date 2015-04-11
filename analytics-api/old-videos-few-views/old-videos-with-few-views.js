@@ -10,7 +10,8 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
         params = {},
         // aapi stuff
         proxyURL = "https://solutions.brightcove.com/bcls/bcls-proxy/bcls-proxy.php",
-        $serviceURL = $("#serviceURL"),
+        useMyAccount = document.getElementById("useMyAccount"),
+        basicInfo = document.getElementById("basicInfo"),
         $accountID = $("#accountID"),
         account_id = "20318290001",
         $client_id = $("#client_id"),
@@ -162,7 +163,7 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
         // build the request
         account_id = (isDefined($accountID.val())) ? $accountID.val() : account_id;
 
-        requestURL = $serviceURL.val();
+        requestURL = "https://analytics.api.brightcove.com/v1";
         requestURL += "/data?accounts=" + account_id + "&dimensions=video";
         requestURL += "&from=" + from;
         // check for limit and offset
@@ -270,6 +271,9 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
     };
 
     // set event listeners
+    useMyAccount.addEventListener("click", function () {
+        basicInfo.className = "height-auto";
+    });
     $mapitoken.on("change", function () {
         videoData = {};
         getVideos();

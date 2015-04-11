@@ -60,32 +60,33 @@
             <div class="section" id="inputs">
                 <h2>Inputs</h2>
                 <fieldset>
-                    <legend>Basic Information</legend>
-                    <div id="basicInfo">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>Video Cloud Account (Publisher ID):</td>
-                                    <td><input id="accountID" class="required aapi-request" type="text" size="55" value="20318290001"> (default: BC Training Videos)</td>
-                                </tr>
-                                <tr>
-                                    <td class="align-top no-wrap">Client id:</td>
-                                    <td>
-                                        <input id="client_id" class="required aapi-request" type="text" size="100" value="" />(default: BC Training Videos)
-                                        <p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="align-top no-wrap">Client secret:</td>
-                                    <td>
-                                        <input id="client_secret" class="required aapi-request" type="text" size="100" value="" />(default: BC Training Videos)
-                                        <p>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </fieldset>
+                <legend>Basic Information</legend>
+                <p>By default, you will get results from the Brightcove Training Videos account.</p>
+                <p><span class="BCL-btn" id="useMyAccount">Use My Account Instead</span></p>
+                <div id="basicInfo" class="height-zero">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Video Cloud Account (Publisher ID):</td>
+                                <td>
+                                    <input id="accountID" class="required aapi-request" type="text" size="55"></td>
+                            </tr>
+                            <tr>
+                                <td class="align-top no-wrap">Client id:</td>
+                                <td>
+                                    <input id="client_id" class="required aapi-request" type="text" size="100" value="" /><p>
+                                </td>
+                            </tr><tr>
+                                <td class="align-top no-wrap">Client secret:</td>
+                                <td>
+                                    <input id="client_secret" class="required aapi-request" type="text" size="100" value="" /><p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="small" id="n1"><sup class="red">[1]</sup> See <a href="//docs.brightcove.com/en/video-cloud/analytics-api/guides/managing-api-credentials.html">Managing API Credentials</a> for information on getting client credentials.</p>
+                </div>
+            </fieldset>
                 <fieldset>
                     <legend>Date Range for Report</legend>
                     <p>
@@ -153,6 +154,8 @@
     <script id="pageScript" type="text/javascript">
         var BCLS = (function (window, document, datepickr) {
             var callNumber = 0,
+                useMyAccount = document.getElementById("useMyAccount"),
+                basicInfo = document.getElementById("basicInfo"),
                 accountID = document.getElementById("accountID"),
                 client_id = document.getElementById("client_id"),
                 client_secret = document.getElementById("client_secret"),
@@ -476,6 +479,9 @@
             });
             videoSelector.addEventListener("change", displayData);
             playerSelector.addEventListener("change", displayData);
+            useMyAccount.addEventListener("click", function () {
+                basicInfo.className = "height-auto";
+            });
             return {
             }
         })(window, document, datepickr);

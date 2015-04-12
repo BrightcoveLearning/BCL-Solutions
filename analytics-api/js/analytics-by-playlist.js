@@ -7,7 +7,7 @@ var BCLS = (function ($, window, Pikaday) {
         total_pages = 0,
         playlistData = [],
         analyticsData = {},
-        $useMyAccount = $("#useMyAccount"),
+        useMyAccount = document.getElementById("useMyAccount"),
         $accountInputs = $("#accountInputs"),
         $playlistInfo = $("#playlistInfo"),
         $mapitoken = $("#mapitoken"),
@@ -309,10 +309,14 @@ var BCLS = (function ($, window, Pikaday) {
     from.value = fromISO;
 
     // set event listeners
-    $useMyAccount.on("click", function () {
-        bclslog("show account options", $accountInputs);
-        $accountInputs.attr("class", "height-auto");
-        bclslog("showing account options", $accountInputs);
+    useMyAccount.addEventListener("click", function () {
+        if (basicInfo.className === "height-zero") {
+            basicInfo.className = "height-auto";
+            useMyAccount.innerHTML = "Use Sample Account";
+        } else {
+            basicInfo.className = "height-zero";
+            useMyAccount.innerHTML = "Use My Account Instead";
+        }
     });
     $getPlaylists.on("click", getPlaylists);
     // set listener for form fields

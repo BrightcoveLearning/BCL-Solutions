@@ -480,7 +480,13 @@
             videoSelector.addEventListener("change", displayData);
             playerSelector.addEventListener("change", displayData);
             useMyAccount.addEventListener("click", function () {
-                basicInfo.className = "height-auto";
+                if (basicInfo.className === "height-zero") {
+                    basicInfo.className = "height-auto";
+                    useMyAccount.innerHTML = "Use Sample Account";
+                } else {
+                    basicInfo.className = "height-zero";
+                    useMyAccount.innerHTML = "Use My Account Instead";
+                }
             });
             return {
             }

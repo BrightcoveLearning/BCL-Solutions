@@ -142,7 +142,13 @@ var BCLS = (function($, window, Pikaday, BCLSformatJSON) {
   // set event listeners
   //
   useMyAccount.addEventListener("click", function (){
-    basicInfo.className = "height-auto";
+    if (basicInfo.className === "height-zero") {
+        basicInfo.className = "height-auto";
+        useMyAccount.innerHTML = "Use Sample Account";
+    } else {
+        basicInfo.className = "height-zero";
+        useMyAccount.innerHTML = "Use My Account Instead";
+    }
   });
   // set listener for form fields
   $requestInputs.on("change", buildRequest);

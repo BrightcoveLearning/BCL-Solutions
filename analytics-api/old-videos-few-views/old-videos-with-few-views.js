@@ -272,7 +272,13 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
 
     // set event listeners
     useMyAccount.addEventListener("click", function () {
-        basicInfo.className = "height-auto";
+        if (basicInfo.className === "height-zero") {
+            basicInfo.className = "height-auto";
+            useMyAccount.innerHTML = "Use Sample Account";
+        } else {
+            basicInfo.className = "height-zero";
+            useMyAccount.innerHTML = "Use My Account Instead";
+        }
     });
     $mapitoken.on("change", function () {
         videoData = {};

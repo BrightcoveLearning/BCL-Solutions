@@ -163,7 +163,14 @@ var BCLS = (function (window, document, $, Handlebars) {
 
     // set event listeners
     useMyAccount.addEventListener("click", function () {
-        basicInfo.className = "height-auto";
+        if (basicInfo.className === "height-zero") {
+            basicInfo.className = "height-auto";
+            useMyAccount.innerHTML = "Use Sample Account";
+        } else {
+            basicInfo.className = "height-zero";
+            useMyAccount.innerHTML = "Use My Account Instead";
+        }
+
     });
     $videoSelector.on("change", function () {
         getAnalyticsData();

@@ -8,6 +8,7 @@ var BCLS = (function ($, window, Pikaday) {
         playlistData = [],
         analyticsData = {},
         useMyAccount = document.getElementById("useMyAccount"),
+        basicInfo = document.getElementById("basicInfo"),
         $accountInputs = $("#accountInputs"),
         $playlistInfo = $("#playlistInfo"),
         $mapitoken = $("#mapitoken"),
@@ -18,8 +19,6 @@ var BCLS = (function ($, window, Pikaday) {
         proxyURL = "https://solutions.brightcove.com/bcls/bcls-proxy/bcls-proxy.php",
         $serviceURL = $("#serviceURL"),
         account_id = "20318290001",
-        $client_secret_display = $("#client_secret_display"),
-        $client_id_display = $("#client_id_display"),
         $client_id = $("#client_id"),
         $client_secret = $("#client_secret"),
         client_id,
@@ -245,8 +244,8 @@ var BCLS = (function ($, window, Pikaday) {
         bclslog("requestURL", requestURL);
         $responseFrame.html("Loading...");
         requestOptions.url = requestURL;
-        requestOptions.client_id = (isDefined($client_id_display.val())) ? $client_id_display.val() : default_client_id;
-        requestOptions.client_secret = (isDefined($client_secret_display.val())) ? $client_secret_display.val() : default_client_secret;
+        requestOptions.client_id = (isDefined($client_id.val())) ? $client_id.val() : default_client_id;
+        requestOptions.client_secret = (isDefined($client_secret.val())) ? $client_secret.val() : default_client_secret;
         requestOptions.requestType = "GET";
         bclslog("requestOptions", requestOptions);
         $.ajax({
@@ -273,6 +272,7 @@ var BCLS = (function ($, window, Pikaday) {
         bclslog("firstRun", firstRun);
         BCMAPI.url = $readApiLocation.val();
         BCMAPI.token = $mapitoken.val();
+        bclslog("mapi token", BCMAPI.token);
         BCMAPI.callback = "BCLS.onMAPIresponse";
 
         if (firstRun === true) {

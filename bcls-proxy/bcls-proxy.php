@@ -83,6 +83,7 @@ curl_close($ch);
 
 // Check for errors
 if ($response === FALSE) {
+	echo "Error: "+$response;
 	die(curl_error($ch));
 }
 

@@ -81,10 +81,12 @@ var BCLS = (function($, window, Pikaday, BCLSformatJSON) {
     // check for time filters
     startDate = from.value;
     if (startDate !== " ") {
+      startDate = fromPicker.toString("YYYY-MM-DD");
       requestURL += "&from=" + startDate;
     }
     endDate = to.value;
     if (endDate !== " ") {
+      endDate = toPicker.toString("YYYY-MM-DD");
       requestURL += "&to=" + endDate;
     }
     // add limit and fields

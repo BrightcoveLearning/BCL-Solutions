@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+        <style>
+
+        </style>
+    </head>
+    <body>
+
+        <script src="button-component.js"></script>
+        <script>
+            "use strict";
+            var BCLS = ( function (window, document, button_component_data) {
+                var title = document.getElementsByTagName('title')[0],
+                    // functions
+                    bclslog;
+                /**
+                 * Logging function - safe for IE
+                 * @param  {string} context description of the data
+                 * @param  {*} message the data to be logged by the console
+                 * @return {}
+                 */
+                bclslog = function (context, message) {
+                    if (window["console"] && console["log"]) {
+                      console.log(context, message);
+                    }
+                    return;
+                };
+                bclslog("button_component_data", button_component_data)
+                return {
+
+                }
+            })(window, document, button_component_data);
+        </script>
+    </body>
+</html>

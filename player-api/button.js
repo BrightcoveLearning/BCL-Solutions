@@ -118,5 +118,5 @@ var button_data = [
         "files": [
             "/Users/mboles/git/BCL-LearningSamples/jsdoc-tests2/button.js"
         ]
-    };
-]
+    }
+];

@@ -13,8 +13,12 @@
         <script src="component.js"></script>
         <script>
             "use strict";
-            var BCLS = ( function (window, document, button_component_data) {
+            var BCLS = ( function (window, document, button_data, component_data) {
                 var title = document.getElementsByTagName('title')[0],
+                    // data structures
+                    methodsArray = [];
+                    eventsArray = [];
+                    propertiesArray = [];
                     // functions
                     isDefined,
                     findObjectInArray,
@@ -65,7 +69,7 @@
                     }
                 };
                 /**
-                 * find a subset of objects in array of objects
+                 * get a subset of objects in array of objects
                  * based on some property value
                  *
                  * @param {array} targetArray - array to search
@@ -83,7 +87,7 @@
                     }
                     return idxArr;
                 };
-                bclslog("button_component_data", button_component_data)
+                bclslog("button_component_data", button_data, component_data)
                 return {
 
                 }

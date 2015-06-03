@@ -9,12 +9,15 @@
     </head>
     <body>
 
-        <script src="button-component.js"></script>
+        <script src="button.js"></script>
+        <script src="component.js"></script>
         <script>
             "use strict";
             var BCLS = ( function (window, document, button_component_data) {
                 var title = document.getElementsByTagName('title')[0],
                     // functions
+                    isDefined,
+                    findObjectInArray,
                     bclslog;
                 /**
                  * Logging function - safe for IE
@@ -27,6 +30,58 @@
                       console.log(context, message);
                     }
                     return;
+                };
+                /**
+                 * tests for all the ways a variable might be undefined or not have a value
+                 * @param {*} x the variable to test
+                 * @return {Boolean} true if variable is defined and has a value
+                 */
+                isDefined = function (x) {
+                    if ( x !== "" && x !== null && x !== undefined && !x.isNaN() && x !== {} && x !== []){
+                        return true;
+                    } else {
+                        return false;
+                    }
+                };
+                /**
+                 * find index of an object in array of objects
+                 * based on some property value
+                 *
+                 * @param {array} targetArray - array to search
+                 * @param {string} objProperty - object property to search
+                 * @param {string|number} value - value of the property to search for
+                 * @return {integer} index of first instance if found, otherwise returns -1
+                */
+                findObjectInArray = function (targetArray, objProperty, value) {
+                    var i, totalItems = targetArray.length, objFound = false;
+                    for (i = 0; i < totalItems; i++) {
+                        if (targetArray[i][objProperty] === value) {
+                            objFound = true;
+                            return i;
+                        }
+                    }
+                    if (objFound === false) {
+                        return -1;
+                    }
+                };
+                /**
+                 * find a subset of objects in array of objects
+                 * based on some property value
+                 *
+                 * @param {array} targetArray - array to search
+                 * @param {string} objProperty - object property to search
+                 * @param {string|number} value - value of the property to search for
+                 * @return {array} array of objects with matching property value
+                */
+                getSubArray = function (targetArray, objProperty, value) {
+                    var i, totalItems = targetArray.length, objFound = false, idxArr = [];
+                    for (i = 0; i < totalItems; i++) {
+                        if (targetArray[i][objProperty] === value) {
+                            objFound = true;
+                            idxArr.push(targetArray[i]);
+                        }
+                    }
+                    return idxArr;
                 };
                 bclslog("button_component_data", button_component_data)
                 return {

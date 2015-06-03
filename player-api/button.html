@@ -16,15 +16,16 @@
             var BCLS = ( function (window, document, button_data, component_data) {
                 var title = document.getElementsByTagName('title')[0],
                     // data structures
-                    methodsArray = [],
-                    eventsArray = [],
-                    propertiesArray = [],
+                    button = {},
+                    component = {},
+                    classes = ["button": {name: "button", data: button_data}, "component": {name: "component", data: component_data}],
                     // functions
                     isDefined,
                     findObjectInArray,
                     getSubArray,
                     getPropertyArrays,
-                    bclslog;
+                    bclslog,
+                    init;
                 /**
                  * Logging function - safe for IE
                  * @param  {string} context - description of the data
@@ -103,6 +104,20 @@
                             thisClass = classes[i];
                         }
                     }
+                };
+                /**
+                 * init gets things going
+                 */
+                init = function () {
+                    // data structures
+                    button.methodsArray = [];
+                    button.eventsArray = [];
+                    button.propertiesArray = [];
+                    component.methodsArray = [];
+                    component.eventsArray = [];
+                    component.propertiesArray = [];
+                    // get the class prop arrays
+                    getPropertyArrays(classes);
                 };
                 bclslog("button_data", button_data);
                 bclslog("component_data", component_data);

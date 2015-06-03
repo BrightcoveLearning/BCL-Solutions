@@ -23,6 +23,7 @@
                     findObjectInArray,
                     getSubArray,
                     getPropertyArrays,
+                    sortArray,
                     bclslog,
                     init;
                 /**
@@ -119,6 +120,26 @@
                             bclslog("doc_data[thisClass.name]", doc_data[thisClass.name]);
                         }
                     }
+                };
+                /**
+                 * sort an array of objects based on an object property
+                 * @param {array} targetArray - array to sort
+                 * @param {string} objProperty - property whose value to sort on
+                 * @return {array} the sorted array
+                */
+                sortArray = function (targetArray, objProperty) {
+                    targetArray.sort(function (a, b) {
+                        var propA = a[objProperty].toLowerCase(), propB = b[objProperty].toLowerCase();
+                        // sort ascending; reverse propA and propB to sort descending
+                        if (propA < propB) {
+                             return -1;
+                        } else if (propA > propB) {
+                             return 1;
+                        } else {
+                             return 0;
+                        }
+                    });
+                    return targetArray;
                 };
                 /**
                  * init gets things going

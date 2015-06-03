@@ -16,8 +16,7 @@
             var BCLS = ( function (window, document, button_data, component_data) {
                 var title = document.getElementsByTagName('title')[0],
                     // data structures
-                    button = {},
-                    component = {},
+                    doc_data = {},
                     classes = ["button": {name: "button", data: button_data}, "component": {name: "component", data: component_data}],
                     // functions
                     isDefined,
@@ -102,6 +101,7 @@
                         iMax = classes.length;
                         for (i = 0; i < iMax; i++) {
                             thisClass = classes[i];
+                            doc_data[thisClass.name].headerInfo =
                         }
                     }
                 };
@@ -110,12 +110,16 @@
                  */
                 init = function () {
                     // data structures
-                    button.methodsArray = [];
-                    button.eventsArray = [];
-                    button.propertiesArray = [];
-                    component.methodsArray = [];
-                    component.eventsArray = [];
-                    component.propertiesArray = [];
+                    doc_data.button = {};
+                    doc_data.component = {};
+                    doc_data.button.headerInfo = {};
+                    doc_data.button.methodsArray = [];
+                    doc_data.button.eventsArray = [];
+                    doc_data.button.propertiesArray = [];
+                    doc_data.component.headerInfo = {};
+                    doc_data.component.methodsArray = [];
+                    doc_data.component.eventsArray = [];
+                    doc_data.component.propertiesArray = [];
                     // get the class prop arrays
                     getPropertyArrays(classes);
                 };

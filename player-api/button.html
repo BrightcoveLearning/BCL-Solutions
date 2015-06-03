@@ -17,7 +17,7 @@
                 var title = document.getElementsByTagName('title')[0],
                     // data structures
                     doc_data = {},
-                    classes = ["button": {name: "button", data: button_data}, "component": {name: "component", data: component_data}],
+                    classes = {button: button_data, component: component_data},
                     // functions
                     isDefined,
                     findObjectInArray,
@@ -92,16 +92,31 @@
                 };
                 /**
                  * extracts the events, methods, and properties for the classes
-                 * @param {array} classes - array of the classes to operate on
+                 * @param {object} classes - object whose properties are classes with values of the data for that class
                  * @return {}
                  */
                 getPropertyArrays = function (classes) {
-                    var i, iMax, thisClass;
+                    var i, iMax, thisClass, classIdx, j, jMax, itemIdx, privateItems = [];
                     if (isDefined(classes)) {
                         iMax = classes.length;
-                        for (i = 0; i < iMax; i++) {
+                        for (thisClass in classes) {
+                            privateItems = [];
                             thisClass = classes[i];
-                            doc_data[thisClass.name].headerInfo =
+                            // remove all private items
+                            privateItems = getSubArray(thisClass.data, "access", "private");
+                            bclslog("privateItems", privateItems);
+                            bclslog("thisClass.data.length", thisClass.data.length);
+                            jMax = privateItems.length;
+                            if (jMax > 0) {
+                                do {
+                                    thisClass.data.splice(privateItems[j--], 1);
+                                } while (j > 0)
+                            }
+                            bclslog("thisClass.data.length", thisClass.data.length);
+                            classIdx = findObjectInArray(thisClass.data, "kind", "class");
+                            doc_data[thisClass.name].headerInfo = thisClass.data[classIdx];
+                            // doc_data[thisClass.name].methodsArray = getSubArray();
+                            bclslog("doc_data[thisClass.name]", doc_data[thisClass.name]);
                         }
                     }
                 };

@@ -124,7 +124,11 @@
                  * init gets things going
                  */
                 init = function () {
+                    var className;
                     // data structures
+                    for (className in classes) {
+                        doc_data[className] = {};
+                    }
                     doc_data.button = {};
                     doc_data.component = {};
                     doc_data.button.headerInfo = {};

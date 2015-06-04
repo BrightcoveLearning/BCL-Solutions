@@ -115,9 +115,9 @@
                             }
                             bclslog("classData.length", classData.length);
                             classIdx = findObjectInArray(classData, "kind", "class");
-                            doc_data[thisClass.name].headerInfo = classData[classIdx];
+                            doc_data[thisClass].headerInfo = classData[classIdx];
                             // doc_data[thisClass.name].methodsArray = getSubArray();
-                            bclslog("doc_data[thisClass.name]", doc_data[thisClass.name]);
+                            bclslog("doc_data[thisClass]", doc_data[thisClass]);
                         }
                     }
                 };

@@ -107,8 +107,8 @@
                             privateItems = getSubArray(classData, "access", "private");
                             bclslog("privateItems", privateItems);
                             bclslog("classData.length", classData.length);
-                            jMax = privateItems.length;
-                            if (jMax > 0) {
+                            j = privateItems.length;
+                            if (j > 0) {
                                 do {
                                     bclslog("j", j);
                                     classData.splice(privateItems[j--], 1);

@@ -1,4 +1,4 @@
-var component_data = [
+var parent_class_data = [
     {
         "comment": "/**\n * @fileoverview Player Component - Base class for all UI objects\n *\n */",
         "meta": {

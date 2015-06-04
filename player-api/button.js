@@ -1,4 +1,4 @@
-var button_data = [
+var class_data = [
     {
         "comment": "/**\n * Base class for all buttons\n * @param {Player|Object} player\n * @param {Object=} options\n * @extends Component\n * @class Button\n */",
         "meta": {

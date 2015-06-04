@@ -13,12 +13,12 @@
         <script src="component.js"></script>
         <script>
             "use strict";
-            var BCLS = ( function (window, document, button_data, component_data) {
+            var BCLS = ( function (window, document, class_data, parent_class_data) {
                 var title = document.getElementsByTagName('title')[0],
                     // data structures
                     /* the following should be the only line that changes
                         current class first, parent class(es) after */
-                    classes = {button: button_data, component: component_data},
+                    classes = {button: class_data, component: parent_class_data},
                     doc_data = {},
                     // functions
                     isDefined,
@@ -36,7 +36,7 @@
                  */
                 bclslog = function (context, message) {
                     if (window["console"] && console["log"]) {
-                      console.log(context, message);
+                        console.log(context, message);
                     }
                     return;
                 };
@@ -165,7 +165,7 @@
                 return {
 
                 }
-            })(window, document, button_data, component_data);
+            })(window, document, class_data, parent_class_data);
         </script>
     </body>
 </html>

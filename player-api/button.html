@@ -12,8 +12,8 @@
         <script src="button.js"></script>
         <script src="component.js"></script>
         <script>
-            "use strict";
             var BCLS = ( function (window, document, class_data, parent_class_data) {
+                "use strict";
                 var title = document.getElementsByTagName('title')[0],
                     // data structures
                     /* the following should be the only line that changes
@@ -26,7 +26,7 @@
                     getSubArray,
                     getPropertyArrays,
                     sortArray,
-                    createElement,
+                    createEl,
                     bclslog,
                     addHeaderContent,
                     addSideNav,
@@ -105,8 +105,18 @@
                  * @param  {object} attributes - attributes to add to the element
                  * @return {object} the HTML element
                  */
-                createElement = function (type,attributes) {
-
+                createEl = function (type, attributes) {
+                    var el;
+                    if (isDefined(type)) {
+                        document.createElement(type);
+                        if (isDefined(attributes)) {
+                            var attr;
+                            for (attr in attributes) {
+                                el.setAttribute(attr, attributes[attr]);
+                            }
+                        }
+                        return el;
+                    }
                 };
                 /**
                  * extracts the events, methods, and properties for the classes
@@ -127,7 +137,7 @@
                             j = privateItems.length;
                             do {
                                 classData.splice(privateItems[j--], 1);
-                            } while (j > 0)
+                            } while (j > 0);
                             bclslog("classData.length", classData.length);
                             // get the class data for the page heading
                             classIdx = findObjectInArray(classData, "kind", "class");
@@ -213,12 +223,12 @@
                     addEventsContent();
                     addPropertiesContent();
                 };
-                bclslog("button_data", button_data);
-                bclslog("component_data", component_data);
+                bclslog("class_data", class_data);
+                bclslog("parent_class_data", parent_class_data);
                 init();
                 return {
 
-                }
+                };
             })(window, document, class_data, parent_class_data);
         </script>
     </body>

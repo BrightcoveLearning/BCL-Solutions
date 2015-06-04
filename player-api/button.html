@@ -110,11 +110,9 @@
                             bclslog("privateItems", privateItems);
                             bclslog("classData.length", classData.length);
                             j = privateItems.length;
-                            if (j > 0) {
-                                do {
-                                    classData.splice(privateItems[j--], 1);
-                                } while (j > 0)
-                            }
+                            do {
+                                classData.splice(privateItems[j--], 1);
+                            } while (j > 0)
                             bclslog("classData.length", classData.length);
                             classIdx = findObjectInArray(classData, "kind", "class");
                             doc_data[thisClass].headerInfo = classData[classIdx];

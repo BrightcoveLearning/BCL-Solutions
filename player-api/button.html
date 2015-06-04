@@ -149,22 +149,17 @@
                     // data structures
                     for (className in classes) {
                         doc_data[className] = {};
+                        doc_data[classMame]headerInfo = {};
+                        doc_data[classMame]methodsArray = [];
+                        doc_data[classMame]eventsArray = [];
+                        doc_data[classMame]propertiesArray = [];
                     }
-                    doc_data.button = {};
-                    doc_data.component = {};
-                    doc_data.button.headerInfo = {};
-                    doc_data.button.methodsArray = [];
-                    doc_data.button.eventsArray = [];
-                    doc_data.button.propertiesArray = [];
-                    doc_data.component.headerInfo = {};
-                    doc_data.component.methodsArray = [];
-                    doc_data.component.eventsArray = [];
-                    doc_data.component.propertiesArray = [];
                     // get the class prop arrays
                     getPropertyArrays(classes);
                 };
                 bclslog("button_data", button_data);
                 bclslog("component_data", component_data);
+                init();
                 return {
 
                 }

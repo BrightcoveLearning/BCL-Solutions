@@ -97,25 +97,25 @@
                  * @return {}
                  */
                 getPropertyArrays = function (classes) {
-                    var i, iMax, thisClass, classIdx, j, jMax, itemIdx, privateItems = [];
+                    var i, iMax, thisClass, classData = [], classIdx, j, jMax, itemIdx, privateItems = [];
                     if (isDefined(classes)) {
                         iMax = classes.length;
                         for (thisClass in classes) {
+                            classData = classes[thisClass];
                             privateItems = [];
-                            thisClass = classes[i];
                             // remove all private items
-                            privateItems = getSubArray(thisClass.data, "access", "private");
+                            privateItems = getSubArray(classData, "access", "private");
                             bclslog("privateItems", privateItems);
-                            bclslog("thisClass.data.length", thisClass.data.length);
+                            bclslog("classData.length", classData.length);
                             jMax = privateItems.length;
                             if (jMax > 0) {
                                 do {
-                                    thisClass.data.splice(privateItems[j--], 1);
+                                    classData.splice(privateItems[j--], 1);
                                 } while (j > 0)
                             }
-                            bclslog("thisClass.data.length", thisClass.data.length);
-                            classIdx = findObjectInArray(thisClass.data, "kind", "class");
-                            doc_data[thisClass.name].headerInfo = thisClass.data[classIdx];
+                            bclslog("classData.length", classData.length);
+                            classIdx = findObjectInArray(classData, "kind", "class");
+                            doc_data[thisClass.name].headerInfo = classData[classIdx];
                             // doc_data[thisClass.name].methodsArray = getSubArray();
                             bclslog("doc_data[thisClass.name]", doc_data[thisClass.name]);
                         }

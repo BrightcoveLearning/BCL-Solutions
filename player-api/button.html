@@ -16,8 +16,10 @@
             var BCLS = ( function (window, document, button_data, component_data) {
                 var title = document.getElementsByTagName('title')[0],
                     // data structures
-                    doc_data = {},
+                    /* the following should be the only line that changes
+                        current class first, parent class(es) after */
                     classes = {button: button_data, component: component_data},
+                    doc_data = {},
                     // functions
                     isDefined,
                     findObjectInArray,
@@ -110,14 +112,13 @@
                             j = privateItems.length;
                             if (j > 0) {
                                 do {
-                                    bclslog("j", j);
                                     classData.splice(privateItems[j--], 1);
                                 } while (j > 0)
                             }
                             bclslog("classData.length", classData.length);
                             classIdx = findObjectInArray(classData, "kind", "class");
                             doc_data[thisClass].headerInfo = classData[classIdx];
-                            // doc_data[thisClass.name].methodsArray = getSubArray();
+                            doc_data[thisClass].methodsArray = getSubArray(classData, "kind", "function");
                             bclslog(thisClass, doc_data[thisClass]);
                         }
                     }

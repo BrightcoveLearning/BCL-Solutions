@@ -1,0 +1,78 @@
+
+<!doctype html>
+<html>
+<head>
+  <title>Responsive and sized embed_in_page code</title>
+  <meta name="viewport" content="initial-scale=1.0">
+  
+  <style>
+/*
+  Place the player in a wrapper element and then use a psuedo-element to
+       set the wrapper's height relative to the width of its container.
+    padding-top: 56.25%;  16:9 ratio
+*/
+  
+	 .outer {
+      width: 80%;
+      display: block;
+      position: relative;
+      margin: 20px auto;
+    }
+	 .outer:after {
+      padding-top: 56.25%; 
+      display: block;
+      content: '';
+    }
+/*
+    .video-js {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+    }
+*/
+    #video1 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+    }
+/*
+    .outer video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+    }
+*/
+  </style>
+</head>
+<body>
+  <h1>A Responsive Player That Preserves Its Aspect Ratio</h1>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+  
+  <div class="outer">
+	  
+    <video id="video1"
+        data-account="1752604059001"
+        data-player="748f6e23-4cd1-4670-8bef-7ecedf79e417"
+        data-embed="default"
+        class="video-js" controls></video>
+	  
+   </div>
+	  
+	<script src="//players.brightcove.net/1752604059001/748f6e23-4cd1-4670-8bef-7ecedf79e417_default/index.js"></script>
+  
+	
+</body>
+	
+</html>

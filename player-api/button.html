@@ -22,6 +22,7 @@
                     doc_data = {},
                     // elements
                     main,
+                    doc_body = document.getElementsByTagName("body")[0],
                     // functions
                     isDefined,
                     findObjectInArray,
@@ -31,7 +32,7 @@
                     createEl,
                     bclslog,
                     addHeaderContent,
-                    addSideNav,
+                    addIndex,
                     addMethodsContent,
                     addEventsContent,
                     addPropertiesContent,
@@ -158,12 +159,15 @@
                  * add the class header content
                  */
                 addHeaderContent = function () {
-                    createEl("div", {id:"main"})
+                    var mainContent = createEl("div", {id:"main"}),
+                    header = createEl("h1", {id:""});
+                    doc_body.appendChild(mainContent);
+                    main = document.getElementById("main");
                 };
                 /**
                  * add the side nav
                  */
-                addSideNav = function () {
+                addIndex = function () {
 
                 };
                 /**
@@ -220,7 +224,7 @@
                     // get the class prop arrays
                     getPropertyArrays(classes);
                     addHeaderContent();
-                    addSideNav();
+                    addIndex();
                     addMethodsContent();
                     addEventsContent();
                     addPropertiesContent();

@@ -110,6 +110,7 @@
                             jMax = privateItems.length;
                             if (jMax > 0) {
                                 do {
+                                    bclslog("j", j);
                                     classData.splice(privateItems[j--], 1);
                                 } while (j > 0)
                             }
@@ -117,7 +118,7 @@
                             classIdx = findObjectInArray(classData, "kind", "class");
                             doc_data[thisClass].headerInfo = classData[classIdx];
                             // doc_data[thisClass.name].methodsArray = getSubArray();
-                            bclslog("doc_data[thisClass]", doc_data[thisClass]);
+                            bclslog(thisClass, doc_data[thisClass]);
                         }
                     }
                 };

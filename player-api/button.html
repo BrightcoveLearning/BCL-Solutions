@@ -44,7 +44,7 @@
                  * @return {Boolean} true if variable is defined and has a value
                  */
                 isDefined = function (x) {
-                    if ( x !== "" && x !== null && x !== undefined && !x.isNaN() && x !== {} && x !== []){
+                    if ( x !== "" && x !== null && x !== undefined && x !== NaN && x !== {} && x !== []){
                         return true;
                     } else {
                         return false;
@@ -149,10 +149,10 @@
                     // data structures
                     for (className in classes) {
                         doc_data[className] = {};
-                        doc_data[classMame]headerInfo = {};
-                        doc_data[classMame]methodsArray = [];
-                        doc_data[classMame]eventsArray = [];
-                        doc_data[classMame]propertiesArray = [];
+                        doc_data[className].headerInfo = {};
+                        doc_data[className].methodsArray = [];
+                        doc_data[className].eventsArray = [];
+                        doc_data[className].propertiesArray = [];
                     }
                     // get the class prop arrays
                     getPropertyArrays(classes);

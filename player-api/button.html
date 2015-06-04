@@ -26,7 +26,13 @@
                     getSubArray,
                     getPropertyArrays,
                     sortArray,
+                    createElement,
                     bclslog,
+                    addHeaderContent,
+                    addSideNav,
+                    addMethodsContent,
+                    addEventsContent,
+                    addPropertiesContent,
                     init;
                 /**
                  * Logging function - safe for IE
@@ -94,6 +100,15 @@
                     return idxArr;
                 };
                 /**
+                 * create an element
+                 * @param  {string} type - the element type
+                 * @param  {object} attributes - attributes to add to the element
+                 * @return {object} the HTML element
+                 */
+                createElement = function (type,attributes) {
+
+                };
+                /**
                  * extracts the events, methods, and properties for the classes
                  * @param {object} classes - object whose properties are classes with values of the data for that class
                  * @return {}
@@ -114,12 +129,48 @@
                                 classData.splice(privateItems[j--], 1);
                             } while (j > 0)
                             bclslog("classData.length", classData.length);
+                            // get the class data for the page heading
                             classIdx = findObjectInArray(classData, "kind", "class");
                             doc_data[thisClass].headerInfo = classData[classIdx];
+                            // get the methods data
                             doc_data[thisClass].methodsArray = getSubArray(classData, "kind", "function");
+                            // get the events data
+                            doc_data[thisClass].eventsArray = getSubArray(classData, "kind", "event");
+                            // get the properties
+                            doc_data[thisClass].propertiesArray = getSubArray(classData, "kind", "property");
                             bclslog(thisClass, doc_data[thisClass]);
                         }
                     }
+                };
+                /**
+                 * add the class header content
+                 */
+                addHeaderContent = function () {
+
+                };
+                /**
+                 * add the side nav
+                 */
+                addSideNav = function () {
+
+                };
+                /**
+                 * add the methods
+                 */
+                addMethodsContent = function () {
+
+                };
+                /**
+                 * add the events
+                 */
+                addEventsContent = function () {
+
+                };
+                /**
+                 * add the properties
+                 */
+                addPropertiesContent = function () {
+
                 };
                 /**
                  * sort an array of objects based on an object property
@@ -156,6 +207,11 @@
                     }
                     // get the class prop arrays
                     getPropertyArrays(classes);
+                    addHeaderContent();
+                    addSideNav();
+                    addMethodsContent();
+                    addEventsContent();
+                    addPropertiesContent();
                 };
                 bclslog("button_data", button_data);
                 bclslog("component_data", component_data);

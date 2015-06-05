@@ -226,7 +226,9 @@
                     // page header
                     headerEl.textContent = doc_data.thisClass.headerInfo.name;
                     // other stuff
-                    topSectionEl.innerHTML += "<p><strong>EXTENDS</strong>: <a href=\"" + doc_data.parentClass.headerInfo.meta.filename + "\">" + doc_data.parentClass.headerInfo.meta.filename + "</a></p>";
+                    if (isDefined(parentClass.headerInfo)) {
+                        topSectionEl.innerHTML += "<p><strong>EXTENDS</strong>: <a href=\"" + doc_data.parentClass.headerInfo.meta.filename + "\">" + doc_data.parentClass.headerInfo.meta.filename + "</a></p>";
+                    }
                     topSectionEl.innerHTML += "<p><strong>DEFINED IN</strong>: <a href=\"" + doc_data.thisClass.headerInfo.meta.filename + "\">src/" + doc_data.thisClass.headerInfo.meta.filename + "</a></p>";
                     topSectionEl.innerHTML += doc_data.thisClass.headerInfo.description;
                 };
@@ -234,7 +236,8 @@
                  * add the side nav
                  */
                 addIndex = function () {
-                    var sectionEl = createEl(type, attributes)
+                    var sectionEl = createEl("div", {id: "index", class: "section"}),
+
                 };
                 /**
                  * add the methods

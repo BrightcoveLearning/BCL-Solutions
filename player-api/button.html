@@ -61,7 +61,7 @@
                  * @return {Boolean} true if variable is defined and has a value
                  */
                 isDefined = function (x) {
-                    if ( x !== "" && x !== null && x !== undefined && x !== NaN && x !== {} && x !== []){
+                    if ( x !== "" && x !== null && x !== undefined && x !== NaN){
                         return true;
                     } else {
                         return false;
@@ -226,7 +226,7 @@
                     // page header
                     headerEl.textContent = doc_data.thisClass.headerInfo.name;
                     // other stuff
-                    if (isDefined(parentClass.headerInfo)) {
+                    if (isDefined(doc_data.parentClass.headerInfo)) {
                         topSectionEl.innerHTML += "<p><strong>EXTENDS</strong>: <a href=\"" + doc_data.parentClass.headerInfo.meta.filename + "\">" + doc_data.parentClass.headerInfo.meta.filename + "</a></p>";
                     }
                     topSectionEl.innerHTML += "<p><strong>DEFINED IN</strong>: <a href=\"" + doc_data.thisClass.headerInfo.meta.filename + "\">src/" + doc_data.thisClass.headerInfo.meta.filename + "</a></p>";
@@ -238,11 +238,40 @@
                 addIndex = function () {
                     var section = createEl("section", {id: "index", class: "section"}),
                         header = createEl("h2"),
-                        modulesIndex = createEl("div", {id: "modulesIndex"}),
-                        methodsHeader = createEl("h3", {id: "methodsHeader"}),
-                        eventsHeader = createEl("h3", {id: "eventsHeader"}),
-                        propertieHeader = createEl("h3", {id: "propertiesHeader"}),
-
+                        memberIndex = createEl("div", {id: "memberIndex"}),
+                        methodsHeader,
+                        eventsHeader,
+                        propertieHeader,
+                        methodsList,
+                        propertiesList,
+                        eventsList,
+                        item,
+                        listItem,
+                        listLink,
+                        i,
+                        iMax;
+                    if (doc_data.thisClass.propertiesArray.length > 0 || isDefined(doc_data.parentClass) && doc_data.parent_class_data.propertiesArray.length > 0) {
+                        propertiesHeader = createEl("h3", {id: "propertiesHeader"});
+                        propertiesList = createEl("ul", {id: "propertiesList"});
+                        iMax = doc_data.thisClass.propertiesArray.length;
+                        for (i = 0; i < iMax; i++) {
+                            item = doc_data.thisClass.propertiesArray[i].name;
+                            listItem = createEl("li");
+                            listLink = createEl("a", {href: "#" + item, textContent: item});
+                            listItem.appendChild(listLink);
+                            propertiesList.appendChild(listItem);
+                        }
+                        memberIndex.appendChild(propertiesHeader);
+                        memberIndex.appendChild(propertiesList);
+                    }
+                    if (doc_data.thisClass.methodsArray.length > 0 || isDefined(doc_data.parentClass) && doc_data.parent_class_data.methodsArray.length > 0) {
+                        methodsHeader = createEl("h3", {id: "methodsHeader"});
+                        memberIndex.appendChild(methodsHeader);
+                    }
+                    if (doc_data.thisClass.eventsArray.length > 0 || isDefined(doc_data.parentClass) && doc_data.parent_class_data.eventsArray.length > 0) {
+                        eventsHeader = createEl("h3", {id: "eventsHeader"});
+                        memberIndex.appendChild(eventsHeader);
+                    }
 
                 };
                 /**

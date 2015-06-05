@@ -210,13 +210,13 @@
                  * add the class header content
                  */
                 addHeaderContent = function () {
-                    var mainContent = createEl("div", {id:"main"}),
-                        topSection = createEl("div", {id:"top",class:"section"}),
+                    var mainContent = createEl("div", {id:"main", class: "section"}),
+                        topSection = createEl("section", {id:"top"}),
                         topSectionEl,
                         header = createEl("h1", {id:doc_data.thisClass.headerInfo.name}),
                         headerEl;
                     // add elements
-                    topSection.appendChild(header)
+                    topSection.appendChild(header);
                     mainContent.appendChild(topSection);
                     doc_body.appendChild(mainContent);
                     main = document.getElementById("main");
@@ -236,7 +236,10 @@
                  * add the side nav
                  */
                 addIndex = function () {
-                    var sectionEl = createEl("div", {id: "index", class: "section"}),
+                    var section = createEl("section", {id: "index", class: "section"}),
+                        header = createEl("h2"),
+                        modulesIndex = createEl("div", {id: "modulesIndex"}),
+                        modulesHeader = create
 
                 };
                 /**

@@ -15,17 +15,23 @@
             var BCLS = ( function (window, document, class_data, parent_class_data) {
                 "use strict";
                 var title = document.getElementsByTagName('title')[0],
+                    // path as an array
+                    path = document.location.pathname.split("/"),
                     // data structures
                     /* the following should be the only line that changes
                         current class first, parent class(es) after */
-                    classes = {button: class_data, component: parent_class_data},
+                    classes = {thisClass: class_data, parentClass: parent_class_data},
+                    doc_class,
+                    doc_parent_class,
                     doc_data = {},
                     // elements
                     main,
                     doc_body = document.getElementsByTagName("body")[0],
                     // functions
                     isDefined,
+                    copyObj,
                     findObjectInArray,
+                    findObjectsInArray,
                     getSubArray,
                     getPropertyArrays,
                     sortArray,
@@ -62,6 +68,14 @@
                     }
                 };
                 /**
+                 * get a copy of (rather than reference to) an object
+                 * @param  {object} obj - the object you want a copy
+                 * @return {object}     the copy
+                 */
+                copyObj = function (obj) {
+                    return JSON.parse(JSON.stringify(obj));
+                };
+                /**
                  * find index of an object in array of objects
                  * based on some property value
                  * generally useful for finding a unique object
@@ -84,6 +98,25 @@
                     }
                 };
                 /**
+                 * find indexes of a set of object in array of objects
+                 * based on some property value
+                 * generally useful for finding several objects
+                 *
+                 * @param {array} targetArray - array to search
+                 * @param {string} objProperty - object property to search
+                 * @param {string|number} value - value of the property to search for
+                 * @return {array} array of indexes for matching objects
+                */
+                findObjectsInArray = function (targetArray, objProperty, value) {
+                    var i, totalItems = targetArray.length, newArr = [];
+                    for (i = 0; i < totalItems; i++) {
+                        if (targetArray[i][objProperty] === value) {
+                            newArr.push(i);
+                        }
+                    }
+                    return newArr;
+                };
+                /**
                  * get a subset of objects in array of objects
                  * based on some property value
                  *
@@ -101,92 +134,6 @@
                         }
                     }
                     return idxArr;
-                };
-                /**
-                 * create an element
-                 * @param  {string} type - the element type
-                 * @param  {object} attributes - attributes to add to the element
-                 * @return {object} the HTML element
-                 */
-                createEl = function (type, attributes) {
-                    var el;
-                    if (isDefined(type)) {
-                        document.createElement(type);
-                        if (isDefined(attributes)) {
-                            var attr;
-                            for (attr in attributes) {
-                                el.setAttribute(attr, attributes[attr]);
-                            }
-                        }
-                        return el;
-                    }
-                };
-                /**
-                 * extracts the events, methods, and properties for the classes
-                 * @param {object} classes - object whose properties are classes with values of the data for that class
-                 * @return {}
-                 */
-                getPropertyArrays = function (classes) {
-                    var i, iMax, thisClass, classData = [], classIdx, j, jMax, itemIdx, privateItems = [];
-                    if (isDefined(classes)) {
-                        iMax = classes.length;
-                        for (thisClass in classes) {
-                            classData = classes[thisClass];
-                            privateItems = [];
-                            // remove all private items
-                            privateItems = getSubArray(classData, "access", "private");
-                            bclslog("privateItems", privateItems);
-                            bclslog("classData.length", classData.length);
-                            j = privateItems.length;
-                            do {
-                                classData.splice(privateItems[j--], 1);
-                            } while (j > 0);
-                            bclslog("classData.length", classData.length);
-                            // get the class data for the page heading
-                            classIdx = findObjectInArray(classData, "kind", "class");
-                            doc_data[thisClass].headerInfo = classData[classIdx];
-                            // get the methods data
-                            doc_data[thisClass].methodsArray = getSubArray(classData, "kind", "function");
-                            // get the events data
-                            doc_data[thisClass].eventsArray = getSubArray(classData, "kind", "event");
-                            // get the properties
-                            doc_data[thisClass].propertiesArray = getSubArray(classData, "kind", "property");
-                            bclslog(thisClass, doc_data[thisClass]);
-                        }
-                    }
-                };
-                /**
-                 * add the class header content
-                 */
-                addHeaderContent = function () {
-                    var mainContent = createEl("div", {id:"main"}),
-                    header = createEl("h1", {id:""});
-                    doc_body.appendChild(mainContent);
-                    main = document.getElementById("main");
-                };
-                /**
-                 * add the side nav
-                 */
-                addIndex = function () {
-
-                };
-                /**
-                 * add the methods
-                 */
-                addMethodsContent = function () {
-
-                };
-                /**
-                 * add the events
-                 */
-                addEventsContent = function () {
-
-                };
-                /**
-                 * add the properties
-                 */
-                addPropertiesContent = function () {
-
                 };
                 /**
                  * sort an array of objects based on an object property
@@ -209,10 +156,112 @@
                     return targetArray;
                 };
                 /**
+                 * create an element
+                 * @param  {string} type - the element type
+                 * @param  {object} attributes - attributes to add to the element
+                 * @return {object} the HTML element
+                 */
+                createEl = function (type, attributes) {
+                    var el;
+                    if (isDefined(type)) {
+                        el = document.createElement(type);
+                        if (isDefined(attributes)) {
+                            var attr;
+                            for (attr in attributes) {
+                                el.setAttribute(attr, attributes[attr]);
+                            }
+                        }
+                        return el;
+                    }
+                };
+                /**
+                 * extracts the events, methods, and properties for the classes
+                 * @param {object} classes - object whose properties are classes with values of the data for that class
+                 * @return {}
+                 */
+                getPropertyArrays = function (classes) {
+                    var i, iMax, currentClass, classData = [], classIdx, j, jMax, itemIdx, privateItems = [];
+                    if (isDefined(classes)) {
+                        iMax = classes.length;
+                        for (currentClass in classes) {
+                            classData = classes[currentClass];
+                            privateItems = [];
+                            // get the class data for the page heading
+                            classIdx = findObjectInArray(classData, "kind", "class");
+                            doc_data[currentClass].headerInfo = copyObj(classData[classIdx]);
+                            // remove all private items
+                            privateItems = findObjectsInArray(classData, "access", "private");
+                            bclslog("privateItems", privateItems);
+                            j = privateItems.length;
+                            do {
+                                classData.splice(privateItems[j--], 1);
+                            } while (j > 0);
+                            // get the methods data
+                            doc_data[currentClass].methodsArray = getSubArray(classData, "kind", "function");
+                            // get the events data
+                            doc_data[currentClass].eventsArray = getSubArray(classData, "kind", "event");
+                            // get the properties
+                            doc_data[currentClass].propertiesArray = getSubArray(classData, "kind", "property");
+                            bclslog(currentClass, doc_data[currentClass]);
+                        }
+                    }
+                };
+                /**
+                 * add the class header content
+                 */
+                addHeaderContent = function () {
+                    var mainContent = createEl("div", {id:"main"}),
+                        topSection = createEl("div", {id:"top",class:"section"}),
+                        topSectionEl,
+                        header = createEl("h1", {id:doc_data.thisClass.headerInfo.name}),
+                        headerEl;
+                    // add elements
+                    topSection.appendChild(header)
+                    mainContent.appendChild(topSection);
+                    doc_body.appendChild(mainContent);
+                    main = document.getElementById("main");
+                    topSectionEl = document.getElementById("top");
+                    headerEl = document.getElementById(doc_data.thisClass.headerInfo.name);
+                    // add content
+                    // page header
+                    headerEl.textContent = doc_data.thisClass.headerInfo.name;
+                    // other stuff
+                    topSectionEl.innerHTML += "<p><strong>EXTENDS</strong>: <a href=\"" + doc_data.parentClass.headerInfo.meta.filename + "\">" + doc_data.parentClass.headerInfo.meta.filename + "</a></p>";
+                    topSectionEl.innerHTML += "<p><strong>DEFINED IN</strong>: <a href=\"" + doc_data.thisClass.headerInfo.meta.filename + "\">src/" + doc_data.thisClass.headerInfo.meta.filename + "</a></p>";
+                    topSectionEl.innerHTML += doc_data.thisClass.headerInfo.description;
+                };
+                /**
+                 * add the side nav
+                 */
+                addIndex = function () {
+                    var sectionEl = createEl(type, attributes)
+                };
+                /**
+                 * add the methods
+                 */
+                addMethodsContent = function () {
+
+                };
+                /**
+                 * add the events
+                 */
+                addEventsContent = function () {
+
+                };
+                /**
+                 * add the properties
+                 */
+                addPropertiesContent = function () {
+
+                };
+                /**
                  * init gets things going
                  */
                 init = function () {
-                    var className;
+                    var className, fileName;
+                    // get the class name from the file name
+                    fileName = path[path.length - 1];
+                    doc_class = fileName.substring(0, fileName.indexOf("."));
                     // data structures
                     for (className in classes) {
                         doc_data[className] = {};

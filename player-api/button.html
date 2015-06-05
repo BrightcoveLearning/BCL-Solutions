@@ -84,7 +84,7 @@
                  * @param {string} objProperty - object property to search
                  * @param {string|number} value - value of the property to search for
                  * @return {integer} index of first instance if found, otherwise returns -1
-                */
+                 */
                 findObjectInArray = function (targetArray, objProperty, value) {
                     var i, totalItems = targetArray.length, objFound = false;
                     for (i = 0; i < totalItems; i++) {
@@ -106,7 +106,7 @@
                  * @param {string} objProperty - object property to search
                  * @param {string|number} value - value of the property to search for
                  * @return {array} array of indexes for matching objects
-                */
+                 */
                 findObjectsInArray = function (targetArray, objProperty, value) {
                     var i, totalItems = targetArray.length, newArr = [];
                     for (i = 0; i < totalItems; i++) {
@@ -124,7 +124,7 @@
                  * @param {string} objProperty - object property to search
                  * @param {string|number} value - value of the property to search for
                  * @return {array} array of objects with matching property value
-                */
+                 */
                 getSubArray = function (targetArray, objProperty, value) {
                     var i, totalItems = targetArray.length, objFound = false, idxArr = [];
                     for (i = 0; i < totalItems; i++) {
@@ -140,7 +140,7 @@
                  * @param {array} targetArray - array to sort
                  * @param {string} objProperty - property whose value to sort on
                  * @return {array} the sorted array
-                */
+                 */
                 sortArray = function (targetArray, objProperty) {
                     targetArray.sort(function (a, b) {
                         var propA = a[objProperty].toLowerCase(), propB = b[objProperty].toLowerCase();
@@ -239,7 +239,10 @@
                     var section = createEl("section", {id: "index", class: "section"}),
                         header = createEl("h2"),
                         modulesIndex = createEl("div", {id: "modulesIndex"}),
-                        modulesHeader = create
+                        methodsHeader = createEl("h3", {id: "methodsHeader"}),
+                        eventsHeader = createEl("h3", {id: "eventsHeader"}),
+                        propertieHeader = createEl("h3", {id: "propertiesHeader"}),
+
 
                 };
                 /**

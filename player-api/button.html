@@ -299,18 +299,36 @@
                  * add the member content
                  */
                 addMembersContent = function () {
-                    var members = ["Properties", "Methods", "Events"],
+                    var members = [{name: "Properties", data: "propertiesArray"}, {name: "Methods", data: "methodsArray"}, {name: "Events", data: "eventsArray"}],
+                        member,
                         section,
                         header,
                         item,
                         itemHeader,
+                        itemParams = [],
                         itemDescription,
                         itemEl,
                         text,
                         i,
                         iMax,
                         j,
-                        jMax;
+                        jMax,
+                        createMemberItem = function (member) {
+                            section = createEl("section", {id:member.name.toLowerCase(), class: "section"});
+                            header = createEl("h2");
+                            text = document.createTextNode(member.name);
+                            header.appendChild(text);
+                            section.appendChild(header);
+                            jMax = doc_data.thisClass[member.data].length;
+
+                        };
+                    iMax = members.length;
+                    for (i = 0; i < iMax; i++) {
+                        member = members[i];
+                        if (doc_data.thisClass[member.data].length > 0){
+                            createMemberItem(member);
+                        }
+                    }
                 };
                 /**
                  * add the events

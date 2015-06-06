@@ -248,31 +248,51 @@
                         item,
                         listItem,
                         listLink,
+                        em,
+                        text,
                         i,
-                        iMax;
-                    if (doc_data.thisClass.propertiesArray.length > 0 || isDefined(doc_data.parentClass) && doc_data.parent_class_data.propertiesArray.length > 0) {
-                        propertiesHeader = createEl("h3", {id: "propertiesHeader"});
-                        propertiesList = createEl("ul", {id: "propertiesList"});
-                        iMax = doc_data.thisClass.propertiesArray.length;
-                        for (i = 0; i < iMax; i++) {
-                            item = doc_data.thisClass.propertiesArray[i].name;
-                            listItem = createEl("li");
-                            listLink = createEl("a", {href: "#" + item, textContent: item});
-                            listItem.appendChild(listLink);
-                            propertiesList.appendChild(listItem);
-                        }
-                        memberIndex.appendChild(propertiesHeader);
-                        memberIndex.appendChild(propertiesList);
-                    }
-                    if (doc_data.thisClass.methodsArray.length > 0 || isDefined(doc_data.parentClass) && doc_data.parent_class_data.methodsArray.length > 0) {
-                        methodsHeader = createEl("h3", {id: "methodsHeader"});
-                        memberIndex.appendChild(methodsHeader);
-                    }
-                    if (doc_data.thisClass.eventsArray.length > 0 || isDefined(doc_data.parentClass) && doc_data.parent_class_data.eventsArray.length > 0) {
-                        eventsHeader = createEl("h3", {id: "eventsHeader"});
-                        memberIndex.appendChild(eventsHeader);
-                    }
+                        iMax,
+                        makeList = function (classArr, parentArr, header, list) {
+                            if (classArr.length > 0 || isDefined(doc_data.parentClass) && parentArr.length > 0) {
+                                header = createEl("h3", {id: header});
+                                list = createEl("ul", {id: list});
+                                iMax = classArr.length;
+                                for (i = 0; i < iMax; i++) {
+                                    item = classArr[i].name;
+                                    listItem = createEl("li");
+                                    listLink = createEl("a", {href: "#" + item});
+                                    text = document.createTextNode(item);
+                                    listLink.appendChild(text);
+                                    listItem.appendChild(listLink);
+                                    list.appendChild(listItem);
+                                }
+                                if (isDefined(doc_data.parentClass) && parentArr.length > 0) {
+                                iMax = parentArr.length;
+                                    for (i = 0; i < iMax; i++) {
+                                        item = parentArr[i].name;
+                                        listItem = createEl("li");
+                                        listLink = createEl("a", {href: "#" + item});
+                                        listItem.appendChild(listLink);
+                                        text = document.createTextNode(item + " ");
+                                        listLink.appendChild(text);
+                                        em = createEl("em");
+                                        text = document.createTextNode("inherited");
+                                        em.appendChild(text);
+                                        listItem.appendChild(em);
+                                        list.appendChild(listItem);
+                                    }
+                                }
+                                memberIndex.appendChild(header);
+                                memberIndex.appendChild(list);
+                            }
+                        };
 
+                    makeList(doc_data.thisClass.propertiesArray, doc_data.parentClass.propertiesArray, "propertiesHeader", "propertiesList");
+                    makeList(doc_data.thisClass.methodsArray, doc_data.parentClass.methodsArray, "methodsHeader", "methodsList");
+                    makeList(doc_data.thisClass.eventsArray, doc_data.parentClass.eventsArray, "eventsHeader", "eventsList");
+                    section.appendChild(header);
+                    section.appendChild(memberIndex);
+                    main.appendChild(section);
                 };
                 /**
                  * add the methods
@@ -312,9 +332,9 @@
                     getPropertyArrays(classes);
                     addHeaderContent();
                     addIndex();
+                    addPropertiesContent();
                     addMethodsContent();
                     addEventsContent();
-                    addPropertiesContent();
                 };
                 bclslog("class_data", class_data);
                 bclslog("parent_class_data", parent_class_data);

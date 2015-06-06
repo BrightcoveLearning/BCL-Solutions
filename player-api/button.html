@@ -39,9 +39,7 @@
                     bclslog,
                     addHeaderContent,
                     addIndex,
-                    addMethodsContent,
-                    addEventsContent,
-                    addPropertiesContent,
+                    addMembersContent,
                     init;
                 /**
                  * Logging function - safe for IE
@@ -229,7 +227,7 @@
                     if (isDefined(doc_data.parentClass.headerInfo)) {
                         topSectionEl.innerHTML += "<p><strong>EXTENDS</strong>: <a href=\"" + doc_data.parentClass.headerInfo.meta.filename + "\">" + doc_data.parentClass.headerInfo.meta.filename + "</a></p>";
                     }
-                    topSectionEl.innerHTML += "<p><strong>DEFINED IN</strong>: <a href=\"" + doc_data.thisClass.headerInfo.meta.filename + "\">src/" + doc_data.thisClass.headerInfo.meta.filename + "</a></p>";
+                    topSectionEl.innerHTML += "<p><strong>DEFINED IN</strong>: <a href=\"" + doc_data.thisClass.headerInfo.meta.filename + "\">src/" + doc_data.thisClass.headerInfo.meta.filename + " Line number: " + doc_data.thisClass.headerInfo.meta.lineno + "</a></p>";
                     topSectionEl.innerHTML += doc_data.thisClass.headerInfo.description;
                 };
                 /**
@@ -237,7 +235,7 @@
                  */
                 addIndex = function () {
                     var section = createEl("section", {id: "index", class: "section"}),
-                        header = createEl("h2"),
+                        sectionHeader = createEl("h2"),
                         memberIndex = createEl("div", {id: "memberIndex"}),
                         methodsHeader,
                         eventsHeader,
@@ -252,9 +250,11 @@
                         text,
                         i,
                         iMax,
-                        makeList = function (classArr, parentArr, header, list) {
+                        makeList = function (classArr, parentArr, member, header, list) {
                             if (classArr.length > 0 || isDefined(doc_data.parentClass) && parentArr.length > 0) {
                                 header = createEl("h3", {id: header});
+                                text = document.createTextNode(member);
+                                header.appendChild(text);
                                 list = createEl("ul", {id: list});
                                 iMax = classArr.length;
                                 for (i = 0; i < iMax; i++) {
@@ -286,19 +286,31 @@
                                 memberIndex.appendChild(list);
                             }
                         };
-
-                    makeList(doc_data.thisClass.propertiesArray, doc_data.parentClass.propertiesArray, "propertiesHeader", "propertiesList");
-                    makeList(doc_data.thisClass.methodsArray, doc_data.parentClass.methodsArray, "methodsHeader", "methodsList");
-                    makeList(doc_data.thisClass.eventsArray, doc_data.parentClass.eventsArray, "eventsHeader", "eventsList");
-                    section.appendChild(header);
+                    text = document.createTextNode("Index");
+                    sectionHeader.appendChild(text);
+                    makeList(doc_data.thisClass.propertiesArray, doc_data.parentClass.propertiesArray, "Properties", "propertiesHeader", "propertiesList");
+                    makeList(doc_data.thisClass.methodsArray, doc_data.parentClass.methodsArray, "Methods", "methodsHeader", "methodsList");
+                    makeList(doc_data.thisClass.eventsArray, doc_data.parentClass.eventsArray, "Events", "eventsHeader", "eventsList");
+                    section.appendChild(sectionHeader);
                     section.appendChild(memberIndex);
                     main.appendChild(section);
                 };
                 /**
-                 * add the methods
+                 * add the member content
                  */
-                addMethodsContent = function () {
-
+                addMembersContent = function () {
+                    var members = ["Properties", "Methods", "Events"],
+                        section,
+                        header,
+                        item,
+                        itemHeader,
+                        itemDescription,
+                        itemEl,
+                        text,
+                        i,
+                        iMax,
+                        j,
+                        jMax;
                 };
                 /**
                  * add the events

@@ -273,10 +273,10 @@
                                         listItem = createEl("li");
                                         listLink = createEl("a", {href: "#" + item});
                                         listItem.appendChild(listLink);
-                                        text = document.createTextNode(item + " ");
+                                        text = document.createTextNode(item);
                                         listLink.appendChild(text);
                                         em = createEl("em");
-                                        text = document.createTextNode("inherited");
+                                        text = document.createTextNode(" inherited");
                                         em.appendChild(text);
                                         listItem.appendChild(em);
                                         list.appendChild(listItem);
@@ -304,6 +304,7 @@
                         section,
                         header,
                         item,
+                        itemWrapper,
                         itemHeader,
                         itemParams = [],
                         itemDescription,
@@ -320,6 +321,9 @@
                             header.appendChild(text);
                             section.appendChild(header);
                             jMax = doc_data.thisClass[member.data].length;
+                            for (j = 0; j < jMax; j++) {
+                                item = doc_data.thisClass[member.data][j];
+                            }
 
                         };
                     iMax = members.length;
@@ -329,18 +333,6 @@
                             createMemberItem(member);
                         }
                     }
-                };
-                /**
-                 * add the events
-                 */
-                addEventsContent = function () {
-
-                };
-                /**
-                 * add the properties
-                 */
-                addPropertiesContent = function () {
-
                 };
                 /**
                  * init gets things going
@@ -362,9 +354,7 @@
                     getPropertyArrays(classes);
                     addHeaderContent();
                     addIndex();
-                    addPropertiesContent();
-                    addMethodsContent();
-                    addEventsContent();
+                    addMembersContent();
                 };
                 bclslog("class_data", class_data);
                 bclslog("parent_class_data", parent_class_data);

@@ -307,8 +307,16 @@
                         itemWrapper,
                         itemHeader,
                         itemParams = [],
+                        itemParamsHeader,
+                        itemParamsList,
+                        itemParamsItem,
+                        itemReturnsHeader,
+                        itemReturnsList,
+                        itemReturnsItem,
+                        itemParamsStr,
                         itemDescription,
                         itemDescriptionEl,
+                        itemInherited,
                         itemEl,
                         text,
                         i,
@@ -350,6 +358,7 @@
                                 itemDescriptionEl = document.getElementById(item.name + "Description");
                                 bclslog("itemDescriptionEl", itemDescriptionEl);
                                 itemDescriptionEl.innerHTML = item.description;
+
 
                             }
                                 main.appendChild(section);

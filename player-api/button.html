@@ -306,6 +306,7 @@
                         item,
                         itemWrapper,
                         itemHeader,
+                        itemHeaderStr,
                         itemParams = [],
                         itemParamsHeader,
                         itemParamsList,
@@ -313,6 +314,7 @@
                         itemReturnsHeader,
                         itemReturnsList,
                         itemReturnsItem,
+                        itemReturnsStr,
                         itemParamsStr,
                         itemDescription,
                         itemDescriptionEl,
@@ -338,19 +340,32 @@
                                 itemWrapper = createEl("div", {id: item.name});
                                 section.appendChild(itemWrapper);
                                 itemHeader = createEl("h3", {id: item.name + "Header"});
+                                itemHeaderStr = item.name;
                                 itemWrapper.appendChild(itemHeader);
                                 if (isDefined(item.params)) {
                                     itemParams = [];
+                                    itemParamsHeader = createEl("h4");
+                                    text = document.createTextNode("Parameters");
+                                    itemParamsHeader.appendChild(text);
+                                    itemParamsList = createEl("ul");
                                     kMax = item.params.length;
                                     for (k = 0; k < kMax; k++) {
+                                        itemParamsItem = createEl("li");
+                                        itemParamsList.appendChild(itemParamsItem);
+                                        itemParamsStr = item.params[k].name + " " + item.params[k].type.names.join("|");
                                         if (item.params[k].optional) {
+                                            itemParamsStr += " (Optional) ";
                                             itemParams.push("[" +item.params[k].name + "]");
                                         } else {
                                             itemParams.push(item.params[k].name);
                                         }
+                                        itemParamsStr += item.params[k].description.replace("p>", "span>");
+                                        text = document.createTextNode(itemParamsStr);
+                                        itemParamsItem.appendChild(text);
                                     }
+                                        itemHeaderStr += "( " + itemParams.join(", ") + " )";
                                 }
-                                text = document.createTextNode(item.name + "( " + itemParams.join(", ") + " )");
+                                text = document.createTextNode(itemHeaderStr);
                                 itemHeader.appendChild(text);
                                 itemDescription = createEl("div", {id: item.name + "Description"});
                                 section.appendChild(itemHeader);
@@ -362,6 +377,8 @@
 
                             }
                                 main.appendChild(section);
+                                itemWrapper.appendChild(itemParamsHeader);
+                                itemWrapper.appendChild(itemParamsList);
 
                         };
                     iMax = members.length;

@@ -227,7 +227,7 @@
                     if (isDefined(doc_data.parentClass.headerInfo)) {
                         topSectionEl.innerHTML += "<p><strong>EXTENDS</strong>: <a href=\"" + doc_data.parentClass.headerInfo.meta.filename + "\">" + doc_data.parentClass.headerInfo.meta.filename + "</a></p>";
                     }
-                    topSectionEl.innerHTML += "<p><strong>DEFINED IN</strong>: <a href=\"" + doc_data.thisClass.headerInfo.meta.filename + "\">src/" + doc_data.thisClass.headerInfo.meta.filename + " Line number: " + doc_data.thisClass.headerInfo.meta.lineno + "</a></p>";
+                    topSectionEl.innerHTML += "<p><strong>DEFINED IN</strong>: <a href=\"" + doc_data.thisClass.headerInfo.meta.filename + "\">src/" + doc_data.thisClass.headerInfo.meta.filename + " line number: " + doc_data.thisClass.headerInfo.meta.lineno + "</a></p>";
                     topSectionEl.innerHTML += doc_data.thisClass.headerInfo.description;
                 };
                 /**
@@ -314,6 +314,8 @@
                         iMax,
                         j,
                         jMax,
+                        k,
+                        kMax,
                         createMemberItem = function (member) {
                             section = createEl("section", {id:member.name.toLowerCase(), class: "section"});
                             header = createEl("h2");
@@ -323,6 +325,16 @@
                             jMax = doc_data.thisClass[member.data].length;
                             for (j = 0; j < jMax; j++) {
                                 item = doc_data.thisClass[member.data][j];
+                                itemWrapper = createEl("div", {id: item.name});
+                                itemHeader = createEl("h3" {id: item.name + "Header"});
+                                if (isDefined(item.params)) {
+                                    itemParams = [];
+                                    kMax = item.params.length;
+                                    for (k = 0; k < kMax; k++) {
+
+                                    }
+                                }
+
                             }
 
                         };

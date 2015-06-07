@@ -308,6 +308,7 @@
                         itemHeader,
                         itemParams = [],
                         itemDescription,
+                        itemDescriptionEl,
                         itemEl,
                         text,
                         i,
@@ -318,6 +319,7 @@
                         kMax,
                         createMemberItem = function (member) {
                             section = createEl("section", {id:member.name.toLowerCase(), class: "section"});
+                            main.appendChild(section);
                             header = createEl("h2");
                             text = document.createTextNode(member.name);
                             header.appendChild(text);
@@ -326,16 +328,31 @@
                             for (j = 0; j < jMax; j++) {
                                 item = doc_data.thisClass[member.data][j];
                                 itemWrapper = createEl("div", {id: item.name});
-                                itemHeader = createEl("h3" {id: item.name + "Header"});
+                                section.appendChild(itemWrapper);
+                                itemHeader = createEl("h3", {id: item.name + "Header"});
+                                itemWrapper.appendChild(itemHeader);
                                 if (isDefined(item.params)) {
                                     itemParams = [];
                                     kMax = item.params.length;
                                     for (k = 0; k < kMax; k++) {
-
+                                        if (item.params[k].optional) {
+                                            itemParams.push("[" +item.params[k].name + "]");
+                                        } else {
+                                            itemParams.push(item.params[k].name);
+                                        }
                                     }
                                 }
+                                text = document.createTextNode(item.name + "( " + itemParams.join(", ") + " )");
+                                itemHeader.appendChild(text);
+                                itemDescription = createEl("div", {id: item.name + "Description"});
+                                section.appendChild(itemHeader);
+                                section.appendChild(itemDescription);
+                                itemDescriptionEl = document.getElementById(item.name + "Description");
+                                bclslog("itemDescriptionEl", itemDescriptionEl);
+                                itemDescriptionEl.innerHTML = item.description;
 
                             }
+                                main.appendChild(section);
 
                         };
                     iMax = members.length;

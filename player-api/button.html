@@ -11,10 +11,11 @@
     </head>
     <body>
 
-        <script src="button.js"></script>
-        <script src="component.js"></script>
+        <!-- <script src="button.js"></script>
+        <script src="component.js"></script> -->
+        <script src="js/doc_data.js"></script>
         <script>
-            var BCLSVJS = ( function (window, document, class_data, parent_class_data) {
+            var BCLSVJS = ( function (window, document, docData) {
                 "use strict";
                 var title = document.getElementsByTagName('title')[0],
                     // path as an array
@@ -22,7 +23,7 @@
                     // data structures
                     /* the following should be the only line that changes
                         current class first, parent class(es) after */
-                    classes = {thisClass: class_data, parentClass: parent_class_data},
+                    classes = {thisClass: [], parentClass: []},
                     doc_class,
                     doc_parent_class,
                     doc_data = {},
@@ -39,6 +40,7 @@
                     sortArray,
                     createEl,
                     bclslog,
+                    findClassObjects,
                     addHeaderContent,
                     addIndex,
                     addMembersContent,
@@ -174,6 +176,22 @@
                         return el;
                     }
                 };
+                /**
+                 * finds the objects in the doc data for a fileName
+                 * @param {array} arr - the array of objects to search
+                 * @param {string} filename - the filename to look for in the meta object
+                 * @return {array} - array of the objects found
+                 */
+                findClassObjects = function (arr, filename) {
+                    var i, totalItems = arr.length, newArr = [];
+                    for (i = 0; i < totalItems; i++) {
+                        if (targetArray[i].meta.filename === filename) {
+                            newArr.push(i);
+                        }
+                    }
+                    return newArr;
+
+                }
                 /**
                  * extracts the events, methods, and properties for the classes
                  * @param {object} classes - object whose properties are classes with values of the data for that class
@@ -455,23 +473,27 @@
                  * init gets things going
                  */
                 init = function () {
-                    var className, fileName;
+                    var className,
+                        fileName,
+                        srcFileName,
+                        thisClassData = [],
+                        parentClassData = [];
                     // get the class name from the file name
                     fileName = path[path.length - 1];
                     doc_class = fileName.substring(0, fileName.indexOf("."));
-                    // data structures
-                    for (className in classes) {
-                        doc_data[className] = {};
-                        doc_data[className].headerInfo = {};
-                        doc_data[className].methodsArray = [];
-                        doc_data[className].eventsArray = [];
-                        doc_data[className].propertiesArray = [];
-                    }
+                    srcFileName = doc_class + ".js";
+                    // get the data for this class
+                    classes.thisClass = findClassObjects(docData, srcFileName);
+                    // get the class overview object
+                    doc_data.thisClass.headerInfo = {};
+                    doc_data.thisClass.methodsArray = [];
+                    doc_data.thisClass.eventsArray = [];
+                    doc_data.thisClass.propertiesArray = [];
                     // get the class prop arrays
-                    getPropertyArrays(classes);
-                    addHeaderContent();
-                    addIndex();
-                    addMembersContent();
+                    // getPropertyArrays(classes);
+                    // addHeaderContent();
+                    // addIndex();
+                    // addMembersContent();
                 };
                 // bclslog("class_data", class_data);
                 // bclslog("parent_class_data", parent_class_data);
@@ -479,7 +501,7 @@
                 return {
 
                 };
-            })(window, document, class_data, parent_class_data);
+            })(window, document, docData);
         </script>
     </body>
 </html>

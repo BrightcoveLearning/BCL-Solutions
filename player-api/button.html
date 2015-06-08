@@ -3,6 +3,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title></title>
+        <script src="//use.edgefonts.net/source-code-pro.js"></script>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
         <style>
 
         </style>
@@ -252,9 +254,11 @@
                         iMax,
                         makeList = function (classArr, parentArr, member, header, list) {
                             if (classArr.length > 0 || isDefined(doc_data.parentClass) && parentArr.length > 0) {
+                                // add member list header
                                 header = createEl("h3", {id: header});
                                 text = document.createTextNode(member);
                                 header.appendChild(text);
+                                // add the list & items
                                 list = createEl("ul", {id: list});
                                 iMax = classArr.length;
                                 for (i = 0; i < iMax; i++) {
@@ -336,6 +340,7 @@
                             text = document.createTextNode(member.name);
                             header.appendChild(text);
                             section.appendChild(header);
+                            // create the class member items
                             jMax = doc_data.thisClass[member.data].length;
                             for (j = 0; j < jMax; j++) {
                                 item = doc_data.thisClass[member.data][j];
@@ -344,6 +349,12 @@
                                 itemHeader = createEl("h3", {id: item.name + "Header"});
                                 itemHeaderStr = item.name;
                                 itemWrapper.appendChild(itemHeader);
+                                itemDescription = createEl("div", {id: item.name + "Description"});
+                                itemWrapper.appendChild(itemDescription);
+                                itemFooter = createEl("p");
+                                itemFooterContent = createEl("em", {id: item.name + "Footer"});
+                                itemFooter.appendChild(itemFooterContent);
+                                // handle params if any
                                 if (isDefined(item.params)) {
                                     itemParams = [];
                                     itemParamsHeader = createEl("h4");
@@ -365,28 +376,71 @@
                                         text = document.createTextNode(itemParamsStr);
                                         itemParamsItem.appendChild(text);
                                     }
-                                        itemHeaderStr += "( " + itemParams.join(", ") + " )";
+                                    itemHeaderStr += "( " + itemParams.join(", ") + " )";
+                                    itemWrapper.appendChild(itemParamsHeader);
+                                    itemWrapper.appendChild(itemParamsList);
                                 }
+                                itemWrapper.appendChild(itemFooter);
                                 text = document.createTextNode(itemHeaderStr);
                                 itemHeader.appendChild(text);
-                                itemDescription = createEl("div", {id: item.name + "Description"});
-                                itemFooter = createEl("p");
-                                itemFooterContent = createEl("em", {id: item.name + "footer"});
-                                itemFooter.appendChild(itemFooterContent);
-                                section.appendChild(itemHeader);
-                                section.appendChild(itemDescription);
                                 itemDescriptionEl = document.getElementById(item.name + "Description");
-                                bclslog("itemDescriptionEl", itemDescriptionEl);
                                 itemDescriptionEl.innerHTML = item.description;
-
-
-                            }
-                                main.appendChild(section);
-                                itemWrapper.appendChild(itemParamsHeader);
-                                itemWrapper.appendChild(itemParamsList);
-                                itemWrapper.appendChild(itemFooter);
                                 itemFooterContentEl = document.getElementById(item.name + "Footer");
                                 itemFooterContentEl.innerHTML = "Defined in <a href=\"https://github.com/videojs/video.js/blob/master/src/js/" + item.meta.fileName + item.meta.lineno + "\">src/js/" + item.meta.fileName + " line number: " + item.meta.lineno + "</a>";
+                            }
+                            // now the inherited member items
+                            if (isDefined(doc_data.parentClass)) {
+                                jMax = doc_data.parentClass[member.data].length;
+                                for (j = 0; j < jMax; j++) {
+                                    item = doc_data.parentClass[member.data][j];
+                                    itemWrapper = createEl("div", {id: item.name});
+                                    section.appendChild(itemWrapper);
+                                    itemHeader = createEl("h3", {id: item.name + "Header"});
+                                    itemHeaderStr = item.name;
+                                    itemWrapper.appendChild(itemHeader);
+                                    itemDescription = createEl("div", {id: item.name + "Description"});
+                                    itemWrapper.appendChild(itemDescription);
+                                    itemFooter = createEl("p");
+                                    itemFooterContent = createEl("em", {id: item.name + "Footer"});
+                                    itemFooter.appendChild(itemFooterContent);
+                                    // handle params if any
+                                    if (isDefined(item.params)) {
+                                        itemParams = [];
+                                        itemParamsHeader = createEl("h4");
+                                        text = document.createTextNode("Parameters");
+                                        itemParamsHeader.appendChild(text);
+                                        itemParamsList = createEl("ul");
+                                        kMax = item.params.length;
+                                        for (k = 0; k < kMax; k++) {
+                                            itemParamsItem = createEl("li");
+                                            itemParamsList.appendChild(itemParamsItem);
+                                            itemParamsStr = item.params[k].name + " " + item.params[k].type.names.join("|");
+                                            if (item.params[k].optional) {
+                                                itemParamsStr += " (Optional) ";
+                                                itemParams.push("[" +item.params[k].name + "]");
+                                            } else {
+                                                itemParams.push(item.params[k].name);
+                                            }
+                                            if (isDefined(item.params[k].description)) {
+                                                itemParamsStr += item.params[k].description.replace("p>", "span>");
+                                                text = document.createTextNode(itemParamsStr);
+                                                itemParamsItem.appendChild(text);
+                                            }
+
+                                        }
+                                        itemHeaderStr += "( " + itemParams.join(", ") + " )";
+                                        itemWrapper.appendChild(itemParamsHeader);
+                                        itemWrapper.appendChild(itemParamsList);
+                                    }
+                                    itemWrapper.appendChild(itemFooter);
+                                    text = document.createTextNode(itemHeaderStr);
+                                    itemHeader.appendChild(text);
+                                    itemDescriptionEl = document.getElementById(item.name + "Description");
+                                    itemDescriptionEl.innerHTML = item.description;
+                                    itemFooterContentEl = document.getElementById(item.name + "Footer");
+                                    itemFooterContentEl.innerHTML = "Inherited from <a href=\"https://github.com/videojs/video.js/blob/master/src/js/" + item.meta.fileName + item.meta.lineno + "\">src/js/" + item.meta.fileName + " line number: " + item.meta.lineno + "</a>";
+                                }
+                            }
 
                         };
                     iMax = members.length;
@@ -419,8 +473,8 @@
                     addIndex();
                     addMembersContent();
                 };
-                bclslog("class_data", class_data);
-                bclslog("parent_class_data", parent_class_data);
+                // bclslog("class_data", class_data);
+                // bclslog("parent_class_data", parent_class_data);
                 init();
                 return {
 

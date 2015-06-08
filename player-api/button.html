@@ -318,7 +318,9 @@
                         itemParamsStr,
                         itemDescription,
                         itemDescriptionEl,
-                        itemInherited,
+                        itemFooter,
+                        itemFooterContent,
+                        itemFooterContentEl,
                         itemEl,
                         text,
                         i,
@@ -368,6 +370,9 @@
                                 text = document.createTextNode(itemHeaderStr);
                                 itemHeader.appendChild(text);
                                 itemDescription = createEl("div", {id: item.name + "Description"});
+                                itemFooter = createEl("p");
+                                itemFooterContent = createEl("em", {id: item.name + "footer"});
+                                itemFooter.appendChild(itemFooterContent);
                                 section.appendChild(itemHeader);
                                 section.appendChild(itemDescription);
                                 itemDescriptionEl = document.getElementById(item.name + "Description");
@@ -379,6 +384,9 @@
                                 main.appendChild(section);
                                 itemWrapper.appendChild(itemParamsHeader);
                                 itemWrapper.appendChild(itemParamsList);
+                                itemWrapper.appendChild(itemFooter);
+                                itemFooterContentEl = document.getElementById(item.name + "Footer");
+                                itemFooterContentEl.innerHTML = "Defined in <a href=\"https://github.com/videojs/video.js/blob/master/src/js/" + item.meta.fileName + item.meta.lineno + "\">src/js/" + item.meta.fileName + " line number: " + item.meta.lineno + "</a>";
 
                         };
                     iMax = members.length;

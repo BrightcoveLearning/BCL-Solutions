@@ -185,7 +185,8 @@
                 findClassObjects = function (arr, filename) {
                     var i, totalItems = arr.length, newArr = [];
                     for (i = 0; i < totalItems; i++) {
-                        if (targetArray[i].meta.filename === filename) {
+                        bclslog("arr item", arr[i]);
+                        if (arr[i].meta.filename === filename) {
                             newArr.push(i);
                         }
                     }
@@ -205,8 +206,7 @@
                             classData = classes[currentClass];
                             privateItems = [];
                             // get the class data for the page heading
-                            classIdx = findObjectInArray(classData, "kind", "class");
-                            doc_data[currentClass].headerInfo = copyObj(classData[classIdx]);
+
                             // remove all private items
                             privateItems = findObjectsInArray(classData, "access", "private");
                             bclslog("privateItems", privateItems);
@@ -214,13 +214,7 @@
                             do {
                                 classData.splice(privateItems[j--], 1);
                             } while (j > 0);
-                            // get the methods data
-                            doc_data[currentClass].methodsArray = getSubArray(classData, "kind", "function");
-                            // get the events data
-                            doc_data[currentClass].eventsArray = getSubArray(classData, "kind", "event");
-                            // get the properties
-                            doc_data[currentClass].propertiesArray = getSubArray(classData, "kind", "property");
-                            bclslog(currentClass, doc_data[currentClass]);
+
                         }
                     }
                 };
@@ -477,7 +471,14 @@
                         fileName,
                         srcFileName,
                         thisClassData = [],
-                        parentClassData = [];
+                        parentClassData = [],
+                        privateItems = [],
+                        idx,
+                        j;
+                    bclslog("docData", docData);
+                    // remove the package object from the doc data
+                    idx = findObjectInArray(docData, "kind", "package");
+                    docData.splice(idx, 1);
                     // get the class name from the file name
                     fileName = path[path.length - 1];
                     doc_class = fileName.substring(0, fileName.indexOf("."));
@@ -485,10 +486,21 @@
                     // get the data for this class
                     classes.thisClass = findClassObjects(docData, srcFileName);
                     // get the class overview object
-                    doc_data.thisClass.headerInfo = {};
-                    doc_data.thisClass.methodsArray = [];
-                    doc_data.thisClass.eventsArray = [];
-                    doc_data.thisClass.propertiesArray = [];
+                    idx = findObjectInArray(classes.thisClass, "kind", "class");
+                            doc_data[currentClass].headerInfo = copyObj(classData[classIdx]);
+                    doc_data.thisClass.headerInfo = copyObj(classes.thisClass[classIdx]);
+                    // remove any private items
+                    privateItems = findObjectsInArray(classes.thisClass, "access", "private");
+                    bclslog("privateItems", privateItems);
+                    j = privateItems.length;
+                    do {
+                        classData.splice(privateItems[j--], 1);
+                    } while (j > 0);
+                    // now get the member arrays
+                    doc_data.thisClass.methodsArray = getSubArray(classes.thisClass, "kind", "function");
+                    doc_data.thisClass.eventsArray = getSubArray(classes.thisClass, "kind", "event");
+                    doc_data.thisClass.propertiesArray = getSubArray(classes.thisClass, "kind", "property");
+                    bclslog(currentClass, doc_data.thisClass);
                     // get the class prop arrays
                     // getPropertyArrays(classes);
                     // addHeaderContent();

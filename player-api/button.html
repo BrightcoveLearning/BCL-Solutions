@@ -5,11 +5,10 @@
         <title></title>
         <script src="//use.edgefonts.net/source-code-pro.js"></script>
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
-        <style>
-
-        </style>
+        <link rel="stylesheet" type="text/css" href="css/doc-data.css">
     </head>
     <body>
+
 
         <!-- <script src="button.js"></script>
         <script src="component.js"></script> -->
@@ -199,7 +198,7 @@
                  */
                 addHeaderContent = function () {
                     var mainContent = createEl("div", {id:"main", class: "section"}),
-                        topSection = createEl("section", {id:"top"}),
+                        topSection = createEl("section", {id:"top", class: "section"}),
                         topSectionEl,
                         header = createEl("h1", {id:doc_data.thisClass.headerInfo.name}),
                         headerEl;
@@ -374,7 +373,7 @@
                                 itemDescriptionEl = document.getElementById(item.name + "Description");
                                 itemDescriptionEl.innerHTML = item.description;
                                 itemFooterContentEl = document.getElementById(item.name + "Footer");
-                                itemFooterContentEl.innerHTML = "Defined in <a href=\"https://github.com/videojs/video.js/blob/master/src/js/" + item.meta.fileName + item.meta.lineno + "\">src/js/" + item.meta.fileName + " line number: " + item.meta.lineno + "</a>";
+                                itemFooterContentEl.innerHTML = "Defined in <a href=\"https://github.com/videojs/video.js/blob/master/src/js/" + item.meta.filename + item.meta.lineno + "\">src/js/" + item.meta.filename + " line number: " + item.meta.lineno + "</a>";
                             }
                             // now the inherited member items
                             if (isDefined(doc_data.parentClass)) {
@@ -426,7 +425,7 @@
                                     itemDescriptionEl = document.getElementById(item.name + "Description");
                                     itemDescriptionEl.innerHTML = item.description;
                                     itemFooterContentEl = document.getElementById(item.name + "Footer");
-                                    itemFooterContentEl.innerHTML = "Inherited from <a href=\"https://github.com/videojs/video.js/blob/master/src/js/" + item.meta.fileName + item.meta.lineno + "\">src/js/" + item.meta.fileName + " line number: " + item.meta.lineno + "</a>";
+                                    itemFooterContentEl.innerHTML = "Inherited from <a href=\"https://github.com/videojs/video.js/blob/master/src/js/" + item.meta.filename + item.meta.lineno + "\">src/js/" + item.meta.filename + " line number: " + item.meta.lineno + "</a>";
                                 }
                             }
 
@@ -445,26 +444,34 @@
                 init = function () {
                     var className,
                         fileName,
+                        breadcrumbs,
+                        breadcrumbsEl,
                         srcFileName,
                         parent_class,
                         privateItems = [],
-                        overridden = [],
+                        overriddenItems = [],
                         idx,
-                        j;
+                        j,
+                        jMax;
                     // get the class name from the file name
                     fileName = path[path.length - 1];
                     doc_class = fileName.substring(0, fileName.indexOf("."));
                     srcFileName = doc_class + ".js";
+                    // create breadcrumbs
+                    breadcrumbs = createEl("div", {id: "breadcrumbs", class: "breadcrumbs"})
+                    doc_body.appendChild(breadcrumbs);
+                    breadcrumbsEl = document.getElementById("breadcrumbs");
+                    breadcrumbsEl.innerHTML = "<a href=\"./index.html\">API Docs</a>/" + srcFileName;
                     // get the data objects for this class
                     classes.thisClass = findClassObjects(docData, srcFileName);
                     // get the class overview object
                     idx = findObjectInArray(classes.thisClass, "kind", "class");
-                    bclslog("idx", idx);
                     doc_data.thisClass = {};
                     doc_data.thisClass.headerInfo = copyObj(classes.thisClass[idx]);
+                    // set the doc title
+                    title.innerHTML = doc_data.thisClass.headerInfo.name;
                     // remove any private items
                     privateItems = findObjectsInArray(classes.thisClass, "access", "private");
-                    bclslog("privateItems", privateItems);
                     j = privateItems.length;
                     do {
                         classes.thisClass.splice(privateItems[j--], 1);
@@ -476,7 +483,7 @@
                     bclslog("thisClass", doc_data.thisClass);
                     // get parent class, if any
                     if (isDefined(doc_data.thisClass.headerInfo.augments)) {
-                        parent_class = doc_data.thisClass.headerInfo.augments.toLowerCase();
+                        parent_class = doc_data.thisClass.headerInfo.augments[0].toLowerCase();
                         // get data objects for the class
                         classes.parentClass = findClassObjects(docData, parent_class + ".js");
                         doc_data.parentClass = {};
@@ -490,12 +497,27 @@
                         do {
                             classes.parentClass.splice(privateItems[j--], 1);
                         } while (j > 0);
-                        // remove any
+                        // remove any overridden items
+                        jMax = classes.thisClass.length;
+                        for (j = 0; j < jMax; j++) {
+                            idx = findObjectInArray(classes.parentClass, "name", classes.thisClass[j].name);
+                            if (idx > 0) {
+                                overriddenItems.push(idx);
+                            }
+                        }
+                        j = overriddenItems.length;
+                        do {
+                            classes.parentClass.splice(overriddenItems[j--], 1);
+                        } while (j > 0)
                         // now get the member arrays
                         doc_data.parentClass.methodsArray = getSubArray(classes.parentClass, "kind", "function");
                         doc_data.parentClass.eventsArray = getSubArray(classes.parentClass, "kind", "event");
                         doc_data.parentClass.propertiesArray = getSubArray(classes.parentClass, "kind", "property");
                         bclslog("parentClass", doc_data.parentClass);
+                        // now we're ready to roll
+                        addHeaderContent();
+                        addIndex();
+                        addMembersContent();
                     }
                 };
                 // bclslog("class_data", class_data);

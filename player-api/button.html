@@ -36,7 +36,6 @@
                     findObjectInArray,
                     findObjectsInArray,
                     getSubArray,
-                    getPropertyArrays,
                     sortArray,
                     createEl,
                     bclslog,
@@ -185,39 +184,16 @@
                 findClassObjects = function (arr, filename) {
                     var i, totalItems = arr.length, newArr = [];
                     for (i = 0; i < totalItems; i++) {
-                        bclslog("arr item", arr[i]);
-                        if (arr[i].meta.filename === filename) {
-                            newArr.push(i);
+                        if (isDefined(arr[i].meta)) {
+                            if (arr[i].meta.filename === filename) {
+                                newArr.push(arr[i]);
+                            }
                         }
+
                     }
                     return newArr;
 
                 }
-                /**
-                 * extracts the events, methods, and properties for the classes
-                 * @param {object} classes - object whose properties are classes with values of the data for that class
-                 * @return {}
-                 */
-                getPropertyArrays = function (classes) {
-                    var i, iMax, currentClass, classData = [], classIdx, j, jMax, itemIdx, privateItems = [];
-                    if (isDefined(classes)) {
-                        iMax = classes.length;
-                        for (currentClass in classes) {
-                            classData = classes[currentClass];
-                            privateItems = [];
-                            // get the class data for the page heading
-
-                            // remove all private items
-                            privateItems = findObjectsInArray(classData, "access", "private");
-                            bclslog("privateItems", privateItems);
-                            j = privateItems.length;
-                            do {
-                                classData.splice(privateItems[j--], 1);
-                            } while (j > 0);
-
-                        }
-                    }
-                };
                 /**
                  * add the class header content
                  */
@@ -470,42 +446,41 @@
                     var className,
                         fileName,
                         srcFileName,
-                        thisClassData = [],
-                        parentClassData = [],
+                        parent_class,
                         privateItems = [],
                         overridden = [],
                         idx,
                         j;
-                    bclslog("docData", docData);
-                    // remove the package object from the doc data
-                    idx = findObjectInArray(docData, "kind", "package");
-                    docData.splice(idx, 1);
                     // get the class name from the file name
                     fileName = path[path.length - 1];
                     doc_class = fileName.substring(0, fileName.indexOf("."));
                     srcFileName = doc_class + ".js";
-                    // get the data for this class
+                    // get the data objects for this class
                     classes.thisClass = findClassObjects(docData, srcFileName);
                     // get the class overview object
                     idx = findObjectInArray(classes.thisClass, "kind", "class");
+                    bclslog("idx", idx);
+                    doc_data.thisClass = {};
                     doc_data.thisClass.headerInfo = copyObj(classes.thisClass[idx]);
                     // remove any private items
                     privateItems = findObjectsInArray(classes.thisClass, "access", "private");
                     bclslog("privateItems", privateItems);
                     j = privateItems.length;
                     do {
-                        classData.splice(privateItems[j--], 1);
+                        classes.thisClass.splice(privateItems[j--], 1);
                     } while (j > 0);
                     // now get the member arrays
                     doc_data.thisClass.methodsArray = getSubArray(classes.thisClass, "kind", "function");
                     doc_data.thisClass.eventsArray = getSubArray(classes.thisClass, "kind", "event");
                     doc_data.thisClass.propertiesArray = getSubArray(classes.thisClass, "kind", "property");
                     bclslog("thisClass", doc_data.thisClass);
-                    // get the class prop arrays
-                    // getPropertyArrays(classes);
-                    // addHeaderContent();
-                    // addIndex();
-                    // addMembersContent();
+                    // get parent class, if any
+                    if (isDefined(doc_data.thisClass.headerInfo.augments)) {
+                        parent_class = doc_data.thisClass.headerInfo.augments.toLowerCase();
+                        classes.parentClass = findClassObjects(docData, parent_class + ".js");
+                        doc_data.parentClass = {};
+                        // get para
+                    }
                 };
                 // bclslog("class_data", class_data);
                 // bclslog("parent_class_data", parent_class_data);

@@ -32,12 +32,12 @@ h3 {
 
 div {
     border-bottom: 1px #CCC solid;
-
+    font-size: 1.1em;
 }
 
     pre {
         background-color: #FBFBFB;
-        font-size: 1rem;
+        font-size: .9em;
         margin-bottom: 1.3rem;
         padding: .5rem;
         padding-left: 1rem;
@@ -48,9 +48,8 @@ div {
         box-shadow: 5px 5px 10px rgba(192, 192, 192, 1.000);
     }
     code {
-        background-color: #FFFFFF;
-        font-family: source-code-pro, Monaco, Consolas, Menlo, "Lucida Console", monospace
-        font-weight: bold;
+        font-size: 1.1em;
+        font-family: source-code-pro, Monaco, Consolas, Menlo, "Lucida Console", monospace;
         border: none;
     }
 

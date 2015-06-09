@@ -366,6 +366,8 @@
                                     itemHeaderStr += "( " + itemParams.join(", ") + " )";
                                     itemWrapper.appendChild(itemParamsHeader);
                                     itemWrapper.appendChild(itemParamsList);
+                                } else {
+                                    itemHeaderStr += "()";
                                 }
                                 itemWrapper.appendChild(itemFooter);
                                 text = document.createTextNode(itemHeaderStr);

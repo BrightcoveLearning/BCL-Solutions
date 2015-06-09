@@ -477,9 +477,25 @@
                     // get parent class, if any
                     if (isDefined(doc_data.thisClass.headerInfo.augments)) {
                         parent_class = doc_data.thisClass.headerInfo.augments.toLowerCase();
+                        // get data objects for the class
                         classes.parentClass = findClassObjects(docData, parent_class + ".js");
                         doc_data.parentClass = {};
-                        // get para
+                        // get parent header info
+                        idx = findObjectInArray(classes.parentClass, "kind", "class");
+                        doc_data.parentClass.headerInfo = copyObj(classes.parentClass[idx]);
+                        // remove any private items
+                        privateItems = findObjectsInArray(classes.parentClass, "access", "private");
+                        bclslog("privateItems", privateItems);
+                        j = privateItems.length;
+                        do {
+                            classes.parentClass.splice(privateItems[j--], 1);
+                        } while (j > 0);
+                        // remove any
+                        // now get the member arrays
+                        doc_data.parentClass.methodsArray = getSubArray(classes.parentClass, "kind", "function");
+                        doc_data.parentClass.eventsArray = getSubArray(classes.parentClass, "kind", "event");
+                        doc_data.parentClass.propertiesArray = getSubArray(classes.parentClass, "kind", "property");
+                        bclslog("parentClass", doc_data.parentClass);
                     }
                 };
                 // bclslog("class_data", class_data);

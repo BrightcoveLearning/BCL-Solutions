@@ -473,6 +473,7 @@
                         thisClassData = [],
                         parentClassData = [],
                         privateItems = [],
+                        overridden = [],
                         idx,
                         j;
                     bclslog("docData", docData);
@@ -487,8 +488,7 @@
                     classes.thisClass = findClassObjects(docData, srcFileName);
                     // get the class overview object
                     idx = findObjectInArray(classes.thisClass, "kind", "class");
-                            doc_data[currentClass].headerInfo = copyObj(classData[classIdx]);
-                    doc_data.thisClass.headerInfo = copyObj(classes.thisClass[classIdx]);
+                    doc_data.thisClass.headerInfo = copyObj(classes.thisClass[idx]);
                     // remove any private items
                     privateItems = findObjectsInArray(classes.thisClass, "access", "private");
                     bclslog("privateItems", privateItems);
@@ -500,7 +500,7 @@
                     doc_data.thisClass.methodsArray = getSubArray(classes.thisClass, "kind", "function");
                     doc_data.thisClass.eventsArray = getSubArray(classes.thisClass, "kind", "event");
                     doc_data.thisClass.propertiesArray = getSubArray(classes.thisClass, "kind", "property");
-                    bclslog(currentClass, doc_data.thisClass);
+                    bclslog("thisClass", doc_data.thisClass);
                     // get the class prop arrays
                     // getPropertyArrays(classes);
                     // addHeaderContent();

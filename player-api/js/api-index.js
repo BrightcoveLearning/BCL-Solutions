@@ -42,9 +42,8 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
     isDefined = function (x) {
         if ( x !== "" && x !== null && x !== undefined && x !== NaN){
             return true;
-        } else {
-            return false;
         }
+        return false;
     };
     /**
      * get a copy of (rather than reference to) an object
@@ -72,9 +71,7 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
                 return i;
             }
         }
-        if (objFound === false) {
-            return -1;
-        }
+        return -1;
     };
     /**
      * find indexes of a set of object in array of objects
@@ -105,10 +102,9 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
      * @return {array} array of objects with matching property value
      */
     getSubArray = function (targetArray, objProperty, value) {
-        var i, totalItems = targetArray.length, objFound = false, idxArr = [];
+        var i, totalItems = targetArray.length, idxArr = [];
         for (i = 0; i < totalItems; i++) {
             if (targetArray[i][objProperty] === value) {
-                objFound = true;
                 idxArr.push(targetArray[i]);
             }
         }
@@ -128,9 +124,8 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
                  return -1;
             } else if (propA > propB) {
                  return 1;
-            } else {
-                 return 0;
             }
+             return 0;
         });
         return targetArray;
     };
@@ -154,40 +149,22 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
         }
     };
     /**
-     * finds the objects in the doc data for a fileName
-     * @param {array} arr - the array of objects to search
-     * @param {string} filename - the filename to look for in the meta object
-     * @return {array} - array of the objects found
-     */
-    findClassObjects = function (arr, filename) {
-        var i, totalItems = arr.length, newArr = [];
-        for (i = 0; i < totalItems; i++) {
-            if (isDefined(arr[i].meta)) {
-                if (arr[i].meta.filename === filename) {
-                    newArr.push(arr[i]);
-                }
-            }
-
-        }
-        return newArr;
-
-    }
-    /**
      * add the class header content
      */
     addHeaderContent = function () {
-        var mainContent = createEl("div", {id:"main", class: "section"}),
-            topSection = createEl("section", {id:"top", class: "section"}),
+        var mainContent = createEl("div", {id: "main", class: "section"}),
+            topSection = createEl("section", {id: "top", class: "section"}),
             topSectionEl,
-            header = createEl("h1", {id:doc_data.thisClass.headerInfo.name}),
+            header = createEl("h1"),
+            text = document.createTextNode("API Index"),
             headerEl;
         // add elements
+        header.appendChild(text);
         topSection.appendChild(header);
         mainContent.appendChild(topSection);
         doc_body.appendChild(mainContent);
         main = document.getElementById("main");
         topSectionEl = document.getElementById("top");
-        headerEl = document.getElementById(doc_data.thisClass.headerInfo.name);
         // add content
         // page header
         headerEl.textContent = doc_data.thisClass.headerInfo.name;
@@ -298,7 +275,7 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
             j,
             jMax;
         // create breadcrumbs
-        breadcrumbs = createEl("div", {id: "breadcrumbs", class: "breadcrumbs"})
+        breadcrumbs = createEl("div", {id: "breadcrumbs", class: "breadcrumbs"});
         doc_body.appendChild(breadcrumbs);
         breadcrumbsEl = document.getElementById("breadcrumbs");
         breadcrumbsEl.innerHTML = "<a href=\"./index.html\">API Docs</a>/";

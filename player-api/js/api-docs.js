@@ -6,7 +6,6 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         // data structures
         classes = {thisClass: [], parentClass: []},
         doc_class,
-        doc_parent_class,
         doc_data = {},
         // elements
         main,
@@ -279,17 +278,12 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             itemParamsHeader,
             itemParamsList,
             itemParamsItem,
-            itemReturnsHeader,
-            itemReturnsList,
-            itemReturnsItem,
-            itemReturnsStr,
             itemParamsStr,
             itemDescription,
             itemDescriptionEl,
             itemFooter,
             itemFooterContent,
             itemFooterContentEl,
-            itemEl,
             text,
             i,
             iMax,
@@ -298,7 +292,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             k,
             kMax,
             createMemberItem = function (member) {
-                section = createEl("section", {id:member.name.toLowerCase(), class: "section"});
+                section = createEl("section", {id: member.name.toLowerCase(), class: "section"});
                 main.appendChild(section);
                 header = createEl("h2");
                 text = document.createTextNode(member.name);
@@ -332,7 +326,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                             itemParamsStr = item.params[k].name + " " + item.params[k].type.names.join("|");
                             if (item.params[k].optional) {
                                 itemParamsStr += " (Optional) ";
-                                itemParams.push("[" +item.params[k].name + "]");
+                                itemParams.push("[" + item.params[k].name + "]");
                             } else {
                                 itemParams.push(item.params[k].name);
                             }
@@ -385,7 +379,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                                 itemParamsStr = item.params[k].name + " " + item.params[k].type.names.join("|");
                                 if (item.params[k].optional) {
                                     itemParamsStr += " (Optional) ";
-                                    itemParams.push("[" +item.params[k].name + "]");
+                                    itemParams.push("[" + item.params[k].name + "]");
                                 } else {
                                     itemParams.push(item.params[k].name);
                                 }
@@ -418,7 +412,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         iMax = members.length;
         for (i = 0; i < iMax; i++) {
             member = members[i];
-            if (doc_data.thisClass[member.data].length > 0){
+            if (doc_data.thisClass[member.data].length > 0) {
                 createMemberItem(member);
             }
         }
@@ -441,8 +435,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
      * init gets things going
      */
     init = function () {
-        var className,
-            fileName,
+        var fileName,
             breadcrumbs,
             breadcrumbsEl,
             srcFileName,
@@ -457,7 +450,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         doc_class = fileName.substring(0, fileName.indexOf("."));
         srcFileName = doc_class + ".js";
         // create breadcrumbs
-        breadcrumbs = createEl("div", {id: "breadcrumbs", class: "breadcrumbs"})
+        breadcrumbs = createEl("div", {id: "breadcrumbs", class: "breadcrumbs"});
         doc_body.appendChild(breadcrumbs);
         breadcrumbsEl = document.getElementById("breadcrumbs");
         breadcrumbsEl.innerHTML = "<a href=\"./index.html\">API Docs</a>/" + srcFileName;
@@ -510,7 +503,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             j = overriddenItems.length;
             do {
                 classes.parentClass.splice(overriddenItems[j--], 1);
-            } while (j > 0)
+            } while (j > 0);
             // now get the member arrays
             doc_data.parentClass.methodsArray = getSubArray(classes.parentClass, "kind", "function");
             doc_data.parentClass.methodsArray = sortArray(doc_data.parentClass.methodsArray, "name");

@@ -1,11 +1,9 @@
-var BCLSVJS = ( function (window, document, docData, hljs) {
+var BCLSVJS = (function (window, document, docData, hljs) {
     "use strict";
     var title = document.getElementsByTagName('title')[0],
         // path as an array
         path = document.location.pathname.split("/"),
         // data structures
-        /* the following should be the only line that changes
-            current class first, parent class(es) after */
         classes = {thisClass: [], parentClass: []},
         doc_class,
         doc_parent_class,
@@ -46,11 +44,10 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
      * @return {Boolean} true if variable is defined and has a value
      */
     isDefined = function (x) {
-        if ( x !== "" && x !== null && x !== undefined && x !== NaN){
+        if (x !== "" && x !== null && x !== undefined && x !== NaN) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     };
     /**
      * get a copy of (rather than reference to) an object
@@ -111,10 +108,9 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
      * @return {array} array of objects with matching property value
      */
     getSubArray = function (targetArray, objProperty, value) {
-        var i, totalItems = targetArray.length, objFound = false, idxArr = [];
+        var i, totalItems = targetArray.length, idxArr = [];
         for (i = 0; i < totalItems; i++) {
             if (targetArray[i][objProperty] === value) {
-                objFound = true;
                 idxArr.push(targetArray[i]);
             }
         }
@@ -131,12 +127,11 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
             var propA = a[objProperty].toLowerCase(), propB = b[objProperty].toLowerCase();
             // sort ascending; reverse propA and propB to sort descending
             if (propA < propB) {
-                 return -1;
+                return -1;
             } else if (propA > propB) {
-                 return 1;
-            } else {
-                 return 0;
+                return 1;
             }
+            return 0;
         });
         return targetArray;
     };
@@ -177,15 +172,15 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
         }
         return newArr;
 
-    }
+    };
     /**
      * add the class header content
      */
     addHeaderContent = function () {
-        var mainContent = createEl("div", {id:"main", class: "section"}),
-            topSection = createEl("section", {id:"top", class: "section"}),
+        var mainContent = createEl("div", {id: "main", class: "section"}),
+            topSection = createEl("section", {id: "top", class: "section"}),
             topSectionEl,
-            header = createEl("h1", {id:doc_data.thisClass.headerInfo.name}),
+            header = createEl("h1", {id: doc_data.thisClass.headerInfo.name}),
             headerEl;
         // add elements
         topSection.appendChild(header);
@@ -211,12 +206,6 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
         var section = createEl("section", {id: "index", class: "section"}),
             sectionHeader = createEl("h2"),
             memberIndex = createEl("div", {id: "memberIndex"}),
-            methodsHeader,
-            eventsHeader,
-            propertieHeader,
-            methodsList,
-            propertiesList,
-            eventsList,
             item,
             listItem,
             listLink,
@@ -225,7 +214,7 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
             i,
             iMax,
             makeList = function (classArr, parentArr, member, header, list) {
-                if (classArr.length > 0 || isDefined(doc_data.parentClass) && parentArr.length > 0) {
+                if (classArr.length > 0 || (isDefined(doc_data.parentClass) && parentArr.length > 0)) {
                     // add member list header
                     header = createEl("h3", {id: header});
                     text = document.createTextNode(member);
@@ -243,7 +232,7 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
                         list.appendChild(listItem);
                     }
                     if (isDefined(doc_data.parentClass) && parentArr.length > 0) {
-                    iMax = parentArr.length;
+                        iMax = parentArr.length;
                         for (i = 0; i < iMax; i++) {
                             item = parentArr[i].name;
                             listItem = createEl("li");
@@ -348,7 +337,7 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
                                 itemParams.push(item.params[k].name);
                             }
                             if (isDefined(item.params[k].description)) {
-                                itemParamsStr += item.params[k].description.replace("p>", "span>");
+                                itemParamsStr += " " + item.params[k].description.slice(3, item.params[k].description.indexOf('</p>'));
                             }
                             text = document.createTextNode(itemParamsStr);
                             itemParamsItem.appendChild(text);
@@ -401,7 +390,7 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
                                     itemParams.push(item.params[k].name);
                                 }
                                 if (isDefined(item.params[k].description)) {
-                                    itemParamsStr += item.params[k].description.replace("p>", "span>");
+                                    itemParamsStr += " " + item.params[k].description.slice(3, item.params[k].description.indexOf('</p>'));
                                     text = document.createTextNode(itemParamsStr);
                                     itemParamsItem.appendChild(text);
                                 }
@@ -447,8 +436,6 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
                 hljs.highlightBlock(codeBlocks[i]);
             }
         }
-
-
     };
     /**
      * init gets things going

@@ -4,12 +4,7 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
         // path as an array
         path = document.location.pathname.split("/"),
         // data structures
-        /* the following should be the only line that changes
-            current class first, parent class(es) after */
-        classes = {thisClass: [], parentClass: []},
-        doc_class,
-        doc_parent_class,
-        doc_data = {},
+        classes = [],
         // elements
         main,
         doc_body = document.getElementsByTagName("body")[0],
@@ -25,7 +20,6 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
         findClassObjects,
         addHeaderContent,
         addIndex,
-        addMembersContent,
         highlightCode,
         init;
     /**
@@ -275,166 +269,6 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
         main.appendChild(section);
     };
     /**
-     * add the member content
-     */
-    addMembersContent = function () {
-        var members = [{name: "Properties", data: "propertiesArray"}, {name: "Methods", data: "methodsArray"}, {name: "Events", data: "eventsArray"}],
-            member,
-            section,
-            header,
-            item,
-            itemWrapper,
-            itemHeader,
-            itemHeaderStr,
-            itemParams = [],
-            itemParamsHeader,
-            itemParamsList,
-            itemParamsItem,
-            itemReturnsHeader,
-            itemReturnsList,
-            itemReturnsItem,
-            itemReturnsStr,
-            itemParamsStr,
-            itemDescription,
-            itemDescriptionEl,
-            itemFooter,
-            itemFooterContent,
-            itemFooterContentEl,
-            itemEl,
-            text,
-            i,
-            iMax,
-            j,
-            jMax,
-            k,
-            kMax,
-            createMemberItem = function (member) {
-                section = createEl("section", {id:member.name.toLowerCase(), class: "section"});
-                main.appendChild(section);
-                header = createEl("h2");
-                text = document.createTextNode(member.name);
-                header.appendChild(text);
-                section.appendChild(header);
-                // create the class member items
-                jMax = doc_data.thisClass[member.data].length;
-                for (j = 0; j < jMax; j++) {
-                    item = doc_data.thisClass[member.data][j];
-                    itemWrapper = createEl("div", {id: item.name});
-                    section.appendChild(itemWrapper);
-                    itemHeader = createEl("h3", {id: item.name + "Header"});
-                    itemHeaderStr = item.name;
-                    itemWrapper.appendChild(itemHeader);
-                    itemDescription = createEl("div", {id: item.name + "Description"});
-                    itemWrapper.appendChild(itemDescription);
-                    itemFooter = createEl("p");
-                    itemFooterContent = createEl("em", {id: item.name + "Footer"});
-                    itemFooter.appendChild(itemFooterContent);
-                    // handle params if any
-                    if (isDefined(item.params)) {
-                        itemParams = [];
-                        itemParamsHeader = createEl("h4");
-                        text = document.createTextNode("Parameters");
-                        itemParamsHeader.appendChild(text);
-                        itemParamsList = createEl("ul");
-                        kMax = item.params.length;
-                        for (k = 0; k < kMax; k++) {
-                            itemParamsItem = createEl("li");
-                            itemParamsList.appendChild(itemParamsItem);
-                            itemParamsStr = item.params[k].name + " " + item.params[k].type.names.join("|");
-                            if (item.params[k].optional) {
-                                itemParamsStr += " (Optional) ";
-                                itemParams.push("[" +item.params[k].name + "]");
-                            } else {
-                                itemParams.push(item.params[k].name);
-                            }
-                            if (isDefined(item.params[k].description)) {
-                                itemParamsStr += item.params[k].description.replace("p>", "span>");
-                            }
-                            text = document.createTextNode(itemParamsStr);
-                            itemParamsItem.appendChild(text);
-                        }
-                        itemHeaderStr += "( " + itemParams.join(", ") + " )";
-                        itemWrapper.appendChild(itemParamsHeader);
-                        itemWrapper.appendChild(itemParamsList);
-                    } else {
-                        itemHeaderStr += "()";
-                    }
-                    itemWrapper.appendChild(itemFooter);
-                    text = document.createTextNode(itemHeaderStr);
-                    itemHeader.appendChild(text);
-                    itemDescriptionEl = document.getElementById(item.name + "Description");
-                    itemDescriptionEl.innerHTML = item.description;
-                    itemFooterContentEl = document.getElementById(item.name + "Footer");
-                    itemFooterContentEl.innerHTML = "Defined in <a href=\"https://github.com/videojs/video.js/blob/master/src/js/" + item.meta.filename + item.meta.lineno + "\">src/js/" + item.meta.filename + " line number: " + item.meta.lineno + "</a>";
-                }
-                // now the inherited member items
-                if (isDefined(doc_data.parentClass)) {
-                    jMax = doc_data.parentClass[member.data].length;
-                    for (j = 0; j < jMax; j++) {
-                        item = doc_data.parentClass[member.data][j];
-                        itemWrapper = createEl("div", {id: item.name});
-                        section.appendChild(itemWrapper);
-                        itemHeader = createEl("h3", {id: item.name + "Header"});
-                        itemHeaderStr = item.name;
-                        itemWrapper.appendChild(itemHeader);
-                        itemDescription = createEl("div", {id: item.name + "Description"});
-                        itemWrapper.appendChild(itemDescription);
-                        itemFooter = createEl("p");
-                        itemFooterContent = createEl("em", {id: item.name + "Footer"});
-                        itemFooter.appendChild(itemFooterContent);
-                        // handle params if any
-                        if (isDefined(item.params)) {
-                            itemParams = [];
-                            itemParamsHeader = createEl("h4");
-                            text = document.createTextNode("Parameters");
-                            itemParamsHeader.appendChild(text);
-                            itemParamsList = createEl("ul");
-                            kMax = item.params.length;
-                            for (k = 0; k < kMax; k++) {
-                                itemParamsItem = createEl("li");
-                                itemParamsList.appendChild(itemParamsItem);
-                                itemParamsStr = item.params[k].name + " " + item.params[k].type.names.join("|");
-                                if (item.params[k].optional) {
-                                    itemParamsStr += " (Optional) ";
-                                    itemParams.push("[" +item.params[k].name + "]");
-                                } else {
-                                    itemParams.push(item.params[k].name);
-                                }
-                                if (isDefined(item.params[k].description)) {
-                                    itemParamsStr += item.params[k].description.replace("p>", "span>");
-                                    text = document.createTextNode(itemParamsStr);
-                                    itemParamsItem.appendChild(text);
-                                }
-
-                            }
-                            itemHeaderStr += "( " + itemParams.join(", ") + " )";
-                            itemWrapper.appendChild(itemParamsHeader);
-                            itemWrapper.appendChild(itemParamsList);
-                        } else {
-                            if (itemHeaderStr[itemHeaderStr.length - 1] !== ")") {
-                                itemHeaderStr += "()";
-                            }
-                        }
-                        itemWrapper.appendChild(itemFooter);
-                        text = document.createTextNode(itemHeaderStr);
-                        itemHeader.appendChild(text);
-                        itemDescriptionEl = document.getElementById(item.name + "Description");
-                        itemDescriptionEl.innerHTML = item.description;
-                        itemFooterContentEl = document.getElementById(item.name + "Footer");
-                        itemFooterContentEl.innerHTML = "Inherited from <a href=\"https://github.com/videojs/video.js/blob/master/src/js/" + item.meta.filename + item.meta.lineno + "\">src/js/" + item.meta.filename + " line number: " + item.meta.lineno + "</a>";
-                    }
-                }
-
-            };
-        iMax = members.length;
-        for (i = 0; i < iMax; i++) {
-            member = members[i];
-            if (doc_data.thisClass[member.data].length > 0){
-                createMemberItem(member);
-            }
-        }
-    };
-    /**
      * use hljs to highlight the syntax in code blocks
      */
     highlightCode = function () {
@@ -447,8 +281,6 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
                 hljs.highlightBlock(codeBlocks[i]);
             }
         }
-
-
     };
     /**
      * init gets things going
@@ -465,17 +297,13 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
             idx,
             j,
             jMax;
-        // get the class name from the file name
-        fileName = path[path.length - 1];
-        doc_class = fileName.substring(0, fileName.indexOf("."));
-        srcFileName = doc_class + ".js";
         // create breadcrumbs
         breadcrumbs = createEl("div", {id: "breadcrumbs", class: "breadcrumbs"})
         doc_body.appendChild(breadcrumbs);
         breadcrumbsEl = document.getElementById("breadcrumbs");
-        breadcrumbsEl.innerHTML = "<a href=\"./index.html\">API Docs</a>/" + srcFileName;
-        // get the data objects for this class
-        classes.thisClass = findClassObjects(docData, srcFileName);
+        breadcrumbsEl.innerHTML = "<a href=\"./index.html\">API Docs</a>/";
+        // get the data objects for all classes
+        classes = getSubArray(docData, "kind", "class");
         // get the class overview object
         idx = findObjectInArray(classes.thisClass, "kind", "class");
         doc_data.thisClass = {};

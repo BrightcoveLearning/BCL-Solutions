@@ -169,12 +169,16 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             itemsPerColumn,
             item,
             indexEl = [],
+            indexList,
             listItem,
             listLink,
+            listText,
             em,
             text,
             i,
             iMax,
+            j,
+            jMax,
             counter = 0;
         text = document.createTextNode("Index of classes");
         sectionHeader.appendChild(text);
@@ -193,12 +197,19 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         }
         itemsPerColumn = Math.ceil(numberAlphaItems / 3);
         iMax = alphaArr.length;
-        for (i = 0; I < iMax; i++) {
+        for (i = 0; i < iMax; i++) {
             if (isDefined(classlists[alphaArr[i]])) {
                 if (counter === 0) {
                     indexEl.push(creatEl("div", {class: "indexColumn"}));
                     counter++;
-
+                }
+                indexList = creatEl("ul");
+                indexEl.appendChild(indexList);
+                jMax = classlists[alphaArr[i].length];
+                for (j = 0; j < jMax; j++) {
+                    listItem = createEl("li");
+                    indexList.appendChild(listItem);
+                    listLink = createEl("a" {href: classlists[i][j] + ".html"})
                 }
             }
         }

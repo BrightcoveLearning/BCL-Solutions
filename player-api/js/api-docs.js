@@ -1,4 +1,4 @@
-var BCLSVJS = ( function (window, document, docData) {
+var BCLSVJS = ( function (window, document, docData, hljs) {
     "use strict";
     var title = document.getElementsByTagName('title')[0],
         // path as an array
@@ -26,6 +26,7 @@ var BCLSVJS = ( function (window, document, docData) {
         addHeaderContent,
         addIndex,
         addMembersContent,
+        highlightCode,
         init;
     /**
      * Logging function - safe for IE
@@ -197,7 +198,7 @@ var BCLSVJS = ( function (window, document, docData) {
         // page header
         headerEl.textContent = doc_data.thisClass.headerInfo.name;
         // other stuff
-        if (isDefined(doc_data.parentClass.headerInfo)) {
+        if (isDefined(doc_data.parentClass)) {
             topSectionEl.innerHTML += "<p><strong>EXTENDS</strong>: <a href=\"" + doc_data.parentClass.headerInfo.meta.filename + "\">" + doc_data.parentClass.headerInfo.meta.filename + "</a></p>";
         }
         topSectionEl.innerHTML += "<p><strong>DEFINED IN</strong>: <a href=\"" + doc_data.thisClass.headerInfo.meta.filename + "\">src/" + doc_data.thisClass.headerInfo.meta.filename + " line number: " + doc_data.thisClass.headerInfo.meta.lineno + "</a></p>";
@@ -263,9 +264,12 @@ var BCLSVJS = ( function (window, document, docData) {
             };
         text = document.createTextNode("Index");
         sectionHeader.appendChild(text);
-        makeList(doc_data.thisClass.propertiesArray, doc_data.parentClass.propertiesArray, "Properties", "propertiesHeader", "propertiesList");
-        makeList(doc_data.thisClass.methodsArray, doc_data.parentClass.methodsArray, "Methods", "methodsHeader", "methodsList");
-        makeList(doc_data.thisClass.eventsArray, doc_data.parentClass.eventsArray, "Events", "eventsHeader", "eventsList");
+        // add parent class members if any
+        if (isDefined(doc_data.parentClass)) {
+            makeList(doc_data.thisClass.propertiesArray, doc_data.parentClass.propertiesArray, "Properties", "propertiesHeader", "propertiesList");
+            makeList(doc_data.thisClass.methodsArray, doc_data.parentClass.methodsArray, "Methods", "methodsHeader", "methodsList");
+            makeList(doc_data.thisClass.eventsArray, doc_data.parentClass.eventsArray, "Events", "eventsHeader", "eventsList");
+        }
         section.appendChild(sectionHeader);
         section.appendChild(memberIndex);
         main.appendChild(section);
@@ -343,7 +347,9 @@ var BCLSVJS = ( function (window, document, docData) {
                             } else {
                                 itemParams.push(item.params[k].name);
                             }
-                            itemParamsStr += item.params[k].description.replace("p>", "span>");
+                            if (isDefined(item.params[k].description)) {
+                                itemParamsStr += item.params[k].description.replace("p>", "span>");
+                            }
                             text = document.createTextNode(itemParamsStr);
                             itemParamsItem.appendChild(text);
                         }
@@ -429,6 +435,22 @@ var BCLSVJS = ( function (window, document, docData) {
         }
     };
     /**
+     * use hljs to highlight the syntax in code blocks
+     */
+    highlightCode = function () {
+        var codeBlocks = document.querySelectorAll("pre code"),
+            i,
+            iMax;
+        if (isDefined(codeBlocks)) {
+            iMax = codeBlocks.length;
+            for (i = 0; i < iMax; i++) {
+                hljs.highlightBlock(codeBlocks[i]);
+            }
+        }
+
+
+    };
+    /**
      * init gets things going
      */
     init = function () {
@@ -468,8 +490,11 @@ var BCLSVJS = ( function (window, document, docData) {
         } while (j > 0);
         // now get the member arrays
         doc_data.thisClass.methodsArray = getSubArray(classes.thisClass, "kind", "function");
+        doc_data.thisClass.methodsArray = sortArray(doc_data.thisClass.methodsArray, "name");
         doc_data.thisClass.eventsArray = getSubArray(classes.thisClass, "kind", "event");
+        doc_data.thisClass.eventsArray = sortArray(doc_data.thisClass.eventsArray, "name");
         doc_data.thisClass.propertiesArray = getSubArray(classes.thisClass, "kind", "property");
+        doc_data.thisClass.propertiesArray = sortArray(doc_data.thisClass.propertiesArray, "name");
         bclslog("thisClass", doc_data.thisClass);
         // get parent class, if any
         if (isDefined(doc_data.thisClass.headerInfo.augments)) {
@@ -501,14 +526,18 @@ var BCLSVJS = ( function (window, document, docData) {
             } while (j > 0)
             // now get the member arrays
             doc_data.parentClass.methodsArray = getSubArray(classes.parentClass, "kind", "function");
+            doc_data.parentClass.methodsArray = sortArray(doc_data.parentClass.methodsArray, "name");
             doc_data.parentClass.eventsArray = getSubArray(classes.parentClass, "kind", "event");
+            doc_data.parentClass.eventsArray = sortArray(doc_data.parentClass.eventsArray, "name");
             doc_data.parentClass.propertiesArray = getSubArray(classes.parentClass, "kind", "property");
+            doc_data.parentClass.propertiesArray = sortArray(doc_data.parentClass.propertiesArray, "name");
             bclslog("parentClass", doc_data.parentClass);
-            // now we're ready to roll
-            addHeaderContent();
-            addIndex();
-            addMembersContent();
         }
+        // now we're ready to roll
+        addHeaderContent();
+        addIndex();
+        addMembersContent();
+        highlightCode();
     };
     // bclslog("class_data", class_data);
     // bclslog("parent_class_data", parent_class_data);
@@ -516,4 +545,4 @@ var BCLSVJS = ( function (window, document, docData) {
     return {
 
     };
-})(window, document, docData);
+})(window, document, docData, hljs);

@@ -388,7 +388,6 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                                     text = document.createTextNode(itemParamsStr);
                                     itemParamsItem.appendChild(text);
                                 }
-
                             }
                             itemHeaderStr += "( " + itemParams.join(", ") + " )";
                             itemWrapper.appendChild(itemParamsHeader);

@@ -1,4 +1,4 @@
-var BCLSVJS = ( function (window, document, docData, hljs) {
+var BCLSVJS = (function (window, document, docData, hljs) {
     "use strict";
     var title = document.getElementsByTagName('title')[0],
         // path as an array
@@ -17,7 +17,6 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
         sortArray,
         createEl,
         bclslog,
-        findClassObjects,
         addHeaderContent,
         addIndex,
         highlightCode,
@@ -40,18 +39,10 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
      * @return {Boolean} true if variable is defined and has a value
      */
     isDefined = function (x) {
-        if ( x !== "" && x !== null && x !== undefined && x !== NaN){
+        if (x !== "" && x !== null && x !== undefined && x !== NaN) {
             return true;
         }
         return false;
-    };
-    /**
-     * get a copy of (rather than reference to) an object
-     * @param  {object} obj - the object you want a copy
-     * @return {object}     the copy
-     */
-    copyObj = function (obj) {
-        return JSON.parse(JSON.stringify(obj));
     };
     /**
      * find index of an object in array of objects
@@ -164,16 +155,6 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
         mainContent.appendChild(topSection);
         doc_body.appendChild(mainContent);
         main = document.getElementById("main");
-        topSectionEl = document.getElementById("top");
-        // add content
-        // page header
-        headerEl.textContent = doc_data.thisClass.headerInfo.name;
-        // other stuff
-        if (isDefined(doc_data.parentClass)) {
-            topSectionEl.innerHTML += "<p><strong>EXTENDS</strong>: <a href=\"" + doc_data.parentClass.headerInfo.meta.filename + "\">" + doc_data.parentClass.headerInfo.meta.filename + "</a></p>";
-        }
-        topSectionEl.innerHTML += "<p><strong>DEFINED IN</strong>: <a href=\"" + doc_data.thisClass.headerInfo.meta.filename + "\">src/" + doc_data.thisClass.headerInfo.meta.filename + " line number: " + doc_data.thisClass.headerInfo.meta.lineno + "</a></p>";
-        topSectionEl.innerHTML += doc_data.thisClass.headerInfo.description;
     };
     /**
      * add the side nav
@@ -181,68 +162,48 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
     addIndex = function () {
         var section = createEl("section", {id: "index", class: "section"}),
             sectionHeader = createEl("h2"),
-            memberIndex = createEl("div", {id: "memberIndex"}),
-            methodsHeader,
-            eventsHeader,
-            propertieHeader,
-            methodsList,
-            propertiesList,
-            eventsList,
+            classlists = {},
+            alphaArr = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"],
+            firstLetter,
+            numberAlphaItems = 0,
+            itemsPerColumn,
             item,
+            indexEl = [],
             listItem,
             listLink,
             em,
             text,
             i,
             iMax,
-            makeList = function (classArr, parentArr, member, header, list) {
-                if (classArr.length > 0 || isDefined(doc_data.parentClass) && parentArr.length > 0) {
-                    // add member list header
-                    header = createEl("h3", {id: header});
-                    text = document.createTextNode(member);
-                    header.appendChild(text);
-                    // add the list & items
-                    list = createEl("ul", {id: list});
-                    iMax = classArr.length;
-                    for (i = 0; i < iMax; i++) {
-                        item = classArr[i].name;
-                        listItem = createEl("li");
-                        listLink = createEl("a", {href: "#" + item});
-                        text = document.createTextNode(item);
-                        listLink.appendChild(text);
-                        listItem.appendChild(listLink);
-                        list.appendChild(listItem);
-                    }
-                    if (isDefined(doc_data.parentClass) && parentArr.length > 0) {
-                    iMax = parentArr.length;
-                        for (i = 0; i < iMax; i++) {
-                            item = parentArr[i].name;
-                            listItem = createEl("li");
-                            listLink = createEl("a", {href: "#" + item});
-                            listItem.appendChild(listLink);
-                            text = document.createTextNode(item);
-                            listLink.appendChild(text);
-                            em = createEl("em");
-                            text = document.createTextNode(" inherited");
-                            em.appendChild(text);
-                            listItem.appendChild(em);
-                            list.appendChild(listItem);
-                        }
-                    }
-                    memberIndex.appendChild(header);
-                    memberIndex.appendChild(list);
-                }
-            };
-        text = document.createTextNode("Index");
+            counter = 0;
+        text = document.createTextNode("Index of classes");
         sectionHeader.appendChild(text);
-        // add parent class members if any
-        if (isDefined(doc_data.parentClass)) {
-            makeList(doc_data.thisClass.propertiesArray, doc_data.parentClass.propertiesArray, "Properties", "propertiesHeader", "propertiesList");
-            makeList(doc_data.thisClass.methodsArray, doc_data.parentClass.methodsArray, "Methods", "methodsHeader", "methodsList");
-            makeList(doc_data.thisClass.eventsArray, doc_data.parentClass.eventsArray, "Events", "eventsHeader", "eventsList");
+        // create alpha arrays
+        iMax = classes.length;
+        for (i = 0; i < iMax; i++) {
+            item = classes[i];
+            firstLetter = item.name.charAt(0).toLowerCase();
+            // create alpha array if non-existent, push item
+            if (isDefined(classlists[firstLetter])) {
+                classlists[firstLetter].push(item.name);
+            } else {
+                classlists[firstLetter] = [item.name];
+                numberAlphaItems++;
+            }
         }
+        itemsPerColumn = Math.ceil(numberAlphaItems / 3);
+        iMax = alphaArr.length;
+        for (i = 0; I < iMax; i++) {
+            if (isDefined(classlists[alphaArr[i]])) {
+                if (counter === 0) {
+                    indexEl.push(creatEl("div", {class: "indexColumn"}));
+                    counter++;
+
+                }
+            }
+        }
+        bclslog("classlists", classlists);
         section.appendChild(sectionHeader);
-        section.appendChild(memberIndex);
         main.appendChild(section);
     };
     /**
@@ -263,17 +224,10 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
      * init gets things going
      */
     init = function () {
-        var className,
-            fileName,
-            breadcrumbs,
+        var breadcrumbs,
             breadcrumbsEl,
-            srcFileName,
-            parent_class,
             privateItems = [],
-            overriddenItems = [],
-            idx,
-            j,
-            jMax;
+            j;
         // create breadcrumbs
         breadcrumbs = createEl("div", {id: "breadcrumbs", class: "breadcrumbs"});
         doc_body.appendChild(breadcrumbs);
@@ -281,71 +235,21 @@ var BCLSVJS = ( function (window, document, docData, hljs) {
         breadcrumbsEl.innerHTML = "<a href=\"./index.html\">API Docs</a>/";
         // get the data objects for all classes
         classes = getSubArray(docData, "kind", "class");
-        // get the class overview object
-        idx = findObjectInArray(classes.thisClass, "kind", "class");
-        doc_data.thisClass = {};
-        doc_data.thisClass.headerInfo = copyObj(classes.thisClass[idx]);
+        bclslog("classes", classes);
         // set the doc title
-        title.innerHTML = doc_data.thisClass.headerInfo.name;
+        title.innerHTML = "API Documentation Index";
         // remove any private items
-        privateItems = findObjectsInArray(classes.thisClass, "access", "private");
+        privateItems = findObjectsInArray(classes, "access", "private");
         j = privateItems.length;
         do {
-            classes.thisClass.splice(privateItems[j--], 1);
+            classes.splice(privateItems[j--], 1);
         } while (j > 0);
-        // now get the member arrays
-        doc_data.thisClass.methodsArray = getSubArray(classes.thisClass, "kind", "function");
-        doc_data.thisClass.methodsArray = sortArray(doc_data.thisClass.methodsArray, "name");
-        doc_data.thisClass.eventsArray = getSubArray(classes.thisClass, "kind", "event");
-        doc_data.thisClass.eventsArray = sortArray(doc_data.thisClass.eventsArray, "name");
-        doc_data.thisClass.propertiesArray = getSubArray(classes.thisClass, "kind", "property");
-        doc_data.thisClass.propertiesArray = sortArray(doc_data.thisClass.propertiesArray, "name");
-        bclslog("thisClass", doc_data.thisClass);
-        // get parent class, if any
-        if (isDefined(doc_data.thisClass.headerInfo.augments)) {
-            parent_class = doc_data.thisClass.headerInfo.augments[0].toLowerCase();
-            // get data objects for the class
-            classes.parentClass = findClassObjects(docData, parent_class + ".js");
-            doc_data.parentClass = {};
-            // get parent header info
-            idx = findObjectInArray(classes.parentClass, "kind", "class");
-            doc_data.parentClass.headerInfo = copyObj(classes.parentClass[idx]);
-            // remove any private items
-            privateItems = findObjectsInArray(classes.parentClass, "access", "private");
-            bclslog("privateItems", privateItems);
-            j = privateItems.length;
-            do {
-                classes.parentClass.splice(privateItems[j--], 1);
-            } while (j > 0);
-            // remove any overridden items
-            jMax = classes.thisClass.length;
-            for (j = 0; j < jMax; j++) {
-                idx = findObjectInArray(classes.parentClass, "name", classes.thisClass[j].name);
-                if (idx > 0) {
-                    overriddenItems.push(idx);
-                }
-            }
-            j = overriddenItems.length;
-            do {
-                classes.parentClass.splice(overriddenItems[j--], 1);
-            } while (j > 0)
-            // now get the member arrays
-            doc_data.parentClass.methodsArray = getSubArray(classes.parentClass, "kind", "function");
-            doc_data.parentClass.methodsArray = sortArray(doc_data.parentClass.methodsArray, "name");
-            doc_data.parentClass.eventsArray = getSubArray(classes.parentClass, "kind", "event");
-            doc_data.parentClass.eventsArray = sortArray(doc_data.parentClass.eventsArray, "name");
-            doc_data.parentClass.propertiesArray = getSubArray(classes.parentClass, "kind", "property");
-            doc_data.parentClass.propertiesArray = sortArray(doc_data.parentClass.propertiesArray, "name");
-            bclslog("parentClass", doc_data.parentClass);
-        }
+        // sort the array
+        classes = sortArray(classes, "name");
         // now we're ready to roll
         addHeaderContent();
         addIndex();
-        addMembersContent();
-        highlightCode();
     };
-    // bclslog("class_data", class_data);
-    // bclslog("parent_class_data", parent_class_data);
     init();
     return {
 

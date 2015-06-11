@@ -147,7 +147,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             topSection = createEl("section", {id: "top", class: "section"}),
             topSectionEl,
             header = createEl("h1"),
-            text = document.createTextNode("API Index"),
+            text = document.createTextNode("video.js API Documentation Index"),
             headerEl;
         // add elements
         header.appendChild(text);
@@ -250,10 +250,12 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         title.innerHTML = "API Documentation Index";
         // remove any private items
         privateItems = findObjectsInArray(classes, "access", "private");
+        bclslog("privateItems", privateItems);
         j = privateItems.length;
-        do {
+        bclslog("j", j);
+        while (j > 0) {
             classes.splice(privateItems[j--], 1);
-        } while (j > 0);
+        }
         // sort the array
         classes = sortArray(classes, "name");
         // now we're ready to roll

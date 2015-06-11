@@ -203,7 +203,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         for (i = 0; i < iMax; i++) {
             if (isDefined(classlists[alphaArr[i]])) {
                 indexListHolder = createEl("div");
-                indexListHeader = createEl("h3", {class: "text-center"});
+                indexListHeader = createEl("h4", {class: "indexHeader"});
                 text = document.createTextNode("~" + alphaArr[i].toUpperCase() + "~");
                 indexListHeader.appendChild(text);
                 indexListHolder.appendChild(indexListHeader);
@@ -219,13 +219,21 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                     listText = document.createTextNode(classlists[alphaArr[i]][j]);
                     listLink.appendChild(listText);
                 }
+                indexEls.push(indexListHolder);
             }
         }
         bclslog("classlists", classlists);
         section.appendChild(sectionHeader);
-        iMax = indexEl.length;
+        iMax = indexEls.length;
         for (i = 0; i < iMax; i++) {
-            section.appendChild(indexEl[i]);
+            if (counter > itemsPerColumn) {
+                counter = 0;
+            }
+            if (counter === 0) {
+                columnDiv = createEl("div", {class:"indexColumn"});
+                section.appendChild(columnDiv);
+            }
+            columnDiv.appendChild(indexEls[i]);
         }
         main.appendChild(section);
     };

@@ -1,4 +1,4 @@
-var docData = [
+[
     {
         "comment": "/**\n* @fileoverview Player Component - Base class for all UI objects\n*\n*/",
         "meta": {
@@ -3325,4 +3325,4 @@ var docData = [
             "/Users/mboles/git/BCL-LearningSamples/jsdoc-only/node_modules/jsdoc/videojs-src/big-play-button.js"
         ]
     }
-];
+]

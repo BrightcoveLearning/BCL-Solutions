@@ -1,0 +1,13 @@
+#top {
+    border: none;
+}
+div.indexColumn {
+    display: inline-block;
+    width: 30%;
+}
+.indexHeader {
+    padding-left: 3em;
+}
+div, .section {
+    border: none;
+}

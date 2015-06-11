@@ -213,14 +213,16 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                 columnDiv.appendChild(columnDivHeader);
                 text = document.createTextNode(alphaArr[i].toUpperCase());
                 indexList = createEl("ul");
+                columnDiv.appendChild(indexList);
                 indexEl.push(indexList);
-                jMax = classlists[alphaArr[i].length];
+                jMax = classlists[alphaArr[i]].length;
                 for (j = 0; j < jMax; j++) {
+                    bclslog("classlists[alphaArr[i]", classlists[alphaArr[i]]);
                     listItem = createEl("li");
                     indexList.appendChild(listItem);
-                    listLink = createEl("a", {href: classlists[i][j].name.toLowerCase() + ".html"})
+                    listLink = createEl("a", {href: classlists[alphaArr[i]][j].toLowerCase() + ".html"})
                     listItem.appendChild(listLink);
-                    listText = document.createTextNode(classlists[i][j].name);
+                    listText = document.createTextNode(classlists[alphaArr[i]][j]);
                     listLink.appendChild(listText);
                 }
             }
@@ -255,11 +257,6 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             breadcrumbsEl,
             privateItems = [],
             j;
-        // create breadcrumbs
-        breadcrumbs = createEl("div", {id: "breadcrumbs", class: "breadcrumbs"});
-        doc_body.appendChild(breadcrumbs);
-        breadcrumbsEl = document.getElementById("breadcrumbs");
-        breadcrumbsEl.innerHTML = "<a href=\"./index.html\">API Docs</a>/";
         // get the data objects for all classes
         classes = getSubArray(docData, "kind", "class");
         bclslog("classes", classes);

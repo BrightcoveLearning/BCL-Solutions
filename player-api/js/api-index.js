@@ -203,7 +203,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             if (isDefined(classlists[alphaArr[i]])) {
                 if (counter === 0) {
                     columnDiv = createEl("div", {class: "indexColumn"});
-                    indexEl.push(columnDiv);
+                    section.appendChild(columnDiv);
                     counter++;
                     if (counter === itemsPerColumn) {
                         counter = 0;

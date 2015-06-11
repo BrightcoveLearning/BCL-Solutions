@@ -169,9 +169,10 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             itemsPerColumn,
             columnDiv,
             item,
-            indexEl = [],
+            indexEls = [],
+            indexListHolder,
             indexList,
-            columnDivHeader,
+            indexListHeader,
             listItem,
             listLink,
             listText,
@@ -201,21 +202,13 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         iMax = alphaArr.length;
         for (i = 0; i < iMax; i++) {
             if (isDefined(classlists[alphaArr[i]])) {
-                if (counter === 0) {
-                    columnDiv = createEl("div", {class: "indexColumn"});
-                    section.appendChild(columnDiv);
-                    counter++;
-                    if (counter === itemsPerColumn) {
-                        counter = 0;
-                    }
-                }
-                columnDivHeader = createEl("h3", {class: "text-center"});
-                columnDiv.appendChild(columnDivHeader);
+                indexListHolder = createEl("div");
+                indexListHeader = createEl("h3", {class: "text-center"});
+                text = document.createTextNode("~" + alphaArr[i].toUpperCase() + "~");
+                indexListHeader.appendChild(text);
+                indexListHolder.appendChild(indexListHeader);
                 indexList = createEl("ul");
-                columnDiv.appendChild(indexList);
-                indexEl.push(indexList);
-                text = document.createTextNode(alphaArr[i].toUpperCase());
-                columnDivHeader.appendChild(text);
+                indexListHolder.appendChild(indexList);
                 jMax = classlists[alphaArr[i]].length;
                 for (j = 0; j < jMax; j++) {
                     bclslog("classlists[alphaArr[i]", classlists[alphaArr[i]]);

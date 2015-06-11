@@ -167,9 +167,11 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             firstLetter,
             numberAlphaItems = 0,
             itemsPerColumn,
+            columnDiv,
             item,
             indexEl = [],
             indexList,
+            columnDivHeader,
             listItem,
             listLink,
             listText,
@@ -200,21 +202,35 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         for (i = 0; i < iMax; i++) {
             if (isDefined(classlists[alphaArr[i]])) {
                 if (counter === 0) {
-                    indexEl.push(creatEl("div", {class: "indexColumn"}));
+                    columnDiv = createEl("div", {class: "indexColumn"});
+                    indexEl.push(columnDiv);
                     counter++;
+                    if (counter === itemsPerColumn) {
+                        counter = 0;
+                    }
                 }
-                indexList = creatEl("ul");
-                indexEl.appendChild(indexList);
+                columnDivHeader = createEl("h3", {class: "text-center"});
+                columnDiv.appendChild(columnDivHeader);
+                text = document.createTextNode(alphaArr[i].toUpperCase());
+                indexList = createEl("ul");
+                indexEl.push(indexList);
                 jMax = classlists[alphaArr[i].length];
                 for (j = 0; j < jMax; j++) {
                     listItem = createEl("li");
                     indexList.appendChild(listItem);
-                    listLink = createEl("a" {href: classlists[i][j] + ".html"})
+                    listLink = createEl("a", {href: classlists[i][j].name.toLowerCase() + ".html"})
+                    listItem.appendChild(listLink);
+                    listText = document.createTextNode(classlists[i][j].name);
+                    listLink.appendChild(listText);
                 }
             }
         }
         bclslog("classlists", classlists);
         section.appendChild(sectionHeader);
+        iMax = indexEl.length;
+        for (i = 0; i < iMax; i++) {
+            section.appendChild(indexEl[i]);
+        }
         main.appendChild(section);
     };
     /**

@@ -211,10 +211,11 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                 }
                 columnDivHeader = createEl("h3", {class: "text-center"});
                 columnDiv.appendChild(columnDivHeader);
-                text = document.createTextNode(alphaArr[i].toUpperCase());
                 indexList = createEl("ul");
                 columnDiv.appendChild(indexList);
                 indexEl.push(indexList);
+                text = document.createTextNode(alphaArr[i].toUpperCase());
+                columnDivHeader.appendChild(text);
                 jMax = classlists[alphaArr[i]].length;
                 for (j = 0; j < jMax; j++) {
                     bclslog("classlists[alphaArr[i]", classlists[alphaArr[i]]);
@@ -236,26 +237,10 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         main.appendChild(section);
     };
     /**
-     * use hljs to highlight the syntax in code blocks
-     */
-    highlightCode = function () {
-        var codeBlocks = document.querySelectorAll("pre code"),
-            i,
-            iMax;
-        if (isDefined(codeBlocks)) {
-            iMax = codeBlocks.length;
-            for (i = 0; i < iMax; i++) {
-                hljs.highlightBlock(codeBlocks[i]);
-            }
-        }
-    };
-    /**
      * init gets things going
      */
     init = function () {
-        var breadcrumbs,
-            breadcrumbsEl,
-            privateItems = [],
+        var privateItems = [],
             j;
         // get the data objects for all classes
         classes = getSubArray(docData, "kind", "class");

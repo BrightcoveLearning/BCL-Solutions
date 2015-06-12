@@ -254,7 +254,8 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         j = privateItems.length;
         bclslog("j", j);
         while (j > 0) {
-            classes.splice(privateItems[j--], 1);
+            j--;
+            classes.splice(privateItems[j], 1);
         }
         // sort the array
         classes = sortArray(classes, "name");

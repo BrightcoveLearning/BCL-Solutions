@@ -53,12 +53,14 @@ div {
         border: none;
     }
 
-.sideNmv {
+.sideNav {
     float: right;
     width: 20%
     padding-left: 2em;
 }
-
+#main {
+    width: 75%;
+}
 
 .breadcrumbs {
     background-color: #f6f6f6;
@@ -71,5 +73,4 @@ div {
 
 .section {
     border-bottom: 5px #EEE solid;
-    width: 80%;
 }

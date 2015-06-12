@@ -182,6 +182,9 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             topSectionEl,
             header = createEl("h1", {id: doc_data.thisClass.headerInfo.name}),
             headerEl;
+        // add main content wrapper
+        doc_body.appendChild(mainContent);
+        main = document.getElementById("main");
         // add elements
         topSection.appendChild(header);
         mainContent.appendChild(topSection);
@@ -202,7 +205,8 @@ var BCLSVJS = (function (window, document, docData, hljs) {
      */
     addIndex = function () {
         var section = createEl("section", {id: "index", class: "sideNav"}),
-            sectionHeader = createEl("h2"),
+            navHeader = createEl("h2"),
+            navHeaderLink = createEl("a", {href: "index.html"}),
             memberIndex = createEl("div", {id: "memberIndex"}),
             item,
             listItem,
@@ -249,17 +253,19 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                     memberIndex.appendChild(list);
                 }
             };
-        text = document.createTextNode("Index");
-        sectionHeader.appendChild(text);
+        text = document.createTextNode("API Index");
+        navHeader.appendChild(navHeaderLink);
+        navHeaderLink.appendChild(text);
         // add parent class members if any
         if (isDefined(doc_data.parentClass)) {
             makeList(doc_data.thisClass.propertiesArray, doc_data.parentClass.propertiesArray, "Properties", "propertiesHeader", "propertiesList");
             makeList(doc_data.thisClass.methodsArray, doc_data.parentClass.methodsArray, "Methods", "methodsHeader", "methodsList");
             makeList(doc_data.thisClass.eventsArray, doc_data.parentClass.eventsArray, "Events", "eventsHeader", "eventsList");
         }
-        section.appendChild(sectionHeader);
+        section.appendChild(navHeader);
         section.appendChild(memberIndex);
-        main.appendChild(section);
+        doc_body.appendChild(section);
+
     };
     /**
      * add the member content
@@ -286,9 +292,11 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             paramTable,
             paramThead,
             paramTbody,
-            paramTR,
+            paramTheadRow,
+            paramTbodyRow,
             paramTH,
             paramTD,
+            paramTableHeaders = ["Name", "Type", "Required", "Description"],
             text,
             i,
             iMax,
@@ -325,6 +333,14 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                         itemParamsHeader.appendChild(text);
                         paramTable = createEl("table");
                         paramThead = createEl("thead");
+                        paramTbody = createEl("tbody");
+                        paramTable.appendChild(paramThead);
+                        paramTable.appendChild(paramTbody);
+                        paramTheadRow = createEl("tr");
+                        paramThead.appendChild(paramTheadRow);
+                        kMax = paramTableHeaders.length;
+                        for (k = 0; k < kMax; k++)
+
 
                         kMax = item.params.length;
                         for (k = 0; k < kMax; k++) {
@@ -453,17 +469,10 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             jMax;
         // content wrapper
         mainContent = createEl("div", {id: "main", class: "section"});
-        doc_body.appendChild(mainContent);
-        main = document.getElementById("main");
         // get the class name from the file name
         fileName = path[path.length - 1];
         doc_class = fileName.substring(0, fileName.indexOf("."));
         srcFileName = doc_class + ".js";
-        // create breadcrumbs
-        breadcrumbs = createEl("div", {id: "breadcrumbs", class: "breadcrumbs"});
-        doc_body.appendChild(breadcrumbs);
-        breadcrumbsEl = document.getElementById("breadcrumbs");
-        breadcrumbsEl.innerHTML = "<a href=\"./index.html\">API Docs</a>/" + srcFileName;
         // get the data objects for this class
         classes.thisClass = findClassObjects(docData, srcFileName);
         // get the class overview object

@@ -9,6 +9,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         docsPath = "https://github.com/videojs/video.js/blob/master/src/js/",
         doc_data = {},
         // elements
+        mainContent,
         main,
         doc_body = document.getElementsByTagName("body")[0],
         // functions
@@ -177,16 +178,13 @@ var BCLSVJS = (function (window, document, docData, hljs) {
      * add the class header content
      */
     addHeaderContent = function () {
-        var mainContent = createEl("div", {id: "main", class: "section"}),
-            topSection = createEl("section", {id: "top", class: "section"}),
+        var topSection = createEl("section", {id: "top", class: "section"}),
             topSectionEl,
             header = createEl("h1", {id: doc_data.thisClass.headerInfo.name}),
             headerEl;
         // add elements
         topSection.appendChild(header);
         mainContent.appendChild(topSection);
-        doc_body.appendChild(mainContent);
-        main = document.getElementById("main");
         topSectionEl = document.getElementById("top");
         headerEl = document.getElementById(doc_data.thisClass.headerInfo.name);
         // add content
@@ -293,7 +291,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             k,
             kMax,
             createMemberItem = function (member) {
-                section = createEl("section", {id: member.name.toLowerCase(), class: "section"});
+                section = createEl("section", {id: member.name.toLowerCase(), class: "side-nav"});
                 main.appendChild(section);
                 header = createEl("h2");
                 text = document.createTextNode(member.name);
@@ -445,6 +443,10 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             idx,
             j,
             jMax;
+        // content wrapper
+        mainContent = createEl("div", {id: "main", class: "section"});
+        doc_body.appendChild(mainContent);
+        main = document.getElementById("main");
         // get the class name from the file name
         fileName = path[path.length - 1];
         doc_class = fileName.substring(0, fileName.indexOf("."));
@@ -524,8 +526,8 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             bclslog("parentClass", doc_data.parentClass);
         }
         // now we're ready to roll
-        addHeaderContent();
         addIndex();
+        addHeaderContent();
         addMembersContent();
         highlightCode();
     };

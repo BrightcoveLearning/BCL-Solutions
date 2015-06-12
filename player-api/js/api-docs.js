@@ -219,7 +219,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                 if (classArr.length > 0 || (isDefined(doc_data.parentClass) && parentArr.length > 0)) {
                     // add member list header
                     header = createEl("h3", {id: header});
-                    text = document.createTextNode(member);
+                    text = document.createTextNode(doc_data.thisClass.headerInfo.name + " " + member);
                     header.appendChild(text);
                     // add the list & items
                     list = createEl("ul", {id: list});

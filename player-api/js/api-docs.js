@@ -261,6 +261,10 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             makeList(doc_data.thisClass.propertiesArray, doc_data.parentClass.propertiesArray, "Properties", "propertiesHeader", "propertiesList");
             makeList(doc_data.thisClass.methodsArray, doc_data.parentClass.methodsArray, "Methods", "methodsHeader", "methodsList");
             makeList(doc_data.thisClass.eventsArray, doc_data.parentClass.eventsArray, "Events", "eventsHeader", "eventsList");
+        } else {
+            makeList(doc_data.thisClass.propertiesArray, [], "Properties", "propertiesHeader", "propertiesList");
+            makeList(doc_data.thisClass.methodsArray, [], "Methods", "methodsHeader", "methodsList");
+            makeList(doc_data.thisClass.eventsArray, [], "Events", "eventsHeader", "eventsList");
         }
         section.appendChild(navHeader);
         section.appendChild(memberIndex);
@@ -338,30 +342,48 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                         paramTable.appendChild(paramTbody);
                         paramTheadRow = createEl("tr");
                         paramThead.appendChild(paramTheadRow);
+                        // set the table headers
                         kMax = paramTableHeaders.length;
-                        for (k = 0; k < kMax; k++)
-
-
+                        for (k = 0; k < kMax; k++) {
+                            paramTH = createEl("th");
+                            text = document.createTextNode(paramTableHeaders[k]);
+                            paramTheadRow.appendChild(paramTH);
+                            paramTH.appendChild(text);
+                        }
+                        // now the table info
                         kMax = item.params.length;
                         for (k = 0; k < kMax; k++) {
-                            itemParamsItem = createEl("li");
-                            itemParamsList.appendChild(itemParamsItem);
-                            itemParamsStr = item.params[k].name + " " + item.params[k].type.names.join("|");
+                            paramTbodyRow = createEl("tr");
+                            paramTbody.appendChild(paramTbodyRow);
+                            paramTD = createEl("td");
+                            text = document.createTextNode(item.params[k].name);
+                            paramTD.appendChild(text);
+                            paramTbodyRow.appendChild(paramTD);
+                            paramTD = createEl("td");
+                            text = document.createTextNode(item.params[k].type.names.join("|"));
+                            paramTD.appendChild(text);
+                            paramTbodyRow.appendChild(paramTD);
+                            paramTD = createEl("td");
                             if (item.params[k].optional) {
-                                itemParamsStr += " (Optional) ";
+                                text = document.createTextNode("no");
                                 itemParams.push("[" + item.params[k].name + "]");
                             } else {
+                                text = document.createTextNode("yes");
                                 itemParams.push(item.params[k].name);
                             }
+                            paramTD.appendChild(text);
                             if (isDefined(item.params[k].description)) {
-                                itemParamsStr += " " + item.params[k].description.slice(3, item.params[k].description.indexOf('</p>'));
+                                paramTbodyRow.appendChild(paramTD);
+                                paramTD = createEl("td");
+                                text = document.createTextNode(item.params[k].description.slice(3, item.params[k].description.indexOf('</p>')));
+                                paramTD.appendChild(text);
+                                paramTbodyRow.appendChild(paramTD);
                             }
-                            text = document.createTextNode(itemParamsStr);
-                            itemParamsItem.appendChild(text);
+                            paramTbody.appendChild(paramTbodyRow);
                         }
                         itemHeaderStr += "( " + itemParams.join(", ") + " )";
                         itemWrapper.appendChild(itemParamsHeader);
-                        itemWrapper.appendChild(itemParamsList);
+                        itemWrapper.appendChild(paramTable);
                     } else {
                         itemHeaderStr += "()";
                     }

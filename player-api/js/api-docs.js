@@ -201,7 +201,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
      * add the side nav
      */
     addIndex = function () {
-        var section = createEl("section", {id: "index", class: "section"}),
+        var section = createEl("section", {id: "index", class: "sideNav"}),
             sectionHeader = createEl("h2"),
             memberIndex = createEl("div", {id: "memberIndex"}),
             item,
@@ -283,6 +283,12 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             itemFooter,
             itemFooterContent,
             itemFooterContentEl,
+            paramTable,
+            paramThead,
+            paramTbody,
+            paramTR,
+            paramTH,
+            paramTD,
             text,
             i,
             iMax,
@@ -291,7 +297,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             k,
             kMax,
             createMemberItem = function (member) {
-                section = createEl("section", {id: member.name.toLowerCase(), class: "side-nav"});
+                section = createEl("section", {id: member.name.toLowerCase(), class: "section"});
                 main.appendChild(section);
                 header = createEl("h2");
                 text = document.createTextNode(member.name);
@@ -317,7 +323,9 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                         itemParamsHeader = createEl("h4");
                         text = document.createTextNode("Parameters");
                         itemParamsHeader.appendChild(text);
-                        itemParamsList = createEl("ul");
+                        paramTable = createEl("table");
+                        paramThead = createEl("thead");
+
                         kMax = item.params.length;
                         for (k = 0; k < kMax; k++) {
                             itemParamsItem = createEl("li");

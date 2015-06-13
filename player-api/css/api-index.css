@@ -1,8 +1,7 @@
 body {
     color: #333;
     margin: 6em;
-    margin-top: 0;
-    font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 a {

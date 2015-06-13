@@ -1,8 +1,6 @@
-var BCLSVJS = (function (window, document, docData, hljs) {
+var BCLSVJS = (function (window, document, docData) {
     "use strict";
     var title = document.getElementsByTagName('title')[0],
-        // path as an array
-        path = document.location.pathname.split("/"),
         // data structures
         classes = [],
         // elements
@@ -10,8 +8,6 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         doc_body = document.getElementsByTagName("body")[0],
         // functions
         isDefined,
-        copyObj,
-        findObjectInArray,
         findObjectsInArray,
         getSubArray,
         sortArray,
@@ -19,7 +15,6 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         bclslog,
         addHeaderContent,
         addIndex,
-        highlightCode,
         init;
     /**
      * Logging function - safe for IE
@@ -43,26 +38,6 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             return true;
         }
         return false;
-    };
-    /**
-     * find index of an object in array of objects
-     * based on some property value
-     * generally useful for finding a unique object
-     *
-     * @param {array} targetArray - array to search
-     * @param {string} objProperty - object property to search
-     * @param {string|number} value - value of the property to search for
-     * @return {integer} index of first instance if found, otherwise returns -1
-     */
-    findObjectInArray = function (targetArray, objProperty, value) {
-        var i, totalItems = targetArray.length, objFound = false;
-        for (i = 0; i < totalItems; i++) {
-            if (targetArray[i][objProperty] === value) {
-                objFound = true;
-                return i;
-            }
-        }
-        return -1;
     };
     /**
      * find indexes of a set of object in array of objects
@@ -145,10 +120,8 @@ var BCLSVJS = (function (window, document, docData, hljs) {
     addHeaderContent = function () {
         var mainContent = createEl("div", {id: "main", class: "section"}),
             topSection = createEl("section", {id: "top", class: "section"}),
-            topSectionEl,
             header = createEl("h1"),
-            text = document.createTextNode("video.js API Documentation Index"),
-            headerEl;
+            text = document.createTextNode("video.js API Documentation Index");
         // add elements
         header.appendChild(text);
         topSection.appendChild(header);
@@ -176,7 +149,6 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             listItem,
             listLink,
             listText,
-            em,
             text,
             i,
             iMax,
@@ -214,7 +186,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                     bclslog("classlists[alphaArr[i]", classlists[alphaArr[i]]);
                     listItem = createEl("li");
                     indexList.appendChild(listItem);
-                    listLink = createEl("a", {href: classlists[alphaArr[i]][j].toLowerCase() + ".html"})
+                    listLink = createEl("a", {href: classlists[alphaArr[i]][j].toLowerCase() + ".html"});
                     listItem.appendChild(listLink);
                     listText = document.createTextNode(classlists[alphaArr[i]][j]);
                     listLink.appendChild(listText);
@@ -222,7 +194,6 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                 indexEls.push(indexListHolder);
             }
         }
-        bclslog("classlists", classlists);
         section.appendChild(sectionHeader);
         iMax = indexEls.length;
         for (i = 0; i < iMax; i++) {
@@ -230,7 +201,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                 counter = 0;
             }
             if (counter === 0) {
-                columnDiv = createEl("div", {class:"indexColumn"});
+                columnDiv = createEl("div", {class: "indexColumn"});
                 section.appendChild(columnDiv);
             }
             columnDiv.appendChild(indexEls[i]);
@@ -267,4 +238,4 @@ var BCLSVJS = (function (window, document, docData, hljs) {
     return {
 
     };
-})(window, document, docData, hljs);
+})(window, document, docData);

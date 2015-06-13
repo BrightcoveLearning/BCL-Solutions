@@ -480,8 +480,6 @@ var BCLSVJS = (function (window, document, docData, hljs) {
      */
     init = function () {
         var fileName,
-            breadcrumbs,
-            breadcrumbsEl,
             srcFileName,
             parent_class,
             privateItems = [],
@@ -509,7 +507,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         while (j > 0) {
             j--;
             classes.thisClass.splice(privateItems[j], 1);
-        };
+        }
         // now get the member arrays
         doc_data.thisClass.methodsArray = getSubArray(classes.thisClass, "kind", "function");
         doc_data.thisClass.methodsArray = sortArray(doc_data.thisClass.methodsArray, "name");
@@ -529,32 +527,24 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             doc_data.parentClass.headerInfo = copyObj(classes.parentClass[idx]);
             // remove any private items
             privateItems = findObjectsInArray(classes.parentClass, "access", "private");
-            bclslog("privateItems", privateItems);
-            bclslog("p class", classes.parentClass);
             j = privateItems.length;
             while (j > 0) {
                 j--;
                 classes.parentClass.splice(privateItems[j], 1);
             };
-            bclslog("pc length2", classes.parentClass.length);
             // remove any overridden items
             jMax = classes.thisClass.length;
             for (j = 0; j < jMax; j++) {
                 idx = findObjectInArray(classes.parentClass, "name", classes.thisClass[j].name);
                 if (idx > 0) {
                     overriddenItems.push(idx);
-                    bclslog("overridden item", classes.parentClass[idx]);
                 }
             }
-            bclslog("overriddenItems", overriddenItems)
-            bclslog("classes.parentClass", classes.parentClass);
-            bclslog("pc length3", classes.parentClass.length);
             j = overriddenItems.length;
             while (j > 0) {
                 j--;
                 classes.parentClass.splice(overriddenItems[j], 1);
             };
-            bclslog("pc length4", classes.parentClass.length);
             // now get the member arrays
             doc_data.parentClass.methodsArray = getSubArray(classes.parentClass, "kind", "function");
             doc_data.parentClass.methodsArray = sortArray(doc_data.parentClass.methodsArray, "name");

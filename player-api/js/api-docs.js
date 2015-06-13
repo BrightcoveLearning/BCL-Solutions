@@ -197,7 +197,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         if (isDefined(doc_data.parentClass)) {
             topSectionEl.innerHTML += "<p><strong>EXTENDS</strong>: <a href=\"" + docsPath + doc_data.parentClass.headerInfo.meta.filename + "\">" + doc_data.parentClass.headerInfo.meta.filename + "</a></p>";
         }
-        topSectionEl.innerHTML += "<p><strong>DEFINED IN</strong>: <a href=\"" + docsPath + doc_data.thisClass.headerInfo.meta.filename + "\">src/" + doc_data.thisClass.headerInfo.meta.filename + " line number: " + doc_data.thisClass.headerInfo.meta.lineno + "</a></p>";
+        topSectionEl.innerHTML += "<p><strong>DEFINED IN</strong>: <a href=\"" + docsPath + doc_data.thisClass.headerInfo.meta.filename + "#" + doc_data.thisClass.headerInfo.meta.lineno +  "\">src/" + doc_data.thisClass.headerInfo.meta.filename + " line number: " + doc_data.thisClass.headerInfo.meta.lineno + "</a></p>";
         topSectionEl.innerHTML += doc_data.thisClass.headerInfo.description;
     };
     /**
@@ -393,7 +393,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                     itemDescriptionEl = document.getElementById(item.name + "Description");
                     itemDescriptionEl.innerHTML = item.description;
                     itemFooterContentEl = document.getElementById(item.name + "Footer");
-                    itemFooterContentEl.innerHTML = "Defined in <a href=\"" + docsPath + item.meta.filename + item.meta.lineno + "\">src/js/" + item.meta.filename + " line number: " + item.meta.lineno + "</a>";
+                    itemFooterContentEl.innerHTML = "Defined in <a href=\"" + docsPath + item.meta.filename + "#" + item.meta.lineno + "\">src/js/" + item.meta.filename + " line number: " + item.meta.lineno + "</a>";
                 }
                 // now the inherited member items
                 if (isDefined(doc_data.parentClass)) {

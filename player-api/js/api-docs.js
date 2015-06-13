@@ -393,7 +393,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                     itemDescriptionEl = document.getElementById(item.name + "Description");
                     itemDescriptionEl.innerHTML = item.description;
                     itemFooterContentEl = document.getElementById(item.name + "Footer");
-                    itemFooterContentEl.innerHTML = "Defined in <a href=\"" + docsPath + item.meta.filename + "#" + item.meta.lineno + "\">src/js/" + item.meta.filename + " line number: " + item.meta.lineno + "</a>";
+                    itemFooterContentEl.innerHTML = "Defined in <a href=\"" + docsPath + item.meta.filename + "#" + item.meta.lineno + "\">src/js/" + item.meta.filename + " line number: " + item.meta.lineno + "</a><br><a href=\"#top\">[back to top]</a>";
                 }
                 // now the inherited member items
                 if (isDefined(doc_data.parentClass)) {

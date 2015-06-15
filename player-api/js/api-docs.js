@@ -209,7 +209,6 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             navHeaderLink = createEl("a", {href: "index.html"}),
             memberIndex = createEl("div", {id: "memberIndex"}),
             item,
-            list,
             parentList,
             header,
             listItem,

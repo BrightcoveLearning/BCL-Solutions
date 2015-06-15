@@ -1,6 +1,7 @@
 body {
     color: #333;
     margin: 6em;
+    margin-top: 4em;
     margin-right: 3em;
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -32,7 +33,7 @@ h3 {
 
 div {
     border-bottom: 1px #CCC solid;
-    font-size: 1.1em;
+    font-size: 1em;
 }
 
 pre {
@@ -48,7 +49,7 @@ pre {
     box-shadow: 5px 5px 10px rgba(192, 192, 192, 1.000);
 }
 code {
-    font-size: 1.1em;
+    font-size: 1em;
     font-family: source-code-pro, Monaco, Consolas, Menlo, "Lucida Console", monospace;
     border: none;
 }

@@ -31,6 +31,12 @@ h3 {
     font-size: 1.5em;
 }
 
+#memberIndex h4 {
+    font-size: 1em;
+    font-weight: normal;
+    font-style: italic;
+}
+
 div {
     border-bottom: 1px #CCC solid;
     font-size: 1em;

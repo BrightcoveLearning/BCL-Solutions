@@ -209,20 +209,31 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             navHeaderLink = createEl("a", {href: "index.html"}),
             memberIndex = createEl("div", {id: "memberIndex"}),
             item,
+            list,
+            parentList,
+            header,
             listItem,
             listLink,
+            classHeader,
+            parentHeader,
             em,
             text,
             i,
             iMax,
-            makeList = function (classArr, parentArr, member, header, list) {
+            makeList = function (classArr, parentArr, member, headerText, list) {
                 if (classArr.length > 0 || (isDefined(doc_data.parentClass) && parentArr.length > 0)) {
                     // add member list header
-                    header = createEl("h3", {id: header});
+                    header = createEl("h3");
                     text = document.createTextNode(doc_data.thisClass.headerInfo.name + " " + member);
                     header.appendChild(text);
+                    classHeader = createEl("h4");
+                    text = document.createTextNode("Class " + member);
+                    classHeader.appendChild(text);
+                    memberIndex.appendChild(header);
+                    memberIndex.appendChild(classHeader);
                     // add the list & items
                     list = createEl("ul", {id: list});
+                    memberIndex.appendChild(list);
                     iMax = classArr.length;
                     for (i = 0; i < iMax; i++) {
                         item = classArr[i].name;
@@ -234,6 +245,12 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                         list.appendChild(listItem);
                     }
                     if (isDefined(doc_data.parentClass) && parentArr.length > 0) {
+                        parentHeader = createEl("h4");
+                        text = document.createTextNode("Inherited " + member);
+                        parentHeader.appendChild(text);
+                        memberIndex.appendChild(parentHeader);
+                        parentList = createEl("ul");
+                        memberIndex.appendChild(parentList);
                         iMax = parentArr.length;
                         for (i = 0; i < iMax; i++) {
                             item = parentArr[i].name;
@@ -242,15 +259,13 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                             listItem.appendChild(listLink);
                             text = document.createTextNode(item);
                             listLink.appendChild(text);
-                            em = createEl("em");
-                            text = document.createTextNode(" inherited");
-                            em.appendChild(text);
-                            listItem.appendChild(em);
-                            list.appendChild(listItem);
+                            // em = createEl("em");
+                            // text = document.createTextNode(" inherited");
+                            // em.appendChild(text);
+                            // listItem.appendChild(em);
+                            parentList.appendChild(listItem);
                         }
                     }
-                    memberIndex.appendChild(header);
-                    memberIndex.appendChild(list);
                 }
             };
         text = document.createTextNode("API Index");
@@ -308,6 +323,8 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             jMax,
             k,
             kMax,
+            topLinkP,
+            topLinkA,
             createMemberItem = function (member) {
                 section = createEl("section", {id: member.name.toLowerCase(), class: "section"});
                 main.appendChild(section);
@@ -326,9 +343,14 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                     itemWrapper.appendChild(itemHeader);
                     itemDescription = createEl("div", {id: item.name + "Description"});
                     itemWrapper.appendChild(itemDescription);
-                    itemFooter = createEl("p");
+                    itemFooter = createEl("p", {class: "vjs-only"});
                     itemFooterContent = createEl("em", {id: item.name + "Footer"});
                     itemFooter.appendChild(itemFooterContent);
+                    topLinkP = createEl("p");
+                    topLinkA = createEl("a", {href: "#top"});
+                    text = document.createTextNode("[back to top]");
+                    topLinkA.appendChild(text);
+                    topLinkP.appendChild(topLinkA);
                     // handle params if any
                     if (isDefined(item.params)) {
                         itemParams = [];
@@ -388,12 +410,13 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                         itemHeaderStr += "()";
                     }
                     itemWrapper.appendChild(itemFooter);
+                    itemWrapper.appendChild(topLinkP);
                     text = document.createTextNode(itemHeaderStr);
                     itemHeader.appendChild(text);
                     itemDescriptionEl = document.getElementById(item.name + "Description");
                     itemDescriptionEl.innerHTML = item.description;
                     itemFooterContentEl = document.getElementById(item.name + "Footer");
-                    itemFooterContentEl.innerHTML = "Defined in <a href=\"" + docsPath + item.meta.filename + "#" + item.meta.lineno + "\">src/js/" + item.meta.filename + " line number: " + item.meta.lineno + "</a><br><a href=\"#top\">[back to top]</a>";
+                    itemFooterContentEl.innerHTML = "Defined in <a href=\"" + docsPath + item.meta.filename + "#" + item.meta.lineno + "\">src/js/" + item.meta.filename + " line number: " + item.meta.lineno + "</a>";
                 }
                 // now the inherited member items
                 if (isDefined(doc_data.parentClass)) {

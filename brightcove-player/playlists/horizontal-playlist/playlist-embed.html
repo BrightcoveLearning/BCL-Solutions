@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Playlist embed</title>
+<style type="text/css">
+    
+    .video-js {
+      margin: 15px;
+      width: 600px;
+      height: 280px;
+    }
+    
+    .vjs-playlist.vjs-playlist {
+      width: 600px;
+      white-space: nowrap;
+      display: block;
+    }
+
+    .vjs-playlist-item {
+      display: inline-block;
+      height: 75px;
+
+    }
+    cite.vjs-playlist-name {
+      display:none;
+    }
+    .vjs-playlist-description {
+      display: none;
+    }  
+  </style>
+</head>
+
+<body>
+
+
+<video
+  data-playlist-id="1194625610001"
+  data-account="57838016001"
+  data-player="6cf42006-8052-4937-a160-4f3a5346af81"
+  data-embed="default"
+  class="video-js" controls></video>
+<script src="//players.brightcove.net/57838016001/6cf42006-8052-4937-a160-4f3a5346af81_default/index.min.js"></script>
+
+
+ <ol class="vjs-playlist"></ol>
+
+<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>-->
+
+
+<script type="text/javascript">
+//  $( "ol" ).wrap( "<div class='playlist-wrapper'></div>" );
+</script>
+
+
+</body>
+
+</html>

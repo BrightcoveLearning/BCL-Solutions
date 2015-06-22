@@ -1,0 +1,24 @@
+
+    #vjs_video_3 {
+        position: relative;
+        float: left;
+        bottom: 200px;
+    }
+    .vjs-playlist.vjs-playlist {
+        width: 600px;
+        height: 130px
+        display: block;
+        position: relative;
+        white-space: nowrap;
+    }
+
+    .vjs-playlist-item {
+        display: inline-block;
+        height: 75px;
+    }
+    cite.vjs-playlist-name {
+        display:none;
+    }
+    .vjs-playlist-description {
+        display: none;
+    }  

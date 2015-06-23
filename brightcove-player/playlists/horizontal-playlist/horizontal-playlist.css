@@ -1,17 +1,21 @@
  .video-js {
       display: block;
       width: 100%;
-      height: 360px;
+      max-height: 360px;
+      position: relative;
     }
 
     .vjs-playlist {
-      max-width: 606px;
+      max-width: 640px;
       margin: 0;
       overflow: scroll;
       white-space: nowrap;
       display: block;
       max-height: 75px;
       width: 100%;
+      position: relative;
+      top: 360px;
+      left: 0;
     }
 
     .vjs-playlist-item {

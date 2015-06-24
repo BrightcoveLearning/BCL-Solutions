@@ -163,14 +163,15 @@ var BCLSVJS = (function (window, document, docData) {
             item = classes[i];
             firstLetter = item.name.charAt(0).toLowerCase();
             // create alpha array if non-existent, push item
-            if (isDefined(classlists[firstLetter])) {
-                classlists[firstLetter].push(item.name);
-            } else {
-                classlists[firstLetter] = [item.name];
+            if (isDefined(classlists[firstLetter]) === false) {
+                bclslog("false");
+                classlists[firstLetter] = [];
                 numberAlphaItems++;
             }
+            classlists[firstLetter].push({name: item.name, filename: item.meta.filename});
         }
         itemsPerColumn = Math.ceil(numberAlphaItems / 3);
+        bclslog("classlists", classlists);
         iMax = alphaArr.length;
         for (i = 0; i < iMax; i++) {
             if (isDefined(classlists[alphaArr[i]])) {
@@ -182,13 +183,14 @@ var BCLSVJS = (function (window, document, docData) {
                 indexList = createEl("ul");
                 indexListHolder.appendChild(indexList);
                 jMax = classlists[alphaArr[i]].length;
+                bclslog("jMax", jMax);
                 for (j = 0; j < jMax; j++) {
                     bclslog("classlists[alphaArr[i]", classlists[alphaArr[i]]);
                     listItem = createEl("li");
                     indexList.appendChild(listItem);
-                    listLink = createEl("a", {href: classlists[alphaArr[i]][j].toLowerCase() + ".html"});
+                    listLink = createEl("a", {href: classlists[alphaArr[i]][j].filename.replace(".js", ".html")});
                     listItem.appendChild(listLink);
-                    listText = document.createTextNode(classlists[alphaArr[i]][j]);
+                    listText = document.createTextNode(classlists[alphaArr[i]][j].name);
                     listLink.appendChild(listText);
                 }
                 indexEls.push(indexListHolder);
@@ -230,6 +232,7 @@ var BCLSVJS = (function (window, document, docData) {
         }
         // sort the array
         classes = sortArray(classes, "name");
+        bclslog("classes", classes);
         // now we're ready to roll
         addHeaderContent();
         addIndex();

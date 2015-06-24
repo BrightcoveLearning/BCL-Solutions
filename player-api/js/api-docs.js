@@ -56,8 +56,12 @@ var BCLSVJS = (function (window, document, docData, hljs) {
      * @return {object}     the copy
      */
     copyObj = function (obj) {
-        bclslog("obj to copy", obj);
-        return JSON.parse(JSON.stringify(obj));
+        if (isDefined(obj)) {
+            return JSON.parse(JSON.stringify(obj));
+        } else {
+            bclslog("no obj passed");
+        }
+
     };
     /**
      * find index of an object in array of objects
@@ -526,9 +530,11 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         fileName = path[path.length - 1];
         doc_class = fileName.substring(0, fileName.indexOf("."));
         srcFileName = doc_class + ".js";
+        bclslog("srcFileName", srcFileName);
         // get the data objects for this class
         classes.thisClass = findClassObjects(docData, srcFileName);
         // get the class overview object
+        bclslog("classes", classes)
         idx = findObjectInArray(classes.thisClass, "kind", "class");
         doc_data.thisClass = {};
         doc_data.thisClass.headerInfo = copyObj(classes.thisClass[idx]);

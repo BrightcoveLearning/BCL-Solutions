@@ -56,6 +56,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
      * @return {object}     the copy
      */
     copyObj = function (obj) {
+        bclslog("obj to copy", obj);
         return JSON.parse(JSON.stringify(obj));
     };
     /**
@@ -293,6 +294,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             member,
             section,
             header,
+            headerSuffix,
             item,
             itemWrapper,
             itemHeader,
@@ -403,6 +405,9 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                             paramTbody.appendChild(paramTbodyRow);
                         }
                         itemHeaderStr += "( " + itemParams.join(", ") + " )";
+                        if (item.scope === "static") {
+                            itemHeaderStr = "static " + itemHeaderStr;
+                        }
                         itemWrapper.appendChild(itemParamsHeader);
                         itemWrapper.appendChild(paramTable);
                     } else {
@@ -412,6 +417,12 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                     itemWrapper.appendChild(topLinkP);
                     text = document.createTextNode(itemHeaderStr);
                     itemHeader.appendChild(text);
+                        if (isDefined(item.deprecated)) {
+                            headerSuffix = createEl("em", {class: "deprecated"});
+                            text = document.createTextNode(" (deprecated)");
+                            headerSuffix.appendChild(text);
+                            itemHeader.appendChild(headerSuffix);
+                        }
                     itemDescriptionEl = document.getElementById(item.name + "Description");
                     itemDescriptionEl.innerHTML = item.description;
                     itemFooterContentEl = document.getElementById(item.name + "Footer");

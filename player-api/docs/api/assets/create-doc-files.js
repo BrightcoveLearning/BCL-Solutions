@@ -7,7 +7,7 @@
  * @param {string|number} value - value of the property to search for
  * @return {array} array of objects with matching property value
  */
-function getSubArray (targetArray, objProperty, value) {
+function getSubArray(targetArray, objProperty, value) {
     var i, totalItems = targetArray.length, idxArr = [];
     for (i = 0; i < totalItems; i++) {
         if (targetArray[i][objProperty] === value) {
@@ -15,13 +15,13 @@ function getSubArray (targetArray, objProperty, value) {
         }
     }
     return idxArr;
-};
+}
 
 /**
  * create the HTML files for the classes
  * @param {array} filenameArray - array of the filenames
  */
-function createFiles (filenameArray) {
+function createFiles(filenameArray) {
     var i,
         iMax = filenameArray.length,
         filename,
@@ -30,9 +30,9 @@ function createFiles (filenameArray) {
         filename = filenameArray[i];
         // create file with name=filename and contents=contentStr
     }
-};
+}
 
-function createFilenameArray (classData) {
+function createFilenameArray(classData) {
     var filenameArray = [],
         i,
         iMax = classData.length,
@@ -40,19 +40,20 @@ function createFilenameArray (classData) {
     // extract the filenames from the class items
     for (i = 0; i < iMax; i++) {
         item = classData[i];
-        filenameArray.push(item.meta.filename.indexOf('/') + 1).replace('.js', '.html'));
+
+        filenameArray.push(item.meta.filename.substr(item.meta.filename.indexOf('/')) + 1).replace('.js', '.html');
     }
     // now create the files
     createFiles();
-};
+}
 /**
  * extracts class items from doc data
  * @param  {array} docData JSON output from JSDoc
  */
-function getClassData (docData) {
+function getClassData(docData) {
     var classData = [];
     // extract the class items from the doc data
     classData = getSubArray(docData, 'kind', 'class');
     // now create the array of filenames
     createFilenameArray(classData);
-};
+}

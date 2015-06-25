@@ -36,15 +36,18 @@ function createFilenameArray(classData) {
     var filenameArray = [],
         i,
         iMax = classData.length,
-        item;
+        item,
+        str;
     // extract the filenames from the class items
     for (i = 0; i < iMax; i++) {
         item = classData[i];
-
-        filenameArray.push(item.meta.filename.substr(item.meta.filename.indexOf('/')) + 1).replace('.js', '.html');
+        str = item.meta.filename;
+        str = str.substr(str.lastIndexOf('/') + 1);
+        str = str.replace('.js', '.html');
+        filenameArray.push(str);
     }
     // now create the files
-    createFiles();
+    createFiles(filenameArray);
 }
 /**
  * extracts class items from doc data
@@ -57,3 +60,5 @@ function getClassData(docData) {
     // now create the array of filenames
     createFilenameArray(classData);
 }
+
+getClassData(docData);

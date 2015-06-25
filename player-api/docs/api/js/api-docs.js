@@ -45,10 +45,10 @@ var BCLSVJS = (function (window, document, docData, hljs) {
      * @return {Boolean} true if variable is defined and has a value
      */
     isDefined = function (x) {
-        if (x !== "" && x !== null && x !== undefined && x !== NaN) {
-            return true;
+        if (x === "" || x === null || x === undefined || x === NaN) {
+            return false;
         }
-        return false;
+        return true;
     };
     /**
      * get a copy of (rather than reference to) an object
@@ -186,7 +186,12 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         var topSection = createEl("section", {id: "top", class: "section"}),
             topSectionEl,
             header = createEl("h1", {id: doc_data.thisClass.headerInfo.name}),
-            headerEl;
+            headerEl,
+            constructorHeader = createEl('h3'),
+            text,
+            i,
+            iMax,
+            headerData = doc_data.thisClass.headerInfo;
         // add main content wrapper
         doc_body.appendChild(mainContent);
         main = document.getElementById("main");
@@ -194,15 +199,20 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         topSection.appendChild(header);
         mainContent.appendChild(topSection);
         topSectionEl = document.getElementById("top");
-        headerEl = document.getElementById(doc_data.thisClass.headerInfo.name);
+        text = document.createTextNode(headerData.name);
         // add content
         // page header
-        headerEl.textContent = doc_data.thisClass.headerInfo.name;
+        headerEl.appendChild(text);
+        // create the constructor info
+        text = 'Constructor';
+        constructorHeader.appendChild(text);
+        // get constructor params
+        if (isDefined)
         // other stuff
         if (isDefined(doc_data.parentClass)) {
             topSectionEl.innerHTML += "<p><strong>EXTENDS</strong>: <a href=\"" + docsPath + doc_data.parentClass.headerInfo.meta.filename + "\">" + doc_data.parentClass.headerInfo.meta.filename + "</a></p>";
         }
-        topSectionEl.innerHTML += "<p><strong>DEFINED IN</strong>: <a href=\"" + docsPath + doc_data.thisClass.headerInfo.meta.filename + "#" + doc_data.thisClass.headerInfo.meta.lineno +  "\">src/" + doc_data.thisClass.headerInfo.meta.filename + " line number: " + doc_data.thisClass.headerInfo.meta.lineno + "</a></p>";
+        topSectionEl.innerHTML += "<p><strong>DEFINED IN</strong>: <a href=\"" + docsPath + headerData.meta.filename + "#" + headerData.meta.lineno +  "\">src/" + doc_data.thisClass.headerInfo.meta.filename + " line number: " + headerData.meta.lineno + "</a></p>";
         topSectionEl.innerHTML += doc_data.thisClass.headerInfo.description;
     };
     /**

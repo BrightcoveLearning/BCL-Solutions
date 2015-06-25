@@ -560,37 +560,40 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             parent_class = doc_data.thisClass.headerInfo.augments[0].toLowerCase();
             // get data objects for the class
             classes.parentClass = findClassObjects(docData, parent_class + ".js");
-            doc_data.parentClass = {};
-            // get parent header info
-            idx = findObjectInArray(classes.parentClass, "kind", "class");
-            doc_data.parentClass.headerInfo = copyObj(classes.parentClass[idx]);
-            // remove any private items
-            privateItems = findObjectsInArray(classes.parentClass, "access", "private");
-            j = privateItems.length;
-            while (j > 0) {
-                j--;
-                classes.parentClass.splice(privateItems[j], 1);
-            };
-            // remove any overridden items
-            jMax = classes.thisClass.length;
-            for (j = 0; j < jMax; j++) {
-                idx = findObjectInArray(classes.parentClass, "name", classes.thisClass[j].name);
-                if (idx > 0) {
-                    overriddenItems.push(idx);
+            // check to see if there are any parent class items
+            if (classes.parentClass.length > 0) {
+                doc_data.parentClass = {};
+                // get parent header info
+                idx = findObjectInArray(classes.parentClass, "kind", "class");
+                doc_data.parentClass.headerInfo = copyObj(classes.parentClass[idx]);
+                // remove any private items
+                privateItems = findObjectsInArray(classes.parentClass, "access", "private");
+                j = privateItems.length;
+                while (j > 0) {
+                    j--;
+                    classes.parentClass.splice(privateItems[j], 1);
+                };
+                // remove any overridden items
+                jMax = classes.thisClass.length;
+                for (j = 0; j < jMax; j++) {
+                    idx = findObjectInArray(classes.parentClass, "name", classes.thisClass[j].name);
+                    if (idx > 0) {
+                        overriddenItems.push(idx);
+                    }
                 }
+                j = overriddenItems.length;
+                while (j > 0) {
+                    j--;
+                    classes.parentClass.splice(overriddenItems[j], 1);
+                };
+                // now get the member arrays
+                doc_data.parentClass.methodsArray = getSubArray(classes.parentClass, "kind", "function");
+                doc_data.parentClass.methodsArray = sortArray(doc_data.parentClass.methodsArray, "name");
+                doc_data.parentClass.eventsArray = getSubArray(classes.parentClass, "kind", "event");
+                doc_data.parentClass.eventsArray = sortArray(doc_data.parentClass.eventsArray, "name");
+                doc_data.parentClass.propertiesArray = getSubArray(classes.parentClass, "kind", "property");
+                doc_data.parentClass.propertiesArray = sortArray(doc_data.parentClass.propertiesArray, "name");
             }
-            j = overriddenItems.length;
-            while (j > 0) {
-                j--;
-                classes.parentClass.splice(overriddenItems[j], 1);
-            };
-            // now get the member arrays
-            doc_data.parentClass.methodsArray = getSubArray(classes.parentClass, "kind", "function");
-            doc_data.parentClass.methodsArray = sortArray(doc_data.parentClass.methodsArray, "name");
-            doc_data.parentClass.eventsArray = getSubArray(classes.parentClass, "kind", "event");
-            doc_data.parentClass.eventsArray = sortArray(doc_data.parentClass.eventsArray, "name");
-            doc_data.parentClass.propertiesArray = getSubArray(classes.parentClass, "kind", "property");
-            doc_data.parentClass.propertiesArray = sortArray(doc_data.parentClass.propertiesArray, "name");
             bclslog("parentClass", doc_data.parentClass);
         }
         // now we're ready to roll

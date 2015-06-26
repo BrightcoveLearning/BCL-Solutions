@@ -102,3 +102,7 @@ td {
 .section {
     border-bottom: 5px #EEE solid;
 }
+
+.deprecated {
+    color: #990000;
+}

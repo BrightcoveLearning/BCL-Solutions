@@ -7,6 +7,8 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         classes = {thisClass: [], parentClass: []},
         doc_class,
         docsPath = "https://github.com/videojs/video.js/blob/master/src/js/",
+        classFilePath,
+        parentClassFilePath,
         doc_data = {},
         // elements
         mainContent,
@@ -58,10 +60,8 @@ var BCLSVJS = (function (window, document, docData, hljs) {
     copyObj = function (obj) {
         if (isDefined(obj)) {
             return JSON.parse(JSON.stringify(obj));
-        } else {
-            bclslog("no obj passed");
         }
-
+        bclslog("no obj passed");
     };
     /**
      * find index of an object in array of objects
@@ -184,45 +184,129 @@ var BCLSVJS = (function (window, document, docData, hljs) {
      */
     addHeaderContent = function () {
         var topSection = createEl("section", {id: "top", class: "section"}),
-            topSectionEl,
-            header = createEl("h1", {id: doc_data.thisClass.headerInfo.name}),
-            headerEl,
+            headerData = doc_data.thisClass.headerInfo,
+            header = createEl("h1", {id: headerData.name}),
+            extendsNode = createEl('p'),
+            extendsLink,
+            definedIn = createEl('p'),
+            definedInLink = createEl('a', {href: docsPath + classFilePath}),
+            description = createEl('div', {style: 'border:none'}),
             constructorHeader = createEl('h3'),
-            text,
-            i,
-            iMax,
-            headerData = doc_data.thisClass.headerInfo;
+            constructorPre = createEl("pre"),
+            constructorCode = createEl("code"),
+            constructorParamsHeader = createEl('h4'),
+            constructorParams = [],
+            text;
         // add main content wrapper
         doc_body.appendChild(mainContent);
         main = document.getElementById("main");
         // add elements
         topSection.appendChild(header);
-        mainContent.appendChild(topSection);
-        topSectionEl = document.getElementById("top");
-        text = document.createTextNode(headerData.name);
-        // add content
-        // page header
-        headerEl.appendChild(text);
-        // create the constructor info
-        text = 'Constructor';
-        constructorHeader.appendChild(text);
-        // get constructor params
-        if (isDefined)
-        // other stuff
+        topSection.appendChild(description);
+        topSection.appendChild(definedIn);
+        text = document.createTextNode('DEFINED IN: ');
+        definedIn.appendChild(text);
+        definedIn.appendChild(definedInLink);
+        text = document.createTextNode(headerData.meta.filename + ' line number: ' + headerData.meta.lineno);
+        definedInLink.appendChild(text);
         if (isDefined(doc_data.parentClass)) {
-            topSectionEl.innerHTML += "<p><strong>EXTENDS</strong>: <a href=\"" + docsPath + doc_data.parentClass.headerInfo.meta.filename + "\">" + doc_data.parentClass.headerInfo.meta.filename + "</a></p>";
+            topSection.appendChild(extendsNode);
+            text = document.createTextNode('EXTENDS: ');
+            extendsNode.appendChild(text);
+            extendsLink = createEl('a', {href: parentClassFilePath + doc_data.parentClass.headerInfo.meta.filename});
+            extendsNode.appendChild(extendsLink);
+            text = document.createTextNode(doc_data.parentClass.headerInfo.meta.filename);
+            extendsLink.appendChild(text);
         }
-        topSectionEl.innerHTML += "<p><strong>DEFINED IN</strong>: <a href=\"" + docsPath + headerData.meta.filename + "#" + headerData.meta.lineno +  "\">src/" + doc_data.thisClass.headerInfo.meta.filename + " line number: " + headerData.meta.lineno + "</a></p>";
-        topSectionEl.innerHTML += doc_data.thisClass.headerInfo.description;
+        topSection.appendChild(constructorHeader);
+        topSection.appendChild(constructorPre);
+        constructorPre.appendChild(constructorCode);
+        mainContent.appendChild(topSection);
+        text = document.createTextNode(headerData.name);
+        // page header
+        header.appendChild(text);
+        // create the constructor info
+        text = document.createTextNode('Constructor');
+        constructorHeader.appendChild(text);
+        // extends text
+        // get constructor params
+        if (isDefined(headerData.params)) {
+            var paramTableHeaders = ['name', "Type", "Required", "Description"],
+                paramTable = createEl("table"),
+                paramThead = createEl("thead"),
+                paramTbody = createEl("tbody"),
+                paramTheadRow = createEl("tr"),
+                paramTbodyRow = createEl("tr"),
+                paramTH,
+                paramTD,
+                k,
+                kMax;
+
+            text = document.createTextNode("Parameters");
+            constructorParamsHeader.appendChild(text);
+            paramTable.appendChild(paramThead);
+            paramTable.appendChild(paramTbody);
+            paramThead.appendChild(paramTheadRow);
+            // set the table headers
+            kMax = paramTableHeaders.length;
+            for (k = 0; k < kMax; k++) {
+                paramTH = createEl("th");
+                text = document.createTextNode(paramTableHeaders[k]);
+                paramTheadRow.appendChild(paramTH);
+                paramTH.appendChild(text);
+            }
+            // now the table info
+            kMax = headerData.params.length;
+            for (k = 0; k < kMax; k++) {
+                paramTbodyRow = createEl('tr');
+                paramTbody.appendChild(paramTbodyRow);
+                paramTD = createEl("td");
+                text = document.createTextNode(headerData.params[k].name);
+                paramTD.appendChild(text);
+                paramTbodyRow.appendChild(paramTD);
+                paramTD = createEl("td");
+                text = document.createTextNode(headerData.params[k].type.names.join("|"));
+                paramTD.appendChild(text);
+                paramTbodyRow.appendChild(paramTD);
+                paramTD = createEl("td");
+                if (headerData.params[k].optional) {
+                    text = document.createTextNode("no");
+                    constructorParams.push("[" + headerData.params[k].name + "]");
+                } else {
+                    text = document.createTextNode("yes");
+                    constructorParams.push(headerData.params[k].name);
+                }
+                paramTD.appendChild(text);
+                if (isDefined(headerData.params[k].description)) {
+                    paramTbodyRow.appendChild(paramTD);
+                    paramTD = createEl("td");
+                    text = document.createTextNode(headerData.params[k].description.slice(3, headerData.params[k].description.indexOf('</p>')));
+                    paramTD.appendChild(text);
+                    paramTbodyRow.appendChild(paramTD);
+                }
+                paramTbody.appendChild(paramTbodyRow);
+            }
+            topSection.appendChild(constructorParamsHeader);
+            topSection.appendChild(paramTable);
+        }
+        if (constructorParams.length > 0) {
+        text = document.createTextNode(headerData.name + '( ' + constructorParams.join(',') + ' )');
+        } else {
+        text = document.createTextNode(headerData.name + '()');
+        }
+        constructorCode.appendChild(text);
+        text = document.createTextNode(headerData.description.slice(3, headerData.description.indexOf('</p>')));
+        description.appendChild(text);
+        // other stuff
     };
     /**
      * add the side nav
      */
     addIndex = function () {
         var section = createEl("section", {id: "index", class: "sideNav"}),
-            navHeader = createEl("h2"),
-            navHeaderLink = createEl("a", {href: "index.html"}),
-            memberIndex = createEl("div", {id: "memberIndex"}),
+            navHeader = createEl('h2'),
+            navHeaderLink = createEl('a', {href: "index.html"}),
+            memberIndex = createEl('div', {id: "memberIndex"}),
             item,
             parentList,
             header,
@@ -230,46 +314,45 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             listLink,
             classHeader,
             parentHeader,
-            em,
             text,
             i,
             iMax,
-            makeList = function (classArr, parentArr, member, headerText, list) {
+            makeList = function (classArr, parentArr, member, list) {
                 if (classArr.length > 0 || (isDefined(doc_data.parentClass) && parentArr.length > 0)) {
                     // add member list header
-                    header = createEl("h3");
+                    header = createEl('h3');
                     text = document.createTextNode(doc_data.thisClass.headerInfo.name + " " + member);
                     header.appendChild(text);
-                    classHeader = createEl("h4");
+                    classHeader = createEl('h4');
                     text = document.createTextNode("Class " + member);
                     classHeader.appendChild(text);
                     memberIndex.appendChild(header);
                     memberIndex.appendChild(classHeader);
                     // add the list & items
-                    list = createEl("ul", {id: list});
+                    list = createEl('ul', {id: list});
                     memberIndex.appendChild(list);
                     iMax = classArr.length;
                     for (i = 0; i < iMax; i++) {
                         item = classArr[i].name;
-                        listItem = createEl("li");
-                        listLink = createEl("a", {href: "#" + item});
+                        listItem = createEl('li');
+                        listLink = createEl('a', {href: "#" + item});
                         text = document.createTextNode(item);
                         listLink.appendChild(text);
                         listItem.appendChild(listLink);
                         list.appendChild(listItem);
                     }
                     if (isDefined(doc_data.parentClass) && parentArr.length > 0) {
-                        parentHeader = createEl("h4");
+                        parentHeader = createEl('h4');
                         text = document.createTextNode("Inherited " + member);
                         parentHeader.appendChild(text);
                         memberIndex.appendChild(parentHeader);
-                        parentList = createEl("ul");
+                        parentList = createEl('ul');
                         memberIndex.appendChild(parentList);
                         iMax = parentArr.length;
                         for (i = 0; i < iMax; i++) {
                             item = parentArr[i].name;
-                            listItem = createEl("li");
-                            listLink = createEl("a", {href: "#" + item});
+                            listItem = createEl('li');
+                            listLink = createEl('a', {href: "#" + item});
                             listItem.appendChild(listLink);
                             text = document.createTextNode(item);
                             listLink.appendChild(text);
@@ -287,13 +370,13 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         navHeaderLink.appendChild(text);
         // add parent class members if any
         if (isDefined(doc_data.parentClass)) {
-            makeList(doc_data.thisClass.propertiesArray, doc_data.parentClass.propertiesArray, "Properties", "propertiesHeader", "propertiesList");
-            makeList(doc_data.thisClass.methodsArray, doc_data.parentClass.methodsArray, "Methods", "methodsHeader", "methodsList");
-            makeList(doc_data.thisClass.eventsArray, doc_data.parentClass.eventsArray, "Events", "eventsHeader", "eventsList");
+            makeList(doc_data.thisClass.propertiesArray, doc_data.parentClass.propertiesArray, "Properties", "propertiesList");
+            makeList(doc_data.thisClass.methodsArray, doc_data.parentClass.methodsArray, "Methods", "methodsList");
+            makeList(doc_data.thisClass.eventsArray, doc_data.parentClass.eventsArray, "Events", "eventsList");
         } else {
-            makeList(doc_data.thisClass.propertiesArray, [], "Properties", "propertiesHeader", "propertiesList");
-            makeList(doc_data.thisClass.methodsArray, [], "Methods", "methodsHeader", "methodsList");
-            makeList(doc_data.thisClass.eventsArray, [], "Events", "eventsHeader", "eventsList");
+            makeList(doc_data.thisClass.propertiesArray, [], "Properties", "propertiesList");
+            makeList(doc_data.thisClass.methodsArray, [], "Methods", "methodsList");
+            makeList(doc_data.thisClass.eventsArray, [], "Events", "eventsList");
         }
         section.appendChild(navHeader);
         section.appendChild(memberIndex);
@@ -330,7 +413,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             paramTbodyRow,
             paramTH,
             paramTD,
-            paramTableHeaders = ["Name", "Type", "Required", "Description"],
+            paramTableHeaders = ['name', "Type", "Required", "Description"],
             text,
             i,
             iMax,
@@ -343,7 +426,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             createMemberItem = function (member) {
                 section = createEl("section", {id: member.name.toLowerCase(), class: "section"});
                 main.appendChild(section);
-                header = createEl("h2");
+                header = createEl('h2');
                 text = document.createTextNode(member.name);
                 header.appendChild(text);
                 section.appendChild(header);
@@ -351,25 +434,25 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                 jMax = doc_data.thisClass[member.data].length;
                 for (j = 0; j < jMax; j++) {
                     item = doc_data.thisClass[member.data][j];
-                    itemWrapper = createEl("div", {id: item.name});
+                    itemWrapper = createEl('div', {id: item.name});
                     section.appendChild(itemWrapper);
-                    itemHeader = createEl("h3", {id: item.name + "Header"});
+                    itemHeader = createEl('h3', {id: item.name + "Header"});
                     itemHeaderStr = item.name;
                     itemWrapper.appendChild(itemHeader);
-                    itemDescription = createEl("div", {id: item.name + "Description"});
+                    itemDescription = createEl('div', {id: item.name + "Description"});
                     itemWrapper.appendChild(itemDescription);
-                    itemFooter = createEl("p", {class: "vjs-only"});
+                    itemFooter = createEl('p', {class: "vjs-only"});
                     itemFooterContent = createEl("em", {id: item.name + "Footer"});
                     itemFooter.appendChild(itemFooterContent);
-                    topLinkP = createEl("p");
-                    topLinkA = createEl("a", {href: "#top"});
+                    topLinkP = createEl('p');
+                    topLinkA = createEl('a', {href: "#top"});
                     text = document.createTextNode("[back to top]");
                     topLinkA.appendChild(text);
                     topLinkP.appendChild(topLinkA);
                     // handle params if any
                     if (isDefined(item.params)) {
                         itemParams = [];
-                        itemParamsHeader = createEl("h4");
+                        itemParamsHeader = createEl('h4');
                         text = document.createTextNode("Parameters");
                         itemParamsHeader.appendChild(text);
                         paramTable = createEl("table");
@@ -431,12 +514,12 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                     itemWrapper.appendChild(topLinkP);
                     text = document.createTextNode(itemHeaderStr);
                     itemHeader.appendChild(text);
-                        if (isDefined(item.deprecated)) {
-                            headerSuffix = createEl("em", {class: "deprecated"});
-                            text = document.createTextNode(" (deprecated)");
-                            headerSuffix.appendChild(text);
-                            itemHeader.appendChild(headerSuffix);
-                        }
+                    if (isDefined(item.deprecated)) {
+                        headerSuffix = createEl("em", {class: "deprecated"});
+                        text = document.createTextNode(" (deprecated)");
+                        headerSuffix.appendChild(text);
+                        itemHeader.appendChild(headerSuffix);
+                    }
                     itemDescriptionEl = document.getElementById(item.name + "Description");
                     itemDescriptionEl.innerHTML = item.description;
                     itemFooterContentEl = document.getElementById(item.name + "Footer");
@@ -447,26 +530,26 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                     jMax = doc_data.parentClass[member.data].length;
                     for (j = 0; j < jMax; j++) {
                         item = doc_data.parentClass[member.data][j];
-                        itemWrapper = createEl("div", {id: item.name});
+                        itemWrapper = createEl('div', {id: item.name});
                         section.appendChild(itemWrapper);
-                        itemHeader = createEl("h3", {id: item.name + "Header"});
+                        itemHeader = createEl('h3', {id: item.name + "Header"});
                         itemHeaderStr = item.name;
                         itemWrapper.appendChild(itemHeader);
-                        itemDescription = createEl("div", {id: item.name + "Description"});
+                        itemDescription = createEl('div', {id: item.name + "Description"});
                         itemWrapper.appendChild(itemDescription);
-                        itemFooter = createEl("p");
+                        itemFooter = createEl('p');
                         itemFooterContent = createEl("em", {id: item.name + "Footer"});
                         itemFooter.appendChild(itemFooterContent);
                         // handle params if any
                         if (isDefined(item.params)) {
                             itemParams = [];
-                            itemParamsHeader = createEl("h4");
+                            itemParamsHeader = createEl('h4');
                             text = document.createTextNode("Parameters");
                             itemParamsHeader.appendChild(text);
-                            itemParamsList = createEl("ul");
+                            itemParamsList = createEl('ul');
                             kMax = item.params.length;
                             for (k = 0; k < kMax; k++) {
-                                itemParamsItem = createEl("li");
+                                itemParamsItem = createEl('li');
                                 itemParamsList.appendChild(itemParamsItem);
                                 itemParamsStr = item.params[k].name + " " + item.params[k].type.names.join("|");
                                 if (item.params[k].optional) {
@@ -532,10 +615,11 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             privateItems = [],
             overriddenItems = [],
             idx,
+            text,
             j,
             jMax;
         // content wrapper
-        mainContent = createEl("div", {id: "main", class: "section"});
+        mainContent = createEl('div', {id: "main", class: "section"});
         // get the class name from the file name
         fileName = path[path.length - 1];
         doc_class = fileName.substring(0, fileName.indexOf("."));
@@ -544,12 +628,20 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         // get the data objects for this class
         classes.thisClass = findClassObjects(docData, srcFileName);
         // get the class overview object
-        bclslog("classes", classes)
-        idx = findObjectInArray(classes.thisClass, "kind", "class");
+        bclslog("classes", classes);
+        idx = findObjectInArray(classes.thisClass, 'kind', 'class');
         doc_data.thisClass = {};
         doc_data.thisClass.headerInfo = copyObj(classes.thisClass[idx]);
+        // get the file path from @file object
+        idx = findObjectInArray(classes.thisClass, 'kind', 'file');
+        if (idx > -1) {
+            classFilePath = classes.thisClass[idx].name;
+        } else {
+            classFilePath = doc_data.thisClass.headerInfo.meta.filename;
+        }
         // set the doc title
-        title.innerHTML = doc_data.thisClass.headerInfo.name;
+        text = document.createTextNode(doc_data.thisClass.headerInfo.name);
+        title.appendChild(text);
         // remove any private items
         privateItems = findObjectsInArray(classes.thisClass, "access", "private");
         j = privateItems.length;
@@ -558,12 +650,12 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             classes.thisClass.splice(privateItems[j], 1);
         }
         // now get the member arrays
-        doc_data.thisClass.methodsArray = getSubArray(classes.thisClass, "kind", "function");
-        doc_data.thisClass.methodsArray = sortArray(doc_data.thisClass.methodsArray, "name");
-        doc_data.thisClass.eventsArray = getSubArray(classes.thisClass, "kind", "event");
-        doc_data.thisClass.eventsArray = sortArray(doc_data.thisClass.eventsArray, "name");
-        doc_data.thisClass.propertiesArray = getSubArray(classes.thisClass, "kind", "property");
-        doc_data.thisClass.propertiesArray = sortArray(doc_data.thisClass.propertiesArray, "name");
+        doc_data.thisClass.methodsArray = getSubArray(classes.thisClass, 'kind', 'function');
+        doc_data.thisClass.methodsArray = sortArray(doc_data.thisClass.methodsArray, 'name');
+        doc_data.thisClass.eventsArray = getSubArray(classes.thisClass, 'kind', "event");
+        doc_data.thisClass.eventsArray = sortArray(doc_data.thisClass.eventsArray, 'name');
+        doc_data.thisClass.propertiesArray = getSubArray(classes.thisClass, 'kind', 'property');
+        doc_data.thisClass.propertiesArray = sortArray(doc_data.thisClass.propertiesArray, 'name');
         bclslog("thisClass", doc_data.thisClass);
         // get parent class, if any
         if (isDefined(doc_data.thisClass.headerInfo.augments)) {
@@ -574,8 +666,15 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             if (classes.parentClass.length > 0) {
                 doc_data.parentClass = {};
                 // get parent header info
-                idx = findObjectInArray(classes.parentClass, "kind", "class");
+                idx = findObjectInArray(classes.parentClass, 'kind', 'class');
                 doc_data.parentClass.headerInfo = copyObj(classes.parentClass[idx]);
+                // get parent class path
+                idx = findObjectInArray(classes.parentClass, 'kind', 'file');
+                if (idx > -1) {
+                    parentClassFilePath = classes.parentClass[idx].name;
+                } else {
+                    parentClassFilePath = doc_data.parentClass.headerInfo.meta.filename;
+                }
                 // remove any private items
                 privateItems = findObjectsInArray(classes.parentClass, "access", "private");
                 j = privateItems.length;
@@ -586,7 +685,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                 // remove any overridden items
                 jMax = classes.thisClass.length;
                 for (j = 0; j < jMax; j++) {
-                    idx = findObjectInArray(classes.parentClass, "name", classes.thisClass[j].name);
+                    idx = findObjectInArray(classes.parentClass, 'name', classes.thisClass[j].name);
                     if (idx > 0) {
                         overriddenItems.push(idx);
                     }
@@ -597,12 +696,12 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                     classes.parentClass.splice(overriddenItems[j], 1);
                 };
                 // now get the member arrays
-                doc_data.parentClass.methodsArray = getSubArray(classes.parentClass, "kind", "function");
-                doc_data.parentClass.methodsArray = sortArray(doc_data.parentClass.methodsArray, "name");
-                doc_data.parentClass.eventsArray = getSubArray(classes.parentClass, "kind", "event");
-                doc_data.parentClass.eventsArray = sortArray(doc_data.parentClass.eventsArray, "name");
-                doc_data.parentClass.propertiesArray = getSubArray(classes.parentClass, "kind", "property");
-                doc_data.parentClass.propertiesArray = sortArray(doc_data.parentClass.propertiesArray, "name");
+                doc_data.parentClass.methodsArray = getSubArray(classes.parentClass, 'kind', 'function');
+                doc_data.parentClass.methodsArray = sortArray(doc_data.parentClass.methodsArray, 'name');
+                doc_data.parentClass.eventsArray = getSubArray(classes.parentClass, 'kind', "event");
+                doc_data.parentClass.eventsArray = sortArray(doc_data.parentClass.eventsArray, 'name');
+                doc_data.parentClass.propertiesArray = getSubArray(classes.parentClass, 'kind', 'property');
+                doc_data.parentClass.propertiesArray = sortArray(doc_data.parentClass.propertiesArray, 'name');
             }
             bclslog("parentClass", doc_data.parentClass);
         }

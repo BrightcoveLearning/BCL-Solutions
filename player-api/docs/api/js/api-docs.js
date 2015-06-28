@@ -1,15 +1,16 @@
 var BCLSVJS = (function (window, document, docData, hljs) {
     "use strict";
     var title = document.getElementsByTagName('title')[0],
-        // path as an array
-        path = document.location.pathname.split("/"),
         // data structures
         classes = {thisClass: [], parentClass: []},
         doc_class,
         docsPath = "https://github.com/videojs/video.js/blob/master/src/js/",
+        doc_data = {},
+        // doc path as an array
+        path = document.location.pathname.split("/"),
+        // paths
         classFilePath,
         parentClassFilePath,
-        doc_data = {},
         // elements
         mainContent,
         main,
@@ -31,6 +32,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         init;
     /**
      * Logging function - safe for IE
+     *
      * @param  {string} context - description of the data
      * @param  {*} message - the data to be logged by the console
      * @return {}
@@ -43,6 +45,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
     };
     /**
      * tests for all the ways a variable might be undefined or not have a value
+     *
      * @param {*} x the variable to test
      * @return {Boolean} true if variable is defined and has a value
      */
@@ -54,6 +57,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
     };
     /**
      * get a copy of (rather than reference to) an object
+     *
      * @param  {object} obj - the object you want a copy
      * @return {object}     the copy
      */
@@ -124,6 +128,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
     };
     /**
      * sort an array of objects based on an object property
+     *
      * @param {array} targetArray - array to sort
      * @param {string} objProperty - property whose value to sort on
      * @return {array} the sorted array
@@ -143,6 +148,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
     };
     /**
      * create an element
+     *
      * @param  {string} type - the element type
      * @param  {object} attributes - attributes to add to the element
      * @return {object} the HTML element
@@ -162,6 +168,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
     };
     /**
      * finds the objects in the doc data for a fileName
+     *
      * @param {array} arr - the array of objects to search
      * @param {string} filename - the filename to look for in the meta object
      * @return {array} - array of the objects found
@@ -203,12 +210,14 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         // add elements
         topSection.appendChild(header);
         topSection.appendChild(description);
+        // source file
         topSection.appendChild(definedIn);
         text = document.createTextNode('DEFINED IN: ');
         definedIn.appendChild(text);
         definedIn.appendChild(definedInLink);
         text = document.createTextNode(headerData.meta.filename + ' line number: ' + headerData.meta.lineno);
         definedInLink.appendChild(text);
+        // parent info if this class extends another
         if (isDefined(doc_data.parentClass)) {
             topSection.appendChild(extendsNode);
             text = document.createTextNode('EXTENDS: ');
@@ -218,6 +227,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             text = document.createTextNode(doc_data.parentClass.headerInfo.meta.filename);
             extendsLink.appendChild(text);
         }
+        // constructor info
         topSection.appendChild(constructorHeader);
         topSection.appendChild(constructorPre);
         constructorPre.appendChild(constructorCode);
@@ -228,8 +238,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         // create the constructor info
         text = document.createTextNode('Constructor');
         constructorHeader.appendChild(text);
-        // extends text
-        // get constructor params
+        // get constructor params if any
         if (isDefined(headerData.params)) {
             var paramTableHeaders = ['name', "Type", "Required", "Description"],
                 paramTable = createEl("table"),
@@ -341,6 +350,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                         listItem.appendChild(listLink);
                         list.appendChild(listItem);
                     }
+                    // add inherited items if any
                     if (isDefined(doc_data.parentClass) && parentArr.length > 0) {
                         parentHeader = createEl('h4');
                         text = document.createTextNode("Inherited " + member);
@@ -356,10 +366,6 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                             listItem.appendChild(listLink);
                             text = document.createTextNode(item);
                             listLink.appendChild(text);
-                            // em = createEl("em");
-                            // text = document.createTextNode(" inherited");
-                            // em.appendChild(text);
-                            // listItem.appendChild(em);
                             parentList.appendChild(listItem);
                         }
                     }
@@ -681,7 +687,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                 while (j > 0) {
                     j--;
                     classes.parentClass.splice(privateItems[j], 1);
-                };
+                }
                 // remove any overridden items
                 jMax = classes.thisClass.length;
                 for (j = 0; j < jMax; j++) {
@@ -694,7 +700,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                 while (j > 0) {
                     j--;
                     classes.parentClass.splice(overriddenItems[j], 1);
-                };
+                }
                 // now get the member arrays
                 doc_data.parentClass.methodsArray = getSubArray(classes.parentClass, 'kind', 'function');
                 doc_data.parentClass.methodsArray = sortArray(doc_data.parentClass.methodsArray, 'name');

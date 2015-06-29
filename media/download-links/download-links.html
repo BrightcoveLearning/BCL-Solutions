@@ -167,6 +167,7 @@
                     totalVideos = 0,
                     primaryCallMade = false,
                     remainingCalls = 0,
+                    counter = 1,
                     t,
                     method = "search_videos",
                     primaryParams = {
@@ -178,7 +179,7 @@
                     },
                     secondaryParams = {
                         callback: "BCLS.secondaryCallResponse",
-                        page_size: 100,
+                        page_size: 25,
                         page_number: 0,
                         sort_by: "CREATION_DATE",
                         get_item_count: false,
@@ -273,7 +274,6 @@
                             rendition,
                             totalFileSize = 0,
                             item,
-                            counter = 1,
                             lengthObj = {};
                         bclslog("jsonData", jsonData);
                         if (isDefined(jsonData.items)) {

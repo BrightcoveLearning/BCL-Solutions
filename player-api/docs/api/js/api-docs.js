@@ -28,6 +28,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         addHeaderContent,
         addIndex,
         addMembersContent,
+        addText,
         highlightCode,
         init;
     /**
@@ -167,6 +168,15 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         }
     };
     /**
+     * creates a text node and adds it to an element
+     * @param {object|node} el - the node (element) to add the text to
+     * @param {string} str - the text to add
+     */
+    addText = function (el, str) {
+        var text = document.createTextNode(str);
+        el.appendChild(text);
+    };
+    /**
      * finds the objects in the doc data for a fileName
      *
      * @param {array} arr - the array of objects to search
@@ -190,105 +200,95 @@ var BCLSVJS = (function (window, document, docData, hljs) {
      * add the class header content
      */
     addHeaderContent = function () {
-        var topSection = createEl("section", {id: "top", class: "section"}),
+        var topSection = createEl('section', {id: 'top', class: 'section'}),
             headerData = doc_data.thisClass.headerInfo,
-            header = createEl("h1", {id: headerData.name}),
+            header = createEl('h1', {id: headerData.name}),
             extendsNode = createEl('p'),
             extendsLink,
             definedIn = createEl('p'),
             definedInLink = createEl('a', {href: docsPath + classFilePath}),
             description = createEl('div', {style: 'border:none'}),
             constructorHeader = createEl('h3'),
-            constructorPre = createEl("pre"),
-            constructorCode = createEl("code"),
+            constructorPre = createEl('pre'),
+            constructorCode = createEl('code'),
             constructorParamsHeader = createEl('h4'),
             constructorParams = [],
             text;
         // add main content wrapper
         doc_body.appendChild(mainContent);
-        main = document.getElementById("main");
+        main = document.getElementById('main');
         // add elements
         topSection.appendChild(header);
         topSection.appendChild(description);
         // source file
         topSection.appendChild(definedIn);
-        text = document.createTextNode('DEFINED IN: ');
-        definedIn.appendChild(text);
+        addText(definedIn, 'DEFINED IN: ');
         definedIn.appendChild(definedInLink);
-        text = document.createTextNode(headerData.meta.filename + ' line number: ' + headerData.meta.lineno);
-        definedInLink.appendChild(text);
+        addText(definedInLink, headerData.meta.filename + ' line number: ' + headerData.meta.lineno);
         // parent info if this class extends another
         if (isDefined(doc_data.parentClass)) {
             topSection.appendChild(extendsNode);
-            text = document.createTextNode('EXTENDS: ');
-            extendsNode.appendChild(text);
+            addText(extendsNode, 'EXTENDS: ');
             extendsLink = createEl('a', {href: parentClassFilePath + doc_data.parentClass.headerInfo.meta.filename});
             extendsNode.appendChild(extendsLink);
-            text = document.createTextNode(doc_data.parentClass.headerInfo.meta.filename);
-            extendsLink.appendChild(text);
+            addText(extendsLink, doc_data.parentClass.headerInfo.meta.filename);
         }
         // constructor info
         topSection.appendChild(constructorHeader);
         topSection.appendChild(constructorPre);
         constructorPre.appendChild(constructorCode);
         mainContent.appendChild(topSection);
-        text = document.createTextNode(headerData.name);
         // page header
-        header.appendChild(text);
+        addText(header, headerData.name);
         // create the constructor info
-        text = document.createTextNode('Constructor');
-        constructorHeader.appendChild(text);
+        addText(constructorHeader, 'Constructor');
         // get constructor params if any
         if (isDefined(headerData.params)) {
-            var paramTableHeaders = ['name', "Type", "Required", "Description"],
-                paramTable = createEl("table"),
-                paramThead = createEl("thead"),
-                paramTbody = createEl("tbody"),
-                paramTheadRow = createEl("tr"),
-                paramTbodyRow = createEl("tr"),
+            var paramTableHeaders = ['name', 'Type', 'Required', 'Description'],
+                paramTable = createEl('table'),
+                paramThead = createEl('thead'),
+                paramTbody = createEl('tbody'),
+                paramTheadRow = createEl('tr'),
+                paramTbodyRow = createEl('tr'),
                 paramTH,
                 paramTD,
                 k,
                 kMax;
 
-            text = document.createTextNode("Parameters");
-            constructorParamsHeader.appendChild(text);
+            addText(constructorParamsHeader, 'Parameters');
             paramTable.appendChild(paramThead);
             paramTable.appendChild(paramTbody);
             paramThead.appendChild(paramTheadRow);
             // set the table headers
             kMax = paramTableHeaders.length;
             for (k = 0; k < kMax; k++) {
-                paramTH = createEl("th");
-                text = document.createTextNode(paramTableHeaders[k]);
+                paramTH = createEl('th');
                 paramTheadRow.appendChild(paramTH);
-                paramTH.appendChild(text);
+                addText(paramTH, paramTableHeaders[k]);
             }
             // now the table info
             kMax = headerData.params.length;
             for (k = 0; k < kMax; k++) {
                 paramTbodyRow = createEl('tr');
                 paramTbody.appendChild(paramTbodyRow);
-                paramTD = createEl("td");
-                text = document.createTextNode(headerData.params[k].name);
-                paramTD.appendChild(text);
+                paramTD = createEl('td');
+                addText(paramTD, headerData.params[k].name);
                 paramTbodyRow.appendChild(paramTD);
-                paramTD = createEl("td");
-                text = document.createTextNode(headerData.params[k].type.names.join("|"));
-                paramTD.appendChild(text);
+                paramTD = createEl('td');
+                addText(paramTD, headerData.params[k].type.names.join('|'));
                 paramTbodyRow.appendChild(paramTD);
-                paramTD = createEl("td");
+                paramTD = createEl('td');
                 if (headerData.params[k].optional) {
-                    text = document.createTextNode("no");
-                    constructorParams.push("[" + headerData.params[k].name + "]");
+                    text = document.createTextNode('no');
+                    constructorParams.push('[' + headerData.params[k].name + ']');
                 } else {
-                    text = document.createTextNode("yes");
+                    text = document.createTextNode('yes');
                     constructorParams.push(headerData.params[k].name);
                 }
-                paramTD.appendChild(text);
+                addText(paramTD, text);
                 if (isDefined(headerData.params[k].description)) {
                     paramTbodyRow.appendChild(paramTD);
-                    paramTD = createEl("td");
+                    paramTD = createEl('td');
                     text = document.createTextNode(headerData.params[k].description.slice(3, headerData.params[k].description.indexOf('</p>')));
                     paramTD.appendChild(text);
                     paramTbodyRow.appendChild(paramTD);

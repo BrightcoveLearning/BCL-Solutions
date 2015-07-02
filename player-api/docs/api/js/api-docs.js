@@ -599,6 +599,8 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                     doc_data.parentClasses[parentCounter].propertiesArray = getSubArray(classes.parentClass, 'kind', 'property');
                     doc_data.parentClasses[parentCounter].propertiesArray = sortArray(doc_data.parentClass.propertiesArray, 'name');
                 }
+                parentCounter++;
+                if (isDefined())
             };
         // content wrapper
         mainContent = createEl('div', {id: "main", class: "section"});

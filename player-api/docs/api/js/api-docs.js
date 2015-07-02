@@ -207,7 +207,8 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             extendsLink,
             definedIn = createEl('p'),
             definedInLink = createEl('a', {href: docsPath + classFilePath}),
-            description = createEl('div', {style: 'border:none'}),
+            description = createEl('div', {style: 'border:none', id: 'classDescription'}),
+            descriptionEl,
             constructorHeader = createEl('h3'),
             constructorPre = createEl('pre'),
             constructorCode = createEl('code'),
@@ -303,7 +304,8 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         text = document.createTextNode(headerData.name + '()');
         }
         addText(constructorCode, text);
-        addText(description, headerData.description.slice(3, headerData.description.indexOf('</p>')));
+        descriptionEl = document.getElementById('classDescription');
+        descriptionEl.innerHTML =  headerData.description;
         // other stuff
     };
     /**
@@ -594,8 +596,8 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                     doc_data.parentClasses[parentCounter].methodsArray = sortArray(doc_data.parentClass.methodsArray, 'name');
                     doc_data.parentClasses[parentCounter].eventsArray = getSubArray(classes.parentClass, 'kind', "event");
                     doc_data.parentClasses[parentCounter].eventsArray = sortArray(doc_data.parentClass.eventsArray, 'name');
-                    doc_data.parentClass.propertiesArray = getSubArray(classes.parentClass, 'kind', 'property');
-                    doc_data.parentClass.propertiesArray = sortArray(doc_data.parentClass.propertiesArray, 'name');
+                    doc_data.parentClasses[parentCounter].propertiesArray = getSubArray(classes.parentClass, 'kind', 'property');
+                    doc_data.parentClasses[parentCounter].propertiesArray = sortArray(doc_data.parentClass.propertiesArray, 'name');
                 }
             };
         // content wrapper

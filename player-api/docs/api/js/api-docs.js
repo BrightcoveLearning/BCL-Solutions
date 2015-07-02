@@ -506,12 +506,11 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                     }
                     itemWrapper.appendChild(itemFooter);
                     itemWrapper.appendChild(topLinkP);
-                    text = document.createTextNode(itemHeaderStr);
-                    itemHeader.appendChild(text);
+                    addText(itemHeader, itemHeaderStr);
                     if (isDefined(item.deprecated)) {
                         headerSuffix = createEl('em', {class: 'deprecated'});
-                        text = document.createTextNode(' (deprecated)');
-                        headerSuffix.appendChild(text);
+                        text = document.createTextNode();
+                        addText(headerSuffix, ' (deprecated)');
                         itemHeader.appendChild(headerSuffix);
                     }
                     itemDescriptionEl = document.getElementById(item.name + 'Description');
@@ -535,12 +534,15 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                         itemFooter = createEl('p');
                         itemFooterContent = createEl('em', {id: item.name + 'Footer'});
                         itemFooter.appendChild(itemFooterContent);
+                        topLinkP = createEl('p');
+                        topLinkA = createEl('a', {href: '#top'});
+                        addText(topLinkA, '[back to top]');
+                        topLinkP.appendChild(topLinkA);
                         // handle params if any
                         if (isDefined(item.params)) {
                             itemParams = [];
                             itemParamsHeader = createEl('h4');
-                            text = document.createTextNode('Parameters');
-                            itemParamsHeader.appendChild(text);
+                            addText(itemParamsHeader, 'Parameters');
                             itemParamsList = createEl('ul');
                             kMax = item.params.length;
                             for (k = 0; k < kMax; k++) {
@@ -555,8 +557,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                                 }
                                 if (isDefined(item.params[k].description)) {
                                     itemParamsStr += ' ' + item.params[k].description.slice(3, item.params[k].description.indexOf('</p>'));
-                                    text = document.createTextNode(itemParamsStr);
-                                    itemParamsItem.appendChild(text);
+                                    addText(itemParamsItem, itemParamsStr);
                                 }
                             }
                             itemHeaderStr += '( ' + itemParams.join(', ') + ' )';
@@ -568,8 +569,9 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                             }
                         }
                         itemWrapper.appendChild(itemFooter);
-                        text = document.createTextNode(itemHeaderStr);
-                        itemHeader.appendChild(text);
+                        bclslog('topLinkP', topLinkP);
+                        itemWrapper.appendChild(topLinkP);
+                        addText(itemHeader, itemHeaderStr);
                         itemDescriptionEl = document.getElementById(item.name + 'Description');
                         itemDescriptionEl.innerHTML = item.description;
                         addText(itemFooterContent, 'Inherited from ');

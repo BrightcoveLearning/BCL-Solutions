@@ -422,16 +422,16 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             kMax,
             topLinkP,
             topLinkA,
-            createMemberItem = function (member) {
+            createMemberItem = function (classData, member) {
                 section = createEl('section', {id: member.name.toLowerCase(), class: 'section'});
                 main.appendChild(section);
                 header = createEl('h2');
                 addText(header, member.name);
                 section.appendChild(header);
                 // create the class member items
-                jMax = doc_data.thisClass[member.data].length;
+                jMax = classData[member.data].length;
                 for (j = 0; j < jMax; j++) {
-                    item = doc_data.thisClass[member.data][j];
+                    item = classData[member.data][j];
                     itemWrapper = createEl('div', {id: item.name});
                     section.appendChild(itemWrapper);
                     itemHeader = createEl('h3', {id: item.name + 'Header'});
@@ -520,73 +520,81 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                     addText(itemFooterLink, 'src/js/' + item.meta.filename + ' line number: ' + item.meta.lineno);
                 }
                 // now the inherited member items
-                if (isDefined(doc_data.parentClass)) {
-                    jMax = doc_data.parentClass[member.data].length;
-                    for (j = 0; j < jMax; j++) {
-                        item = doc_data.parentClass[member.data][j];
-                        itemWrapper = createEl('div', {id: item.name});
-                        section.appendChild(itemWrapper);
-                        itemHeader = createEl('h3', {id: item.name + 'Header'});
-                        itemHeaderStr = item.name;
-                        itemWrapper.appendChild(itemHeader);
-                        itemDescription = createEl('div', {id: item.name + 'Description'});
-                        itemWrapper.appendChild(itemDescription);
-                        itemFooter = createEl('p');
-                        itemFooterContent = createEl('em', {id: item.name + 'Footer'});
-                        itemFooter.appendChild(itemFooterContent);
-                        topLinkP = createEl('p');
-                        topLinkA = createEl('a', {href: '#top'});
-                        addText(topLinkA, '[back to top]');
-                        topLinkP.appendChild(topLinkA);
-                        // handle params if any
-                        if (isDefined(item.params)) {
-                            itemParams = [];
-                            itemParamsHeader = createEl('h4');
-                            addText(itemParamsHeader, 'Parameters');
-                            itemParamsList = createEl('ul');
-                            kMax = item.params.length;
-                            for (k = 0; k < kMax; k++) {
-                                itemParamsItem = createEl('li');
-                                itemParamsList.appendChild(itemParamsItem);
-                                itemParamsStr = item.params[k].name + ' ' + item.params[k].type.names.join('|');
-                                if (item.params[k].optional) {
-                                    itemParamsStr += ' (Optional) ';
-                                    itemParams.push('[' + item.params[k].name + ']');
-                                } else {
-                                    itemParams.push(item.params[k].name);
-                                }
-                                if (isDefined(item.params[k].description)) {
-                                    itemParamsStr += ' ' + item.params[k].description.slice(3, item.params[k].description.indexOf('</p>'));
-                                    addText(itemParamsItem, itemParamsStr);
-                                }
-                            }
-                            itemHeaderStr += '( ' + itemParams.join(', ') + ' )';
-                            itemWrapper.appendChild(itemParamsHeader);
-                            itemWrapper.appendChild(itemParamsList);
-                        } else {
-                            if (itemHeaderStr[itemHeaderStr.length - 1] !== ')') {
-                                itemHeaderStr += '()';
-                            }
-                        }
-                        itemWrapper.appendChild(itemFooter);
-                        bclslog('topLinkP', topLinkP);
-                        itemWrapper.appendChild(topLinkP);
-                        addText(itemHeader, itemHeaderStr);
-                        itemDescriptionEl = document.getElementById(item.name + 'Description');
-                        itemDescriptionEl.innerHTML = item.description;
-                        addText(itemFooterContent, 'Inherited from ');
-                        itemFooterLink = createEl('a', {href: docsPath + item.meta.filename + item.meta.lineno});
-                        itemFooterContent.appendChild(itemFooterLink);
-                        addText(itemFooterLink, 'src/js/' + item.meta.filename + ' line number: ' + item.meta.lineno);
-                    }
-                }
+                // if (isDefined(doc_data.parentClass)) {
+                //     jMax = doc_data.parentClass[member.data].length;
+                //     for (j = 0; j < jMax; j++) {
+                //         item = doc_data.parentClass[member.data][j];
+                //         itemWrapper = createEl('div', {id: item.name});
+                //         section.appendChild(itemWrapper);
+                //         itemHeader = createEl('h3', {id: item.name + 'Header'});
+                //         itemHeaderStr = item.name;
+                //         itemWrapper.appendChild(itemHeader);
+                //         itemDescription = createEl('div', {id: item.name + 'Description'});
+                //         itemWrapper.appendChild(itemDescription);
+                //         itemFooter = createEl('p');
+                //         itemFooterContent = createEl('em', {id: item.name + 'Footer'});
+                //         itemFooter.appendChild(itemFooterContent);
+                //         topLinkP = createEl('p');
+                //         topLinkA = createEl('a', {href: '#top'});
+                //         addText(topLinkA, '[back to top]');
+                //         topLinkP.appendChild(topLinkA);
+                //         // handle params if any
+                //         if (isDefined(item.params)) {
+                //             itemParams = [];
+                //             itemParamsHeader = createEl('h4');
+                //             addText(itemParamsHeader, 'Parameters');
+                //             itemParamsList = createEl('ul');
+                //             kMax = item.params.length;
+                //             for (k = 0; k < kMax; k++) {
+                //                 itemParamsItem = createEl('li');
+                //                 itemParamsList.appendChild(itemParamsItem);
+                //                 itemParamsStr = item.params[k].name + ' ' + item.params[k].type.names.join('|');
+                //                 if (item.params[k].optional) {
+                //                     itemParamsStr += ' (Optional) ';
+                //                     itemParams.push('[' + item.params[k].name + ']');
+                //                 } else {
+                //                     itemParams.push(item.params[k].name);
+                //                 }
+                //                 if (isDefined(item.params[k].description)) {
+                //                     itemParamsStr += ' ' + item.params[k].description.slice(3, item.params[k].description.indexOf('</p>'));
+                //                     addText(itemParamsItem, itemParamsStr);
+                //                 }
+                //             }
+                //             itemHeaderStr += '( ' + itemParams.join(', ') + ' )';
+                //             itemWrapper.appendChild(itemParamsHeader);
+                //             itemWrapper.appendChild(itemParamsList);
+                //         } else {
+                //             if (itemHeaderStr[itemHeaderStr.length - 1] !== ')') {
+                //                 itemHeaderStr += '()';
+                //             }
+                //         }
+                //         itemWrapper.appendChild(itemFooter);
+                //         bclslog('topLinkP', topLinkP);
+                //         itemWrapper.appendChild(topLinkP);
+                //         addText(itemHeader, itemHeaderStr);
+                //         itemDescriptionEl = document.getElementById(item.name + 'Description');
+                //         itemDescriptionEl.innerHTML = item.description;
+                //         addText(itemFooterContent, 'Inherited from ');
+                //         itemFooterLink = createEl('a', {href: docsPath + item.meta.filename + item.meta.lineno});
+                //         itemFooterContent.appendChild(itemFooterLink);
+                //         addText(itemFooterLink, 'src/js/' + item.meta.filename + ' line number: ' + item.meta.lineno);
+                //     }
+                // }
 
             };
         iMax = members.length;
         for (i = 0; i < iMax; i++) {
             member = members[i];
             if (doc_data.thisClass[member.data].length > 0) {
-                createMemberItem(member);
+                createMemberItem(doc_data.thisClass, member);
+            }
+        }
+        if (isDefined(doc_data.parentClass)) {
+            for (i = 0; i < iMax; i++) {
+                member = members[i];
+                if (doc_data.parentClass[member.data].length > 0) {
+                    createMemberItem(doc_data.parentClass, member);
+                }
             }
         }
     };

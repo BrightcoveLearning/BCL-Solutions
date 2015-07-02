@@ -519,68 +519,6 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                     itemFooterContent.appendChild(itemFooterLink);
                     addText(itemFooterLink, 'src/js/' + item.meta.filename + ' line number: ' + item.meta.lineno);
                 }
-                // now the inherited member items
-                // if (isDefined(doc_data.parentClass)) {
-                //     jMax = doc_data.parentClass[member.data].length;
-                //     for (j = 0; j < jMax; j++) {
-                //         item = doc_data.parentClass[member.data][j];
-                //         itemWrapper = createEl('div', {id: item.name});
-                //         section.appendChild(itemWrapper);
-                //         itemHeader = createEl('h3', {id: item.name + 'Header'});
-                //         itemHeaderStr = item.name;
-                //         itemWrapper.appendChild(itemHeader);
-                //         itemDescription = createEl('div', {id: item.name + 'Description'});
-                //         itemWrapper.appendChild(itemDescription);
-                //         itemFooter = createEl('p');
-                //         itemFooterContent = createEl('em', {id: item.name + 'Footer'});
-                //         itemFooter.appendChild(itemFooterContent);
-                //         topLinkP = createEl('p');
-                //         topLinkA = createEl('a', {href: '#top'});
-                //         addText(topLinkA, '[back to top]');
-                //         topLinkP.appendChild(topLinkA);
-                //         // handle params if any
-                //         if (isDefined(item.params)) {
-                //             itemParams = [];
-                //             itemParamsHeader = createEl('h4');
-                //             addText(itemParamsHeader, 'Parameters');
-                //             itemParamsList = createEl('ul');
-                //             kMax = item.params.length;
-                //             for (k = 0; k < kMax; k++) {
-                //                 itemParamsItem = createEl('li');
-                //                 itemParamsList.appendChild(itemParamsItem);
-                //                 itemParamsStr = item.params[k].name + ' ' + item.params[k].type.names.join('|');
-                //                 if (item.params[k].optional) {
-                //                     itemParamsStr += ' (Optional) ';
-                //                     itemParams.push('[' + item.params[k].name + ']');
-                //                 } else {
-                //                     itemParams.push(item.params[k].name);
-                //                 }
-                //                 if (isDefined(item.params[k].description)) {
-                //                     itemParamsStr += ' ' + item.params[k].description.slice(3, item.params[k].description.indexOf('</p>'));
-                //                     addText(itemParamsItem, itemParamsStr);
-                //                 }
-                //             }
-                //             itemHeaderStr += '( ' + itemParams.join(', ') + ' )';
-                //             itemWrapper.appendChild(itemParamsHeader);
-                //             itemWrapper.appendChild(itemParamsList);
-                //         } else {
-                //             if (itemHeaderStr[itemHeaderStr.length - 1] !== ')') {
-                //                 itemHeaderStr += '()';
-                //             }
-                //         }
-                //         itemWrapper.appendChild(itemFooter);
-                //         bclslog('topLinkP', topLinkP);
-                //         itemWrapper.appendChild(topLinkP);
-                //         addText(itemHeader, itemHeaderStr);
-                //         itemDescriptionEl = document.getElementById(item.name + 'Description');
-                //         itemDescriptionEl.innerHTML = item.description;
-                //         addText(itemFooterContent, 'Inherited from ');
-                //         itemFooterLink = createEl('a', {href: docsPath + item.meta.filename + item.meta.lineno});
-                //         itemFooterContent.appendChild(itemFooterLink);
-                //         addText(itemFooterLink, 'src/js/' + item.meta.filename + ' line number: ' + item.meta.lineno);
-                //     }
-                // }
-
             };
         iMax = members.length;
         for (i = 0; i < iMax; i++) {
@@ -630,45 +568,32 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                 if (isDefined(doc_data[class_name]headerInfo.augments)) {
                 parent_class = doc_data[class_name]headerInfo.augments[0].toLowerCase();
                 // get data objects for the class
-                classes.parentClass[parentCounter] = findClassObjects(docData, parent_class + ".js");
+                classes.parentClasses[parentCounter] = findClassObjects(docData, parent_class + ".js");
                 // check to see if there are any parent class items
-                if (classes.parentClass[parentCounter].length > 0) {
-                    doc_data.parentClass[parentCounter] = {};
+                if (classes.parentClasses[parentCounter].length > 0) {
+                    doc_data.parentClasses[parentCounter] = {};
                     // get parent header info
-                    idx = findObjectInArray(classes.parentClass[parentCounter], 'kind', 'class');
-                    doc_data.parentClass[parentCounter].headerInfo = copyObj(classes.parentClass[parentCounter][idx]);
+                    idx = findObjectInArray(classes.parentClasses[parentCounter], 'kind', 'class');
+                    doc_data.parentClasses[parentCounter].headerInfo = copyObj(classes.parentClasses[parentCounter][idx]);
                     // get parent class path
-                    idx = findObjectInArray(classes.parentClass[parentCounter], 'kind', 'file');
+                    idx = findObjectInArray(classes.parentClasses[parentCounter], 'kind', 'file');
                     if (idx > -1) {
-                        parentClassFilePath = classes.parentClass[parentCounter][idx].name;
+                        parentClassFilePath = classes.parentClasses[parentCounter][idx].name;
                     } else {
-                        parentClassFilePath = doc_data.parentClass[parentCounter].headerInfo.meta.filename;
+                        parentClassFilePath = doc_data.parentClasses[parentCounter].headerInfo.meta.filename;
                     }
                     // remove any private items
-                    privateItems = findObjectsInArray(classes.parentClass[parentCounter], "access", "private");
+                    privateItems = findObjectsInArray(classes.parentClasses[parentCounter], "access", "private");
                     j = privateItems.length;
                     while (j > 0) {
                         j--;
-                        classes.parentClass[parentCounter].splice(privateItems[j], 1);
-                    }
-                    // remove any overridden items
-                    jMax = classes.thisClass.length;
-                    for (j = 0; j < jMax; j++) {
-                        idx = findObjectInArray(classes.parentClass[parentCounter], 'name', classes.thisClass[j].name);
-                        if (idx > 0) {
-                            overriddenItems.push(idx);
-                        }
-                    }
-                    j = overriddenItems.length;
-                    while (j > 0) {
-                        j--;
-                        classes.parentClass[parentCounter].splice(overriddenItems[j], 1);
+                        classes.parentClasses[parentCounter].splice(privateItems[j], 1);
                     }
                     // now get the member arrays
-                    doc_data.parentClass[parentCounter].methodsArray = getSubArray(classes.parentClass, 'kind', 'function');
-                    doc_data.parentClass[parentCounter].methodsArray = sortArray(doc_data.parentClass.methodsArray, 'name');
-                    doc_data.parentClass[parentCounter].eventsArray = getSubArray(classes.parentClass, 'kind', "event");
-                    doc_data.parentClass[parentCounter].eventsArray = sortArray(doc_data.parentClass.eventsArray, 'name');
+                    doc_data.parentClasses[parentCounter].methodsArray = getSubArray(classes.parentClass, 'kind', 'function');
+                    doc_data.parentClasses[parentCounter].methodsArray = sortArray(doc_data.parentClass.methodsArray, 'name');
+                    doc_data.parentClasses[parentCounter].eventsArray = getSubArray(classes.parentClass, 'kind', "event");
+                    doc_data.parentClasses[parentCounter].eventsArray = sortArray(doc_data.parentClass.eventsArray, 'name');
                     doc_data.parentClass.propertiesArray = getSubArray(classes.parentClass, 'kind', 'property');
                     doc_data.parentClass.propertiesArray = sortArray(doc_data.parentClass.propertiesArray, 'name');
                 }
@@ -713,6 +638,24 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         doc_data.thisClass.propertiesArray = sortArray(doc_data.thisClass.propertiesArray, 'name');
         bclslog("thisClass", doc_data.thisClass);
         // get parent class, if any, and anything it inherits
+        if (isDefined(doc_data[class_name]headerInfo.augments)) {
+            doc_data.parentClass = {};
+            doc_data.parentClasses = [];
+            getAncestorData('thisClass')
+        }
+        // remove any overridden items
+        jMax = classes.thisClass.length;
+        for (j = 0; j < jMax; j++) {
+            idx = findObjectInArray(classes.parentClasses[parentCounter], 'name', classes.thisClass[j].name);
+            if (idx > 0) {
+                overriddenItems.push(idx);
+            }
+        }
+        j = overriddenItems.length;
+        while (j > 0) {
+            j--;
+            classes.parentClasses[parentCounter].splice(overriddenItems[j], 1);
+        }
 
             bclslog("parentClass", doc_data.parentClass);
         }

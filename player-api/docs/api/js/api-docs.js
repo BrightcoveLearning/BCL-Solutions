@@ -566,9 +566,8 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             j,
             jMax,
             parentCounter = 0.
-            getAncestorData = function (class_name) {
-                if (isDefined(doc_data[class_name]headerInfo.augments)) {
-                parent_class = doc_data[class_name]headerInfo.augments[0].toLowerCase();
+            getAncestorData = function (parent_class) {
+
                 // get data objects for the class
                 classes.parentClasses[parentCounter] = findClassObjects(docData, parent_class + ".js");
                 // check to see if there are any parent class items
@@ -601,8 +600,9 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                 }
                 // get parent class, if any, and anything it inherits
                 if (isDefined(doc_data.parentClasses[parentCounter].headerInfo.augments)) {
+                    parent_class_name = doc_data.parentClasses[parentCounter].headerInfo.augments[0].toLowerCase();
                     parentCounter++;
-                    getAncestorData('thisClass')
+                    getAncestorData(parent_class_name);
                 }
             };
         // content wrapper
@@ -648,7 +648,8 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         if (isDefined(doc_data.thisClass.headerInfo.augments)) {
             doc_data.parentClass = {};
             doc_data.parentClasses = [];
-            getAncestorData('thisClass')
+            parent_class_name = doc_data.thisClass.headerInfo.augments[0].toLowerCase();
+            getAncestorData(parent_class_name)
         }
         // remove any overridden items
         jMax = classes.thisClass.length;

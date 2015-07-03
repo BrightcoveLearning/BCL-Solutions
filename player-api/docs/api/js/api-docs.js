@@ -599,8 +599,11 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                     doc_data.parentClasses[parentCounter].propertiesArray = getSubArray(classes.parentClass, 'kind', 'property');
                     doc_data.parentClasses[parentCounter].propertiesArray = sortArray(doc_data.parentClass.propertiesArray, 'name');
                 }
-                parentCounter++;
-                if (isDefined())
+                // get parent class, if any, and anything it inherits
+                if (isDefined(doc_data.parentClasses[parentCounter].headerInfo.augments)) {
+                    parentCounter++;
+                    getAncestorData('thisClass')
+                }
             };
         // content wrapper
         mainContent = createEl('div', {id: "main", class: "section"});
@@ -642,7 +645,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         doc_data.thisClass.propertiesArray = sortArray(doc_data.thisClass.propertiesArray, 'name');
         bclslog("thisClass", doc_data.thisClass);
         // get parent class, if any, and anything it inherits
-        if (isDefined(doc_data[class_name]headerInfo.augments)) {
+        if (isDefined(doc_data.thisClass.headerInfo.augments)) {
             doc_data.parentClass = {};
             doc_data.parentClasses = [];
             getAncestorData('thisClass')

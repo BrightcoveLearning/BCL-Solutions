@@ -326,6 +326,8 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             text,
             i,
             iMax,
+            j,
+            jMax,
             makeList = function (classArr, parentArr, member, list) {
                 if (classArr.length > 0 || (isDefined(doc_data.parentClass) && parentArr.length > 0)) {
                     // add member list header
@@ -348,7 +350,8 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                         list.appendChild(listItem);
                     }
                     // add inherited items if any
-                    if (isDefined(doc_data.parentClass) && parentArr.length > 0) {
+                    if (isDefined(parentArr) && parentArr.length > 0) {
+
                         parentHeader = createEl('h4');
                         addText(parentHeader, 'Inherited ' + member);
                         memberIndex.appendChild(parentHeader);
@@ -369,10 +372,10 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         navHeader.appendChild(navHeaderLink);
         addText(navHeaderLink, 'API Index');
         // add parent class members if any
-        if (isDefined(doc_data.parentClass)) {
-            makeList(doc_data.thisClass.propertiesArray, doc_data.parentClass.propertiesArray, 'Properties', 'propertiesList');
-            makeList(doc_data.thisClass.methodsArray, doc_data.parentClass.methodsArray, 'Methods', 'methodsList');
-            makeList(doc_data.thisClass.eventsArray, doc_data.parentClass.eventsArray, 'Events', 'eventsList');
+        if (isDefined(doc_data.parentClasses)) {
+            makeList(doc_data.thisClass.propertiesArray, doc_data.parentClasses, 'Properties', 'propertiesList');
+            makeList(doc_data.thisClass.methodsArray, doc_data.parentClasses, 'Methods', 'methodsList');
+            makeList(doc_data.thisClass.eventsArray, doc_data.parentClasses, 'Events', 'eventsList');
         } else {
             makeList(doc_data.thisClass.propertiesArray, [], 'Properties', 'propertiesList');
             makeList(doc_data.thisClass.methodsArray, [], 'Methods', 'methodsList');
@@ -559,13 +562,14 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         var fileName,
             srcFileName,
             parent_class,
+            parent_class_name,
             privateItems = [],
             overriddenItems = [],
             idx,
             text,
             j,
             jMax,
-            parentCounter = 0.
+            parentCounter = 0,
             getAncestorData = function (parent_class) {
 
                 // get data objects for the class
@@ -591,12 +595,12 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                         classes.parentClasses[parentCounter].splice(privateItems[j], 1);
                     }
                     // now get the member arrays
-                    doc_data.parentClasses[parentCounter].methodsArray = getSubArray(classes.parentClass, 'kind', 'function');
-                    doc_data.parentClasses[parentCounter].methodsArray = sortArray(doc_data.parentClass.methodsArray, 'name');
-                    doc_data.parentClasses[parentCounter].eventsArray = getSubArray(classes.parentClass, 'kind', "event");
-                    doc_data.parentClasses[parentCounter].eventsArray = sortArray(doc_data.parentClass.eventsArray, 'name');
-                    doc_data.parentClasses[parentCounter].propertiesArray = getSubArray(classes.parentClass, 'kind', 'property');
-                    doc_data.parentClasses[parentCounter].propertiesArray = sortArray(doc_data.parentClass.propertiesArray, 'name');
+                    doc_data.parentClasses[parentCounter].methodsArray = getSubArray(classes.parentClasses[parentCounter], 'kind', 'function');
+                    doc_data.parentClasses[parentCounter].methodsArray = sortArray(doc_data.parentClasses[parentCounter].methodsArray, 'name');
+                    doc_data.parentClasses[parentCounter].eventsArray = getSubArray(classes.parentClasses[parentCounter], 'kind', "event");
+                    doc_data.parentClasses[parentCounter].eventsArray = sortArray(doc_data.parentClasses[parentCounter].eventsArray, 'name');
+                    doc_data.parentClasses[parentCounter].propertiesArray = getSubArray(classes.parentClasses[parentCounter], 'kind', 'property');
+                    doc_data.parentClasses[parentCounter].propertiesArray = sortArray(doc_data.parentClasses[parentCounter].propertiesArray, 'name');
                 }
                 // get parent class, if any, and anything it inherits
                 if (isDefined(doc_data.parentClasses[parentCounter].headerInfo.augments)) {
@@ -648,6 +652,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         if (isDefined(doc_data.thisClass.headerInfo.augments)) {
             doc_data.parentClass = {};
             doc_data.parentClasses = [];
+            classes.parentClasses = [];
             parent_class_name = doc_data.thisClass.headerInfo.augments[0].toLowerCase();
             getAncestorData(parent_class_name)
         }
@@ -665,8 +670,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             classes.parentClasses[parentCounter].splice(overriddenItems[j], 1);
         }
 
-            bclslog("parentClass", doc_data.parentClass);
-        }
+        bclslog("parentClass", doc_data.parentClasses);
         // now we're ready to roll
         addIndex();
         addHeaderContent();

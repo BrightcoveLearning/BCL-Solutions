@@ -227,12 +227,12 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         definedIn.appendChild(definedInLink);
         addText(definedInLink, headerData.meta.filename + ' line number: ' + headerData.meta.lineno);
         // parent info if this class extends another
-        if (isDefined(doc_data.parentClass)) {
+        if (isDefined(doc_data.parentClasses)) {
             topSection.appendChild(extendsNode);
             addText(extendsNode, 'EXTENDS: ');
-            extendsLink = createEl('a', {href: parentClassFilePath + doc_data.parentClass.headerInfo.meta.filename});
+            extendsLink = createEl('a', {href: parentClassFilePath + doc_data.parentClasses[0].headerInfo.meta.filename});
             extendsNode.appendChild(extendsLink);
-            addText(extendsLink, doc_data.parentClass.headerInfo.meta.filename);
+            addText(extendsLink, doc_data.parentClasses[0].headerInfo.meta.filename);
         }
         // constructor info
         topSection.appendChild(constructorHeader);
@@ -317,6 +317,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             navHeaderLink = createEl('a', {href: 'index.html'}),
             memberIndex = createEl('div', {id: 'memberIndex'}),
             item,
+            thisParent,
             parentList,
             header,
             listItem,
@@ -351,21 +352,25 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                     }
                     // add inherited items if any
                     if (isDefined(parentArr) && parentArr.length > 0) {
-
-                        parentHeader = createEl('h4');
-                        addText(parentHeader, 'Inherited ' + member);
-                        memberIndex.appendChild(parentHeader);
-                        parentList = createEl('ul');
-                        memberIndex.appendChild(parentList);
-                        iMax = parentArr.length;
-                        for (i = 0; i < iMax; i++) {
-                            item = parentArr[i].name;
-                            listItem = createEl('li');
-                            listLink = createEl('a', {href: '#' + item});
-                            listItem.appendChild(listLink);
-                            addText(listLink, item);
-                            parentList.appendChild(listItem);
+                        jMax = parentArr.length;
+                        for (j = 0; j < jMax; j++) {
+                            thisParent = parentArr[j];
+                            parentHeader = createEl('h4');
+                            addText(parentHeader, 'Inherited ' + member + ' from ' +thisParent.headerInfo.name);
+                            memberIndex.appendChild(parentHeader);
+                            parentList = createEl('ul');
+                            memberIndex.appendChild(parentList);
+                            iMax = parentArr.length;
+                            for (i = 0; i < iMax; i++) {
+                                item = parentArr[i].name;
+                                listItem = createEl('li');
+                                listLink = createEl('a', {href: '#' + item});
+                                listItem.appendChild(listLink);
+                                addText(listLink, item);
+                                parentList.appendChild(listItem);
+                            }
                         }
+
                     }
                 }
             };
@@ -373,13 +378,13 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         addText(navHeaderLink, 'API Index');
         // add parent class members if any
         if (isDefined(doc_data.parentClasses)) {
-            makeList(doc_data.thisClass.propertiesArray, doc_data.parentClasses, 'Properties', 'propertiesList');
-            makeList(doc_data.thisClass.methodsArray, doc_data.parentClasses, 'Methods', 'methodsList');
-            makeList(doc_data.thisClass.eventsArray, doc_data.parentClasses, 'Events', 'eventsList');
+            makeList(doc_data.thisClass.properties, doc_data.parentClasses, 'Properties', 'propertiesList');
+            makeList(doc_data.thisClass.methods, doc_data.parentClasses, 'Methods', 'methodsList');
+            makeList(doc_data.thisClass.events, doc_data.parentClasses, 'Events', 'eventsList');
         } else {
-            makeList(doc_data.thisClass.propertiesArray, [], 'Properties', 'propertiesList');
-            makeList(doc_data.thisClass.methodsArray, [], 'Methods', 'methodsList');
-            makeList(doc_data.thisClass.eventsArray, [], 'Events', 'eventsList');
+            makeList(doc_data.thisClass.properties, [], 'Properties', 'propertiesList');
+            makeList(doc_data.thisClass.methods, [], 'Methods', 'methodsList');
+            makeList(doc_data.thisClass.events, [], 'Events', 'eventsList');
         }
         section.appendChild(navHeader);
         section.appendChild(memberIndex);
@@ -390,7 +395,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
      * add the member content
      */
     addMembersContent = function () {
-        var members = [{name: 'Properties', data: 'propertiesArray'}, {name: 'Methods', data: 'methodsArray'}, {name: 'Events', data: 'eventsArray'}],
+        var members = [{name: 'Properties', data: 'properties'}, {name: 'Methods', data: 'methods'}, {name: 'Events', data: 'events'}],
             member,
             section,
             header,
@@ -595,12 +600,12 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                         classes.parentClasses[parentCounter].splice(privateItems[j], 1);
                     }
                     // now get the member arrays
-                    doc_data.parentClasses[parentCounter].methodsArray = getSubArray(classes.parentClasses[parentCounter], 'kind', 'function');
-                    doc_data.parentClasses[parentCounter].methodsArray = sortArray(doc_data.parentClasses[parentCounter].methodsArray, 'name');
-                    doc_data.parentClasses[parentCounter].eventsArray = getSubArray(classes.parentClasses[parentCounter], 'kind', "event");
-                    doc_data.parentClasses[parentCounter].eventsArray = sortArray(doc_data.parentClasses[parentCounter].eventsArray, 'name');
-                    doc_data.parentClasses[parentCounter].propertiesArray = getSubArray(classes.parentClasses[parentCounter], 'kind', 'property');
-                    doc_data.parentClasses[parentCounter].propertiesArray = sortArray(doc_data.parentClasses[parentCounter].propertiesArray, 'name');
+                    doc_data.parentClasses[parentCounter].methods = getSubArray(classes.parentClasses[parentCounter], 'kind', 'function');
+                    doc_data.parentClasses[parentCounter].methods = sortArray(doc_data.parentClasses[parentCounter].methods, 'name');
+                    doc_data.parentClasses[parentCounter].events = getSubArray(classes.parentClasses[parentCounter], 'kind', "event");
+                    doc_data.parentClasses[parentCounter].events = sortArray(doc_data.parentClasses[parentCounter].events, 'name');
+                    doc_data.parentClasses[parentCounter].properties = getSubArray(classes.parentClasses[parentCounter], 'kind', 'property');
+                    doc_data.parentClasses[parentCounter].properties = sortArray(doc_data.parentClasses[parentCounter].properties, 'name');
                 }
                 // get parent class, if any, and anything it inherits
                 if (isDefined(doc_data.parentClasses[parentCounter].headerInfo.augments)) {
@@ -641,12 +646,12 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             classes.thisClass.splice(privateItems[j], 1);
         }
         // now get the member arrays
-        doc_data.thisClass.methodsArray = getSubArray(classes.thisClass, 'kind', 'function');
-        doc_data.thisClass.methodsArray = sortArray(doc_data.thisClass.methodsArray, 'name');
-        doc_data.thisClass.eventsArray = getSubArray(classes.thisClass, 'kind', "event");
-        doc_data.thisClass.eventsArray = sortArray(doc_data.thisClass.eventsArray, 'name');
-        doc_data.thisClass.propertiesArray = getSubArray(classes.thisClass, 'kind', 'property');
-        doc_data.thisClass.propertiesArray = sortArray(doc_data.thisClass.propertiesArray, 'name');
+        doc_data.thisClass.methods = getSubArray(classes.thisClass, 'kind', 'function');
+        doc_data.thisClass.methods = sortArray(doc_data.thisClass.methods, 'name');
+        doc_data.thisClass.events = getSubArray(classes.thisClass, 'kind', "event");
+        doc_data.thisClass.events = sortArray(doc_data.thisClass.events, 'name');
+        doc_data.thisClass.properties = getSubArray(classes.thisClass, 'kind', 'property');
+        doc_data.thisClass.properties = sortArray(doc_data.thisClass.properties, 'name');
         bclslog("thisClass", doc_data.thisClass);
         // get parent class, if any, and anything it inherits
         if (isDefined(doc_data.thisClass.headerInfo.augments)) {

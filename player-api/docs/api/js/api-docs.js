@@ -298,6 +298,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             topSection.appendChild(constructorParamsHeader);
             topSection.appendChild(paramTable);
         }
+        // add constructor params to signature if any
         if (constructorParams.length > 0) {
         text = document.createTextNode(headerData.name + '( ' + constructorParams.join(',') + ' )');
         } else {
@@ -316,6 +317,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             navHeader = createEl('h2'),
             navHeaderLink = createEl('a', {href: 'index.html'}),
             memberIndex = createEl('div', {id: 'memberIndex'}),
+            thisMember,
             item,
             thisParent,
             parentList,
@@ -329,6 +331,22 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             iMax,
             j,
             jMax,
+            ,
+            classHasMembers = function (member) {
+                if (doc_data.thisClass[member].length > 0) {
+                    return true;
+                }
+                return false;
+            }
+            parentsHaveMembers = function (member) {
+                if (doc_data.parentClasses.length > 0) {
+                    for (i = 0; i < doc_data.parentClasses.length; i++) {
+                        if (doc_data.parentClasses[i][thisMember].length > 0);
+                        return true;
+                    }
+                    return false;
+                }
+            },
             makeList = function (classArr, parentArr, member, list) {
                 if (classArr.length > 0 || (isDefined(doc_data.parentClass) && parentArr.length > 0)) {
                     // add member list header
@@ -355,25 +373,30 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                         jMax = parentArr.length;
                         for (j = 0; j < jMax; j++) {
                             thisParent = parentArr[j];
-                            parentHeader = createEl('h4');
-                            addText(parentHeader, 'Inherited ' + member + ' from ' +thisParent.headerInfo.name);
-                            memberIndex.appendChild(parentHeader);
-                            parentList = createEl('ul');
-                            memberIndex.appendChild(parentList);
-                            iMax = parentArr.length;
-                            for (i = 0; i < iMax; i++) {
-                                item = parentArr[i].name;
-                                listItem = createEl('li');
-                                listLink = createEl('a', {href: '#' + item});
-                                listItem.appendChild(listLink);
-                                addText(listLink, item);
-                                parentList.appendChild(listItem);
+                            if (thisParent[thisMember].length > 0) {
+                                bclslog('thisParent', thisParent);
+                                parentHeader = createEl('h4');
+                                addText(parentHeader, 'Inherited ' + member + ' from ' + thisParent.headerInfo.name);
+                                memberIndex.appendChild(parentHeader);
+                                parentList = createEl('ul');
+                                memberIndex.appendChild(parentList);
+                                iMax = thisParent[thisMember].length;
+                                for (i = 0; i < iMax; i++) {
+                                    item = thisParent[thisMember][i].name;
+                                    listItem = createEl('li');
+                                    listLink = createEl('a', {href: '#' + item});
+                                    listItem.appendChild(listLink);
+                                    addText(listLink, item);
+                                    parentList.appendChild(listItem);
+                                }
                             }
+
                         }
 
                     }
                 }
             };
+        thisMember = member.toLowerCase();
         navHeader.appendChild(navHeaderLink);
         addText(navHeaderLink, 'API Index');
         // add parent class members if any

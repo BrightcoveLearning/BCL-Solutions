@@ -17,6 +17,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         doc_body = document.getElementsByTagName("body")[0],
         // functions
         isDefined,
+        isItemInArray,
         copyObj,
         findObjectInArray,
         findObjectsInArray,
@@ -55,6 +56,23 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             return false;
         }
         return true;
+    };
+    /**
+     * determines whether specified item is in an array
+     *
+     * @param {array} array to check
+     * @param {string} item to check for
+     * @return {boolean} true if item is in the array, else false
+     */
+    isItemInArray = function (arr, item) {
+        var i,
+            iMax = arr.length;
+        for (i = 0; i < iMax; i++) {
+            if (arr[i] === item) {
+                return true;
+            }
+        }
+        return false;
     };
     /**
      * get a copy of (rather than reference to) an object
@@ -313,12 +331,13 @@ var BCLSVJS = (function (window, document, docData, hljs) {
      * add the side nav
      */
     addIndex = function () {
-        var section = createEl('section', {id: 'index', class: 'sideNav'}),
-            navHeader = createEl('h2'),
+        var section = createEl('section', {id: 'index', class: 'side-nav'}),
+            navHeader = createEl('h2', {class: 'sideNavHeader'}),
             navHeaderLink = createEl('a', {href: 'index.html'}),
-            memberIndex = createEl('div', {id: 'memberIndex'}),
+            memberIndex = createEl('div', {id: 'memberIndex', class: 'member-index'}),
             thisMember,
             item,
+            addedMembers = [],
             thisParent,
             parentList,
             header,
@@ -331,13 +350,12 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             iMax,
             j,
             jMax,
-            ,
             classHasMembers = function (member) {
                 if (doc_data.thisClass[member].length > 0) {
                     return true;
                 }
                 return false;
-            }
+            },
             parentsHaveMembers = function (member) {
                 if (doc_data.parentClasses.length > 0) {
                     for (i = 0; i < doc_data.parentClasses.length; i++) {
@@ -348,26 +366,36 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                 }
             },
             makeList = function (classArr, parentArr, member, list) {
+                thisMember = member.toLowerCase();
                 if (classArr.length > 0 || (isDefined(doc_data.parentClass) && parentArr.length > 0)) {
                     // add member list header
-                    header = createEl('h3');
-                    addText(header, doc_data.thisClass.headerInfo.name + ' ' + member);
-                    classHeader = createEl('h4');
-                    addText(classHeader, 'Class ' + member);
-                    memberIndex.appendChild(header);
-                    memberIndex.appendChild(classHeader);
-                    // add the list & items
-                    list = createEl('ul', {id: list});
-                    memberIndex.appendChild(list);
-                    iMax = classArr.length;
-                    for (i = 0; i < iMax; i++) {
-                        item = classArr[i].name;
-                        listItem = createEl('li');
-                        listLink = createEl('a', {href: '#' + item});
-                        addText(listLink, item);
-                        listItem.appendChild(listLink);
-                        list.appendChild(listItem);
+                    if (classHasMembers(thisMember) || parentsHaveMembers(thisMember)) {
+                        header = createEl('h3');
+                        addText(header, doc_data.thisClass.headerInfo.name + ' ' + member);
+                    } else {
+                        return;
                     }
+                    if (classHasMembers(thisMember)) {
+                        classHeader = createEl('h4');
+                        addText(classHeader, 'Class ' + member);
+                        memberIndex.appendChild(header);
+                        memberIndex.appendChild(classHeader);
+                        // add the list & items
+                        list = createEl('ul', {id: list});
+                        memberIndex.appendChild(list);
+                        iMax = classArr.length;
+                        for (i = 0; i < iMax; i++) {
+                            item = classArr[i].name;
+                            // keep track of added members to remove overridden ones
+                            addedMembers.push(item);
+                            listItem = createEl('li');
+                            listLink = createEl('a', {href: '#' + item});
+                            addText(listLink, item);
+                            listItem.appendChild(listLink);
+                            list.appendChild(listItem);
+                        }
+                    }
+
                     // add inherited items if any
                     if (isDefined(parentArr) && parentArr.length > 0) {
                         jMax = parentArr.length;
@@ -383,11 +411,15 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                                 iMax = thisParent[thisMember].length;
                                 for (i = 0; i < iMax; i++) {
                                     item = thisParent[thisMember][i].name;
-                                    listItem = createEl('li');
-                                    listLink = createEl('a', {href: '#' + item});
-                                    listItem.appendChild(listLink);
-                                    addText(listLink, item);
-                                    parentList.appendChild(listItem);
+                                    if (!isItemInArray(addedMembers, item)) {
+                                        addedMembers.push(item);
+                                        listItem = createEl('li');
+                                        listLink = createEl('a', {href: '#' + item});
+                                        listItem.appendChild(listLink);
+                                        addText(listLink, item);
+                                        parentList.appendChild(listItem);
+                                    }
+
                                 }
                             }
 
@@ -396,7 +428,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                     }
                 }
             };
-        thisMember = member.toLowerCase();
+
         navHeader.appendChild(navHeaderLink);
         addText(navHeaderLink, 'API Index');
         // add parent class members if any
@@ -470,7 +502,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                     itemHeader = createEl('h3', {id: item.name + 'Header'});
                     itemHeaderStr = item.name;
                     itemWrapper.appendChild(itemHeader);
-                    itemDescription = createEl('div', {id: item.name + 'Description'});
+                    itemDescription = createEl('div', {id: item.name + 'Description', class: 'description'});
                     itemWrapper.appendChild(itemDescription);
                     itemFooter = createEl('p', {class: 'vjs-only'});
                     itemFooterLink = createEl('a', {href: docsPath + item.meta.filename + '#' + item.meta.lineno})
@@ -698,7 +730,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             classes.parentClasses[parentCounter].splice(overriddenItems[j], 1);
         }
 
-        bclslog("parentClass", doc_data.parentClasses);
+        bclslog("parentClasses", doc_data.parentClasses);
         // now we're ready to roll
         addIndex();
         addHeaderContent();

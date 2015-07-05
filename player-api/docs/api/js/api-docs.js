@@ -688,10 +688,16 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         // video.js is a special case - all others will be the same
         if (srcFileName === 'video.js') {
             // for doc purposes, treat video like a class, though it's not
+            // get the data objects for this class
+            classes.thisClass = findClassObjects(docData, srcFileName);
+            bclslog("classes", classes);
+            idx = findObjectInArray(classes.thisClass, 'kind', 'class');
+            doc_data.thisClass = {};
+            // get the class overview object
+
         } else {
             // get the data objects for this class
             classes.thisClass = findClassObjects(docData, srcFileName);
-            // get the class overview object
             bclslog("classes", classes);
             idx = findObjectInArray(classes.thisClass, 'kind', 'class');
             doc_data.thisClass = {};

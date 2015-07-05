@@ -6,6 +6,15 @@ body {
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+@media (max-width: 500px) {
+  .member-index {
+    display: none;
+  }
+  .side-nav {
+    float: none;
+  }
+}
+
 a {
     color: #437ABE;
     text-decoration: none;
@@ -39,7 +48,7 @@ h3 {
 }
 
 div {
-    border-bottom: 1px #CCC solid;
+    border-bottom: 1px #DDD solid;
     font-size: 1em;
 }
 
@@ -100,8 +109,8 @@ td {
     width: 70%;
 }
 
-.section {
-    /*border-bottom: 5px #EEE solid;*/
+div.section {
+    border: none;
 }
 .description {
     border: none;

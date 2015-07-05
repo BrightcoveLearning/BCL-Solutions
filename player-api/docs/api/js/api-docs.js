@@ -452,6 +452,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
     addMembersContent = function () {
         var members = [{name: 'Properties', data: 'properties'}, {name: 'Methods', data: 'methods'}, {name: 'Events', data: 'events'}],
             member,
+            addedMembers = [],
             section,
             header,
             headerSuffix,
@@ -485,6 +486,8 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             jMax,
             k,
             kMax,
+            m,
+            mMax,
             topLinkP,
             topLinkA,
             createMemberItem = function (classData, member) {
@@ -497,92 +500,95 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                 jMax = classData[member.data].length;
                 for (j = 0; j < jMax; j++) {
                     item = classData[member.data][j];
-                    itemWrapper = createEl('div', {id: item.name});
-                    section.appendChild(itemWrapper);
-                    itemHeader = createEl('h3', {id: item.name + 'Header'});
-                    itemHeaderStr = item.name;
-                    itemWrapper.appendChild(itemHeader);
-                    itemDescription = createEl('div', {id: item.name + 'Description', class: 'description'});
-                    itemWrapper.appendChild(itemDescription);
-                    itemFooter = createEl('p', {class: 'vjs-only'});
-                    itemFooterLink = createEl('a', {href: docsPath + item.meta.filename + '#' + item.meta.lineno})
-                    itemFooterContent = createEl('em', {id: item.name + 'Footer'});
-                    itemFooter.appendChild(itemFooterContent);
-                    topLinkP = createEl('p');
-                    topLinkA = createEl('a', {href: '#top'});
-                    addText(topLinkA, '[back to top]');
-                    topLinkP.appendChild(topLinkA);
-                    // handle params if any
-                    if (isDefined(item.params)) {
-                        itemParams = [];
-                        itemParamsHeader = createEl('h4');
-                        addText(itemParamsHeader, 'Parameters');
-                        paramTable = createEl('table');
-                        paramThead = createEl('thead');
-                        paramTbody = createEl('tbody');
-                        paramTable.appendChild(paramThead);
-                        paramTable.appendChild(paramTbody);
-                        paramTheadRow = createEl('tr');
-                        paramThead.appendChild(paramTheadRow);
-                        // set the table headers
-                        kMax = paramTableHeaders.length;
-                        for (k = 0; k < kMax; k++) {
-                            paramTH = createEl('th');
-                            paramTheadRow.appendChild(paramTH);
-                            addText(paramTH, paramTableHeaders[k]);
-                        }
-                        // now the table info
-                        kMax = item.params.length;
-                        for (k = 0; k < kMax; k++) {
-                            paramTbodyRow = createEl('tr');
-                            paramTbody.appendChild(paramTbodyRow);
-                            paramTD = createEl('td');
-                            addText(paramTD, item.params[k].name);
-                            paramTbodyRow.appendChild(paramTD);
-                            paramTD = createEl('td');
-                            addText(paramTD, item.params[k].type.names.join('|'));
-                            paramTbodyRow.appendChild(paramTD);
-                            paramTD = createEl('td');
-                            if (item.params[k].optional) {
-                                text = document.createTextNode('no');
-                                itemParams.push('[' + item.params[k].name + ']');
-                            } else {
-                                text = document.createTextNode('yes');
-                                itemParams.push(item.params[k].name);
+                    if (!isItemInArray(addedMembers, item.name)) {
+                        addedMembers.push(item.name);
+                        itemWrapper = createEl('div', {id: item.name});
+                        section.appendChild(itemWrapper);
+                        itemHeader = createEl('h3', {id: item.name + 'Header'});
+                        itemHeaderStr = item.name;
+                        itemWrapper.appendChild(itemHeader);
+                        itemDescription = createEl('div', {id: item.name + 'Description', class: 'description'});
+                        itemWrapper.appendChild(itemDescription);
+                        itemFooter = createEl('p', {class: 'vjs-only'});
+                        itemFooterLink = createEl('a', {href: docsPath + item.meta.filename + '#' + item.meta.lineno})
+                        itemFooterContent = createEl('em', {id: item.name + 'Footer'});
+                        itemFooter.appendChild(itemFooterContent);
+                        topLinkP = createEl('p');
+                        topLinkA = createEl('a', {href: '#top'});
+                        addText(topLinkA, '[back to top]');
+                        topLinkP.appendChild(topLinkA);
+                        // handle params if any
+                        if (isDefined(item.params)) {
+                            itemParams = [];
+                            itemParamsHeader = createEl('h4');
+                            addText(itemParamsHeader, 'Parameters');
+                            paramTable = createEl('table');
+                            paramThead = createEl('thead');
+                            paramTbody = createEl('tbody');
+                            paramTable.appendChild(paramThead);
+                            paramTable.appendChild(paramTbody);
+                            paramTheadRow = createEl('tr');
+                            paramThead.appendChild(paramTheadRow);
+                            // set the table headers
+                            kMax = paramTableHeaders.length;
+                            for (k = 0; k < kMax; k++) {
+                                paramTH = createEl('th');
+                                paramTheadRow.appendChild(paramTH);
+                                addText(paramTH, paramTableHeaders[k]);
                             }
-                            addText(paramTD, text);
-                            if (isDefined(item.params[k].description)) {
+                            // now the table info
+                            kMax = item.params.length;
+                            for (k = 0; k < kMax; k++) {
+                                paramTbodyRow = createEl('tr');
+                                paramTbody.appendChild(paramTbodyRow);
+                                paramTD = createEl('td');
+                                addText(paramTD, item.params[k].name);
                                 paramTbodyRow.appendChild(paramTD);
                                 paramTD = createEl('td');
-                                text = document.createTextNode(item.params[k].description.slice(3, item.params[k].description.indexOf('</p>')));
-                                addText(paramTD, text);
+                                addText(paramTD, item.params[k].type.names.join('|'));
                                 paramTbodyRow.appendChild(paramTD);
+                                paramTD = createEl('td');
+                                if (item.params[k].optional) {
+                                    text = document.createTextNode('no');
+                                    itemParams.push('[' + item.params[k].name + ']');
+                                } else {
+                                    text = document.createTextNode('yes');
+                                    itemParams.push(item.params[k].name);
+                                }
+                                addText(paramTD, text);
+                                if (isDefined(item.params[k].description)) {
+                                    paramTbodyRow.appendChild(paramTD);
+                                    paramTD = createEl('td');
+                                    text = document.createTextNode(item.params[k].description.slice(3, item.params[k].description.indexOf('</p>')));
+                                    addText(paramTD, text);
+                                    paramTbodyRow.appendChild(paramTD);
+                                }
+                                paramTbody.appendChild(paramTbodyRow);
                             }
-                            paramTbody.appendChild(paramTbodyRow);
+                            itemHeaderStr += '( ' + itemParams.join(', ') + ' )';
+                            if (item.scope === 'static') {
+                                itemHeaderStr = 'static ' + itemHeaderStr;
+                            }
+                            itemWrapper.appendChild(itemParamsHeader);
+                            itemWrapper.appendChild(paramTable);
+                        } else {
+                            itemHeaderStr += '()';
                         }
-                        itemHeaderStr += '( ' + itemParams.join(', ') + ' )';
-                        if (item.scope === 'static') {
-                            itemHeaderStr = 'static ' + itemHeaderStr;
+                        itemWrapper.appendChild(itemFooter);
+                        itemWrapper.appendChild(topLinkP);
+                        addText(itemHeader, itemHeaderStr);
+                        if (isDefined(item.deprecated)) {
+                            headerSuffix = createEl('em', {class: 'deprecated'});
+                            text = document.createTextNode();
+                            addText(headerSuffix, ' (deprecated)');
+                            itemHeader.appendChild(headerSuffix);
                         }
-                        itemWrapper.appendChild(itemParamsHeader);
-                        itemWrapper.appendChild(paramTable);
-                    } else {
-                        itemHeaderStr += '()';
+                        itemDescriptionEl = document.getElementById(item.name + 'Description');
+                        itemDescriptionEl.innerHTML = item.description;
+                        addText(itemFooterContent, 'Defined in ');
+                        itemFooterContent.appendChild(itemFooterLink);
+                        addText(itemFooterLink, 'src/js/' + item.meta.filename + ' line number: ' + item.meta.lineno);
                     }
-                    itemWrapper.appendChild(itemFooter);
-                    itemWrapper.appendChild(topLinkP);
-                    addText(itemHeader, itemHeaderStr);
-                    if (isDefined(item.deprecated)) {
-                        headerSuffix = createEl('em', {class: 'deprecated'});
-                        text = document.createTextNode();
-                        addText(headerSuffix, ' (deprecated)');
-                        itemHeader.appendChild(headerSuffix);
-                    }
-                    itemDescriptionEl = document.getElementById(item.name + 'Description');
-                    itemDescriptionEl.innerHTML = item.description;
-                    addText(itemFooterContent, 'Defined in ');
-                    itemFooterContent.appendChild(itemFooterLink);
-                    addText(itemFooterLink, 'src/js/' + item.meta.filename + ' line number: ' + item.meta.lineno);
                 }
             };
         iMax = members.length;
@@ -592,11 +598,14 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                 createMemberItem(doc_data.thisClass, member);
             }
         }
-        if (isDefined(doc_data.parentClass)) {
+        if (isDefined(doc_data.parentClasses)) {
             for (i = 0; i < iMax; i++) {
                 member = members[i];
-                if (doc_data.parentClass[member.data].length > 0) {
-                    createMemberItem(doc_data.parentClass, member);
+                mMax = doc_data.parentClasses.length;
+                for (m = 0; m < mMax; m++) {
+                    if (doc_data.parentClasses[m][member.data].length > 0) {
+                        createMemberItem(doc_data.parentClasses[m], member);
+                    }
                 }
             }
         }

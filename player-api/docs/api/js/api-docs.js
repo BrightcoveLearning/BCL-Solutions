@@ -639,8 +639,8 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             j,
             jMax,
             parentCounter = 0,
+            // helper function to get the chain of parent classes
             getAncestorData = function (parent_class) {
-
                 // get data objects for the class
                 classes.parentClasses[parentCounter] = findClassObjects(docData, parent_class + ".js");
                 // check to see if there are any parent class items
@@ -685,61 +685,52 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         doc_class = fileName.substring(0, fileName.indexOf("."));
         srcFileName = doc_class + ".js";
         bclslog("srcFileName", srcFileName);
-        // get the data objects for this class
-        classes.thisClass = findClassObjects(docData, srcFileName);
-        // get the class overview object
-        bclslog("classes", classes);
-        idx = findObjectInArray(classes.thisClass, 'kind', 'class');
-        doc_data.thisClass = {};
-        doc_data.thisClass.headerInfo = copyObj(classes.thisClass[idx]);
-        // get the file path from @file object
-        idx = findObjectInArray(classes.thisClass, 'kind', 'file');
-        if (idx > -1) {
-            classFilePath = classes.thisClass[idx].name;
+        // video.js is a special case - all others will be the same
+        if (srcFileName === 'video.js') {
+            // for doc purposes, treat video like a class, though it's not
         } else {
-            classFilePath = doc_data.thisClass.headerInfo.meta.filename;
-        }
-        // set the doc title
-        text = document.createTextNode(doc_data.thisClass.headerInfo.name);
-        title.appendChild(text);
-        // remove any private items
-        privateItems = findObjectsInArray(classes.thisClass, "access", "private");
-        j = privateItems.length;
-        while (j > 0) {
-            j--;
-            classes.thisClass.splice(privateItems[j], 1);
-        }
-        // now get the member arrays
-        doc_data.thisClass.methods = getSubArray(classes.thisClass, 'kind', 'function');
-        doc_data.thisClass.methods = sortArray(doc_data.thisClass.methods, 'name');
-        doc_data.thisClass.events = getSubArray(classes.thisClass, 'kind', "event");
-        doc_data.thisClass.events = sortArray(doc_data.thisClass.events, 'name');
-        doc_data.thisClass.properties = getSubArray(classes.thisClass, 'kind', 'property');
-        doc_data.thisClass.properties = sortArray(doc_data.thisClass.properties, 'name');
-        bclslog("thisClass", doc_data.thisClass);
-        // get parent class, if any, and anything it inherits
-        if (isDefined(doc_data.thisClass.headerInfo.augments)) {
-            doc_data.parentClass = {};
-            doc_data.parentClasses = [];
-            classes.parentClasses = [];
-            parent_class_name = doc_data.thisClass.headerInfo.augments[0].toLowerCase();
-            getAncestorData(parent_class_name)
-        }
-        // remove any overridden items
-        jMax = classes.thisClass.length;
-        for (j = 0; j < jMax; j++) {
-            idx = findObjectInArray(classes.parentClasses[parentCounter], 'name', classes.thisClass[j].name);
-            if (idx > 0) {
-                overriddenItems.push(idx);
+            // get the data objects for this class
+            classes.thisClass = findClassObjects(docData, srcFileName);
+            // get the class overview object
+            bclslog("classes", classes);
+            idx = findObjectInArray(classes.thisClass, 'kind', 'class');
+            doc_data.thisClass = {};
+            doc_data.thisClass.headerInfo = copyObj(classes.thisClass[idx]);
+            // get the file path from @file object
+            idx = findObjectInArray(classes.thisClass, 'kind', 'file');
+            if (idx > -1) {
+                classFilePath = classes.thisClass[idx].name;
+            } else {
+                classFilePath = doc_data.thisClass.headerInfo.meta.filename;
             }
+            // set the doc title
+            text = document.createTextNode(doc_data.thisClass.headerInfo.name);
+            title.appendChild(text);
+            // remove any private items
+            privateItems = findObjectsInArray(classes.thisClass, "access", "private");
+            j = privateItems.length;
+            while (j > 0) {
+                j--;
+                classes.thisClass.splice(privateItems[j], 1);
+            }
+            // now get the member arrays
+            doc_data.thisClass.methods = getSubArray(classes.thisClass, 'kind', 'function');
+            doc_data.thisClass.methods = sortArray(doc_data.thisClass.methods, 'name');
+            doc_data.thisClass.events = getSubArray(classes.thisClass, 'kind', "event");
+            doc_data.thisClass.events = sortArray(doc_data.thisClass.events, 'name');
+            doc_data.thisClass.properties = getSubArray(classes.thisClass, 'kind', 'property');
+            doc_data.thisClass.properties = sortArray(doc_data.thisClass.properties, 'name');
+            bclslog("thisClass", doc_data.thisClass);
+            // get parent class, if any, and anything it inherits
+            if (isDefined(doc_data.thisClass.headerInfo.augments)) {
+                doc_data.parentClass = {};
+                doc_data.parentClasses = [];
+                classes.parentClasses = [];
+                parent_class_name = doc_data.thisClass.headerInfo.augments[0].toLowerCase();
+                getAncestorData(parent_class_name)
+            }
+            bclslog("parentClasses", doc_data.parentClasses);
         }
-        j = overriddenItems.length;
-        while (j > 0) {
-            j--;
-            classes.parentClasses[parentCounter].splice(overriddenItems[j], 1);
-        }
-
-        bclslog("parentClasses", doc_data.parentClasses);
         // now we're ready to roll
         addIndex();
         addHeaderContent();

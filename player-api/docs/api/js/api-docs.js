@@ -672,9 +672,10 @@ var BCLSVJS = (function(window, document, docData, hljs) {
                     doc_data.parentClasses[parentCounter].properties = sortArray(doc_data.parentClasses[parentCounter].properties, 'name');
                 }
                 // get parent class, if any, and anything it inherits
-                bclslog('current parent class', doc_data.parentClasses[parentCounter])
+                bclslog('current parent class', doc_data.parentClasses)
                 if (isDefined(doc_data.parentClasses[parentCounter].headerInfo.augments)) {
-                    parent_class_name = doc_data.parentClasses[parentCounter].headerInfo.augments[0].toLowerCase();
+                    idx = findObjectInArray(docData, 'name', doc_data.parentClasses[parentCounter].headerInfo.augments[0]);
+                    parent_class_name = docData[idx].meta.filename.replace('.js', '');
                     parentCounter++;
                     getAncestorData(parent_class_name);
                 }
@@ -755,10 +756,13 @@ var BCLSVJS = (function(window, document, docData, hljs) {
             bclslog("thisClass", doc_data.thisClass);
             // get parent class, if any, and anything it inherits
             if (isDefined(doc_data.thisClass.headerInfo.augments)) {
+                bclslog('doc_data.thisClass.headerInfo.augments', doc_data.thisClass.headerInfo.augments[0]);
                 doc_data.parentClass = {};
                 doc_data.parentClasses = [];
                 classes.parentClasses = [];
-                parent_class_name = doc_data.thisClass.headerInfo.augments[0].toLowerCase();
+                idx = findObjectInArray(docData, 'name', doc_data.thisClass.headerInfo.augments[0]);
+                bclslog('idx', idx);
+                parent_class_name = docData[idx].meta.filename.replace('.js', '');
                 getAncestorData(parent_class_name)
             }
             bclslog("parentClasses", doc_data.parentClasses);

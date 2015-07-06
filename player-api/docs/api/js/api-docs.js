@@ -313,9 +313,9 @@ var BCLSVJS = (function(window, document, docData, hljs) {
                     }
                     paramTbody.appendChild(paramTbodyRow);
                 }
+                topSection.appendChild(constructorParamsHeader);
+                topSection.appendChild(paramTable);
             }
-            topSection.appendChild(constructorParamsHeader);
-            topSection.appendChild(paramTable);
         }
         // add constructor params to signature if any
         if (constructorParams.length > 0) {
@@ -323,7 +323,7 @@ var BCLSVJS = (function(window, document, docData, hljs) {
         } else {
         text = document.createTextNode(headerData.name + '()');
         }
-        addText(constructorCode, text);
+        constructorCode.appendChild(text)
         descriptionEl = document.getElementById('classDescription');
         descriptionEl.innerHTML = headerData.description;
         // other stuff
@@ -672,6 +672,7 @@ var BCLSVJS = (function(window, document, docData, hljs) {
                     doc_data.parentClasses[parentCounter].properties = sortArray(doc_data.parentClasses[parentCounter].properties, 'name');
                 }
                 // get parent class, if any, and anything it inherits
+                bclslog('current parent class', doc_data.parentClasses[parentCounter])
                 if (isDefined(doc_data.parentClasses[parentCounter].headerInfo.augments)) {
                     parent_class_name = doc_data.parentClasses[parentCounter].headerInfo.augments[0].toLowerCase();
                     parentCounter++;

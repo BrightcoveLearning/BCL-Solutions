@@ -4,13 +4,6 @@ body {
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-@media (max-width: 500px) {
-    div.indexColumn {
-        display: block;
-        width: 100%;
-        vertical-align: top;
-    }
-
 a {
     color: #437ABE;
     text-decoration: none;
@@ -43,6 +36,15 @@ div.indexColumn {
     width: 30%;
     vertical-align: top;
 }
+
+@media (max-width: 700px) {
+    div.indexColumn {
+        display: block;
+        width: 100%;
+        vertical-align: top;
+    }
+
+
 .indexHeader {
     padding-left: 3em;
 }

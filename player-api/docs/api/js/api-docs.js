@@ -304,7 +304,7 @@ var BCLSVJS = (function(window, document, docData, hljs) {
                         text = document.createTextNode('yes');
                         constructorParams.push(headerData.params[k].name);
                     }
-                    addText(paramTD, text);
+                    paramTD.appendChild(text);
                     if (isDefined(headerData.params[k].description)) {
                         paramTbodyRow.appendChild(paramTD);
                         paramTD = createEl('td');
@@ -556,12 +556,11 @@ var BCLSVJS = (function(window, document, docData, hljs) {
                                     text = document.createTextNode('yes');
                                     itemParams.push(item.params[k].name);
                                 }
-                                addText(paramTD, text);
+                                paramTD.appendChild(text);
                                 if (isDefined(item.params[k].description)) {
                                     paramTbodyRow.appendChild(paramTD);
                                     paramTD = createEl('td');
-                                    text = document.createTextNode(item.params[k].description.slice(3, item.params[k].description.indexOf('</p>')));
-                                    addText(paramTD, text);
+                                    addText(paramTD, item.params[k].description.slice(3, item.params[k].description.indexOf('</p>')));
                                     paramTbodyRow.appendChild(paramTD);
                                 }
                                 paramTbody.appendChild(paramTbodyRow);

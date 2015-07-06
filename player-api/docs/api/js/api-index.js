@@ -118,13 +118,41 @@ var BCLSVJS = (function (window, document, docData) {
      * add the class header content
      */
     addHeaderContent = function () {
-        var mainContent = createEl("div", {id: "main", class: "section"}),
+        var doc_body = document.getElementsByTagName('body')[0],
+            mainContent = createEl("div", {id: "main"}),
             topSection = createEl("section", {id: "top", class: "section"}),
             header = createEl("h1"),
-            text = document.createTextNode("video.js API Documentation Index");
+            text = document.createTextNode("video.js API Documentation Index"),
+            topP,
+            topPtext,
+            topLink,
+            topLinkStrong;
         // add elements
         header.appendChild(text);
         topSection.appendChild(header);
+        // add paragraph for videojs function
+        topP = createEl('p');
+        topPtext = document.createTextNode('If you are new to video.js, look first at ');
+        topP.appendChild(topPtext);
+        topLink = createEl('a', {href: 'video.html'});
+        topP.appendChild(topLink);
+        topPtext = document.createTextNode('videojs');
+        topLink.appendChild(topPtext);
+        topPtext = document.createTextNode(', which Doubles as the main function for users to create a player instance and also the main library object.');
+        topP.appendChild(topPtext);
+        topSection.appendChild(topP);
+        // add paragraph for the player class
+        topP = createEl('p');
+        topPtext = document.createTextNode('Next, look at the ');
+        topP.appendChild(topPtext);
+        topLink = createEl('a', {href: 'player.html'});
+        topP.appendChild(topLink);
+        topPtext = document.createTextNode('player');
+        topLink.appendChild(topPtext);
+        topPtext = document.createTextNode(' class. An instance of the Player class is created when any of the Video.js setup methods are used to initialize a video. The methods and events of the player object are the most commonly used for managing the player and playback.');
+        topP.appendChild(topPtext);
+        topSection.appendChild(topP);
+        // add the top section to the document
         mainContent.appendChild(topSection);
         doc_body.appendChild(mainContent);
         main = document.getElementById("main");

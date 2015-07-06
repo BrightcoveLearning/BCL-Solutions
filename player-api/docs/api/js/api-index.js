@@ -137,7 +137,9 @@ var BCLSVJS = (function (window, document, docData) {
         topLink = createEl('a', {href: 'video.html'});
         topP.appendChild(topLink);
         topPtext = document.createTextNode('videojs');
-        topLink.appendChild(topPtext);
+        topLinkStrong = createEl('strong');
+        topLink.appendChild(topLinkStrong);
+        topLinkStrong.appendChild(topPtext);
         topPtext = document.createTextNode(', which Doubles as the main function for users to create a player instance and also the main library object.');
         topP.appendChild(topPtext);
         topSection.appendChild(topP);
@@ -148,7 +150,9 @@ var BCLSVJS = (function (window, document, docData) {
         topLink = createEl('a', {href: 'player.html'});
         topP.appendChild(topLink);
         topPtext = document.createTextNode('player');
-        topLink.appendChild(topPtext);
+        topLinkStrong = createEl('strong');
+        topLink.appendChild(topLinkStrong);
+        topLinkStrong.appendChild(topPtext);
         topPtext = document.createTextNode(' class. An instance of the Player class is created when any of the Video.js setup methods are used to initialize a video. The methods and events of the player object are the most commonly used for managing the player and playback.');
         topP.appendChild(topPtext);
         topSection.appendChild(topP);
@@ -243,9 +247,12 @@ var BCLSVJS = (function (window, document, docData) {
      */
     init = function () {
         var privateItems = [],
+            videojs = {name: 'videojs', meta: {filename: 'video.js'}},
             j;
         // get the data objects for all classes
         classes = getSubArray(docData, "kind", "class");
+        // videojs is a special case
+        classes.push(videojs);
         bclslog("classes", classes);
         // set the doc title
         title.innerHTML = "API Documentation Index";

@@ -243,6 +243,8 @@ var BCLSVJS = (function(window, document, docData, hljs) {
         definedIn.appendChild(definedInLink);
         addText(definedInLink, headerData.meta.filename + ' line number: ' + headerData.meta.lineno);
         mainContent.appendChild(topSection);
+        // page header
+        addText(header, headerData.name);
         // parent info if this class extends another
         if (isDefined(doc_data.parentClasses)) {
             topSection.appendChild(extendsNode);
@@ -256,8 +258,6 @@ var BCLSVJS = (function(window, document, docData, hljs) {
             topSection.appendChild(constructorHeader);
             topSection.appendChild(constructorPre);
             constructorPre.appendChild(constructorCode);
-            // page header
-            addText(header, headerData.name);
             // create the constructor info
             addText(constructorHeader, 'Constructor');
 

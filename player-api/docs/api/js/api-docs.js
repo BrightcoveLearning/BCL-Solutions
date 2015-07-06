@@ -1,4 +1,4 @@
-var BCLSVJS = (function(window, document, docData, hljs) {
+var BCLSVJS = (function (window, document, docData, hljs) {
     'use strict';
     var title = document.getElementsByTagName('title')[0],
         // data structures
@@ -38,7 +38,7 @@ var BCLSVJS = (function(window, document, docData, hljs) {
      * @param  {string} context - description of the data
      * @param  {*} message - the data to be logged by the console
      */
-    bclslog = function(context, message) {
+    bclslog = function (context, message) {
         if (window['console'] && console['log']) {
             console.log(context, message);
         }
@@ -49,7 +49,7 @@ var BCLSVJS = (function(window, document, docData, hljs) {
      * @param {*} x the variable to test
      * @return {Boolean} true if variable is defined and has a value
      */
-    isDefined = function(x) {
+    isDefined = function (x) {
         if (x === '' || x === null || x === undefined || x === NaN) {
             return false;
         }
@@ -62,7 +62,7 @@ var BCLSVJS = (function(window, document, docData, hljs) {
      * @param {string} item to check for
      * @return {boolean} true if item is in the array, else false
      */
-    isItemInArray = function(arr, item) {
+    isItemInArray = function (arr, item) {
         var i,
             iMax = arr.length;
         for (i = 0; i < iMax; i++) {
@@ -78,7 +78,7 @@ var BCLSVJS = (function(window, document, docData, hljs) {
      * @param  {object} obj - the object you want a copy
      * @return {object}     the copy
      */
-    copyObj = function(obj) {
+    copyObj = function (obj) {
         if (isDefined(obj)) {
             return JSON.parse(JSON.stringify(obj));
         }
@@ -94,7 +94,7 @@ var BCLSVJS = (function(window, document, docData, hljs) {
      * @param {string|number} value - value of the property to search for
      * @return {integer} index of first instance if found, otherwise returns -1
      */
-    findObjectInArray = function(targetArray, objProperty, value) {
+    findObjectInArray = function (targetArray, objProperty, value) {
         var i, totalItems = targetArray.length, objFound = false;
         for (i = 0; i < totalItems; i++) {
             if (targetArray[i][objProperty] === value) {
@@ -116,7 +116,7 @@ var BCLSVJS = (function(window, document, docData, hljs) {
      * @param {string|number} value - value of the property to search for
      * @return {array} array of indexes for matching objects
      */
-    findObjectsInArray = function(targetArray, objProperty, value) {
+    findObjectsInArray = function (targetArray, objProperty, value) {
         var i, totalItems = targetArray.length, newArr = [];
         for (i = 0; i < totalItems; i++) {
             if (targetArray[i][objProperty] === value) {
@@ -134,7 +134,7 @@ var BCLSVJS = (function(window, document, docData, hljs) {
      * @param {string|number} value - value of the property to search for
      * @return {array} array of objects with matching property value
      */
-    getSubArray = function(targetArray, objProperty, value) {
+    getSubArray = function (targetArray, objProperty, value) {
         var i, totalItems = targetArray.length, idxArr = [];
         for (i = 0; i < totalItems; i++) {
             if (targetArray[i][objProperty] === value) {
@@ -150,8 +150,8 @@ var BCLSVJS = (function(window, document, docData, hljs) {
      * @param {string} objProperty - property whose value to sort on
      * @return {array} the sorted array
      */
-    sortArray = function(targetArray, objProperty) {
-        targetArray.sort(function(a, b) {
+    sortArray = function (targetArray, objProperty) {
+        targetArray.sort(function (a, b) {
             var propA = a[objProperty].toLowerCase(), propB = b[objProperty].toLowerCase();
             // sort ascending; reverse propA and propB to sort descending
             if (propA < propB) {
@@ -170,7 +170,7 @@ var BCLSVJS = (function(window, document, docData, hljs) {
      * @param  {object} attributes - attributes to add to the element
      * @return {object} the HTML element
      */
-    createEl = function(type, attributes) {
+    createEl = function (type, attributes) {
         var el;
         if (isDefined(type)) {
             el = document.createElement(type);
@@ -188,7 +188,7 @@ var BCLSVJS = (function(window, document, docData, hljs) {
      * @param {object|node} el - the node (element) to add the text to
      * @param {string} str - the text to add
      */
-    addText = function(el, str) {
+    addText = function (el, str) {
         var text = document.createTextNode(str);
         el.appendChild(text);
     };
@@ -199,7 +199,7 @@ var BCLSVJS = (function(window, document, docData, hljs) {
      * @param {string} filename - the filename to look for in the meta object
      * @return {array} - array of the objects found
      */
-    findClassObjects = function(arr, filename) {
+    findClassObjects = function (arr, filename) {
         var i, totalItems = arr.length, newArr = [];
         for (i = 0; i < totalItems; i++) {
             if (isDefined(arr[i].meta)) {
@@ -215,7 +215,7 @@ var BCLSVJS = (function(window, document, docData, hljs) {
     /**
      * add the class header content
      */
-    addHeaderContent = function() {
+    addHeaderContent = function () {
         var topSection = createEl('section', {id: 'top', class: 'section'}),
             headerData = doc_data.thisClass.headerInfo,
             header = createEl('h1', {id: headerData.name}),
@@ -319,19 +319,18 @@ var BCLSVJS = (function(window, document, docData, hljs) {
         }
         // add constructor params to signature if any
         if (constructorParams.length > 0) {
-        text = document.createTextNode(headerData.name + '( ' + constructorParams.join(',') + ' )');
+            text = document.createTextNode(headerData.name + '( ' + constructorParams.join(',') + ' )');
         } else {
-        text = document.createTextNode(headerData.name + '()');
+            text = document.createTextNode(headerData.name + '()');
         }
-        constructorCode.appendChild(text)
+        constructorCode.appendChild(text);
         descriptionEl = document.getElementById('classDescription');
         descriptionEl.innerHTML = headerData.description;
-        // other stuff
     };
     /**
      * add the side nav
      */
-    addIndex = function() {
+    addIndex = function () {
         var section = createEl('section', {id: 'index', class: 'side-nav'}),
             navHeader = createEl('h2', {class: 'sideNavHeader'}),
             navHeaderLink = createEl('a', {href: 'index.html'}),
@@ -346,27 +345,27 @@ var BCLSVJS = (function(window, document, docData, hljs) {
             listLink,
             classHeader,
             parentHeader,
-            text,
             i,
             iMax,
             j,
             jMax,
-            classHasMembers = function(member) {
+            classHasMembers = function (member) {
                 if (doc_data.thisClass[member].length > 0) {
                     return true;
                 }
                 return false;
             },
-            parentsHaveMembers = function(member) {
+            parentsHaveMembers = function () {
                 if (doc_data.parentClasses.length > 0) {
                     for (i = 0; i < doc_data.parentClasses.length; i++) {
-                        if (doc_data.parentClasses[i][thisMember].length > 0);
-                        return true;
+                        if (doc_data.parentClasses[i][thisMember].length > 0) {
+                            return true;
+                        }
                     }
                     return false;
                 }
             },
-            makeList = function(classArr, parentArr, member, list) {
+            makeList = function (classArr, parentArr, member, list) {
                 thisMember = member.toLowerCase();
                 if (classArr.length > 0 || (isDefined(doc_data.parentClass) && parentArr.length > 0)) {
                     // add member list header
@@ -450,7 +449,7 @@ var BCLSVJS = (function(window, document, docData, hljs) {
     /**
      * add the member content
      */
-    addMembersContent = function() {
+    addMembersContent = function () {
         var members = [{name: 'Properties', data: 'properties'}, {name: 'Methods', data: 'methods'}, {name: 'Events', data: 'events'}],
             member,
             addedMembers = [],
@@ -463,15 +462,11 @@ var BCLSVJS = (function(window, document, docData, hljs) {
             itemHeaderStr,
             itemParams = [],
             itemParamsHeader,
-            itemParamsList,
-            itemParamsItem,
-            itemParamsStr,
             itemDescription,
             itemDescriptionEl,
             itemFooter,
             itemFooterLink,
             itemFooterContent,
-            itemFooterContentEl,
             paramTable,
             paramThead,
             paramTbody,
@@ -491,7 +486,7 @@ var BCLSVJS = (function(window, document, docData, hljs) {
             mMax,
             topLinkP,
             topLinkA,
-            createMemberItem = function(classData, member) {
+            createMemberItem = function (classData, member) {
                 section = createEl('section', {id: member.name.toLowerCase(), class: 'section'});
                 main.appendChild(section);
                 header = createEl('h2');
@@ -511,7 +506,7 @@ var BCLSVJS = (function(window, document, docData, hljs) {
                         itemDescription = createEl('div', {id: item.name + 'Description', class: 'description'});
                         itemWrapper.appendChild(itemDescription);
                         itemFooter = createEl('p', {class: 'vjs-only'});
-                        itemFooterLink = createEl('a', {href: docsPath + item.meta.filename + '#' + item.meta.lineno})
+                        itemFooterLink = createEl('a', {href: docsPath + item.meta.filename + '#' + item.meta.lineno});
                         itemFooterContent = createEl('em', {id: item.name + 'Footer'});
                         itemFooter.appendChild(itemFooterContent);
                         topLinkP = createEl('p');
@@ -613,7 +608,7 @@ var BCLSVJS = (function(window, document, docData, hljs) {
     /**
      * use hljs to highlight the syntax in code blocks
      */
-    highlightCode = function() {
+    highlightCode = function () {
         var codeBlocks = document.querySelectorAll("pre code"),
             i,
             iMax;
@@ -627,20 +622,17 @@ var BCLSVJS = (function(window, document, docData, hljs) {
     /**
      * init gets things going
      */
-    init = function() {
+    init = function () {
         var fileName,
             srcFileName,
-            parent_class,
             parent_class_name,
             privateItems = [],
-            overriddenItems = [],
             idx,
             text,
             j,
-            jMax,
             parentCounter = 0,
             // helper function to get the chain of parent classes
-            getAncestorData = function(parent_class) {
+            getAncestorData = function (parent_class) {
                 // get data objects for the class
                 classes.parentClasses[parentCounter] = findClassObjects(docData, parent_class + ".js");
                 // check to see if there are any parent class items
@@ -672,7 +664,7 @@ var BCLSVJS = (function(window, document, docData, hljs) {
                     doc_data.parentClasses[parentCounter].properties = sortArray(doc_data.parentClasses[parentCounter].properties, 'name');
                 }
                 // get parent class, if any, and anything it inherits
-                bclslog('current parent class', doc_data.parentClasses)
+                bclslog('current parent class', doc_data.parentClasses);
                 if (isDefined(doc_data.parentClasses[parentCounter].headerInfo.augments)) {
                     idx = findObjectInArray(docData, 'name', doc_data.parentClasses[parentCounter].headerInfo.augments[0]);
                     parent_class_name = docData[idx].meta.filename.replace('.js', '');
@@ -763,7 +755,7 @@ var BCLSVJS = (function(window, document, docData, hljs) {
                 idx = findObjectInArray(docData, 'name', doc_data.thisClass.headerInfo.augments[0]);
                 bclslog('idx', idx);
                 parent_class_name = docData[idx].meta.filename.replace('.js', '');
-                getAncestorData(parent_class_name)
+                getAncestorData(parent_class_name);
             }
             bclslog("parentClasses", doc_data.parentClasses);
         }

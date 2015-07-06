@@ -46,6 +46,10 @@ function createFilenameArray(classData) {
         str = str.replace('.js', '.html');
         filenameArray.push(str);
     }
+    // videojs is special case
+    filenameArray.push('video.html');
+    filenameArray = filenameArray.sort();
+    console.log('filenameArray', filenameArray);
     // now create the files
     createFiles(filenameArray);
 }

@@ -2,7 +2,7 @@ var BCLS = (function ($, window, Pikaday) {
     "use strict";
     var // media api stuff
         getPlaylists,
-        page_size = 100,
+        page_size = 25,
         page_number = 0,
         total_pages = 0,
         playlistData = [],

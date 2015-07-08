@@ -336,8 +336,8 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             navHeaderLink = createEl('a', {href: 'index.html'}),
             memberIndex = createEl('div', {id: 'memberIndex', class: 'member-index'}),
             thisMember,
+            addedMembers = {},
             item,
-            addedMembers = [],
             thisParent,
             parentList,
             header,
@@ -349,6 +349,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             iMax,
             j,
             jMax,
+            // helper functions
             classHasMembers = function (member) {
                 if (doc_data.thisClass[member].length > 0) {
                     return true;
@@ -386,13 +387,15 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                         iMax = classArr.length;
                         for (i = 0; i < iMax; i++) {
                             item = classArr[i].name;
-                            // keep track of added members to remove overridden ones
-                            addedMembers.push(item);
-                            listItem = createEl('li');
-                            listLink = createEl('a', {href: '#' + member + item});
-                            addText(listLink, item);
-                            listItem.appendChild(listLink);
-                            list.appendChild(listItem);
+                            if (!isItemInArray(addedMembers[member], item)) {
+                                // keep track of added members to remove overridden ones
+                                addedMembers[member].push(item);
+                                listItem = createEl('li');
+                                listLink = createEl('a', {href: '#' + member + item});
+                                addText(listLink, item);
+                                listItem.appendChild(listLink);
+                                list.appendChild(listItem);
+                            }
                         }
                     }
 
@@ -410,8 +413,8 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                                 iMax = thisParent[thisMember].length;
                                 for (i = 0; i < iMax; i++) {
                                     item = thisParent[thisMember][i].name;
-                                    if (!isItemInArray(addedMembers, item)) {
-                                        addedMembers.push(item);
+                                    if (!isItemInArray(addedMembers[member], item)) {
+                                        addedMembers[member].push(item);
                                         listItem = createEl('li');
                                         listLink = createEl('a', {href: '#' + member + item});
                                         listItem.appendChild(listLink);
@@ -427,6 +430,10 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                     }
                 }
             };
+        // data structure to track members already added
+        addedMembers.Methods = [];
+        addedMembers.Properties = [];
+        addedMembers.Events = [];
 
         navHeader.appendChild(navHeaderLink);
         addText(navHeaderLink, 'API Index');
@@ -451,7 +458,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
     addMembersContent = function () {
         var members = [{name: 'Properties', data: 'properties'}, {name: 'Methods', data: 'methods'}, {name: 'Events', data: 'events'}],
             member,
-            addedMembers = [],
+            addedMembers = {},
             section,
             header,
             headerSuffix,
@@ -485,13 +492,15 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             mMax,
             topLinkP,
             topLinkA,
+            // helper function
             createMemberItem = function (classData, member) {
+                bclslog("member", member);
                 // create the class member items
                 jMax = classData[member.data].length;
                 for (j = 0; j < jMax; j++) {
                     item = classData[member.data][j];
-                    if (!isItemInArray(addedMembers, item.name)) {
-                        addedMembers.push(item.name);
+                    if (!isItemInArray(addedMembers[member.name], item.name)) {
+                        addedMembers[member.name].push(item.name);
                         itemWrapper = createEl('div', {id: member.name + item.name});
                         section.appendChild(itemWrapper);
                         itemHeader = createEl('h3', {id: item.name + 'Header'});
@@ -580,6 +589,10 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                     }
                 }
             };
+        // data structure to track members already added
+        addedMembers.Methods = [];
+        addedMembers.Properties = [];
+        addedMembers.Events = [];
         iMax = members.length;
         for (i = 0; i < iMax; i++) {
             member = members[i];

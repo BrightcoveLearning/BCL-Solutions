@@ -389,7 +389,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                             // keep track of added members to remove overridden ones
                             addedMembers.push(item);
                             listItem = createEl('li');
-                            listLink = createEl('a', {href: '#' + item});
+                            listLink = createEl('a', {href: '#' + member + item});
                             addText(listLink, item);
                             listItem.appendChild(listLink);
                             list.appendChild(listItem);
@@ -413,7 +413,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                                     if (!isItemInArray(addedMembers, item)) {
                                         addedMembers.push(item);
                                         listItem = createEl('li');
-                                        listLink = createEl('a', {href: '#' + item});
+                                        listLink = createEl('a', {href: '#' + member + item});
                                         listItem.appendChild(listLink);
                                         addText(listLink, item);
                                         parentList.appendChild(listItem);
@@ -486,18 +486,13 @@ var BCLSVJS = (function (window, document, docData, hljs) {
             topLinkP,
             topLinkA,
             createMemberItem = function (classData, member) {
-                section = createEl('section', {id: member.name.toLowerCase(), class: 'section'});
-                main.appendChild(section);
-                header = createEl('h2');
-                addText(header, member.name);
-                section.appendChild(header);
                 // create the class member items
                 jMax = classData[member.data].length;
                 for (j = 0; j < jMax; j++) {
                     item = classData[member.data][j];
                     if (!isItemInArray(addedMembers, item.name)) {
                         addedMembers.push(item.name);
-                        itemWrapper = createEl('div', {id: item.name});
+                        itemWrapper = createEl('div', {id: member.name + item.name});
                         section.appendChild(itemWrapper);
                         itemHeader = createEl('h3', {id: item.name + 'Header'});
                         itemHeaderStr = item.name;
@@ -505,15 +500,15 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                         itemDescription = createEl('div', {id: item.name + 'Description', class: 'description'});
                         itemWrapper.appendChild(itemDescription);
                         itemFooter = createEl('p', {class: 'vjs-only'});
-                        itemFooterLink = createEl('a', {href: docsPath + item.meta.filename + '#' + item.meta.lineno});
+                        itemFooterLink = createEl('a', {href: docsPath + item.meta.filename + '#L' + item.meta.lineno});
                         itemFooterContent = createEl('em', {id: item.name + 'Footer'});
                         itemFooter.appendChild(itemFooterContent);
                         topLinkP = createEl('p');
                         topLinkA = createEl('a', {href: '#top'});
                         addText(topLinkA, '[back to top]');
                         topLinkP.appendChild(topLinkA);
-                        // handle params if any
-                        if (isDefined(item.params)) {
+                        // for methods only handle params if any
+                        if (member.name === 'Methods' && isDefined(item.params)) {
                             itemParams = [];
                             itemParamsHeader = createEl('h4');
                             addText(itemParamsHeader, 'Parameters');
@@ -565,7 +560,7 @@ var BCLSVJS = (function (window, document, docData, hljs) {
                             }
                             itemWrapper.appendChild(itemParamsHeader);
                             itemWrapper.appendChild(paramTable);
-                        } else {
+                        } else if (member.name === 'Methods') {
                             itemHeaderStr += '()';
                         }
                         itemWrapper.appendChild(itemFooter);
@@ -589,16 +584,20 @@ var BCLSVJS = (function (window, document, docData, hljs) {
         for (i = 0; i < iMax; i++) {
             member = members[i];
             if (doc_data.thisClass[member.data].length > 0) {
+                // create the member section
+                section = createEl('section', {id: member.name.toLowerCase(), class: 'section'});
+                main.appendChild(section);
+                header = createEl('h2');
+                addText(header, member.name);
+                section.appendChild(header);
+                // create the member items
                 createMemberItem(doc_data.thisClass, member);
-            }
-        }
-        if (isDefined(doc_data.parentClasses)) {
-            for (i = 0; i < iMax; i++) {
-                member = members[i];
-                mMax = doc_data.parentClasses.length;
-                for (m = 0; m < mMax; m++) {
-                    if (doc_data.parentClasses[m][member.data].length > 0) {
-                        createMemberItem(doc_data.parentClasses[m], member);
+                if (isDefined(doc_data.parentClasses)) {
+                    mMax = doc_data.parentClasses.length;
+                    for (m = 0; m < mMax; m++) {
+                        if (doc_data.parentClasses[m][member.data].length > 0) {
+                            createMemberItem(doc_data.parentClasses[m], member);
+                        }
                     }
                 }
             }

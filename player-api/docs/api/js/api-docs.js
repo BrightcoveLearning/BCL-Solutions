@@ -218,11 +218,11 @@ var BCLSVJS = (function (window, document, docData, hljs) {
     addHeaderContent = function () {
         var topSection = createEl('section', {id: 'top', class: 'section'}),
             headerData = doc_data.thisClass.headerInfo,
-            header = createEl('h1', {id: headerData.name}),
+            header = createEl('h1'),
             extendsNode = createEl('p'),
             extendsLink,
             definedIn = createEl('p'),
-            definedInLink = createEl('a', {href: docsPath + classFilePath}),
+            definedInLink = createEl('a', {href: docsPath + classFilePath + "#L" + headerData.meta.lineno}),
             description = createEl('div', {style: 'border:none', id: 'classDescription'}),
             descriptionEl,
             constructorHeader = createEl('h3'),

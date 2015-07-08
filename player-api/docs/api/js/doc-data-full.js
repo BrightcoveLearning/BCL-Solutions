@@ -42,11 +42,11 @@ var docData =
         "comment": "/**\n* Initial play button. Shows before the video has played. The hiding of the\n* big play button is done via CSS and player states.\n*\n* @param {Object} player  Main Player\n* @param {Object=} options Object of option names and values\n* @extends Button\n* @class BigPlayButton\n*/",
         "meta": {
             "range": [
-                35,
-                312
+                146,
+                423
             ],
             "filename": "big-play-button.js",
-            "lineno": 5,
+            "lineno": 9,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -81,14 +81,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Allow sub components to stack CSS class names\n  *\n  * @return {String} The constructed class name\n  * @method buildCSSClass\n  */",
+        "comment": "/**\n* Allow sub components to stack CSS class names\n*\n* @return {String} The constructed class name\n* @method buildCSSClass\n*/",
         "meta": {
             "range": [
-                314,
-                450
+                442,
+                568
             ],
             "filename": "big-play-button.js",
-            "lineno": 15,
+            "lineno": 24,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -109,14 +109,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handles click for play \n  *\n  * @method handleClick\n  */",
+        "comment": "/**\n* Handles click for play \n*\n* @method handleClick\n*/",
         "meta": {
             "range": [
-                452,
-                516
+                581,
+                637
             ],
             "filename": "big-play-button.js",
-            "lineno": 22,
+            "lineno": 34,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -149,11 +149,11 @@ var docData =
         "comment": "/**\n* Base class for all buttons\n*\n* @param {Object} player  Main Player\n* @param {Object=} options Object of option names and values\n* @extends Component\n* @class Button\n*/",
         "meta": {
             "range": [
-                26,
-                199
+                169,
+                342
             ],
             "filename": "button.js",
-            "lineno": 5,
+            "lineno": 13,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -188,14 +188,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @param {String=} type Element's node type. e.g. 'div'\n  * @param {Object=} props An object of element attributes that should be set on the element Tag name \n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @param {String=} type Element's node type. e.g. 'div'\n* @param {Object=} props An object of element attributes that should be set on the element Tag name \n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                201,
-                456
+                382,
+                623
             ],
             "filename": "button.js",
-            "lineno": 14,
+            "lineno": 34,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -237,14 +237,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Controls text - both request and localize \n  *\n  * @param {String} text Text for button\n  * @return {String}\n  * @method controlText\n  */",
+        "comment": "/**\n* Controls text - both request and localize \n*\n* @param {String} text Text for button\n* @return {String}\n* @method controlText\n*/",
         "meta": {
             "range": [
-                458,
-                603
+                690,
+                823
             ],
             "filename": "button.js",
-            "lineno": 23,
+            "lineno": 64,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -275,14 +275,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Allows sub components to stack CSS class names\n  *\n  * @return {String}\n  * @method buildCSSClass\n  */",
+        "comment": "/**\n* Allows sub components to stack CSS class names\n*\n* @return {String}\n* @method buildCSSClass\n*/",
         "meta": {
             "range": [
-                605,
-                715
+                851,
+                951
             ],
             "filename": "button.js",
-            "lineno": 31,
+            "lineno": 80,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -302,14 +302,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle Click - Override with specific functionality for button\n  *\n  * @method handleClick\n  */",
+        "comment": "/**\n* Handle Click - Override with specific functionality for button\n*\n* @method handleClick\n*/",
         "meta": {
             "range": [
-                717,
-                820
+                964,
+                1059
             ],
             "filename": "button.js",
-            "lineno": 38,
+            "lineno": 90,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -320,14 +320,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle Focus - Add keyboard functionality to element\n  *\n  * @method handleFocus\n  */",
+        "comment": "/**\n* Handle Focus - Add keyboard functionality to element\n*\n* @method handleFocus\n*/",
         "meta": {
             "range": [
-                822,
-                915
+                1066,
+                1151
             ],
             "filename": "button.js",
-            "lineno": 44,
+            "lineno": 97,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -338,14 +338,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle KeyPress (document level) - Trigger click when keys are pressed\n  *\n  * @method handleKeyPress\n  */",
+        "comment": "/**\n* Handle KeyPress (document level) - Trigger click when keys are pressed\n*\n* @method handleKeyPress\n*/",
         "meta": {
             "range": [
-                917,
-                1031
+                1164,
+                1270
             ],
             "filename": "button.js",
-            "lineno": 50,
+            "lineno": 106,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -356,14 +356,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle Blur - Remove keyboard triggers\n  *\n  * @method handleBlur\n  */",
+        "comment": "/**\n* Handle Blur - Remove keyboard triggers\n*\n* @method handleBlur\n*/",
         "meta": {
             "range": [
-                1033,
-                1111
+                1295,
+                1365
             ],
             "filename": "button.js",
-            "lineno": 56,
+            "lineno": 119,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -396,11 +396,11 @@ var docData =
         "comment": "/**\n* Base UI Component class\n* Components are embeddable UI objects that are represented by both a\n* javascript object and an element in the DOM. They can be children of other\n* components, and can have many children themselves.\n* ```js\n*     // adding a button to the player\n*     var button = player.addChild('button');\n*     button.el(); // -> button element\n* ```\n* ```html\n*     <div class=\"video-js\">\n*       <div class=\"vjs-button\">Button</div>\n*     </div>\n* ```\n* Components are also event emitters.\n* ```js\n*     button.on('click', function(){\n*       console.log('Button Clicked!');\n*     });\n*     button.trigger('customevent');\n* ```\n*\n* @param {Object} player  Main Player\n* @param {Object=} options Object of option names and values\n* @param {Function=} ready    Ready callback function\n* @class Component\n*/",
         "meta": {
             "range": [
-                81,
-                905
+                116,
+                940
             ],
             "filename": "component.js",
-            "lineno": 7,
+            "lineno": 18,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -442,14 +442,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Dispose of the component and all child components\n  *\n  * @method dispose\n  */",
+        "comment": "/**\n* Dispose of the component and all child components\n*\n* @method dispose\n*/",
         "meta": {
             "range": [
-                907,
-                993
+                1124,
+                1202
             ],
             "filename": "component.js",
-            "lineno": 36,
+            "lineno": 107,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -460,14 +460,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Return the component's player\n  *\n  * @return {Player}\n  * @method player\n  */",
+        "comment": "/**\n* Return the component's player\n*\n* @return {Player}\n* @method player\n*/",
         "meta": {
             "range": [
-                995,
-                1081
+                1290,
+                1366
             ],
             "filename": "component.js",
-            "lineno": 42,
+            "lineno": 141,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -487,14 +487,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Deep merge of options objects\n  * Whenever a property is an object on both options objects\n  * the two properties will be merged using mergeOptions.\n  * This is used for merging options for child components. We\n  * want it to be easy to override individual options on a child\n  * component without having to rewrite all the other default options.\n  * ```js\n  *     Parent.prototype.options_ = {\n  *       children: {\n  *         'childOne': { 'foo': 'bar', 'asdf': 'fdsa' },\n  *         'childTwo': {},\n  *         'childThree': {}\n  *       }\n  *     }\n  *     newOptions = {\n  *       children: {\n  *         'childOne': { 'foo': 'baz', 'abc': '123' }\n  *         'childTwo': null,\n  *         'childFour': {}\n  *       }\n  *     }\n  *\n  *     this.options(newOptions);\n  * ```\n  * RESULT\n  *```js\n  *     {\n  *       children: {\n  *         'childOne': { 'foo': 'baz', 'asdf': 'fdsa', 'abc': '123' },\n  *         'childTwo': null, // Disabled. Won't be initialized.\n  *         'childThree': {},\n  *         'childFour': {}\n  *       }\n  *     }\n  * ```\n  *\n  * @param  {Object} obj Object of new option values\n  * @return {Object}     A NEW object of this.options_ and obj merged\n  * @method options\n  */",
+        "comment": "/**\n* Deep merge of options objects\n* Whenever a property is an object on both options objects\n* the two properties will be merged using mergeOptions.\n* This is used for merging options for child components. We\n* want it to be easy to override individual options on a child\n* component without having to rewrite all the other default options.\n* ```js\n*     Parent.prototype.options_ = {\n*       children: {\n*         'childOne': { 'foo': 'bar', 'asdf': 'fdsa' },\n*         'childTwo': {},\n*         'childThree': {}\n*       }\n*     }\n*     newOptions = {\n*       children: {\n*         'childOne': { 'foo': 'baz', 'abc': '123' }\n*         'childTwo': null,\n*         'childFour': {}\n*       }\n*     }\n*\n*     this.options(newOptions);\n* ```\n* RESULT\n*```js\n*     {\n*       children: {\n*         'childOne': { 'foo': 'baz', 'asdf': 'fdsa', 'abc': '123' },\n*         'childTwo': null, // Disabled. Won't be initialized.\n*         'childThree': {},\n*         'childFour': {}\n*       }\n*     }\n* ```\n*\n* @param  {Object} obj Object of new option values\n* @return {Object}     A NEW object of this.options_ and obj merged\n* @method options\n*/",
         "meta": {
             "range": [
-                1083,
-                2299
+                1379,
+                2515
             ],
             "filename": "component.js",
-            "lineno": 49,
+            "lineno": 151,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -526,14 +526,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get the component's DOM element\n  * ```js\n  *     var domEl = myComponent.el();\n  * ```\n  *\n  * @return {Element}\n  * @method el\n  */",
+        "comment": "/**\n* Get the component's DOM element\n* ```js\n*     var domEl = myComponent.el();\n* ```\n*\n* @return {Element}\n* @method el\n*/",
         "meta": {
             "range": [
-                2301,
-                2442
+                2549,
+                2674
             ],
             "filename": "component.js",
-            "lineno": 91,
+            "lineno": 203,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -553,14 +553,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @param  {String=} tagName  Element's node type. e.g. 'div'\n  * @param  {Object=} attributes An object of element attributes that should be set on the element\n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @param  {String=} tagName  Element's node type. e.g. 'div'\n* @param  {Object=} attributes An object of element attributes that should be set on the element\n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                2444,
-                2700
+                2687,
+                2929
             ],
             "filename": "component.js",
-            "lineno": 101,
+            "lineno": 216,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -602,14 +602,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Return the component's DOM element where children are inserted.\n  * Will either be the same as el() or a new element defined in createEl().\n  *\n  * @return {Element}\n  * @method contentEl\n  */",
+        "comment": "/**\n* Return the component's DOM element where children are inserted.\n* Will either be the same as el() or a new element defined in createEl().\n*\n* @return {Element}\n* @method contentEl\n*/",
         "meta": {
             "range": [
-                2702,
-                2902
+                3014,
+                3202
             ],
             "filename": "component.js",
-            "lineno": 110,
+            "lineno": 252,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -629,14 +629,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get the component's ID\n  * ```js\n  *     var id = myComponent.id();\n  * ```\n  *\n  * @return {String}\n  * @method id\n  */",
+        "comment": "/**\n* Get the component's ID\n* ```js\n*     var id = myComponent.id();\n* ```\n*\n* @return {String}\n* @method id\n*/",
         "meta": {
             "range": [
-                2904,
-                3032
+                3215,
+                3327
             ],
             "filename": "component.js",
-            "lineno": 118,
+            "lineno": 263,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -656,14 +656,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get the component's name. The name is often used to reference the component.\n  * ```js\n  *     var name = myComponent.name();\n  * ```\n  *\n  * @return {String}\n  * @method name\n  */",
+        "comment": "/**\n* Get the component's name. The name is often used to reference the component.\n* ```js\n*     var name = myComponent.name();\n* ```\n*\n* @return {String}\n* @method name\n*/",
         "meta": {
             "range": [
-                3034,
-                3222
+                3340,
+                3512
             ],
             "filename": "component.js",
-            "lineno": 128,
+            "lineno": 276,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -683,14 +683,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get an array of all child components\n  * ```js\n  *     var kids = myComponent.children();\n  * ```\n  *\n  * @return {Array} The children\n  * @method children\n  */",
+        "comment": "/**\n* Get an array of all child components\n* ```js\n*     var kids = myComponent.children();\n* ```\n*\n* @return {Array} The children\n* @method children\n*/",
         "meta": {
             "range": [
-                3224,
-                3392
+                3525,
+                3677
             ],
             "filename": "component.js",
-            "lineno": 138,
+            "lineno": 289,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -711,14 +711,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Returns a child component with the provided ID\n  *\n  * @return {Component}\n  * @method getChildById\n  */",
+        "comment": "/**\n* Returns a child component with the provided ID\n*\n* @return {Component}\n* @method getChildById\n*/",
         "meta": {
             "range": [
-                3394,
-                3506
+                3690,
+                3792
             ],
             "filename": "component.js",
-            "lineno": 148,
+            "lineno": 302,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -738,14 +738,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Returns a child component with the provided name\n  *\n  * @return {Component}\n  * @method getChild\n  */",
+        "comment": "/**\n* Returns a child component with the provided name\n*\n* @return {Component}\n* @method getChild\n*/",
         "meta": {
             "range": [
-                3508,
-                3618
+                3805,
+                3905
             ],
             "filename": "component.js",
-            "lineno": 155,
+            "lineno": 312,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -765,14 +765,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Adds a child component inside this component\n  * ```js\n  *     myComponent.el();\n  *     // -> <div class='my-component'></div>\n  *     myComponent.children();\n  *     // [empty array]\n  *\n  *     var myButton = myComponent.addChild('MyButton');\n  *     // -> <div class='my-component'><div class=\"my-button\">myButton<div></div>\n  *     // -> myButton === myComonent.children()[0];\n  * ```\n  * Pass in options for child constructors and options for children of the child\n  * ```js\n  *     var myButton = myComponent.addChild('MyButton', {\n  *       text: 'Press Me',\n  *       children: {\n  *         buttonChildExample: {\n  *           buttonChildOption: true\n  *         }\n  *       }\n  *     });\n  * ```\n  *\n  * @param {String|Component} child The class name or instance of a child to add\n  * @param {Object=} options Options, including options to be passed to children of the child.\n  * @return {Component} The child component (created by this process if a string was used)\n  * @method addChild\n  */",
+        "comment": "/**\n* Adds a child component inside this component\n* ```js\n*     myComponent.el();\n*     // -> <div class='my-component'></div>\n*     myComponent.children();\n*     // [empty array]\n*\n*     var myButton = myComponent.addChild('MyButton');\n*     // -> <div class='my-component'><div class=\"my-button\">myButton<div></div>\n*     // -> myButton === myComonent.children()[0];\n* ```\n* Pass in options for child constructors and options for children of the child\n* ```js\n*     var myButton = myComponent.addChild('MyButton', {\n*       text: 'Press Me',\n*       children: {\n*         buttonChildExample: {\n*           buttonChildOption: true\n*         }\n*       }\n*     });\n* ```\n*\n* @param {String|Component} child The class name or instance of a child to add\n* @param {Object=} options Options, including options to be passed to children of the child.\n* @return {Component} The child component (created by this process if a string was used)\n* @method addChild\n*/",
         "meta": {
             "range": [
-                3620,
-                4631
+                3918,
+                4873
             ],
             "filename": "component.js",
-            "lineno": 162,
+            "lineno": 322,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -815,14 +815,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Remove a child component from this component's list of children, and the\n  * child component's element from this component's element\n  *\n  * @param  {Component} component Component to remove\n  * @method removeChild\n  */",
+        "comment": "/**\n* Remove a child component from this component's list of children, and the\n* child component's element from this component's element\n*\n* @param  {Component} component Component to remove\n* @method removeChild\n*/",
         "meta": {
             "range": [
-                4633,
-                4860
+                5057,
+                5272
             ],
             "filename": "component.js",
-            "lineno": 192,
+            "lineno": 412,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -844,14 +844,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Add and initialize default child components from options\n  * ```js\n  *     // when an instance of MyComponent is created, all children in options\n  *     // will be added to the instance by their name strings and options\n  *     MyComponent.prototype.options_.children = {\n  *       myChildComponent: {\n  *         myChildOption: true\n  *       }\n  *     }\n  * ```\n  *     // Or when creating the component\n  * ```js\n  *     var myComp = new MyComponent(player, {\n  *       children: {\n  *         myChildComponent: {\n  *           myChildOption: true\n  *         }\n  *       }\n  *     });\n  * ```\n  * The children option can also be an Array of child names or\n  * child options objects (that also include a 'name' key).\n  * ```js\n  *     var myComp = new MyComponent(player, {\n  *       children: [\n  *         'button',\n  *         {\n  *           name: 'button',\n  *           someOtherOption: true\n  *         }\n  *       ]\n  *     });\n  * ```\n  *\n  * @method initChildren\n  */",
+        "comment": "/**\n* Add and initialize default child components from options\n* ```js\n*     // when an instance of MyComponent is created, all children in options\n*     // will be added to the instance by their name strings and options\n*     MyComponent.prototype.options_.children = {\n*       myChildComponent: {\n*         myChildOption: true\n*       }\n*     }\n* ```\n*     // Or when creating the component\n* ```js\n*     var myComp = new MyComponent(player, {\n*       children: {\n*         myChildComponent: {\n*           myChildOption: true\n*         }\n*       }\n*     });\n* ```\n* The children option can also be an Array of child names or\n* child options objects (that also include a 'name' key).\n* ```js\n*     var myComp = new MyComponent(player, {\n*       children: [\n*         'button',\n*         {\n*           name: 'button',\n*           someOtherOption: true\n*         }\n*       ]\n*     });\n* ```\n*\n* @method initChildren\n*/",
         "meta": {
             "range": [
-                4862,
-                5851
+                5372,
+                6289
             ],
             "filename": "component.js",
-            "lineno": 200,
+            "lineno": 452,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -862,14 +862,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Allows sub components to stack CSS class names\n  *\n  * @return {String} The constructed class name\n  * @method buildCSSClass\n  */",
+        "comment": "/**\n* Allows sub components to stack CSS class names\n*\n* @return {String} The constructed class name\n* @method buildCSSClass\n*/",
         "meta": {
             "range": [
-                5853,
-                5990
+                6467,
+                6594
             ],
             "filename": "component.js",
-            "lineno": 238,
+            "lineno": 548,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -890,14 +890,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Add an event listener to this component's element\n  * ```js\n  *     var myFunc = function(){\n  *       var myComponent = this;\n  *       // Do something when the event is fired\n  *     };\n  *\n  *     myComponent.on('eventType', myFunc);\n  * ```\n  * The context of myFunc will be myComponent unless previously bound.\n  * Alternatively, you can add a listener to another element or component.\n  * ```js\n  *     myComponent.on(otherElement, 'eventName', myFunc);\n  *     myComponent.on(otherComponent, 'eventName', myFunc);\n  * ```\n  * The benefit of using this over `VjsEvents.on(otherElement, 'eventName', myFunc)`\n  * and `otherComponent.on('eventName', myFunc)` is that this way the listeners\n  * will be automatically cleaned up when either component is disposed.\n  * It will also bind myComponent as the context of myFunc.\n  * **NOTE**: When using this on elements in the page other than window\n  * and document (both permanent), if you remove the element from the DOM\n  * you need to call `myComponent.trigger(el, 'dispose')` on it to clean up\n  * references to it and allow the browser to garbage collect it.\n  *\n  * @param  {String|Component} first   The event type or other component\n  * @param  {Function|String}      second  The event handler or event type\n  * @param  {Function}             third   The event handler\n  * @return {Component} \n  * @method on\n  */",
+        "comment": "/**\n* Add an event listener to this component's element\n* ```js\n*     var myFunc = function(){\n*       var myComponent = this;\n*       // Do something when the event is fired\n*     };\n*\n*     myComponent.on('eventType', myFunc);\n* ```\n* The context of myFunc will be myComponent unless previously bound.\n* Alternatively, you can add a listener to another element or component.\n* ```js\n*     myComponent.on(otherElement, 'eventName', myFunc);\n*     myComponent.on(otherComponent, 'eventName', myFunc);\n* ```\n* The benefit of using this over `VjsEvents.on(otherElement, 'eventName', myFunc)`\n* and `otherComponent.on('eventName', myFunc)` is that this way the listeners\n* will be automatically cleaned up when either component is disposed.\n* It will also bind myComponent as the context of myFunc.\n* **NOTE**: When using this on elements in the page other than window\n* and document (both permanent), if you remove the element from the DOM\n* you need to call `myComponent.trigger(el, 'dispose')` on it to clean up\n* references to it and allow the browser to garbage collect it.\n*\n* @param  {String|Component} first   The event type or other component\n* @param  {Function|String}      second  The event handler or event type\n* @param  {Function}             third   The event handler\n* @return {Component} \n* @method on\n*/",
         "meta": {
             "range": [
-                5992,
-                7371
+                6613,
+                7932
             ],
             "filename": "component.js",
-            "lineno": 245,
+            "lineno": 560,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -948,14 +948,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Remove an event listener from this component's element\n  * ```js\n  *     myComponent.off('eventType', myFunc);\n  * ```\n  * If myFunc is excluded, ALL listeners for the event type will be removed.\n  * If eventType is excluded, ALL listeners will be removed from the component.\n  * Alternatively you can use `off` to remove listeners that were added to other\n  * elements or components using `myComponent.on(otherComponent...`.\n  * In this case both the event type and listener function are REQUIRED.\n  * ```js\n  *     myComponent.off(otherElement, 'eventType', myFunc);\n  *     myComponent.off(otherComponent, 'eventType', myFunc);\n  * ```\n  *\n  * @param  {String=|Component}  first  The event type or other component\n  * @param  {Function=|String}       second The listener function or event type\n  * @param  {Function=}              third  The listener for other component\n  * @return {Component}\n  * @method off\n  */",
+        "comment": "/**\n* Remove an event listener from this component's element\n* ```js\n*     myComponent.off('eventType', myFunc);\n* ```\n* If myFunc is excluded, ALL listeners for the event type will be removed.\n* If eventType is excluded, ALL listeners will be removed from the component.\n* Alternatively you can use `off` to remove listeners that were added to other\n* elements or components using `myComponent.on(otherComponent...`.\n* In this case both the event type and listener function are REQUIRED.\n* ```js\n*     myComponent.off(otherElement, 'eventType', myFunc);\n*     myComponent.off(otherComponent, 'eventType', myFunc);\n* ```\n*\n* @param  {String=|Component}  first  The event type or other component\n* @param  {Function=|String}       second The listener function or event type\n* @param  {Function=}              third  The listener for other component\n* @return {Component}\n* @method off\n*/",
         "meta": {
             "range": [
-                7373,
-                8299
+                8065,
+                8951
             ],
             "filename": "component.js",
-            "lineno": 277,
+            "lineno": 635,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -1007,14 +1007,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Add an event listener to be triggered only once and then removed\n  * ```js\n  *     myComponent.one('eventName', myFunc);\n  * ```\n  * Alternatively you can add a listener to another element or component\n  * that will be triggered only once.\n  * ```js\n  *     myComponent.one(otherElement, 'eventName', myFunc);\n  *     myComponent.one(otherComponent, 'eventName', myFunc);\n  * ```\n  *\n  * @param  {String|Component}  first   The event type or other component\n  * @param  {Function|String}       second  The listener function or event type\n  * @param  {Function=}             third   The listener function for other component\n  * @return {Component}\n  * @method one\n  */",
+        "comment": "/**\n* Add an event listener to be triggered only once and then removed\n* ```js\n*     myComponent.one('eventName', myFunc);\n* ```\n* Alternatively you can add a listener to another element or component\n* that will be triggered only once.\n* ```js\n*     myComponent.one(otherElement, 'eventName', myFunc);\n*     myComponent.one(otherComponent, 'eventName', myFunc);\n* ```\n*\n* @param  {String|Component}  first   The event type or other component\n* @param  {Function|String}       second  The listener function or event type\n* @param  {Function=}             third   The listener function for other component\n* @return {Component}\n* @method one\n*/",
         "meta": {
             "range": [
-                8301,
-                8977
+                9033,
+                9675
             ],
             "filename": "component.js",
-            "lineno": 299,
+            "lineno": 683,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -1066,14 +1066,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Trigger an event on an element\n  * ```js\n  *     myComponent.trigger('eventName');\n  *     myComponent.trigger({'type':'eventName'});\n  *     myComponent.trigger('eventName', {data: 'some data'});\n  *     myComponent.trigger({'type':'eventName'}, {data: 'some data'});\n  * ```\n  *\n  * @param  {Event|Object|String} event  A string (the type) or an event object with a type attribute\n  * @param  {Object} [hash] data hash to pass along with the event\n  * @return {Component}       self\n  * @method trigger\n  */",
+        "comment": "/**\n* Trigger an event on an element\n* ```js\n*     myComponent.trigger('eventName');\n*     myComponent.trigger({'type':'eventName'});\n*     myComponent.trigger('eventName', {data: 'some data'});\n*     myComponent.trigger({'type':'eventName'}, {data: 'some data'});\n* ```\n*\n* @param  {Event|Object|String} event  A string (the type) or an event object with a type attribute\n* @param  {Object} [hash] data hash to pass along with the event\n* @return {Component}       self\n* @method trigger\n*/",
         "meta": {
             "range": [
-                8979,
-                9496
+                9742,
+                10233
             ],
             "filename": "component.js",
-            "lineno": 318,
+            "lineno": 723,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -1117,14 +1117,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Bind a listener to the component's ready state.\n  * Different from event listeners in that if the ready event has already happened\n  * it will trigger the function immediately.\n  *\n  * @param  {Function} fn Ready listener\n  * @return {Component}\n  * @method ready\n  */",
+        "comment": "/**\n* Bind a listener to the component's ready state.\n* Different from event listeners in that if the ready event has already happened\n* it will trigger the function immediately.\n*\n* @param  {Function} fn Ready listener\n* @return {Component}\n* @method ready\n*/",
         "meta": {
             "range": [
-                9498,
-                9774
+                10249,
+                10509
             ],
             "filename": "component.js",
-            "lineno": 333,
+            "lineno": 742,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -1155,14 +1155,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Trigger the ready listeners\n  *\n  * @return {Component}\n  * @method triggerReady\n  */",
+        "comment": "/**\n* Trigger the ready listeners\n*\n* @return {Component}\n* @method triggerReady\n*/",
         "meta": {
             "range": [
-                9776,
-                9869
+                10549,
+                10632
             ],
             "filename": "component.js",
-            "lineno": 343,
+            "lineno": 764,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -1182,14 +1182,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Check if a component's element has a CSS class name\n  *\n  * @param {String} classToCheck Classname to check\n  * @return {Component}\n  * @method hasClass\n  */",
+        "comment": "/**\n* Check if a component's element has a CSS class name\n*\n* @param {String} classToCheck Classname to check\n* @return {Component}\n* @method hasClass\n*/",
         "meta": {
             "range": [
-                9871,
-                10036
+                10696,
+                10849
             ],
             "filename": "component.js",
-            "lineno": 350,
+            "lineno": 791,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -1220,14 +1220,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Add a CSS class name to the component's element\n  *\n  * @param {String} classToAdd Classname to add\n  * @return {Component}\n  * @method addClass\n  */",
+        "comment": "/**\n* Add a CSS class name to the component's element\n*\n* @param {String} classToAdd Classname to add\n* @return {Component}\n* @method addClass\n*/",
         "meta": {
             "range": [
-                10038,
-                10195
+                10862,
+                11007
             ],
             "filename": "component.js",
-            "lineno": 358,
+            "lineno": 802,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -1258,14 +1258,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Remove and return a CSS class name from the component's element\n  *\n  * @param {String} classToRemove Classname to remove\n  * @return {Component}\n  * @method removeClass\n  */",
+        "comment": "/**\n* Remove and return a CSS class name from the component's element\n*\n* @param {String} classToRemove Classname to remove\n* @return {Component}\n* @method removeClass\n*/",
         "meta": {
             "range": [
-                10197,
-                10379
+                11023,
+                11193
             ],
             "filename": "component.js",
-            "lineno": 366,
+            "lineno": 814,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -1296,14 +1296,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Show the component element if hidden\n  *\n  * @return {Component}\n  * @method show\n  */",
+        "comment": "/**\n* Show the component element if hidden\n*\n* @return {Component}\n* @method show\n*/",
         "meta": {
             "range": [
-                10381,
-                10475
+                11209,
+                11293
             ],
             "filename": "component.js",
-            "lineno": 374,
+            "lineno": 826,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -1323,14 +1323,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Hide the component element if currently showing\n  *\n  * @return {Component}\n  * @method hide\n  */",
+        "comment": "/**\n* Hide the component element if currently showing\n*\n* @return {Component}\n* @method hide\n*/",
         "meta": {
             "range": [
-                10477,
-                10582
+                11309,
+                11404
             ],
             "filename": "component.js",
-            "lineno": 381,
+            "lineno": 837,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -1350,14 +1350,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Lock an item in its visible state\n  * To be used with fadeIn/fadeOut.\n  *\n  * @return {Component}\n  * @private\n  * @method lockShowing\n  */",
+        "comment": "/**\n* Lock an item in its visible state\n* To be used with fadeIn/fadeOut.\n*\n* @return {Component}\n* @private\n* @method lockShowing\n*/",
         "meta": {
             "range": [
-                10584,
-                10731
+                11420,
+                11553
             ],
             "filename": "component.js",
-            "lineno": 388,
+            "lineno": 848,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -1378,14 +1378,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Unlock an item to be hidden\n  * To be used with fadeIn/fadeOut.\n  *\n  * @return {Component}\n  * @private\n  * @method unlockShowing\n  */",
+        "comment": "/**\n* Unlock an item to be hidden\n* To be used with fadeIn/fadeOut.\n*\n* @return {Component}\n* @private\n* @method unlockShowing\n*/",
         "meta": {
             "range": [
-                10733,
-                10876
+                11569,
+                11698
             ],
             "filename": "component.js",
-            "lineno": 397,
+            "lineno": 861,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -1406,14 +1406,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Set or get the width of the component (CSS values)\n  * Setting the video tag dimension values only works with values in pixels.\n  * Percent values will not work.\n  * Some percents can be used, but width()/height() will return the number + %,\n  * not the actual computed width/height.\n  *\n  * @param  {Number|String=} num   Optional width number\n  * @param  {Boolean} skipListeners Skip the 'resize' event trigger\n  * @return {Component} This component, when setting the width\n  * @return {Number|String} The width, when getting\n  * @method width\n  */",
+        "comment": "/**\n* Set or get the width of the component (CSS values)\n* Setting the video tag dimension values only works with values in pixels.\n* Percent values will not work.\n* Some percents can be used, but width()/height() will return the number + %,\n* not the actual computed width/height.\n*\n* @param  {Number|String=} num   Optional width number\n* @param  {Boolean} skipListeners Skip the 'resize' event trigger\n* @return {Component} This component, when setting the width\n* @return {Number|String} The width, when getting\n* @method width\n*/",
         "meta": {
             "range": [
-                10878,
-                11436
+                11714,
+                12248
             ],
             "filename": "component.js",
-            "lineno": 406,
+            "lineno": 874,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -1464,14 +1464,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get or set the height of the component (CSS values)\n  * Setting the video tag dimension values only works with values in pixels.\n  * Percent values will not work.\n  * Some percents can be used, but width()/height() will return the number + %,\n  * not the actual computed width/height.\n  *\n  * @param  {Number|String=} num     New component height\n  * @param  {Boolean=} skipListeners Skip the resize event trigger\n  * @return {Component} This component, when setting the height\n  * @return {Number|String} The height, when getting\n  * @method height\n  */",
+        "comment": "/**\n* Get or set the height of the component (CSS values)\n* Setting the video tag dimension values only works with values in pixels.\n* Percent values will not work.\n* Some percents can be used, but width()/height() will return the number + %,\n* not the actual computed width/height.\n*\n* @param  {Number|String=} num     New component height\n* @param  {Boolean=} skipListeners Skip the resize event trigger\n* @return {Component} This component, when setting the height\n* @return {Number|String} The height, when getting\n* @method height\n*/",
         "meta": {
             "range": [
-                11438,
-                12000
+                12261,
+                12799
             ],
             "filename": "component.js",
-            "lineno": 420,
+            "lineno": 891,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -1523,14 +1523,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Set both width and height at the same time\n  *\n  * @param  {Number|String} width Width of player\n  * @param  {Number|String} height Height of player\n  * @return {Component} The component\n  * @method dimensions\n  */",
+        "comment": "/**\n* Set both width and height at the same time\n*\n* @param  {Number|String} width Width of player\n* @param  {Number|String} height Height of player\n* @return {Component} The component\n* @method dimensions\n*/",
         "meta": {
             "range": [
-                12002,
-                12224
+                12812,
+                13020
             ],
             "filename": "component.js",
-            "lineno": 434,
+            "lineno": 908,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -1573,14 +1573,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get or set width or height\n  * This is the shared code for the width() and height() methods.\n  * All for an integer, integer + 'px' or integer + '%';\n  * Known issue: Hidden elements officially have a width of 0. We're defaulting\n  * to the style.width value and falling back to computedStyle which has the\n  * hidden element issue. Info, but probably not an efficient fix:\n  * http://www.foliotek.com/devblog/getting-the-width-of-a-hidden-element-with-jquery-using-width/\n  *\n  * @param  {String} widthOrHeight  'width' or 'height'\n  * @param  {Number|String=} num     New dimension\n  * @param  {Boolean=} skipListeners Skip resize event trigger\n  * @return {Component} The component if a dimension was set\n  * @return {Number|String} The dimension if nothing was set\n  * @private\n  * @method dimension\n  */",
+        "comment": "/**\n* Get or set width or height\n* This is the shared code for the width() and height() methods.\n* All for an integer, integer + 'px' or integer + '%';\n* Known issue: Hidden elements officially have a width of 0. We're defaulting\n* to the style.width value and falling back to computedStyle which has the\n* hidden element issue. Info, but probably not an efficient fix:\n* http://www.foliotek.com/devblog/getting-the-width-of-a-hidden-element-with-jquery-using-width/\n*\n* @param  {String} widthOrHeight  'width' or 'height'\n* @param  {Number|String=} num     New dimension\n* @param  {Boolean=} skipListeners Skip resize event trigger\n* @return {Component} The component if a dimension was set\n* @return {Number|String} The dimension if nothing was set\n* @private\n* @method dimension\n*/",
         "meta": {
             "range": [
-                12226,
-                13042
+                13036,
+                13820
             ],
             "filename": "component.js",
-            "lineno": 443,
+            "lineno": 921,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -1642,14 +1642,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Emit 'tap' events when touch events are supported\n  * This is used to support toggling the controls through a tap on the video.\n  * We're requiring them to be enabled because otherwise every component would\n  * have this extra overhead unnecessarily, on mobile devices where extra\n  * overhead is especially bad.\n  *\n  * @private\n  * @method emitTapEvents\n  */",
+        "comment": "/**\n* Emit 'tap' events when touch events are supported\n* This is used to support toggling the controls through a tap on the video.\n* We're requiring them to be enabled because otherwise every component would\n* have this extra overhead unnecessarily, on mobile devices where extra\n* overhead is especially bad.\n*\n* @private\n* @method emitTapEvents\n*/",
         "meta": {
             "range": [
-                13044,
-                13412
+                13959,
+                14309
             ],
             "filename": "component.js",
-            "lineno": 461,
+            "lineno": 984,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -1661,14 +1661,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Report user touch activity when touch events occur\n  * User activity is used to determine when controls should show/hide. It's\n  * relatively simple when it comes to mouse events, because any mouse event\n  * should show the controls. So we capture mouse events that bubble up to the\n  * player and report activity when that happens.\n  * With touch events it isn't as easy. We can't rely on touch events at the\n  * player level, because a tap (touchstart + touchend) on the video itself on\n  * mobile devices is meant to turn controls off (and on). User activity is\n  * checked asynchronously, so what could happen is a tap event on the video\n  * turns the controls off, then the touchend event bubbles up to the player,\n  * which if it reported user activity, would turn the controls right back on.\n  * (We also don't want to completely block touch events from bubbling up)\n  * Also a touchmove, touch+hold, and anything other than a tap is not supposed\n  * to turn the controls back on on a mobile device.\n  * Here we're setting the default component behavior to report user activity\n  * whenever touch events happen, and this can be turned off by components that\n  * want touch events to act differently.\n  *\n  * @method enableTouchActivity\n  */",
+        "comment": "/**\n* Report user touch activity when touch events occur\n* User activity is used to determine when controls should show/hide. It's\n* relatively simple when it comes to mouse events, because any mouse event\n* should show the controls. So we capture mouse events that bubble up to the\n* player and report activity when that happens.\n* With touch events it isn't as easy. We can't rely on touch events at the\n* player level, because a tap (touchstart + touchend) on the video itself on\n* mobile devices is meant to turn controls off (and on). User activity is\n* checked asynchronously, so what could happen is a tap event on the video\n* turns the controls off, then the touchend event bubbles up to the player,\n* which if it reported user activity, would turn the controls right back on.\n* (We also don't want to completely block touch events from bubbling up)\n* Also a touchmove, touch+hold, and anything other than a tap is not supposed\n* to turn the controls back on on a mobile device.\n* Here we're setting the default component behavior to report user activity\n* whenever touch events happen, and this can be turned off by components that\n* want touch events to act differently.\n*\n* @method enableTouchActivity\n*/",
         "meta": {
             "range": [
-                13414,
-                14669
+                14529,
+                15744
             ],
             "filename": "component.js",
-            "lineno": 472,
+            "lineno": 1067,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -1679,14 +1679,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Creates timeout and sets up disposal automatically.\n  *\n  * @param {Function} fn The function to run after the timeout.\n  * @param {Number} timeout Number of ms to delay before executing specified function.\n  * @return {Number} Returns the timeout ID\n  * @method setTimeout\n  */",
+        "comment": "/**\n* Creates timeout and sets up disposal automatically.\n*\n* @param {Function} fn The function to run after the timeout.\n* @param {Number} timeout Number of ms to delay before executing specified function.\n* @return {Number} Returns the timeout ID\n* @method setTimeout\n*/",
         "meta": {
             "range": [
-                14671,
-                14957
+                15841,
+                16113
             ],
             "filename": "component.js",
-            "lineno": 494,
+            "lineno": 1120,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -1727,14 +1727,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Clears a timeout and removes the associated dispose listener\n  *\n  * @param {Number} timeoutId The id of the timeout to clear\n  * @return {Number} Returns the timeout ID\n  * @method clearTimeout\n  */",
+        "comment": "/**\n* Clears a timeout and removes the associated dispose listener\n*\n* @param {Number} timeoutId The id of the timeout to clear\n* @return {Number} Returns the timeout ID\n* @method clearTimeout\n*/",
         "meta": {
             "range": [
-                14959,
-                15166
+                16165,
+                16360
             ],
             "filename": "component.js",
-            "lineno": 503,
+            "lineno": 1145,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -1766,14 +1766,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Creates an interval and sets up disposal automatically.\n  *\n  * @param {Function} fn The function to run every N seconds.\n  * @param {Number} interval Number of ms to delay before executing specified function.\n  * @return {Number} Returns the interval ID\n  * @method setInterval\n  */",
+        "comment": "/**\n* Creates an interval and sets up disposal automatically.\n*\n* @param {Function} fn The function to run every N seconds.\n* @param {Number} interval Number of ms to delay before executing specified function.\n* @return {Number} Returns the interval ID\n* @method setInterval\n*/",
         "meta": {
             "range": [
-                15168,
-                15459
+                16397,
+                16674
             ],
             "filename": "component.js",
-            "lineno": 511,
+            "lineno": 1164,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -1814,14 +1814,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Clears an interval and removes the associated dispose listener\n  *\n  * @param {Number} intervalId The id of the interval to clear\n  * @return {Number} Returns the interval ID\n  * @method clearInterval\n  */",
+        "comment": "/**\n* Clears an interval and removes the associated dispose listener\n*\n* @param {Number} intervalId The id of the interval to clear\n* @return {Number} Returns the interval ID\n* @method clearInterval\n*/",
         "meta": {
             "range": [
-                15461,
-                15674
+                16723,
+                16924
             ],
             "filename": "component.js",
-            "lineno": 520,
+            "lineno": 1188,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -1853,14 +1853,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Registers a component\n  *\n  * @param {String} name Name of the component to register\n  * @param {Object} comp The component to register  \n  * @static\n  * @method registerComponent\n  */",
+        "comment": "/**\n* Registers a component\n*\n* @param {String} name Name of the component to register\n* @param {Object} comp The component to register  \n* @static\n* @method registerComponent\n*/",
         "meta": {
             "range": [
-                15676,
-                15868
+                16961,
+                17139
             ],
             "filename": "component.js",
-            "lineno": 528,
+            "lineno": 1207,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -1891,14 +1891,14 @@ var docData =
         "longname": "registerComponent"
     },
     {
-        "comment": "/**\n  * Gets a component by name\n  *\n  * @param {String} name Name of the component to get\n  * @return {Component}\n  * @static\n  * @method getComponent\n  */",
+        "comment": "/**\n* Gets a component by name\n*\n* @param {String} name Name of the component to get\n* @return {Component}\n* @static\n* @method getComponent\n*/",
         "meta": {
             "range": [
-                15870,
-                16026
+                17167,
+                17309
             ],
             "filename": "component.js",
-            "lineno": 537,
+            "lineno": 1224,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -1929,14 +1929,14 @@ var docData =
         "longname": "getComponent"
     },
     {
-        "comment": "/**\n  * Sets up the constructor using the supplied init method\n  * or uses the init of the parent object\n  *\n  * @param {Object} props An object of properties  \n  * @static\n  * @method extend\n  */",
+        "comment": "/**\n* Sets up the constructor using the supplied init method\n* or uses the init of the parent object\n*\n* @param {Object} props An object of properties  \n* @static\n* @method extend\n*/",
         "meta": {
             "range": [
-                16028,
-                16224
+                17343,
+                17525
             ],
             "filename": "component.js",
-            "lineno": 546,
+            "lineno": 1243,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -1980,11 +1980,11 @@ var docData =
         "comment": "/**\n* Container of main controls\n*\n* @extends Component\n* @class ControlBar\n*/",
         "meta": {
             "range": [
-                31,
-                109
+                90,
+                168
             ],
             "filename": "control-bar.js",
-            "lineno": 5,
+            "lineno": 24,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar",
             "code": {}
         },
@@ -1998,14 +1998,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                111,
-                205
+                175,
+                259
             ],
             "filename": "control-bar.js",
-            "lineno": 12,
+            "lineno": 32,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar",
             "code": {}
         },
@@ -2047,11 +2047,11 @@ var docData =
         "comment": "/**\n* Toggle fullscreen video\n*\n* @extends Button\n* @class FullscreenToggle\n*/",
         "meta": {
             "range": [
-                37,
-                115
+                45,
+                123
             ],
             "filename": "fullscreen-toggle.js",
-            "lineno": 5,
+            "lineno": 7,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar",
             "code": {}
         },
@@ -2065,14 +2065,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Allow sub components to stack CSS class names\n  *\n  * @return {String} The constructed class name\n  * @method buildCSSClass\n  */",
+        "comment": "/**\n* Allow sub components to stack CSS class names\n*\n* @return {String} The constructed class name\n* @method buildCSSClass\n*/",
         "meta": {
             "range": [
-                117,
-                253
+                130,
+                256
             ],
             "filename": "fullscreen-toggle.js",
-            "lineno": 12,
+            "lineno": 15,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar",
             "code": {}
         },
@@ -2093,14 +2093,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handles click for full screen\n  *\n  * @method handleClick\n  */",
+        "comment": "/**\n* Handles click for full screen\n*\n* @method handleClick\n*/",
         "meta": {
             "range": [
-                255,
-                325
+                269,
+                331
             ],
             "filename": "fullscreen-toggle.js",
-            "lineno": 19,
+            "lineno": 25,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar",
             "code": {}
         },
@@ -2133,11 +2133,11 @@ var docData =
         "comment": "/**\n* Displays the live indicator\n* TODO - Future make it click to snap to live\n* \n* @extends Component\n* @class LiveDisplay\n*/",
         "meta": {
             "range": [
-                32,
-                159
+                40,
+                167
             ],
             "filename": "live-display.js",
-            "lineno": 5,
+            "lineno": 7,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar",
             "code": {}
         },
@@ -2151,14 +2151,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                161,
-                255
+                174,
+                258
             ],
             "filename": "live-display.js",
-            "lineno": 13,
+            "lineno": 16,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar",
             "code": {}
         },
@@ -2200,11 +2200,11 @@ var docData =
         "comment": "/**\n* A button component for muting the audio\n*\n* @param {Player|Object} player\n* @param {Object=} options\n* @extends Button\n* @class MuteToggle\n*/",
         "meta": {
             "range": [
-                31,
-                178
+                42,
+                189
             ],
             "filename": "mute-toggle.js",
-            "lineno": 5,
+            "lineno": 8,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar",
             "code": {}
         },
@@ -2238,14 +2238,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Allow sub components to stack CSS class names\n  *\n  * @return {String} The constructed class name\n  * @method buildCSSClass\n  */",
+        "comment": "/**\n* Allow sub components to stack CSS class names\n*\n* @return {String} The constructed class name\n* @method buildCSSClass\n*/",
         "meta": {
             "range": [
-                180,
-                316
+                253,
+                379
             ],
             "filename": "mute-toggle.js",
-            "lineno": 14,
+            "lineno": 37,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar",
             "code": {}
         },
@@ -2266,14 +2266,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle click on mute\n  *\n  * @method handleClick\n  */",
+        "comment": "/**\n* Handle click on mute\n*\n* @method handleClick\n*/",
         "meta": {
             "range": [
-                318,
-                379
+                392,
+                445
             ],
             "filename": "mute-toggle.js",
-            "lineno": 21,
+            "lineno": 47,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar",
             "code": {}
         },
@@ -2284,14 +2284,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Update volume\n  *\n  * @method update\n  */",
+        "comment": "/**\n* Update volume\n*\n* @method update\n*/",
         "meta": {
             "range": [
-                381,
-                430
+                458,
+                499
             ],
             "filename": "mute-toggle.js",
-            "lineno": 27,
+            "lineno": 56,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar",
             "code": {}
         },
@@ -2324,11 +2324,11 @@ var docData =
         "comment": "/**\n* Button to toggle between play and pause\n*\n* @param {Player|Object} player\n* @param {Object=} options\n* @extends Button\n* @class PlayToggle\n*/",
         "meta": {
             "range": [
-                31,
-                178
+                39,
+                186
             ],
             "filename": "play-toggle.js",
-            "lineno": 5,
+            "lineno": 7,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar",
             "code": {}
         },
@@ -2362,14 +2362,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Allow sub components to stack CSS class names\n  *\n  * @return {String} The constructed class name\n  * @method buildCSSClass\n  */",
+        "comment": "/**\n* Allow sub components to stack CSS class names\n*\n* @return {String} The constructed class name\n* @method buildCSSClass\n*/",
         "meta": {
             "range": [
-                180,
-                316
+                214,
+                340
             ],
             "filename": "play-toggle.js",
-            "lineno": 14,
+            "lineno": 24,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar",
             "code": {}
         },
@@ -2390,14 +2390,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle click to toggle between play and pause\n  *\n  * @method handleClick\n  */",
+        "comment": "/**\n* Handle click to toggle between play and pause\n*\n* @method handleClick\n*/",
         "meta": {
             "range": [
-                318,
-                404
+                353,
+                431
             ],
             "filename": "play-toggle.js",
-            "lineno": 21,
+            "lineno": 34,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar",
             "code": {}
         },
@@ -2408,14 +2408,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Add the vjs-playing class to the element so it can change appearance\n  *\n  * @method handlePlay\n  */",
+        "comment": "/**\n* Add the vjs-playing class to the element so it can change appearance\n*\n* @method handlePlay\n*/",
         "meta": {
             "range": [
-                406,
-                514
+                456,
+                556
             ],
             "filename": "play-toggle.js",
-            "lineno": 27,
+            "lineno": 47,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar",
             "code": {}
         },
@@ -2426,14 +2426,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Add the vjs-paused class to the element so it can change appearance\n  *\n  * @method handlePause\n  */",
+        "comment": "/**\n* Add the vjs-paused class to the element so it can change appearance\n*\n* @method handlePause\n*/",
         "meta": {
             "range": [
-                516,
-                624
+                575,
+                675
             ],
             "filename": "play-toggle.js",
-            "lineno": 33,
+            "lineno": 58,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar",
             "code": {}
         },
@@ -2463,14 +2463,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n * The component for controlling the playback rate\n *\n * @param {Player|Object} player\n * @param {Object=} options\n * @extends MenuButton\n * @class PlaybackRateMenuButton\n */",
+        "comment": "/**\n* The component for controlling the playback rate\n*\n* @param {Player|Object} player\n* @param {Object=} options\n* @extends MenuButton\n* @class PlaybackRateMenuButton\n*/",
         "meta": {
             "range": [
-                45,
-                223
+                62,
+                233
             ],
             "filename": "playback-rate-menu-button.js",
-            "lineno": 5,
+            "lineno": 10,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/playback-rate-menu",
             "code": {}
         },
@@ -2504,14 +2504,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                225,
-                319
+                270,
+                354
             ],
             "filename": "playback-rate-menu-button.js",
-            "lineno": 14,
+            "lineno": 30,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/playback-rate-menu",
             "code": {}
         },
@@ -2531,14 +2531,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Allow sub components to stack CSS class names\n  *\n  * @return {String} The constructed class name\n  * @method buildCSSClass\n  */",
+        "comment": "/**\n* Allow sub components to stack CSS class names\n*\n* @return {String} The constructed class name\n* @method buildCSSClass\n*/",
         "meta": {
             "range": [
-                321,
-                457
+                394,
+                520
             ],
             "filename": "playback-rate-menu-button.js",
-            "lineno": 21,
+            "lineno": 49,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/playback-rate-menu",
             "code": {}
         },
@@ -2559,14 +2559,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the playback rate menu\n  *\n  * @return {Menu} Menu object populated with items\n  * @method createMenu\n  */",
+        "comment": "/**\n* Create the playback rate menu\n*\n* @return {Menu} Menu object populated with items\n* @method createMenu\n*/",
         "meta": {
             "range": [
-                459,
-                580
+                533,
+                644
             ],
             "filename": "playback-rate-menu-button.js",
-            "lineno": 28,
+            "lineno": 59,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/playback-rate-menu",
             "code": {}
         },
@@ -2587,14 +2587,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Updates ARIA accessibility attributes\n  *\n  * @method updateARIAAttributes\n  */",
+        "comment": "/**\n* Updates ARIA accessibility attributes\n*\n* @method updateARIAAttributes\n*/",
         "meta": {
             "range": [
-                582,
-                669
+                690,
+                769
             ],
             "filename": "playback-rate-menu-button.js",
-            "lineno": 35,
+            "lineno": 80,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/playback-rate-menu",
             "code": {}
         },
@@ -2605,14 +2605,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle menu item click\n  *\n  * @method handleClick\n  */",
+        "comment": "/**\n* Handle menu item click\n*\n* @method handleClick\n*/",
         "meta": {
             "range": [
-                671,
-                734
+                785,
+                840
             ],
             "filename": "playback-rate-menu-button.js",
-            "lineno": 41,
+            "lineno": 90,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/playback-rate-menu",
             "code": {}
         },
@@ -2623,14 +2623,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get possible playback rates\n  *\n  * @return {Array} Possible playback rates\n  * @method playbackRates\n  */",
+        "comment": "/**\n* Get possible playback rates\n*\n* @return {Array} Possible playback rates\n* @method playbackRates\n*/",
         "meta": {
             "range": [
-                736,
-                850
+                889,
+                993
             ],
             "filename": "playback-rate-menu-button.js",
-            "lineno": 47,
+            "lineno": 111,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/playback-rate-menu",
             "code": {}
         },
@@ -2651,14 +2651,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get supported playback rates\n  *\n  * @return {Array} Supported playback rates\n  * @method playbackRateSupported\n  */",
+        "comment": "/**\n* Get supported playback rates\n*\n* @return {Array} Supported playback rates\n* @method playbackRateSupported\n*/",
         "meta": {
             "range": [
-                852,
-                976
+                1006,
+                1120
             ],
             "filename": "playback-rate-menu-button.js",
-            "lineno": 54,
+            "lineno": 121,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/playback-rate-menu",
             "code": {}
         },
@@ -2679,14 +2679,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Hide playback rate controls when they're no playback rate options to select\n  *\n  * @method updateVisibility\n  */",
+        "comment": "/**\n* Hide playback rate controls when they're no playback rate options to select\n*\n* @method updateVisibility\n*/",
         "meta": {
             "range": [
-                978,
-                1099
+                1145,
+                1258
             ],
             "filename": "playback-rate-menu-button.js",
-            "lineno": 61,
+            "lineno": 135,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/playback-rate-menu",
             "code": {}
         },
@@ -2697,14 +2697,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Update button label when rate changed\n  *\n  * @method updateLabel\n  */",
+        "comment": "/**\n* Update button label when rate changed\n*\n* @method updateLabel\n*/",
         "meta": {
             "range": [
-                1101,
-                1179
+                1283,
+                1353
             ],
             "filename": "playback-rate-menu-button.js",
-            "lineno": 67,
+            "lineno": 148,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/playback-rate-menu",
             "code": {}
         },
@@ -2737,11 +2737,11 @@ var docData =
         "comment": "/**\n* The specific menu item type for selecting a playback rate\n*\n* @param {Player|Object} player\n* @param {Object=} options\n* @extends MenuItem\n* @class PlaybackRateMenuItem\n*/",
         "meta": {
             "range": [
-                43,
-                220
+                51,
+                228
             ],
             "filename": "playback-rate-menu-item.js",
-            "lineno": 5,
+            "lineno": 7,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/playback-rate-menu",
             "code": {}
         },
@@ -2775,14 +2775,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle click on menu item\n  *\n  * @method handleClick\n  */",
+        "comment": "/**\n* Handle click on menu item\n*\n* @method handleClick\n*/",
         "meta": {
             "range": [
-                222,
-                288
+                280,
+                338
             ],
             "filename": "playback-rate-menu-item.js",
-            "lineno": 14,
+            "lineno": 32,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/playback-rate-menu",
             "code": {}
         },
@@ -2793,14 +2793,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Update playback rate with selected rate\n  *\n  * @method update\n  */",
+        "comment": "/**\n* Update playback rate with selected rate\n*\n* @method update\n*/",
         "meta": {
             "range": [
-                290,
-                365
+                354,
+                421
             ],
             "filename": "playback-rate-menu-item.js",
-            "lineno": 20,
+            "lineno": 42,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/playback-rate-menu",
             "code": {}
         },
@@ -2833,11 +2833,11 @@ var docData =
         "comment": "/**\n* Shows load progress\n*\n* @param {Player|Object} player\n* @param {Object=} options\n* @extends Component\n* @class LoadProgressBar\n*/",
         "meta": {
             "range": [
-                37,
-                172
+                45,
+                180
             ],
             "filename": "load-progress-bar.js",
-            "lineno": 5,
+            "lineno": 7,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/progress-control",
             "code": {}
         },
@@ -2871,14 +2871,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                174,
-                268
+                202,
+                286
             ],
             "filename": "load-progress-bar.js",
-            "lineno": 14,
+            "lineno": 22,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/progress-control",
             "code": {}
         },
@@ -2898,14 +2898,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Update progress bar\n  *\n  * @method update\n  */",
+        "comment": "/**\n* Update progress bar\n*\n* @method update\n*/",
         "meta": {
             "range": [
-                270,
-                325
+                308,
+                355
             ],
             "filename": "load-progress-bar.js",
-            "lineno": 21,
+            "lineno": 35,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/progress-control",
             "code": {}
         },
@@ -2938,11 +2938,11 @@ var docData =
         "comment": "/**\n* Shows play progress\n*\n* @param {Player|Object} player\n* @param {Object=} options\n* @extends Component\n* @class PlayProgressBar\n*/",
         "meta": {
             "range": [
-                37,
-                172
+                42,
+                177
             ],
             "filename": "play-progress-bar.js",
-            "lineno": 5,
+            "lineno": 6,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/progress-control",
             "code": {}
         },
@@ -2976,14 +2976,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                174,
+                184,
                 268
             ],
             "filename": "play-progress-bar.js",
-            "lineno": 14,
+            "lineno": 16,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/progress-control",
             "code": {}
         },
@@ -3025,11 +3025,11 @@ var docData =
         "comment": "/**\n* The Progress Control component contains the seek bar, load progress,\n* and play progress\n*\n* @param {Player|Object} player\n* @param {Object=} options\n* @extends Component\n* @class ProgressControl\n*/",
         "meta": {
             "range": [
-                36,
-                240
+                44,
+                248
             ],
             "filename": "progress-control.js",
-            "lineno": 5,
+            "lineno": 7,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/progress-control",
             "code": {}
         },
@@ -3063,14 +3063,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                242,
-                336
+                255,
+                339
             ],
             "filename": "progress-control.js",
-            "lineno": 15,
+            "lineno": 18,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/progress-control",
             "code": {}
         },
@@ -3112,11 +3112,11 @@ var docData =
         "comment": "/**\n* Seek Bar and holder for the progress bars\n*\n* @param {Player|Object} player\n* @param {Object=} options\n* @extends Slider\n* @class SeekBar\n*/",
         "meta": {
             "range": [
-                28,
-                174
+                51,
+                197
             ],
             "filename": "seek-bar.js",
-            "lineno": 5,
+            "lineno": 12,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/progress-control",
             "code": {}
         },
@@ -3150,14 +3150,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                176,
-                270
+                222,
+                306
             ],
             "filename": "seek-bar.js",
-            "lineno": 14,
+            "lineno": 28,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/progress-control",
             "code": {}
         },
@@ -3177,14 +3177,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Update ARIA accessibility attributes\n  *\n  * @method updateARIAAttributes\n  */",
+        "comment": "/**\n* Update ARIA accessibility attributes\n*\n* @method updateARIAAttributes\n*/",
         "meta": {
             "range": [
-                272,
-                358
+                328,
+                406
             ],
             "filename": "seek-bar.js",
-            "lineno": 21,
+            "lineno": 41,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/progress-control",
             "code": {}
         },
@@ -3195,14 +3195,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get percentage of video played\n  *\n  * @return {Number} Percentage played\n  * @method getPercent\n  */",
+        "comment": "/**\n* Get percentage of video played\n*\n* @return {Number} Percentage played\n* @method getPercent\n*/",
         "meta": {
             "range": [
-                360,
-                469
+                428,
+                527
             ],
             "filename": "seek-bar.js",
-            "lineno": 27,
+            "lineno": 53,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/progress-control",
             "code": {}
         },
@@ -3223,14 +3223,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle mouse down on seek bar\n  *\n  * @method handleMouseDown\n  */",
+        "comment": "/**\n* Handle mouse down on seek bar\n*\n* @method handleMouseDown\n*/",
         "meta": {
             "range": [
-                471,
-                545
+                543,
+                609
             ],
             "filename": "seek-bar.js",
-            "lineno": 34,
+            "lineno": 64,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/progress-control",
             "code": {}
         },
@@ -3241,14 +3241,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle mouse move on seek bar\n  *\n  * @method handleMouseMove\n  */",
+        "comment": "/**\n* Handle mouse move on seek bar\n*\n* @method handleMouseMove\n*/",
         "meta": {
             "range": [
-                547,
-                621
+                637,
+                703
             ],
             "filename": "seek-bar.js",
-            "lineno": 40,
+            "lineno": 78,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/progress-control",
             "code": {}
         },
@@ -3259,14 +3259,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle mouse up on seek bar\n  *\n  * @method handleMouseUp\n  */",
+        "comment": "/**\n* Handle mouse up on seek bar\n*\n* @method handleMouseUp\n*/",
         "meta": {
             "range": [
-                623,
-                693
+                734,
+                796
             ],
             "filename": "seek-bar.js",
-            "lineno": 46,
+            "lineno": 93,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/progress-control",
             "code": {}
         },
@@ -3277,14 +3277,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Move more quickly fast forward for keyboard-only users\n  *\n  * @method stepForward\n  */",
+        "comment": "/**\n* Move more quickly fast forward for keyboard-only users\n*\n* @method stepForward\n*/",
         "meta": {
             "range": [
-                695,
-                790
+                824,
+                911
             ],
             "filename": "seek-bar.js",
-            "lineno": 52,
+            "lineno": 107,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/progress-control",
             "code": {}
         },
@@ -3295,14 +3295,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Move more quickly rewind for keyboard-only users\n  *\n  * @method stepBack\n  */",
+        "comment": "/**\n* Move more quickly rewind for keyboard-only users\n*\n* @method stepBack\n*/",
         "meta": {
             "range": [
-                792,
-                878
+                924,
+                1002
             ],
             "filename": "seek-bar.js",
-            "lineno": 58,
+            "lineno": 116,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/progress-control",
             "code": {}
         },
@@ -3335,11 +3335,11 @@ var docData =
         "comment": "/**\n* Spacer specifically meant to be used as an insertion point for new plugins, etc.\n*\n* @extends Spacer\n* @class CustomControlSpacer\n*/",
         "meta": {
             "range": [
-                41,
-                179
+                49,
+                187
             ],
             "filename": "custom-control-spacer.js",
-            "lineno": 5,
+            "lineno": 7,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/spacer-controls",
             "code": {}
         },
@@ -3353,14 +3353,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Allow sub components to stack CSS class names\n  *\n  * @return {String} The constructed class name\n  * @method buildCSSClass\n  */",
+        "comment": "/**\n* Allow sub components to stack CSS class names\n*\n* @return {String} The constructed class name\n* @method buildCSSClass\n*/",
         "meta": {
             "range": [
-                181,
-                317
+                194,
+                320
             ],
             "filename": "custom-control-spacer.js",
-            "lineno": 12,
+            "lineno": 15,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/spacer-controls",
             "code": {}
         },
@@ -3381,14 +3381,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                319,
-                413
+                333,
+                417
             ],
             "filename": "custom-control-spacer.js",
-            "lineno": 19,
+            "lineno": 25,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/spacer-controls",
             "code": {}
         },
@@ -3430,11 +3430,11 @@ var docData =
         "comment": "/**\n* Just an empty spacer element that can be used as an append point for plugins, etc.\n* Also can be used to create space between elements when necessary.\n*\n* @extends Component\n* @class Spacer\n*/",
         "meta": {
             "range": [
-                26,
-                224
+                31,
+                229
             ],
             "filename": "spacer.js",
-            "lineno": 5,
+            "lineno": 6,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/spacer-controls",
             "code": {}
         },
@@ -3448,14 +3448,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Allow sub components to stack CSS class names\n  *\n  * @return {String} The constructed class name\n  * @method buildCSSClass\n  */",
+        "comment": "/**\n* Allow sub components to stack CSS class names\n*\n* @return {String} The constructed class name\n* @method buildCSSClass\n*/",
         "meta": {
             "range": [
-                226,
+                236,
                 362
             ],
             "filename": "spacer.js",
-            "lineno": 13,
+            "lineno": 15,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/spacer-controls",
             "code": {}
         },
@@ -3476,14 +3476,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @param {Object} props An object of properties  \n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @param {Object} props An object of properties  \n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                364,
-                510
+                375,
+                509
             ],
             "filename": "spacer.js",
-            "lineno": 20,
+            "lineno": 25,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/spacer-controls",
             "code": {}
         },
@@ -3536,11 +3536,11 @@ var docData =
         "comment": "/**\n* The menu item for caption track settings menu\n*\n* @param {Player|Object} player\n* @param {Object=} options\n* @extends TextTrackMenuItem\n* @class CaptionSettingsMenuItem\n*/",
         "meta": {
             "range": [
-                46,
-                223
+                54,
+                231
             ],
             "filename": "caption-settings-menu-item.js",
-            "lineno": 5,
+            "lineno": 7,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/text-track-controls",
             "code": {}
         },
@@ -3574,14 +3574,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle click on menu item\n  *\n  * @method handleClick\n  */",
+        "comment": "/**\n* Handle click on menu item\n*\n* @method handleClick\n*/",
         "meta": {
             "range": [
-                225,
-                291
+                277,
+                335
             ],
             "filename": "caption-settings-menu-item.js",
-            "lineno": 14,
+            "lineno": 30,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/text-track-controls",
             "code": {}
         },
@@ -3614,11 +3614,11 @@ var docData =
         "comment": "/**\n* The button component for toggling and selecting captions\n*\n* @param {Object} player  Player object\n* @param {Object=} options Object of option names and values\n* @param {Function=} ready    Ready callback function\n* @extends TextTrackButton\n* @class CaptionsButton\n*/",
         "meta": {
             "range": [
-                35,
-                308
+                46,
+                319
             ],
             "filename": "captions-button.js",
-            "lineno": 5,
+            "lineno": 8,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/text-track-controls",
             "code": {}
         },
@@ -3663,14 +3663,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Allow sub components to stack CSS class names\n  *\n  * @return {String} The constructed class name\n  * @method buildCSSClass\n  */",
+        "comment": "/**\n* Allow sub components to stack CSS class names\n*\n* @return {String} The constructed class name\n* @method buildCSSClass\n*/",
         "meta": {
             "range": [
-                310,
-                446
+                341,
+                467
             ],
             "filename": "captions-button.js",
-            "lineno": 15,
+            "lineno": 24,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/text-track-controls",
             "code": {}
         },
@@ -3691,14 +3691,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Update caption menu items\n  *\n  * @method update\n  */",
+        "comment": "/**\n* Update caption menu items\n*\n* @method update\n*/",
         "meta": {
             "range": [
-                448,
-                509
+                480,
+                533
             ],
             "filename": "captions-button.js",
-            "lineno": 22,
+            "lineno": 34,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/text-track-controls",
             "code": {}
         },
@@ -3709,14 +3709,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create caption menu items\n  *\n  * @return {Array} Array of menu items\n  * @method createItems\n  */",
+        "comment": "/**\n* Create caption menu items\n*\n* @return {Array} Array of menu items\n* @method createItems\n*/",
         "meta": {
             "range": [
-                511,
-                617
+                582,
+                678
             ],
             "filename": "captions-button.js",
-            "lineno": 28,
+            "lineno": 55,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/text-track-controls",
             "code": {}
         },
@@ -3759,11 +3759,11 @@ var docData =
         "comment": "/**\n* The button component for toggling and selecting chapters\n* Chapters act much differently than other text tracks\n* Cues are navigation vs. other tracks of alternative languages\n*\n* @param {Object} player  Player object\n* @param {Object=} options Object of option names and values\n* @param {Function=} ready    Ready callback function\n* @extends TextTrackButton\n* @class ChaptersButton\n*/",
         "meta": {
             "range": [
-                35,
-                427
+                64,
+                456
             ],
             "filename": "chapters-button.js",
-            "lineno": 5,
+            "lineno": 14,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/text-track-controls",
             "code": {}
         },
@@ -3808,14 +3808,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Allow sub components to stack CSS class names\n  *\n  * @return {String} The constructed class name\n  * @method buildCSSClass\n  */",
+        "comment": "/**\n* Allow sub components to stack CSS class names\n*\n* @return {String} The constructed class name\n* @method buildCSSClass\n*/",
         "meta": {
             "range": [
-                429,
-                565
+                478,
+                604
             ],
             "filename": "chapters-button.js",
-            "lineno": 17,
+            "lineno": 32,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/text-track-controls",
             "code": {}
         },
@@ -3836,14 +3836,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create a menu item for each text track\n  *\n  * @return {Array} Array of menu items\n  * @method createItems\n  */",
+        "comment": "/**\n* Create a menu item for each text track\n*\n* @return {Array} Array of menu items\n* @method createItems\n*/",
         "meta": {
             "range": [
-                567,
-                686
+                617,
+                726
             ],
             "filename": "chapters-button.js",
-            "lineno": 24,
+            "lineno": 42,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/text-track-controls",
             "code": {}
         },
@@ -3864,14 +3864,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create menu from chapter buttons\n  *\n  * @return {Menu} Menu of chapter buttons\n  * @method createMenu\n  */",
+        "comment": "/**\n* Create menu from chapter buttons\n*\n* @return {Menu} Menu of chapter buttons\n* @method createMenu\n*/",
         "meta": {
             "range": [
-                688,
-                803
+                790,
+                895
             ],
             "filename": "chapters-button.js",
-            "lineno": 31,
+            "lineno": 69,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/text-track-controls",
             "code": {}
         },
@@ -3914,11 +3914,11 @@ var docData =
         "comment": "/**\n* The chapter track menu item\n*\n* @param {Player|Object} player\n* @param {Object=} options\n* @extends MenuItem\n* @class ChaptersTrackMenuItem\n*/",
         "meta": {
             "range": [
-                44,
-                192
+                55,
+                203
             ],
             "filename": "chapters-track-menu-item.js",
-            "lineno": 5,
+            "lineno": 8,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/text-track-controls",
             "code": {}
         },
@@ -3952,14 +3952,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle click on menu item\n  *\n  * @method handleClick\n  */",
+        "comment": "/**\n* Handle click on menu item\n*\n* @method handleClick\n*/",
         "meta": {
             "range": [
-                194,
-                260
+                255,
+                313
             ],
             "filename": "chapters-track-menu-item.js",
-            "lineno": 14,
+            "lineno": 33,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/text-track-controls",
             "code": {}
         },
@@ -3970,14 +3970,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Update chapter menu item\n  *\n  * @method update\n  */",
+        "comment": "/**\n* Update chapter menu item\n*\n* @method update\n*/",
         "meta": {
             "range": [
-                262,
-                322
+                332,
+                384
             ],
             "filename": "chapters-track-menu-item.js",
-            "lineno": 20,
+            "lineno": 44,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/text-track-controls",
             "code": {}
         },
@@ -4010,11 +4010,11 @@ var docData =
         "comment": "/**\n* A special menu item for turning of a specific type of text track\n*\n* @param {Player|Object} player\n* @param {Object=} options\n* @extends TextTrackMenuItem\n* @class OffTextTrackMenuItem\n*/",
         "meta": {
             "range": [
-                44,
-                237
+                52,
+                245
             ],
             "filename": "off-text-track-menu-item.js",
-            "lineno": 5,
+            "lineno": 7,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/text-track-controls",
             "code": {}
         },
@@ -4048,14 +4048,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle text track change\n  *\n  * @param {Object} event Event object\n  * @method handleTracksChange\n  */",
+        "comment": "/**\n* Handle text track change\n*\n* @param {Object} event Event object\n* @method handleTracksChange\n*/",
         "meta": {
             "range": [
-                239,
-                350
+                297,
+                398
             ],
             "filename": "off-text-track-menu-item.js",
-            "lineno": 14,
+            "lineno": 32,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/text-track-controls",
             "code": {}
         },
@@ -4099,11 +4099,11 @@ var docData =
         "comment": "/**\n* The button component for toggling and selecting subtitles\n*\n* @param {Object} player  Player object\n* @param {Object=} options Object of option names and values\n* @param {Function=} ready    Ready callback function\n* @extends TextTrackButton\n* @class SubtitlesButton\n*/",
         "meta": {
             "range": [
-                36,
-                311
+                44,
+                319
             ],
             "filename": "subtitles-button.js",
-            "lineno": 5,
+            "lineno": 7,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/text-track-controls",
             "code": {}
         },
@@ -4148,14 +4148,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Allow sub components to stack CSS class names\n  *\n  * @return {String} The constructed class name\n  * @method buildCSSClass\n  */",
+        "comment": "/**\n* Allow sub components to stack CSS class names\n*\n* @return {String} The constructed class name\n* @method buildCSSClass\n*/",
         "meta": {
             "range": [
-                313,
-                449
+                341,
+                467
             ],
             "filename": "subtitles-button.js",
-            "lineno": 15,
+            "lineno": 23,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/text-track-controls",
             "code": {}
         },
@@ -4198,11 +4198,11 @@ var docData =
         "comment": "/**\n* The base class for buttons that toggle specific text track types (e.g. subtitles)\n*\n* @param {Player|Object} player\n* @param {Object=} options\n* @extends MenuButton\n* @class TextTrackButton\n*/",
         "meta": {
             "range": [
-                37,
-                235
+                54,
+                252
             ],
             "filename": "text-track-button.js",
-            "lineno": 5,
+            "lineno": 10,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/text-track-controls",
             "code": {}
         },
@@ -4258,11 +4258,11 @@ var docData =
         "comment": "/**\n* The specific menu item type for selecting a language within a text track kind\n*\n* @param {Player|Object} player\n* @param {Object=} options\n* @extends MenuItem\n* @class TextTrackMenuItem\n*/",
         "meta": {
             "range": [
-                40,
-                234
+                57,
+                251
             ],
             "filename": "text-track-menu-item.js",
-            "lineno": 5,
+            "lineno": 10,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/text-track-controls",
             "code": {}
         },
@@ -4296,14 +4296,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle click on text track\n  *\n  * @method handleClick\n  */",
+        "comment": "/**\n* Handle click on text track\n*\n* @method handleClick\n*/",
         "meta": {
             "range": [
-                236,
-                303
+                399,
+                458
             ],
             "filename": "text-track-menu-item.js",
-            "lineno": 14,
+            "lineno": 67,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/text-track-controls",
             "code": {}
         },
@@ -4314,14 +4314,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle text track change\n  *\n  * @method handleTracksChange\n  */",
+        "comment": "/**\n* Handle text track change\n*\n* @method handleTracksChange\n*/",
         "meta": {
             "range": [
-                305,
-                377
+                528,
+                592
             ],
             "filename": "text-track-menu-item.js",
-            "lineno": 20,
+            "lineno": 95,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/text-track-controls",
             "code": {}
         },
@@ -4354,11 +4354,11 @@ var docData =
         "comment": "/**\n* Displays the current time\n*\n* @param {Player|Object} player\n* @param {Object=} options\n* @extends Component\n* @class CurrentTimeDisplay\n*/",
         "meta": {
             "range": [
-                40,
-                184
+                51,
+                195
             ],
             "filename": "current-time-display.js",
-            "lineno": 5,
+            "lineno": 8,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/time-controls",
             "code": {}
         },
@@ -4392,14 +4392,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                186,
-                280
+                220,
+                304
             ],
             "filename": "current-time-display.js",
-            "lineno": 14,
+            "lineno": 24,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/time-controls",
             "code": {}
         },
@@ -4419,14 +4419,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Update current time display \n  *\n  * @method updateContent\n  */",
+        "comment": "/**\n* Update current time display \n*\n* @method updateContent\n*/",
         "meta": {
             "range": [
-                282,
-                353
+                350,
+                413
             ],
             "filename": "current-time-display.js",
-            "lineno": 21,
+            "lineno": 45,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/time-controls",
             "code": {}
         },
@@ -4459,11 +4459,11 @@ var docData =
         "comment": "/**\n* Displays the duration\n*\n* @param {Player|Object} player\n* @param {Object=} options\n* @extends Component\n* @class DurationDisplay\n*/",
         "meta": {
             "range": [
-                36,
-                173
+                47,
+                184
             ],
             "filename": "duration-display.js",
-            "lineno": 5,
+            "lineno": 8,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/time-controls",
             "code": {}
         },
@@ -4497,14 +4497,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                175,
-                269
+                227,
+                311
             ],
             "filename": "duration-display.js",
-            "lineno": 14,
+            "lineno": 30,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/time-controls",
             "code": {}
         },
@@ -4524,14 +4524,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Update duration time display \n  *\n  * @method updateContent\n  */",
+        "comment": "/**\n* Update duration time display \n*\n* @method updateContent\n*/",
         "meta": {
             "range": [
-                271,
-                343
+                357,
+                421
             ],
             "filename": "duration-display.js",
-            "lineno": 21,
+            "lineno": 51,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/time-controls",
             "code": {}
         },
@@ -4564,11 +4564,11 @@ var docData =
         "comment": "/**\n* Displays the time left in the video\n*\n* @param {Player|Object} player\n* @param {Object=} options\n* @extends Component\n* @class RemainingTimeDisplay\n*/",
         "meta": {
             "range": [
-                42,
-                198
+                53,
+                209
             ],
             "filename": "remaining-time-display.js",
-            "lineno": 5,
+            "lineno": 8,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/time-controls",
             "code": {}
         },
@@ -4602,14 +4602,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                200,
-                294
+                234,
+                318
             ],
             "filename": "remaining-time-display.js",
-            "lineno": 14,
+            "lineno": 24,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/time-controls",
             "code": {}
         },
@@ -4629,14 +4629,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Update remaining time display \n  *\n  * @method updateContent\n  */",
+        "comment": "/**\n* Update remaining time display \n*\n* @method updateContent\n*/",
         "meta": {
             "range": [
-                296,
-                369
+                364,
+                429
             ],
             "filename": "remaining-time-display.js",
-            "lineno": 21,
+            "lineno": 45,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/time-controls",
             "code": {}
         },
@@ -4669,11 +4669,11 @@ var docData =
         "comment": "/**\n* The separator between the current time and duration.\n* Can be hidden if it's not needed in the design.\n*\n* @param {Player|Object} player\n* @param {Object=} options\n* @extends Component\n* @class TimeDivider\n*/",
         "meta": {
             "range": [
-                32,
-                246
+                37,
+                251
             ],
             "filename": "time-divider.js",
-            "lineno": 5,
+            "lineno": 6,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/time-controls",
             "code": {}
         },
@@ -4707,14 +4707,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                248,
+                258,
                 342
             ],
             "filename": "time-divider.js",
-            "lineno": 15,
+            "lineno": 17,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/time-controls",
             "code": {}
         },
@@ -4734,14 +4734,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n * The bar that contains the volume level and can be clicked on to adjust the level\n *\n * @param {Player|Object} player\n * @param {Object=} options\n * @extends Slider\n * @class VolumeBar\n */",
+        "comment": "/**\n* The bar that contains the volume level and can be clicked on to adjust the level\n*\n* @param {Player|Object} player\n* @param {Object=} options\n* @extends Slider\n* @class VolumeBar\n*/",
         "meta": {
             "range": [
-                0,
-                194
+                24,
+                211
             ],
             "filename": "volume-bar.js",
-            "lineno": 1,
+            "lineno": 9,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/volume-control",
             "code": {}
         },
@@ -4775,14 +4775,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                196,
-                290
+                236,
+                320
             ],
             "filename": "volume-bar.js",
-            "lineno": 10,
+            "lineno": 25,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/volume-control",
             "code": {}
         },
@@ -4802,14 +4802,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle mouse move on volume bar\n  *\n  * @method handleMouseMove\n  */",
+        "comment": "/**\n* Handle mouse move on volume bar\n*\n* @method handleMouseMove\n*/",
         "meta": {
             "range": [
-                292,
-                368
+                342,
+                410
             ],
             "filename": "volume-bar.js",
-            "lineno": 17,
+            "lineno": 38,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/volume-control",
             "code": {}
         },
@@ -4820,14 +4820,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get percent of volume level\n  *\n  * @retun {Number} Volume level percent\n  * @method getPercent\n  */",
+        "comment": "/**\n* Get percent of volume level\n*\n* @retun {Number} Volume level percent\n* @method getPercent\n*/",
         "meta": {
             "range": [
-                370,
-                478
+                435,
+                533
             ],
             "filename": "volume-bar.js",
-            "lineno": 23,
+            "lineno": 51,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/volume-control",
             "code": {}
         },
@@ -4846,14 +4846,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Increase volume level for keyboard users\n  *\n  * @method stepForward\n  */",
+        "comment": "/**\n* Increase volume level for keyboard users\n*\n* @method stepForward\n*/",
         "meta": {
             "range": [
-                480,
-                561
+                558,
+                631
             ],
             "filename": "volume-bar.js",
-            "lineno": 30,
+            "lineno": 65,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/volume-control",
             "code": {}
         },
@@ -4864,14 +4864,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Decrease volume level for keyboard users\n  *\n  * @method stepBack\n  */",
+        "comment": "/**\n* Decrease volume level for keyboard users\n*\n* @method stepBack\n*/",
         "meta": {
             "range": [
-                563,
-                641
+                644,
+                714
             ],
             "filename": "volume-bar.js",
-            "lineno": 36,
+            "lineno": 74,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/volume-control",
             "code": {}
         },
@@ -4882,14 +4882,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Update ARIA accessibility attributes\n  *\n  * @method updateARIAAttributes\n  */",
+        "comment": "/**\n* Update ARIA accessibility attributes\n*\n* @method updateARIAAttributes\n*/",
         "meta": {
             "range": [
-                643,
-                729
+                727,
+                805
             ],
             "filename": "volume-bar.js",
-            "lineno": 42,
+            "lineno": 83,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/volume-control",
             "code": {}
         },
@@ -4900,14 +4900,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n * The component for controlling the volume level\n *\n * @param {Player|Object} player\n * @param {Object=} options\n * @extends Component\n * @class VolumeControl\n */",
+        "comment": "/**\n* The component for controlling the volume level\n*\n* @param {Player|Object} player\n* @param {Object=} options\n* @extends Component\n* @class VolumeControl\n*/",
         "meta": {
             "range": [
-                0,
-                167
+                15,
+                175
             ],
             "filename": "volume-control.js",
-            "lineno": 1,
+            "lineno": 6,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/volume-control",
             "code": {}
         },
@@ -4941,14 +4941,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                169,
-                263
+                230,
+                314
             ],
             "filename": "volume-control.js",
-            "lineno": 10,
+            "lineno": 32,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/volume-control",
             "code": {}
         },
@@ -4968,14 +4968,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n * Shows volume level\n *\n * @param {Player|Object} player\n * @param {Object=} options\n * @extends Component\n * @class VolumeLevel\n */",
+        "comment": "/**\n* Shows volume level\n*\n* @param {Player|Object} player\n* @param {Object=} options\n* @extends Component\n* @class VolumeLevel\n*/",
         "meta": {
             "range": [
-                0,
-                137
+                6,
+                136
             ],
             "filename": "volume-level.js",
-            "lineno": 1,
+            "lineno": 3,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/volume-control",
             "code": {}
         },
@@ -5009,14 +5009,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                139,
-                233
+                143,
+                227
             ],
             "filename": "volume-level.js",
-            "lineno": 10,
+            "lineno": 13,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar/volume-control",
             "code": {}
         },
@@ -5058,11 +5058,11 @@ var docData =
         "comment": "/**\n* Button for volume menu\n*\n* @param {Player|Object} player\n* @param {Object=} options\n* @extends MenuButton\n* @class VolumeMenuButton\n*/",
         "meta": {
             "range": [
-                38,
-                178
+                58,
+                198
             ],
             "filename": "volume-menu-button.js",
-            "lineno": 5,
+            "lineno": 11,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar",
             "code": {}
         },
@@ -5096,14 +5096,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Allow sub components to stack CSS class names\n  *\n  * @return {String} The constructed class name\n  * @method buildCSSClass\n  */",
+        "comment": "/**\n* Allow sub components to stack CSS class names\n*\n* @return {String} The constructed class name\n* @method buildCSSClass\n*/",
         "meta": {
             "range": [
-                180,
-                316
+                265,
+                391
             ],
             "filename": "volume-menu-button.js",
-            "lineno": 14,
+            "lineno": 41,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar",
             "code": {}
         },
@@ -5124,14 +5124,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Allow sub components to stack CSS class names\n  *\n  * @return {Menu} The volume menu button\n  * @method createMenu\n  */",
+        "comment": "/**\n* Allow sub components to stack CSS class names\n*\n* @return {Menu} The volume menu button\n* @method createMenu\n*/",
         "meta": {
             "range": [
-                318,
-                445
+                404,
+                521
             ],
             "filename": "volume-menu-button.js",
-            "lineno": 21,
+            "lineno": 51,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar",
             "code": {}
         },
@@ -5152,14 +5152,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle click on volume menu and calls super\n  *\n  * @method handleClick\n  */",
+        "comment": "/**\n* Handle click on volume menu and calls super\n*\n* @method handleClick\n*/",
         "meta": {
             "range": [
-                447,
-                531
+                585,
+                661
             ],
             "filename": "volume-menu-button.js",
-            "lineno": 28,
+            "lineno": 78,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/control-bar",
             "code": {}
         },
@@ -5192,11 +5192,11 @@ var docData =
         "comment": "/**\n* Display that an error has occurred making the video unplayable\n*\n* @param {Object} player  Main Player\n* @param {Object=} options Object of option names and values\n* @extends Component\n* @class ErrorDisplay\n*/",
         "meta": {
             "range": [
-                33,
-                248
+                41,
+                256
             ],
             "filename": "error-display.js",
-            "lineno": 5,
+            "lineno": 7,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -5231,14 +5231,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                250,
-                344
+                284,
+                368
             ],
             "filename": "error-display.js",
-            "lineno": 14,
+            "lineno": 24,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -5258,14 +5258,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Update the error message in localized language\n  *\n  * @method update\n  */",
+        "comment": "/**\n* Update the error message in localized language\n*\n* @method update\n*/",
         "meta": {
             "range": [
-                346,
-                428
+                402,
+                476
             ],
             "filename": "error-display.js",
-            "lineno": 21,
+            "lineno": 41,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -5355,11 +5355,11 @@ var docData =
         "comment": "/**\n* Loading spinner for waiting events\n*\n* @extends Component\n* @class LoadingSpinner\n*/",
         "meta": {
             "range": [
-                35,
-                125
+                143,
+                233
             ],
             "filename": "loading-spinner.js",
-            "lineno": 5,
+            "lineno": 8,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -5373,14 +5373,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @method createEl\n*/",
         "meta": {
             "range": [
-                127,
-                199
+                240,
+                304
             ],
             "filename": "loading-spinner.js",
-            "lineno": 12,
+            "lineno": 16,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -5432,11 +5432,11 @@ var docData =
         "comment": "/**\n* A button class with a popup menu\n*\n* @param {Player|Object} player\n* @param {Object=} options\n* @extends Button\n* @class MenuButton\n*/",
         "meta": {
             "range": [
-                31,
-                171
+                51,
+                191
             ],
             "filename": "menu-button.js",
-            "lineno": 5,
+            "lineno": 11,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/menu",
             "code": {}
         },
@@ -5470,14 +5470,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Update menu\n  *\n  * @method update\n  */",
+        "comment": "/**\n* Update menu\n*\n* @method update\n*/",
         "meta": {
             "range": [
-                173,
-                220
+                228,
+                267
             ],
             "filename": "menu-button.js",
-            "lineno": 14,
+            "lineno": 31,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/menu",
             "code": {}
         },
@@ -5488,14 +5488,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create menu\n  *\n  * @return {Menu} The constructed menu\n  * @method createMenu\n  */",
+        "comment": "/**\n* Create menu\n*\n* @return {Menu} The constructed menu\n* @method createMenu\n*/",
         "meta": {
             "range": [
-                323,
-                414
+                400,
+                481
             ],
             "filename": "menu-button.js",
-            "lineno": 27,
+            "lineno": 61,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/menu",
             "code": {}
         },
@@ -5516,14 +5516,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the list of menu items. Specific to each subclass.\n  *\n  * @method createItems\n  */",
+        "comment": "/**\n* Create the list of menu items. Specific to each subclass.\n*\n* @method createItems\n*/",
         "meta": {
             "range": [
-                416,
-                514
+                554,
+                644
             ],
             "filename": "menu-button.js",
-            "lineno": 34,
+            "lineno": 91,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/menu",
             "code": {}
         },
@@ -5534,14 +5534,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                516,
-                610
+                651,
+                735
             ],
             "filename": "menu-button.js",
-            "lineno": 40,
+            "lineno": 98,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/menu",
             "code": {}
         },
@@ -5561,14 +5561,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Allow sub components to stack CSS class names\n  *\n  * @return {String} The constructed class name\n  * @method buildCSSClass\n  */",
+        "comment": "/**\n* Allow sub components to stack CSS class names\n*\n* @return {String} The constructed class name\n* @method buildCSSClass\n*/",
         "meta": {
             "range": [
-                612,
-                748
+                754,
+                880
             ],
             "filename": "menu-button.js",
-            "lineno": 47,
+            "lineno": 110,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/menu",
             "code": {}
         },
@@ -5589,14 +5589,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Focus - Add keyboard functionality to element\n  * This function is not needed anymore. Instead, the \n  * keyboard functionality is handled by\n  * treating the button as triggering a submenu. \n  * When the button is pressed, the submenu\n  * appears. Pressing the button again makes \n  * the submenu disappear.\n  *\n  * @method handleFocus\n  */",
+        "comment": "/**\n* Focus - Add keyboard functionality to element\n* This function is not needed anymore. Instead, the \n* keyboard functionality is handled by\n* treating the button as triggering a submenu. \n* When the button is pressed, the submenu\n* appears. Pressing the button again makes \n* the submenu disappear.\n*\n* @method handleFocus\n*/",
         "meta": {
             "range": [
-                750,
-                1099
+                893,
+                1222
             ],
             "filename": "menu-button.js",
-            "lineno": 54,
+            "lineno": 120,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/menu",
             "code": {}
         },
@@ -5607,14 +5607,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Can't turn off list display that we turned\n  * on with focus, because list would go away.\n  *\n  * @method handleBlur\n  */",
+        "comment": "/**\n* Can't turn off list display that we turned\n* on with focus, because list would go away.\n*\n* @method handleBlur\n*/",
         "meta": {
             "range": [
-                1101,
-                1230
+                1229,
+                1348
             ],
             "filename": "menu-button.js",
-            "lineno": 66,
+            "lineno": 133,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/menu",
             "code": {}
         },
@@ -5625,14 +5625,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * When you click the button it adds focus, which \n  * will show the menu indefinitely.\n  * So we'll remove focus when the mouse leaves the button.\n  * Focus is needed for tab navigation.\n  * Allow sub components to stack CSS class names\n  *\n  * @method handleClick\n  */",
+        "comment": "/**\n* When you click the button it adds focus, which \n* will show the menu indefinitely.\n* So we'll remove focus when the mouse leaves the button.\n* Focus is needed for tab navigation.\n* Allow sub components to stack CSS class names\n*\n* @method handleClick\n*/",
         "meta": {
             "range": [
-                1232,
-                1507
+                1355,
+                1614
             ],
             "filename": "menu-button.js",
-            "lineno": 73,
+            "lineno": 141,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/menu",
             "code": {}
         },
@@ -5643,14 +5643,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle key press on menu\n  *\n  * @param {Object} Key press event\n  * @method handleKeyPress\n  */",
+        "comment": "/**\n* Handle key press on menu\n*\n* @param {Object} Key press event\n* @method handleKeyPress\n*/",
         "meta": {
             "range": [
-                1509,
-                1613
+                1651,
+                1745
             ],
             "filename": "menu-button.js",
-            "lineno": 83,
+            "lineno": 162,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/menu",
             "code": {}
         },
@@ -5672,14 +5672,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Makes changes based on button pressed\n  *\n  * @method pressButton\n  */",
+        "comment": "/**\n* Makes changes based on button pressed\n*\n* @method pressButton\n*/",
         "meta": {
             "range": [
-                1615,
-                1693
+                1803,
+                1873
             ],
             "filename": "menu-button.js",
-            "lineno": 90,
+            "lineno": 187,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/menu",
             "code": {}
         },
@@ -5690,14 +5690,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Makes changes based on button unpressed\n  *\n  * @method unpressButton\n  */",
+        "comment": "/**\n* Makes changes based on button unpressed\n*\n* @method unpressButton\n*/",
         "meta": {
             "range": [
-                1695,
-                1777
+                1901,
+                1975
             ],
             "filename": "menu-button.js",
-            "lineno": 96,
+            "lineno": 201,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/menu",
             "code": {}
         },
@@ -5730,11 +5730,11 @@ var docData =
         "comment": "/**\n* The component for a menu item. `<li>`\n*\n* @param {Player|Object} player\n* @param {Object=} options\n* @extends Button\n* @class MenuItem\n*/",
         "meta": {
             "range": [
-                29,
-                172
+                40,
+                183
             ],
             "filename": "menu-item.js",
-            "lineno": 5,
+            "lineno": 8,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/menu",
             "code": {}
         },
@@ -5768,14 +5768,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @param {String=} type Desc\n  * @param {Object=} props Desc \n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @param {String=} type Desc\n* @param {Object=} props Desc \n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                174,
-                332
+                205,
+                349
             ],
             "filename": "menu-item.js",
-            "lineno": 14,
+            "lineno": 23,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/menu",
             "code": {}
         },
@@ -5817,14 +5817,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle a click on the menu item, and set it to selected\n  *\n  * @method handleClick\n  */",
+        "comment": "/**\n* Handle a click on the menu item, and set it to selected\n*\n* @method handleClick\n*/",
         "meta": {
             "range": [
-                334,
-                430
+                371,
+                459
             ],
             "filename": "menu-item.js",
-            "lineno": 23,
+            "lineno": 38,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/menu",
             "code": {}
         },
@@ -5835,14 +5835,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Set this menu item as selected or not\n  *\n  * @param  {Boolean} selected\n  * @method selected\n  */",
+        "comment": "/**\n* Set this menu item as selected or not\n*\n* @param  {Boolean} selected\n* @method selected\n*/",
         "meta": {
             "range": [
-                432,
-                538
+                472,
+                568
             ],
             "filename": "menu-item.js",
-            "lineno": 29,
+            "lineno": 47,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/menu",
             "code": {}
         },
@@ -5885,11 +5885,11 @@ var docData =
         "comment": "/**\n* The Menu component is used to build pop up menus, including subtitle and\n* captions selection menus.\n*\n* @extends Component\n* @class Menu\n*/",
         "meta": {
             "range": [
-                24,
-                170
+                38,
+                184
             ],
             "filename": "menu.js",
-            "lineno": 5,
+            "lineno": 9,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/menu",
             "code": {}
         },
@@ -5903,14 +5903,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Add a menu item to the menu\n  *\n  * @param {Object|String} component Component or component type to add\n  * @method addItem\n  */",
+        "comment": "/**\n* Add a menu item to the menu\n*\n* @param {Object|String} component Component or component type to add\n* @method addItem\n*/",
         "meta": {
             "range": [
-                172,
-                308
+                191,
+                317
             ],
             "filename": "menu.js",
-            "lineno": 13,
+            "lineno": 18,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/menu",
             "code": {}
         },
@@ -5933,14 +5933,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                310,
-                404
+                339,
+                423
             ],
             "filename": "menu.js",
-            "lineno": 20,
+            "lineno": 31,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/menu",
             "code": {}
         },
@@ -5982,11 +5982,11 @@ var docData =
         "comment": "/**\n* An instance of the `Player` class is created when any of the Video.js setup methods are used to initialize a video.\n* ```js\n* var myPlayer = videojs('example_video_1');\n* ```\n* In the following example, the `data-setup` attribute tells the Video.js library to create a player instance when the library is ready.\n* ```html\n* <video id=\"example_video_1\" data-setup='{}' controls>\n*   <source src=\"my-source.mp4\" type=\"video/mp4\">\n* </video>\n* ```\n* After an instance has been created it can be accessed globally using `Video('example_video_1')`.\n*\n* @param {Element} tag        The original video tag used for configuring options\n* @param {Object=} options    Object of option names and values\n* @param {Function=} ready    Ready callback function\n* @extends Component\n* @class Player\n*/",
         "meta": {
             "range": [
-                26,
-                817
+                127,
+                918
             ],
             "filename": "player.js",
-            "lineno": 5,
+            "lineno": 38,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6031,14 +6031,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * player's constructor function\n  *\n  * @constructs\n  * @method init\n  * @param {Element} tag        The original video tag used for configuring options\n  * @param {Object=} options    Player options\n  * @param {Function=} ready    Ready callback function\n  */",
+        "comment": "/**\n* player's constructor function\n*\n* @constructs\n* @method init\n* @param {Element} tag        The original video tag used for configuring options\n* @param {Object=} options    Player options\n* @param {Function=} ready    Ready callback function\n*/",
         "meta": {
             "range": [
-                819,
-                1085
+                925,
+                1175
             ],
             "filename": "player.js",
-            "lineno": 25,
+            "lineno": 59,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6081,14 +6081,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Destroys the video player and does any necessary cleanup\n  * ```js\n  *     myPlayer.dispose();\n  * ```\n  * This is especially helpful if you are dynamically adding and removing videos\n  * to/from the DOM.\n  *\n  * @method dispose\n  */",
+        "comment": "/**\n* Destroys the video player and does any necessary cleanup\n* ```js\n*     myPlayer.dispose();\n* ```\n* This is especially helpful if you are dynamically adding and removing videos\n* to/from the DOM.\n*\n* @method dispose\n*/",
         "meta": {
             "range": [
-                1087,
-                1328
+                1679,
+                1902
             ],
             "filename": "player.js",
-            "lineno": 35,
+            "lineno": 205,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6099,14 +6099,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                1330,
-                1424
+                1948,
+                2032
             ],
             "filename": "player.js",
-            "lineno": 46,
+            "lineno": 230,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6126,14 +6126,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get/set player width\n  *\n  * @param {Number=} value Value for width\n  * @return {Number} Width when getting\n  * @method width\n  */",
+        "comment": "/**\n* Get/set player width\n*\n* @param {Number=} value Value for width\n* @return {Number} Width when getting\n* @method width\n*/",
         "meta": {
             "range": [
-                1426,
-                1564
+                2213,
+                2339
             ],
             "filename": "player.js",
-            "lineno": 53,
+            "lineno": 296,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6166,14 +6166,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get/set player height\n  *\n  * @param {Number=} value Value for height\n  * @return {Number} Height when getting\n  * @method height\n  */",
+        "comment": "/**\n* Get/set player height\n*\n* @param {Number=} value Value for height\n* @return {Number} Height when getting\n* @method height\n*/",
         "meta": {
             "range": [
-                1566,
-                1708
+                2352,
+                2482
             ],
             "filename": "player.js",
-            "lineno": 61,
+            "lineno": 307,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6206,14 +6206,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get/set dimension for player\n  *\n  * @param {String} dimension Either width or height\n  * @param {Number=} value Value for dimension\n  * @return {Component}\n  * @method dimension\n  */",
+        "comment": "/**\n* Get/set dimension for player\n*\n* @param {String} dimension Either width or height\n* @param {Number=} value Value for dimension\n* @return {Component}\n* @method dimension\n*/",
         "meta": {
             "range": [
-                1710,
-                1901
+                2495,
+                2672
             ],
             "filename": "player.js",
-            "lineno": 69,
+            "lineno": 318,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6254,14 +6254,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Add/remove the vjs-fluid class\n  *\n  * @param {Boolean} bool Value of true adds the class, value of false removes the class \n  * @method fluid\n  */",
+        "comment": "/**\n* Add/remove the vjs-fluid class\n*\n* @param {Boolean} bool Value of true adds the class, value of false removes the class \n* @method fluid\n*/",
         "meta": {
             "range": [
-                1903,
-                2058
+                2748,
+                2893
             ],
             "filename": "player.js",
-            "lineno": 78,
+            "lineno": 351,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6283,14 +6283,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get/Set the aspect ratio\n  *\n  * @param {String=} ratio Aspect ratio for player\n  * @return aspectRatio\n  * @method aspectRatio\n  */",
+        "comment": "/**\n* Get/Set the aspect ratio\n*\n* @param {String=} ratio Aspect ratio for player\n* @return aspectRatio\n* @method aspectRatio\n*/",
         "meta": {
             "range": [
-                2060,
-                2200
+                2936,
+                3064
             ],
             "filename": "player.js",
-            "lineno": 85,
+            "lineno": 371,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6318,14 +6318,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Update styles of the player element (height, width and aspect ratio)\n  *\n  * @method updateStyleEl_\n  */",
+        "comment": "/**\n* Update styles of the player element (height, width and aspect ratio)\n*\n* @method updateStyleEl_\n*/",
         "meta": {
             "range": [
-                2202,
-                2314
+                3119,
+                3223
             ],
             "filename": "player.js",
-            "lineno": 93,
+            "lineno": 396,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6336,14 +6336,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Load the Media Playback Technology (tech)\n  * Load/Create an instance of playback technology including element and API methods\n  * And append playback element in player div.\n  *\n  * @param {String} techName Name of the playback technology\n  * @param {String} source Video source\n  * @method loadTech\n  */",
+        "comment": "/**\n* Load the Media Playback Technology (tech)\n* Load/Create an instance of playback technology including element and API methods\n* And append playback element in player div.\n*\n* @param {String} techName Name of the playback technology\n* @param {String} source Video source\n* @method loadTech\n*/",
         "meta": {
             "range": [
-                2316,
-                2628
+                3398,
+                3694
             ],
             "filename": "player.js",
-            "lineno": 99,
+            "lineno": 459,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6374,14 +6374,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Unload playback technology\n  *\n  * @method unloadTech\n  */",
+        "comment": "/**\n* Unload playback technology\n*\n* @method unloadTech\n*/",
         "meta": {
             "range": [
-                2630,
-                2696
+                4001,
+                4059
             ],
             "filename": "player.js",
-            "lineno": 109,
+            "lineno": 570,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6392,14 +6392,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Add playback technology listeners\n  *\n  * @method addTechControlsListeners\n  */",
+        "comment": "/**\n* Add playback technology listeners\n*\n* @method addTechControlsListeners\n*/",
         "meta": {
             "range": [
-                2698,
-                2785
+                4093,
+                4172
             ],
             "filename": "player.js",
-            "lineno": 115,
+            "lineno": 586,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6410,14 +6410,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Remove the listeners used for click and tap controls. This is needed for\n  * toggling to controls disabled, where a tap/touch should do nothing.\n  *\n  * @method removeTechControlsListeners\n  */",
+        "comment": "/**\n* Remove the listeners used for click and tap controls. This is needed for\n* toggling to controls disabled, where a tap/touch should do nothing.\n*\n* @method removeTechControlsListeners\n*/",
         "meta": {
             "range": [
-                2787,
-                2988
+                4230,
+                4421
             ],
             "filename": "player.js",
-            "lineno": 121,
+            "lineno": 610,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6428,14 +6428,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Player waits for the tech to be ready\n  *\n  * @private\n  * @method handleTechReady\n  */",
+        "comment": "/**\n* Player waits for the tech to be ready\n*\n* @private\n* @method handleTechReady\n*/",
         "meta": {
             "range": [
-                2990,
-                3085
+                4452,
+                4537
             ],
             "filename": "player.js",
-            "lineno": 128,
+            "lineno": 626,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6447,14 +6447,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Fired when the native controls are used\n  *\n  * @private\n  * @method handleTechUseNativeControls\n  */",
+        "comment": "/**\n* Fired when the native controls are used\n*\n* @private\n* @method handleTechUseNativeControls\n*/",
         "meta": {
             "range": [
-                3087,
-                3196
+                4577,
+                4676
             ],
             "filename": "player.js",
-            "lineno": 135,
+            "lineno": 645,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6466,14 +6466,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Fired when the user agent begins looking for media data\n  *\n  * @event loadstart\n  */",
+        "comment": "/**\n* Fired when the user agent begins looking for media data\n*\n* @event loadstart\n*/",
         "meta": {
             "range": [
-                3198,
-                3291
+                4689,
+                4774
             ],
             "filename": "player.js",
-            "lineno": 142,
+            "lineno": 655,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6484,14 +6484,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Add/remove the vjs-has-started class\n  *\n  * @param {Boolean} hasStarted The value of true adds the class the value of false remove the class\n  * @return {Boolean} Boolean value if has started\n  * @method hasStarted\n  */",
+        "comment": "/**\n* Add/remove the vjs-has-started class\n*\n* @param {Boolean} hasStarted The value of true adds the class the value of false remove the class\n* @return {Boolean} Boolean value if has started\n* @method hasStarted\n*/",
         "meta": {
             "range": [
-                3293,
-                3521
+                4838,
+                5054
             ],
             "filename": "player.js",
-            "lineno": 148,
+            "lineno": 681,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6523,14 +6523,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Fired whenever the media begins or resumes playback\n  *\n  * @event play\n  */",
+        "comment": "/**\n* Fired whenever the media begins or resumes playback\n*\n* @event play\n*/",
         "meta": {
             "range": [
-                3523,
-                3607
+                5109,
+                5185
             ],
             "filename": "player.js",
-            "lineno": 156,
+            "lineno": 706,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6541,14 +6541,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Fired whenever the media begins waiting\n  *\n  * @event waiting\n  */",
+        "comment": "/**\n* Fired whenever the media begins waiting\n*\n* @event waiting\n*/",
         "meta": {
             "range": [
-                3609,
-                3684
+                5222,
+                5289
             ],
             "filename": "player.js",
-            "lineno": 162,
+            "lineno": 723,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6559,14 +6559,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * A handler for events that signal that waiting has ended\n  * which is not consistent between browsers. See #1351\n  *\n  * @event canplay\n  */",
+        "comment": "/**\n* A handler for events that signal that waiting has ended\n* which is not consistent between browsers. See #1351\n*\n* @event canplay\n*/",
         "meta": {
             "range": [
-                3686,
-                3833
+                5305,
+                5442
             ],
             "filename": "player.js",
-            "lineno": 168,
+            "lineno": 733,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6577,14 +6577,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * A handler for events that signal that waiting has ended\n  * which is not consistent between browsers. See #1351\n  *\n  * @event canplaythrough\n  */",
+        "comment": "/**\n* A handler for events that signal that waiting has ended\n* which is not consistent between browsers. See #1351\n*\n* @event canplaythrough\n*/",
         "meta": {
             "range": [
-                3835,
-                3989
+                5458,
+                5602
             ],
             "filename": "player.js",
-            "lineno": 175,
+            "lineno": 744,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6595,14 +6595,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * A handler for events that signal that waiting has ended\n  * which is not consistent between browsers. See #1351\n  *\n  * @event playing\n  */",
+        "comment": "/**\n* A handler for events that signal that waiting has ended\n* which is not consistent between browsers. See #1351\n*\n* @event playing\n*/",
         "meta": {
             "range": [
-                3991,
-                4138
+                5618,
+                5755
             ],
             "filename": "player.js",
-            "lineno": 182,
+            "lineno": 755,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6613,14 +6613,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Fired whenever the player is jumping to a new time\n  *\n  * @event seeking\n  */",
+        "comment": "/**\n* Fired whenever the player is jumping to a new time\n*\n* @event seeking\n*/",
         "meta": {
             "range": [
-                4140,
-                4226
+                5771,
+                5849
             ],
             "filename": "player.js",
-            "lineno": 189,
+            "lineno": 766,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6631,14 +6631,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Fired when the player has finished jumping to a new time\n  *\n  * @event seeked\n  */",
+        "comment": "/**\n* Fired when the player has finished jumping to a new time\n*\n* @event seeked\n*/",
         "meta": {
             "range": [
-                4228,
-                4319
+                5865,
+                5948
             ],
             "filename": "player.js",
-            "lineno": 195,
+            "lineno": 776,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6649,14 +6649,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Fired the first time a video is played\n  * Not part of the HLS spec, and we're not sure if this is the best\n  * implementation yet, so use sparingly. If you don't have a reason to\n  * prevent playback, use `myPlayer.one('play');` instead.\n  *\n  * @event firstplay\n  */",
+        "comment": "/**\n* Fired the first time a video is played\n* Not part of the HLS spec, and we're not sure if this is the best\n* implementation yet, so use sparingly. If you don't have a reason to\n* prevent playback, use `myPlayer.one('play');` instead.\n*\n* @event firstplay\n*/",
         "meta": {
             "range": [
-                4321,
-                4597
+                5964,
+                6226
             ],
             "filename": "player.js",
-            "lineno": 201,
+            "lineno": 786,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6667,14 +6667,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Fired whenever the media has been paused\n  *\n  * @event pause\n  */",
+        "comment": "/**\n* Fired whenever the media has been paused\n*\n* @event pause\n*/",
         "meta": {
             "range": [
-                4599,
-                4673
+                6260,
+                6326
             ],
             "filename": "player.js",
-            "lineno": 210,
+            "lineno": 805,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6685,14 +6685,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Fired while the user agent is downloading media data\n  *\n  * @event progress\n  */",
+        "comment": "/**\n* Fired while the user agent is downloading media data\n*\n* @event progress\n*/",
         "meta": {
             "range": [
-                4675,
-                4764
+                6345,
+                6426
             ],
             "filename": "player.js",
-            "lineno": 216,
+            "lineno": 816,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6703,14 +6703,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Fired when the end of the media resource is reached (currentTime == duration)\n  *\n  * @event ended\n  */",
+        "comment": "/**\n* Fired when the end of the media resource is reached (currentTime == duration)\n*\n* @event ended\n*/",
         "meta": {
             "range": [
-                4766,
-                4877
+                6454,
+                6557
             ],
             "filename": "player.js",
-            "lineno": 222,
+            "lineno": 830,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6721,14 +6721,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Fired when the duration of the media resource is first known or changed\n  *\n  * @event durationchange\n  */",
+        "comment": "/**\n* Fired when the duration of the media resource is first known or changed\n*\n* @event durationchange\n*/",
         "meta": {
             "range": [
-                4879,
-                4993
+                6594,
+                6700
             ],
             "filename": "player.js",
-            "lineno": 228,
+            "lineno": 847,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6739,14 +6739,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle a click on the media element to play/pause\n  *\n  * @param {Object=} event Event object \n  * @method handleTechClick\n  */",
+        "comment": "/**\n* Handle a click on the media element to play/pause\n*\n* @param {Object=} event Event object \n* @method handleTechClick\n*/",
         "meta": {
             "range": [
-                4995,
-                5130
+                6716,
+                6841
             ],
             "filename": "player.js",
-            "lineno": 234,
+            "lineno": 857,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6769,14 +6769,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle a tap on the media element. It will toggle the user\n  * activity state, which hides and shows the controls.\n  *\n  * @method handleTechTap\n  */",
+        "comment": "/**\n* Handle a tap on the media element. It will toggle the user\n* activity state, which hides and shows the controls.\n*\n* @method handleTechTap\n*/",
         "meta": {
             "range": [
-                5132,
-                5289
+                6890,
+                7037
             ],
             "filename": "player.js",
-            "lineno": 241,
+            "lineno": 879,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6787,14 +6787,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle touch to start\n  *\n  * @method handleTechTouchStart\n  */",
+        "comment": "/**\n* Handle touch to start\n*\n* @method handleTechTouchStart\n*/",
         "meta": {
             "range": [
-                5291,
-                5362
+                7050,
+                7113
             ],
             "filename": "player.js",
-            "lineno": 248,
+            "lineno": 889,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6805,14 +6805,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle touch to move\n  *\n  * @method handleTechTouchMove\n  */",
+        "comment": "/**\n* Handle touch to move\n*\n* @method handleTechTouchMove\n*/",
         "meta": {
             "range": [
-                5364,
-                5433
+                7126,
+                7187
             ],
             "filename": "player.js",
-            "lineno": 254,
+            "lineno": 898,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6823,14 +6823,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle touch to end\n  *\n  * @method handleTechTouchEnd\n  */",
+        "comment": "/**\n* Handle touch to end\n*\n* @method handleTechTouchEnd\n*/",
         "meta": {
             "range": [
-                5435,
-                5502
+                7206,
+                7265
             ],
             "filename": "player.js",
-            "lineno": 260,
+            "lineno": 909,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6841,14 +6841,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Update the duration of the player using the tech\n  *\n  * @private\n  * @method updateDuration\n  */",
+        "comment": "/**\n* Update the duration of the player using the tech\n*\n* @private\n* @method updateDuration\n*/",
         "meta": {
             "range": [
-                5504,
-                5609
+                7281,
+                7376
             ],
             "filename": "player.js",
-            "lineno": 266,
+            "lineno": 919,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6860,14 +6860,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Fired when the player switches in or out of fullscreen mode\n  *\n  * @event fullscreenchange\n  */",
+        "comment": "/**\n* Fired when the player switches in or out of fullscreen mode\n*\n* @event fullscreenchange\n*/",
         "meta": {
             "range": [
-                5611,
-                5715
+                7434,
+                7530
             ],
             "filename": "player.js",
-            "lineno": 273,
+            "lineno": 944,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6878,14 +6878,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * native click events on the SWF aren't triggered on IE11, Win8.1RT\n  * use stageclick events triggered from inside the SWF instead\n  *\n  * @private\n  * @method handleStageClick\n  */",
+        "comment": "/**\n* native click events on the SWF aren't triggered on IE11, Win8.1RT\n* use stageclick events triggered from inside the SWF instead\n*\n* @private\n* @method handleStageClick\n*/",
         "meta": {
             "range": [
-                5717,
-                5905
+                7555,
+                7731
             ],
             "filename": "player.js",
-            "lineno": 279,
+            "lineno": 957,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6897,14 +6897,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle Tech Fullscreen Change\n  *\n  * @method handleTechFullscreenChange\n  */",
+        "comment": "/**\n* Handle Tech Fullscreen Change\n*\n* @method handleTechFullscreenChange\n*/",
         "meta": {
             "range": [
-                5907,
-                5992
+                7744,
+                7821
             ],
             "filename": "player.js",
-            "lineno": 287,
+            "lineno": 968,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6915,14 +6915,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Fires when an error occurred during the loading of an audio/video\n  *\n  * @event error\n  */",
+        "comment": "/**\n* Fires when an error occurred during the loading of an audio/video\n*\n* @event error\n*/",
         "meta": {
             "range": [
-                5994,
-                6093
+                7834,
+                7925
             ],
             "filename": "player.js",
-            "lineno": 293,
+            "lineno": 977,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6933,14 +6933,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Fires when the browser is intentionally not getting media data\n  *\n  * @event suspend\n  */",
+        "comment": "/**\n* Fires when the browser is intentionally not getting media data\n*\n* @event suspend\n*/",
         "meta": {
             "range": [
-                6095,
-                6193
+                7938,
+                8028
             ],
             "filename": "player.js",
-            "lineno": 299,
+            "lineno": 986,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6951,14 +6951,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Fires when the loading of an audio/video is aborted\n  *\n  * @event abort\n  */",
+        "comment": "/**\n* Fires when the loading of an audio/video is aborted\n*\n* @event abort\n*/",
         "meta": {
             "range": [
-                6195,
-                6280
+                8041,
+                8118
             ],
             "filename": "player.js",
-            "lineno": 305,
+            "lineno": 995,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6969,14 +6969,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Fires when the current playlist is empty\n  *\n  * @event emptied\n  */",
+        "comment": "/**\n* Fires when the current playlist is empty\n*\n* @event emptied\n*/",
         "meta": {
             "range": [
-                6282,
-                6358
+                8131,
+                8199
             ],
             "filename": "player.js",
-            "lineno": 311,
+            "lineno": 1004,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -6987,14 +6987,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Fires when the browser is trying to get media data, but data is not available\n  *\n  * @event stalled\n  */",
+        "comment": "/**\n* Fires when the browser is trying to get media data, but data is not available\n*\n* @event stalled\n*/",
         "meta": {
             "range": [
-                6360,
-                6473
+                8212,
+                8317
             ],
             "filename": "player.js",
-            "lineno": 317,
+            "lineno": 1013,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7005,14 +7005,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Fires when the browser has loaded meta data for the audio/video\n  *\n  * @event loadedmetadata\n  */",
+        "comment": "/**\n* Fires when the browser has loaded meta data for the audio/video\n*\n* @event loadedmetadata\n*/",
         "meta": {
             "range": [
-                6475,
-                6581
+                8330,
+                8428
             ],
             "filename": "player.js",
-            "lineno": 323,
+            "lineno": 1022,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7023,14 +7023,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Fires when the browser has loaded the current frame of the audio/video\n  *\n  * @event loaddata\n  */",
+        "comment": "/**\n* Fires when the browser has loaded the current frame of the audio/video\n*\n* @event loaddata\n*/",
         "meta": {
             "range": [
-                6583,
-                6690
+                8441,
+                8540
             ],
             "filename": "player.js",
-            "lineno": 329,
+            "lineno": 1031,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7041,14 +7041,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Fires when the current playback position has changed\n  *\n  * @event timeupdate\n  */",
+        "comment": "/**\n* Fires when the current playback position has changed\n*\n* @event timeupdate\n*/",
         "meta": {
             "range": [
-                6692,
-                6783
+                8553,
+                8636
             ],
             "filename": "player.js",
-            "lineno": 335,
+            "lineno": 1040,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7059,14 +7059,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Fires when the playing speed of the audio/video is changed\n  *\n  * @event ratechange\n  */",
+        "comment": "/**\n* Fires when the playing speed of the audio/video is changed\n*\n* @event ratechange\n*/",
         "meta": {
             "range": [
-                6785,
-                6882
+                8649,
+                8738
             ],
             "filename": "player.js",
-            "lineno": 341,
+            "lineno": 1049,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7077,14 +7077,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Fires when the volume has been changed\n  *\n  * @event volumechange\n  */",
+        "comment": "/**\n* Fires when the volume has been changed\n*\n* @event volumechange\n*/",
         "meta": {
             "range": [
-                6884,
-                6963
+                8751,
+                8822
             ],
             "filename": "player.js",
-            "lineno": 347,
+            "lineno": 1058,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7095,14 +7095,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Fires when the text track has been changed\n  *\n  * @event texttrackchange\n  */",
+        "comment": "/**\n* Fires when the text track has been changed\n*\n* @event texttrackchange\n*/",
         "meta": {
             "range": [
-                6965,
-                7051
+                8835,
+                8913
             ],
             "filename": "player.js",
-            "lineno": 353,
+            "lineno": 1067,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7113,14 +7113,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get object for cached values.\n  *\n  * @return {Object} \n  * @method getCache\n  */",
+        "comment": "/**\n* Get object for cached values.\n*\n* @return {Object} \n* @method getCache\n*/",
         "meta": {
             "range": [
-                7053,
-                7142
+                8926,
+                9005
             ],
             "filename": "player.js",
-            "lineno": 359,
+            "lineno": 1076,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7140,14 +7140,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Pass values to the playback tech\n  *\n  * @param {String=} method Method \n  * @param {Object=} arg Argument \n  * @method techCall\n  */",
+        "comment": "/**\n* Pass values to the playback tech\n*\n* @param {String=} method Method \n* @param {Object=} arg Argument \n* @method techCall\n*/",
         "meta": {
             "range": [
-                7144,
-                7285
+                9018,
+                9147
             ],
             "filename": "player.js",
-            "lineno": 366,
+            "lineno": 1086,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7180,14 +7180,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get calls can't wait for the tech, and sometimes don't need to.\n  *\n  * @param {String} method Tech method\n  * @return {Method}\n  * @method techGet\n  */",
+        "comment": "/**\n* Get calls can't wait for the tech, and sometimes don't need to.\n*\n* @param {String} method Tech method\n* @return {Method}\n* @method techGet\n*/",
         "meta": {
             "range": [
-                7287,
-                7447
+                9202,
+                9350
             ],
             "filename": "player.js",
-            "lineno": 374,
+            "lineno": 1111,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7218,14 +7218,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * start media playback\n  * ```js\n  *     myPlayer.play();\n  * ```\n  *\n  * @return {Player} self\n  * @method play\n  */",
+        "comment": "/**\n* start media playback\n* ```js\n*     myPlayer.play();\n* ```\n*\n* @return {Player} self\n* @method play\n*/",
         "meta": {
             "range": [
-                7449,
-                7572
+                9435,
+                9542
             ],
             "filename": "player.js",
-            "lineno": 382,
+            "lineno": 1146,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7246,14 +7246,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Pause the video playback\n  * ```js\n  *     myPlayer.pause();\n  * ```\n  *\n  * @return {Player} self\n  * @method pause\n  */",
+        "comment": "/**\n* Pause the video playback\n* ```js\n*     myPlayer.pause();\n* ```\n*\n* @return {Player} self\n* @method pause\n*/",
         "meta": {
             "range": [
-                7574,
-                7703
+                9558,
+                9671
             ],
             "filename": "player.js",
-            "lineno": 392,
+            "lineno": 1160,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7274,14 +7274,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Check if the player is paused\n  * ```js\n  *     var isPaused = myPlayer.paused();\n  *     var isPlaying = !myPlayer.paused();\n  * ```\n  *\n  * @return {Boolean} false if the media is currently playing, or true otherwise\n  * @method paused\n  */",
+        "comment": "/**\n* Check if the player is paused\n* ```js\n*     var isPaused = myPlayer.paused();\n*     var isPlaying = !myPlayer.paused();\n* ```\n*\n* @return {Boolean} false if the media is currently playing, or true otherwise\n* @method paused\n*/",
         "meta": {
             "range": [
-                7705,
-                7955
+                9687,
+                9919
             ],
             "filename": "player.js",
-            "lineno": 402,
+            "lineno": 1174,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7302,14 +7302,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Returns whether or not the user is \"scrubbing\". Scrubbing is when the user\n  * has clicked the progress bar handle and is dragging it along the progress bar.\n  *\n  * @param  {Boolean} isScrubbing   True/false the user is scrubbing\n  * @return {Boolean}               The scrubbing status when getting\n  * @return {Object}                The player when setting\n  * @method scrubbing\n  */",
+        "comment": "/**\n* Returns whether or not the user is \"scrubbing\". Scrubbing is when the user\n* has clicked the progress bar handle and is dragging it along the progress bar.\n*\n* @param  {Boolean} isScrubbing   True/false the user is scrubbing\n* @return {Boolean}               The scrubbing status when getting\n* @return {Object}                The player when setting\n* @method scrubbing\n*/",
         "meta": {
             "range": [
-                7957,
-                8352
+                9935,
+                10314
             ],
             "filename": "player.js",
-            "lineno": 413,
+            "lineno": 1189,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7349,14 +7349,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get or set the current time (in seconds)\n  * ```js\n  *     // get\n  *     var whereYouAt = myPlayer.currentTime();\n  *     // set\n  *     myPlayer.currentTime(120); // 2 minutes into the video\n  * ```\n  *\n  * @param  {Number|String=} seconds The time to seek to\n  * @return {Number}        The time in seconds, when not setting\n  * @return {Player}    self, when the current time is set\n  * @method currentTime\n  */",
+        "comment": "/**\n* Get or set the current time (in seconds)\n* ```js\n*     // get\n*     var whereYouAt = myPlayer.currentTime();\n*     // set\n*     myPlayer.currentTime(120); // 2 minutes into the video\n* ```\n*\n* @param  {Number|String=} seconds The time to seek to\n* @return {Number}        The time in seconds, when not setting\n* @return {Player}    self, when the current time is set\n* @method currentTime\n*/",
         "meta": {
             "range": [
-                8354,
-                8777
+                10363,
+                10760
             ],
             "filename": "player.js",
-            "lineno": 423,
+            "lineno": 1214,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7397,14 +7397,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get the length in time of the video in seconds\n  * ```js\n  *     var lengthOfVideo = myPlayer.duration();\n  * ```\n  * **NOTE**: The video must have started loading before the duration can be\n  * known, and in the case of Flash, may not be known until the video starts\n  * playing.\n  *\n  * @param {Number} seconds Duration when setting\n  * @return {Number} The duration of the video in seconds when getting\n  * @method duration\n  */",
+        "comment": "/**\n* Get the length in time of the video in seconds\n* ```js\n*     var lengthOfVideo = myPlayer.duration();\n* ```\n* **NOTE**: The video must have started loading before the duration can be\n* known, and in the case of Flash, may not be known until the video starts\n* playing.\n*\n* @param {Number} seconds Duration when setting\n* @return {Number} The duration of the video in seconds when getting\n* @method duration\n*/",
         "meta": {
             "range": [
-                8779,
-                9218
+                10812,
+                11227
             ],
             "filename": "player.js",
-            "lineno": 438,
+            "lineno": 1245,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7436,14 +7436,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Calculates how much time is left.\n  * ```js\n  *     var timeLeft = myPlayer.remainingTime();\n  * ```\n  * Not a native video element function, but useful\n  *\n  * @return {Number} The time remaining in seconds\n  * @method remainingTime\n  */",
+        "comment": "/**\n* Calculates how much time is left.\n* ```js\n*     var timeLeft = myPlayer.remainingTime();\n* ```\n* Not a native video element function, but useful\n*\n* @return {Number} The time remaining in seconds\n* @method remainingTime\n*/",
         "meta": {
             "range": [
-                9220,
-                9466
+                11276,
+                11504
             ],
             "filename": "player.js",
-            "lineno": 452,
+            "lineno": 1274,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7464,14 +7464,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get a TimeRange object with the times of the video that have been downloaded\n  *\n  * If you just want the percent of the video that's been downloaded,\n  * use bufferedPercent.\n  * ```js\n  *     // Number of different ranges of time have been buffered. Usually 1.\n  *     numberOfRanges = bufferedTimeRange.length,\n  *     // Time in seconds when the first range starts. Usually 0.\n  *     firstRangeStart = bufferedTimeRange.start(0),\n  *     // Time in seconds when the first range ends\n  *     firstRangeEnd = bufferedTimeRange.end(0),\n  *     // Length in seconds of the first time range\n  *     firstRangeLength = firstRangeEnd - firstRangeStart;\n  * ```\n  *\n  * @return {Object} A mock TimeRange object (following HTML spec)\n  * @method buffered\n  */",
+        "comment": "/**\n* Get a TimeRange object with the times of the video that have been downloaded\n*\n* If you just want the percent of the video that's been downloaded,\n* use bufferedPercent.\n* ```js\n*     // Number of different ranges of time have been buffered. Usually 1.\n*     numberOfRanges = bufferedTimeRange.length,\n*     // Time in seconds when the first range starts. Usually 0.\n*     firstRangeStart = bufferedTimeRange.start(0),\n*     // Time in seconds when the first range ends\n*     firstRangeEnd = bufferedTimeRange.end(0),\n*     // Length in seconds of the first time range\n*     firstRangeLength = firstRangeEnd - firstRangeStart;\n* ```\n*\n* @return {Object} A mock TimeRange object (following HTML spec)\n* @method buffered\n*/",
         "meta": {
             "range": [
-                9468,
-                10231
+                11529,
+                12256
             ],
             "filename": "player.js",
-            "lineno": 463,
+            "lineno": 1292,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7492,14 +7492,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get the percent (as a decimal) of the video that's been downloaded\n  * ```js\n  *     var howMuchIsDownloaded = myPlayer.bufferedPercent();\n  * ```\n  * 0 means none, 1 means all.\n  * (This method isn't in the HTML5 spec, but it's very convenient)\n  *\n  * @return {Number} A decimal between 0 and 1 representing the percent\n  * @method bufferedPercent\n  */",
+        "comment": "/**\n* Get the percent (as a decimal) of the video that's been downloaded\n* ```js\n*     var howMuchIsDownloaded = myPlayer.bufferedPercent();\n* ```\n* 0 means none, 1 means all.\n* (This method isn't in the HTML5 spec, but it's very convenient)\n*\n* @return {Number} A decimal between 0 and 1 representing the percent\n* @method bufferedPercent\n*/",
         "meta": {
             "range": [
-                10233,
-                10595
+                12287,
+                12629
             ],
             "filename": "player.js",
-            "lineno": 483,
+            "lineno": 1321,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7520,14 +7520,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get the ending time of the last buffered time range\n  * This is used in the progress bar to encapsulate all time ranges.\n  *\n  * @return {Number} The end of the last buffered time range\n  * @method bufferedEnd\n  */",
+        "comment": "/**\n* Get the ending time of the last buffered time range\n* This is used in the progress bar to encapsulate all time ranges.\n*\n* @return {Number} The end of the last buffered time range\n* @method bufferedEnd\n*/",
         "meta": {
             "range": [
-                10597,
-                10819
+                12642,
+                12852
             ],
             "filename": "player.js",
-            "lineno": 495,
+            "lineno": 1336,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7548,14 +7548,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get or set the current volume of the media\n  * ```js\n  *     // get\n  *     var howLoudIsIt = myPlayer.volume();\n *     // set\n  *     myPlayer.volume(0.5); // Set volume to half\n  * ```\n  * 0 is off (muted), 1.0 is all the way up, 0.5 is half way.\n  *\n  * @param  {Number} percentAsDecimal The new volume as a decimal percent\n  * @return {Number}              The current volume when getting\n  * @return {Player}              self when setting\n  * @method volume\n  */",
+        "comment": "/**\n* Get or set the current volume of the media\n* ```js\n*     // get\n*     var howLoudIsIt = myPlayer.volume();\n*     // set\n*     myPlayer.volume(0.5); // Set volume to half\n* ```\n* 0 is off (muted), 1.0 is all the way up, 0.5 is half way.\n*\n* @param  {Number} percentAsDecimal The new volume as a decimal percent\n* @return {Number}              The current volume when getting\n* @return {Player}              self when setting\n* @method volume\n*/",
         "meta": {
             "range": [
-                10821,
-                11297
+                12889,
+                13338
             ],
             "filename": "player.js",
-            "lineno": 503,
+            "lineno": 1355,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7595,14 +7595,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get the current muted state, or turn mute on or off\n  * ```js\n  *     // get\n  *     var isVolumeMuted = myPlayer.muted();\n  *     // set\n  *     myPlayer.muted(true); // mute the volume\n  * ```\n  *\n  * @param  {Boolean=} muted True to mute, false to unmute\n  * @return {Boolean} True if mute is on, false if not when getting\n  * @return {Player} self when setting mute\n  * @method muted\n  */",
+        "comment": "/**\n* Get the current muted state, or turn mute on or off\n* ```js\n*     // get\n*     var isVolumeMuted = myPlayer.muted();\n*     // set\n*     myPlayer.muted(true); // mute the volume\n* ```\n*\n* @param  {Boolean=} muted True to mute, false to unmute\n* @return {Boolean} True if mute is on, false if not when getting\n* @return {Player} self when setting mute\n* @method muted\n*/",
         "meta": {
             "range": [
-                11299,
-                11699
+                13390,
+                13764
             ],
             "filename": "player.js",
-            "lineno": 519,
+            "lineno": 1387,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7643,14 +7643,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Check to see if fullscreen is supported\n  *\n  * @return {Boolean} \n  * @method supportsFullScreen\n  */",
+        "comment": "/**\n* Check to see if fullscreen is supported\n*\n* @return {Boolean} \n* @method supportsFullScreen\n*/",
         "meta": {
             "range": [
-                11701,
-                11811
+                13795,
+                13895
             ],
             "filename": "player.js",
-            "lineno": 534,
+            "lineno": 1411,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7670,14 +7670,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Check if the player is in fullscreen mode\n  * ```js\n  *     // get\n  *     var fullscreenOrNot = myPlayer.isFullscreen();\n  *     // set\n  *     myPlayer.isFullscreen(true); // tell the player it's in fullscreen\n  * ```\n  * NOTE: As of the latest HTML5 spec, isFullscreen is no longer an official\n  * property and instead document.fullscreenElement is used. But isFullscreen is\n  * still a valuable property for internal player workings.\n  *\n  * @param  {Boolean=} isFS Update the player's fullscreen state\n  * @return {Boolean} true if fullscreen false if not when getting\n  * @return {Player} self when setting\n  * @method isFullscreen\n  */",
+        "comment": "/**\n* Check if the player is in fullscreen mode\n* ```js\n*     // get\n*     var fullscreenOrNot = myPlayer.isFullscreen();\n*     // set\n*     myPlayer.isFullscreen(true); // tell the player it's in fullscreen\n* ```\n* NOTE: As of the latest HTML5 spec, isFullscreen is no longer an official\n* property and instead document.fullscreenElement is used. But isFullscreen is\n* still a valuable property for internal player workings.\n*\n* @param  {Boolean=} isFS Update the player's fullscreen state\n* @return {Boolean} true if fullscreen false if not when getting\n* @return {Player} self when setting\n* @method isFullscreen\n*/",
         "meta": {
             "range": [
-                11813,
-                12463
+                13908,
+                14526
             ],
             "filename": "player.js",
-            "lineno": 541,
+            "lineno": 1421,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7718,14 +7718,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Old naming for isFullscreen()\n  *\n  * @param  {Boolean=} isFS Update the player's fullscreen state\n  * @return {Boolean} true if fullscreen false if not when getting\n  * @return {Player} self when setting\n  * @deprecated\n  * @method isFullScreen\n  */",
+        "comment": "/**\n* Old naming for isFullscreen()\n*\n* @param  {Boolean=} isFS Update the player's fullscreen state\n* @return {Boolean} true if fullscreen false if not when getting\n* @return {Player} self when setting\n* @deprecated\n* @method isFullScreen\n*/",
         "meta": {
             "range": [
-                12465,
-                12723
+                14551,
+                14793
             ],
             "filename": "player.js",
-            "lineno": 559,
+            "lineno": 1446,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7767,14 +7767,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Increase the size of the video to full screen\n  * ```js\n  *     myPlayer.requestFullscreen();\n  * ```\n  * In some browsers, full screen is not supported natively, so it enters\n  * \"full window mode\", where the video fills the browser window.\n  * In browsers and devices that support native full screen, sometimes the\n  * browser's default controls will be shown, and not the Video.js custom skin.\n  * This includes most mobile devices (iOS, Android) and older versions of\n  * Safari.\n  *\n  * @return {Player} self\n  * @method requestFullscreen\n  */",
+        "comment": "/**\n* Increase the size of the video to full screen\n* ```js\n*     myPlayer.requestFullscreen();\n* ```\n* In some browsers, full screen is not supported natively, so it enters\n* \"full window mode\", where the video fills the browser window.\n* In browsers and devices that support native full screen, sometimes the\n* browser's default controls will be shown, and not the Video.js custom skin.\n* This includes most mobile devices (iOS, Android) and older versions of\n* Safari.\n*\n* @return {Player} self\n* @method requestFullscreen\n*/",
         "meta": {
             "range": [
-                12725,
-                13281
+                14809,
+                15337
             ],
             "filename": "player.js",
-            "lineno": 569,
+            "lineno": 1460,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7795,14 +7795,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Old naming for requestFullscreen\n  *\n  * @return {Boolean} true if fullscreen false if not when getting\n  * @deprecated\n  * @method requestFullScreen\n  */",
+        "comment": "/**\n* Old naming for requestFullscreen\n*\n* @return {Boolean} true if fullscreen false if not when getting\n* @deprecated\n* @method requestFullScreen\n*/",
         "meta": {
             "range": [
-                13283,
-                13445
+                15461,
+                15611
             ],
             "filename": "player.js",
-            "lineno": 585,
+            "lineno": 1516,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7824,14 +7824,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Return the video to its normal size after having been in full screen mode\n  * ```js\n  *     myPlayer.exitFullscreen();\n  * ```\n  *\n  * @return {Player} self\n  * @method exitFullscreen\n  */",
+        "comment": "/**\n* Return the video to its normal size after having been in full screen mode\n* ```js\n*     myPlayer.exitFullscreen();\n* ```\n*\n* @return {Player} self\n* @method exitFullscreen\n*/",
         "meta": {
             "range": [
-                13447,
-                13643
+                15627,
+                15807
             ],
             "filename": "player.js",
-            "lineno": 593,
+            "lineno": 1528,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7852,14 +7852,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Old naming for exitFullscreen\n  *\n  * @return {Player} self\n  * @deprecated\n  * @method cancelFullScreen\n  */",
+        "comment": "/**\n* Old naming for exitFullscreen\n*\n* @return {Player} self\n* @deprecated\n* @method cancelFullScreen\n*/",
         "meta": {
             "range": [
-                13645,
-                13762
+                15859,
+                15964
             ],
             "filename": "player.js",
-            "lineno": 603,
+            "lineno": 1554,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7881,14 +7881,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * When fullscreen isn't supported we can stretch the video container to as wide as the browser will let us.\n  *\n  * @method enterFullWindow\n  */",
+        "comment": "/**\n* When fullscreen isn't supported we can stretch the video container to as wide as the browser will let us.\n*\n* @method enterFullWindow\n*/",
         "meta": {
             "range": [
-                13764,
-                13914
+                15980,
+                16122
             ],
             "filename": "player.js",
-            "lineno": 611,
+            "lineno": 1566,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7899,14 +7899,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Check for call to either exit full window or full screen on ESC key\n  *\n  * @param {String} event Event to check for key press\n  * @method fullWindowOnEscKey\n  */",
+        "comment": "/**\n* Check for call to either exit full window or full screen on ESC key\n*\n* @param {String} event Event to check for key press\n* @method fullWindowOnEscKey\n*/",
         "meta": {
             "range": [
-                13916,
-                14086
+                16177,
+                16337
             ],
             "filename": "player.js",
-            "lineno": 617,
+            "lineno": 1589,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7928,14 +7928,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Exit full window \n  *\n  * @method exitFullWindow\n  */",
+        "comment": "/**\n* Exit full window \n*\n* @method exitFullWindow\n*/",
         "meta": {
             "range": [
-                14088,
-                14149
+                16368,
+                16421
             ],
             "filename": "player.js",
-            "lineno": 624,
+            "lineno": 1605,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7946,14 +7946,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Select source based on tech order\n  *\n  * @param {Array} sources The sources for a media asset\n  * @return {Object|Boolean} Object of source and tech order, otherwise false\n  * @method selectSource\n  */",
+        "comment": "/**\n* Select source based on tech order\n*\n* @param {Array} sources The sources for a media asset\n* @return {Object|Boolean} Object of source and tech order, otherwise false\n* @method selectSource\n*/",
         "meta": {
             "range": [
-                14151,
-                14361
+                16467,
+                16665
             ],
             "filename": "player.js",
-            "lineno": 630,
+            "lineno": 1625,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -7986,14 +7986,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * The source function updates the video source\n  * There are three types of variables you can pass as the argument.\n  * **URL String**: A URL to the the video file. Use this method if you are sure\n  * the current playback technology (HTML5/Flash) can support the source you\n  * provide. Currently only MP4 files can be used in both HTML5 and Flash.\n  * ```js\n  *     myPlayer.src(\"http://www.example.com/path/to/video.mp4\");\n  * ```\n  * **Source Object (or element):** A javascript object containing information\n  * about the source file. Use this method if you want the player to determine if\n  * it can support the file using the type information.\n  * ```js\n  *     myPlayer.src({ type: \"video/mp4\", src: \"http://www.example.com/path/to/video.mp4\" });\n  * ```\n  * **Array of Source Objects:** To provide multiple versions of the source so\n  * that it can be played using HTML5 across browsers you can use an array of\n  * source objects. Video.js will detect which version is supported and load that\n  * file.\n  * ```js\n  *     myPlayer.src([\n  *       { type: \"video/mp4\", src: \"http://www.example.com/path/to/video.mp4\" },\n  *       { type: \"video/webm\", src: \"http://www.example.com/path/to/video.webm\" },\n  *       { type: \"video/ogg\", src: \"http://www.example.com/path/to/video.ogv\" }\n  *     ]);\n  * ```\n  *\n  * @param  {String|Object|Array=} source The source URL, object, or array of sources\n  * @return {String} The current video source when getting\n  * @return {String} The player when setting\n  * @method src\n  */",
+        "comment": "/**\n* The source function updates the video source\n* There are three types of variables you can pass as the argument.\n* **URL String**: A URL to the the video file. Use this method if you are sure\n* the current playback technology (HTML5/Flash) can support the source you\n* provide. Currently only MP4 files can be used in both HTML5 and Flash.\n* ```js\n*     myPlayer.src(\"http://www.example.com/path/to/video.mp4\");\n* ```\n* **Source Object (or element):** A javascript object containing information\n* about the source file. Use this method if you want the player to determine if\n* it can support the file using the type information.\n* ```js\n*     myPlayer.src({ type: \"video/mp4\", src: \"http://www.example.com/path/to/video.mp4\" });\n* ```\n* **Array of Source Objects:** To provide multiple versions of the source so\n* that it can be played using HTML5 across browsers you can use an array of\n* source objects. Video.js will detect which version is supported and load that\n* file.\n* ```js\n*     myPlayer.src([\n*       { type: \"video/mp4\", src: \"http://www.example.com/path/to/video.mp4\" },\n*       { type: \"video/webm\", src: \"http://www.example.com/path/to/video.webm\" },\n*       { type: \"video/ogg\", src: \"http://www.example.com/path/to/video.ogv\" }\n*     ]);\n* ```\n*\n* @param  {String|Object|Array=} source The source URL, object, or array of sources\n* @return {String} The current video source when getting\n* @return {String} The player when setting\n* @method src\n*/",
         "meta": {
             "range": [
-                14363,
-                15894
+                16753,
+                18222
             ],
             "filename": "player.js",
-            "lineno": 638,
+            "lineno": 1661,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8035,14 +8035,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle an array of source objects\n  *\n  * @param  {Array} sources Array of source objects\n  * @private\n  * @method sourceList_\n  */",
+        "comment": "/**\n* Handle an array of source objects\n*\n* @param  {Array} sources Array of source objects\n* @private\n* @method sourceList_\n*/",
         "meta": {
             "range": [
-                15896,
-                16035
+                18388,
+                18515
             ],
             "filename": "player.js",
-            "lineno": 671,
+            "lineno": 1748,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8065,14 +8065,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Begin loading the src data.\n  *\n  * @return {Player} Returns the player\n  * @method load\n  */",
+        "comment": "/**\n* Begin loading the src data.\n*\n* @return {Player} Returns the player\n* @method load\n*/",
         "meta": {
             "range": [
-                16037,
-                16138
+                18585,
+                18676
             ],
             "filename": "player.js",
-            "lineno": 679,
+            "lineno": 1778,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8093,14 +8093,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Returns the fully qualified URL of the current source value e.g. http://mysite.com/video.mp4\n  * Can be used in conjuction with `currentType` to assist in rebuilding the current source object.\n  *\n  * @return {String} The current source\n  * @method currentSrc\n  */",
+        "comment": "/**\n* Returns the fully qualified URL of the current source value e.g. http://mysite.com/video.mp4\n* Can be used in conjuction with `currentType` to assist in rebuilding the current source object.\n*\n* @return {String} The current source\n* @method currentSrc\n*/",
         "meta": {
             "range": [
-                16140,
-                16412
+                18692,
+                18952
             ],
             "filename": "player.js",
-            "lineno": 686,
+            "lineno": 1789,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8121,14 +8121,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get the current source type e.g. video/mp4\n  * This can allow you rebuild the current source object so that you could load the same\n  * source and tech later\n  *\n  * @return {String} The source MIME type\n  * @method currentType\n  */",
+        "comment": "/**\n* Get the current source type e.g. video/mp4\n* This can allow you rebuild the current source object so that you could load the same\n* source and tech later\n*\n* @return {String} The source MIME type\n* @method currentType\n*/",
         "meta": {
             "range": [
-                16414,
-                16654
+                18965,
+                19191
             ],
             "filename": "player.js",
-            "lineno": 694,
+            "lineno": 1800,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8149,14 +8149,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get or set the preload attribute\n  *\n  * @param {Boolean} value Boolean to determine if preload should be used\n  * @return {String} The preload attribute value when getting\n  * @return {Player} Returns the player when setting\n  * @method preload\n  */",
+        "comment": "/**\n* Get or set the preload attribute\n*\n* @param {Boolean} value Boolean to determine if preload should be used\n* @return {String} The preload attribute value when getting\n* @return {Player} Returns the player when setting\n* @method preload\n*/",
         "meta": {
             "range": [
-                16656,
-                16914
+                19204,
+                19448
             ],
             "filename": "player.js",
-            "lineno": 703,
+            "lineno": 1812,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8196,14 +8196,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get or set the autoplay attribute.\n  *\n  * @param {Boolean} value Boolean to determine if preload should be used\n  * @return {String} The autoplay attribute value when getting\n  * @return {Player} Returns the player when setting\n  * @method autoplay\n  */",
+        "comment": "/**\n* Get or set the autoplay attribute.\n*\n* @param {Boolean} value Boolean to determine if preload should be used\n* @return {String} The autoplay attribute value when getting\n* @return {Player} Returns the player when setting\n* @method autoplay\n*/",
         "meta": {
             "range": [
-                16916,
-                17178
+                19476,
+                19724
             ],
             "filename": "player.js",
-            "lineno": 712,
+            "lineno": 1829,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8243,14 +8243,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get or set the loop attribute on the video element.\n  *\n  * @param {Boolean} value Boolean to determine if preload should be used\n  * @return {String} The loop attribute value when getting\n  * @return {Player} Returns the player when setting\n  * @method loop\n  */",
+        "comment": "/**\n* Get or set the loop attribute on the video element.\n*\n* @param {Boolean} value Boolean to determine if preload should be used\n* @return {String} The loop attribute value when getting\n* @return {Player} Returns the player when setting\n* @method loop\n*/",
         "meta": {
             "range": [
-                17180,
-                17451
+                19752,
+                20009
             ],
             "filename": "player.js",
-            "lineno": 721,
+            "lineno": 1846,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8290,14 +8290,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * get or set the poster image source url\n  * ##### EXAMPLE:\n  * ```js\n  *     // get\n  *     var currentPoster = myPlayer.poster();\n  *     // set\n  *     myPlayer.poster('http://example.com/myImage.jpg');\n  * ```\n  *\n  * @param  {String=} src Poster image source URL\n  * @return {String} poster URL when getting\n  * @return {Player} self when setting\n  * @method poster\n  */",
+        "comment": "/**\n* get or set the poster image source url\n* ##### EXAMPLE:\n* ```js\n*     // get\n*     var currentPoster = myPlayer.poster();\n*     // set\n*     myPlayer.poster('http://example.com/myImage.jpg');\n* ```\n*\n* @param  {String=} src Poster image source URL\n* @return {String} poster URL when getting\n* @return {Player} self when setting\n* @method poster\n*/",
         "meta": {
             "range": [
-                17453,
-                17834
+                20037,
+                20390
             ],
             "filename": "player.js",
-            "lineno": 730,
+            "lineno": 1863,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8338,14 +8338,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get or set whether or not the controls are showing.\n  *\n  * @param  {Boolean} bool Set controls to showing or not\n  * @return {Boolean}    Controls are showing\n  * @method controls\n  */",
+        "comment": "/**\n* Get or set whether or not the controls are showing.\n*\n* @param  {Boolean} bool Set controls to showing or not\n* @return {Boolean}    Controls are showing\n* @method controls\n*/",
         "meta": {
             "range": [
-                17836,
-                18029
+                20460,
+                20641
             ],
             "filename": "player.js",
-            "lineno": 746,
+            "lineno": 1901,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8377,14 +8377,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Toggle native controls on/off. Native controls are the controls built into\n  * devices (e.g. default iPhone controls), Flash, or other techs\n  * (e.g. Vimeo Controls)\n  * **This should only be set by the current tech, because only the tech knows\n  * if it can support native controls**\n  *\n  * @param  {Boolean} bool    True signals that native controls are on\n  * @return {Player}      Returns the player\n  * @private\n  * @method usingNativeControls\n  */",
+        "comment": "/**\n* Toggle native controls on/off. Native controls are the controls built into\n* devices (e.g. default iPhone controls), Flash, or other techs\n* (e.g. Vimeo Controls)\n* **This should only be set by the current tech, because only the tech knows\n* if it can support native controls**\n*\n* @param  {Boolean} bool    True signals that native controls are on\n* @return {Player}      Returns the player\n* @private\n* @method usingNativeControls\n*/",
         "meta": {
             "range": [
-                18031,
-                18494
+                20744,
+                21185
             ],
             "filename": "player.js",
-            "lineno": 754,
+            "lineno": 1942,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8417,14 +8417,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n           * player is using the native device controls\n           *\n           * @event usingnativecontrols\n           * @memberof Player\n           * @instance\n           * @private\n           */",
+        "comment": "/**\n* player is using the native device controls\n*\n* @event usingnativecontrols\n* @memberof Player\n* @instance\n* @private\n*/",
         "meta": {
             "range": [
-                18496,
-                18697
+                21213,
+                21337
             ],
             "filename": "player.js",
-            "lineno": 767,
+            "lineno": 1963,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8437,14 +8437,14 @@ var docData =
         "longname": "Player#event:usingnativecontrols"
     },
     {
-        "comment": "/**\n           * player is using the custom HTML controls\n           *\n           * @event usingcustomcontrols\n           * @memberof Player\n           * @instance\n           * @private\n           */",
+        "comment": "/**\n* player is using the custom HTML controls\n*\n* @event usingcustomcontrols\n* @memberof Player\n* @instance\n* @private\n*/",
         "meta": {
             "range": [
-                18699,
-                18898
+                21350,
+                21472
             ],
             "filename": "player.js",
-            "lineno": 776,
+            "lineno": 1975,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8457,14 +8457,14 @@ var docData =
         "longname": "Player#event:usingcustomcontrols"
     },
     {
-        "comment": "/**\n  * Set or get the current MediaError\n  *\n  * @param  {*} err A MediaError or a String/Number to be turned into a MediaError\n  * @return {MediaError|null}     when getting\n  * @return {Player}              when setting\n  * @method error\n  */",
+        "comment": "/**\n* Set or get the current MediaError\n*\n* @param  {*} err A MediaError or a String/Number to be turned into a MediaError\n* @return {MediaError|null}     when getting\n* @return {Player}              when setting\n* @method error\n*/",
         "meta": {
             "range": [
-                18900,
-                19145
+                21497,
+                21728
             ],
             "filename": "player.js",
-            "lineno": 785,
+            "lineno": 1991,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8505,14 +8505,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Returns whether or not the player is in the \"ended\" state.\n  *\n  * @return {Boolean} True if the player is in the ended state, false if not.\n  * @method ended\n  */",
+        "comment": "/**\n* Returns whether or not the player is in the \"ended\" state.\n*\n* @return {Boolean} True if the player is in the ended state, false if not.\n* @method ended\n*/",
         "meta": {
             "range": [
-                19147,
-                19318
+                21825,
+                21986
             ],
             "filename": "player.js",
-            "lineno": 794,
+            "lineno": 2031,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8533,14 +8533,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Returns whether or not the player is in the \"seeking\" state.\n  *\n  * @return {Boolean} True if the player is in the seeking state, false if not.\n  * @method seeking\n  */",
+        "comment": "/**\n* Returns whether or not the player is in the \"seeking\" state.\n*\n* @return {Boolean} True if the player is in the seeking state, false if not.\n* @method seeking\n*/",
         "meta": {
             "range": [
-                19320,
-                19497
+                21993,
+                22160
             ],
             "filename": "player.js",
-            "lineno": 801,
+            "lineno": 2039,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8561,14 +8561,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Returns the TimeRanges of the media that are currently available\n  * for seeking to.\n  *\n  * @return {TimeRanges} the seekable intervals of the media timeline\n  * @method seekable\n  */",
+        "comment": "/**\n* Returns the TimeRanges of the media that are currently available\n* for seeking to.\n*\n* @return {TimeRanges} the seekable intervals of the media timeline\n* @method seekable\n*/",
         "meta": {
             "range": [
-                19499,
-                19691
+                22167,
+                22347
             ],
             "filename": "player.js",
-            "lineno": 808,
+            "lineno": 2047,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8589,14 +8589,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Report user activity \n  *\n  * @param {Object} event Event object\n  * @method reportUserActivity\n  */",
+        "comment": "/**\n* Report user activity \n*\n* @param {Object} event Event object\n* @method reportUserActivity\n*/",
         "meta": {
             "range": [
-                19693,
-                19801
+                22354,
+                22452
             ],
             "filename": "player.js",
-            "lineno": 816,
+            "lineno": 2056,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8618,14 +8618,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get/set if user is active\n  *\n  * @param {Boolean} bool Value when setting\n  * @return {Boolean} Value if user is active user when getting\n  * @method userActive\n  */",
+        "comment": "/**\n* Get/set if user is active\n*\n* @param {Boolean} bool Value when setting\n* @return {Boolean} Value if user is active user when getting\n* @method userActive\n*/",
         "meta": {
             "range": [
-                19803,
-                19977
+                22465,
+                22627
             ],
             "filename": "player.js",
-            "lineno": 823,
+            "lineno": 2066,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8657,14 +8657,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Listen for user activity based on timeout value\n  *\n  * @method listenForUserActivity\n  */",
+        "comment": "/**\n* Listen for user activity based on timeout value\n*\n* @method listenForUserActivity\n*/",
         "meta": {
             "range": [
-                19979,
-                20077
+                22754,
+                22844
             ],
             "filename": "player.js",
-            "lineno": 831,
+            "lineno": 2115,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8675,14 +8675,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Gets or sets the current playback rate.  A playback rate of\n  * 1.0 represents normal speed and 0.5 would indicate half-speed\n  * playback, for instance.\n  * @see https://html.spec.whatwg.org/multipage/embedded-content.html#dom-media-playbackrate\n  *\n  * @param  {Number} rate    New playback rate to set.\n  * @return {Number}         Returns the new playback rate when setting\n  * @return {Number}         Returns the current playback rate when getting\n  * @method playbackRate\n  */",
+        "comment": "/**\n* Gets or sets the current playback rate.  A playback rate of\n* 1.0 represents normal speed and 0.5 would indicate half-speed\n* playback, for instance.\n* @see https://html.spec.whatwg.org/multipage/embedded-content.html#dom-media-playbackrate\n*\n* @param  {Number} rate    New playback rate to set.\n* @return {Number}         Returns the new playback rate when setting\n* @return {Number}         Returns the current playback rate when getting\n* @method playbackRate\n*/",
         "meta": {
             "range": [
-                20079,
-                20570
+                23082,
+                23553
             ],
             "filename": "player.js",
-            "lineno": 837,
+            "lineno": 2199,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8725,14 +8725,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Gets or sets the audio flag\n  *\n  * @param  {Boolean} bool    True signals that this is an audio player.\n  * @return {Boolean}         Returns true if player is audio, false if not when getting\n  * @return {Player}      Returns the player if setting\n  * @private\n  * @method isAudio\n  */",
+        "comment": "/**\n* Gets or sets the audio flag\n*\n* @param  {Boolean} bool    True signals that this is an audio player.\n* @return {Boolean}         Returns true if player is audio, false if not when getting\n* @return {Player}      Returns the player if setting\n* @private\n* @method isAudio\n*/",
         "meta": {
             "range": [
-                20572,
-                20867
+                23593,
+                23872
             ],
             "filename": "player.js",
-            "lineno": 849,
+            "lineno": 2223,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8773,14 +8773,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Returns the current state of network activity for the element, from\n  * the codes in the list below.\n  * - NETWORK_EMPTY (numeric value 0)\n  *   The element has not yet been initialised. All attributes are in\n  *   their initial states.\n  * - NETWORK_IDLE (numeric value 1)\n  *   The element's resource selection algorithm is active and has\n  *   selected a resource, but it is not actually using the network at\n  *   this time.\n  * - NETWORK_LOADING (numeric value 2)\n  *   The user agent is actively trying to download data.\n  * - NETWORK_NO_SOURCE (numeric value 3)\n  *   The element's resource selection algorithm is active, but it has\n  *   not yet found a resource to use.\n  *\n  * @see https://html.spec.whatwg.org/multipage/embedded-content.html#network-states\n  * @return {Number} the current network activity state\n  * @method networkState\n  */",
+        "comment": "/**\n* Returns the current state of network activity for the element, from\n* the codes in the list below.\n* - NETWORK_EMPTY (numeric value 0)\n*   The element has not yet been initialised. All attributes are in\n*   their initial states.\n* - NETWORK_IDLE (numeric value 1)\n*   The element's resource selection algorithm is active and has\n*   selected a resource, but it is not actually using the network at\n*   this time.\n* - NETWORK_LOADING (numeric value 2)\n*   The user agent is actively trying to download data.\n* - NETWORK_NO_SOURCE (numeric value 3)\n*   The element's resource selection algorithm is active, but it has\n*   not yet found a resource to use.\n*\n* @see https://html.spec.whatwg.org/multipage/embedded-content.html#network-states\n* @return {Number} the current network activity state\n* @method networkState\n*/",
         "meta": {
             "range": [
-                20869,
-                21730
+                23900,
+                24723
             ],
             "filename": "player.js",
-            "lineno": 859,
+            "lineno": 2241,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8804,14 +8804,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Returns a value that expresses the current state of the element\n  * with respect to rendering the current playback position, from the\n  * codes in the list below.\n  * - HAVE_NOTHING (numeric value 0)\n  *   No information regarding the media resource is available.\n  * - HAVE_METADATA (numeric value 1)\n  *   Enough of the resource has been obtained that the duration of the\n  *   resource is available.\n  * - HAVE_CURRENT_DATA (numeric value 2)\n  *   Data for the immediate current playback position is available.\n  * - HAVE_FUTURE_DATA (numeric value 3)\n  *   Data for the immediate current playback position is available, as\n  *   well as enough data for the user agent to advance the current\n  *   playback position in the direction of playback.\n  * - HAVE_ENOUGH_DATA (numeric value 4)\n  *   The user agent estimates that enough data is available for\n  *   playback to proceed uninterrupted.\n  *\n  * @see https://html.spec.whatwg.org/multipage/embedded-content.html#dom-media-readystate\n  * @return {Number} the current playback rendering state\n  * @method readyState\n  */",
+        "comment": "/**\n* Returns a value that expresses the current state of the element\n* with respect to rendering the current playback position, from the\n* codes in the list below.\n* - HAVE_NOTHING (numeric value 0)\n*   No information regarding the media resource is available.\n* - HAVE_METADATA (numeric value 1)\n*   Enough of the resource has been obtained that the duration of the\n*   resource is available.\n* - HAVE_CURRENT_DATA (numeric value 2)\n*   Data for the immediate current playback position is available.\n* - HAVE_FUTURE_DATA (numeric value 3)\n*   Data for the immediate current playback position is available, as\n*   well as enough data for the user agent to advance the current\n*   playback position in the direction of playback.\n* - HAVE_ENOUGH_DATA (numeric value 4)\n*   The user agent estimates that enough data is available for\n*   playback to proceed uninterrupted.\n*\n* @see https://html.spec.whatwg.org/multipage/embedded-content.html#dom-media-readystate\n* @return {Number} the current playback rendering state\n* @method readyState\n*/",
         "meta": {
             "range": [
-                21732,
-                22816
+                24736,
+                25776
             ],
             "filename": "player.js",
-            "lineno": 880,
+            "lineno": 2265,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8835,14 +8835,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get an array of associated text tracks. captions, subtitles, chapters, descriptions\n  * http://www.w3.org/html/wg/drafts/html/master/embedded-content-0.html#dom-media-texttracks\n  *\n  * @return {Array}           Array of track objects\n  * @method textTracks\n  */",
+        "comment": "/**\n* Get an array of associated text tracks. captions, subtitles, chapters, descriptions\n* http://www.w3.org/html/wg/drafts/html/master/embedded-content-0.html#dom-media-texttracks\n*\n* @return {Array}           Array of track objects\n* @method textTracks\n*/",
         "meta": {
             "range": [
-                22818,
-                23088
+                26233,
+                26491
             ],
             "filename": "player.js",
-            "lineno": 904,
+            "lineno": 2300,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8863,14 +8863,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get an array of remote text tracks\n  *\n  * @return {Array}\n  * @method remoteTextTracks\n  */",
+        "comment": "/**\n* Get an array of remote text tracks\n*\n* @return {Array}\n* @method remoteTextTracks\n*/",
         "meta": {
             "range": [
-                23090,
-                23190
+                26510,
+                26600
             ],
             "filename": "player.js",
-            "lineno": 912,
+            "lineno": 2313,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8890,14 +8890,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Add a text track\n  * In addition to the W3C settings we allow adding additional info through options.\n  * http://www.w3.org/html/wg/drafts/html/master/embedded-content-0.html#dom-media-addtexttrack\n  *\n  * @param {String}  kind        Captions, subtitles, chapters, descriptions, or metadata\n  * @param {String=} label       Optional label\n  * @param {String=} language    Optional language\n  * @method addTextTrack\n  */",
+        "comment": "/**\n* Add a text track\n* In addition to the W3C settings we allow adding additional info through options.\n* http://www.w3.org/html/wg/drafts/html/master/embedded-content-0.html#dom-media-addtexttrack\n*\n* @param {String}  kind        Captions, subtitles, chapters, descriptions, or metadata\n* @param {String=} label       Optional label\n* @param {String=} language    Optional language\n* @method addTextTrack\n*/",
         "meta": {
             "range": [
-                23192,
-                23620
+                26613,
+                27023
             ],
             "filename": "player.js",
-            "lineno": 919,
+            "lineno": 2323,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8939,14 +8939,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Add a remote text track\n  *\n  * @param {Object} options    Options for remote text track\n  * @method addRemoteTextTrack\n  */",
+        "comment": "/**\n* Add a remote text track\n*\n* @param {Object} options    Options for remote text track\n* @method addRemoteTextTrack\n*/",
         "meta": {
             "range": [
-                23622,
-                23754
+                27036,
+                27158
             ],
             "filename": "player.js",
-            "lineno": 930,
+            "lineno": 2337,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8968,14 +8968,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Remove a remote text track\n  *\n  * @param {Object} track    Remote text track to remove\n  * @method removeRemoteTextTrack\n  */",
+        "comment": "/**\n* Remove a remote text track\n*\n* @param {Object} track    Remote text track to remove\n* @method removeRemoteTextTrack\n*/",
         "meta": {
             "range": [
-                23756,
-                23890
+                27171,
+                27295
             ],
             "filename": "player.js",
-            "lineno": 937,
+            "lineno": 2347,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -8997,14 +8997,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get video width\n  *\n  * @return {Number} Video width\n  * @method videoWidth\n  */",
+        "comment": "/**\n* Get video width\n*\n* @return {Number} Video width\n* @method videoWidth\n*/",
         "meta": {
             "range": [
-                23892,
-                23980
+                27308,
+                27386
             ],
             "filename": "player.js",
-            "lineno": 944,
+            "lineno": 2357,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -9025,14 +9025,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get video height\n  *\n  * @return {Number} Video height\n  * @method videoHeight\n  */",
+        "comment": "/**\n* Get video height\n*\n* @return {Number} Video height\n* @method videoHeight\n*/",
         "meta": {
             "range": [
-                23982,
-                24073
+                27399,
+                27480
             ],
             "filename": "player.js",
-            "lineno": 951,
+            "lineno": 2367,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -9053,14 +9053,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * The player's language code\n  * NOTE: The language should be set in the player options if you want the\n  * the controls to be built with a specific language. Changing the lanugage\n  * later will not update controls text.\n  *\n  * @param {String} code  The locale string\n  * @return {String}      The locale string when getting\n  * @return {Player}      self when setting\n  * @method language\n  */",
+        "comment": "/**\n* The player's language code\n* NOTE: The language should be set in the player options if you want the\n* the controls to be built with a specific language. Changing the lanugage\n* later will not update controls text.\n*\n* @param {String} code  The locale string\n* @return {String}      The locale string when getting\n* @return {Player}      self when setting\n* @method language\n*/",
         "meta": {
             "range": [
-                24075,
-                24477
+                27541,
+                27923
             ],
             "filename": "player.js",
-            "lineno": 958,
+            "lineno": 2393,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -9100,14 +9100,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get the player's language dictionary\n  * Merge every time, because a newly added plugin might call videojs.addLanguage() at any time\n  * Languages specified directly in the player options have precedence\n  *\n  * @return {Array} Array of languages\n  * @method languages\n  */",
+        "comment": "/**\n* Get the player's language dictionary\n* Merge every time, because a newly added plugin might call videojs.addLanguage() at any time\n* Languages specified directly in the player options have precedence\n*\n* @return {Array} Array of languages\n* @method languages\n*/",
         "meta": {
             "range": [
-                24479,
-                24760
+                27951,
+                28218
             ],
             "filename": "player.js",
-            "lineno": 970,
+            "lineno": 2413,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -9128,14 +9128,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Converts track info to JSON\n  *\n  * @return {Object} JSON object of options\n  * @method toJSON\n  */",
+        "comment": "/**\n* Converts track info to JSON\n*\n* @return {Object} JSON object of options\n* @method toJSON\n*/",
         "meta": {
             "range": [
-                24762,
-                24869
+                28231,
+                28328
             ],
             "filename": "player.js",
-            "lineno": 979,
+            "lineno": 2425,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -9156,14 +9156,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Gets tag settings\n  *\n  * @param {Element} tag The player tag\n  * @return {Array} An array of sources and track objects\n  * @static\n  * @method getTagSettings\n  */",
+        "comment": "/**\n* Gets tag settings\n*\n* @param {Element} tag The player tag\n* @return {Array} An array of sources and track objects\n* @static\n* @method getTagSettings\n*/",
         "meta": {
             "range": [
-                24871,
-                25042
+                28383,
+                28540
             ],
             "filename": "player.js",
-            "lineno": 986,
+            "lineno": 2449,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -9198,11 +9198,11 @@ var docData =
         "comment": "/**\n* Fired when the player has initial duration and dimension information\n*\n* @event loadedmetadata\n*/",
         "meta": {
             "range": [
-                25044,
-                25147
+                28971,
+                29074
             ],
             "filename": "player.js",
-            "lineno": 995,
+            "lineno": 2519,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -9216,11 +9216,11 @@ var docData =
         "comment": "/**\n* Fired when the player has downloaded data at the current playback position\n*\n* @event loadeddata\n*/",
         "meta": {
             "range": [
-                25149,
-                25254
+                29081,
+                29186
             ],
             "filename": "player.js",
-            "lineno": 1001,
+            "lineno": 2526,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -9234,11 +9234,11 @@ var docData =
         "comment": "/**\n* Fired when the player has finished downloading the source data\n*\n* @event loadedalldata\n*/",
         "meta": {
             "range": [
-                25256,
-                25352
+                29193,
+                29289
             ],
             "filename": "player.js",
-            "lineno": 1007,
+            "lineno": 2533,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -9252,11 +9252,11 @@ var docData =
         "comment": "/**\n* Fired when the user is active, e.g. moves the mouse over the player\n*\n* @event useractive\n*/",
         "meta": {
             "range": [
-                25354,
-                25452
+                29296,
+                29394
             ],
             "filename": "player.js",
-            "lineno": 1013,
+            "lineno": 2540,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -9270,11 +9270,11 @@ var docData =
         "comment": "/**\n* Fired when the user is inactive, e.g. a short delay after the last mouse move or control interaction\n*\n* @event userinactive\n*/",
         "meta": {
             "range": [
-                25454,
-                25587
+                29401,
+                29534
             ],
             "filename": "player.js",
-            "lineno": 1019,
+            "lineno": 2547,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -9288,11 +9288,11 @@ var docData =
         "comment": "/**\n* Fired when the current playback position has changed *\n* During playback this is fired every 15-250 milliseconds, depending on the\n* playback technology in use.\n*\n* @event timeupdate\n*/",
         "meta": {
             "range": [
-                25589,
-                25780
+                29541,
+                29732
             ],
             "filename": "player.js",
-            "lineno": 1025,
+            "lineno": 2554,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -9306,11 +9306,11 @@ var docData =
         "comment": "/**\n* Fired when the volume changes\n*\n* @event volumechange\n*/",
         "meta": {
             "range": [
-                25782,
-                25844
+                29739,
+                29801
             ],
             "filename": "player.js",
-            "lineno": 1033,
+            "lineno": 2563,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -9324,11 +9324,11 @@ var docData =
         "comment": "/**\n* Fired when an error occurs\n*\n* @event error\n*/",
         "meta": {
             "range": [
-                25846,
-                25898
+                29808,
+                29860
             ],
             "filename": "player.js",
-            "lineno": 1039,
+            "lineno": 2570,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -9361,11 +9361,11 @@ var docData =
         "comment": "/**\n* The method for registering a video.js plugin\n*\n* @param  {String} name The name of the plugin\n* @param  {Function} init The function that is run when the player inits\n* @method plugin\n*/",
         "meta": {
             "range": [
-                27,
-                219
+                32,
+                224
             ],
             "filename": "plugins.js",
-            "lineno": 5,
+            "lineno": 6,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -9418,11 +9418,11 @@ var docData =
         "comment": "/**\n* The component that handles showing the poster image.\n*\n* @param {Player|Object} player\n* @param {Object=} options\n* @extends Button\n* @class PosterImage\n*/",
         "meta": {
             "range": [
-                32,
-                193
+                149,
+                310
             ],
             "filename": "poster-image.js",
-            "lineno": 5,
+            "lineno": 12,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -9456,14 +9456,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Clean up the poster image\n  *\n  * @method dispose\n  */",
+        "comment": "/**\n* Clean up the poster image\n*\n* @method dispose\n*/",
         "meta": {
             "range": [
-                195,
-                257
+                338,
+                392
             ],
             "filename": "poster-image.js",
-            "lineno": 14,
+            "lineno": 29,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -9474,14 +9474,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the poster's image element\n  *\n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the poster's image element\n*\n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                259,
-                352
+                408,
+                491
             ],
             "filename": "poster-image.js",
-            "lineno": 20,
+            "lineno": 39,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -9501,14 +9501,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Event handler for updates to the player's poster source\n  *\n  * @method update\n  */",
+        "comment": "/**\n* Event handler for updates to the player's poster source\n*\n* @method update\n*/",
         "meta": {
             "range": [
-                354,
-                445
+                552,
+                635
             ],
             "filename": "poster-image.js",
-            "lineno": 27,
+            "lineno": 65,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -9519,14 +9519,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Set the poster source depending on the display method\n  *\n  * @param {String} url The URL to the poster source\n  * @method setSrc\n  */",
+        "comment": "/**\n* Set the poster source depending on the display method\n*\n* @param {String} url The URL to the poster source\n* @method setSrc\n*/",
         "meta": {
             "range": [
-                447,
-                589
+                678,
+                810
             ],
             "filename": "poster-image.js",
-            "lineno": 33,
+            "lineno": 84,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -9548,14 +9548,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Event handler for clicks on the poster image\n  * \n  * @method handleClick\n  */",
+        "comment": "/**\n* Event handler for clicks on the poster image\n* \n* @method handleClick\n*/",
         "meta": {
             "range": [
-                591,
-                677
+                856,
+                934
             ],
             "filename": "poster-image.js",
-            "lineno": 40,
+            "lineno": 105,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -9607,11 +9607,11 @@ var docData =
         "comment": "/**\n* The base functionality for sliders like the volume bar and seek bar\n*\n* @param {Player|Object} player\n* @param {Object=} options\n* @extends Component\n* @class Slider\n*/",
         "meta": {
             "range": [
-                26,
-                200
+                43,
+                217
             ],
             "filename": "slider.js",
-            "lineno": 5,
+            "lineno": 10,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/slider",
             "code": {}
         },
@@ -9645,14 +9645,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @param {String} type Type of element to create\n  * @param {Object=} props List of properties in Object form \n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @param {String} type Type of element to create\n* @param {Object=} props List of properties in Object form \n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                202,
-                409
+                284,
+                477
             ],
             "filename": "slider.js",
-            "lineno": 14,
+            "lineno": 40,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/slider",
             "code": {}
         },
@@ -9693,14 +9693,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle mouse down on slider\n  *\n  * @param {Object} event Mouse down event object\n  * @method handleMouseDown\n  */",
+        "comment": "/**\n* Handle mouse down on slider\n*\n* @param {Object} event Mouse down event object\n* @method handleMouseDown\n*/",
         "meta": {
             "range": [
-                411,
-                533
+                520,
+                632
             ],
             "filename": "slider.js",
-            "lineno": 23,
+            "lineno": 62,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/slider",
             "code": {}
         },
@@ -9722,14 +9722,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * To be overridden by a subclass\n  *\n  * @method handleMouseMove\n  */",
+        "comment": "/**\n* To be overridden by a subclass\n*\n* @method handleMouseMove\n*/",
         "meta": {
             "range": [
-                535,
-                610
+                672,
+                739
             ],
             "filename": "slider.js",
-            "lineno": 30,
+            "lineno": 81,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/slider",
             "code": {}
         },
@@ -9740,14 +9740,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle mouse up on Slider \n  *\n  * @method handleMouseUp\n  */",
+        "comment": "/**\n* Handle mouse up on Slider \n*\n* @method handleMouseUp\n*/",
         "meta": {
             "range": [
-                612,
-                681
+                746,
+                807
             ],
             "filename": "slider.js",
-            "lineno": 36,
+            "lineno": 88,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/slider",
             "code": {}
         },
@@ -9758,14 +9758,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Update slider\n  *\n  * @method update\n  */",
+        "comment": "/**\n* Update slider\n*\n* @method update\n*/",
         "meta": {
             "range": [
-                683,
-                732
+                844,
+                885
             ],
             "filename": "slider.js",
-            "lineno": 42,
+            "lineno": 105,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/slider",
             "code": {}
         },
@@ -9776,14 +9776,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Calculate distance for slider\n  *\n  * @param {Object} event Event object\n  * @method calculateDistance\n  */",
+        "comment": "/**\n* Calculate distance for slider\n*\n* @param {Object} event Event object\n* @method calculateDistance\n*/",
         "meta": {
             "range": [
-                734,
-                849
+                985,
+                1090
             ],
             "filename": "slider.js",
-            "lineno": 48,
+            "lineno": 143,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/slider",
             "code": {}
         },
@@ -9805,14 +9805,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle on focus for slider\n  *\n  * @method handleFocus\n  */",
+        "comment": "/**\n* Handle on focus for slider\n*\n* @method handleFocus\n*/",
         "meta": {
             "range": [
-                851,
-                918
+                1241,
+                1300
             ],
             "filename": "slider.js",
-            "lineno": 55,
+            "lineno": 199,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/slider",
             "code": {}
         },
@@ -9823,14 +9823,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle key press for slider\n  *\n  * @param {Object} event Event object\n  * @method handleKeyPress\n  */",
+        "comment": "/**\n* Handle key press for slider\n*\n* @param {Object} event Event object\n* @method handleKeyPress\n*/",
         "meta": {
             "range": [
-                920,
-                1030
+                1313,
+                1413
             ],
             "filename": "slider.js",
-            "lineno": 61,
+            "lineno": 208,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/slider",
             "code": {}
         },
@@ -9852,14 +9852,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Handle on blur for slider\n  *\n  * @method handleBlur\n  */",
+        "comment": "/**\n* Handle on blur for slider\n*\n* @method handleBlur\n*/",
         "meta": {
             "range": [
-                1032,
-                1097
+                1444,
+                1501
             ],
             "filename": "slider.js",
-            "lineno": 68,
+            "lineno": 224,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/slider",
             "code": {}
         },
@@ -9870,14 +9870,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Listener for click events on slider, used to prevent clicks\n  *   from bubbling up to parent elements like button menus.\n  *\n  * @param {Object} event Event object\n  * @method handleClick\n  */",
+        "comment": "/**\n* Listener for click events on slider, used to prevent clicks\n*   from bubbling up to parent elements like button menus.\n*\n* @param {Object} event Event object\n* @method handleClick\n*/",
         "meta": {
             "range": [
-                1099,
-                1299
+                1514,
+                1702
             ],
             "filename": "slider.js",
-            "lineno": 74,
+            "lineno": 233,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/slider",
             "code": {}
         },
@@ -9899,14 +9899,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get/set if slider is horizontal for vertical\n  *\n  * @param {Boolean} bool True if slider is vertical, false is horizontal\n  * @return {Boolean} True if slider is vertical, false is horizontal\n  * @method vertical\n  */",
+        "comment": "/**\n* Get/set if slider is horizontal for vertical\n*\n* @param {Boolean} bool True if slider is vertical, false is horizontal\n* @return {Boolean} True if slider is vertical, false is horizontal\n* @method vertical\n*/",
         "meta": {
             "range": [
-                1301,
-                1527
+                1718,
+                1932
             ],
             "filename": "slider.js",
-            "lineno": 82,
+            "lineno": 245,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/slider",
             "code": {}
         },
@@ -9979,11 +9979,11 @@ var docData =
         "comment": "/**\n* Flash Media Controller - Wrapper for fallback SWF API\n*\n* @param {Object=} options Object of option names and values\n* @param {Function=} ready Ready callback function\n* @extends Tech\n* @class Flash\n*/",
         "meta": {
             "range": [
-                198,
-                405
+                230,
+                437
             ],
             "filename": "flash.js",
-            "lineno": 8,
+            "lineno": 18,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10019,14 +10019,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                407,
-                501
+                537,
+                621
             ],
             "filename": "flash.js",
-            "lineno": 17,
+            "lineno": 59,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10046,14 +10046,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Play for flash tech\n  *\n  * @method play\n  */",
+        "comment": "/**\n* Play for flash tech\n*\n* @method play\n*/",
         "meta": {
             "range": [
-                503,
-                556
+                745,
+                790
             ],
             "filename": "flash.js",
-            "lineno": 24,
+            "lineno": 106,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10064,14 +10064,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Pause for flash tech\n  *\n  * @method pause\n  */",
+        "comment": "/**\n* Pause for flash tech\n*\n* @method pause\n*/",
         "meta": {
             "range": [
-                558,
-                613
+                803,
+                850
             ],
             "filename": "flash.js",
-            "lineno": 30,
+            "lineno": 115,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10082,14 +10082,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get/set video\n  *\n  * @param {Object=} src Source object \n  * @return {Object} \n  * @method src\n  */",
+        "comment": "/**\n* Get/set video\n*\n* @param {Object=} src Source object \n* @return {Object} \n* @method src\n*/",
         "meta": {
             "range": [
-                615,
-                723
+                863,
+                959
             ],
             "filename": "flash.js",
-            "lineno": 36,
+            "lineno": 124,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10121,14 +10121,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Set video\n  *\n  * @param {Object=} src Source object \n  * @deprecated\n  * @method setSrc\n  */",
+        "comment": "/**\n* Set video\n*\n* @param {Object=} src Source object \n* @deprecated\n* @method setSrc\n*/",
         "meta": {
             "range": [
-                725,
-                826
+                987,
+                1076
             ],
             "filename": "flash.js",
-            "lineno": 44,
+            "lineno": 140,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10152,14 +10152,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Set current time\n  *\n  * @param {Number} time Current time of video \n  * @method setCurrentTime\n  */",
+        "comment": "/**\n* Set current time\n*\n* @param {Number} time Current time of video \n* @method setCurrentTime\n*/",
         "meta": {
             "range": [
-                828,
-                936
+                1116,
+                1214
             ],
             "filename": "flash.js",
-            "lineno": 52,
+            "lineno": 160,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10181,14 +10181,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get current time\n  *\n  * @param {Number=} time Current time of video \n  * @return {Number} Current time\n  * @method currentTime\n  */",
+        "comment": "/**\n* Get current time\n*\n* @param {Number=} time Current time of video \n* @return {Number} Current time\n* @method currentTime\n*/",
         "meta": {
             "range": [
-                938,
-                1078
+                1233,
+                1361
             ],
             "filename": "flash.js",
-            "lineno": 59,
+            "lineno": 172,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10221,14 +10221,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get current source\n  *\n  * @method currentSrc\n  */",
+        "comment": "/**\n* Get current source\n*\n* @method currentSrc\n*/",
         "meta": {
             "range": [
-                1080,
-                1138
+                1389,
+                1439
             ],
             "filename": "flash.js",
-            "lineno": 67,
+            "lineno": 188,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10239,14 +10239,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Load media into player\n  *\n  * @method load\n  */",
+        "comment": "/**\n* Load media into player\n*\n* @method load\n*/",
         "meta": {
             "range": [
-                1140,
-                1196
+                1464,
+                1512
             ],
             "filename": "flash.js",
-            "lineno": 73,
+            "lineno": 201,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10257,14 +10257,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get poster\n  *\n  * @method poster\n  */",
+        "comment": "/**\n* Get poster\n*\n* @method poster\n*/",
         "meta": {
             "range": [
-                1198,
-                1244
+                1525,
+                1563
             ],
             "filename": "flash.js",
-            "lineno": 79,
+            "lineno": 210,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10275,14 +10275,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Poster images are not handled by the Flash tech so make this a no-op\n  *\n  * @method setPoster\n  */",
+        "comment": "/**\n* Poster images are not handled by the Flash tech so make this a no-op\n*\n* @method setPoster\n*/",
         "meta": {
             "range": [
-                1246,
-                1353
+                1576,
+                1675
             ],
             "filename": "flash.js",
-            "lineno": 85,
+            "lineno": 219,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10293,14 +10293,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Determine if can seek in media\n  *\n  * @return {TimeRangeObject}\n  * @method seekable\n  */",
+        "comment": "/**\n* Determine if can seek in media\n*\n* @return {TimeRangeObject}\n* @method seekable\n*/",
         "meta": {
             "range": [
-                1355,
-                1453
+                1682,
+                1770
             ],
             "filename": "flash.js",
-            "lineno": 91,
+            "lineno": 226,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10320,14 +10320,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get buffered time range\n  *\n  * @return {TimeRangeObject} \n  * @method buffered\n  */",
+        "comment": "/**\n* Get buffered time range\n*\n* @return {TimeRangeObject} \n* @method buffered\n*/",
         "meta": {
             "range": [
-                1455,
-                1547
+                1795,
+                1877
             ],
             "filename": "flash.js",
-            "lineno": 98,
+            "lineno": 240,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10347,14 +10347,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get fullscreen support - \n  * Flash does not allow fullscreen through javascript\n  * so always returns false\n  *\n  * @return {Boolean} false \n  * @method supportsFullScreen\n  */",
+        "comment": "/**\n* Get fullscreen support - \n* Flash does not allow fullscreen through javascript\n* so always returns false\n*\n* @return {Boolean} false \n* @method supportsFullScreen\n*/",
         "meta": {
             "range": [
-                1549,
-                1734
+                1890,
+                2061
             ],
             "filename": "flash.js",
-            "lineno": 105,
+            "lineno": 250,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10375,14 +10375,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Request to enter fullscreen\n  * Flash does not allow fullscreen through javascript\n  * so always returns false\n  *\n  * @return {Boolean} false \n  * @method enterFullScreen\n  */",
+        "comment": "/**\n* Request to enter fullscreen\n* Flash does not allow fullscreen through javascript\n* so always returns false\n*\n* @return {Boolean} false \n* @method enterFullScreen\n*/",
         "meta": {
             "range": [
-                1736,
-                1920
+                2074,
+                2244
             ],
             "filename": "flash.js",
-            "lineno": 114,
+            "lineno": 262,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10425,11 +10425,11 @@ var docData =
         "comment": "/**\n* HTML5 Media Controller - Wrapper for HTML5 Media API\n*\n* @param {Object=} options Object of option names and values\n* @param {Function=} ready Ready callback function\n* @extends Tech\n* @class Html5\n*/",
         "meta": {
             "range": [
-                81,
-                287
+                119,
+                325
             ],
             "filename": "html5.js",
-            "lineno": 6,
+            "lineno": 18,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10465,14 +10465,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Dispose of html5 media element\n  *\n  * @method dispose\n  */",
+        "comment": "/**\n* Dispose of html5 media element\n*\n* @method dispose\n*/",
         "meta": {
             "range": [
-                289,
-                356
+                497,
+                556
             ],
             "filename": "html5.js",
-            "lineno": 15,
+            "lineno": 83,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10483,14 +10483,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                358,
-                452
+                572,
+                656
             ],
             "filename": "html5.js",
-            "lineno": 21,
+            "lineno": 93,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10510,14 +10510,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Hide captions from text track\n  *\n  * @method hideCaptions\n  */",
+        "comment": "/**\n* Hide captions from text track\n*\n* @method hideCaptions\n*/",
         "meta": {
             "range": [
-                454,
-                525
+                846,
+                909
             ],
             "filename": "html5.js",
-            "lineno": 28,
+            "lineno": 162,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10528,14 +10528,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Play for html5 tech\n  *\n  * @method play\n  */",
+        "comment": "/**\n* Play for html5 tech\n*\n* @method play\n*/",
         "meta": {
             "range": [
-                527,
-                580
+                961,
+                1006
             ],
             "filename": "html5.js",
-            "lineno": 34,
+            "lineno": 184,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10546,14 +10546,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Pause for html5 tech\n  *\n  * @method pause\n  */",
+        "comment": "/**\n* Pause for html5 tech\n*\n* @method pause\n*/",
         "meta": {
             "range": [
-                582,
-                637
+                1013,
+                1060
             ],
             "filename": "html5.js",
-            "lineno": 40,
+            "lineno": 191,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10564,14 +10564,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Paused for html5 tech\n  *\n  * @return {Boolean} \n  * @method paused\n  */",
+        "comment": "/**\n* Paused for html5 tech\n*\n* @return {Boolean} \n* @method paused\n*/",
         "meta": {
             "range": [
-                639,
-                719
+                1067,
+                1137
             ],
             "filename": "html5.js",
-            "lineno": 46,
+            "lineno": 198,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10591,14 +10591,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get current time\n  *\n  * @return {Number} \n  * @method currentTime\n  */",
+        "comment": "/**\n* Get current time\n*\n* @return {Number} \n* @method currentTime\n*/",
         "meta": {
             "range": [
-                721,
-                800
+                1144,
+                1213
             ],
             "filename": "html5.js",
-            "lineno": 53,
+            "lineno": 206,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10618,14 +10618,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Set current time\n  *\n  * @param {Number} seconds Current time of video \n  * @method setCurrentTime\n  */",
+        "comment": "/**\n* Set current time\n*\n* @param {Number} seconds Current time of video \n* @method setCurrentTime\n*/",
         "meta": {
             "range": [
-                802,
-                913
+                1220,
+                1321
             ],
             "filename": "html5.js",
-            "lineno": 60,
+            "lineno": 214,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10647,14 +10647,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get duration\n  *\n  * @return {Number}\n  * @method duration\n  */",
+        "comment": "/**\n* Get duration\n*\n* @return {Number}\n* @method duration\n*/",
         "meta": {
             "range": [
-                915,
-                986
+                1349,
+                1410
             ],
             "filename": "html5.js",
-            "lineno": 67,
+            "lineno": 229,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10674,14 +10674,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get a TimeRange object that represents the intersection\n  * of the time ranges for which the user agent has all\n  * relevant media\n  *\n  * @return {TimeRangeObject}\n  * @method buffered\n  */",
+        "comment": "/**\n* Get a TimeRange object that represents the intersection\n* of the time ranges for which the user agent has all\n* relevant media\n*\n* @return {TimeRangeObject}\n* @method buffered\n*/",
         "meta": {
             "range": [
-                988,
-                1186
+                1417,
+                1601
             ],
             "filename": "html5.js",
-            "lineno": 74,
+            "lineno": 237,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10701,14 +10701,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get volume level \n  *\n  * @return {Number}\n  * @method volume\n  */",
+        "comment": "/**\n* Get volume level \n*\n* @return {Number}\n* @method volume\n*/",
         "meta": {
             "range": [
-                1188,
-                1262
+                1608,
+                1672
             ],
             "filename": "html5.js",
-            "lineno": 83,
+            "lineno": 247,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10728,14 +10728,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Set volume level \n  *\n  * @param {Number} percentAsDecimal Volume percent as a decimal\n  * @method setVolume\n  */",
+        "comment": "/**\n* Set volume level \n*\n* @param {Number} percentAsDecimal Volume percent as a decimal\n* @method setVolume\n*/",
         "meta": {
             "range": [
-                1264,
-                1385
+                1679,
+                1790
             ],
             "filename": "html5.js",
-            "lineno": 90,
+            "lineno": 255,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10757,14 +10757,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get if muted \n  *\n  * @return {Boolean}\n  * @method muted\n  */",
+        "comment": "/**\n* Get if muted \n*\n* @return {Boolean}\n* @method muted\n*/",
         "meta": {
             "range": [
-                1387,
-                1457
+                1797,
+                1857
             ],
             "filename": "html5.js",
-            "lineno": 97,
+            "lineno": 263,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10784,14 +10784,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Set muted \n  *\n  * @param {Boolean} If player is to be muted or note\n  * @method setMuted\n  */",
+        "comment": "/**\n* Set muted \n*\n* @param {Boolean} If player is to be muted or note\n* @method setMuted\n*/",
         "meta": {
             "range": [
-                1459,
-                1561
+                1864,
+                1956
             ],
             "filename": "html5.js",
-            "lineno": 104,
+            "lineno": 271,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10813,14 +10813,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get player width \n  *\n  * @return {Number}\n  * @method width\n  */",
+        "comment": "/**\n* Get player width \n*\n* @return {Number}\n* @method width\n*/",
         "meta": {
             "range": [
-                1563,
-                1636
+                1963,
+                2026
             ],
             "filename": "html5.js",
-            "lineno": 111,
+            "lineno": 279,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10840,14 +10840,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get player height \n  *\n  * @return {Number}\n  * @method height\n  */",
+        "comment": "/**\n* Get player height \n*\n* @return {Number}\n* @method height\n*/",
         "meta": {
             "range": [
-                1638,
-                1713
+                2033,
+                2098
             ],
             "filename": "html5.js",
-            "lineno": 118,
+            "lineno": 287,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10867,14 +10867,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get if there is fullscreen support \n  *\n  * @return {Boolean} \n  * @method supportsFullScreen\n  */",
+        "comment": "/**\n* Get if there is fullscreen support \n*\n* @return {Boolean} \n* @method supportsFullScreen\n*/",
         "meta": {
             "range": [
-                1715,
-                1821
+                2105,
+                2201
             ],
             "filename": "html5.js",
-            "lineno": 125,
+            "lineno": 295,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10894,14 +10894,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Request to enter fullscreen\n  *\n  * @method enterFullScreen\n  */",
+        "comment": "/**\n* Request to enter fullscreen\n*\n* @method enterFullScreen\n*/",
         "meta": {
             "range": [
-                1823,
-                1895
+                2235,
+                2299
             ],
             "filename": "html5.js",
-            "lineno": 132,
+            "lineno": 312,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10912,14 +10912,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Request to exit fullscreen\n  *\n  * @method exitFullScreen\n  */",
+        "comment": "/**\n* Request to exit fullscreen\n*\n* @method exitFullScreen\n*/",
         "meta": {
             "range": [
-                1897,
-                1967
+                2387,
+                2449
             ],
             "filename": "html5.js",
-            "lineno": 138,
+            "lineno": 346,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10930,14 +10930,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get/set video\n  *\n  * @param {Object=} src Source object \n  * @return {Object} \n  * @method src\n  */",
+        "comment": "/**\n* Get/set video\n*\n* @param {Object=} src Source object \n* @return {Object} \n* @method src\n*/",
         "meta": {
             "range": [
-                1969,
-                2077
+                2462,
+                2558
             ],
             "filename": "html5.js",
-            "lineno": 144,
+            "lineno": 355,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10969,14 +10969,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Set video\n  *\n  * @param {Object} src Source object \n  * @deprecated\n  * @method setSrc\n  */",
+        "comment": "/**\n* Set video\n*\n* @param {Object} src Source object \n* @deprecated\n* @method setSrc\n*/",
         "meta": {
             "range": [
-                2079,
-                2179
+                2586,
+                2674
             ],
             "filename": "html5.js",
-            "lineno": 152,
+            "lineno": 371,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -10999,14 +10999,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Load media into player\n  *\n  * @method load\n  */",
+        "comment": "/**\n* Load media into player\n*\n* @method load\n*/",
         "meta": {
             "range": [
-                2181,
-                2237
+                2681,
+                2729
             ],
             "filename": "html5.js",
-            "lineno": 160,
+            "lineno": 380,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11017,14 +11017,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get current source \n  *\n  * @return {Object} \n  * @method currentSrc\n  */",
+        "comment": "/**\n* Get current source \n*\n* @return {Object} \n* @method currentSrc\n*/",
         "meta": {
             "range": [
-                2239,
-                2320
+                2736,
+                2807
             ],
             "filename": "html5.js",
-            "lineno": 166,
+            "lineno": 387,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11044,14 +11044,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get poster \n  *\n  * @return {String} \n  * @method poster\n  */",
+        "comment": "/**\n* Get poster \n*\n* @return {String} \n* @method poster\n*/",
         "meta": {
             "range": [
-                2322,
-                2391
+                2814,
+                2873
             ],
             "filename": "html5.js",
-            "lineno": 173,
+            "lineno": 395,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11071,14 +11071,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get preload attribute \n  *\n  * @return {String} \n  * @method preload\n  */",
+        "comment": "/**\n* Get preload attribute \n*\n* @return {String} \n* @method preload\n*/",
         "meta": {
             "range": [
-                2480,
-                2561
+                2962,
+                3033
             ],
             "filename": "html5.js",
-            "lineno": 187,
+            "lineno": 411,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11098,14 +11098,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Set preload attribute \n  *\n  * @param {String} val Value for preload attribute \n  * @method setPreload\n  */",
+        "comment": "/**\n* Set preload attribute \n*\n* @param {String} val Value for preload attribute \n* @method setPreload\n*/",
         "meta": {
             "range": [
-                2563,
-                2678
+                3040,
+                3145
             ],
             "filename": "html5.js",
-            "lineno": 194,
+            "lineno": 419,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11127,14 +11127,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get autoplay attribute \n  *\n  * @return {String} \n  * @method autoplay\n  */",
+        "comment": "/**\n* Get autoplay attribute \n*\n* @return {String} \n* @method autoplay\n*/",
         "meta": {
             "range": [
-                2680,
-                2763
+                3152,
+                3225
             ],
             "filename": "html5.js",
-            "lineno": 201,
+            "lineno": 427,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11154,14 +11154,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Set autoplay attribute \n  *\n  * @param {String} val Value for preload attribute \n  * @method setAutoplay\n  */",
+        "comment": "/**\n* Set autoplay attribute \n*\n* @param {String} val Value for preload attribute \n* @method setAutoplay\n*/",
         "meta": {
             "range": [
-                2765,
-                2882
+                3232,
+                3339
             ],
             "filename": "html5.js",
-            "lineno": 208,
+            "lineno": 435,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11183,14 +11183,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get controls attribute \n  *\n  * @return {String} \n  * @method controls\n  */",
+        "comment": "/**\n* Get controls attribute \n*\n* @return {String} \n* @method controls\n*/",
         "meta": {
             "range": [
-                2884,
-                2967
+                3346,
+                3419
             ],
             "filename": "html5.js",
-            "lineno": 215,
+            "lineno": 443,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11210,14 +11210,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Set controls attribute \n  *\n  * @param {String} val Value for controls attribute \n  * @method setControls\n  */",
+        "comment": "/**\n* Set controls attribute \n*\n* @param {String} val Value for controls attribute \n* @method setControls\n*/",
         "meta": {
             "range": [
-                2969,
-                3087
+                3426,
+                3534
             ],
             "filename": "html5.js",
-            "lineno": 222,
+            "lineno": 451,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11239,14 +11239,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get loop attribute \n  *\n  * @return {String} \n  * @method loop\n  */",
+        "comment": "/**\n* Get loop attribute \n*\n* @return {String} \n* @method loop\n*/",
         "meta": {
             "range": [
-                3089,
-                3164
+                3541,
+                3606
             ],
             "filename": "html5.js",
-            "lineno": 229,
+            "lineno": 459,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11266,14 +11266,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Set loop attribute \n  *\n  * @param {String} val Value for loop attribute \n  * @method setLoop\n  */",
+        "comment": "/**\n* Set loop attribute \n*\n* @param {String} val Value for loop attribute \n* @method setLoop\n*/",
         "meta": {
             "range": [
-                3166,
-                3272
+                3613,
+                3709
             ],
             "filename": "html5.js",
-            "lineno": 236,
+            "lineno": 467,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11295,14 +11295,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get error value \n  *\n  * @return {String} \n  * @method error\n  */",
+        "comment": "/**\n* Get error value \n*\n* @return {String} \n* @method error\n*/",
         "meta": {
             "range": [
-                3274,
-                3347
+                3716,
+                3779
             ],
             "filename": "html5.js",
-            "lineno": 243,
+            "lineno": 475,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11322,14 +11322,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get whether or not the player is in the \"seeking\" state\n  *\n  * @return {Boolean} \n  * @method seeking\n  */",
+        "comment": "/**\n* Get whether or not the player is in the \"seeking\" state\n*\n* @return {Boolean} \n* @method seeking\n*/",
         "meta": {
             "range": [
-                3349,
-                3464
+                3786,
+                3891
             ],
             "filename": "html5.js",
-            "lineno": 250,
+            "lineno": 483,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11349,14 +11349,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get a TimeRanges object that represents the \n  * ranges of the media resource to which it is possible \n  * for the user agent to seek. \n  *\n  * @return {TimeRangeObject} \n  * @method seekable\n  */",
+        "comment": "/**\n* Get a TimeRanges object that represents the \n* ranges of the media resource to which it is possible \n* for the user agent to seek. \n*\n* @return {TimeRangeObject} \n* @method seekable\n*/",
         "meta": {
             "range": [
-                3466,
-                3670
+                3898,
+                4088
             ],
             "filename": "html5.js",
-            "lineno": 257,
+            "lineno": 491,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11376,14 +11376,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get if video ended \n  *\n  * @return {Boolean} \n  * @method ended\n  */",
+        "comment": "/**\n* Get if video ended \n*\n* @return {Boolean} \n* @method ended\n*/",
         "meta": {
             "range": [
-                3672,
-                3749
+                4095,
+                4162
             ],
             "filename": "html5.js",
-            "lineno": 266,
+            "lineno": 501,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11403,14 +11403,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get the value of the muted content attribute\n  * This attribute has no dynamic effect, it only \n  * controls the default state of the element\n  *\n  * @return {Boolean} \n  * @method defaultMuted\n  */",
+        "comment": "/**\n* Get the value of the muted content attribute\n* This attribute has no dynamic effect, it only \n* controls the default state of the element\n*\n* @return {Boolean} \n* @method defaultMuted\n*/",
         "meta": {
             "range": [
-                3751,
-                3957
+                4169,
+                4361
             ],
             "filename": "html5.js",
-            "lineno": 273,
+            "lineno": 509,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11430,14 +11430,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get desired speed at which the media resource is to play \n  *\n  * @return {Number}\n  * @method playbackRate\n  */",
+        "comment": "/**\n* Get desired speed at which the media resource is to play \n*\n* @return {Number}\n* @method playbackRate\n*/",
         "meta": {
             "range": [
-                3959,
-                4079
+                4368,
+                4478
             ],
             "filename": "html5.js",
-            "lineno": 282,
+            "lineno": 519,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11457,14 +11457,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Set desired speed at which the media resource is to play \n  *\n  * @param {Number} val Speed at which the media resource is to play\n  * @method setPlaybackRate\n  */",
+        "comment": "/**\n* Set desired speed at which the media resource is to play \n*\n* @param {Number} val Speed at which the media resource is to play\n* @method setPlaybackRate\n*/",
         "meta": {
             "range": [
-                4081,
-                4252
+                4485,
+                4646
             ],
             "filename": "html5.js",
-            "lineno": 289,
+            "lineno": 527,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11486,14 +11486,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get the current state of network activity for the element, from\n  * the list below\n  * NETWORK_EMPTY (numeric value 0)\n  * NETWORK_IDLE (numeric value 1)\n  * NETWORK_LOADING (numeric value 2)\n  * NETWORK_NO_SOURCE (numeric value 3)\n  *\n  * @return {Number}\n  * @method networkState\n  */",
+        "comment": "/**\n* Get the current state of network activity for the element, from\n* the list below\n* NETWORK_EMPTY (numeric value 0)\n* NETWORK_IDLE (numeric value 1)\n* NETWORK_LOADING (numeric value 2)\n* NETWORK_NO_SOURCE (numeric value 3)\n*\n* @return {Number}\n* @method networkState\n*/",
         "meta": {
             "range": [
-                4254,
-                4548
+                4653,
+                4927
             ],
             "filename": "html5.js",
-            "lineno": 296,
+            "lineno": 535,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11513,14 +11513,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get a value that expresses the current state of the element \n  * with respect to rendering the current playback position, from \n  * the codes in the list below\n  * HAVE_NOTHING (numeric value 0)\n  * HAVE_METADATA (numeric value 1)\n  * HAVE_CURRENT_DATA (numeric value 2)\n  * HAVE_FUTURE_DATA (numeric value 3)\n  * HAVE_ENOUGH_DATA (numeric value 4)\n  * \n  * @return {Number}\n  * @method readyState\n  */",
+        "comment": "/**\n* Get a value that expresses the current state of the element \n* with respect to rendering the current playback position, from \n* the codes in the list below\n* HAVE_NOTHING (numeric value 0)\n* HAVE_METADATA (numeric value 1)\n* HAVE_CURRENT_DATA (numeric value 2)\n* HAVE_FUTURE_DATA (numeric value 3)\n* HAVE_ENOUGH_DATA (numeric value 4)\n* \n* @return {Number}\n* @method readyState\n*/",
         "meta": {
             "range": [
-                4550,
-                4960
+                4934,
+                5320
             ],
             "filename": "html5.js",
-            "lineno": 308,
+            "lineno": 548,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11540,14 +11540,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get width of video \n  *\n  * @return {Number}\n  * @method videoWidth\n  */",
+        "comment": "/**\n* Get width of video \n*\n* @return {Number}\n* @method videoWidth\n*/",
         "meta": {
             "range": [
-                4962,
-                5042
+                5327,
+                5397
             ],
             "filename": "html5.js",
-            "lineno": 322,
+            "lineno": 563,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11567,14 +11567,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get height of video \n  *\n  * @return {Number}\n  * @method videoHeight\n  */",
+        "comment": "/**\n* Get height of video \n*\n* @return {Number}\n* @method videoHeight\n*/",
         "meta": {
             "range": [
-                5044,
-                5126
+                5404,
+                5476
             ],
             "filename": "html5.js",
-            "lineno": 329,
+            "lineno": 571,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11594,14 +11594,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get text tracks \n  *\n  * @return {TextTrackList} \n  * @method textTracks\n  */",
+        "comment": "/**\n* Get text tracks \n*\n* @return {TextTrackList} \n* @method textTracks\n*/",
         "meta": {
             "range": [
-                5128,
-                5213
+                5483,
+                5558
             ],
             "filename": "html5.js",
-            "lineno": 336,
+            "lineno": 579,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11621,14 +11621,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Creates and returns a text track object \n  *\n  * @param {String} kind Text track kind (subtitles, captions, descriptions\n  *                                       chapters and metadata)\n  * @param {String=} label Label to identify the text track\n  * @param {String=} language Two letter language abbreviation\n  * @return {TextTrackObject}\n  * @method addTextTrack\n  */",
+        "comment": "/**\n* Creates and returns a text track object \n*\n* @param {String} kind Text track kind (subtitles, captions, descriptions\n*                                       chapters and metadata)\n* @param {String=} label Label to identify the text track\n* @param {String=} language Two letter language abbreviation\n* @return {TextTrackObject}\n* @method addTextTrack\n*/",
         "meta": {
             "range": [
-                5215,
-                5591
+                5583,
+                5941
             ],
             "filename": "html5.js",
-            "lineno": 343,
+            "lineno": 593,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11679,14 +11679,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Creates and returns a remote text track object \n  *\n  * @param {Object} options The object should contain values for\n  * kind, language, label and src (location of the WebVTT file)\n  * @return {TextTrackObject}\n  * @method addRemoteTextTrack\n  */",
+        "comment": "/**\n* Creates and returns a remote text track object \n*\n* @param {Object} options The object should contain values for\n* kind, language, label and src (location of the WebVTT file)\n* @return {TextTrackObject}\n* @method addRemoteTextTrack\n*/",
         "meta": {
             "range": [
-                5593,
-                5847
+                5966,
+                6206
             ],
             "filename": "html5.js",
-            "lineno": 354,
+            "lineno": 611,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11717,14 +11717,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Remove remote text track from TextTrackList object \n  *\n  * @param {TextTrackObject} track Texttrack object to remove\n  * @method removeRemoteTextTrack\n  */",
+        "comment": "/**\n* Remove remote text track from TextTrackList object \n*\n* @param {TextTrackObject} track Texttrack object to remove\n* @method removeRemoteTextTrack\n*/",
         "meta": {
             "range": [
-                5849,
-                6013
+                6360,
+                6514
             ],
             "filename": "html5.js",
-            "lineno": 363,
+            "lineno": 670,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11768,11 +11768,11 @@ var docData =
         "comment": "/**\n* The Media Loader is the component that decides which playback technology to load\n* when the player is initialized.\n*\n* @param {Object} player  Main Player\n* @param {Object=} options Object of option names and values\n* @param {Function=} ready    Ready callback function\n* @extends Component\n* @class MediaLoader\n*/",
         "meta": {
             "range": [
-                26,
-                346
+                37,
+                357
             ],
             "filename": "loader.js",
-            "lineno": 5,
+            "lineno": 8,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11839,11 +11839,11 @@ var docData =
         "comment": "/**\n* Base class for media (HTML5 Video, Flash) controllers\n*\n* @param {Object=} options Options object\n* @param {Function=} ready Ready callback function\n* @extends Component\n* @class Tech\n*/",
         "meta": {
             "range": [
-                132,
-                324
+                164,
+                356
             ],
             "filename": "tech.js",
-            "lineno": 7,
+            "lineno": 17,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11879,14 +11879,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Set up click and touch listeners for the playback element\n  * On desktops, a click on the video itself will toggle playback,\n  * on a mobile device a click on the video toggles controls.\n  * (toggling controls is done by toggling the user state between active and\n  * inactive)\n  * A tap can signal that a user has become active, or has become inactive\n  * e.g. a quick tap on an iPhone movie should reveal the controls. Another\n  * quick tap should hide them again (signaling the user is in an inactive\n  * viewing state)\n  * In addition to this, we still want the user to be considered inactive after\n  * a few seconds of inactivity.\n  * Note: the only part of iOS interaction we can't mimic with this setup\n  * is a touch and hold on the video element counting as activity in order to\n  * keep the controls showing, but that shouldn't be an issue. A touch and hold on\n  * any controls will still keep the user active\n  *\n  * @method initControlsListeners\n  */",
+        "comment": "/**\n* Set up click and touch listeners for the playback element\n* On desktops, a click on the video itself will toggle playback,\n* on a mobile device a click on the video toggles controls.\n* (toggling controls is done by toggling the user state between active and\n* inactive)\n* A tap can signal that a user has become active, or has become inactive\n* e.g. a quick tap on an iPhone movie should reveal the controls. Another\n* quick tap should hide them again (signaling the user is in an inactive\n* viewing state)\n* In addition to this, we still want the user to be considered inactive after\n* a few seconds of inactivity.\n* Note: the only part of iOS interaction we can't mimic with this setup\n* is a touch and hold on the video element counting as activity in order to\n* keep the controls showing, but that shouldn't be an issue. A touch and hold on\n* any controls will still keep the user active\n*\n* @method initControlsListeners\n*/",
         "meta": {
             "range": [
-                326,
-                1296
+                465,
+                1399
             ],
             "filename": "tech.js",
-            "lineno": 16,
+            "lineno": 61,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11897,14 +11897,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Turn on progress events \n  *\n  * @method manualProgressOn\n  */",
+        "comment": "/**\n* Turn on progress events \n*\n* @method manualProgressOn\n*/",
         "meta": {
             "range": [
-                1298,
-                1368
+                1570,
+                1632
             ],
             "filename": "tech.js",
-            "lineno": 36,
+            "lineno": 97,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11915,14 +11915,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Turn off progress events \n  *\n  * @method manualProgressOff\n  */",
+        "comment": "/**\n* Turn off progress events \n*\n* @method manualProgressOff\n*/",
         "meta": {
             "range": [
-                1370,
-                1442
+                1660,
+                1724
             ],
             "filename": "tech.js",
-            "lineno": 42,
+            "lineno": 111,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11933,14 +11933,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Track progress \n  *\n  * @method trackProgress\n  */",
+        "comment": "/**\n* Track progress \n*\n* @method trackProgress\n*/",
         "meta": {
             "range": [
-                1444,
-                1502
+                1746,
+                1796
             ],
             "filename": "tech.js",
-            "lineno": 48,
+            "lineno": 123,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11951,14 +11951,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Update duration \n  *\n  * @method onDurationChange\n  */",
+        "comment": "/**\n* Update duration \n*\n* @method onDurationChange\n*/",
         "meta": {
             "range": [
-                1504,
-                1566
+                1851,
+                1905
             ],
             "filename": "tech.js",
-            "lineno": 54,
+            "lineno": 146,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11969,14 +11969,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create and get TimeRange object for buffering \n  *\n  * @return {TimeRangeObject}\n  * @method buffered\n  */",
+        "comment": "/**\n* Create and get TimeRange object for buffering \n*\n* @return {TimeRangeObject}\n* @method buffered\n*/",
         "meta": {
             "range": [
-                1568,
-                1682
+                1918,
+                2022
             ],
             "filename": "tech.js",
-            "lineno": 60,
+            "lineno": 155,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -11996,14 +11996,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get buffered percent\n  *\n  * @return {Number}\n  * @method bufferedPercent\n  */",
+        "comment": "/**\n* Get buffered percent\n*\n* @return {Number}\n* @method bufferedPercent\n*/",
         "meta": {
             "range": [
-                1684,
-                1770
+                2035,
+                2111
             ],
             "filename": "tech.js",
-            "lineno": 67,
+            "lineno": 165,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -12023,14 +12023,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Stops tracking progress by clearing progress interval \n  *\n  * @method stopTrackingProgress\n  */",
+        "comment": "/**\n* Stops tracking progress by clearing progress interval \n*\n* @method stopTrackingProgress\n*/",
         "meta": {
             "range": [
-                1772,
-                1876
+                2124,
+                2220
             ],
             "filename": "tech.js",
-            "lineno": 74,
+            "lineno": 175,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -12041,14 +12041,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Set event listeners for on play and pause and tracking current time\n  *\n  * @method manualTimeUpdatesOn\n  */",
+        "comment": "/**\n* Set event listeners for on play and pause and tracking current time\n*\n* @method manualTimeUpdatesOn\n*/",
         "meta": {
             "range": [
-                1878,
-                1994
+                2317,
+                2425
             ],
             "filename": "tech.js",
-            "lineno": 80,
+            "lineno": 185,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -12059,14 +12059,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Remove event listeners for on play and pause and tracking current time\n  *\n  * @method manualTimeUpdatesOff\n  */",
+        "comment": "/**\n* Remove event listeners for on play and pause and tracking current time\n*\n* @method manualTimeUpdatesOff\n*/",
         "meta": {
             "range": [
-                1996,
-                2116
+                2447,
+                2559
             ],
             "filename": "tech.js",
-            "lineno": 86,
+            "lineno": 197,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -12077,14 +12077,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Tracks current time\n  *\n  * @method trackCurrentTime\n  */",
+        "comment": "/**\n* Tracks current time\n*\n* @method trackCurrentTime\n*/",
         "meta": {
             "range": [
-                2118,
-                2183
+                2581,
+                2638
             ],
             "filename": "tech.js",
-            "lineno": 92,
+            "lineno": 209,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -12095,14 +12095,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Turn off play progress tracking (when paused or dragging)\n  *\n  * @method stopTrackingCurrentTime\n  */",
+        "comment": "/**\n* Turn off play progress tracking (when paused or dragging)\n*\n* @method stopTrackingCurrentTime\n*/",
         "meta": {
             "range": [
-                2185,
-                2295
+                2660,
+                2762
             ],
             "filename": "tech.js",
-            "lineno": 98,
+            "lineno": 221,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -12113,14 +12113,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Turn off any manual progress or timeupdate tracking\n  *\n  * @method dispose\n  */",
+        "comment": "/**\n* Turn off any manual progress or timeupdate tracking\n*\n* @method dispose\n*/",
         "meta": {
             "range": [
-                2297,
-                2385
+                2787,
+                2867
             ],
             "filename": "tech.js",
-            "lineno": 104,
+            "lineno": 234,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -12131,14 +12131,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Set current time \n  *\n  * @method setCurrentTime\n  */",
+        "comment": "/**\n* Set current time \n*\n* @method setCurrentTime\n*/",
         "meta": {
             "range": [
-                2387,
-                2448
+                2895,
+                2948
             ],
             "filename": "tech.js",
-            "lineno": 110,
+            "lineno": 248,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -12149,14 +12149,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Initialize texttrack listeners \n  *\n  * @method initTextTrackListeners\n  */",
+        "comment": "/**\n* Initialize texttrack listeners \n*\n* @method initTextTrackListeners\n*/",
         "meta": {
             "range": [
-                2450,
-                2533
+                2964,
+                3039
             ],
             "filename": "tech.js",
-            "lineno": 116,
+            "lineno": 258,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -12167,14 +12167,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Emulate texttracks \n  *\n  * @method emulateTextTracks\n  */",
+        "comment": "/**\n* Emulate texttracks \n*\n* @method emulateTextTracks\n*/",
         "meta": {
             "range": [
-                2535,
-                2601
+                3094,
+                3152
             ],
             "filename": "tech.js",
-            "lineno": 122,
+            "lineno": 281,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -12185,14 +12185,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get texttracks \n  *\n  * @returns {TextTrackList}\n  * @method textTracks\n  */",
+        "comment": "/**\n* Get texttracks \n*\n* @returns {TextTrackList}\n* @method textTracks\n*/",
         "meta": {
             "range": [
-                2603,
-                2687
+                3345,
+                3419
             ],
             "filename": "tech.js",
-            "lineno": 128,
+            "lineno": 328,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -12212,14 +12212,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get remote texttracks \n  *\n  * @returns {TextTrackList}\n  * @method remoteTextTracks\n  */",
+        "comment": "/**\n* Get remote texttracks \n*\n* @returns {TextTrackList}\n* @method remoteTextTracks\n*/",
         "meta": {
             "range": [
-                2689,
-                2786
+                3435,
+                3522
             ],
             "filename": "tech.js",
-            "lineno": 135,
+            "lineno": 339,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -12239,14 +12239,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Creates and returns a remote text track object \n  *\n  * @param {String} kind Text track kind (subtitles, captions, descriptions\n  *                                       chapters and metadata)\n  * @param {String=} label Label to identify the text track\n  * @param {String=} language Two letter language abbreviation\n  * @return {TextTrackObject}\n  * @method addTextTrack\n  */",
+        "comment": "/**\n* Creates and returns a remote text track object \n*\n* @param {String} kind Text track kind (subtitles, captions, descriptions\n*                                       chapters and metadata)\n* @param {String=} label Label to identify the text track\n* @param {String=} language Two letter language abbreviation\n* @return {TextTrackObject}\n* @method addTextTrack\n*/",
         "meta": {
             "range": [
-                2788,
-                3171
+                3538,
+                3903
             ],
             "filename": "tech.js",
-            "lineno": 142,
+            "lineno": 350,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -12297,14 +12297,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Creates and returns a remote text track object \n  *\n  * @param {Object} options The object should contain values for\n  * kind, language, label and src (location of the WebVTT file)\n  * @return {TextTrackObject}\n  * @method addRemoteTextTrack\n  */",
+        "comment": "/**\n* Creates and returns a remote text track object \n*\n* @param {Object} options The object should contain values for\n* kind, language, label and src (location of the WebVTT file)\n* @return {TextTrackObject}\n* @method addRemoteTextTrack\n*/",
         "meta": {
             "range": [
-                3173,
-                3427
+                3928,
+                4168
             ],
             "filename": "tech.js",
-            "lineno": 153,
+            "lineno": 368,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -12335,14 +12335,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Remove remote texttrack \n  *\n  * @param {TextTrackObject} track Texttrack to remove\n  * @method removeRemoteTextTrack\n  */",
+        "comment": "/**\n* Remove remote texttrack \n*\n* @param {TextTrackObject} track Texttrack to remove\n* @method removeRemoteTextTrack\n*/",
         "meta": {
             "range": [
-                3429,
-                3559
+                4193,
+                4313
             ],
             "filename": "tech.js",
-            "lineno": 162,
+            "lineno": 384,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -12364,14 +12364,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Provide a default setPoster method for techs\n  * Poster support for techs should be optional, so we don't want techs to\n  * break if they don't have a way to set a poster.\n  *\n  * @method setPoster\n  */",
+        "comment": "/**\n* Provide a default setPoster method for techs\n* Poster support for techs should be optional, so we don't want techs to\n* break if they don't have a way to set a poster.\n*\n* @method setPoster\n*/",
         "meta": {
             "range": [
-                3561,
-                3771
+                4329,
+                4527
             ],
             "filename": "tech.js",
-            "lineno": 169,
+            "lineno": 395,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tech",
             "code": {}
         },
@@ -12423,11 +12423,11 @@ var docData =
         "comment": "/**\n* The component for displaying text track cues\n*\n* @param {Object} player  Main Player\n* @param {Object=} options Object of option names and values\n* @param {Function=} ready    Ready callback function\n* @extends Component\n* @class TextTrackDisplay\n*/",
         "meta": {
             "range": [
-                38,
-                293
+                106,
+                361
             ],
             "filename": "text-track-display.js",
-            "lineno": 5,
+            "lineno": 27,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tracks",
             "code": {}
         },
@@ -12472,14 +12472,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Toggle display texttracks \n  *\n  * @method toggleDisplay\n  */",
+        "comment": "/**\n* Toggle display texttracks \n*\n* @method toggleDisplay\n*/",
         "meta": {
             "range": [
-                295,
-                364
+                446,
+                507
             ],
             "filename": "text-track-display.js",
-            "lineno": 15,
+            "lineno": 64,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tracks",
             "code": {}
         },
@@ -12490,14 +12490,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                366,
-                460
+                532,
+                616
             ],
             "filename": "text-track-display.js",
-            "lineno": 21,
+            "lineno": 77,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tracks",
             "code": {}
         },
@@ -12517,14 +12517,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Clear display texttracks \n  *\n  * @method clearDisplay\n  */",
+        "comment": "/**\n* Clear display texttracks \n*\n* @method clearDisplay\n*/",
         "meta": {
             "range": [
-                462,
-                529
+                635,
+                694
             ],
             "filename": "text-track-display.js",
-            "lineno": 28,
+            "lineno": 89,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tracks",
             "code": {}
         },
@@ -12535,14 +12535,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Update display texttracks \n  *\n  * @method updateDisplay\n  */",
+        "comment": "/**\n* Update display texttracks \n*\n* @method updateDisplay\n*/",
         "meta": {
             "range": [
-                531,
-                600
+                713,
+                774
             ],
             "filename": "text-track-display.js",
-            "lineno": 34,
+            "lineno": 100,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tracks",
             "code": {}
         },
@@ -12553,14 +12553,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Add texttrack to texttrack list \n  *\n  * @param {TextTrackObject} track Texttrack object to be added to list\n  * @method updateForTrack\n  */",
+        "comment": "/**\n* Add texttrack to texttrack list \n*\n* @param {TextTrackObject} track Texttrack object to be added to list\n* @method updateForTrack\n*/",
         "meta": {
             "range": [
-                602,
-                750
+                826,
+                964
             ],
             "filename": "text-track-display.js",
-            "lineno": 40,
+            "lineno": 122,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tracks",
             "code": {}
         },
@@ -12585,11 +12585,11 @@ var docData =
         "comment": "/**\n* Add cue HTML to display\n*\n* @param {Number} color Hex number for color, like #f0e\n* @param {Number} opacity Value for opacity,0.0 - 1.0\n* @return {RGBAColor} In the form 'rgba(255, 0, 0, 0.3)'\n* @method constructColor\n*/",
         "meta": {
             "range": [
-                752,
-                978
+                1187,
+                1413
             ],
             "filename": "text-track-display.js",
-            "lineno": 47,
+            "lineno": 202,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tracks",
             "code": {}
         },
@@ -12633,11 +12633,11 @@ var docData =
         "comment": "/**\n* Try to update style\n* Some style changes will throw an error, particularly in IE8. Those should be noops.\n*\n* @param {Element} el The element to be styles\n* @param {CSSProperty} style The CSS property to be styled\n* @param {CSSStyle} rule The actual style to be applied to the property\n* @method tryUpdateStyle\n*/",
         "meta": {
             "range": [
-                980,
-                1299
+                1441,
+                1760
             ],
             "filename": "text-track-display.js",
-            "lineno": 56,
+            "lineno": 219,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tracks",
             "code": {}
         },
@@ -12737,11 +12737,11 @@ var docData =
         "comment": "/**\n* Manipulate settings of texttracks\n*\n* @param {Object} player  Main Player\n* @param {Object=} options Object of option names and values\n* @extends Component\n* @class TextTrackSettings\n*/",
         "meta": {
             "range": [
-                39,
-                230
+                59,
+                250
             ],
             "filename": "text-track-settings.js",
-            "lineno": 5,
+            "lineno": 11,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tracks",
             "code": {}
         },
@@ -12776,14 +12776,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Create the component's DOM element\n  *\n  * @return {Element}\n  * @method createEl\n  */",
+        "comment": "/**\n* Create the component's DOM element\n*\n* @return {Element}\n* @method createEl\n*/",
         "meta": {
             "range": [
-                232,
-                326
+                383,
+                467
             ],
             "filename": "text-track-settings.js",
-            "lineno": 14,
+            "lineno": 63,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tracks",
             "code": {}
         },
@@ -12803,14 +12803,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Get texttrack settings \n  * Settings are\n  * .vjs-edge-style\n  * .vjs-font-family\n  * .vjs-fg-color\n  * .vjs-text-opacity\n  * .vjs-bg-color\n  * .vjs-bg-opacity\n  * .window-color\n  * .vjs-window-opacity \n  *\n  * @return {Object} \n  * @method getValues\n  */",
+        "comment": "/**\n* Get texttrack settings \n* Settings are\n* .vjs-edge-style\n* .vjs-font-family\n* .vjs-fg-color\n* .vjs-text-opacity\n* .vjs-bg-color\n* .vjs-bg-opacity\n* .window-color\n* .vjs-window-opacity \n*\n* @return {Object} \n* @method getValues\n*/",
         "meta": {
             "range": [
-                328,
-                591
+                489,
+                724
             ],
             "filename": "text-track-settings.js",
-            "lineno": 21,
+            "lineno": 76,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tracks",
             "code": {}
         },
@@ -12830,14 +12830,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Set texttrack settings \n  * Settings are\n  * .vjs-edge-style\n  * .vjs-font-family\n  * .vjs-fg-color\n  * .vjs-text-opacity\n  * .vjs-bg-color\n  * .vjs-bg-opacity\n  * .window-color\n  * .vjs-window-opacity \n  *\n  * @param {Object} values Object with texttrack setting values\n  * @method setValues\n  */",
+        "comment": "/**\n* Set texttrack settings \n* Settings are\n* .vjs-edge-style\n* .vjs-font-family\n* .vjs-fg-color\n* .vjs-text-opacity\n* .vjs-bg-color\n* .vjs-bg-opacity\n* .window-color\n* .vjs-window-opacity \n*\n* @param {Object} values Object with texttrack setting values\n* @method setValues\n*/",
         "meta": {
             "range": [
-                593,
-                898
+                821,
+                1098
             ],
             "filename": "text-track-settings.js",
-            "lineno": 37,
+            "lineno": 123,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tracks",
             "code": {}
         },
@@ -12859,14 +12859,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Restore texttrack settings \n  *\n  * @method restoreSettings\n  */",
+        "comment": "/**\n* Restore texttrack settings \n*\n* @method restoreSettings\n*/",
         "meta": {
             "range": [
-                900,
-                972
+                1162,
+                1226
             ],
             "filename": "text-track-settings.js",
-            "lineno": 53,
+            "lineno": 159,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tracks",
             "code": {}
         },
@@ -12877,14 +12877,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Save texttrack settings to local storage \n  *\n  * @method saveSettings\n  */",
+        "comment": "/**\n* Save texttrack settings to local storage \n*\n* @method saveSettings\n*/",
         "meta": {
             "range": [
-                974,
-                1057
+                1263,
+                1338
             ],
             "filename": "text-track-settings.js",
-            "lineno": 59,
+            "lineno": 176,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tracks",
             "code": {}
         },
@@ -12895,14 +12895,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n  * Update display of texttrack settings  \n  *\n  * @method updateDisplay\n  */",
+        "comment": "/**\n* Update display of texttrack settings  \n*\n* @method updateDisplay\n*/",
         "meta": {
             "range": [
-                1059,
-                1140
+                1384,
+                1457
             ],
             "filename": "text-track-settings.js",
-            "lineno": 65,
+            "lineno": 196,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/tracks",
             "code": {}
         },
@@ -12973,11 +12973,11 @@ var docData =
         "comment": "/**\n* Compute how much your video has been buffered\n*\n* @param  {Object} Buffered object\n* @param  {Number} Total duration\n* @return {Number} Percent buffered of the total duration\n* @private\n* @function bufferedPercent\n*/",
         "meta": {
             "range": [
-                26,
-                248
+                31,
+                253
             ],
             "filename": "buffer.js",
-            "lineno": 5,
+            "lineno": 6,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -13041,11 +13041,11 @@ var docData =
         "comment": "/**\n* Shorthand for document.getElementById()\n* Also allows for CSS (jQuery) ID syntax. But nothing other than IDs.\n*\n* @param  {String} id  Element ID\n* @return {Element}    Element with supplied ID\n* @function getEl\n*/",
         "meta": {
             "range": [
-                23,
-                243
+                37,
+                257
             ],
             "filename": "dom.js",
-            "lineno": 5,
+            "lineno": 9,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -13080,11 +13080,11 @@ var docData =
         "comment": "/**\n* Creates an element and applies properties.\n*\n* @param  {String=} tagName    Name of tag to be created.\n* @param  {Object=} properties Element properties to be applied.\n* @return {Element}\n* @function createEl\n*/",
         "meta": {
             "range": [
-                245,
-                462
+                282,
+                499
             ],
             "filename": "dom.js",
-            "lineno": 14,
+            "lineno": 25,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -13129,11 +13129,11 @@ var docData =
         "comment": "/**\n* Insert an element as the first child node of another\n* \n* @param  {Element} child   Element to insert\n* @param  {Element} parent Element to insert child into\n* @private\n* @function insertElFirst\n*/",
         "meta": {
             "range": [
-                464,
-                667
+                572,
+                775
             ],
             "filename": "dom.js",
-            "lineno": 23,
+            "lineno": 57,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -13168,11 +13168,11 @@ var docData =
         "comment": "/**\n* Returns the cache object where data for an element is stored\n*\n* @param  {Element} el Element to store data for.\n* @return {Object}\n* @function getElData\n*/",
         "meta": {
             "range": [
-                928,
-                1090
+                1172,
+                1334
             ],
             "filename": "dom.js",
-            "lineno": 41,
+            "lineno": 92,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -13206,11 +13206,11 @@ var docData =
         "comment": "/**\n* Returns whether or not an element has cached data\n*\n* @param  {Element} el A dom element\n* @return {Boolean}\n* @private\n* @function hasElData\n*/",
         "meta": {
             "range": [
-                1092,
-                1242
+                1377,
+                1527
             ],
             "filename": "dom.js",
-            "lineno": 49,
+            "lineno": 113,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -13245,11 +13245,11 @@ var docData =
         "comment": "/**\n* Delete data for the element from the cache and the guid attr from getElementById\n*\n* @param  {Element} el Remove data for an element\n* @private\n* @function removeElData\n*/",
         "meta": {
             "range": [
-                1244,
-                1421
+                1558,
+                1735
             ],
             "filename": "dom.js",
-            "lineno": 58,
+            "lineno": 131,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -13275,11 +13275,11 @@ var docData =
         "comment": "/**\n* Check if an element has a CSS class\n*\n* @param {Element} element Element to check\n* @param {String} classToCheck Classname to check\n* @function hasElClass\n*/",
         "meta": {
             "range": [
-                1423,
-                1586
+                1805,
+                1968
             ],
             "filename": "dom.js",
-            "lineno": 66,
+            "lineno": 161,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -13313,11 +13313,11 @@ var docData =
         "comment": "/**\n* Add a CSS class name to an element\n*\n* @param {Element} element    Element to add class name to\n* @param {String} classToAdd Classname to add\n* @function addElClass\n*/",
         "meta": {
             "range": [
-                1588,
-                1761
+                1981,
+                2154
             ],
             "filename": "dom.js",
-            "lineno": 74,
+            "lineno": 172,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -13351,11 +13351,11 @@ var docData =
         "comment": "/**\n* Remove a CSS class name from an element\n*\n* @param {Element} element    Element to remove from class name\n* @param {String} classToRemove Classname to remove\n* @function removeElClass\n*/",
         "meta": {
             "range": [
-                1763,
-                1955
+                2173,
+                2365
             ],
             "filename": "dom.js",
-            "lineno": 82,
+            "lineno": 185,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -13389,11 +13389,11 @@ var docData =
         "comment": "/**\n* Apply attributes to an HTML element.\n*\n* @param  {Element} el         Target element.\n* @param  {Object=} attributes Element attributes to be applied.\n* @private\n* @function setElAttributes\n*/",
         "meta": {
             "range": [
-                1957,
-                2155
+                2411,
+                2609
             ],
             "filename": "dom.js",
-            "lineno": 90,
+            "lineno": 207,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -13429,11 +13429,11 @@ var docData =
         "comment": "/**\n* Get an element's attribute values, as defined on the HTML tag\n* Attributes are not the same as properties. They're defined on the tag\n* or with setAttribute (which shouldn't be used with HTML)\n* This will return true or false for boolean attributes.\n*\n* @param  {Element} tag Element from which to get tag attributes\n* @return {Object}\n* @private\n* @function getElAttributes\n*/",
         "meta": {
             "range": [
-                2157,
-                2540
+                2646,
+                3029
             ],
             "filename": "dom.js",
-            "lineno": 99,
+            "lineno": 227,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -13468,11 +13468,11 @@ var docData =
         "comment": "/**\n* Attempt to block the ability to select text while dragging controls\n*\n* @return {Boolean} \n* @method blockTextSelection\n*/",
         "meta": {
             "range": [
-                2542,
-                2670
+                3129,
+                3257
             ],
             "filename": "dom.js",
-            "lineno": 111,
+            "lineno": 271,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -13495,11 +13495,11 @@ var docData =
         "comment": "/**\n* Turn off text selection blocking\n*\n* @return {Boolean} \n* @method unblockTextSelection\n*/",
         "meta": {
             "range": [
-                2672,
-                2767
+                3279,
+                3374
             ],
             "filename": "dom.js",
-            "lineno": 118,
+            "lineno": 284,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -13522,11 +13522,11 @@ var docData =
         "comment": "/**\n* Offset Left\n* getBoundingClientRect technique from \n* John Resig http://ejohn.org/blog/getboundingclientrect-is-awesome/\n*\n* @param {Element} el Element from which to get offset\n* @return {Object=} \n* @method findElPosition\n*/",
         "meta": {
             "range": [
-                2769,
-                3001
+                3393,
+                3625
             ],
             "filename": "dom.js",
-            "lineno": 125,
+            "lineno": 296,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -13580,11 +13580,11 @@ var docData =
         "comment": "/**\n* Add an event listener to element\n* It stores the handler function in a separate cache object\n* and adds a generic handler to the element's event,\n* along with a unique id (guid) to the element.\n* \n* @param  {Element|Object}   elem Element or object to bind listeners to\n* @param  {String|Array}   type Type of event to bind to.\n* @param  {Function} fn   Event listener.\n* @method on\n*/",
         "meta": {
             "range": [
-                379,
-                770
+                396,
+                787
             ],
             "filename": "events.js",
-            "lineno": 10,
+            "lineno": 15,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -13629,11 +13629,11 @@ var docData =
         "comment": "/**\n* Removes event listeners from an element\n*\n* @param  {Element|Object}   elem Object to remove listeners from\n* @param  {String|Array=}   type Type of listener to remove. Don't include to remove all events from element.\n* @param  {Function} fn   Specific listener to remove. Don't include to remove listeners for an event type.\n* @method off\n*/",
         "meta": {
             "range": [
-                772,
-                1120
+                938,
+                1286
             ],
             "filename": "events.js",
-            "lineno": 22,
+            "lineno": 76,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -13678,11 +13678,11 @@ var docData =
         "comment": "/**\n* Trigger an event for an element\n*\n* @param  {Element|Object}      elem  Element to trigger an event on\n* @param  {Event|Object|String} event A string (the type) or an event object with a type attribute\n* @param  {Object} [hash] data hash to pass along with the event\n* @return {Boolean=} Returned only if default was prevented\n* @method trigger\n*/",
         "meta": {
             "range": [
-                1122,
-                1475
+                1431,
+                1784
             ],
             "filename": "events.js",
-            "lineno": 31,
+            "lineno": 132,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -13740,11 +13740,11 @@ var docData =
         "comment": "/**\n* Trigger a listener only once for an event\n*\n* @param  {Element|Object}   elem Element or object to\n* @param  {String|Array}   type Name/type of event\n* @param  {Function} fn Event handler function\n* @method one\n*/",
         "meta": {
             "range": [
-                1477,
-                1696
+                1926,
+                2145
             ],
             "filename": "events.js",
-            "lineno": 41,
+            "lineno": 188,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -13789,11 +13789,11 @@ var docData =
         "comment": "/**\n* Fix a native event to have standard property values\n* \n* @param  {Object} event Event object to fix\n* @return {Object}\n* @private\n* @method fixEvent\n*/",
         "meta": {
             "range": [
-                1698,
-                1855
+                2185,
+                2342
             ],
             "filename": "events.js",
-            "lineno": 50,
+            "lineno": 209,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -13828,11 +13828,11 @@ var docData =
         "comment": "/**\n* Clean up the listener cache and dispatchers\n*\n* @param  {Element|Object} elem Element to clean up\n* @param  {String} type Type of event to clean up\n* @private\n* @method _cleanUpEvents\n*/",
         "meta": {
             "range": [
-                1857,
-                2049
+                2649,
+                2841
             ],
             "filename": "events.js",
-            "lineno": 59,
+            "lineno": 319,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -13868,11 +13868,11 @@ var docData =
         "comment": "/**\n* Loops through an array of event types and calls the requested method for each type.\n*\n* @param  {Function} fn   The event method we want to use.\n* @param  {Element|Object} elem Element or object to bind listeners to\n* @param  {String}   type Type of event to bind to.\n* @param  {Function} callback   Event listener.\n* @private\n* @function _handleMultipleEvents\n*/",
         "meta": {
             "range": [
-                2051,
-                2420
+                2932,
+                3301
             ],
             "filename": "events.js",
-            "lineno": 68,
+            "lineno": 357,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -13945,11 +13945,11 @@ var docData =
         "comment": "/**\n* Bind (a.k.a proxy or Context). A simple method for changing the context of a function\n* It also stores a unique id on the function so it can be easily removed from events\n*\n* @param  {*}   context The object to bind as scope\n* @param  {Function} fn      The function to be bound to a scope\n* @param  {Number=}   uid     An optional unique ID for the function to be set\n* @return {Function}\n* @private\n* @method bind\n*/",
         "meta": {
             "range": [
-                22,
-                446
+                27,
+                451
             ],
             "filename": "fn.js",
-            "lineno": 5,
+            "lineno": 6,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -14078,11 +14078,11 @@ var docData =
         "comment": "/**\n* Get the next unique ID\n*\n* @return {String} \n* @function newGUID\n*/",
         "meta": {
             "range": [
-                93,
-                166
+                98,
+                171
             ],
             "filename": "guid.js",
-            "lineno": 9,
+            "lineno": 10,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -14124,11 +14124,11 @@ var docData =
         "comment": "/**\n* Log messages to the console and history based on the type of message\n*\n* @param  {String} type The type of message, or `null` for `log`\n* @param  {Object} args The args to be passed to the log\n* @private\n* @method _logType\n*/",
         "meta": {
             "range": [
-                175,
-                406
+                218,
+                449
             ],
             "filename": "log.js",
-            "lineno": 22,
+            "lineno": 33,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -14182,11 +14182,11 @@ var docData =
         "comment": "/**\n* Merge two options objects, recursively merging **only** plain object\n* properties.  Previously `deepMerge`.\n*\n* @param  {Object} object    The destination object\n* @param  {...Object} source One or more objects to merge into the first\n* @returns {Object}          The updated first object\n* @function mergeOptions\n*/",
         "meta": {
             "range": [
-                33,
-                355
+                59,
+                381
             ],
             "filename": "merge-options.js",
-            "lineno": 5,
+            "lineno": 13,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -14390,11 +14390,11 @@ var docData =
         "comment": "/**\n* Resolve and parse the elements of a URL\n*\n* @param  {String} url The url to parse\n* @return {Object}     An object of url details\n* @method parseUrl\n*/",
         "meta": {
             "range": [
-                23,
-                180
+                28,
+                185
             ],
             "filename": "url.js",
-            "lineno": 5,
+            "lineno": 6,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -14429,11 +14429,11 @@ var docData =
         "comment": "/**\n* Get absolute version of relative URL. Used to tell flash correct URL.\n* http://stackoverflow.com/questions/470832/getting-an-absolute-url-from-a-relative-one-ie6-issue\n*\n* @param  {String} url URL to make absolute\n* @return {String}     Absolute URL\n* @private\n* @method getAbsoluteURL\n*/",
         "meta": {
             "range": [
-                182,
-                476
+                321,
+                615
             ],
             "filename": "url.js",
-            "lineno": 13,
+            "lineno": 58,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -14469,11 +14469,11 @@ var docData =
         "comment": "/**\n* Returns the extension of the passed file name. It will return an empty string if you pass an invalid path\n*\n* @param {String}    path    The fileName path like '/path/to/file.mp4'\n* @returns {String}          The extension in lower case or an empty string if no extension could be found.\n* @method getFileExtension\n*/",
         "meta": {
             "range": [
-                478,
-                801
+                652,
+                975
             ],
             "filename": "url.js",
-            "lineno": 23,
+            "lineno": 79,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src/utils",
             "code": {}
         },
@@ -14524,14 +14524,14 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n* Doubles as the main function for users to create a player instance and also\n* the main library object.\n* The `videojs` function can be used to initialize or retrieve a player.\n  * ```js\n*     var myPlayer = videojs('my_video_id');\n  * ```\n*\n* @param  {String|Element} id      Video element or video element ID\n* @param  {Object=} options        Optional options object for config/settings\n* @param  {Function=} ready        Optional ready callback\n* @return {Player}                 A player instance\n* @mixes videojs\n* @method videojs\n*/",
+        "comment": "/**\n* Doubles as the main function for users to create a player instance and also\n* the main library object.\n* The `videojs` function can be used to initialize or retrieve a player.\n* ```js\n*     var myPlayer = videojs('my_video_id');\n* ```\n*\n* @param  {String|Element} id      Video element or video element ID\n* @param  {Object=} options        Optional options object for config/settings\n* @param  {Function=} ready        Optional ready callback\n* @return {Player}                 A player instance\n* @mixes videojs\n* @method videojs\n*/",
         "meta": {
             "range": [
-                25,
-                569
+                102,
+                642
             ],
             "filename": "video.js",
-            "lineno": 5,
+            "lineno": 30,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -14590,11 +14590,11 @@ var docData =
         "comment": "/**\n* Get the global options object\n*\n* @return {Object} The global options object\n* @mixes videojs\n* @method getGlobalOptions\n*/",
         "meta": {
             "range": [
-                571,
-                700
+                860,
+                989
             ],
             "filename": "video.js",
-            "lineno": 21,
+            "lineno": 102,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -14621,11 +14621,11 @@ var docData =
         "comment": "/**\n* Set options that will apply to every player\n* ```js\n*     videojs.setGlobalOptions({\n*       autoplay: true\n*     });\n*     // -> all players will autoplay by default\n* ```\n* NOTE: This will do a deep merge with the new options,\n* not overwrite the entire global options object.\n*\n* @return {Object} The updated global options object\n* @mixes videojs\n* @method setGlobalOptions\n*/",
         "meta": {
             "range": [
-                702,
-                1088
+                996,
+                1382
             ],
             "filename": "video.js",
-            "lineno": 29,
+            "lineno": 111,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -14652,11 +14652,11 @@ var docData =
         "comment": "/**\n* Get an object with the currently created players, keyed by player ID\n*\n* @return {Object} The created players\n* @mixes videojs\n* @method getPlayers\n*/",
         "meta": {
             "range": [
-                1090,
-                1246
+                1395,
+                1551
             ],
             "filename": "video.js",
-            "lineno": 45,
+            "lineno": 130,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -14683,11 +14683,11 @@ var docData =
         "comment": "/**\n* Get a component class object by name\n* ```js\n*     var VjsButton = videojs.getComponent('Button');\n*     // Create a new instance of the component\n*     var myButton = new VjsButton(myPlayer);\n* ```\n*\n* @return {Component} Component identified by name\n* @mixes videojs\n* @method getComponent\n*/",
         "meta": {
             "range": [
-                1248,
-                1548
+                1564,
+                1864
             ],
             "filename": "video.js",
-            "lineno": 53,
+            "lineno": 141,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -14714,11 +14714,11 @@ var docData =
         "comment": "/**\n* Register a component so it can referred to by name\n* Used when adding to other\n* components, either through addChild\n* `component.addChild('myComponent')`\n* or through default children options\n* `{ children: ['myComponent'] }`.\n* ```js\n*     // Get a component to subclass\n*     var VjsButton = videojs.getComponent('Button');\n*     // Subclass the component (see 'extends' doc for more info)\n*     var MySpecialButton = videojs.extends(VjsButton, {});\n*     // Register the new component\n*     VjsButton.registerComponent('MySepcialButton', MySepcialButton);\n*     // (optionally) add the new component as a default player child\n*     myPlayer.addChild('MySepcialButton');\n* ```\n* NOTE: You could also just initialize the component before adding.\n* `component.addChild(new MyComponent());`\n*\n* @param {String} The class name of the component\n* @param {Component} The component class\n* @return {Component} The newly registered component\n* @mixes videojs\n* @method registerComponent\n*/",
         "meta": {
             "range": [
-                1550,
-                2540
+                1871,
+                2861
             ],
             "filename": "video.js",
-            "lineno": 66,
+            "lineno": 155,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -14765,11 +14765,11 @@ var docData =
         "comment": "/**\n* Subclass an existing class\n* Mimics ES6 subclassing with the `extends` keyword\n* ```js\n*     // Create a basic javascript 'class'\n*     function MyClass(name){\n*       // Set a property at initialization\n*       this.myName = name;\n*     }\n*     // Create an instance method\n*     MyClass.prototype.sayMyName = function(){\n*       alert(this.myName);\n*     };\n*     // Subclass the exisitng class and change the name\n*     // when initializing\n*     var MySubClass = videojs.extends(MyClass, {\n*       constructor: function(name) {\n*         // Call the super class constructor for the subclass\n*         MyClass.call(this, name)\n*       }\n*     });\n*     // Create an instance of the new sub class\n*     var myInstance = new MySubClass('John');\n*     myInstance.sayMyName(); // -> should alert \"John\"\n* ```\n*\n* @param {Function} The Class to subclass\n* @param {Object} An object including instace methods for the new class\n*                   Optionally including a `constructor` function\n* @return {Function} The newly created subclass\n* @mixes videojs\n* @method extends\n*/",
         "meta": {
             "range": [
-                2542,
-                3623
+                2937,
+                4018
             ],
             "filename": "video.js",
-            "lineno": 93,
+            "lineno": 190,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -14816,11 +14816,11 @@ var docData =
         "comment": "/**\n* Merge two options objects recursively\n* Performs a deep merge like lodash.merge but **only merges plain objects**\n* (not arrays, elements, anything else)\n* Other values will be copied directly from the second object.\n* ```js\n*     var defaultOptions = {\n*       foo: true,\n*       bar: {\n*         a: true,\n*         b: [1,2,3]\n*       }\n*     };\n*     var newOptions = {\n*       foo: false,\n*       bar: {\n*         b: [4,5,6]\n*       }\n*     };\n*     var result = videojs.mergeOptions(defaultOptions, newOptions);\n*     // result.foo = false;\n*     // result.bar.a = true;\n*     // result.bar.b = [4,5,6];\n* ```\n*\n* @param {Object} The options object whose values will be overriden\n* @param {Object} The options object with values to override the first\n* @param {Object} Any number of additional options objects\n*\n* @return {Object} a new object with the merged values\n* @mixes videojs\n* @method mergeOptions\n*/",
         "meta": {
             "range": [
-                3625,
-                4544
+                4025,
+                4944
             ],
             "filename": "video.js",
-            "lineno": 127,
+            "lineno": 225,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -14876,11 +14876,11 @@ var docData =
         "comment": "/**\n* Create a Video.js player plugin\n* Plugins are only initialized when options for the plugin are included\n* in the player options, or the plugin function on the player instance is\n* called.\n* **See the plugin guide in the docs for a more detailed example**\n* ```js\n*     // Make a plugin that alerts when the player plays\n*     videojs.plugin('myPlugin', function(myPluginOptions) {\n*       myPluginOptions = myPluginOptions || {};\n*\n*       var player = this;\n*       var alertText = myPluginOptions.text || 'Player is playing!'\n*\n*       player.on('play', function(){\n*         alert(alertText);\n*       });\n*     });\n*     // USAGE EXAMPLES\n*     // EXAMPLE 1: New player with plugin options, call plugin immediately\n*     var player1 = videojs('idOne', {\n*       myPlugin: {\n*         text: 'Custom text!'\n*       }\n*     });\n*     // Click play\n*     // --> Should alert 'Custom text!'\n*     // EXAMPLE 3: New player, initialize plugin later\n*     var player3 = videojs('idThree');\n*     // Click play\n*     // --> NO ALERT\n*     // Click pause\n*     // Initialize plugin using the plugin function on the player instance\n*     player3.myPlugin({\n*       text: 'Plugin added later!'\n*     });\n*     // Click play\n*     // --> Should alert 'Plugin added later!'\n* ```\n*\n* @param {String} The plugin name\n* @param {Function} The plugin function that will be called with options\n* @mixes videojs\n* @method plugin\n*/",
         "meta": {
             "range": [
-                4546,
-                5966
+                4951,
+                6371
             ],
             "filename": "video.js",
-            "lineno": 161,
+            "lineno": 260,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -14917,11 +14917,11 @@ var docData =
         "comment": "/**\n* Adding languages so that they're available to all players.\n* ```js\n*     videojs.addLanguage('es', { 'Hello': 'Hola' });\n* ```\n*\n* @param  {String} code The language code or dictionary property\n* @param  {Object} data The data values to be translated\n* @return {Object} The resulting language dictionary object\n* @mixes videojs\n* @method addLanguage\n*/",
         "meta": {
             "range": [
-                5968,
-                6326
+                6378,
+                6736
             ],
             "filename": "video.js",
-            "lineno": 207,
+            "lineno": 307,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },

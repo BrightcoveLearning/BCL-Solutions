@@ -39,11 +39,11 @@ var docData =
         "scope": "global"
     },
     {
-        "comment": "/**\n* Initial play button. Shows before the video has played. The hiding of the\n* big play button is done via CSS and player states.\n*\n* @extends Button\n* @class BigPlayButton\n*/",
+        "comment": "/**\n* Initial play button. Shows before the video has played. The hiding of the\n* big play button is done via CSS and player states.\n*\n* @param {Object} player  Main Player\n* @param {Object=} options Object of option names and values\n* @extends Button\n* @class BigPlayButton\n*/",
         "meta": {
             "range": [
                 35,
-                213
+                312
             ],
             "filename": "big-play-button.js",
             "lineno": 5,
@@ -51,6 +51,27 @@ var docData =
             "code": {}
         },
         "description": "<p>Initial play button. Shows before the video has played. The hiding of the\nbig play button is done via CSS and player states.</p>",
+        "params": [
+            {
+                "type": {
+                    "names": [
+                        "Object"
+                    ]
+                },
+                "description": "<p>Main Player</p>",
+                "name": "player"
+            },
+            {
+                "type": {
+                    "names": [
+                        "Object"
+                    ]
+                },
+                "optional": true,
+                "description": "<p>Object of option names and values</p>",
+                "name": "options"
+            }
+        ],
         "augments": [
             "Button"
         ],
@@ -63,11 +84,11 @@ var docData =
         "comment": "/**\n  * Allow sub components to stack CSS class names\n  *\n  * @return {String} The constructed class name\n  * @method buildCSSClass\n  */",
         "meta": {
             "range": [
-                215,
-                351
+                314,
+                450
             ],
             "filename": "big-play-button.js",
-            "lineno": 13,
+            "lineno": 15,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },
@@ -91,11 +112,11 @@ var docData =
         "comment": "/**\n  * Handles click for play \n  *\n  * @method handleClick\n  */",
         "meta": {
             "range": [
-                353,
-                417
+                452,
+                516
             ],
             "filename": "big-play-button.js",
-            "lineno": 20,
+            "lineno": 22,
             "path": "/Users/mboles/git/BCL-LearningSamples/grunt-shell/videojs-src",
             "code": {}
         },

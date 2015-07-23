@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Player Test for Videos without Audio</title>
+        <style>
+            body {
+                margin: 6em;
+            }
+            div {
+                display: inline-block;
+                margin-right: 6em;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="player1">
+            <h2>Player 1: Video has audio track</h2>
+            <video
+              data-video-id="4369159109001"
+              data-account="57838016001"
+              data-player="default"
+              data-embed="default"
+              class="video-js" controls></video>
+            <script src="//players.brightcove.net/57838016001/default_default/index.min.js"></script>
+        </div>
+        <div id="player2">
+            <h2>Player2: Video has no audio track</h2>
+            <video
+              data-video-id="4368989812001"
+              data-account="57838016001"
+              data-player="default"
+              data-embed="default"
+              class="video-js" controls></video>
+            <script src="//players.brightcove.net/57838016001/default_default/index.min.js"></script>
+        </div>
+        <p>Both videos play in Studio Preview...</p>
+    </body>
+</html>

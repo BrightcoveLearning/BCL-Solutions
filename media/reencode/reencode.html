@@ -205,7 +205,7 @@ function response(jsonData) {
 
             if (displayAPI == "YES")
             {
-                resp.innerHTML += "http://api.brightcove.com/services/library?command=find_all_videos&token="+token+"&get_item_count=true&video_fields=id,name,referenceId&page_size=100&sort_by="+sortBy+"&sort_order="+sortOrder+"&page_number="+i+"<br/>";
+                resp.innerHTML += "http://api.brightcove.com/services/library?command=find_all_videos&token="+token+"&get_item_count=true&video_fields=id,name,referenceId&page_size=25&sort_by="+sortBy+"&sort_order="+sortOrder+"&page_number="+i+"<br/>";
             }
             $.getJSON("http://api.brightcove.com/services/library?command=find_all_videos&token="+token+"&get_item_count=true&video_fields=id,name,referenceId&page_size=100&sort_by="+sortBy+"&sort_order="+sortOrder+"&page_number="+i+"&callback=?",
 

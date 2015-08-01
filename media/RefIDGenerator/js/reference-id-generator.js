@@ -274,7 +274,7 @@ var BCLS = ( function () {
         // initialize app vars
         app.readApiLocation = document.getElementById("readApiLocation").value;
         app.writeApiLocation = document.getElementById("writeApiLocation").value;
-        app.pageSize = 50;
+        app.pageSize = 25;
         // initialize account vars
         acc.readToken = "";
         acc.writeToken = "";

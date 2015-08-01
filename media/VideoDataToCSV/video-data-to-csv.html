@@ -18,7 +18,7 @@
             /* element styles */
             #top {
                padding-top: 120px;
-               margin-top: -80px; 
+               margin-top: -80px;
             }
             fieldset {
                 width: 800px;
@@ -103,7 +103,7 @@
         <p>
         <p>Media API READ token:
             <input id="token" type="text" size="60" value="WDGO_XdKqXVJRVGtrNuGLxCYDNoR-SvA5yUqX2eE6KjgefOxRzQilw..">
-    
+
             <span id="runButton" class="button">Run the Report</span>
         </p>
         <p class="text-warning">Developers: this is all created client-side, so use view source to see the code. You can change the fields by modifying
@@ -138,7 +138,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js"></script>
         <link href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css" rel="stylesheet" type="text/css" />
-        
+
         <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
 
@@ -179,7 +179,7 @@
                         callback: "BCLS.secondaryCallResponse",
                         from_date: "0",
                         filter: "",
-                        page_size: 100,
+                        page_size: 25,
                         page_number: 0,
                         sort_by: "CREATION_DATE",
                         get_item_count: false, // should this be false?
@@ -190,7 +190,7 @@
                     responseStart = "\"Video ID\",\"Title\",\"Description\",\"Running Time\",\"Last Updated\",\"Status\"\r",
                     dataRowTemplate = "{{#items}}\"{{id}}\",\"{{name}}\",\"{{shortDescription}}\",\"{{length}}\",\"{{lastModifiedDate}}\",\"{{status}}\"\r{{/items}}",
                     responseBody = "",
-					
+
 					// logging
 					bclslog = function (message) {
 						if (window["console"] && console["log"]) {
@@ -199,7 +199,7 @@
 							console.log(message);
 						};
 					},
-					
+
 					// more robust test for "not defined"
 					isDefined = function (v) {
 						if (v !== "" && v !== null && v !== undefined) {
@@ -208,7 +208,7 @@
 							return false;
 						}
 					},
-					
+
 					// write the data to the page
 					writeData = function () {
 						document.getElementById("response").innerHTML = responseStart + responseBody;
@@ -241,7 +241,7 @@
 						document.getElementById("response").innerHTML = "";
 						responseBody = "";
 					};
-              
+
 				$runButton.on("click", function(){
 					resetReport();
 					runReport();
@@ -253,7 +253,7 @@
                 $selectData.on("click", function() {
                     document.getElementById("response").select();
                 });
-				
+
                 return {
                     primaryCallResponse: function(jsonData) {
                         document.getElementById(currentFilter).innerHTML = jsonData.total_count;
@@ -268,7 +268,7 @@
                             results,
                             item,
                             lengthObj = {};
-						
+
 						if (isDefined(jsonData.items)) {
 							for (var i = 0, max = jsonData.items.length; i < max; i++) {
 								item = jsonData.items[i];
@@ -300,7 +300,7 @@
 								retries++;
 								t = window.setTimeout(function () {
 									makeSecondaryCall(currentFilter);
-								}, 30000) 
+								}, 30000)
 							} else {
 								$runButton.html("Run the Report");
 								writeData();

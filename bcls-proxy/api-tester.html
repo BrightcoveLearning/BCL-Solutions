@@ -117,6 +117,7 @@
 				                <p>
 				                    <input id="ajaxSubmit" type="submit" value="Submit">
 				                </p>
+				                <p>Response:</p>
 				            <pre><code id="ajax_response"></code></pre>
 				        </fieldset>
 				    </div>
@@ -212,7 +213,7 @@
 				data: options,
 				success : function (data) {
 					bclslog('data', data);
-					$ajax_response.html("<p>The proxy sent this data back - now I can do whatever I want with it</p>" + JSON.stringify(JSON.parse(data),false, "  "));
+					$ajax_response.html(JSON.stringify(JSON.parse(data),false, "  "));
 
 				},
 				error : function (XMLHttpRequest, textStatus, errorThrown) {

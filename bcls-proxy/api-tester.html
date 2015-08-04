@@ -82,7 +82,7 @@
 				<p>This test sends an API GET request to the proxy via AJAX</p>
 				    <div class="form-wrapper">
 				        <fieldset>
-				            <legend>Tester for Brightcove APIs (AJAX version)</legend>
+				            <legend>Tester for Brightcove APIs</legend>
 				            <p>Submits to http://solutions.brightcove.com:<strong>8001</strong></p>
 				                <p>
 								Account id:
@@ -107,12 +107,12 @@
 				                    </select>
 				                </p>
 				                <p>
-				                    Call body (optional - include if you need to submit data with the request):<br />
-				                    <textarea name="requestBody" id="ajax_requestBody"></textarea>
-				                </p>
-				                <p>
 				                    Full request URL for the API call:<br />
 				                    <textarea name="url" id="ajax_url"></textarea>
+				                </p>
+				                <p>
+				                    Call body (optional - include if you need to submit data with the request):<br />
+				                    <textarea name="requestBody" id="ajax_requestBody"></textarea>
 				                </p>
 				                <p>
 				                    <input id="ajaxSubmit" type="submit" value="Submit">
@@ -123,8 +123,8 @@
 			</div>
 			</div>
 			<div class="section" id="codeAJAX">
-			    <h2>Sample code: AJAX</h2>
-			    <p>Sample code for calling proxy via AJAX</p>
+			    <h2>Sample code</h2>
+			    <p>Sample code for calling proxy via AJAX (this sample uses jquery, but that's not required)</p>
 				<script src="https://gist.github.com/e07841e5fd480ee6334b.js"></script>
 			</div>
 		</div>
@@ -157,11 +157,25 @@
 			// functions
 			cleanString,
 			submitRequest,
-			isDefined;
+			isDefined,
+			bclslog;
+
+		/**
+		 * Logging function - safe for IE
+		 * @param  {string} context - description of the data
+		 * @param  {*} message - the data to be logged by the console
+		 * @return {}
+		 */
+		bclslog = function (context, message) {
+		    if (window["console"] && console["log"]) {
+		      console.log(context, message);
+		    }
+		    return;
+		};
 
 		// is defined
 		isDefined = function(x){
-			if(x !== "" &&x !== null &&x !== undefined){
+			if(x !== "" && x !== null && x !== undefined){
 				return true;
 			} else {
 				return false;
@@ -170,8 +184,10 @@
 		// function to remove spaces and line breaks
 		cleanString = function (str) {
 			if (str !== "") {
+				bclslog('str', str);
 				// remove line breaks
 				str = str.replace(/(\r\n|\n|\r)/gm,"");
+				bclslog('str - no line breaks', str);
 				// remove spaces
 				// here we have to be careful - spaces fine within strings
 				// but not outside them
@@ -195,6 +211,7 @@
 				type: "POST",
 				data: options,
 				success : function (data) {
+					bclslog('data', data);
 					$ajax_response.html("<p>The proxy sent this data back - now I can do whatever I want with it</p>" + JSON.stringify(JSON.parse(data),false, "  "));
 
 				},

@@ -1,11 +1,22 @@
 <?php
 // POST won't work for JSON data
-$json    = file_get_contents('php://input');
-$decoded = json_decode($json, true);
+$prolem = "No errors";
+try {
+	$json    = file_get_contents('php://input');
+	$decoded = json_decode($json, true);
+} catch (Exception $e) {
+	$problem = $e->getMessage();
+}
 
 // Begin by checking to see if "entity" is included in the POST request.
 // If it is, assign its value to the $entityId Variable.
 // If it is not, assign the value of null to $entityId.
+
+if (isset($decoded["timestamp"])) {
+	$timestamp = $decoded["timestamp"];
+} else {
+	$timestamp = null;
+}
 
 if (isset($decoded["entity"])) {
 	$entityId = $decoded["entity"];
@@ -17,6 +28,24 @@ if (isset($decoded["entityType"])) {
 	$entityType = $decoded["entityType"];
 } else {
 	$entityType = null;
+}
+
+if (isset($decoded["account_id"])) {
+	$accountId = $decoded["account_id"];
+} else {
+	$accountId = null;
+}
+
+if (isset($decoded["event"])) {
+	$event = $decoded["event"];
+} else {
+	$event = null;
+}
+
+if (isset($decoded["video"])) {
+	$video = $decoded["video"];
+} else {
+	$video = null;
 }
 
 if (isset($decoded["version"])) {
@@ -48,13 +77,17 @@ if (isset($decoded["action"])) {
 // a comma so that it can easily be imported as a CSV file.
 
 $logEntry = "\nRaw Response: ".$json.
-"\n".date("Y-m-d H:i:s")." UTC: ".
+"\n".date("Y-m-d H:i:s")." UTC ".
+"\nTimestamp: ".$timestamp.
 "\nVersion: ".$version.
 "\nEntity: ".$entityId.
-"\nType: ".$entityType.
+"\nEntity Type: ".$entityType.
+"\nAccount ID: ".$accountId.
+"\nVideo ID: ".$video.
 "\nStatus: ".$status.
 "\nError Message: ".$errorMessage.
 "\nAction: ".$action.
+"\nNotification Errors: ".$problem.
 "\n-------------------------------";
 
 // Lastly, tell PHP where it can find the log file and tell PHP to open it

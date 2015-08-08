@@ -1,6 +1,6 @@
 <?php
 // POST won't work for JSON data
-$prolem = "No errors";
+$problem = "No errors";
 try {
 	$json    = file_get_contents('php://input');
 	$decoded = json_decode($json, true);
@@ -13,9 +13,11 @@ try {
 // If it is not, assign the value of null to $entityId.
 
 if (isset($decoded["timestamp"])) {
-	$timestamp = $decoded["timestamp"];
+	$timestamp        = $decoded["timestamp"];
+	$notificationType = 'CMS API';
 } else {
-	$timestamp = null;
+	$timestamp        = null;
+	$notificationType = 'Dynamic Ingest API';
 }
 
 if (isset($decoded["entity"])) {
@@ -77,6 +79,7 @@ if (isset($decoded["action"])) {
 // a comma so that it can easily be imported as a CSV file.
 
 $logEntry = "\nRaw Response: ".$json.
+"\nNotification Origin: ".$notificationType.
 "\n".date("Y-m-d H:i:s")." UTC ".
 "\nTimestamp: ".$timestamp.
 "\nVersion: ".$version.

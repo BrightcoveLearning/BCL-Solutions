@@ -6,7 +6,31 @@
         <link href="css/videojs.chapter-thumbnails.min.css" rel="stylesheet">
     </head>
     <body>
+        <video id="myPlayerID"
+            style='width: 640px;height: 360px;'
+            data-video-id="4409484150001"
+            data-account="14459790001"
+            data-player="d769f41c-41e3-4907-b825-74b71b721749"
+            data-embed="default"
+            class="video-js" controls></video>
+        <script src="//players.brightcove.net/14459790001/d769f41c-41e3-4907-b825-74b71b721749_default/index.min.js"></script>
 
         <script src="js/videojs.chapter-thumbnails.min.js"></script>
+        <script>
+        videojs("myPlayerID").ready(function() {
+            var myPlayer = this,
+                videoID,
+                videoName,
+                totalRenditions,
+                mp4Ara=[],
+                highestQuality,
+                controlBar,
+                newElement;
+            videoID = myPlayer.options()['data-video-id'];
+            myPlayer.catalog.getVideo(videoID, function(error, video) {
+            myPlayer.catalog.load(video);
+
+        }
+        </script>
     </body>
 </html>

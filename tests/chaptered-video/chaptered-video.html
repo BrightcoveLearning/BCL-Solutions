@@ -12,7 +12,9 @@
             data-account="14459790001"
             data-player="d769f41c-41e3-4907-b825-74b71b721749"
             data-embed="default"
-            class="video-js" controls></video>
+            class="video-js" controls>
+            <track kind="chapters" src="http://learning-services-media.brightcove.com/chaptered-video/vtt/chapters.vtt" srclang="en"></track>
+        </video>
         <script src="//players.brightcove.net/14459790001/d769f41c-41e3-4907-b825-74b71b721749_default/index.min.js"></script>
 
         <script src="js/videojs.chapter-thumbnails.min.js"></script>
@@ -29,8 +31,11 @@
                 videoID = myPlayer.options()['data-video-id'];
                 myPlayer.catalog.getVideo(videoID, function(error, video) {
                 myPlayer.catalog.load(video);
-                console.log("video", video);
-                console.log("text tracks", myPlayer.textTracks());
+
+                myPlayer.on('metadataloaded', function (evt) {
+                    console.log("video", video);
+                    console.log("text tracks", myPlayer.textTracks());
+                });
             });
         });
         </script>

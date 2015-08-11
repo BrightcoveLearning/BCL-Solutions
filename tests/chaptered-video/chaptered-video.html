@@ -29,9 +29,10 @@
                 videoID = myPlayer.options()['data-video-id'];
                 myPlayer.catalog.getVideo(videoID, function(error, video) {
                 myPlayer.catalog.load(video);
-                console.log(video);
-            }
-        }
+                console.log("video", video);
+                console.log("text tracks", myPlayer.textTracks());
+            });
+        });
         </script>
     </body>
 </html>

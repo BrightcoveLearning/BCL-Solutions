@@ -17,19 +17,20 @@
 
         <script src="js/videojs.chapter-thumbnails.min.js"></script>
         <script>
-        videojs("myPlayerID").ready(function() {
-            var myPlayer = this,
-                videoID,
-                videoName,
-                totalRenditions,
-                mp4Ara=[],
-                highestQuality,
-                controlBar,
-                newElement;
-            videoID = myPlayer.options()['data-video-id'];
-            myPlayer.catalog.getVideo(videoID, function(error, video) {
-            myPlayer.catalog.load(video);
-
+            videojs("myPlayerID").ready(function() {
+                var myPlayer = this,
+                    videoID,
+                    videoName,
+                    totalRenditions,
+                    mp4Ara=[],
+                    highestQuality,
+                    controlBar,
+                    newElement;
+                videoID = myPlayer.options()['data-video-id'];
+                myPlayer.catalog.getVideo(videoID, function(error, video) {
+                myPlayer.catalog.load(video);
+                console.log(video);
+            }
         }
         </script>
     </body>

@@ -103,9 +103,9 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
     };
     // get videos via MAPI
     getVideos = function () {
-        BCMAPI.url = isDefined($readApiLocation.val()) ? $readApiLocation.val() : '';
+        BCMAPI.url = isDefined($readApiLocation.val()) ? $readApiLocation.val() : 'http://api.brightcove.com/services/library';
         BCMAPI.callback = "BCLS.onGetVideos";
-        BCMAPI.token = $mapitoken.val();
+        BCMAPI.token = isDefined($mapitoken.val()) ? $mapitoken.val() : 'v87kWelIdjUwVm7_Rzv09k-KqtLz-ty8ONbMxVYAI7-Q0eOilegqqg..';
         params.page_number = pageNumber;
         params.page_size = 100;
         params.sort_by = "PUBLISH_DATE:ASC";

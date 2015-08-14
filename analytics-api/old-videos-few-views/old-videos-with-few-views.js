@@ -103,7 +103,7 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
     };
     // get videos via MAPI
     getVideos = function () {
-        BCMAPI.url = $readApiLocation.val();
+        BCMAPI.url = isDefined($readApiLocation.val()) ? $readApiLocation.val() : '';
         BCMAPI.callback = "BCLS.onGetVideos";
         BCMAPI.token = $mapitoken.val();
         params.page_number = pageNumber;

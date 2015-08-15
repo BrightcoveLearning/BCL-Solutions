@@ -6,11 +6,11 @@ videojs.plugin('chapteredVideo', function () {
     player.on('loadedmetadata', function () {
         var i;
         text_tracks = player.text_tracks();
-        console.log("text_tracks", text_tracks);
-        i = text_tracks.length;
+        i = text_tracks.TextTrackList.length;
+        console.log("i", i);
         while (i > 0) {
             i--;
-            console.log("text_tracks[i]", text_tracks[i]);
+            console.log("text_tracks[i]", text_tracks.TextTrackList[i]);
         }
     });
 

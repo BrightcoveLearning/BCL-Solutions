@@ -27,15 +27,14 @@
 
                 player.on('loadedmetadata', function () {
                     var i;
-                    // video = player.catalog.getVideo();
-                    console.log("player", player);
-                    // text_tracks = player.text_tracks();
-                    // i = text_tracks.TextTrackList.length;
-                    // console.log("i", i);
-                    // while (i > 0) {
-                    //     i--;
-                    //     console.log("text_tracks[i]", text_tracks.TextTrackList[i]);
-                    // }
+                    text_tracks = player.textTracks();
+                    console.log('text_tracks', text_tracks)
+                    i = text_tracks.length;
+                    console.log("i", i);
+                    while (i > 0) {
+                        i--;
+                        console.log("text_tracks[i]", text_tracks[i]);
+                    }
                 });
             });
         </script>

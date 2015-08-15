@@ -27,6 +27,9 @@
 
                 function processChapters (chapter_track) {
                     console.log('chapter_track', chapter_track);
+                    var chapter_menu = document.getElementsByClassName('vjs-menu-content'),
+                        i;
+                    i = chapter_track.cues.length;
                 }
 
                 player.on('loadedmetadata', function () {

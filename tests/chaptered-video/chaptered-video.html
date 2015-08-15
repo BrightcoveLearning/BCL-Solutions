@@ -25,16 +25,25 @@
                     text_tracks,
                     chapter_track;
 
+                function processChapters (chapter_track) {
+                    console.log('chapter_track', chapter_track);
+                }
+
                 player.on('loadedmetadata', function () {
-                    var i;
+                    var i,
+                        chapter_track;
                     text_tracks = player.textTracks();
                     console.log('text_tracks', text_tracks)
                     i = text_tracks.length;
                     console.log("i", i);
                     while (i > 0) {
                         i--;
-                        console.log("text_tracks[i]", text_tracks[i]);
+                        if (text_tracks[i].kind === 'chapters') {
+                            chapter_track = text_tracks[i];
+                            break;
+                        }
                     }
+                    processChapters(chapter_track);
                 });
             });
         </script>

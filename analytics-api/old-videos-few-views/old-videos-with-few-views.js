@@ -97,9 +97,10 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
     }
     // more robust test for strings "not defined"
     isDefined =  function (v) {
-        if (v !== "" && v !== null && v !== undefined) {
-            return true;
-        } else { return false; }
+        if (v === "" && v === null && v === undefined) {
+            return false
+        }
+        return true
     };
     // get videos via MAPI
     getVideos = function () {

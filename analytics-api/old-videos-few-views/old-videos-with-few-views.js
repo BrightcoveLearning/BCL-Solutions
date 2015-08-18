@@ -119,7 +119,11 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
     onGetVideos = function (JSONdata) {
         var itemsMax, item;
         bclslog("jsonData", JSONdata);
-        itemsMax = JSONdata.items.length;
+        if (isDefined(JSONdata.items)) {
+            itemsMax = JSONdata.items.length;
+        } else {
+            itemsMax = 0;
+        }
         videoCount += itemsMax;
         for (i = 0; i < itemsMax; i++) {
             item = JSONdata.items[i];

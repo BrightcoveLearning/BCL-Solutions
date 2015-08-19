@@ -1,86 +1,44 @@
 <?php
 // POST won't work for JSON data
-$problem = "No errors";
 try {
-	$json    = file_get_contents('php://input');
-	$decoded = json_decode($json, true);
+    $json    = file_get_contents('php://input');
+    $decoded = json_decode($json, true);
 } catch (Exception $e) {
-	$problem = $e->getMessage();
+    $problem = $e->getMessage();
+    echo $problem;
 }
 
-// Begin by checking to see if "entity" is included in the POST request.
-// If it is, assign its value to the $entityId Variable.
-// If it is not, assign the value of null to $entityId.
+// Begin by extracting the useful parts of the notification
 
 if (isset($decoded["entity"])) {
-	$entityId = $decoded["entity"];
+    $entityId = $decoded["entity"];
 } else {
-	$entityId = null;
+    $entityId = null;
 }
 
 if (isset($decoded["entityType"])) {
-	$entityType = $decoded["entityType"];
+    $entityType = $decoded["entityType"];
 } else {
-	$entityType = null;
-}
-
-if (isset($decoded["account_id"])) {
-	$accountId = $decoded["account_id"];
-} else {
-	$accountId = null;
-}
-
-if (isset($decoded["event"])) {
-	$event = $decoded["event"];
-} else {
-	$event = null;
-}
-
-if (isset($decoded["video"])) {
-	$video = $decoded["video"];
-} else {
-	$video = null;
-}
-
-if (isset($decoded["version"])) {
-	$version = $decoded["version"];
-} else {
-	$version = null;
-}
-
-if (isset($decoded["errorMessage"])) {
-	$errorMessage = $decoded["errorMessage"];
-} else {
-	$errorMessage = null;
+    $entityType = null;
 }
 
 if (isset($decoded["status"])) {
-	$status = $decoded["status"];
+    $status = $decoded["status"];
 } else {
-	$status = null;
+    $status = null;
 }
 
 if (isset($decoded["action"])) {
-	$action = $decoded["action"];
+    $action = $decoded["action"];
 } else {
-	$action = null;
+    $action = null;
 }
 
-// Next build a string that contains the current date and time as well as
-// the value for each key that was included in the request separated by
-// a comma so that it can easily be imported as a CSV file.
+// if notification is for completed title, act
 
-$logEntry = "\nRaw Response: ".$json.
-"\nNotification Origin: ".$notificationType.
-"\n".date("Y-m-d H:i:s")." UTC ".
-"\nVideo ID: ".$entityId.
-"\nAccount ID: ".$accountId.
-"\nVideo ID: ".$video.
-"\nStatus: ".$status.
-"\nError Message: ".$errorMessage.
-"\nAction: ".$action.
-"\nNotification Errors: ".$problem.
-"\n-------------------------------";
+if (($entityType == 'TITLE') && !($entityId == null) && ($action == 'CREATE') && ($status == 'SUCCESS')) {
+    $newLine = "\nvideoIdArray.unshift(" .$entity. ");"
+}
 
 // Lastly, tell PHP where it can find the log file and tell PHP to open it
 // and add the string we created earlier to it.

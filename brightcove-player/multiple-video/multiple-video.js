@@ -8,23 +8,8 @@ videojs.plugin('multipleVideo', function() {
   timeRemaining,
   totalTime,
   currentVideoIndex = 0,
-  newVideo,
   firstVideo = true,
   playlistData = [
-    {
-    "name":"Tiger", 
-    "thumbnailURL":"//solutions.brightcove.com/bcls/assets/images/Tiger.jpg",
-    "sources":[
-      {
-      "type":"application/x-mpegURL",
-      "src":"http://solutions.brightcove.com/bcls/assets/videos/Tiger.m3u8"
-      },
-      {
-      "type":"video/mp4",
-      "src":"http://solutions.brightcove.com/bcls/assets/videos/Tiger.mp4"
-      }
-        ]
-    },
     {
     "name":"Great Blue Heron", 
     "thumbnailURL":"//solutions.brightcove.com/bcls/assets/images/Great-Blue-Heron.png",
@@ -62,6 +47,7 @@ videojs.plugin('multipleVideo', function() {
   ];
 	
   function loadVideo () {
+console.log('in load video');
       if (currentVideoIndex < playlistData.length) {
           // load the new video
           myPlayer.src(playlistData[currentVideoIndex].sources);
@@ -88,6 +74,6 @@ videojs.plugin('multipleVideo', function() {
   });
   
   // load the first video
-  loadVideo();
+  myPlayer.on('loadedmetadata',loadVideo);
   
 });

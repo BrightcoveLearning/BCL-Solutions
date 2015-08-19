@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	
+
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" />
 	<!-- change title to match the h1 heading -->
@@ -39,13 +39,13 @@
 				<h1>Google Analytics Plugin</h1>
 				<!-- Place document intro sentence(s) here -->
 				<p class="BCL-aside">The Google Analytics plugin is an open source project and not officially supported by Brightcove. This document is furnished as a convenience only and not necessarily maintained.</p>
-        <p>The Google Analytics plugin sends player and video event data to your Google Analytics account. This allows you to see some of your player/video data along with any other analytic metrics you are collecting all in one place.</p> 
+        <p>The Google Analytics plugin sends player and video event data to your Google Analytics account. This allows you to see some of your player/video data along with any other analytic metrics you are collecting all in one place.</p>
         <p class="BCL-aside">The Google Analytics plugin only works with a Brightcove player that is created with a Video Cloud account. It will not work with players created with a Perform account.</p>
         <p>Event names tracked are those used by the Brightcove player where applicable. Event names can be customized or localized using plugin options.</p>
         <p>The Video Id and name are read from the player and tracked as the event label.</p>
         <div><img src="//docs.brightcove.com/en/video-cloud/brightcove-player/guides/assets/google-analytics-plugin/event-list.png" alt="event-list" title="event-list"></div>
       </div>
-      
+
       <div id="implementation" class="section">
         <h2>Implementation</h2>
         <ul>
@@ -61,16 +61,17 @@
           </ul>
         </ul>
 			</div>
-				
+
       <div id="getstarted" class="section">
         <h2>Get started</h2>
+        <p class="BCL-aside">Note: The example below uses Video Cloud media assets. If you are a Perform customer you will need to make appropriate modifications.</p>
         <p>You can create your Brightcove player using Video Cloud Studio. There you can quickly create a player, associate a video and publish the player. For details, see the <a href="//docs.brightcove.com/en/video-cloud/brightcove-player/getting-started/quick-start-bc-player.html">Quick Start to Brightcove player</a> document.</p>
         <p>After you have published the player, copy the <strong>In-Page Embed Code</strong> for the published player. It should look something like this:</p>
 
         <p><code data-gist-id="b0571390f12559cd265d" data-gist-hide-footer="true" data-gist-line="28-35"></code></p>
         <p class="BCL-aside">Notice that we have added an <code>id</code> attribute so that we can get a reference to the player in later steps.</p>
       </div>
-      
+
       <div id="implementplugin" class="section">
         <h2>Implement plugin</h2>
         <p>For the embed-in-page implementation, Google Analytics must be separately loaded on the page before the player. Follow these steps to add the plugin:</p>
@@ -87,7 +88,7 @@
         <p>Your embed-in-page code should look something like this:</p>
         <p><code data-gist-id="b0571390f12559cd265d" data-gist-hide-footer="true" data-gist-line="1-52"></code></p>
       </div>
-      
+
       <div id="iframe" class="section">
         <h2>Use iframe</h2>
         <p>With the iframe implementation, you will use Video Cloud Studio to add the plugin and options to your player instead of doing it in the page code. Follow these steps to add the plugin:</p>
@@ -104,12 +105,12 @@
           <li><p>You can either test with the preview version of the player, or you can publish the player. For this guide, let's publish the player. Select the <strong>Publish</strong> button at the top.</p></li>
           <li><p>Expand the <strong>Embed Code & URL</strong> button and copy the <strong>iframe Embed Code</strong> for the published player.</p></li>
           <div><img src="//docs.brightcove.com/en/video-cloud/brightcove-player/guides/assets/google-analytics-plugin/player-iframe-code.png" alt="player-iframe-code" title="player-iframe-code"></div>
-          <li><p>Paste the iframe code into your page code and run it in the browser. You should be able to see the player and video events in your Google Analytics Reporting page.</p></li>   
+          <li><p>Paste the iframe code into your page code and run it in the browser. You should be able to see the player and video events in your Google Analytics Reporting page.</p></li>
         </ol>
         <p>Your page code should look something like this:</p>
-        <p><code data-gist-id="b0571390f12559cd265d" data-gist-hide-footer="true" data-gist-line="131-149"></code></p>   
+        <p><code data-gist-id="b0571390f12559cd265d" data-gist-hide-footer="true" data-gist-line="131-149"></code></p>
 			</div>
-      
+
       <div id="options" class="section">
         <h2>Options</h2>
         <p>You can provide options to the plugin to override default values. Here is an example of how to add options to your embed-in-page code:</p>
@@ -153,7 +154,7 @@
         <p>This option goes with the <code>percent_played</code> event. Every x% of the video played will be sent to Google Analytics, where x is defined by the the <code>percentsPlayedInterval</code> value.</p>
         <p>Default: 10</p>
         <p>Example:</p>
-        <p><code data-gist-id="b0571390f12559cd265d" data-gist-hide-footer="true" data-gist-line="125-127"></code></p>       
+        <p><code data-gist-id="b0571390f12559cd265d" data-gist-hide-footer="true" data-gist-line="125-127"></code></p>
       </div>
 		</div>
 	</div>

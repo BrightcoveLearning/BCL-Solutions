@@ -42,9 +42,9 @@ if (($entityType == 'TITLE') && !($entityId == null) && ($action == 'CREATE') &&
 
 // Lastly, tell PHP where it can find the log file and tell PHP to open it
 // and add the string we created earlier to it.
-$logFileLocation = "di-log.txt";
+$logFileLocation = "video-id-array.js";
 $fileHandle      = fopen($logFileLocation, 'a') or die("-1");
-fwrite($fileHandle, $logEntry);
+fwrite($fileHandle, $newLine);
 fclose($fileHandle);
 
 echo "Dynamic Ingest callback app is running";

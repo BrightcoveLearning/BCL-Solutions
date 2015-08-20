@@ -11,7 +11,7 @@
     <script src="//use.edgefonts.net/source-code-pro.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/styles/github.min.css">
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/atelier-forest.light.min.css" />
     <style>
     input, select {
         max-width: 60%;
@@ -118,17 +118,14 @@
         </div>
     </div>
     <!-- bcl scripts -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/gist-embed/1.7/gist-embed.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.2/fastclick.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/js/foundation.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/highlight.min.js"></script>
-    <script src="//docs.brightcove.com/en/scripts/log.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.2/handlebars.min.js"></script>
     <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
     <script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
-    <script src="//docs.brightcove.com/en/scripts/bc-mapi.js"></script>
     <script>
         $(document).foundation();
     </script>
@@ -152,13 +149,18 @@
             submitRequest,
             cleanString,
             setCMSOptions,
+            getSelectedValue,
             setDIOptions;
         // IE safe logger
         bclslog = function (context, message) {
             if (console) {
                 console.log(context, message);
             }
-        }
+        };
+        // get selected value for single select element
+        getSelectedValue = function (e) {
+            return e.options[e.selectedIndex].value;
+        };
         // function to remove spaces and line breaks
         cleanString = function (str) {
             if (str !== "") {
@@ -184,7 +186,7 @@
             options.url = cms_url.value;
             bclslog("cms options", options);
             // now submit the request
-            submitRequest(options, cmsURL, "cms");
+            submitRequest(options, "cms");
         };
         // set options for the Dynamic Ingest API request
         setDIOptions = function () {
@@ -192,15 +194,15 @@
             options.client_id = cid;
             options.client_secret = secret;
             options.requestBody = cleanString(di_requestBody.value);
-            options.requestType = $di_requestType.val();
-            options.url = $di_url.val();
+            options.requestType = requestType;
+            options.url = di_url.value;
             bclslog("di options", options);
             // now submit the request
-            submitRequest(options, diURL, "di");
+            submitRequest(options, "di");
         };
 
         // function to submit Request
-        submitRequest = function (options, proxyURL, type) {
+        submitRequest = function (options, type) {
             var parsedData = {};
             $.ajax({
                 url: proxyURL,
@@ -232,6 +234,7 @@
                 }
             });
         };
+
         $cms_submit.on("click", setCMSOptions);
         $di_submit.on("click", setDIOptions);
     })($);

@@ -75,6 +75,18 @@
                                     </select>
                                 </p>
                                 <p>
+                                    Choose an ingest profile: <br>
+                                    <select id="profileSelector" name="profileSelector">
+                                        <options>screencast-1280</options>
+                                        <options>high-resolution</options>
+                                        <options>single-bitrate-high</options>
+                                        <options>single-bitrate-standard</options>
+                                        <options>smart-player-transition</options>
+                                        <options>audio-only</options>
+
+                                    </select>
+                                </p>
+                                <p>
                                     Call body:<br />
                                     <textarea name="requestBody" id="cms_requestBody">{"name":"DI Tester Video"}</textarea>
                                 </p>
@@ -123,23 +135,18 @@
     <script>
     var BCLS = ( function ($) {
         var // CMS API stuff
-            $cms_client_id = $("#cms_client_id"),
-            $cms_client_secret = $("#cms_client_secret"),
-            $cms_requestBody = $("#cms_requestBody"),
-            $cms_requestType = $("#cms_requestType"),
-            $cms_url = $("#cms_url"),
-            $cms_submit = $("#cms_Submit"),
-            $cms_response = $("#cms_response"),
-            cmsURL = "http://solutions.brightcove.com:8006",
-            // Dynamic Ingest API stuff
-            $di_client_id = $("#di_client_id"),
-            $di_client_secret = $("#di_client_secret"),
-            $di_requestBody = $("#di_requestBody"),
-            $di_requestType = $("#di_requestType"),
-            $di_url = $("#di_url"),
-            $di_submit = $("#di_Submit"),
-            $di_response = $("#di_response"),
-            diURL = "http://solutions.brightcove.com:8004",
+            cid = '553d4903-4547-435d-944c-2c8e2f6abc5d',
+            secret = 'ENBQH6pHfJQub7oR0SGCn2Pu_W2SY5QsVw24fK-frXcE6hdTRnJO-0_LBmKZh15rVliIAiECAQF1yBYP_l90gQ',
+            cms_requestBody = document.getElementById('cms_requestBody'),
+            cms_url = document.getElementById('cms_url'),
+            di_requestBody = document.getElementById('di_requestBody'),
+            di_url = document.getElementById('di_url'),
+            requestType = 'POST',
+            cms_submit = document.getElementById('cms_Submit'),
+            cms_response = document.getElementById('cms_response'),
+            di_submit = document.getElementById('di_Submit'),
+            di_response = document.getElementById('di_response'),
+            proxyURL = "http://solutions.brightcove.com/bcls/bcls-proxy/bcls-proxy.php",
             // functions
             bclslog,
             submitRequest,
@@ -170,11 +177,11 @@
         // set options for the CMS API request
         setCMSOptions = function () {
             var options = {};
-            options.client_id = $cms_client_id.val();
-            options.client_secret = $cms_client_secret.val();
-            options.requestBody = cleanString($cms_requestBody.val());
-            options.requestType = $cms_requestType.val();
-            options.url = $cms_url.val();
+            options.client_id = cid;
+            options.client_secret = secret;
+            options.requestBody = cleanString(cms_requestBody.value);
+            options.requestType = requestType;
+            options.url = cms_url.value;
             bclslog("cms options", options);
             // now submit the request
             submitRequest(options, cmsURL, "cms");
@@ -182,9 +189,9 @@
         // set options for the Dynamic Ingest API request
         setDIOptions = function () {
             var options = {};
-            options.client_id = $di_client_id.val();
-            options.client_secret = $di_client_secret.val();
-            options.requestBody = cleanString($di_requestBody.val());
+            options.client_id = cid;
+            options.client_secret = secret;
+            options.requestBody = cleanString(di_requestBody.value);
             options.requestType = $di_requestType.val();
             options.url = $di_url.val();
             bclslog("di options", options);

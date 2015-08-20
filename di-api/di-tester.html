@@ -229,7 +229,7 @@
                     switch (type) {
                         case 'cms':
                         cms_response.value = data;
-                        di_url.value = 'https://ingest.api.brightcove.com/v1/accounts/57838016001/videos/' + parsedData.id +'/ingest-requests');
+                        di_url.value = 'https://ingest.api.brightcove.com/v1/accounts/57838016001/videos/' + parsedData.id +'/ingest-requests';
                         bclslog(di_url.value);
                         break;
                         case 'di':
@@ -266,7 +266,7 @@
             selectedVideo = video.subString(video.lastIndexOf('/')) + '_' + now;
             bclslog('selectedVideo', selectedVideo);
             return selectedVideo;
-        }
+        };
 
         // event listeners
         videoSelector.addEventListener('change', function (){

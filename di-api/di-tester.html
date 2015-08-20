@@ -84,13 +84,12 @@
                                 <p>
                                     Choose an ingest profile: <br>
                                     <select id="profileSelector" name="profileSelector">
-                                        <options selected="selected">screencast-1280</options>
-                                        <options>high-resolution</options>
-                                        <options>single-bitrate-high</options>
-                                        <options>single-bitrate-standard</options>
-                                        <options>smart-player-transition</options>
-                                        <options>audio-only</options>
-
+                                        <option value="screencast-1280" selected="selected">screencast-1280</option>
+                                        <option value="high-resolution">high-resolution</option>
+                                        <option value="single-bitrate-high">single-bitrate-high</option>
+                                        <option value="single-bitrate-standard">single-bitrate-standard</option>
+                                        <option value="smart-player-transition">smart-player-transition</option>
+                                        <option value="audio-only">audio-only</option>
                                     </select>
                                 </p>
                                 <p>
@@ -174,6 +173,7 @@
         };
         // get selected value for single select element
         getSelectedValue = function (e) {
+            bclslog('e.options', e.options);
             return e.options[e.selectedIndex].value;
         };
         // function to remove spaces and line breaks
@@ -263,7 +263,7 @@
         getVideoName = function () {
             var now = new Date().toISOString(),
                 video = getSelectedValue(videoSelector);
-            selectedVideo = video.subString(video.lastIndexOf('/')) + '_' + now;
+            selectedVideo = video.substring(video.lastIndexOf('/') + 1) + '_' + now;
             bclslog('selectedVideo', selectedVideo);
             return selectedVideo;
         };
@@ -285,6 +285,7 @@
         selectedProfile = getSelectedValue(profileSelector);
         selectedVideoURL = getSelectedValue(videoSelector);
         selectedVideo = getVideoName();
+        bclslog('selectedVideo', selectedVideo);
         setCMSData();
     })($);
     </script>

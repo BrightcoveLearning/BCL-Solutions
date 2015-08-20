@@ -74,8 +74,7 @@
                                 <p>
                                     Choose a video to ingest:<br>
                                     <select name="videoSelector" id="videoSelector">
-                                        <option selected="selected" value="http://learning-services-media.brightcove.com/videos/mp4/Bird_Titmouse.mp4
-                                        ">Bird_Titmouse.mp4 (short)</option>
+                                        <option selected="selected" value="http://learning-services-media.brightcove.com/videos/mp4/Bird_Titmouse.mp4">Bird_Titmouse.mp4 (short)</option>
                                         <option value="http://learning-services-media.brightcove.com/videos/mp4/Space-Galaxy.mp4">Space-Galaxy.mp4</option>
                                         <option value="http://learning-services-media.brightcove.com/videos/mp4/Water-Bubbles.mp4">Water-Bubbles.mp4 (low quality)</option>
                                         <option value="http://learning-services-media.brightcove.com/videos/mp4/Space-Satellite.mp4">Space-Satellite.mp4 (corrupt file)</option>
@@ -101,7 +100,7 @@
                                     <textarea name="url" id="cms_url">https://cms.api.brightcove.com/v1/accounts/57838016001/videos</textarea>
                                 </p>
                                 <p>
-                                    <input id="cms_Submit" class="blurred" type="submit" value="Submit">
+                                    <input id="cms_Submit" type="submit" value="Submit">
                                 </p>
                             <pre><code id="cms_response"></code></pre>
                         </fieldset>
@@ -251,7 +250,7 @@
         };
         // set the CMS request data
         setCMSData = function () {
-            cms_requestBody.value = '{"name":' + selectedVideo + '}'
+            cms_requestBody.value = '{"name":"' + selectedVideo + '"}'
         };
 
         // set DI request data
@@ -263,7 +262,8 @@
         getVideoName = function () {
             var now = new Date().toISOString(),
                 video = getSelectedValue(videoSelector);
-            selectedVideo = video.substring(video.lastIndexOf('/') + 1) + '_' + now;
+            bclslog('now', now);
+            selectedVideo = video.substring(video.lastIndexOf('/') + 1, video.length - 1) + '_' + now;
             bclslog('selectedVideo', selectedVideo);
             return selectedVideo;
         };

@@ -227,12 +227,13 @@
                     parsedData = JSON.parse(data);
                     switch (type) {
                         case 'cms':
-                        cms_response.value = data;
+                        cms_response.innerHTML = data;
                         di_url.value = 'https://ingest.api.brightcove.com/v1/accounts/57838016001/videos/' + parsedData.id +'/ingest-requests';
                         bclslog(di_url.value);
+                        setDIOptions();
                         break;
                         case 'di':
-                        di_response.value = data;
+                        di_response.innerHTML = data;
                         break;
                     }
                 },
@@ -255,7 +256,7 @@
 
         // set DI request data
         setDIData = function () {
-            di_requestBody.value = '{"master":{"url":"' + selectedVideoURL + '"},"profile":"' + selectedProfile + '","callbacks": ["http://solutions.brightcove.com/bcls/di-api/callbacks-di.php"]}'
+            di_requestBody.value = '{"master":{"url":"' + selectedVideoURL + '"},"profile":"' + selectedProfile + '","callbacks": ["http://solutions.brightcove.com/bcls/di-api/callbacks-di.php","http://solutions.brightcove.com/bcls/di-api/di-callbacks.php"]}'
         };
 
         // get the videoname from the path, append timestamp

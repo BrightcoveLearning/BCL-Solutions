@@ -35,7 +35,7 @@
         <script>
         var BCLS = ( function (videoIdArray) {
             var tr,
-                logBody = document.getElementById('logBody');
+                logBody = document.getElementById('logBody'),
                 i = 0,
                 iMax = videoIdArray.length,
                 proxyURL = 'https://solutions.brightcove.com/bcls/bcls-proxy/bcls-proxy.php',
@@ -64,6 +64,16 @@
                     return;
                 };
 
+                // write out the report table
+                writeReport = function () {
+                    var j,
+                        jMax = videoDataArray.length,
+                        item;
+                    for (j = 0; j < jMax; j++) {
+                        item = videoDataArray[j];
+                        logBody.innerHTML = '<tr><td>' + item.id + '</td><td>' + item.name + '</td><td>' + item.sources + '</td></tr>';
+                    }
+                }
                 // function to set up video data request
                 setVideoRequestOptions = function () {
                     requestOptions = {};
@@ -113,7 +123,12 @@
                                             t1 = setTimeout(setSourcesRequestOptions, 1000);
                                         } else {
                                             parsedData = JSON.parse(responseData);
-                                            videoDataItem.sosources = parsedData.length;
+                                            if (parsedData.length > 0) {
+                                                videoDataItem.sources = parsedData.length;
+                                            } else {
+                                                videoDataItem.sources = '<span style="color:#990000">No renditions - ingest failed!</span>';
+                                            }
+
                                             videoDataArray.push(videoDataItem);
                                             if (i < iMax) {
                                                 getVideoInfo();

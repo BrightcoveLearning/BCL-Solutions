@@ -104,7 +104,6 @@
                             try {
                                 if (httpRequest.readyState === 4) {
                                   if (httpRequest.status === 200) {
-                                    logResponse(type, httpRequest.responseText);
                                     responseData = httpRequest.responseText;
                                     switch (type) {
                                         case "video":

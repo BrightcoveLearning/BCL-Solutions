@@ -9,8 +9,8 @@ try {
 }
 
 // Begin by checking to see if "entity" is included in the POST request.
-// If it is, assign its value to the $entityId Variable.
-// If it is not, assign the value of null to $entityId.
+// If it is, assign its value to the $entity Variable.
+// If it is not, assign the value of null to $entity.
 
 if (isset($decoded["timestamp"])) {
 	$timestamp        = $decoded["timestamp"];

@@ -264,7 +264,7 @@
             var now = new Date().toISOString(),
                 video = getSelectedValue(videoSelector);
             bclslog('now', now);
-            selectedVideo = video.substring(video.lastIndexOf('/') + 1, video.length - 1) + '_' + now;
+            selectedVideo = video.substring(video.lastIndexOf('/') + 1, video.length) + '_' + now;
             bclslog('selectedVideo', selectedVideo);
             return selectedVideo;
         };

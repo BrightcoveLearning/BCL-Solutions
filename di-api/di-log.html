@@ -19,15 +19,47 @@
     <body>
         <h1>Dynamic Ingest Log</h1>
         <h2>Account: Brightcove Learning (57838016001)</h2>
-        <div id="videoSelectorBlock">
-            <h3>Select a video</h3>
-            <p>
-                <select name="" id=""></select>
-            </p>
+        <div id="videoLogBlock">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Video ID</th>
+                        <th>Name</th>
+                        <th>Renditions created</th>
+                    </tr>
+                </thead>
+                <tbody id="logBody"></tbody>
+            </table>
         </div>
         <script src="video-id-array.js"></script>
         <script>
+        var BCLS = ( function (videoIdArray) {
+            var tr,
+                td,
+                logBody = document.getElementById('logBody');
+                i,
+                iMax,
+                bclslog;
 
+                /**
+                 * Logging function - safe for IE
+                 * @param  {string} context - description of the data
+                 * @param  {*} message - the data to be logged by the console
+                 * @return {}
+                 */
+                bclslog = function (context, message) {
+                    if (window["console"] && console["log"]) {
+                      console.log(context, message);
+                    }
+                    return;
+                };
+                bclslog('videoIdArray', videoIdArray);
+                iMax = videoIdArray.length;
+                for (i = 0; i < iMax; i++) {
+                    
+                }
+
+            })(videoIdArray);
         </script>
     </body>
 </html>

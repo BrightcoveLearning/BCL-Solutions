@@ -39,6 +39,13 @@
                 logBody = document.getElementById('logBody');
                 i,
                 iMax,
+                videoDataArray = [],
+                requestOptions = {},
+                currentVideo,
+                // functions
+                submitRequest,
+                setVideoRequestOptions,
+                setSourcesRequestOptions,
                 bclslog;
 
                 /**
@@ -53,10 +60,74 @@
                     }
                     return;
                 };
+
+                // function to set up video data request
+                setVideoRequestOptions = function () {
+
+                };
+                // function to set up video sources request
+                setSourcesRequestOptions = funciton () {
+
+                };
+                // function to make the cms api requests
+                submitRequest = function (options, proxyURL, type) {
+                    var httpRequest = new XMLHttpRequest(),
+                        requestData,
+                        responseData,
+                        parsedData,
+                        getResponse = function () {
+                            try {
+                                if (httpRequest.readyState === 4) {
+                                  if (httpRequest.status === 200) {
+                                    logResponse(type, httpRequest.responseText);
+                                    responseData = httpRequest.responseText;
+                                    switch (type) {
+                                        case "video":
+                                        if (responseData.indexOf("TIMEOUT") > 0) {
+                                            t1 = setTimeout(setVideoRequestOptions, 1000);
+                                        } else {
+                                            parsedData = JSON.parse(responseData);
+                                            di_url_display.value = "https://ingest.api.brightcove.com/v1/accounts/" + account_id + "/videos/" + parsedData.id + "/ingest-requests";
+                                            setDIOptions();
+                                        }
+                                        break;
+                                        case "sources":
+                                        totalIngested++;
+                                        logResponse("totalIngested", totalIngested);
+                                        if (videoNumber < totalVideos - 1) {
+                                            videoNumber++;
+                                            logResponse("Processing video number", videoNumber);
+                                            // pause to avoid CMS API timeouts
+                                            t2 = setTimeout(setCMSOptions, 1000);
+                                        }
+                                        break;
+                                    }
+                                  } else {
+                                    alert("There was a problem with the request. Request returned " + httpRequest.status);
+                                  }
+                                }
+                              }
+                              catch(e) {
+                                alert('Caught Exception: ' + e);
+                              }
+                        };
+                    // set up request data
+                    requestData = "client_id=" + options.client_id + "&client_secret=" + options.client_secret + "&url=" + encodeURIComponent(options.url) + "&requestBody=" + encodeURIComponent(options.requestBody) + "&requestType=" + options.requestType;
+                    // set response handler
+                    httpRequest.onreadystatechange = getResponse;
+                    // open the request
+                    httpRequest.open("POST", proxyURL);
+                    // set headers
+                    httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    // open and send request
+                    httpRequest.send(requestData);
+                };
+
                 bclslog('videoIdArray', videoIdArray);
                 iMax = videoIdArray.length;
                 for (i = 0; i < iMax; i++) {
-                    
+                    currentVideo = videoIdArray[i];
+                    setVideoRequestOptions();
                 }
 
             })(videoIdArray);

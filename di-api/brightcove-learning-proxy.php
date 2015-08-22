@@ -1,6 +1,6 @@
 <?php
 /**
- * bcls-proxy.php - proxy for Brightcove RESTful APIs
+ * brightcove-learning-proxy.php - proxy for Brightcove RESTful APIs
  * gets an access token, makes the request, and returns the response
  * Accessing:
  *     URL: https://solutions.brightcove.com/bcls/bcls-proxy/bcsl-proxy.php
@@ -10,8 +10,6 @@
  * @post {string} url - the URL for the API request
  * @post {string} [requestType=GET] - HTTP method for the request
  * @post {string} [requestBody=null] - JSON data to be sent with write requests
- * @post {string} client_id - OAuth2 client id with sufficient permissions for the request
- * @post {string} client_secret - OAuth2 client secret with sufficient permissions for the request
  *
  * @returns {string} $response - JSON response received from the API
  */
@@ -21,7 +19,9 @@ header("Access-Control-Allow-Origin: *");
 
 // set up request for access token
 $data = array();
-
+//
+// change the values below to use this proxy with a different account
+//
 $client_id     = "553d4903-4547-435d-944c-2c8e2f6abc5d";
 $client_secret = "ENBQH6pHfJQub7oR0SGCn2Pu_W2SY5QsVw24fK-frXcE6hdTRnJO-0_LBmKZh15rVliIAiECAQF1yBYP_l90gQ";
 $auth_string   = "{$client_id}:{$client_secret}";

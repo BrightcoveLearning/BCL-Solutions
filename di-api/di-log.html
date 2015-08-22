@@ -58,12 +58,15 @@
         <script src="video-ids.js"></script>
         <script>
         var BCLS = ( function (videoIdArray) {
-            var tr,
+            // to use another account, set the account_id value appropriately
+            // the client_id and client_secret will also need to be changed in the proxy
+            var account_id = 57838016001,
                 logBody = document.getElementById('logBody'),
                 loadingMessage = document.getElementById('loadingMessage'),
                 clearLogBtn = document.getElementById('clearLogBtn'),
                 i = 0,
                 iMax = videoIdArray.length,
+                // set the proxyURL to the location of the proxy app that makes Brightcove API requests
                 proxyURL = 'https://solutions.brightcove.com/bcls/di-api/brightcove-learning-proxy.php',
                 videoDataArray = [],
                 videoDataItem = {},
@@ -99,19 +102,19 @@
                     loadingMessage.className = 'hidden';
                     for (j = 0; j < jMax; j++) {
                         item = videoDataArray[j];
-                        bclslog('item', item);
                         logBody.innerHTML += '<tr><td>' + item.id + '</td><td>' + item.name + '</td><td>' + item.reference_id + '</td><td>' + item.sources + '</td></tr>';
                     }
-                }
+                };
+
                 // function to set up video data request
                 setVideoRequestOptions = function () {
                     requestOptions = {};
-                    requestOptions.url = 'https://cms.api.brightcove.com/v1/accounts/57838016001/videos/' + currentVideo;
+                    requestOptions.url = 'https://cms.api.brightcove.com/v1/accounts/' + account_id + '/videos/' + currentVideo;
                     submitRequest(requestOptions, proxyURL, 'video');
                 };
                 // function to set up video sources request
                 setSourcesRequestOptions = function () {
-                    requestOptions.url = 'https://cms.api.brightcove.com/v1/accounts/57838016001/videos/' + currentVideo + '/sources';
+                    requestOptions.url = 'https://cms.api.brightcove.com/v1/accounts/' + account_id + '/videos/' + currentVideo + '/sources';
                     submitRequest(requestOptions, proxyURL, 'sources');
                 };
 
@@ -192,10 +195,13 @@
                 // event handlers
                 clearLogBtn.addEventListener('click', function () {
                     if (window.confirm('Are you sure? This action cannot be undone!')) {
+                        // if your clear-log app resides in another location, change the URL
                         window.location.href = 'clear-log.php';
                     }
                 });
-                bclslog('videoIdArray', videoIdArray);
+                // bclslog('videoIdArray', videoIdArray);
+
+                // get things started
                 getVideoInfo();
 
             })(videoIdArray);

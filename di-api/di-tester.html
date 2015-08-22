@@ -131,8 +131,6 @@
     <script>
     var BCLS = ( function ($) {
         var // CMS API stuff
-            cid = '553d4903-4547-435d-944c-2c8e2f6abc5d',
-            secret = 'ENBQH6pHfJQub7oR0SGCn2Pu_W2SY5QsVw24fK-frXcE6hdTRnJO-0_LBmKZh15rVliIAiECAQF1yBYP_l90gQ',
             cms_requestBody = document.getElementById('cms_requestBody'),
             cms_url = document.getElementById('cms_url'),
             di_requestBody = document.getElementById('di_requestBody'),
@@ -141,7 +139,7 @@
             cms_submit = document.getElementById('cms_Submit'),
             cms_response = document.getElementById('cms_response'),
             di_response = document.getElementById('di_response'),
-            proxyURL = "http://solutions.brightcove.com/bcls/bcls-proxy/bcls-proxy.php",
+            proxyURL = "http://solutions.brightcove.com/bcls/di-api/brightcove-learning-proxy.php",
             videoSelector = document.getElementById('videoSelector'),
             profileSelector = document.getElementById('profileSelector'),
             selectedVideo,
@@ -187,8 +185,6 @@
         // set options for the CMS API request
         setCMSOptions = function () {
             var options = {};
-            options.client_id = cid;
-            options.client_secret = secret;
             options.requestBody = cleanString(cms_requestBody.value);
             options.requestType = requestType;
             options.url = cms_url.value;
@@ -199,8 +195,6 @@
         // set options for the Dynamic Ingest API request
         setDIOptions = function () {
             var options = {};
-            options.client_id = cid;
-            options.client_secret = secret;
             options.requestBody = cleanString(di_requestBody.value);
             options.requestType = requestType;
             options.url = di_url.value;
@@ -234,10 +228,10 @@
                 error : function (XMLHttpRequest, textStatus, errorThrown) {
                     switch (type) {
                         case "cms":
-                        $cms_response.html("The called failed; here's what the server sent back: " + errorThrown);
+                        cms_response.innerHTML = "The called failed; here's what the server sent back: " + errorThrown;
                         break;
                         case "di":
-                        $di_response.html("The called failed; here's what the server sent back: " + errorThrown);
+                        di_response.innerHTML = "The called failed; here's what the server sent back: " + errorThrown;
                         break;
                     }
                 }

@@ -6,7 +6,7 @@
         <style>
             body {
                 font-family: sans-serif;
-                margin: 4em;
+                margin: 5em;
             }
             .hide {
                 display: none;
@@ -35,8 +35,8 @@
     <body>
         <h1>Dynamic Ingest Log</h1>
         <h2>Account: Brightcove Learning (57838016001)</h2>
-        <p>
-            Videos are listed in order of processing completion time, newest to oldest
+        <p style="width:70%">
+            Videos are listed in order of processing completion time, newest to oldest. You can add additional videos using the <a href="./di-tester.html">tester app</a>. New videos will appear in this log after processing is complete.
         </p>
         <p>
             <button id="clearLogBtn">Clear the log</button>
@@ -63,7 +63,7 @@
                 clearLogBtn = document.getElementById('clearLogBtn'),
                 i = 0,
                 iMax = videoIdArray.length,
-                proxyURL = 'https://solutions.brightcove.com/bcls/bcls-proxy/bcls-proxy.php',
+                proxyURL = 'https://solutions.brightcove.com/bcls/di-api/brightcove-learning-proxy.php',
                 videoDataArray = [],
                 videoDataItem = {},
                 requestOptions = {},
@@ -104,8 +104,6 @@
                 // function to set up video data request
                 setVideoRequestOptions = function () {
                     requestOptions = {};
-                    requestOptions.client_id = '553d4903-4547-435d-944c-2c8e2f6abc5d';
-                    requestOptions.client_secret = 'ENBQH6pHfJQub7oR0SGCn2Pu_W2SY5QsVw24fK-frXcE6hdTRnJO-0_LBmKZh15rVliIAiECAQF1yBYP_l90gQ';
                     requestOptions.url = 'https://cms.api.brightcove.com/v1/accounts/57838016001/videos/' + currentVideo;
                     submitRequest(requestOptions, proxyURL, 'video');
                 };
@@ -117,8 +115,12 @@
 
                 // initiates the cms api requests
                 getVideoInfo = function () {
-                    currentVideo = videoIdArray[i];
-                    setVideoRequestOptions();
+                    if (videoIdArray.length > 0) {
+                        currentVideo = videoIdArray[i];
+                        setVideoRequestOptions();
+                    } else {
+                        loadingMessage.innerHTML = 'No videos have been ingested';
+                    }
                 };
 
                 // function to make the cms api requests
@@ -174,7 +176,7 @@
                         };
                     bclslog('options', options);
                     // set up request data
-                    requestData = "client_id=" + options.client_id + "&client_secret=" + options.client_secret + "&url=" + encodeURIComponent(options.url) + "&requestType=GET";
+                    requestData = "url=" + encodeURIComponent(options.url) + "&requestType=GET";
                     // set response handler
                     httpRequest.onreadystatechange = getResponse;
                     // open the request

@@ -47,6 +47,7 @@
                     <tr>
                         <th>Video ID</th>
                         <th>Name</th>
+                        <th>Reference ID</th>
                         <th>Renditions created</th>
                     </tr>
                 </thead>
@@ -98,7 +99,7 @@
                     loadingMessage.className = 'hidden';
                     for (j = 0; j < jMax; j++) {
                         item = videoDataArray[j];
-                        logBody.innerHTML += '<tr><td>' + item.id + '</td><td>' + item.name + '</td><td>' + item.sources + '</td></tr>';
+                        logBody.innerHTML += '<tr><td>' + item.id + '</td><td>' + item.name + '</td><td>' + item.reference_id + '</td><td>' + item.sources + '</td></tr>';
                     }
                 }
                 // function to set up video data request

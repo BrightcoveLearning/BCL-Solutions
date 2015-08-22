@@ -14,6 +14,22 @@
             .show {
                 display: block;
             }
+            table {
+                border-collapse: collapse;
+                border: 1px #999999 solid;
+            }
+            th {
+                background-color: #666666;
+                color: #f5f5f5;
+                padding: .5em;
+            }
+            td {
+                border: 1px #999999 solid;
+                padding: .5em
+            }
+            .hidden {
+                display: none;
+            }
         </style>
     </head>
     <body>
@@ -30,12 +46,14 @@
                 </thead>
                 <tbody id="logBody"></tbody>
             </table>
+            <h4 id="loadingMessage">Loading data, please wait...</h4>
         </div>
         <script src="video-ids.js"></script>
         <script>
         var BCLS = ( function (videoIdArray) {
             var tr,
                 logBody = document.getElementById('logBody'),
+                loadingMessage = document.getElementById('loadingMessage'),
                 i = 0,
                 iMax = videoIdArray.length,
                 proxyURL = 'https://solutions.brightcove.com/bcls/bcls-proxy/bcls-proxy.php',
@@ -69,9 +87,10 @@
                     var j,
                         jMax = videoDataArray.length,
                         item;
+                    loadingMessage.className = 'hidden';
                     for (j = 0; j < jMax; j++) {
                         item = videoDataArray[j];
-                        logBody.innerHTML = '<tr><td>' + item.id + '</td><td>' + item.name + '</td><td>' + item.sources + '</td></tr>';
+                        logBody.innerHTML += '<tr><td>' + item.id + '</td><td>' + item.name + '</td><td>' + item.sources + '</td></tr>';
                     }
                 }
                 // function to set up video data request
@@ -84,7 +103,7 @@
                 };
                 // function to set up video sources request
                 setSourcesRequestOptions = function () {
-                    requestOptions.url += '/sources';
+                    requestOptions.url = 'https://cms.api.brightcove.com/v1/accounts/57838016001/videos/' + currentVideo + '/sources';
                     submitRequest(requestOptions, 'sources');
                 };
 
@@ -112,7 +131,7 @@
                                             t1 = setTimeout(setVideoRequestOptions, 1000);
                                         } else {
                                             parsedData = JSON.parse(responseData);
-                                            videoDataItem.id = currentVideo;
+                                            videoDataItem.id = parsedData.id;
                                             videoDataItem.name = parsedData.name;
                                             setSourcesRequestOptions();
                                         }
@@ -129,6 +148,8 @@
                                             }
 
                                             videoDataArray.push(videoDataItem);
+
+                                            i++;
                                             if (i < iMax) {
                                                 getVideoInfo();
                                             } else {
@@ -138,14 +159,15 @@
                                         break;
                                     }
                                   } else {
-                                    alert("There was a problem with the request. Request returned " + httpRequest.status);
+                                    bclslog("There was a problem with the request. Request returned " + httpRequest.status);
                                   }
                                 }
                               }
                               catch(e) {
-                                alert('Caught Exception: ' + e);
+                                bclslog('Caught Exception: ' + e);
                               }
                         };
+                    bclslog('options', options);
                     // set up request data
                     requestData = "client_id=" + options.client_id + "&client_secret=" + options.client_secret + "&url=" + encodeURIComponent(options.url) + "&requestType=GET";
                     // set response handler
@@ -159,11 +181,7 @@
                 };
 
                 bclslog('videoIdArray', videoIdArray);
-                iMax = videoIdArray.length;
-                for (i = 0; i < iMax; i++) {
-                    currentVideo = videoIdArray[i];
-                    setVideoRequestOptions();
-                }
+                getVideoInfo();
 
             })(videoIdArray);
         </script>

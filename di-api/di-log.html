@@ -35,6 +35,12 @@
     <body>
         <h1>Dynamic Ingest Log</h1>
         <h2>Account: Brightcove Learning (57838016001)</h2>
+        <p>
+            Videos are listed in order of processing completion time, newest to oldest
+        </p>
+        <p>
+            <button id="clearLogBtn">Clear the log</button>
+        </p>
         <div id="videoLogBlock">
             <table>
                 <thead>
@@ -54,6 +60,7 @@
             var tr,
                 logBody = document.getElementById('logBody'),
                 loadingMessage = document.getElementById('loadingMessage'),
+                clearLogBtn = document.getElementById('clearLogBtn'),
                 i = 0,
                 iMax = videoIdArray.length,
                 proxyURL = 'https://solutions.brightcove.com/bcls/bcls-proxy/bcls-proxy.php',
@@ -67,6 +74,7 @@
                 setSourcesRequestOptions,
                 getVideoInfo,
                 writeReport,
+                clearLog,
                 bclslog;
 
                 /**
@@ -99,12 +107,12 @@
                     requestOptions.client_id = '553d4903-4547-435d-944c-2c8e2f6abc5d';
                     requestOptions.client_secret = 'ENBQH6pHfJQub7oR0SGCn2Pu_W2SY5QsVw24fK-frXcE6hdTRnJO-0_LBmKZh15rVliIAiECAQF1yBYP_l90gQ';
                     requestOptions.url = 'https://cms.api.brightcove.com/v1/accounts/57838016001/videos/' + currentVideo;
-                    submitRequest(requestOptions, 'video');
+                    submitRequest(requestOptions, proxyURL, 'video');
                 };
                 // function to set up video sources request
                 setSourcesRequestOptions = function () {
                     requestOptions.url = 'https://cms.api.brightcove.com/v1/accounts/57838016001/videos/' + currentVideo + '/sources';
-                    submitRequest(requestOptions, 'sources');
+                    submitRequest(requestOptions, proxyURL, 'sources');
                 };
 
                 // initiates the cms api requests
@@ -114,7 +122,7 @@
                 };
 
                 // function to make the cms api requests
-                submitRequest = function (options, type) {
+                submitRequest = function (options, url, type) {
                     var httpRequest = new XMLHttpRequest(),
                         requestData,
                         responseData,
@@ -173,13 +181,19 @@
                     // set response handler
                     httpRequest.onreadystatechange = getResponse;
                     // open the request
-                    httpRequest.open("POST", proxyURL);
+                    httpRequest.open("POST", url);
                     // set headers
                     httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                     // open and send request
                     httpRequest.send(requestData);
                 };
 
+                // event handlers
+                clearLogBtn.addEventListener('click' function () {
+                    if (window.confirm('Are you sure? This action cannot be undone!')) {
+                        window.href = 'clear-log.php';
+                    }
+                });
                 bclslog('videoIdArray', videoIdArray);
                 getVideoInfo();
 

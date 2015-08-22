@@ -135,39 +135,36 @@
                                     switch (type) {
                                         case "video":
                                         videoDataItem = {};
-                                        if (responseData.indexOf("TIMEOUT") > 0) {
-                                            t1 = setTimeout(setVideoRequestOptions, 1000);
-                                        } else {
-                                            parsedData = JSON.parse(responseData);
-                                            videoDataItem.id = parsedData.id;
-                                            videoDataItem.name = parsedData.name;
-                                            setSourcesRequestOptions();
-                                        }
+                                        parsedData = JSON.parse(responseData);
+                                        videoDataItem.id = parsedData.id;
+                                        videoDataItem.name = parsedData.name;
+                                        setSourcesRequestOptions();
                                         break;
                                         case "sources":
-                                        if (responseData.indexOf("TIMEOUT") > 0) {
-                                            t1 = setTimeout(setSourcesRequestOptions, 1000);
+                                        parsedData = JSON.parse(responseData);
+                                        if (parsedData.length > 0) {
+                                            videoDataItem.sources = parsedData.length;
                                         } else {
-                                            parsedData = JSON.parse(responseData);
-                                            if (parsedData.length > 0) {
-                                                videoDataItem.sources = parsedData.length;
-                                            } else {
-                                                videoDataItem.sources = '<span style="color:#990000">No renditions - ingest failed!</span>';
-                                            }
+                                            videoDataItem.sources = '<span style="color:#990000">No renditions - ingest failed!</span>';
+                                        }
 
-                                            videoDataArray.push(videoDataItem);
+                                        videoDataArray.push(videoDataItem);
 
-                                            i++;
-                                            if (i < iMax) {
-                                                getVideoInfo();
-                                            } else {
-                                                writeReport();
-                                            }
+                                        i++;
+                                        if (i < iMax) {
+                                            getVideoInfo();
+                                        } else {
+                                            writeReport();
                                         }
                                         break;
                                     }
                                   } else {
                                     bclslog("There was a problem with the request. Request returned " + httpRequest.status);
+                                    if (type === 'video') {
+                                        setVideoRequestOptions();
+                                    } else {
+                                        setSourcesRequestOptions();
+                                    }
                                   }
                                 }
                               }
@@ -189,9 +186,9 @@
                 };
 
                 // event handlers
-                clearLogBtn.addEventListener('click' function () {
+                clearLogBtn.addEventListener('click', function () {
                     if (window.confirm('Are you sure? This action cannot be undone!')) {
-                        window.href = 'clear-log.php';
+                        window.location.href = 'clear-log.php';
                     }
                 });
                 bclslog('videoIdArray', videoIdArray);

@@ -146,6 +146,7 @@
             selectedVideoURL,
             selectedProfile,
             videoName,
+            reference_id,
             // functions
             bclslog,
             submitRequest,
@@ -239,7 +240,7 @@
         };
         // set the CMS request data
         setCMSData = function () {
-            cms_requestBody.value = '{"name":"' + selectedVideo + '"}'
+            cms_requestBody.value = '{"name":"' + selectedVideo + '","reference_id":"' + reference_id + '"}'
         };
 
         // set DI request data
@@ -252,7 +253,8 @@
             var now = new Date().toISOString(),
                 video = getSelectedValue(videoSelector);
             bclslog('now', now);
-            selectedVideo = video.substring(video.lastIndexOf('/') + 1, video.length) + '_' + now;
+            selectedVideo = video.substring(video.lastIndexOf('/') + 1);
+            reference_id = now + '-' + selectedProfile;
             bclslog('selectedVideo', selectedVideo);
             return selectedVideo;
         };
@@ -266,6 +268,8 @@
         });
         profileSelector.addEventListener('change', function () {
             selectedProfile = getSelectedValue(profileSelector);
+            videoName = getVideoName();
+            setCMSData();
             setDIData();
         });
         cms_submit.addEventListener('click', setCMSOptions);

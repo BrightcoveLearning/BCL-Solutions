@@ -18,6 +18,7 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
         $client_secret = $("#client_secret"),
         client_id = "742d6440-58d1-49ed-b2fb-f60d33bf02ae",
         client_secret = "xs3vuzzKPz5fWHInsON26SXOL54X1GObFW70KylVqdVuIHdkqwqlCs9yVSCRF3i5u_0NcNb7MrzntCLaveZmeQ",
+        $totalVideos = $("#totalVideos"),
         $limitText = $("#limitText"),
         $offset = $("#offset"),
         $offsetText = $("#offsetText"),
@@ -130,7 +131,7 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
             item.publishedDate = parseInt(item.publishedDate);
             videoData[item.id] = item;
         }
-        if (videoCount < JSONdata.total_count) {
+        if ((videoCount < JSONdata.total_count && $totalVideos.val() === "all") || videoCount < $totalVideos.val()) {
             pageNumber++;
             getVideos();
         } else {

@@ -201,6 +201,7 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
             type: "POST",
             data: options,
             success: function (jsondata) {
+                bclslog("aapi call complete");
                 try {
                   var data = JSON.parse(jsondata);
                 } catch (e) {
@@ -306,7 +307,13 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
         minViews = $includeVideos.val();
     });
     // send request
-    $submitButton.on("click", getData);
+    $submitButton.on("click", function () {
+        // make the Media API calls
+        getVideos();
+        // generate initial request
+        buildRequest();
+        getData();
+    });
     // convert to csv
     $csvButton.on("click", jsonToCSV);
     // select all the data
@@ -315,10 +322,7 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
     });
     // set initial value of from
     from = now.valueOf() - mMonth;
-    // make the Media API calls
-    getVideos();
-    // generate initial request
-    buildRequest();
+
     return {
         buildRequest: buildRequest,
         onGetVideos: onGetVideos

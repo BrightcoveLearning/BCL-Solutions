@@ -26,8 +26,6 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
         $excludeMonths = $("#excludeMonths"),
         $includeVideos = $("#includeVideos"),
         $request = $("#request"),
-        $authorization = $("#authorization"),
-        $authorizationDisplay = $("#authorizationDisplay"),
         $submitButton = $("#submitButton"),
         $csvButton = $("#csvButton"),
         $selectData = $("#selectData"),
@@ -42,7 +40,6 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
         requestTrimmed = false,
         lastChar = "",
         requestURL = "",
-        authorization = "",
         i,
         len,
         minViews = $includeVideos.val(),
@@ -69,8 +66,8 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
     *************************/
     bclslog = function (context, message) {
         if (window["console"] && console["log"]) {
-          console.log(context, message);
-        };
+            console.log(context, message);
+        }
     };
 
     // implement array indexOf method for older browsers
@@ -99,7 +96,7 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
     // more robust test for strings "not defined"
     isDefined = function (v) {
         if (v === "" || v === null || v === undefined) {
-            return false
+            return false;
         }
         return true;
     };
@@ -113,6 +110,7 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
         params.sort_by = "PUBLISH_DATE:ASC";
         params.video_fields = "id,referenceId,name,publishedDate";
         params.get_item_count = true;
+        bclslog('params', params);
         BCMAPI.search(params);
 
     };
@@ -202,9 +200,9 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
             url: proxyURL,
             type: "POST",
             data: options,
-            success : function (data) {
+            success: function (jsondata) {
                 try {
-                  var data = JSON.parse(data);
+                  var data = JSON.parse(jsondata);
                 } catch (e) {
                   alert('invalid json');
                 }

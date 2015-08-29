@@ -102,7 +102,7 @@
                     loadingMessage.className = 'hidden';
                     for (j = 0; j < jMax; j++) {
                         item = videoDataArray[j];
-                        if (item.id !== undefined) {        
+                        if (item.id !== undefined) {
                             logBody.innerHTML += '<tr><td>' + item.id + '</td><td>' + item.name + '</td><td>' + item.reference_id + '</td><td>' + item.sources + '</td></tr>';
                         }
                     }
@@ -126,7 +126,7 @@
                         currentVideo = videoIdArray[i];
                         setVideoRequestOptions();
                     } else {
-                        loadingMessage.innerHTML = 'No videos have been ingested';
+                        loadingMessage.innerHTML = 'No videos have been ingested - you can add some using the <a href="./di-tester.html">Dynamic Ingest tester</a>';
                     }
                 };
 

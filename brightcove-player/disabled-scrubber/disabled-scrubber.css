@@ -1,0 +1,17 @@
+/***************************
+ * Disabled Scrubber       *
+ ***************************/
+/* hide the big play button */
+.vjs-big-play-button {
+    display: none;
+}
+/* turn off click events for the progress scrubber */
+.vjs-progress-control{
+    pointer-events: none;
+}
+/* hide the progress scrubber but keep the element spacing */
+/*
+.vjs-progress-control {
+    visibility: hidden;
+}
+*/

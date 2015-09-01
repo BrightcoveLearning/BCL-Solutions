@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+	<title>Social Media Plugin - Share Smart Player</title> 						
+					
+	<!-- Open Graph Sharing Metadata --> 
+    <meta property="og:site_name" content="Brightcove video"/> 
+    <meta property="og:title" content="Modus 550"/> 
+    <meta property="og:type" content="video"/>  
+
+    <meta property="og:url" content="http://bcove.me/0v82l995"/>
+    <meta property="og:image" content="https://bcsecure01-a.akamaihd.net/6/1752604059001/201502/2647/1752604059001_4029781944001_video-still-for-video-4029697544001.jpg?pubId=1752604059001" />
+     
+    <meta property="og:description" content="Modus 550"/>
+    
+<!--
+    <meta property="og:video" content="http://bcove.me/0v82l995"/>
+    <meta property="og:video:secure_url" content="https://bcove.me/0v82l995"/>
+    <meta property="og:video:width" content="480"/> 
+    <meta property="og:video:height" content="270"/> 
+    <meta property="og:video:type" content="application/x-shockwave-flash"/> 
+-->
+    
+    <!--    <meta property="og:url" content="http://solutions.brightcove.com/bcls/brightcove-player/social-plugin/social-media-custom.html"/>-->
+<!--    <meta property="og:image" content="http://brightcove.vo.llnwd.net/e1/pd/1752604059001/1752604059001_3851419503001_Tiger-th.jpg?pubId=1752604059001&videoId=3851380732001"/>-->
+
+    <!-- Twitter: card/meta-tags --> 
+    <meta name="twitter:card" content="player"/> 
+    <meta name="twitter:title" content="Tiger"/> 
+    <meta name="twitter:description" content="Tiger"/> 
+    <meta name="twitter:url" content="http://solutions.brightcove.com/bcls/brightcove-player/social-plugin/social-media-custom.html"/> 
+    <meta name="twitter:image" content="http://brightcove.vo.llnwd.net/e1/pd/1752604059001/1752604059001_3851419503001_Tiger-th.jpg?pubId=1752604059001&videoId=3851380732001"/> 
+    <meta name="twitter:player" content="https://players.brightcove.net/1752604059001/9c32355c-8bf6-4174-84f3-7567289adb74_default/index.html?videoId=3851380732001"/> 
+    <meta name="twitter:player:width" content="480"/> 
+    <meta name="twitter:player:height" content="270"/>		
+	
+	<style>
+		/* player dimensions */
+		.video-js {
+			width: 640px;
+            height: 360px;
+		}
+	</style>
+
+</head>
+
+<body>
+    
+    <video id="myPlayer"
+      data-video-id="4172255216001"
+      data-account="1752604059001"
+      data-player="86767278-c2c4-43fb-88fa-ff26c6b01837"
+      data-embed="default"
+      class="video-js" controls></video>
+    <script src="//players.brightcove.net/1752604059001/86767278-c2c4-43fb-88fa-ff26c6b01837_default/index.min.js"></script>
+    
+    <script type="text/javascript">
+
+        var myPlayer = videojs('myPlayer');
+
+        var options = {
+            "embedCode": "<iframe src='http://bcove.me/0v82l995'>"
+        };
+
+    myPlayer.social(options);
+	  
+  </script>
+
+
+
+</body>
+</html>

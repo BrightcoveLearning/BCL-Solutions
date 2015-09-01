@@ -51,7 +51,6 @@
     <!-- search -->
     <div id="searchModal" class="reveal-modal" data-reveal></div>
     <!-- content -->
-    <!-- content -->
     <div class="row">
         <div class="sidebar large-2 columns show-for-large-up">
             <div id="sidenav" class="side-nav"></div>
@@ -110,7 +109,7 @@
                             <legend>Caller for the Dynamic Ingest API</legend>
                             <p>Submits to http://solutions.brightcove.com:<strong>8004</strong></p>
                                     Call body (generated automatically - don't change it):<br />
-                                    <textarea name="requestBody" id="di_requestBody" readonly="true">{"master":{"url":"https://learning-services-media.brightcove.com/videos/mp4/Bird_Titmouse.mp4"},"profile":"high-resolution","callbacks": ["http://solutions.brightcove.com/bcls/di-api/callbacks-di.php"]}</textarea>
+                                    <textarea name="requestBody" id="di_requestBody" readonly="true"></textarea>
                                 </p>
                                 <p>
                                     Full request URL for the API call:<br />
@@ -202,7 +201,7 @@
         // set options for the Dynamic Ingest API request
         setDIOptions = function () {
             var options = {};
-            options.requestBody = cleanString(di_requestBody.value);
+            options.requestBody = cleanString(di_requestBody.innerHTML);
             options.requestType = requestType;
             options.url = di_url.value;
             bclslog("di options", options);
@@ -225,6 +224,7 @@
                         cms_response.innerHTML = data;
                         di_url.value = 'https://ingest.api.brightcove.com/v1/accounts/57838016001/videos/' + parsedData.id +'/ingest-requests';
                         bclslog(di_url.value);
+                        setDIData();
                         setDIOptions();
                         break;
                         case 'di':
@@ -251,7 +251,7 @@
 
         // set DI request data
         setDIData = function () {
-            di_requestBody.value = '{"master":{"url":"' + selectedVideoURL + '"},"profile":"' + selectedProfile + '","callbacks": ["http://solutions.brightcove.com/bcls/di-api/callbacks-di.php","http://solutions.brightcove.com/bcls/di-api/di-callbacks.php"]}'
+            di_requestBody.innerHTML = '{"master":{"url":"' + selectedVideoURL + '"},"profile":"' + selectedProfile + '","callbacks": ["http://solutions.brightcove.com/bcls/di-api/callbacks-di.php","http://solutions.brightcove.com/bcls/di-api/di-callbacks.php"]}'
         };
 
         // get the videoname from the path, append timestamp

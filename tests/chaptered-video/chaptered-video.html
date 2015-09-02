@@ -8,7 +8,7 @@
         </style>
     </head>
     <body>
-        <video style='width: 490px;height: 276px;'
+        <video style='width: 800px;height: 450px;'
   data-video-id="4457254747001"
   data-account="1752604059001"
   data-player="default"
@@ -20,44 +20,5 @@
 <script src="//players.brightcove.net/1752604059001/default_default/index.min.js"></script>
 
 
-        <!-- <script src="js/chaptered-video.js"></script> -->
-        <!-- <script>
-            videojs("myPlayerID").ready(function () {
-                var player = this,
-                    video,
-                    text_tracks,
-                    chapter_track;
-
-                function processChapters (chapter_track) {
-                    console.log('chapter_track', chapter_track);
-                    var chapterMenu = document.getElementsByClassName('vjs-menu-content');
-                        // i = chapter_track.cues.length,
-                        // menuItems = chapterMenu.childnodes;
-                    console.log('chapterMenu', chapterMenu);
-                    // console.log('menuItems', menuItems)
-                    while (i > 0) {
-
-                    }
-                }
-
-                player.on('loadedmetadata', function () {
-                    var i,
-                        chapter_track;
-                    text_tracks = player.textTracks();
-                    console.log('player', player);
-                    console.log('text_tracks', text_tracks)
-                    i = text_tracks.length;
-                    console.log("i", i);
-                    while (i > 0) {
-                        i--;
-                        if (text_tracks[i].kind === 'chapters') {
-                            chapter_track = text_tracks[i];
-                            break;
-                        }
-                    }
-                    processChapters(chapter_track);
-                });
-            });
-        </script> -->
     </body>
 </html>

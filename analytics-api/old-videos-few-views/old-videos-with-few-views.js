@@ -19,7 +19,7 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
         client_id = "742d6440-58d1-49ed-b2fb-f60d33bf02ae",
         client_secret = "xs3vuzzKPz5fWHInsON26SXOL54X1GObFW70KylVqdVuIHdkqwqlCs9yVSCRF3i5u_0NcNb7MrzntCLaveZmeQ",
         $totalVideos = $("#totalVideos"),
-        $limitText = $("#limitText"),
+        // $limitText = $("#limitText"),
         $offset = $("#offset"),
         $offsetText = $("#offsetText"),
         $fromMonths = $("#fromMonths"),
@@ -102,14 +102,19 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
     };
     // get videos via MAPI
     getVideos = function () {
+        var totalVideos = $totalVideos.val();
+        bclslog('totalVideos', totalVideos);
         BCMAPI.url = isDefined($readApiLocation.val()) ? $readApiLocation.val() : 'http://api.brightcove.com/services/library';
         BCMAPI.callback = "BCLS.onGetVideos";
         BCMAPI.token = isDefined($mapitoken.val()) ? $mapitoken.val() : 'v87kWelIdjUwVm7_Rzv09k-KqtLz-ty8ONbMxVYAI7-Q0eOilegqqg..';
         params.page_number = pageNumber;
-        params.page_size = isDefined($limitText.val()) ? $limitText.val() : 10;
+        params.page_size = (totalVideos !== "all" && totalVideos < 101) ? totalVideos : 25;
         params.sort_by = "PUBLISH_DATE:ASC";
         params.video_fields = "id,referenceId,name,publishedDate";
-        params.get_item_count = true;
+        if (totalVideos !== "all") {
+            params.get_item_count = true;
+        }
+
         bclslog('params', params);
         BCMAPI.search(params);
 
@@ -124,18 +129,20 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
             itemsMax = 0;
         }
         videoCount += itemsMax;
+        bclslog('videoCount', videoCount);
         for (i = 0; i < itemsMax; i++) {
             item = JSONdata.items[i];
             item.publishedDate = parseInt(item.publishedDate);
             videoData[item.id] = item;
         }
-        if ((videoCount < JSONdata.total_count && $totalVideos.val() === "all") || videoCount < $totalVideos.val()) {
+        if ((totalVideos === 'all' && videoCount < JSONdata.total_count) || videoCount < totalVideos) {
             pageNumber++;
+            bclslog('pageNumber', pageNumber);
             getVideos();
         } else {
-            $limitText.val(videoCount);
-            $submitButton.html("Generate Report");
-            $submitButton.on("click", getData);
+            // $limitText.val(videoCount);
+            // $submitButton.html("Generate Report");
+            // $submitButton.on("click", getData);
             buildRequest();
         }
     };
@@ -171,8 +178,8 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
         requestURL += "/data?accounts=" + account_id + "&dimensions=video";
         requestURL += "&from=" + from;
         // check for limit and offset
-        if ($limitText.val() !== "") {
-            requestURL += "&limit=" + removeSpaces($limitText.val());
+        if ($totalVideos.val() !== "") {
+            requestURL += "&limit=" + removeSpaces($totalVideos.val());
         }
         if ($offsetText.val() !== "") {
             requestURL += "&offset=" + removeSpaces($offsetText.val());
@@ -287,9 +294,9 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
     });
     $mapitoken.on("change", function () {
         videoData = {};
-        getVideos();
-        $submitButton.html("Getting video data...please wait...");
-        $submitButton.off("click", getData);
+        // getVideos();
+        // $submitButton.html("Getting video data...please wait...");
+        // $submitButton.off("click", getData);
     });
     // listener for videos request
     $requestInputs.on("change", buildRequest);
@@ -314,6 +321,8 @@ var BCLS = (function ($, window, BCMAPI, Handlebars, BCLSformatJSON) {
         buildRequest();
         getData();
     });
+    // handler for totalVideos change
+    $totalVideos.on('click', getVideos);
     // convert to csv
     $csvButton.on("click", jsonToCSV);
     // select all the data

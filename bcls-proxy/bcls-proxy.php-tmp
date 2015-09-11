@@ -83,7 +83,7 @@ curl_close($ch);
 
 // Check for errors
 if ($response === FALSE) {
-	$logEntry = "\nError:\n".date("Y-m-d H:i:s")\n." UTC ".$response;
+	$logEntry        = "\nError:\n".date("Y-m-d H:i:s")\n." UTC ".$response;
 	$logFileLocation = "log.txt";
 	$fileHandle      = fopen($logFileLocation, 'a') or die("-1");
 	fwrite($fileHandle, $logEntry);

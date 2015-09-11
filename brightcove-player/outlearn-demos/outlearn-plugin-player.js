@@ -38,9 +38,9 @@ videojs("myPlayerID").one('loadedmetadata', function () {
         playlistWrapper.appendChild(playlistItem);
     }
     // function to load playlist items on click
-    function loadPlaylistItem () {
+    function loadPlaylistItem() {
         var index = this.getAttribute('data-playlist-index');
-        myPlayer.playlist.currentItem(parseInt(index));
+        myPlayer.playlist.currentItem(parseInt(index, 10));
         myPlayer.play();
     };
     playlistItems = document.getElementsByClassName('bcls-thumbnail');

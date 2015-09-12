@@ -1,7 +1,5 @@
-var myPlayer,
-    playlistWrapper = document.getElementById('playlistWrapper');
 // handle loadedmetadata just once, it fires again with each video load
-videojs("myPlayerID").one('loadedmetadata', function () {
+videojs('myPlayerID').one('loadedmetadata', function () {
     var myPlayer = this,
         playerEl = myPlayer.el(),
         playerParent = playerEl.parentNode,
@@ -42,7 +40,7 @@ videojs("myPlayerID").one('loadedmetadata', function () {
         var index = this.getAttribute('data-playlist-index');
         myPlayer.playlist.currentItem(parseInt(index, 10));
         myPlayer.play();
-    };
+    }
     playlistItems = document.getElementsByClassName('bcls-thumbnail');
     iMax = playlistItems.length;
     for (i = 0; i < iMax; i++) {

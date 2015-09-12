@@ -129,14 +129,14 @@
 				requestBody = '{"description":"' + item.description + '","reference_id":"' + item.reference_id + '","long_description":"' + item.long_description + '"}';
 				console.log("requestBody", requestBody);
 				// display the request URL
-				apiRequest_field.innerHTML = apiRequest;
+				apiRequest_field.textContent = apiRequest;
 				submitRequest();
 			}
 
 		}
 		// function to set the request
 		logResponse = function (data) {
-			response.innerHTML += data + "<br />"
+			response.textContent += data + "\n"
 		}
 		// function to make API request
 		submitRequest = function () {

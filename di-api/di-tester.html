@@ -221,24 +221,24 @@
                     parsedData = JSON.parse(data);
                     switch (type) {
                         case 'cms':
-                        cms_response.innerHTML = data;
+                        cms_response.textContent = data;
                         di_url.value = 'https://ingest.api.brightcove.com/v1/accounts/57838016001/videos/' + parsedData.id +'/ingest-requests';
                         bclslog(di_url.value);
                         setDIData();
                         setDIOptions();
                         break;
                         case 'di':
-                        di_response.innerHTML = data;
+                        di_response.textContent = data;
                         break;
                     }
                 },
                 error : function (XMLHttpRequest, textStatus, errorThrown) {
                     switch (type) {
                         case "cms":
-                        cms_response.innerHTML = "The called failed; here's what the server sent back: " + errorThrown;
+                        cms_response.textContent = "The called failed; here's what the server sent back: " + errorThrown;
                         break;
                         case "di":
-                        di_response.innerHTML = "The called failed; here's what the server sent back: " + errorThrown;
+                        di_response.textContent = "The called failed; here's what the server sent back: " + errorThrown;
                         break;
                     }
                 }
@@ -251,7 +251,7 @@
 
         // set DI request data
         setDIData = function () {
-            di_requestBody.innerHTML = '{"master":{"url":"' + selectedVideoURL + '"},"profile":"' + selectedProfile + '","callbacks": ["http://solutions.brightcove.com/bcls/di-api/callbacks-di.php","http://solutions.brightcove.com/bcls/di-api/di-callbacks.php"]}'
+            di_requestBody.textContent = '{"master":{"url":"' + selectedVideoURL + '"},"profile":"' + selectedProfile + '","callbacks": ["http://solutions.brightcove.com/bcls/di-api/callbacks-di.php","http://solutions.brightcove.com/bcls/di-api/di-callbacks.php"]}'
         };
 
         // get the videoname from the path, append timestamp

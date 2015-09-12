@@ -202,7 +202,7 @@
                 });
                 return {
                     primaryCallResponse: function(jsonData) {
-                        document.getElementById(currentFilter).innerHTML = jsonData.total_count;
+                        document.getElementById(currentFilter).textContent = jsonData.total_count;
                         totalVideos += jsonData.total_count;
                         totalCalls = Math.ceil(jsonData.total_count / secondaryParams.page_size);
                         callNumber = 0;

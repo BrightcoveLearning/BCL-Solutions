@@ -268,7 +268,7 @@
             $token.on("change", function () {
                 primaryCallMade = false;
                 $runButton.text("Run report");
-                document.getElementById("response").innerHTML = "";
+                document.getElementById("response").textContent = "";
             });
             $selectData.on("click", function () {
                 document.getElementById("response").select();
@@ -277,7 +277,7 @@
             return {
                 primaryCallResponse: function (jsonData) {
                     if (primaryCallMade === false) {
-                        document.getElementById(currentFilter).innerHTML = jsonData.total_count;
+                        document.getElementById(currentFilter).textContent = jsonData.total_count;
                         totalVideos += jsonData.total_count;
                         totalCalls = Math.ceil(jsonData.total_count / secondaryParams.page_size);
                         remainingCalls = totalCalls;

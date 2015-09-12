@@ -82,7 +82,7 @@
 
       printResults = function () {
         var results = document.getElementById("results");
-        results.innerHTML = JSON.stringify(videoData, null, "  ");
+        results.textContent = JSON.stringify(videoData, null, "  ");
       }
       processData();
     </script>

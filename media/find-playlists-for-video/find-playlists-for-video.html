@@ -240,7 +240,7 @@
         //console.log(jsonData);
 
 		// output request to retrieve videos
-        document.getElementById("mapiRequest1").innerHTML = BCMAPI.request;
+        document.getElementById("mapiRequest1").textContent = BCMAPI.request;
 
 		// create the video list and format in HTML
 		var str = "";
@@ -292,10 +292,10 @@
 			BCL.params.media_delivery = "default";
 			BCL.params.get_item_count = true;
 			BCMAPI.find(BCL.method,BCL.params);
-			document.getElementById("errorMsg").innerHTML = "";
+			document.getElementById("errorMsg").textContent = "";
 		} else {
 			document.getElementById("totalItems").value = 0;
-			document.getElementById("errorMsg").innerHTML = "Please select a video from the drop-down menu before selecting the <strong>Search for Playlists</strong> button.";
+			document.getElementById("errorMsg").innerHTML = "Please select a video from the drop-down menu before selecting the Search for Playlists button.";
 		}
       }
 
@@ -324,7 +324,7 @@
 		jsonData.items = jsonData.items.filter(function() { return true; }); // works with JS 1.6 and above
 
 		// output request and response
-        document.getElementById("mapiRequest2").innerHTML = BCMAPI.request;
+        document.getElementById("mapiRequest2").textContent = BCMAPI.request;
 		console.log(jsonData);
 		if (jsonData.items) {
 			document.getElementById("totalItems").value = jsonData.items.length;
@@ -333,7 +333,7 @@
 			jsonData.total_count = jsonData.items.length;
 		}
 
-        document.getElementById("mapiResponse").innerHTML = JSON.stringify(jsonData,null,2);
+        document.getElementById("mapiResponse").textContent = JSON.stringify(jsonData,null,2);
 		// create HTML from response and output using Handlebars
         var template = Handlebars.compile(BCL.htmlTemplate);
         var data = jsonData;

@@ -238,7 +238,7 @@
 						retries = 0,
 						totalCalls = 0,
                     	callNumber = 0,
-						document.getElementById("response").innerHTML = "";
+						document.getElementById("response").textContent = "";
 						responseBody = "";
 					};
 
@@ -256,7 +256,7 @@
 
                 return {
                     primaryCallResponse: function(jsonData) {
-                        document.getElementById(currentFilter).innerHTML = jsonData.total_count;
+                        document.getElementById(currentFilter).textContent = jsonData.total_count;
                         totalVideos += jsonData.total_count;
                         totalCalls = Math.ceil(jsonData.total_count / secondaryParams.page_size);
                         callNumber = 0;

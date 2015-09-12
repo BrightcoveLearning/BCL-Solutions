@@ -235,7 +235,7 @@
 	  BCL.onPlaylistResponse = function(jsonData) {
         //console.log(jsonData);
 		// output request to retrieve videos
-        document.getElementById("mapiRequest1").innerHTML = BCMAPI.request;
+        document.getElementById("mapiRequest1").textContent = BCMAPI.request;
 
 		// create the playlist item list and write it into the HTML
 		var str = "";
@@ -280,9 +280,9 @@
 			BCL.params.video_fields = getSelectValues(document.getElementById("videoFields")).join();
 			BCL.params.media_delivery = BCL.mediaDelivery.options[BCL.mediaDelivery.selectedIndex].value;
 			BCMAPI.find(BCL.method,BCL.params);
-			document.getElementById("errorMsg").innerHTML = "";
+			document.getElementById("errorMsg").textContent = "";
 		} else {
-			document.getElementById("errorMsg").innerHTML = "Please select a playlist from the drop-down menu before selecting the <strong>Return Playlist Data</strong> button.";
+			document.getElementById("errorMsg").textContent = "Please select a playlist from the drop-down menu before selecting the Return Playlist Data button.";
 		}
       }
 
@@ -291,8 +291,8 @@
 		//console.log(jsonData);
 
 		// output request and response
-        document.getElementById("mapiRequest2").innerHTML = BCMAPI.request;
-        document.getElementById("mapiResponse").innerHTML = JSON.stringify(jsonData,null,2);
+        document.getElementById("mapiRequest2").textContent = BCMAPI.request;
+        document.getElementById("mapiResponse").textContent = JSON.stringify(jsonData,null,2);
 		// create HTML from response and output using Handlebars
         var template = Handlebars.compile(BCL.htmlTemplate);
         var data = jsonData;

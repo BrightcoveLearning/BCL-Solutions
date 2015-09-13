@@ -36,6 +36,7 @@ videojs.plugin('customPlaylist', function (options) {
             console.log('iMax', iMax);
             for (i = 0; i < iMax; i++) {
                 playlistItems[i].className = 'bcls-thumbnail';
+                console.log('playlistItem' playlistItems[i]);
             }
         }
 

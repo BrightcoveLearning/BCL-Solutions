@@ -1,17 +1,17 @@
 curl \
   --header "Content-Type: application/json" \
-  --user rcrooks@brightcove.com \
+  --user rcrooks@brightcove.com:MA55comm \
   --request PATCH \
   --data '{
     "stylesheets": [
       "http://solutions.brightcove.com/bcls/brightcove-player/custom-playlist/custom-playlist.css"
     ],
     "scripts": [
-      "http://solutions.brightcove.com/bcls/brightcove-player/custom-playlist/custom-playlist..js"
+      "http://solutions.brightcove.com/bcls/brightcove-player/custom-playlist/custom-playlist.js"
     ],
     "plugins": [{
-      "name": "pluginDev",
+      "name": "customPlaylist",
       "options": {"overlayText": "This data supplied at initialization"}
     }]
   }' \
-  https://players.api.brightcove.com/v1/accounts/$ACCOUNT_ID/players/58dc85c9-b82e-45a2-8f5d-4202505660d9/configuration
+  https://players.api.brightcove.com/v1/accounts/1752604059001/players/58dc85c9-b82e-45a2-8f5d-4202505660d9/configuration

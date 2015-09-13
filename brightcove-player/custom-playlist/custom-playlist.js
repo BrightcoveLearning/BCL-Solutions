@@ -13,7 +13,9 @@ videojs.plugin('customPlaylist', function() {
             thumbnailImg,
             playlistData = myPlayer.playlist(),
             videoItem;
-        // function to clear highlighting of list items
+        /**
+         * removes highlight from all playlist items
+         */
         function clearHighlight() {
             iMax = playlistItems.length;
             for (i = 0; i < iMax; i++) {
@@ -21,15 +23,21 @@ videojs.plugin('customPlaylist', function() {
             }
         }
 
-        // function to set highlight
+        /**
+         * highlights the current playlist item
+         */
         function setHighlight() {
             playlistItems[myPlayer.currentItem()].setAttribute('class', 'bcls-highlight');
         }
 
-        // function to load playlist items on click
+        /**
+         * loads a playlist item that was clicked on
+         */
         function loadPlaylistItem() {
             var index = this.getAttribute('data-playlist-index');
             myPlayer.playlist.currentItem(parseInt(index, 10));
+            clearHighlight();
+            setHighlight();
             myPlayer.play();
         }
         console.log(myPlayer.playlist());
@@ -59,6 +67,9 @@ videojs.plugin('customPlaylist', function() {
         iMax = playlistItems.length;
         for (i = 0; i < iMax; i++) {
             playlistItems[i].addEventListener('click', loadPlaylistItem);
+        }
+        if (iMax > 0) {
+            setHighlight();
         }
     });
 });

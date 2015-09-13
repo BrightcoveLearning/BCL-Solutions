@@ -11,7 +11,7 @@ curl \
     ],
     "plugins": [{
       "name": "customPlaylist",
-      "options": {"width": 528}
+      "options": {"width": 512}
     }]
   }' \
   https://players.api.brightcove.com/v1/accounts/1752604059001/players/58dc85c9-b82e-45a2-8f5d-4202505660d9/configuration

@@ -11,17 +11,23 @@
     display: inline-block;
     padding: 0;
     margin: 0;
-    width: 132px;
+    width: 128px;
 }
 .bcls-thumbnail {
     width: 124px;
     height: 66px;
-    border: 4px solid #141B17;
+    border-top: 4px solid #141B17;
+    border-bottom: 4px solid #141B17;
+    border-left: 2px solid #141B17;
+    border-right: 2px solid #141B17;
     cursor: pointer;
 }
 .bcls-highlight {
     width: 124px;
     height: 66px;
-    border: 4px solid #F1DE27;
+    border-top: 4px solid #F1DE27;
+    border-bottom: 4px solid #F1DE27;
+    border-left: 2px solid #F1DE27;
+    border-right: 2px solid #F1DE27;
     cursor: pointer;
 }

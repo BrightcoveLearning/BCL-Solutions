@@ -36,7 +36,7 @@ videojs.plugin('customPlaylist', function (options) {
                 iMax = playlistItems.length;
             console.log('iMax', iMax);
             for (i = 0; i < iMax; i++) {
-                playlistItems[i].className = 'bcls-thumbnail';
+                playlistItems[i].setAttribute('style', '');
                 console.log('playlistItem', playlistItems[i]);
             }
         }
@@ -47,7 +47,7 @@ videojs.plugin('customPlaylist', function (options) {
         function setHighlight() {
             var index = myPlayer.playlist.currentItem();
             console.log('index', index);
-            playlistItems[index].setAttribute('class', 'bcls-highlight');
+            playlistItems[index].setAttribute('style', 'background-color:#F1DE27;');
         }
 
         /**

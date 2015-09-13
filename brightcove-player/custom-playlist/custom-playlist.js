@@ -1,4 +1,4 @@
-videojs.plugin('customPlaylist', function() {
+videojs.plugin('customPlaylist', function () {
     var myPlayer = this;
     // handle loadedmetadata just once, it fires again with each video load
     myPlayer.one('loadedmetadata', function () {

@@ -50,8 +50,8 @@ videojs.plugin('customPlaylist', function (options) {
          * loads a playlist item that was clicked on
          */
         function loadPlaylistItem() {
-            var index = this.getAttribute('data-playlist-index');
-            myPlayer.playlist.currentItem(parseInt(index, 10));
+            var index = parseInt(this.getAttribute('data-playlist-index'), 10);
+            myPlayer.playlist.currentItem(index);
             clearHighlight();
             setHighlight(index);
             myPlayer.play();

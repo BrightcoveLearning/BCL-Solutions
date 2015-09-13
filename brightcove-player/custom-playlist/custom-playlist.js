@@ -1,6 +1,6 @@
-videojs.plugin('customPlaylist', function (options) {
+videojs.plugin('customPlaylist', function(options) {
     var myPlayer = this,
-        defaults = {width: "500"},
+        defaults = {width: 500},
         playlistItems;
 
     /**
@@ -15,7 +15,7 @@ videojs.plugin('customPlaylist', function (options) {
         return true;
     }
     // handle loadedmetadata just once, it fires again with each video load
-    myPlayer.one('loadedmetadata', function () {
+    myPlayer.one('loadedmetadata', function() {
         var playerEl = myPlayer.el(),
             playerParent = playerEl.parentNode,
             i,
@@ -56,8 +56,6 @@ videojs.plugin('customPlaylist', function (options) {
         function loadPlaylistItem() {
             var index = parseInt(this.getAttribute('data-playlist-index'), 10);
             myPlayer.playlist.currentItem(index);
-            clearHighlight();
-            setHighlight(index);
             myPlayer.play();
         }
         console.log(myPlayer.playlist());
@@ -91,6 +89,12 @@ videojs.plugin('customPlaylist', function (options) {
             playlistItem.appendChild(thumbnailImg);
             playlistWrapper.appendChild(playlistItem);
         }
+
+        // highlight playlist item when new video starts
+        myPlayer.on('play', function(){
+            clearHighlight();
+            setHighlight();
+        });
         // set click listeners on playlist items
         playlistItems = document.getElementsByClassName('bcls-thumbnail');
         iMax = playlistItems.length;

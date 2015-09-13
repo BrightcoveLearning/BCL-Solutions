@@ -1,19 +1,18 @@
 videojs.plugin('customPlaylist', function (options) {
     var myPlayer = this,
-        defaults = {width: "500"},
-        playerWidth = (isDefined(options.width)) ? options.width : defaults.width,
-        playerHeight = (9 / 16) * playerWidth;
-        /**
-         * tests for all the ways a variable might be undefined or not have a value
-         * @param {*} x the variable to test
-         * @return {Boolean} true if variable is defined and has a value
-         */
-        function isDefined(x){
-            if ( x === "" || x === null || x === undefined || x === NaN) {
-                return false;
-            }
-            return true;
+        defaults = {width: "500"};
+
+    /**
+     * tests for all the ways a variable might be undefined or not have a value
+     * @param {*} x the variable to test
+     * @return {Boolean} true if variable is defined and has a value
+     */
+    function isDefined(x) {
+        if (x === "" || x === null || x === undefined || x === NaN) {
+            return false;
         }
+        return true;
+    }
     // handle loadedmetadata just once, it fires again with each video load
     myPlayer.one('loadedmetadata', function () {
         var playerEl = myPlayer.el(),
@@ -26,8 +25,9 @@ videojs.plugin('customPlaylist', function (options) {
             playlistItems,
             thumbnailImg,
             playlistData = myPlayer.playlist(),
-            videoItem;
-
+            videoItem,
+            playerWidth = (isDefined(options.width)) ? options.width : defaults.width,
+            playerHeight = (9 / 16) * playerWidth;
         /**
          * removes highlight from all playlist items
          */

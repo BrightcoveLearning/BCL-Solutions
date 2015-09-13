@@ -44,6 +44,7 @@ videojs.plugin('customPlaylist', function (options) {
          * @param {integer} index - item to highlight
          */
         function setHighlight(index) {
+            console.log('currentItem', myPlayer.playlist.currentItem());
             playlistItems[index - 1].setAttribute('class', 'bcls-highlight');
         }
 
@@ -96,7 +97,7 @@ videojs.plugin('customPlaylist', function (options) {
         }
         // initially highlight the first item
         if (iMax > 0) {
-            setHighlight(0);
+            setHighlight(1);
         }
     });
 });

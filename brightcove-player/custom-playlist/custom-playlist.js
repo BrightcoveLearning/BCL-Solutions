@@ -56,13 +56,17 @@ videojs.plugin('customPlaylist', function (options) {
             myPlayer.play();
         }
         console.log(myPlayer.playlist());
+        // add styles to wrapper and player and playlist wrapper
+        playerWrapper.setAttribute('style', 'width:' + playerWidth);
+        playerEl.setAttribute('style', 'width:100%;height:' + playerHeight);
+        playlistWrapper.setAttribute('class', 'bcls-playlist');
         // insert a div to wrap the player and playlist before the player
         playerParent.insertBefore(playerWrapper, playerEl);
         // now append the player to the new div
         playerWrapper.appendChild(playerEl);
         // append the playlist wrapper to the new div
         playerWrapper.appendChild(playlistWrapper);
-        // add class to the playlist wrapper
+        // build the playlist items
         iMax = playlistData.length;
         for (i = 0; i < iMax; i++) {
             videoItem = playlistData[i];
@@ -82,11 +86,13 @@ videojs.plugin('customPlaylist', function (options) {
             playlistItem.appendChild(thumbnailImg);
             playlistWrapper.appendChild(playlistItem);
         }
+        // set click listeners on playlist items
         playlistItems = document.getElementsByClassName('bcls-thumbnail');
         iMax = playlistItems.length;
         for (i = 0; i < iMax; i++) {
             playlistItems[i].addEventListener('click', loadPlaylistItem);
         }
+        // initially highlight the first item
         if (iMax > 0) {
             setHighlight();
         }

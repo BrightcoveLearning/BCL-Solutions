@@ -57,8 +57,8 @@ videojs.plugin('customPlaylist', function (options) {
         }
         console.log(myPlayer.playlist());
         // add styles to wrapper and player and playlist wrapper
-        playerWrapper.setAttribute('style', 'width:' + playerWidth);
-        playerEl.setAttribute('style', 'width:100%;height:' + playerHeight);
+        playerWrapper.setAttribute('style', 'width:' + playerWidth + 'px;');
+        playerEl.setAttribute('style', 'width:100%;height:' + playerHeight + 'px;');
         playlistWrapper.setAttribute('class', 'bcls-playlist');
         // insert a div to wrap the player and playlist before the player
         playerParent.insertBefore(playerWrapper, playerEl);

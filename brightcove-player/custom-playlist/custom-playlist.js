@@ -40,9 +40,10 @@ videojs.plugin('customPlaylist', function (options) {
 
         /**
          * highlights the current playlist item
+         * @param {integer} index - item to highlight
          */
-        function setHighlight() {
-            playlistItems[myPlayer.playlist.currentItem()].setAttribute('class', 'bcls-highlight');
+        function setHighlight(index) {
+            playlistItems[index].setAttribute('class', 'bcls-highlight');
         }
 
         /**
@@ -52,7 +53,7 @@ videojs.plugin('customPlaylist', function (options) {
             var index = this.getAttribute('data-playlist-index');
             myPlayer.playlist.currentItem(parseInt(index, 10));
             clearHighlight();
-            setHighlight();
+            setHighlight(index);
             myPlayer.play();
         }
         console.log(myPlayer.playlist());
@@ -94,7 +95,7 @@ videojs.plugin('customPlaylist', function (options) {
         }
         // initially highlight the first item
         if (iMax > 0) {
-            setHighlight();
+            setHighlight(0);
         }
     });
 });

@@ -27,7 +27,7 @@ videojs.plugin('customPlaylist', function () {
          * highlights the current playlist item
          */
         function setHighlight() {
-            playlistItems[myPlayer.currentItem()].setAttribute('class', 'bcls-highlight');
+            playlistItems[myPlayer.playlist.currentItem()].setAttribute('class', 'bcls-highlight');
         }
 
         /**
@@ -41,9 +41,13 @@ videojs.plugin('customPlaylist', function () {
             myPlayer.play();
         }
         console.log(myPlayer.playlist());
+        // insert a div to wrap the player and playlist before the player
         playerParent.insertBefore(playerWrapper, playerEl);
+        // now append the player to the new div
         playerWrapper.appendChild(playerEl);
+        // append the playlist wrapper to the new div
         playerWrapper.appendChild(playlistWrapper);
+        // add class to the playlist wrapper
         iMax = playlistData.length;
         for (i = 0; i < iMax; i++) {
             videoItem = playlistData[i];

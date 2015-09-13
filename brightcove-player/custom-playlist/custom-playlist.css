@@ -1,5 +1,13 @@
-.bcls-playlist {
+.bcls-player-wrapper {
     width: 500px;
+    height: 350px;
+}
+.bcls-player {
+    width: 100%;
+    height: 281px;
+}
+.bcls-playlist {
+    width: 100%;
     height: 74px;
     overflow-x: scroll;
     overflow-y: hidden;

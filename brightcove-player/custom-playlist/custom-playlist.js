@@ -33,6 +33,7 @@ videojs.plugin('customPlaylist', function (options) {
          */
         function clearHighlight() {
             iMax = playlistItems.length;
+            console.log('iMax', iMax);
             for (i = 0; i < iMax; i++) {
                 playlistItems[i].setAttribute('class', 'bcls-thumbnail');
             }
@@ -43,7 +44,7 @@ videojs.plugin('customPlaylist', function (options) {
          * @param {integer} index - item to highlight
          */
         function setHighlight(index) {
-            playlistItems[index].setAttribute('class', 'bcls-highlight');
+            playlistItems[index - 1].setAttribute('class', 'bcls-highlight');
         }
 
         /**

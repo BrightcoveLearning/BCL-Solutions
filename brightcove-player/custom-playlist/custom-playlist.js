@@ -26,7 +26,7 @@ videojs.plugin('customPlaylist', function (options) {
                 return false;
             }
             return true;
-        };
+        }
 
         /**
          * removes highlight from all playlist items

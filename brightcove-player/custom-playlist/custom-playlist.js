@@ -32,11 +32,12 @@ videojs.plugin('customPlaylist', function (options) {
          * removes highlight from all playlist items
          */
         function clearHighlight() {
-            iMax = playlistItems.length;
+            var i,
+                iMax = playlistItems.length;
             console.log('iMax', iMax);
             for (i = 0; i < iMax; i++) {
                 playlistItems[i].className = 'bcls-thumbnail';
-                console.log('playlistItem' playlistItems[i]);
+                console.log('playlistItem', playlistItems[i]);
             }
         }
 
@@ -45,6 +46,7 @@ videojs.plugin('customPlaylist', function (options) {
          */
         function setHighlight() {
             var index = myPlayer.playlist.currentItem();
+            console.log('index', index);
             playlistItems[index].setAttribute('class', 'bcls-highlight');
         }
 

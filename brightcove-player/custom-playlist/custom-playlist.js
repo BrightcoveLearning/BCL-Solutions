@@ -1,6 +1,7 @@
 videojs.plugin('customPlaylist', function (options) {
     var myPlayer = this,
-        defaults = {width: "500"};
+        defaults = {width: "500"},
+        playlistItems;
 
     /**
      * tests for all the ways a variable might be undefined or not have a value
@@ -22,7 +23,6 @@ videojs.plugin('customPlaylist', function (options) {
             playerWrapper = document.createElement('div'),
             playlistWrapper = document.createElement('div'),
             playlistItem,
-            playlistItems,
             thumbnailImg,
             playlistData = myPlayer.playlist(),
             videoItem,

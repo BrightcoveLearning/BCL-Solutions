@@ -4,14 +4,14 @@ curl \
   --request PATCH \
   --data '{
     "stylesheets": [
-      "http://solutions.brightcove.com/bcls/video-js/new-player/plugins-doc-samples/plugin-dev.css"
+      "http://solutions.brightcove.com/bcls/brightcove-player/custom-playlist/custom-playlist.css"
     ],
     "scripts": [
-      "http://solutions.brightcove.com/bcls/video-js/new-player/plugins-doc-samples/plugin-dev.js"
+      "http://solutions.brightcove.com/bcls/brightcove-player/custom-playlist/custom-playlist..js"
     ],
     "plugins": [{
       "name": "pluginDev",
       "options": {"overlayText": "This data supplied at initialization"}
     }]
   }' \
-  https://players.api.brightcove.com/v1/accounts/$ACCOUNT_ID/players/$PLAYER_ID/configuration
+  https://players.api.brightcove.com/v1/accounts/$ACCOUNT_ID/players/58dc85c9-b82e-45a2-8f5d-4202505660d9/configuration

@@ -49,7 +49,7 @@ videojs.plugin('customPlaylist', function (options) {
             playlistWrapper.scrollLeft = 0;
             i = 0;
             // crude animation for playlist scrolling
-            intervalId = window.setInterval(listScroller, 100);
+            intervalId = window.setInterval(listScroller, 10);
         }
 
         /**

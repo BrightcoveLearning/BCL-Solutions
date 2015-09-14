@@ -49,7 +49,6 @@ videojs.plugin('customPlaylist', function (options) {
          * scroll playlist to selected item
          */
         function scrollPlaylist() {
-            playlistWrapper.scrollLeft = 0;
             i = 0;
             // crude animation for playlist scrolling
             intervalId = window.setInterval(listScroller, 5);

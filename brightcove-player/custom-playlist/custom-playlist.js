@@ -1,4 +1,4 @@
-videojs.plugin('customPlaylist', function(options) {
+videojs.plugin('customPlaylist', function (options) {
     var myPlayer = this,
         defaults = {width: 500},
         playlistItems;
@@ -15,7 +15,7 @@ videojs.plugin('customPlaylist', function(options) {
         return true;
     }
     // handle loadedmetadata just once, it fires again with each video load
-    myPlayer.one('loadedmetadata', function() {
+    myPlayer.one('loadedmetadata', function () {
         var playerEl = myPlayer.el(),
             playerParent = playerEl.parentNode,
             i,
@@ -33,8 +33,9 @@ videojs.plugin('customPlaylist', function(options) {
          * crude animation for playlist scrolling
          */
         function listScroller() {
+            var index = myPlayer.playlist.currentItem();
             playlistWrapper.scrollLeft = index * 1;
-            i++
+            i++;
             if (i === 128) {
                 window.clearInterval(intervalId);
             }
@@ -44,8 +45,7 @@ videojs.plugin('customPlaylist', function(options) {
          * scroll playlist to selected item
          */
         function scrollPlaylist() {
-            var index = myPlayer.playlist.currentItem(),
-                intervalId;
+            var intervalId;
             playlistWrapper.scrollLeft = 0;
             i = 0;
             // crude animation for playlist scrolling
@@ -116,7 +116,7 @@ videojs.plugin('customPlaylist', function(options) {
         }
 
         // highlight playlist item when new video starts
-        myPlayer.on('play', function(){
+        myPlayer.on('play', function (){
             clearHighlight();
             setHighlight();
             scrollPlaylist();

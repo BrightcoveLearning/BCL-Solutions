@@ -7,7 +7,7 @@
     max-height: 74px;
     overflow-x: scroll;
     overflow-y: hidden;
-    position: relative;
+    position: absolute;
     white-space: nowrap;
     margin: 0;
     padding: 0;

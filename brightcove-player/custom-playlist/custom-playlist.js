@@ -27,6 +27,7 @@ videojs.plugin('customPlaylist', function(options) {
             playlistData = myPlayer.playlist(),
             videoItem,
             playerWidth = (isDefined(options.width)) ? options.width : defaults.width,
+            // assuming 16:9 aspect ratio
             playerHeight = (9 / 16) * playerWidth;
         /**
          * removes highlight from all playlist items
@@ -34,10 +35,8 @@ videojs.plugin('customPlaylist', function(options) {
         function clearHighlight() {
             var i,
                 iMax = playlistItems.length;
-            console.log('iMax', iMax);
             for (i = 0; i < iMax; i++) {
                 playlistItems[i].setAttribute('style', '');
-                console.log('playlistItem', playlistItems[i]);
             }
         }
 
@@ -46,25 +45,25 @@ videojs.plugin('customPlaylist', function(options) {
          */
         function setHighlight() {
             var index = myPlayer.playlist.currentItem();
-            console.log('index', index);
-            playlistItems[index].setAttribute('style', 'background-color:#F1DE27;');
+            // override the background color
+            playlistItems[index].setAttribute('style', 'background-color:#80CBC4;');
         }
 
         /**
          * loads a playlist item that was clicked on
          */
         function loadPlaylistItem() {
+            // item index in playlist array
             var index = parseInt(this.getAttribute('data-playlist-index'), 10);
             myPlayer.playlist.currentItem(index);
             myPlayer.play();
         }
-        console.log(myPlayer.playlist());
         // add styles to wrapper and player and playlist wrapper
         playerWrapper.setAttribute('style', 'width:' + playerWidth + 'px;');
         playerWrapper.setAttribute('class', 'bcls-player-wrapper');
         playerEl.setAttribute('style', 'width:100%;height:' + playerHeight + 'px;');
         playlistWrapper.setAttribute('class', 'bcls-playlist');
-        // the following needed for iframe embed
+        // the following needed for iframe embed only
         playlistWrapper.setAttribute('style', 'top:' + playerHeight + 'px;');
         // insert a div to wrap the player and playlist before the player
         playerParent.insertBefore(playerWrapper, playerEl);
@@ -105,6 +104,7 @@ videojs.plugin('customPlaylist', function(options) {
             playlistItems[i].addEventListener('click', loadPlaylistItem);
         }
         // initially highlight the first item
+        // but make sure playlist isn't empty
         if (iMax > 0) {
             setHighlight();
         }

@@ -36,7 +36,6 @@ videojs.plugin('customPlaylist', function (options) {
          * crude animation for playlist scrolling
          */
         function listScroller() {
-            console.log('indexDiff', indexDiff);
             playlistWrapper.scrollLeft += indexDiff;
             i++;
             if (i === 128) {
@@ -51,6 +50,7 @@ videojs.plugin('customPlaylist', function (options) {
         function scrollPlaylist() {
             var index = myPlayer.playlist.currentItem(),
                 indexDiff = index - lastIndex;
+            console.log('indexDiff', indexDiff);
             lastIndex = index;
             i = 0;
             // crude animation for playlist scrolling

@@ -30,12 +30,26 @@ videojs.plugin('customPlaylist', function(options) {
             // assuming 16:9 aspect ratio
             playerHeight = (9 / 16) * playerWidth;
         /**
+         * crude animation for playlist scrolling
+         */
+        function listScroller() {
+            playlistWrapper.scrollLeft = index * 1;
+            i++
+            if (i === 128) {
+                window.clearInterval(intervalId);
+            }
+        }
+
+        /**
          * scroll playlist to selected item
          */
         function scrollPlaylist() {
-            var index = myPlayer.playlist.currentItem();
+            var index = myPlayer.playlist.currentItem(),
+                intervalId;
             playlistWrapper.scrollLeft = 0;
-            playlistWrapper.scrollLeft = index * 128;
+            i = 0;
+            // crude animation for playlist scrolling
+            intervalId = window.setInterval(listScroller, 100);
         }
 
         /**

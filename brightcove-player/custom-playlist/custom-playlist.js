@@ -20,6 +20,7 @@ videojs.plugin('customPlaylist', function (options) {
             playerParent = playerEl.parentNode,
             i,
             iMax,
+            intervalId,
             playerWrapper = document.createElement('div'),
             playlistWrapper = document.createElement('div'),
             playlistItem,
@@ -34,7 +35,7 @@ videojs.plugin('customPlaylist', function (options) {
          */
         function listScroller() {
             var index = myPlayer.playlist.currentItem();
-            playlistWrapper.scrollLeft = index * 1;
+            playlistWrapper.scrollLeft += index * 1;
             i++;
             if (i === 128) {
                 window.clearInterval(intervalId);
@@ -45,7 +46,6 @@ videojs.plugin('customPlaylist', function (options) {
          * scroll playlist to selected item
          */
         function scrollPlaylist() {
-            var intervalId;
             playlistWrapper.scrollLeft = 0;
             i = 0;
             // crude animation for playlist scrolling
@@ -116,7 +116,7 @@ videojs.plugin('customPlaylist', function (options) {
         }
 
         // highlight playlist item when new video starts
-        myPlayer.on('play', function (){
+        myPlayer.on('play', function () {
             clearHighlight();
             setHighlight();
             scrollPlaylist();

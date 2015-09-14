@@ -20,9 +20,6 @@ videojs.plugin('customPlaylist', function (options) {
             playerParent = playerEl.parentNode,
             i,
             iMax,
-            intervalId,
-            lastIndex = 0,
-            indexDiff = 0,
             playerWrapper = document.createElement('div'),
             playlistWrapper = document.createElement('div'),
             playlistItem,
@@ -32,30 +29,7 @@ videojs.plugin('customPlaylist', function (options) {
             playerWidth = (isDefined(options.width)) ? options.width : defaults.width,
             // assuming 16:9 aspect ratio
             playerHeight = (9 / 16) * playerWidth;
-        /**
-         * crude animation for playlist scrolling
-         */
-        function listScroller() {
-            playlistWrapper.scrollLeft += indexDiff;
-            i++;
-            if (i === 128) {
-                window.clearInterval(intervalId);
-                i = 0;
-            }
-        }
 
-        /**
-         * scroll playlist to selected item
-         */
-        function scrollPlaylist() {
-            var index = myPlayer.playlist.currentItem(),
-                indexDiff = index - lastIndex;
-            console.log('indexDiff', indexDiff);
-            lastIndex = index;
-            i = 0;
-            // crude animation for playlist scrolling
-            intervalId = window.setInterval(listScroller, 5);
-        }
 
         /**
          * removes highlight from all playlist items
@@ -124,7 +98,6 @@ videojs.plugin('customPlaylist', function (options) {
         myPlayer.on('play', function () {
             clearHighlight();
             setHighlight();
-            scrollPlaylist();
         });
         // set click listeners on playlist items
         playlistItems = document.getElementsByClassName('bcls-thumbnail');

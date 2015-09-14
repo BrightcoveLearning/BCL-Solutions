@@ -37,7 +37,7 @@ videojs.plugin('customPlaylist', function (options) {
          */
         function listScroller() {
             console.log('indexDiff', indexDiff);
-            playlistWrapper.scrollLeft += indexDiff * 1;
+            playlistWrapper.scrollLeft += indexDiff;
             i++;
             if (i === 128) {
                 window.clearInterval(intervalId);

@@ -21,6 +21,7 @@ videojs.plugin('customPlaylist', function (options) {
             i,
             iMax,
             intervalId,
+            lastIndex = 0,
             playerWrapper = document.createElement('div'),
             playlistWrapper = document.createElement('div'),
             playlistItem,
@@ -34,8 +35,10 @@ videojs.plugin('customPlaylist', function (options) {
          * crude animation for playlist scrolling
          */
         function listScroller() {
-            var index = myPlayer.playlist.currentItem();
-            playlistWrapper.scrollLeft += index * 1;
+            var index = myPlayer.playlist.currentItem(),
+                indexDiff = index - lastIndex;
+            lastIndex = index;
+            playlistWrapper.scrollLeft += indexDiff * 1;
             i++;
             if (i === 128) {
                 window.clearInterval(intervalId);

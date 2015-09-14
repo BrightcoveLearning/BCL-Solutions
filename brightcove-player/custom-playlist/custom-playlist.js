@@ -30,6 +30,15 @@ videojs.plugin('customPlaylist', function(options) {
             // assuming 16:9 aspect ratio
             playerHeight = (9 / 16) * playerWidth;
         /**
+         * scroll playlist to selected item
+         */
+        function scrollPlaylist() {
+            var index = myPlayer.playlist.currentItem();
+            playlistWrapper.scrollLeft = 0;
+            playlistWrapper.scrollLeft = index * 128;
+        }
+
+        /**
          * removes highlight from all playlist items
          */
         function clearHighlight() {
@@ -96,6 +105,7 @@ videojs.plugin('customPlaylist', function(options) {
         myPlayer.on('play', function(){
             clearHighlight();
             setHighlight();
+            scrollPlaylist();
         });
         // set click listeners on playlist items
         playlistItems = document.getElementsByClassName('bcls-thumbnail');

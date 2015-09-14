@@ -1,3 +1,6 @@
+.bcls-player-wrapper {
+    position: relative;
+}
 .bcls-playlist {
     background-color: #141B17;
     width: 100%;

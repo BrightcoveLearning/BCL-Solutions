@@ -61,8 +61,11 @@ videojs.plugin('customPlaylist', function(options) {
         console.log(myPlayer.playlist());
         // add styles to wrapper and player and playlist wrapper
         playerWrapper.setAttribute('style', 'width:' + playerWidth + 'px;');
+        playerWrapper.setAttribute('class', 'bcls-player-wrapper');
         playerEl.setAttribute('style', 'width:100%;height:' + playerHeight + 'px;');
         playlistWrapper.setAttribute('class', 'bcls-playlist');
+        // the following needed for iframe embed
+        playlistWrapper.setAttribute('style', 'top:' + playerHeight + 'px;');
         // insert a div to wrap the player and playlist before the player
         playerParent.insertBefore(playerWrapper, playerEl);
         // now append the player to the new div

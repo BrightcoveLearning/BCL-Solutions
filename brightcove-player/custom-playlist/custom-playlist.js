@@ -38,10 +38,12 @@ videojs.plugin('customPlaylist', function (options) {
             var index = myPlayer.playlist.currentItem(),
                 indexDiff = index - lastIndex;
             lastIndex = index;
+            console.log('indexDiff', indexDiff);
             playlistWrapper.scrollLeft += indexDiff * 1;
             i++;
             if (i === 128) {
                 window.clearInterval(intervalId);
+                i = 0;
             }
         }
 

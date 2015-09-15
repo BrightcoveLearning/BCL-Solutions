@@ -3,6 +3,9 @@
  * as a row of thumbnail images along the bottom of the
  * player
  * @option {integer} width - the width of the player and playlist in pixels
+ *
+ * created by Robert Crooks, Brightcove Learning Services, rcrooks@brightcove.com
+ * last modified: 2015-09-15
  */
 videojs.plugin('customPlaylist', function (options) {
     var myPlayer = this,

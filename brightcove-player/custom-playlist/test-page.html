@@ -4,14 +4,24 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>My Custom Playlist Player</title>
     </head>
+    <link rel="stylesheet" href="./custom-playlist.css">
     <body>
     <h1>My Custom Playlist Player</h1>
     <video
-      data-playlist-id="4452341376001"
-      data-account="1752604059001"
-      data-player="45dcbbdf-2807-4422-8fc7-5a1eb04d3f38"
-      data-embed="default"
-      class="video-js" controls></video>
+        id="player"
+        data-playlist-id="4452341376001"
+        data-account="1752604059001"
+        data-player="45dcbbdf-2807-4422-8fc7-5a1eb04d3f38"
+        data-embed="default"
+        class="video-js" controls></video>
     <script src="//players.brightcove.net/1752604059001/45dcbbdf-2807-4422-8fc7-5a1eb04d3f38_default/index.min.js"></script>
+
+    <script src="./custom-playlist.js"></script>
+
+    <script>
+        var options = {"width": 600};
+        videojs('player').customPlaylist(options);
+    </script>
+
     </body>
 </html>

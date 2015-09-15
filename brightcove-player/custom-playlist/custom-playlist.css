@@ -1,6 +1,8 @@
+/*style for the div that wraps the player and playlist*/
 .bcls-player-wrapper {
     position: relative;
 }
+/*style for the div that wraps the playlist*/
 .bcls-playlist {
     background-color: #141B17;
     width: 100%;
@@ -12,12 +14,14 @@
     margin: 0;
     padding: 0;
 }
+/*style for the divs that make up the playlist items*/
 .bcls-playlist-item {
     display: inline-block;
     padding: 0;
     margin: 0;
     width: 128px;
 }
+/*style for the thumbnail images*/
 .bcls-thumbnail {
     background-color: #141B17;
     width: 124px;

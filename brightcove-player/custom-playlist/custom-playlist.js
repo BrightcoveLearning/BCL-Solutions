@@ -1,3 +1,9 @@
+/**
+ * Brightcove player plugin that displays a playlist
+ * as a row of thumbnail images along the bottom of the
+ * player
+ * @option {integer} width - the width of the player and playlist in pixels
+ */
 videojs.plugin('customPlaylist', function (options) {
     var myPlayer = this,
         defaults = {width: 500},

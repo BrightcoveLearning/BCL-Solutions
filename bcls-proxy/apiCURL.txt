@@ -9,7 +9,7 @@ curl \
   -k \
   --include \
   --header "Authorization: BC_TOKEN AEnTxTjCbsAvf0Yh4q8EvHlaT99XtoeahDA0FkredszEAeZXMT_TtmBnTDr2I6PDgDtIUiN7kclTOvjT7NDRHYDA9TCacN1lgddsP8mJVzxILScqK2LdhA4" \
-https://oauth.brightcove.com/v3/client_credentials/1fa5f786-3418-4a69-8b78-6772f283d838
+https://oauth.brightcove.com/v3/client_credentials/e6b88c11-dfb1-4315-acd3-500d02a69292
 
 
 AK0spCaR1WpcM4WwxCKl5u6RyBOFzuXW_noWm0qvX2f2n6YQ9IhKBqoDb5MikrIgWW4xwguXR9VlLlyaPx4UjsJBIuEjJDBQzzVkCA2oizwuBWrvqdHMlSQ

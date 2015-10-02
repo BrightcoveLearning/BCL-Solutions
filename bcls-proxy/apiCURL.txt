@@ -2,8 +2,8 @@
 curl \
   -k \
   --include \
-  --header "Authorization: BC_TOKEN AK0spCaR1WpcM4WwxCKl5u6RyBOFzuXW_noWm0qvX2f2n6YQ9IhKBqoDb5MikrIgWW4xwguXR9VlLlyaPx4UjsJBIuEjJDBQzzVkCA2oizwuBWrvqdHMlSQ" \
-  --data 'name=SampleClient&maximum_scope=[{
+  --header "Authorization: BC_TOKEN AEnTxThBtd1QvgOCsGpYryhFI_nZ_c_D-SPfu5VGuEq8_XlHG-yxT31_d_VqJbOqaQnPQ7h736lYCexd3sgF1heKsuzq9SeZvMrIeFuAW2BDlRTmCj-TPy0" \
+  --data 'name=MyApp&maximum_scope=[{
       "identity": {
         "type": "video-cloud-account",
         "account-id": 57838016001

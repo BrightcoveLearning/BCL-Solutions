@@ -1,27 +1,19 @@
 
 curl \
   -k \
+  --request POST \
   --include \
-  --header "Authorization: BC_TOKEN AEnTxTjCbsAvf0Yh4q8EvHlaT99XtoeahDA0FkredszEAeZXMT_TtmBnTDr2I6PDgDtIUiN7kclTOvjT7NDRHYDA9TCacN1lgddsP8mJVzxILScqK2LdhA4" \
-https://oauth.brightcove.com/v3/client_credentials?origin_account_ids=57838016001,20318290001
-
+  --user 553d4903-4547-435d-944c-2c8e2f6abc5d:ENBQH6pHfJQub7oR0SGCn2Pu_W2SY5QsVw24fK-frXcE6hdTRnJO-0_LBmKZh15rVliIAiECAQF1yBYP_l90gQ" \
+  --include \
+  --header "Content-Type: application/x-www-form-urlencoded" \
+https://oauth.brightcove.com/v3/access_token?grant_type=client_credentials
 curl \
   -k \
-  --request PUT \
   --include \
   --header "Authorization: BC_TOKEN AEnTxTjCbsAvf0Yh4q8EvHlaT99XtoeahDA0FkredszEAeZXMT_TtmBnTDr2I6PDgDtIUiN7kclTOvjT7NDRHYDA9TCacN1lgddsP8mJVzxILScqK2LdhA4" \
-  --data 'name=SampleClient&maximum_scope=[
-    {"identity": {
-        "type": "video-cloud-account", "account-id": 57838016001
-      },
-      "operations": [
-        "video-cloud/video/all",
-        "video-cloud/playlist/all",
-        "video-cloud/player/all"
-      ]
-    }
-  ]' \
-https://oauth.brightcove.com/v3/client_credentials/b744071a-3dc6-4e2a-9a8a-50beca8cf53f
+https://oauth.brightcove.com/v3/access_token?grant_type=access_token_grant
 
 
 AK0spCaR1WpcM4WwxCKl5u6RyBOFzuXW_noWm0qvX2f2n6YQ9IhKBqoDb5MikrIgWW4xwguXR9VlLlyaPx4UjsJBIuEjJDBQzzVkCA2oizwuBWrvqdHMlSQ
+
+curl -s --data "grant_type=client_credentials" https://oauth.brightcove.com/v3/access_token --header "Content-Type: application/x-www-form-urlencoded" --user "553d4903-4547-435d-944c-2c8e2f6abc5d:ENBQH6pHfJQub7oR0SGCn2Pu_W2SY5QsVw24fK-frXcE6hdTRnJO-0_LBmKZh15rVliIAiECAQF1yBYP_l90gQ"

@@ -16,7 +16,8 @@ curl \
       },
       "operations": [
         "video-cloud/video/all",
-        "video-cloud/playlist/read"
+        "video-cloud/playlist/all",
+        "video-cloud/player/all"
       ]
     }
   ]' \

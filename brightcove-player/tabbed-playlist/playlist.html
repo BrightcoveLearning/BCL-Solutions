@@ -71,11 +71,11 @@
     <div class="container">
     <div>
         <ul id="menu">
-            <li><input id="tab0" type="button" onclick="processTab(0);" value="Short Videos"></input></li>
-            <li><input id="tab1" type="button" onclick="processTab(1);" value="Assorted Bugs and Birds"></li>
-            <li><input id="tab2" type="button" onclick="processTab(2);" value="Sea and Water"></li>
-            <li><input id="tab3" type="button" onclick="processTab(3);" value="Sea Life"></li>
-            <li><input id="tab4" type="button" onclick="processTab(4);" value="Space"></li>
+            <li><input id="tab0" type="button" class="button" onclick="processTab(0);" value="Short Videos"></input></li>
+            <li><input id="tab1" type="button" class="button" onclick="processTab(1);" value="Assorted Bugs and Birds"></li>
+            <li><input id="tab2" type="button" class="button" onclick="processTab(2);" value="Sea and Water"></li>
+            <li><input id="tab3" type="button" class="button" onclick="processTab(3);" value="Sea Life"></li>
+            <li><input id="tab4" type="button" class="button" onclick="processTab(4);" value="Space"></li>
         </ul>
     </div>
 
@@ -98,7 +98,7 @@
         var myPlayer,
             playlistIds = ["4450721964001","2805100167001","2764931905001","1754200320001","1754200353001"],
             playlistIdsLength = playlistIds.length,
-            tabs = document.getElementsByTagName("input"),
+            tabs = document.getElementsByClassName("button"),
             currentTab,
             currentTabName,
             playlistNames = [];

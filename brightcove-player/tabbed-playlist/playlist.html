@@ -5,12 +5,12 @@
   <meta charset="UTF-8">
   <title>Playlist embed</title>
   <style type="text/css">
-    
+
     .container {
         width: 1200px;
         height: 450px;
     }
-      
+
     /* tabbed menu */
     #menu {
         float: right;
@@ -40,15 +40,11 @@
     .button {
         background:#0000cc;
     }
-    .button-selected {
-        background:#08c;
-        color: black;
-    }
     #menu li input:hover {
         background:#08c;
         color:#fff;
     }
-      
+
     /* player with playlist */
     .video-js {
         width: 800px;
@@ -66,7 +62,7 @@
     	width: 350px;
     	height: 433px;
     }
-    
+
 
   </style>
 </head>
@@ -82,7 +78,7 @@
             <li><input id="tab4" type="button" onclick="processTab(4);" value="Space"></li>
         </ul>
     </div>
-    
+
     <div class="myplayer">
 
          <video id="video_1"
@@ -92,9 +88,9 @@
             class="video-js" controls></video>
         <script src="//players.brightcove.net/1752604059001/b547079e-00cc-4585-b354-04020a7ed70a_default/index.min.js"></script>
 
-        <ol class="vjs-playlist"></ol> 
+        <ol class="vjs-playlist"></ol>
     </div>
-        
+
     </div>
 
 
@@ -102,28 +98,39 @@
         var myPlayer,
             playlistIds = ["4450721964001","2805100167001","2764931905001","1754200320001","1754200353001"],
             playlistIdsLength = playlistIds.length,
+            tabs = document.getElementsByTagName("input"),
             currentTab,
             currentTabName,
             playlistNames = [];
 
         videojs("video_1").ready(function(){
             myPlayer = this;
-            console.log("ready");
+            // console.log("ready");
             processTab(0);
-        }); 
-        
+        });
+
         function processTab (index) {
-            console.log("processTab");
-            document.getElementById("tab" + index).setAttribute("class","button-selected"); //testing
+            // console.log("processTab");
+            resetTabs();
+            document.getElementById("tab" + index).setAttribute("style","background:#08c;color: #00FFFF; border-bottom: 1px solid #00FFFF;"); //testing
             loadPlaylist(playlistIds[index]);
-        };	
-        
+        };
+
         function loadPlaylist (currentId) {
             myPlayer.catalog.getPlaylist(currentId, function(error, playlist){
                 myPlayer.catalog.load(playlist);
             });
-        };	
-    
+        };
+
+        function resetTabs () {
+            var i,
+                iMax = tabs.length;
+                // console.log('tabs', tabs);
+            for (i = 0; i < iMax; i++) {
+                tabs[i].setAttribute("style", "background: #0000cc;color: #fff;")
+            }
+        }
+
     </script>
 
 </body>

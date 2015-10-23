@@ -10,6 +10,8 @@
  * @post {string} url - the URL for the API request
  * @post {string} [requestType=GET] - HTTP method for the request
  * @post {string} [requestBody=null] - JSON data to be sent with write requests
+ * @post {string} client_id - OAuth2 client id with sufficient permissions for the request
+ * @post {string} client_secret - OAuth2 client secret with sufficient permissions for the request
  *
  * @returns {string} $response - JSON response received from the API
  */
@@ -46,7 +48,7 @@ if ($response === FALSE) {
 // Decode the response
 $responseData = json_decode($response, TRUE);
 $access_token = $responseData["access_token"];
-// echo $access_token;
+
 // set up the API call
 // get data
 if ($_POST["requestBody"]) {

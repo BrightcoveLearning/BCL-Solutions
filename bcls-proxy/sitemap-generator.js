@@ -18,6 +18,9 @@
  * colors
  * request
  *
+ * http://ondemand.brightcovelearning.com/
+ * http://video.brightcovelearning.com/
+ *
  */
 
 'use strict';
@@ -36,11 +39,12 @@ var util = require('util'),
     client_secret = 'uZsLicAVTrkeQ9sYHNyVk9iv2OY8fCtIYvfs4bnqoGwFRcMrXx8sjL8IY035n4QW2H45Jo1GTLF017L_9Cdokg',
     account_id = '20318290001',
     // base64 encode the ciient_id:client_secret string for basic auth
-    auth_string = new Buffer(client_id + ':' + client_secret).toString('base64'),
+    authString = new Buffer(client_id + ':' + client_secret).toString('base64'),
     access_token = '',
-    current_call = 0,
-    total_calls = 0,
-    videos_array = [];
+    currentCall = 0,
+    totalCalls = 0,
+    callNumber = 0,
+    videosArray = [];
     // holder for request options
     options = {},
     // cms api
@@ -73,7 +77,7 @@ function getAccessToken(callback) {
         method: 'POST',
         url: 'https://oauth.brightcove.com/v3/access_token?grant_type=client_credentials',
         headers: {
-            'Authorization': 'Basic ' + auth_string,
+            'Authorization': 'Basic ' + authString,
             'Content-Type': 'application/json'
         },
         body: 'grant_type=client_credentials'
@@ -93,12 +97,15 @@ function getAccessToken(callback) {
 }
 
 function setUpCountsRequest(callback) {
-    var endPoint = '/accounts/20318290001'
+    var endPoint = '/accounts/' + account_id + '/counts/videos';
+    options.requestURL = baseURL + endPoint;
+    request_type = 'count';
+
 }
 /*
  * sends the request to the API
  */
-function sendRequest(request_type, callback) {
+function sendRequest(options, request_type, callback) {
     var requestOptions = {},
         makeRequest = function () {
             console.log('requestOptions', requestOptions);
@@ -234,10 +241,7 @@ cmsapiServer = http.createServer(function (req, res) {
         // console.log('body', body);
         setUpCountsRequest(function (count, error) {
             if (error === null) {
-                if (cmsapiSettings.client_id === options.client_id) {
-                    if (cmsapiSettings.expires_in > now) {
-                        options.token = cmsapiSettings.token;
-                    }
+
                 }
                 sendRequest(function (error, headers, body) {
                     if (error === null) {

@@ -36,11 +36,13 @@ var util = require('util'),
     client_id = 'ca19e0b5-8ab1-4df5-a565-4ebb05fee738',
     client_secret = 'uZsLicAVTrkeQ9sYHNyVk9iv2OY8fCtIYvfs4bnqoGwFRcMrXx8sjL8IY035n4QW2H45Jo1GTLF017L_9Cdokg',
     account_id = '20318290001',
+    // base64 encode the ciient_id:client_secret string for basic auth
     auth_string = new Buffer(client_id + ':' + client_secret).toString('base64'),
     access_token = '',
     video_count = 0,
     current_call = 0,
     total_calls = 0,
+    videos_array = [];
     // holder for request options
     options = {},
     // cms api
@@ -51,12 +53,6 @@ var util = require('util'),
     limit = 25,
     offset = 0,
     sort = '%2Bcreated_at';
-/*
- * initialize data constructs
- */
-function init() {
-    setUpCountsCall();
-};
 
 /*
  * test for existence
@@ -66,15 +62,14 @@ function isDefined(v) {
         return false;
     }
     return true;
-};
+}
 /*
  * get new access_token for other APIs
  */
 function getAccessToken(callback) {
     // base64 encode the ciient_id:client_secret string for basic auth
-    var auth_string = new Buffer(client_id + ':' + client_secret).toString('base64'),
-        bodyObj,
-        now = new Date().valueOf();
+    var bodyObj,
+        token;
     // don't know what API was requested, always get new token
     request({
         method: 'POST',
@@ -91,18 +86,21 @@ function getAccessToken(callback) {
         if (error === null) {
             // return the access token to the callback
             bodyObj = JSON.parse(body);
-            options.token = bodyObj.access_token;
-            options.expires_in = now + bodyObj.expires_in * 1000;
-            callback(null);
+            token = bodyObj.access_token;
+            callback(token);
         } else {
             callback(error);
         }
     });
-};
+}
+
+function setUpCountsRequest(callback) {
+
+}
 /*
- * sends the request to the targeted API
+ * sends the request to the API
  */
-sendRequest = function (callback) {
+function sendRequest(request_type, callback) {
     var requestOptions = {},
         makeRequest = function () {
             console.log('requestOptions', requestOptions);
@@ -144,10 +142,10 @@ sendRequest = function (callback) {
         setRequestOptions();
     }
 
-};
+}
 
 /*
- * Ingest Profiles API
+ * CMS API
  */
 cmsapiServer = http.createServer(function (req, res) {
     var body = '',
@@ -294,13 +292,13 @@ cmsapiServer = http.createServer(function (req, res) {
             } else {
                 // there was no data or data was bad - redirect to usage notes
                 res.statusCode = 302;
-                res.setHeader('Location', 'http://solutions.brightcove.com/bcls/bcls-proxy/cmsapi-proxy.html');
+                res.setHeader('Location', 'http://solutions.brightcove.com/bcls/bcls-proxy/sitemap-generator.html');
                 res.end();
             }
         });
     });
     // change the following line to have the proxy listen for requests on a different port
-}).listen(8006);
+}).listen(8008);
 
 util.puts('http server for CMS API '.blue + 'started '.green.bold + 'on port '.blue + '8006 '.yellow);
 // initialize

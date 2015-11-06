@@ -16,7 +16,6 @@
  * xmldom
  * util
  * colors
- * http
  * request
  *
  */
@@ -39,7 +38,6 @@ var util = require('util'),
     // base64 encode the ciient_id:client_secret string for basic auth
     auth_string = new Buffer(client_id + ':' + client_secret).toString('base64'),
     access_token = '',
-    video_count = 0,
     current_call = 0,
     total_calls = 0,
     videos_array = [];
@@ -95,7 +93,7 @@ function getAccessToken(callback) {
 }
 
 function setUpCountsRequest(callback) {
-
+    var endPoint = '/accounts/20318290001'
 }
 /*
  * sends the request to the API
@@ -234,7 +232,7 @@ cmsapiServer = http.createServer(function (req, res) {
     }
     req.on('end', function () {
         // console.log('body', body);
-        getFormValues(body, function (error) {
+        setUpCountsRequest(function (count, error) {
             if (error === null) {
                 if (cmsapiSettings.client_id === options.client_id) {
                     if (cmsapiSettings.expires_in > now) {

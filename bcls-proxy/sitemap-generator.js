@@ -97,12 +97,20 @@ function getAccessToken(callback) {
 }
 
 function setUpCountsRequest(callback) {
-    var endPoint = '/accounts/' + account_id + '/counts/videos';
+    var endPoint = '/accounts/' + account_id + '/counts/videos',
+        responseData;
     options.url = baseURL + endPoint;
     request_type = 'count';
     getAccessToken(function(error, token) {
         if (error === null) {
-            sendRequest(options, request_type, function ())
+            sendRequest(options, request_type, function (error, headers, body) {
+                if (error === null) {
+                    responseData = JSON.parse(body);
+                    callback(null, responseData.count);
+                } else {
+                    callback(error, null);
+                }
+            })
         }
     })
 
@@ -226,7 +234,7 @@ cmsapiServer = http.createServer(function (req, res) {
     }
     req.on('end', function () {
         // console.log('body', body);
-        setUpCountsRequest(function (count, error) {
+        setUpCountsRequest(function (error, count) {
             if (error === null) {
 
                 }

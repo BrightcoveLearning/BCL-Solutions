@@ -115,6 +115,10 @@ function setUpCountsRequest(callback) {
     })
 
 }
+
+function setUpVideoRequest() {
+    var endPoint = '/accounts/' + account_id + '/videos?limit=' + limit +'&offset=' + offset + '&sort=' + sort;
+}
 /*
  * sends the request to the API
  */
@@ -236,20 +240,11 @@ cmsapiServer = http.createServer(function (req, res) {
         // console.log('body', body);
         setUpCountsRequest(function (error, count) {
             if (error === null) {
+                totalCalls = MATH.ceil(count / limit);
+                setUpVideoRequest(function (error) {
 
+                });
                 }
-                sendRequest(function (error, headers, body) {
-                    if (error === null) {
-                        // request successful
-                        var header;
-                        // save options to cmsapiSettings
-                        copyProps(options, cmsapiSettings);
-                        // return headers from the response
-                        for (header in headers) {
-                            if (headers.hasOwnProperty(header)) {
-                                res.setHeader(header, headers[header]);
-                            }
-                        }
                         // return the body from the response
                         res.writeHead(
                             '200',

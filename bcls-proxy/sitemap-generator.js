@@ -89,17 +89,22 @@ function getAccessToken(callback) {
             // return the access token to the callback
             bodyObj = JSON.parse(body);
             token = bodyObj.access_token;
-            callback(token);
+            callback(null, token);
         } else {
-            callback(error);
+            callback(error, null);
         }
     });
 }
 
 function setUpCountsRequest(callback) {
     var endPoint = '/accounts/' + account_id + '/counts/videos';
-    options.requestURL = baseURL + endPoint;
+    options.url = baseURL + endPoint;
     request_type = 'count';
+    getAccessToken(function(error, token) {
+        if (error === null) {
+            sendRequest(options, request_type, function ())
+        }
+    })
 
 }
 /*
@@ -118,35 +123,17 @@ function sendRequest(options, request_type, callback) {
                     callback(error);
                 }
             });
-        },
-        setRequestOptions = function () {
-            requestOptions = {
-                method: options.requestType,
-                url: options.url,
-                headers: {
-                    'Authorization': 'Bearer ' + options.token,
-                    'Content-Type': 'application/json'
-                },
-                body: options.requestBody
-            };
-
-            // make the request
-            makeRequest();
         };
-    if (options.token === null) {
-        // get an access token
-        getAccessToken(function (error) {
-            if (error === null) {
-                setRequestOptions();
-            } else {
-                callback(error);
-            }
-        });
-    } else {
-        // we already have a token; good to go
-        setRequestOptions();
-    }
+    requestOptions = {
+        method: options.requestType,
+        url: options.url,
+        headers: {
+            'Authorization': 'Bearer ' + options.token,
+            'Content-Type': 'application/json'
+        }
 
+    // make the request
+    makeRequest();
 }
 
 /*

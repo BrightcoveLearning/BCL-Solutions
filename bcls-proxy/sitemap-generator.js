@@ -176,149 +176,18 @@ function sendRequest(options, callback) {
     makeRequest();
 }
 
-/*
- * CMS API
- */
-cmsapiServer = http.createServer(function (req, res) {
-    var body = '',
-        // for CORS - AJAX requests send host instead of origin
-        origin = (req.headers.origin || '*'),
-        now = new Date().valueOf(),
-        writeData,
-        endRes;
-    endRes = function () {
-        console.log('res ending');
-        res.end();
-    }
-    writeData = function (data, callback) {
-        var numCharacters = data.length,
-            totalChunks = Math.ceil(numCharacters / 1024),
-            i = totalChunks,
-            thisChunk,
-            ok = true,
-            j = 0;
-        write();
 
-        function write() {
-            do {
-                ok = true;
-                i -= 1;
-                console.log('i start of loop', i);
-                if (i === 0) {
-                    // last time
-                    console.log('last write - j: ', j);
-                    thisChunk = data.substring(j * 1024, numCharacters);
-                    console.log('thisChunk last time', thisChunk);
-                    ok = res.write(thisChunk);
+function init() {
+    setUpRequest('count', function (error, count) {
+        if (error === null) {
+            totalCalls = MATH.ceil(count / limit);
+            setUpRequest('video', function (error) {
 
-                } else {
-                    // see if we should continue, or wait
-                    // don't pass the callback, because we're not done yet.
-                    console.log('j', j);
-                    thisChunk = data.substring(j * 1024, (j * 1024) + 1024);
-                    console.log('thisChunk', thisChunk);
-                    // ok = res.write(thisChunk);
-                    res.write(thisChunk);
-                    j++;
-                    console.log('ok', ok);
-                }
-            } while (i > 0);
+            });
         }
-        callback(ok);
-        // if (i > 0) {
-        //   console.log('had to stop early!')
-        //   // write some more once it drains
-        //   res.once('drain', write);
-        // }
-    };        console.log('origin', origin);
-    /* the published version of this proxy accepts requests only from
-     * domains that include 'brightcove.com'
-     * modify the following line to take requests from
-     * other domains or remove the if block to
-     * accept requests from any domain (not recommended!)
-     * check on host as well as origin for AJAX requests
-     */
-    if (isDefined(req.headers.origin) && req.headers.origin.indexOf('brightcove.com') < 0 && req.headers.origin.indexOf('localhost') < 0) {
-        res.writeHead(
-            '500',
-            'Error', {
-                'access-control-allow-origin': origin,
-                'content-type': 'text/plain'
-            }
-        );
-        res.end(originError);
-    } else if (isDefined(req.headers.host) && req.headers.host.indexOf('brightcove.com') < 0 && req.headers.host.indexOf('localhost') < 0) {
-        res.writeHead(
-            '500',
-            'Error', {
-                'access-control-allow-origin': origin,
-                'content-type': 'text/plain'
-            }
-        );
-        res.end('Your request cannot be processed; this proxy only handles requests originating from Brightcove servers. If you would like to build your own version of this proxy, see http://docs.brightcove.com/en/perform/oauth-api/guides/quick-start.html');
-    }
-    req.on('data', function (chunk) {
-        body += chunk;
     });
-    // handle data on query strings (AJAX requests)
-    if (body === '') {
-        body = req.url.substring(2);
-    }
-    req.on('end', function () {
-        // console.log('body', body);
-        setUpRequest('count', function (error, count) {
-            if (error === null) {
-                totalCalls = MATH.ceil(count / limit);
-                setUpRequest('video', function (error) {
+}
 
-                });
-                }
-                        // return the body from the response
-                        res.writeHead(
-                            '200',
-                            'OK', {
-                                'access-control-allow-origin': origin,
-                                'content-type': 'text/plain',
-                                'content-length': Buffer.byteLength(body, 'utf8')
-                            }
-                        );
-                        res.end(body);
-                    } else {
-                        // request failed, return api error
-                        res.writeHead(
-                            '500',
-                            'Error', {
-                                'access-control-allow-origin': origin,
-                                'content-type': 'text/plain'
-                            }
-                        );
-                        res.end(apiError + error);
-                    }
-                    if (body.length > 1024) {
-                        writeData(body, function (ok) {
-                            console.log('ending...', ok);
-                            if (ok) {
-                                res.end();
-                            } else {
-                                var t = setTimeout(endRes, 300);
-                            }
-
-                        });
-                    } else {
-                        res.end(body);
-                    }
-
-                });
-            } else {
-                // there was no data or data was bad - redirect to usage notes
-                res.statusCode = 302;
-                res.setHeader('Location', 'http://solutions.brightcove.com/bcls/bcls-proxy/sitemap-generator.html');
-                res.end();
-            }
-        });
-    });
-    // change the following line to have the proxy listen for requests on a different port
-}).listen(8008);
 
 util.puts('http server for CMS API '.blue + 'started '.green.bold + 'on port '.blue + '8006 '.yellow);
 // initialize

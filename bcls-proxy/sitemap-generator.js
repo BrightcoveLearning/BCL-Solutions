@@ -96,14 +96,46 @@ function getAccessToken(callback) {
     });
 }
 
-function setUpCountsRequest(callback) {
-    var endPoint = '/accounts/' + account_id + '/counts/videos',
+function setUpRequest(type, callback) {
+    var endPoint,
         responseData;
+    if (type === 'counts') {
+        endPoint = '/accounts/' + account_id + '/counts/videos';
+    } else if (type = 'video') {
+        endPoint = '/accounts/' + account_id + '/videos?limit=' + limit +'&offset=' + offset + '&sort=' + sort;
+    }
     options.url = baseURL + endPoint;
-    request_type = 'count';
     getAccessToken(function(error, token) {
         if (error === null) {
-            sendRequest(options, request_type, function (error, headers, body) {
+            options.token = token;
+            sendRequest(options, function (error, headers, body) {
+                if (error === null) {
+                    responseData = JSON.parse(body);
+                    if (type === 'counts') {
+                        callback(null, responseData.count);
+                    } else if (type === 'video') {
+                        videosArray = videosArray.concat(responseData);
+                        currentCall += 1;
+                        callback(null, currentCall)
+                    }
+
+                } else {
+                    callback(error, null);
+                }
+            })
+        }
+    });
+
+}
+
+function setUpVideoRequest() {
+    var endPoint = '/accounts/' + account_id + '/videos?limit=' + limit +'&offset=' + offset + '&sort=' + sort,
+        responseData;
+    options.url = baseURL + endPoint;
+        getAccessToken(function(error, token) {
+        if (error === null) {
+            options.token = token;
+            sendRequest(options, function (error, headers, body) {
                 if (error === null) {
                     responseData = JSON.parse(body);
                     callback(null, responseData.count);
@@ -112,21 +144,17 @@ function setUpCountsRequest(callback) {
                 }
             })
         }
-    })
+    });
 
-}
-
-function setUpVideoRequest() {
-    var endPoint = '/accounts/' + account_id + '/videos?limit=' + limit +'&offset=' + offset + '&sort=' + sort;
 }
 /*
  * sends the request to the API
  */
-function sendRequest(options, request_type, callback) {
+function sendRequest(options, callback) {
     var requestOptions = {},
         makeRequest = function () {
             console.log('requestOptions', requestOptions);
-            request(requestOptions, function (error, response, body) {
+            request(requestOptions, function (error, headers, body) {
                 console.log('body', body);
                 console.log('error', error);
                 if (error === null) {
@@ -238,10 +266,10 @@ cmsapiServer = http.createServer(function (req, res) {
     }
     req.on('end', function () {
         // console.log('body', body);
-        setUpCountsRequest(function (error, count) {
+        setUpRequest('count', function (error, count) {
             if (error === null) {
                 totalCalls = MATH.ceil(count / limit);
-                setUpVideoRequest(function (error) {
+                setUpRequest('video', function (error) {
 
                 });
                 }

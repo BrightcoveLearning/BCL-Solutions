@@ -96,27 +96,18 @@ function getAccessToken(callback) {
     });
 }
 
-function setUpRequest(type, callback) {
+function setUpCountsRequest(callback) {
     var endPoint,
         responseData;
-    if (type === 'counts') {
-        endPoint = '/accounts/' + account_id + '/counts/videos';
-    } else if (type = 'video') {
-        endPoint = '/accounts/' + account_id + '/videos?limit=' + limit +'&offset=' + offset + '&sort=' + sort;
-    }
+    endPoint = '/accounts/' + account_id + '/counts/videos';
     options.url = baseURL + endPoint;
     getAccessToken(function(error, token) {
         if (error === null) {
             options.token = token;
-            sendRequest(options, function (error, headers, body) {
+            sendRequest(options, function (error, body) {
                 if (error === null) {
                     responseData = JSON.parse(body);
-                    if (type === 'counts') {
-                        callback(null, responseData.count);
-                    } else if (type === 'video') {
-                        videosArray = videosArray.concat(responseData);
-                        currentCall += 1;
-                        callback(null, currentCall)
+                    callback(null, responseData.count);
                     }
 
                 } else {
@@ -125,28 +116,16 @@ function setUpRequest(type, callback) {
             })
         }
     });
-
 }
 
-function setUpVideoRequest() {
-    var endPoint = '/accounts/' + account_id + '/videos?limit=' + limit +'&offset=' + offset + '&sort=' + sort,
-        responseData;
-    options.url = baseURL + endPoint;
-        getAccessToken(function(error, token) {
-        if (error === null) {
-            options.token = token;
-            sendRequest(options, function (error, headers, body) {
-                if (error === null) {
-                    responseData = JSON.parse(body);
-                    callback(null, responseData.count);
-                } else {
-                    callback(error, null);
-                }
-            })
-        }
-    });
+function setUpVideoRequest(callback) {
+    var endPoint = '/accounts/' + account_id + '/videos?limit=' + limit +'&offset=' + (currentCall * limit) + '&sort=' + sort;
 
+                        videosArray = videosArray.concat(responseData);
+                        currentCall += 1;
+                        callback(null);
 }
+
 /*
  * sends the request to the API
  */
@@ -158,7 +137,7 @@ function sendRequest(options, callback) {
                 console.log('body', body);
                 console.log('error', error);
                 if (error === null) {
-                    callback(null, response.headers, body);
+                    callback(null, body);
                 } else {
                     callback(error);
                 }
@@ -181,8 +160,9 @@ function init() {
     setUpRequest('count', function (error, count) {
         if (error === null) {
             totalCalls = MATH.ceil(count / limit);
-            setUpRequest('video', function (error) {
-
+            setUpRequest('video', function (error, currentCall) {
+                if (error === null) {
+                }
             });
         }
     });

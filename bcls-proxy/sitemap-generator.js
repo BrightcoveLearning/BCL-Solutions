@@ -44,7 +44,7 @@ var util = require('util'),
     currentCall = 0,
     totalCalls = 0,
     callNumber = 0,
-    videosArray = [];
+    videosArray = [],
     // holder for request options
     options = {},
     // cms api
@@ -54,17 +54,8 @@ var util = require('util'),
     // cms api options
     limit = 25,
     offset = 0,
-    sort = '%2Bcreated_at';
+    sort = 'created_at';
 
-/*
- * test for existence
- */
-function isDefined(v) {
-    if (v === '' || v === null || v === 'undefined' || v === undefined) {
-        return false;
-    }
-    return true;
-}
 /*
  * get new access_token for other APIs
  */
@@ -83,8 +74,8 @@ function getAccessToken(callback) {
         body: 'grant_type=client_credentials'
     }, function (error, response, body) {
         // check for errors
-        console.log('error', error);
-        console.log('body', body);
+        // console.log('error', error);
+        // console.log('body', body);
         if (error === null) {
             // return the access token to the callback
             bodyObj = JSON.parse(body);
@@ -107,57 +98,71 @@ function setUpCountsRequest(callback) {
             sendRequest(options, function (error, body) {
                 if (error === null) {
                     responseData = JSON.parse(body);
+                    console.log('responseData', responseData);
                     callback(null, responseData.count);
-                    }
-
-                } else {
+                    } else {
                     callback(error, null);
                 }
-            })
+            });
         }
     });
 }
 
 function setUpVideoRequest(callback) {
-    var endPoint = '/accounts/' + account_id + '/videos?limit=' + limit +'&offset=' + (currentCall * limit) + '&sort=' + sort,
-        ok = false;
-
-    options.url = baseURL + endPoint;
-    getAccessToken(function(error, token) {
-        if (error === null) {
-            options.token = token;
-            sendRequest(options, function (error, body) {
-                if (error === null) {
-                    responseData = JSON.parse(body);
+    var endPoint,
+        responseData;
+    makeRequest();
+    function makeRequest() {
+        endPoint = '/accounts/' + account_id + '/videos?limit=' + limit +'&offset=' + (currentCall * limit) + '&sort=' + sort;
+        options.url = baseURL + endPoint;
+        getAccessToken(function (error, token) {
+            if (error === null) {
+                options.token = token;
+                sendRequest(options, function (error, body) {
+                    if (error === null) {
+                        responseData = JSON.parse(body);
                         videosArray = videosArray.concat(responseData);
                         currentCall += 1;
-                        callback(null);
+                        if (currentCall < totalCalls) {
+                            makeRequest();
+                        } else {
+                            callback(null);
+                        }
+                    }
+                });
+            } else {
+                callback(error);
+            }
+        });
+    }
 }
 
 /*
  * sends the request to the API
  */
 function sendRequest(options, callback) {
-    var requestOptions = {},
-        makeRequest = function () {
-            console.log('requestOptions', requestOptions);
-            request(requestOptions, function (error, headers, body) {
-                console.log('body', body);
-                console.log('error', error);
-                if (error === null) {
-                    callback(null, body);
-                } else {
-                    callback(error);
-                }
-            });
-        };
+    var requestOptions = {};
+    function makeRequest() {
+        console.log('****************************************************************************************')
+        // console.log('requestOptions', requestOptions);
+        // console.log('************************')
+        request(requestOptions, function (error, headers, body) {
+            // console.log('body', body);
+            if (error === null) {
+                callback(null, body);
+            } else {
+                callback(error);
+            }
+        });
+    }
     requestOptions = {
-        method: options.requestType,
+        method: 'GET',
         url: options.url,
         headers: {
             'Authorization': 'Bearer ' + options.token,
             'Content-Type': 'application/json'
         }
+    }
 
     // make the request
     makeRequest();
@@ -165,11 +170,13 @@ function sendRequest(options, callback) {
 
 
 function init() {
-    setUpRequest('count', function (error, count) {
+    setUpCountsRequest(function (error, count) {
         if (error === null) {
-            totalCalls = MATH.ceil(count / limit);
-            setUpRequest('video', function (error, ok) {
+
+            totalCalls = Math.ceil(count / limit);
+            setUpVideoRequest(function (error) {
                 if (error === null) {
+                    console.log('videosArray.length', videosArray.length);
                 }
             });
         }
@@ -177,6 +184,6 @@ function init() {
 }
 
 
-util.puts('http server for CMS API '.blue + 'started '.green.bold + 'on port '.blue + '8006 '.yellow);
+// util.puts('http server for CMS API '.blue + 'started '.green.bold + 'on port '.blue + '8006 '.yellow);
 // initialize
 init();

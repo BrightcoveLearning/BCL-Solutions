@@ -119,8 +119,16 @@ function setUpCountsRequest(callback) {
 }
 
 function setUpVideoRequest(callback) {
-    var endPoint = '/accounts/' + account_id + '/videos?limit=' + limit +'&offset=' + (currentCall * limit) + '&sort=' + sort;
+    var endPoint = '/accounts/' + account_id + '/videos?limit=' + limit +'&offset=' + (currentCall * limit) + '&sort=' + sort,
+        ok = false;
 
+    options.url = baseURL + endPoint;
+    getAccessToken(function(error, token) {
+        if (error === null) {
+            options.token = token;
+            sendRequest(options, function (error, body) {
+                if (error === null) {
+                    responseData = JSON.parse(body);
                         videosArray = videosArray.concat(responseData);
                         currentCall += 1;
                         callback(null);
@@ -160,7 +168,7 @@ function init() {
     setUpRequest('count', function (error, count) {
         if (error === null) {
             totalCalls = MATH.ceil(count / limit);
-            setUpRequest('video', function (error, currentCall) {
+            setUpRequest('video', function (error, ok) {
                 if (error === null) {
                 }
             });

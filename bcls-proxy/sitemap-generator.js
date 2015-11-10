@@ -57,7 +57,7 @@ var util = require('util'),
     offset = 0,
     sort = 'created_at',
     // doc generation
-    contentStr = '',
+    contentStr = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"></urlset>',
     doc;
 
 /**
@@ -123,8 +123,7 @@ function generateSitemap() {
         iMax;
     doc = new DOMParser().parseFromString(contentStr);
     console.log('doc', doc);
-    urlset = createEl('urlset', {xmlns: 'http://www.sitemaps.org/schemas/sitemap/0.9', 'xmlns:video': 'http://www.google.com/schemas/sitemap-video/1.1'});
-    doc.appendChild(urlset);
+    urlset = doc.getElementsByTagName('urlset')[0];
     iMax = videosArray.length;
     for (i = 0; i < iMax; i += 1) {
         videoItem = videosArray[i];
@@ -162,9 +161,11 @@ function generateSitemap() {
 }
 
 function writeFile() {
+    var re = new RegExp('><', 'g');
     fs.open('sitemap.xml', 'w', '0666', function(err, fd) {
         console.log(err);
         var docContentStr = new XMLSerializer().serializeToString(doc);
+        docContentStr = docContentStr.replace('><')
         fs.write(fd, docContentStr, 0, function(err, written, string) {
             console.log('string written', string);
         });

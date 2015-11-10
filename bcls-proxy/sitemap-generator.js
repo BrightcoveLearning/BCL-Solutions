@@ -122,6 +122,7 @@ function generateSitemap() {
         i,
         iMax;
     doc = new DOMParser().parseFromString(contentStr);
+    console.log('doc', doc);
     urlset = createEl('urlset', {xmlns: 'http://www.sitemaps.org/schemas/sitemap/0.9', 'xmlns:video': 'http://www.google.com/schemas/sitemap-video/1.1'});
     doc.appendChild(urlset);
     iMax = videosArray.length;
@@ -161,7 +162,7 @@ function generateSitemap() {
 }
 
 function writeFile() {
-    fs.open('sitemap.xml', w, 0666, function(err, fd) {
+    fs.open('sitemap.xml', 'w', '0666', function(err, fd) {
         console.log(err);
         var docContentStr = new XMLSerializer().serializeToString(doc);
         fs.write(fd, docContentStr, 0, function(err, written, string) {
@@ -292,7 +293,7 @@ function init() {
             totalCalls = Math.ceil(count / limit);
             setUpVideoRequest(function (error) {
                 if (error === null) {
-                    console.log('videosArray', videosArray);
+                    // console.log('videosArray', videosArray);
                     generateSitemap();
                 }
             });

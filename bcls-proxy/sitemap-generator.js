@@ -14,12 +14,8 @@
  * Dependencies
  * This app requires the following modules available via NPM:
  * xmldom
- * util
  * colors
  * request
- *
- * http://ondemand.brightcovelearning.com/
- * http://video.brightcovelearning.com/
  *
  */
 
@@ -105,7 +101,9 @@ function addText(el, str) {
     el.appendChild(text);
 }
 
-
+/**
+ * creates the XML code for the sitemap
+ */
 function generateSitemap() {
     var urlset,
         url,
@@ -160,12 +158,17 @@ function generateSitemap() {
     }
 }
 
+/**
+ * writes the generated sitemap to a file
+ */
 function writeFile() {
+    // used to make the sitemap a little prettier by inserting line breaks after tags
     var re = new RegExp('><', 'g');
     fs.open('sitemap.xml', 'w', '0666', function(err, fd) {
         console.log(err);
         var docContentStr = new XMLSerializer().serializeToString(doc);
-        docContentStr = docContentStr.replace('><')
+        // used to make the sitemap a little prettier by inserting line breaks after tags
+        docContentStr = docContentStr.replace(re, '>\n<');
         fs.write(fd, docContentStr, 0, function(err, written, string) {
             console.log('string written', string);
         });
@@ -179,7 +182,6 @@ function getAccessToken(callback) {
     // base64 encode the ciient_id:client_secret string for basic auth
     var bodyObj,
         token;
-    // don't know what API was requested, always get new token
     request({
         method: 'POST',
         url: 'https://oauth.brightcove.com/v3/access_token?grant_type=client_credentials',
@@ -203,6 +205,10 @@ function getAccessToken(callback) {
     });
 }
 
+/**
+ * sets up the API request to get a count of all videos
+ * @param {Function} callback function to call when done
+ */
 function setUpCountsRequest(callback) {
     var endPoint,
         responseData;
@@ -224,6 +230,10 @@ function setUpCountsRequest(callback) {
     });
 }
 
+/**
+ * function to set up a cms api call to get videos
+ * @param {Function} callback function to call when done
+ */
 function setUpVideoRequest(callback) {
     var endPoint,
         responseData;
@@ -245,8 +255,10 @@ function setUpVideoRequest(callback) {
                         videosArray = videosArray.concat(responseData);
                         currentCall += 1;
                         if (currentCall < totalCalls) {
+                            // more videos to get, function recalls itself
                             makeRequest();
                         } else {
+                            // we're done, call the callback
                             callback(null);
                         }
                     }
@@ -258,8 +270,10 @@ function setUpVideoRequest(callback) {
     }
 }
 
-/*
- * sends the request to the API
+/**
+ * sends the request to the CMS API
+ * @param  {Object}   options  options for the request - includes url and token
+ * @param  {Function} callback function to call when done
  */
 function sendRequest(options, callback) {
     var requestOptions = {};
@@ -287,6 +301,10 @@ function sendRequest(options, callback) {
 }
 
 
+/**
+ * gets things going by making the API requests, then call the sitemap generation
+ * @return {[type]} [description]
+ */
 function init() {
     setUpCountsRequest(function (error, count) {
         if (error === null) {

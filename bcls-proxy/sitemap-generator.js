@@ -54,7 +54,52 @@ var util = require('util'),
     // cms api options
     limit = 25,
     offset = 0,
-    sort = 'created_at';
+    sort = 'created_at',
+    // doc generation
+    contentStr = '',
+    doc;
+
+/**
+ * create an element
+ *
+ * @param  {string} type - the element type
+ * @param  {object} attributes - attributes to add to the element
+ * @return {object} the HTML element
+ */
+function createEl(type, attributes) {
+    var el;
+    if (isDefined(type)) {
+        el = doc.createElement(type);
+        if (isDefined(attributes)) {
+            var attr;
+            for (attr in attributes) {
+                el.setAttribute(attr, attributes[attr]);
+            }
+        }
+        return el;
+    }
+};
+
+
+function generateSitemap() {
+    var urlset,
+        loc,
+        video,
+        video_thumbnail_loc,
+        video_thumbnail_loctitle,
+        video_description,
+        video_content_loc,
+        video_player_loc,
+        video_duration,
+        video_expiration_date,
+        video_view_count,
+        video_publication_date,
+        video_family_friendly,
+        video_gallery_loc,
+        video_requires_subscription,
+        video_live;
+    doc = new DOMParser().parseFromString(contentStr);
+}
 
 /*
  * get new access_token for other APIs
@@ -115,6 +160,11 @@ function setUpVideoRequest(callback) {
     function makeRequest() {
         endPoint = '/accounts/' + account_id + '/videos?limit=' + limit +'&offset=' + (currentCall * limit) + '&sort=' + sort;
         options.url = baseURL + endPoint;
+        // note that access tokens live for 5 minutes
+        // you could check the time when you get one, and only request another
+        // if the current one has timed out;
+        // for an account with few videos, you may only need one
+        // but you can always request one for each call to be safe
         getAccessToken(function (error, token) {
             if (error === null) {
                 options.token = token;
@@ -143,9 +193,6 @@ function setUpVideoRequest(callback) {
 function sendRequest(options, callback) {
     var requestOptions = {};
     function makeRequest() {
-        console.log('****************************************************************************************')
-        // console.log('requestOptions', requestOptions);
-        // console.log('************************')
         request(requestOptions, function (error, headers, body) {
             // console.log('body', body);
             if (error === null) {
@@ -176,7 +223,8 @@ function init() {
             totalCalls = Math.ceil(count / limit);
             setUpVideoRequest(function (error) {
                 if (error === null) {
-                    console.log('videosArray.length', videosArray.length);
+                    console.log('videosArray', videosArray);
+                    generateSitemap();
                 }
             });
         }

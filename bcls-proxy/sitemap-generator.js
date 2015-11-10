@@ -80,25 +80,41 @@ function createEl(type, attributes) {
     }
 };
 
+/**
+ * creates a text node and adds it to an element
+ * @param {object|node} el - the node (element) to add the text to
+ * @param {string} str - the text to add
+ */
+function addText(el, str) {
+    var text = doc.createTextNode(str);
+    el.appendChild(text);
+}
+
 
 function generateSitemap() {
     var urlset,
+        url,
         loc,
         video,
         video_thumbnail_loc,
-        video_thumbnail_loctitle,
+        video_title,
         video_description,
         video_content_loc,
         video_player_loc,
         video_duration,
-        video_expiration_date,
         video_view_count,
-        video_publication_date,
-        video_family_friendly,
         video_gallery_loc,
-        video_requires_subscription,
-        video_live;
+        i,
+        iMax;
     doc = new DOMParser().parseFromString(contentStr);
+    urlset = createEl('urlset', {xmlns: 'http://www.sitemaps.org/schemas/sitemap/0.9', 'xmlns:video': 'http://www.google.com/schemas/sitemap-video/1.1'});
+    doc.appendChild(urlset)
+    iMax = videosArray.length;
+    for (i = 0; i < iMax; i += 1) {
+        url = createEl('url');
+        video = createEl('video');
+
+    }
 }
 
 /*

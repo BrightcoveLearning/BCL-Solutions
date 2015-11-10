@@ -28,6 +28,7 @@ var util = require('util'),
     colors = require('colors'),
     http = require('http'),
     request = require('request'),
+    fs = require('fs'),
     DOMParser = require('xmldom').DOMParser,
     XMLSerializer = require('xmldom').XMLSerializer,
     // error messages
@@ -60,6 +61,20 @@ var util = require('util'),
     doc;
 
 /**
+ * tests for all the ways a variable might be undefined or not have a value
+ *
+ * @param {*} x - the variable to test
+ * @return {Boolean} true if variable is defined and has a value
+ */
+function isDefined(x) {
+    if (x === '' || x === null || x === undefined || x === NaN) {
+        return false;
+    }
+    return true;
+}
+
+
+/**
  * create an element
  *
  * @param  {string} type - the element type
@@ -78,7 +93,7 @@ function createEl(type, attributes) {
         }
         return el;
     }
-};
+}
 
 /**
  * creates a text node and adds it to an element
@@ -99,22 +114,60 @@ function generateSitemap() {
         video_thumbnail_loc,
         video_title,
         video_description,
-        video_content_loc,
         video_player_loc,
         video_duration,
-        video_view_count,
         video_gallery_loc,
+        videoItem,
+        playerURL = 'http://players.brightcove.net/20318290001/df07da22-61f9-4b06-ae25-629f96fe2ff0_default/index.html?videoId=',
         i,
         iMax;
     doc = new DOMParser().parseFromString(contentStr);
     urlset = createEl('urlset', {xmlns: 'http://www.sitemaps.org/schemas/sitemap/0.9', 'xmlns:video': 'http://www.google.com/schemas/sitemap-video/1.1'});
-    doc.appendChild(urlset)
+    doc.appendChild(urlset);
     iMax = videosArray.length;
     for (i = 0; i < iMax; i += 1) {
-        url = createEl('url');
-        video = createEl('video');
-
+        videoItem = videosArray[i];
+        // only include videos if they have a page URL
+        if (videoItem.custom_fields.hasOwnProperty('galleryurl')) {
+            // create the elements and add contents
+            url = createEl('url');
+            loc = createEl('loc');
+            addText(loc, videoItem.custom_fields.galleryurl);
+            video = createEl('video');
+            video_title = createEl('video:title');
+            addText(video_title, videoItem.name);
+            video_description = createEl('video:description');
+            addText(video_description, videoItem.description);
+            video_player_loc = createEl('video:player_loc');
+            addText(video_player_loc, playerURL + videoItem.id);
+            video_duration = createEl('video:duration');
+            // cms api return duration in ms, but sitemap needs seconds
+            addText(video_duration, videoItem.duration / 1000);
+            video_gallery_loc = createEl('video:gallery_loc');
+            addText(video_gallery_loc, videoItem.custom_fields.galleryurl.substring(0, videoItem.custom_fields.galleryurl.indexOf('/video/')));
+            // append all the elements
+            urlset.appendChild(url);
+            url.appendChild(loc)
+            url.appendChild(video);
+            video.appendChild(video_title);
+            video.appendChild(video_description);
+            video.appendChild(video_player_loc);
+            video.appendChild(video_duration);
+            video.appendChild(video_gallery_loc);
+        }
+        // now write the file
+        writeFile();
     }
+}
+
+function writeFile() {
+    fs.open('sitemap.xml', w, 0666, function(err, fd) {
+        console.log(err);
+        var docContentStr = new XMLSerializer().serializeToString(doc);
+        fs.write(fd, docContentStr, 0, function(err, written, string) {
+            console.log('string written', string);
+        });
+    });
 }
 
 /*

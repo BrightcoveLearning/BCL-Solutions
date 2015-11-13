@@ -55,7 +55,7 @@
         color: #000099;
         font-family: Monaco, 'Andale Mono', monospace;
         width: 100%;
-        height: 5em;
+        height: 16em;
     }
     input {
         width: 95%;
@@ -65,6 +65,7 @@
 
 <body>
     <h1>Video Trimming Tool</h1>
+    <p>You can try the tool with a default video just by clicking the play button, or follow the steps below.</p>
     <div id="inputWrapper">
         <div id="setSrc">
             <ol>
@@ -90,10 +91,7 @@
                 </li>
             </ol>
         </div>
-        <div id="codeBlock">
-            <p>Code for your Zencoder job</p>
-            <textarea id="requestCode"></textarea>
-        </div>
+        <p><button id="reset">Reset</button></p>
     </div>
     <div id="wrapper">
         <video id="previewPlayer" class="video-js vjs-default-skin" controls preload="auto" width="500" height="281" poster="./assets/poster.png" data-setup='{"example_option":true}'>
@@ -103,6 +101,10 @@
         <p id="positionOverlay">
             Current position (hh:mm:ss) <span id="currentPosition"></span>
         </p>
+        <div id="codeBlock">
+            <p>Code for your Zencoder job</p>
+            <textarea id="requestCode"></textarea>
+        </div>
     </div>
 
     <script>
@@ -120,6 +122,7 @@
         endTime = document.getElementById('endTime'),
         endTimeValue = 0,
         requestCode = document.getElementById('requestCode'),
+        reset = document.getElementById('reset'),
         currentTime,
         currentTimeString,
         settingStartTime = false,
@@ -131,6 +134,7 @@
     /**
      * utility to extract h/m/s from seconds
      * @param {number} secs - seconds to convert to hh:mm:ss
+     * @return {Object} object containing h, m, and s as strings
      */
     function secondsToTime(secs) {
         var hours = Math.floor(secs / (60 * 60)),
@@ -143,22 +147,22 @@
             obj = {};
 
         if (hours < 10) {
-            hours = "0" + hours.toString();
+            hours = '0' + hours.toString();
         } else {
             hours = hours.toString();
-        };
+        }
 
         if (minutes < 10) {
-            minutes = "0" + minutes.toString();
+            minutes = '0' + minutes.toString();
         } else {
             minutes = minutes.toString();
-        };
+        }
 
         if (seconds < 10) {
-            seconds = "0" + seconds.toString();
+            seconds = '0' + seconds.toString();
         } else {
             seconds = seconds.toString();
-        };
+        }
 
         obj = {
             'h': hours,
@@ -182,7 +186,7 @@
     }
 
     /**
-     * enables an input block by setting opacity to 1 and enabling input element
+     * enables input block by setting opacity to 1 and enabling input element
      * @param  {HTMLElement} wrapper div that wraps the block
      * @param  {HTMLElement} inputEl the input element
      */
@@ -196,7 +200,7 @@
     }
 
     /**
-     * disables an input block by setting opacity to .4 and disabling input element
+     * disables input block by setting opacity to .4 and disabling input element
      * @param  {HTMLElement} wrapper div that wraps the block
      * @param  {HTMLElement} inputEl the input element
      */
@@ -209,19 +213,22 @@
         }
     }
 
+    /**
+     * creates the Zencoder job code
+     */
     function createCode() {
-        var clipLength = endTimeValue - startTimeValue,
-
-            zCode = {input: player.src(), outputs: [start: startTime.value, clip_length: endTimeValue - ]};
+        var clipLengthObj = secondsToTime(endTimeValue - startTimeValue),
+            clipLength = clipLengthObj.h + ':' + clipLengthObj.m + ':' + clipLengthObj.s,
+            zCode = {input: player.src(), outputs: [{start: startTime.textContent}, {clip_length: clipLength}]};
+        requestCode.textContent = JSON.stringify(zCode, null, '  ');
     }
 
     /**
      * player ready event handler
      */
-    videojs("previewPlayer").ready(function() {
+    videojs('previewPlayer').ready(function() {
 
         player = this;
-        console.log('src', player.src())
         function getCurrentTime() {
             var timeObj = {};
             currentTime = player.currentTime();
@@ -241,15 +248,13 @@
             }
         });
         // playback started
-        player.on('play', function() {
-            setStart.setAttribute('style', 'opacity:1');
-            if (!settingEndTime) {
-                settingStartTime = true;
-                // play started with default video
-                if (settingStartTime === false && settingEndTime === false) {
-                    enable(setStart, setStartTime);
-                }
-            }
+        player.one('play', function() {
+        // play started with default video
+        if (settingStartTime === false && settingEndTime === false) {
+            settingStartTime = true;
+            enable(setStart, setStartTime);
+            disable(setSrc, srcURL);
+        }
         });
         // new video source added
         loadSrc.addEventListener('click', function() {
@@ -276,8 +281,28 @@
             enable(setSrc, srcURL);
             createCode();
         });
+        // user clicks on generated code
+        requestCode.addEventListener('click', function() {
+            this.select();
+        });
+        // user resets the tool
+        reset.addEventListener('click', function() {
+            enable(setSrc, srcURL);
+            disable(setStart, setStartTime);
+            disable(setEnd, setEndTime);
+            srcURL.textContent = '';
+            startTime.textContent = '';
+            endTime.textContent = '';
+            startTimeValue = 0;
+            endTimeValue = 0;
+            settingEndTime = false;
+            settingEndTime = false;
+            requestCode.textContent = '';
+        });
     });
+
     </script>
 </body>
 
 </html>
+

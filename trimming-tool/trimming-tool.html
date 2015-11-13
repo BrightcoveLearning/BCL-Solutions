@@ -210,7 +210,9 @@
     }
 
     function createCode() {
-        var zCode = {input: player.src(), outputs: [start: startTime.value]};
+        var clipLength = endTimeValue - startTimeValue,
+
+            zCode = {input: player.src(), outputs: [start: startTime.value, clip_length: endTimeValue - ]};
     }
 
     /**

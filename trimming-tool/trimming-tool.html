@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Video Trimming Tool</title>
     <link href="http://vjs.zencdn.net/5.0.2/video-js.css" rel="stylesheet">
     <script src="http://vjs.zencdn.net/5.0.2/video.js"></script>
@@ -68,8 +68,10 @@
     <div id="inputWrapper">
         <div id="setSrc">
             <ol>
-                <li>Enter a publicly accessible URL to the video clip you want to trim:
-                <input id="srcURL" type="text" placeholder="http://learning-services-media.brightcove.com/videos/mp4/greatblueheron.mp4"></input></li>
+                <li>Enter a publicly accessible URL to the video clip you want to trim and click <strong>Load New Video</strong>:
+                <input id="srcURL" type="text" placeholder="http://learning-services-media.brightcove.com/videos/mp4/greatblueheron.mp4"></input>
+                <p><button id="loadSrc">Load New Video</button></p>
+                </li>
             </ol>
         </div>
         <div id="setStart" style="opacity:.4">
@@ -88,8 +90,8 @@
                 </li>
             </ol>
         </div>
-        <div id="zCode">
-            <p>Code for your Zencoder request</p>
+        <div id="codeBlock">
+            <p>Code for your Zencoder job</p>
             <textarea id="requestCode"></textarea>
         </div>
     </div>
@@ -106,6 +108,9 @@
     <script>
     'use strict';
     var currentPosition = document.getElementById('currentPosition'),
+        setSrc = document.getElementById('setSrc'),
+        srcURL = document.getElementById('srcURL'),
+        loadSrc = document.getElementById('loadSrc'),
         setStart = document.getElementById('setStart'),
         setStartTime = document.getElementById('setStartTime'),
         setEnd = document.getElementById('setEnd'),
@@ -115,11 +120,12 @@
         endTime = document.getElementById('endTime'),
         endTimeValue = 0,
         requestCode = document.getElementById('requestCode'),
-        srcURL = document.getElementById('srcURL'),
         currentTime,
         currentTimeString,
         settingStartTime = false,
-        settingEndTime = false;
+        settingEndTime = false,
+        player,
+        currentVideo = 'http://learning-services-media.brightcove.com/videos/mp4/greatblueheron.mp4';
 
 
     /**
@@ -131,7 +137,9 @@
             divisor_for_minutes = secs % (60 * 60),
             minutes = Math.floor(divisor_for_minutes / 60),
             divisor_for_seconds = divisor_for_minutes % 60,
-            seconds = Math.ceil(divisor_for_seconds),
+            // to get one decimal place on seconds
+            seconds = Math.round(divisor_for_seconds * 10) / 10,
+            // seconds = Math.ceil(divisor_for_seconds),
             obj = {};
 
         if (hours < 10) {
@@ -160,19 +168,67 @@
 
         return obj;
     }
+
+    /**
+     * check for whether a var is defined and has value
+     * @param  {String|Number|HTMLElement}  x variable to check
+     * @return {Boolean}   whether variable has value
+     */
+    function isDefined(x) {
+        if (x === '' || x === undefined || x === null || x === NaN) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * enables an input block by setting opacity to 1 and enabling input element
+     * @param  {HTMLElement} wrapper div that wraps the block
+     * @param  {HTMLElement} inputEl the input element
+     */
+    function enable(wrapper, inputEl) {
+        if (isDefined(wrapper)) {
+            wrapper.setAttribute('style', 'opacity:1');
+        }
+        if (isDefined(inputEl)) {
+            inputEl.removeAttribute('disabled');
+        }
+    }
+
+    /**
+     * disables an input block by setting opacity to .4 and disabling input element
+     * @param  {HTMLElement} wrapper div that wraps the block
+     * @param  {HTMLElement} inputEl the input element
+     */
+    function disable(wrapper, inputEl) {
+        if (isDefined(wrapper)) {
+            wrapper.setAttribute('style', 'opacity:.4');
+        }
+        if (isDefined(inputEl)) {
+            inputEl.setAttribute('disabled', 'disabled');
+        }
+    }
+
+    function createCode() {
+        var zCode = {input: player.src(), outputs: [start: startTime.value]};
+    }
+
+    /**
+     * player ready event handler
+     */
     videojs("previewPlayer").ready(function() {
 
-        var player = this;
-
+        player = this;
+        console.log('src', player.src())
         function getCurrentTime() {
             var timeObj = {};
-            currentTime = player.getCurrentTime();
+            currentTime = player.currentTime();
             timeObj = secondsToTime(currentTime);
             currentTimeString = timeObj.h + ':' + timeObj.m + ':' + timeObj.s;
         }
 
         // event listeners
-
+        // player time update via play or scrub
         player.on('timeupdate', function() {
             getCurrentTime();
             currentPosition.textContent = currentTimeString;
@@ -182,21 +238,41 @@
                 endTime.textContent = currentTimeString;
             }
         });
+        // playback started
         player.on('play', function() {
             setStart.setAttribute('style', 'opacity:1');
             if (!settingEndTime) {
                 settingStartTime = true;
-                setStartTime.removeAttribute('disabled');
-                setStart.setAttribute('style', 'opacity:1')
+                // play started with default video
+                if (settingStartTime === false && settingEndTime === false) {
+                    enable(setStart, setStartTime);
+                }
             }
-        })
-        srcURL.addEventListener('change' function() {
-            player.src(srcURL.value);
-            setStart.setAttribute('style', 'opacity:1');
         });
-        setStartTime.addEventListener('click' function(){
+        // new video source added
+        loadSrc.addEventListener('click', function() {
+            player.src(srcURL.value);
+            settingStartTime = true;
+            enable(setStart, setStartTime);
+            disable(setSrc, srcURL);
+        });
+        // user is setting the start time
+        setStartTime.addEventListener('click', function() {
             startTime.textContent = currentTimeString;
             startTimeValue = currentTime;
+            settingStartTime = false;
+            settingEndTime = true;
+            disable(setStart, setStartTime);
+            enable(setEnd, setEndTime);
+        });
+        // user is setting the end time
+        setEndTime.addEventListener('click', function() {
+            endTime.textContent = currentTimeString;
+            endTimeValue = currentTime;
+            settingEndTime = false;
+            disable(setEnd, setEndTime);
+            enable(setSrc, srcURL);
+            createCode();
         });
     });
     </script>

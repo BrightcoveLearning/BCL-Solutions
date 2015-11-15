@@ -23,12 +23,12 @@ header("Access-Control-Allow-Origin: *");
 
 
 // get client_id if submitted
-if ($_POST["client_id"]) {
+if ($_POST["client_id"] && $_POST["client_id"] !== '') {
 	$client_id = $_POST["client_id"];
 } else {
 	$client_id = 'bc90ea5e-8a66-476b-8c43-90bf28215ed1';
 // get client_secret if submitted
-if ($_POST["client_secret"]) {
+if ($_POST["client_secret"] && $_POST["client_secret" !== '') {
 	$client_secret = $_POST["client_secret"];
 } else {
 	$client_secret = 'hPvmIPc40FOwcS14Jg7_rZjEM-xpRk-8MJO507ZGRKe2eOXKzsdp8nnKLSgTOtbvqsn4v8ZVMT6mViyA3D7jDg';

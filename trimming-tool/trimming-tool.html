@@ -82,16 +82,16 @@
         <div id="setStart" style="opacity:.4">
             <ol start="2">
                 <li>Play the video or drag the playhead to get to the time you want the clip to <strong>begin</strong>, and then click the button below.
+                    <p>Start time: <input id="startTime" type="text" size="30" disabled="disabled" /></p>
                     <p><button id="setStartTime" disabled="disabled">Set Start Time</button></p>
-                    <p>Start time: <span id="startTime"></span></p>
                 </li>
             </ol>
         </div>
         <div id="setEnd" style="opacity:.4">
             <ol start="3">
                 <li>Play the video or drag the playhead to get to the time you want the clip to <strong>end</strong>, and then click the button below.
+                    <p>End time: <input id="endTime" type="text" size="30" disabled="disabled" />/p>
                     <p><button id="setEndTime" disabled="disabled">Set End Time</button></p>
-                    <p>End time: <span id="endTime"></span></p>
                 </li>
             </ol>
         </div>
@@ -177,6 +177,15 @@
         return obj;
     }
 
+    function timeToSeconds(time) {
+        var timeArray = time.split(':'),
+            secondsArray = timeArray[timeArray.length - 1].split('.'),
+            seconds;
+        if (secondsArray.length === 2) {
+
+        }
+    }
+
     /**
      * check for whether a var is defined and has value
      * @param  {String|Number|HTMLElement}  x variable to check
@@ -194,12 +203,15 @@
      * @param  {HTMLElement} wrapper div that wraps the block
      * @param  {HTMLElement} inputEl the input element
      */
-    function enable(wrapper, inputEl) {
+    function enable(wrapper, inputEl, buttonEl) {
         if (isDefined(wrapper)) {
             wrapper.setAttribute('style', 'opacity:1');
         }
         if (isDefined(inputEl)) {
             inputEl.removeAttribute('disabled');
+        }
+        if (isDefined(buttonEl)) {
+            buttonEl.removeAttribute('disabled');
         }
     }
 
@@ -208,12 +220,15 @@
      * @param  {HTMLElement} wrapper div that wraps the block
      * @param  {HTMLElement} inputEl the input element
      */
-    function disable(wrapper, inputEl) {
+    function disable(wrapper, inputEl, buttonEl) {
         if (isDefined(wrapper)) {
             wrapper.setAttribute('style', 'opacity:.4');
         }
         if (isDefined(inputEl)) {
             inputEl.setAttribute('disabled', 'disabled');
+        }
+        if (isDefined(buttonEl)) {
+            buttonEl.removeAttribute('disabled');
         }
     }
 
@@ -256,7 +271,7 @@
         // play started with default video
         if (settingStartTime === false && settingEndTime === false) {
             settingStartTime = true;
-            enable(setStart, setStartTime);
+            enable(setStart, startTime, setStartTime);
             disable(setSrc, srcURL);
         }
         });
@@ -264,7 +279,7 @@
         loadSrc.addEventListener('click', function() {
             player.src(srcURL.value);
             settingStartTime = true;
-            enable(setStart, setStartTime);
+            enable(setStart, startTime, setStartTime);
             disable(setSrc, srcURL);
         });
         // user is setting the start time
@@ -273,18 +288,26 @@
             startTimeValue = currentTime;
             settingStartTime = false;
             settingEndTime = true;
-            disable(setStart, setStartTime);
-            enable(setEnd, setEndTime);
+            disable(setStart, startTime, setStartTime);
+            enable(setEnd, endTime, setEndTime);
         });
         // user is setting the end time
         setEndTime.addEventListener('click', function() {
             endTime.textContent = currentTimeString;
             endTimeValue = currentTime;
             settingEndTime = false;
-            disable(setEnd, setEndTime);
+            disable(setEnd, startTime, setEndTime);
             enable(setSrc, srcURL);
             createCode();
         });
+        // user manually sets start time
+        startTime.addEventListener('click' function() {
+            player.pause();
+            // add listener for change
+            startTime.addEventListener('change' function() {
+
+            })
+        })
         // user clicks on generated code
         requestCode.addEventListener('click', function() {
             this.select();
@@ -292,8 +315,8 @@
         // user resets the tool
         reset.addEventListener('click', function() {
             enable(setSrc, srcURL);
-            disable(setStart, setStartTime);
-            disable(setEnd, setEndTime);
+            disable(setStart, startTime, setStartTime);
+            disable(setEnd, endTime, setEndTime);
             srcURL.textContent = '';
             startTime.textContent = '';
             endTime.textContent = '';

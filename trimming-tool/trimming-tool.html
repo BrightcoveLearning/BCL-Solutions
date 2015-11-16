@@ -29,8 +29,9 @@
 
     #positionOverlay {
         position: absolute;
+        margin: 0;
         top: 0;
-        right: .2em;
+        right: 0;
         background-color: #999;
         color: white;
         padding: .1em .2em;
@@ -102,7 +103,7 @@
             <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
         </video>
         <p id="positionOverlay">
-            Current position <span id="currentPosition"></span>
+            Current position
         </p>
         <div id="codeBlock">
             <p>Code for your Zencoder job</p>
@@ -112,7 +113,7 @@
 
     <script>
     'use strict';
-    var currentPosition = document.getElementById('currentPosition'),
+    var positionOverlay = document.getElementById('positionOverlay'),
         setSrc = document.getElementById('setSrc'),
         srcURL = document.getElementById('srcURL'),
         loadSrc = document.getElementById('loadSrc'),
@@ -243,7 +244,7 @@
         // player time update via play or scrub
         player.on('timeupdate', function() {
             getCurrentTime();
-            currentPosition.textContent = currentTimeString;
+            positionOverlay.textContent = currentTimeString;
             if (settingStartTime) {
                 startTime.textContent = currentTimeString;
             } else if (settingEndTime) {

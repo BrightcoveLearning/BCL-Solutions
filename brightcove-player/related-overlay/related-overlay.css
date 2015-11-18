@@ -1,0 +1,19 @@
+/***************************
+ * Related Overlay         *
+ ***************************/
+/* styling for the video thumbnails */
+.video-thumbnail {
+    margin: 0;
+    padding: 0;
+    width: 190px;
+    height: 107px;
+    cursor: pointer;
+}
+/*override some of the default overlay styling*/
+.vjs-overlay,
+.vjs-overlay.vjs-overlay-top {
+    width: 100%;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}

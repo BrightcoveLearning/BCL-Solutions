@@ -1,4 +1,4 @@
-videojs.plugin('downloadVideoPlugin', function() {
+videojs.plugin('renditionSelectPlugin', function() {
     var myPlayer = this,
         videoID,
         videoName,

@@ -177,13 +177,23 @@
         return obj;
     }
 
+    /**
+     * converts hh:mm:ss timestamp to seconds
+     * @param {timeString} time time in hh:mm:ss format
+     * @returns {number} seconds the time in seconds to the nearest 10th
+     */
     function timeToSeconds(time) {
         var timeArray = time.split(':'),
             secondsArray = timeArray[timeArray.length - 1].split('.'),
             seconds;
         if (secondsArray.length === 2) {
-            seconds = secondsArray[0]
+            seconds = parseInt(secondsArray[0]) + (parseInt(secondsArray[1]) / 10);
+        } else {
+            seconds = parseInt(secondsArray[0]);
         }
+        seconds += parseInt(timeArray[0]) * 3600;
+        seconds += parseInt(timeArray[1]) * 60;
+        return seconds;
     }
 
     /**

@@ -39,3 +39,12 @@ var videos = ["BettyBoop.mp4",
     iMax = videos.length,
     j,
     jMax = 20;
+
+    for (j = 0; j < jMax; j += 1) {
+        for (i = 0; i < iMax; i += 1) {
+            videoDataItem = {};
+            videoDataItem.di = {};
+            videoDataItem.cms = {};
+            videoDataItem.cms.name = 'transceiver-' + videos[i].substring(0, videos[i].length - 5) + '-' + j;
+        }
+    }

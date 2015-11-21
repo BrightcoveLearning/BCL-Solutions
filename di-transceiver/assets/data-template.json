@@ -1,0 +1,18 @@
+[
+    {
+        "di": {
+            "capture-images": true,
+            "profile": "videocloud-default-v1",
+            "master": {
+                "url": "String"
+            }
+        },
+        "cms": {
+            "description": "String",
+            "name": "String",
+            "tags": [
+                
+            ]
+        }
+    }
+]

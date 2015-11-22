@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+        <style>
+            body {
+                margin: 4em;
+                font-family: sans-serif;
+            }
+            textarea {
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Video Data</h1>
+        <textarea id="videoData"></textarea>
+        <script>
+        var videos = ["BettyBoop.mp4",
+            "Bird_Chickadee.mp4",
+            "Bird_CommonRedpoll.mp4",
+            "Bird_Magpie.mp4",
+            "Bird_Peacock.mp4",
+            "Bird_Robin.mp4",
+            "Bird_Seagulls.mp4",
+            "Bird_Woodpecker.mp4",
+            "Bird_Sea_Brown Pelican.mpg",
+            "Bird_Sea_Brown Pelicans on the Rocks.mpg",
+            "Bugs-Bee.mp4",
+            "Bugs-Butterfly.mp4",
+            "Sea Marvels.mp4",
+            "Sea-Crab.mp4",
+            "Sea-Dolphins.mp4",
+            "Sea-SeaTurtle.mp4",
+            "Sea_Anemone.mp4",
+            "Sea_ClownFish.mp4",
+            "Sea_LionFish.mp4",
+            "Sea_SeaHorse.mp4",
+            "Space-Galaxy.mp4",
+            "Space-Planets.mp4",
+            "Space-Satellite.mp4",
+            "Water-Bubbles.mp4",
+            "Water-Droplet.mp4",
+            "Water-Liquid-Flow.mp4",
+            "Water-Splashing.mp4",
+            "Wildlife_Tiger.mov",
+            "Bird_greatblueheron.mp4",
+            "Bird_greathornedowl.mp4",
+            "Bird_Sea_laughing_gull.mp4",
+            "Sea_leafy_seadragon.mp4",
+            "Bird_Sea_oystercatcher.mp4"],
+            now = new Date().toISOString(),
+            videoData = [],
+            videoDataItem = {},
+            urlString = 'http://learning-services-media.brightcove.com/videos/mp4/',
+            i,
+            iMax = videos.length,
+            j,
+            jMax = 20,
+            video,
+            data = document.getElementById('videoData');
+
+            for (j = 0; j < jMax; j += 1) {
+                for (i = 0; i < iMax; i += 1) {
+                    video = videos[i];
+                    videoDataItem = {};
+                    videoDataItem.di = {};
+                    videoDataItem.cms = {};
+                    videoDataItem.cms.name = 'transceiver-' + video.substring(0, video.length - 5) + '-' + now + '-' + j;
+                    videoDataItem.cms.description = 'transceiver-' + video.substring(0, video.length - 5) + '-' + now + '-' + j;
+                    videoDataItem.cms.reference_id = 'transceiver-' + video.substring(0, video.length - 5) + '-' + j;
+                    videoDataItem.cms.tags = [];
+                    if (video.indexOf('Bird') > -1) {
+                        videoDataItem.cms.tags.push('bird');
+                    }
+                    if (video.indexOf('Sea') > -1) {
+                        videoDataItem.cms.tags.push('sea');
+                    }
+                    if (video.indexOf('Water') > -1) {
+                        videoDataItem.cms.tags.push('water');
+                    }
+                    if (video.indexOf('Bug') > -1) {
+                        videoDataItem.cms.tags.push('bug');
+                    }
+                    if (video.indexOf('Wildlife') > -1) {
+                        videoDataItem.cms.tags.push('wildlife');
+                    }
+                    if (video.indexOf('Space') > -1) {
+                        videoDataItem.cms.tags.push('space');
+                    }
+                    videoDataItem.di.master = {};
+                    videoDataItem.di.master.url = urlString + video;
+                    videoDataItem.di['capture-images'] = true;
+                    videoDataItem.di.profile = 'videocloud-default-v1';
+                    videoData.push(videoDataItem);
+                }
+            }
+            data.textContent = JSON.stringify(videoData, null, '  ');
+            data.addEventListener('click', function() {
+                data.select();
+            })
+
+        </script>
+    </body>
+</html>

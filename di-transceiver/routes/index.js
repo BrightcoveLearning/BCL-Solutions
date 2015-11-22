@@ -13,14 +13,14 @@ router.get('/', function(req, res, next) {
 
 /* POST notifications. */
 router.post('/notifications', function(req, res, next) {
-    res.render('index', {
-        title: 'Express'
-    });
+    
 });
 
 /* POST requests. */
 router.post('/requests', function(req, res, next) {
-
+    var requestData = JSON.parse(req.body);
+    
+    console.log('requestData', requestData);
 
     res.render('index', {
         title: 'Express'

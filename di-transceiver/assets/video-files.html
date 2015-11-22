@@ -28,7 +28,7 @@
     <body>
         <h1>Video Ingest Data Generator</h1>
         <div style="width:25%">
-            <p>This app generates data for the Dynamic Ingest system in the form shown to the right.</p>
+            <p>This app generates data in prettified and minified form for the Dynamic Ingest system in the form shown to the right.</p>
             <p>
                 Select the number of sets you want (<strong>each set will contain 33 videos</strong>), then click <strong style="background-color:#f5f5f5;color:#990000;padding:.2em;">Go</strong>
             </p>
@@ -53,7 +53,7 @@
             </p>
         </div>
         <div style="background-color:#f5f5f5;width:70%">
-<pre><code>[
+<pre><code style="font-family:Hack,'Source Code Pro',Monaco,monospace;font-size:.7em">[
     {
       "di": {
         "master": {
@@ -79,7 +79,7 @@
         <h3>Minified</h3>
         <textarea id="dataMin"></textarea>
         <script>
-        var videos = ["BettyBoop.mp4",
+        var videos = ["Cartoon_BettyBoop.mp4",
             "Bird_Chickadee.mp4",
             "Bird_CommonRedpoll.mp4",
             "Bird_Magpie.mp4",
@@ -138,6 +138,9 @@
                         videoDataItem.cms.description = 'transceiver-' + video.substring(0, video.length - 4) + '-' + now + '-' + j;
                         videoDataItem.cms.reference_id = 'transceiver-' + video.substring(0, video.length - 4) + '-' + now + '-' + j;
                         videoDataItem.cms.tags = [];
+                        if (video.indexOf('Cartoon') > -1) {
+                            videoDataItem.cms.tags.push('cartoon');
+                        }
                         if (video.indexOf('Bird') > -1) {
                             videoDataItem.cms.tags.push('bird');
                         }

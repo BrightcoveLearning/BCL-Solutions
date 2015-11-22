@@ -124,7 +124,6 @@ var CMSAPIPROXY = (function () {
         var auth_string = new Buffer(options.client_id + ":" + options.client_secret).toString("base64"),
             bodyObj,
             now = new Date().valueOf();
-        // don't know what API was requested, always get new token
         request({
             method: 'POST',
             url: 'https://oauth.brightcove.com/v3/access_token?grant_type=client_credentials',

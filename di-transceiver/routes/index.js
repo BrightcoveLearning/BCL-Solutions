@@ -22,6 +22,53 @@ router.post('/requests', function(req, res, next) {
     options = {};
     
     /*
+     * sends the request to the targeted API
+     */
+    sendRequest = function (callback) {
+        var requestOptions = {},
+            makeRequest = function () {
+                console.log("requestOptions", requestOptions);
+                request(requestOptions, function (error, response, body) {
+                    console.log("body", body);
+                    console.log("error", error);
+                    if (error === null) {
+                        callback(null, response.headers, body);
+                    } else {
+                        callback(error);
+                    }
+                });
+            },
+            setRequestOptions = function () {
+                requestOptions = {
+                    method: options.requestType,
+                    url: options.url,
+                    headers: {
+                        "Authorization": "Bearer " + options.token,
+                        "Content-Type": "application/json"
+                    },
+                    body: options.requestBody
+                };
+    
+                // make the request
+                makeRequest();
+            };
+        if (options.token === null) {
+            // get an access token
+            getAccessToken(function (error) {
+                if (error === null) {
+                    setRequestOptions();
+                } else {
+                    callback(error);
+                }
+            });
+        } else {
+            // we already have a token; good to go
+            setRequestOptions();
+        }
+    
+    }
+    
+    /*
      * get new access_token for other APIs
      */
     getAccessToken = function (callback) {

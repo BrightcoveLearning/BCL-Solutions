@@ -5,18 +5,76 @@
         <title></title>
         <style>
             body {
-                margin: 4em;
+                margin: 2em;
                 font-family: sans-serif;
             }
             textarea {
                 width: 100%;
-                height: 100%;
+                height: 20em;
+            }
+            div {
+                display: inline-block;
+                padding: .5em;
+                vertical-align: top;
+            }
+            button {
+                color: #990000;
+                font-weight: bold;
+                padding: .5em;
+                width: 5em;
             }
         </style>
     </head>
     <body>
-        <h1>Video Data</h1>
-        <textarea id="videoData"></textarea>
+        <h1>Video Ingest Data Generator</h1>
+        <div style="width:25%">
+            <p>This app generates data for the Dynamic Ingest system in the form shown to the right.</p>
+            <p>
+                Select the number of sets you want (<strong>each set will contain 33 videos</strong>), then click <strong style="background-color:#f5f5f5;color:#990000;padding:.2em;">Go</strong>
+            </p>
+            <p>
+                <select id="sets">
+                    <option value="1">1</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                    <option value="60">60</option>
+                    <option value="70">70</option>
+                    <option value="80">80</option>
+                    <option value="90">90</option>
+                    <option value="100">100</option>
+                </select>
+            </p>
+            <p>
+                <button id="go">Go</button>
+            </p>
+        </div>
+        <div style="background-color:#f5f5f5;width:70%">
+<pre><code>[
+  {
+    "di": {
+      "master": {
+        "url": "http://learning-services-media.brightcove.com/videos/mp4/BettyBoop.mp4"
+      },
+      "capture-images": true,
+      "profile": "videocloud-default-v1"
+    },
+    "cms": {
+      "name": "transceiver-BettyBoop-2015-11-22T12:57:05.917Z-0",
+      "description": "transceiver-BettyBoop-2015-11-22T12:57:05.917Z-0",
+      "reference_id": "transceiver-BettyBoop-2015-11-22T12:57:05.917Z-0",
+      "tags": []
+    }
+  },...
+]</code></pre>
+        </div>
+        <h3>Prettified</h3>
+        <textarea id="dataPretty"></textarea>
+        <h3>Minified</h3>
+        <textarea id="dataMin"></textarea>
         <script>
         var videos = ["BettyBoop.mp4",
             "Bird_Chickadee.mp4",
@@ -51,56 +109,73 @@
             "Bird_Sea_laughing_gull.mp4",
             "Sea_leafy_seadragon.mp4",
             "Bird_Sea_oystercatcher.mp4"],
-            now = new Date().toISOString(),
             videoData = [],
             videoDataItem = {},
             urlString = 'http://learning-services-media.brightcove.com/videos/mp4/',
             i,
             iMax = videos.length,
             j,
-            jMax = 20,
+            jMax,
+            numberSets = 1,
             video,
-            data = document.getElementById('videoData');
-
-            for (j = 0; j < jMax; j += 1) {
-                for (i = 0; i < iMax; i += 1) {
-                    video = videos[i];
-                    videoDataItem = {};
-                    videoDataItem.di = {};
-                    videoDataItem.cms = {};
-                    videoDataItem.cms.name = 'transceiver-' + video.substring(0, video.length - 5) + '-' + now + '-' + j;
-                    videoDataItem.cms.description = 'transceiver-' + video.substring(0, video.length - 5) + '-' + now + '-' + j;
-                    videoDataItem.cms.reference_id = 'transceiver-' + video.substring(0, video.length - 5) + '-' + j;
-                    videoDataItem.cms.tags = [];
-                    if (video.indexOf('Bird') > -1) {
-                        videoDataItem.cms.tags.push('bird');
+            dataPretty = document.getElementById('dataPretty'),
+            dataMin = document.getElementById('dataMin'),
+            sets = document.getElementById('sets'),
+            go = document.getElementById('go');
+            console.log('iMax', iMax);
+            function generateData () {
+                for (j = 0; j < numberSets; j += 1) {
+                    for (i = 0; i < iMax; i += 1) {
+                        var now = new Date().toISOString();
+                        video = videos[i];
+                        videoDataItem = {};
+                        videoDataItem.di = {};
+                        videoDataItem.cms = {};
+                        videoDataItem.cms.name = 'transceiver-' + video.substring(0, video.length - 4) + '-' + now + '-' + j;
+                        videoDataItem.cms.description = 'transceiver-' + video.substring(0, video.length - 4) + '-' + now + '-' + j;
+                        videoDataItem.cms.reference_id = 'transceiver-' + video.substring(0, video.length - 4) + '-' + now + '-' + j;
+                        videoDataItem.cms.tags = [];
+                        if (video.indexOf('Bird') > -1) {
+                            videoDataItem.cms.tags.push('bird');
+                        }
+                        if (video.indexOf('Sea') > -1) {
+                            videoDataItem.cms.tags.push('sea');
+                        }
+                        if (video.indexOf('Water') > -1) {
+                            videoDataItem.cms.tags.push('water');
+                        }
+                        if (video.indexOf('Bug') > -1) {
+                            videoDataItem.cms.tags.push('bug');
+                        }
+                        if (video.indexOf('Wildlife') > -1) {
+                            videoDataItem.cms.tags.push('wildlife');
+                        }
+                        if (video.indexOf('Space') > -1) {
+                            videoDataItem.cms.tags.push('space');
+                        }
+                        videoDataItem.di.master = {};
+                        videoDataItem.di.master.url = urlString + video;
+                        videoDataItem.di['capture-images'] = true;
+                        videoDataItem.di.profile = 'videocloud-default-v1';
+                        videoData.push(videoDataItem);
+                        console.log(videoData);
                     }
-                    if (video.indexOf('Sea') > -1) {
-                        videoDataItem.cms.tags.push('sea');
-                    }
-                    if (video.indexOf('Water') > -1) {
-                        videoDataItem.cms.tags.push('water');
-                    }
-                    if (video.indexOf('Bug') > -1) {
-                        videoDataItem.cms.tags.push('bug');
-                    }
-                    if (video.indexOf('Wildlife') > -1) {
-                        videoDataItem.cms.tags.push('wildlife');
-                    }
-                    if (video.indexOf('Space') > -1) {
-                        videoDataItem.cms.tags.push('space');
-                    }
-                    videoDataItem.di.master = {};
-                    videoDataItem.di.master.url = urlString + video;
-                    videoDataItem.di['capture-images'] = true;
-                    videoDataItem.di.profile = 'videocloud-default-v1';
-                    videoData.push(videoDataItem);
                 }
+                dataPretty.textContent = JSON.stringify(videoData, null, '  ');
+                dataMin.textContent = JSON.stringify(videoData);
             }
-            data.textContent = JSON.stringify(videoData, null, '  ');
-            data.addEventListener('click', function() {
-                data.select();
+
+            go.addEventListener('click', function() {
+                numberSets = parseInt(sets.options[sets.selectedIndex].value);
+                generateData();
             })
+            dataPretty.addEventListener('click', function() {
+                dataPretty.select();
+            });
+            dataMin.addEventListener('click', function() {
+                dataMin.select();
+            });
+
 
         </script>
     </body>

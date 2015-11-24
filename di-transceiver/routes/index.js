@@ -13,20 +13,22 @@ router.get('/', function(req, res, next) {
 
 /* POST notifications. */
 router.post('/notifications', function(req, res, next) {
-    
+
 });
 
 /* POST requests. */
 router.post('/requests', function(req, res, next) {
     var requestData = JSON.parse(req.body),
     options = {};
-    
+
     /*
      * sends the request to the targeted API
      */
     sendRequest = function (callback) {
         var requestOptions = {},
-            makeRequest = function () {
+            requestType = 'cms',
+            currentRequest;
+            function makeRequest() {
                 console.log("requestOptions", requestOptions);
                 request(requestOptions, function (error, response, body) {
                     console.log("body", body);
@@ -37,8 +39,9 @@ router.post('/requests', function(req, res, next) {
                         callback(error);
                     }
                 });
-            },
-            setRequestOptions = function () {
+            }
+            function setRequestOptions() {
+                currentRequest = requestQueue.shift();
                 requestOptions = {
                     method: options.requestType,
                     url: options.url,
@@ -48,10 +51,10 @@ router.post('/requests', function(req, res, next) {
                     },
                     body: options.requestBody
                 };
-    
+
                 // make the request
                 makeRequest();
-            };
+            }
         if (options.token === null) {
             // get an access token
             getAccessToken(function (error) {
@@ -65,9 +68,9 @@ router.post('/requests', function(req, res, next) {
             // we already have a token; good to go
             setRequestOptions();
         }
-    
+
     }
-    
+
     /*
      * get new access_token for other APIs
      */
@@ -99,14 +102,17 @@ router.post('/requests', function(req, res, next) {
             }
         });
     };
-    
+
     if (requestData.length > 0) {
         requestQueue = requestQueue.concat(requestData);
         console.log('requestData', requestData);
+        if (runningJobCount < 101) {
+            sendRequest();
+        }
     }
-    
-    options
-    
+
+
+
 
     res.render('index', {
         title: 'Express'

@@ -5,7 +5,7 @@
   background-color:#F4F4F4;
   color: #990000;
 }
-#video_1 {
+.video-js {
   width: 640px;
   height: 360px;
   margin-left: 20px;

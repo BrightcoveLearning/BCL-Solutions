@@ -13,7 +13,7 @@ var express = require('express'),
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.render('index', {
-        title: 'Express'
+        title: 'Dynamic Ingest Transceiver'
     });
 });
 
@@ -134,7 +134,7 @@ router.post('/requests', function(req, res, next) {
 
 
     res.render('index', {
-        title: 'Express'
+        title: 'Dynamic Ingest Transceiver'
     });
 });
 

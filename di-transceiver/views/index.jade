@@ -1,5 +1,11 @@
 extends layout
 
 block content
-  h1!= title
+  h1=  title
   p Sends Dynanic Ingest requests and receives notifications
+  p Current running job count: #{runningJobCount}
+  h2 Ingest data
+  p.
+  button#submitData Submit Data
+  p.
+  textarea#ingestData

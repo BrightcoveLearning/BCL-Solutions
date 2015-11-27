@@ -6,3 +6,11 @@ body {
 a {
   color: #00B7FF;
 }
+
+textarea {
+    width: 75%;
+    height: 30em;
+}
+button {
+    padding: .5em;
+}

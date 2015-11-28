@@ -45,16 +45,26 @@ function setUpRequest(callback) {
             // get an access token
             getAccessToken(function(error) {
                 if (error === null) {
-                    setRequestOptions();
+                    setRequestOptions(function(error, requestOptions, requestType) {
+                        if (error === null) {
+                            makeRequest(requestOptions, requestType, function(error) {
+                                if (error === null) {
+                                    callback(null);
+                                } else {
+                                    callback(error);
+                                }
+                            });
+                        }
+                    });
                 } else {
                     callback(error);
                 }
             });
         } else {
             // we already have a token; good to go
-            setRequestOptions(function(error, requestOptions) {
+            setRequestOptions(function(error, requestOptions, requestType) {
                 if (error === null) {
-                    makeRequest(requestOptions, function(error) {
+                    makeRequest(requestOptions, requestType, function(error) {
                         if (error === null) {
                             callback(null);
                         } else {
@@ -80,6 +90,7 @@ function setRequestOptions(callback) {
         options.url = diURL;
         options.requestType = 'POST';
         options.requestBody = currentRequest.di;
+        options.requestBody.callbacks = [callbackURL];
         // set type for next request
         requestType = 'cms';
     }
@@ -94,7 +105,7 @@ function setRequestOptions(callback) {
     };
 
     // make the request
-    makeRequest(requestOptions);
+    makeRequest(requestOptions, requestType);
 }
 
 /*

@@ -3,6 +3,7 @@ var express = require('express'),
     request = require('request'),
     bodyParser = require('body-parser'),
     requestQueue = [],
+    submittedJobsQueue = [],
     runningJobCount = 0,
     successCount = 0,
     account_id = '57838016001',
@@ -20,69 +21,80 @@ router.use(bodyParser.urlencoded({
     extended: false
 }));
 
+function makeRequest(requestOptions, callback) {
+    console.log("requestOptions", requestOptions);
+    request(requestOptions, function(error, response, body) {
+        console.log("body", body);
+        console.log("error", error);
+        if (error === null) {
+            callback(null, response.headers, body);
+        } else {
+            callback(error);
+        }
+    });
+
+}
+
 /*
  * sends the request to the targeted API
  */
-function sendRequest(callback) {
+function setUpRequest(callback) {
     var now = new Date().valueOf(),
-        requestType = 'cms',
         currentRequest;
-
-    function makeRequest() {
-        console.log("requestOptions", requestOptions);
-        request(requestOptions, function(error, response, body) {
-            console.log("body", body);
-            console.log("error", error);
-            if (error === null) {
-                callback(null, response.headers, body);
-            } else {
-                callback(error);
-            }
-        });
-    }
-
-    function setRequestOptions(callback) {
-        currentRequest = requestQueue.shift();
-        if (requestType === 'cms') {
-            options.url = cmsURL;
-            options.requestType = 'POST';
-            options.requestBody = currentRequest.cms;
-            // set type for next request
-            requestType = 'di';
+        if (options.token === null || options.expires_in < now) {
+            // get an access token
+            getAccessToken(function(error) {
+                if (error === null) {
+                    setRequestOptions();
+                } else {
+                    callback(error);
+                }
+            });
         } else {
-            options.url = diURL;
-            options.requestType = 'POST';
-            options.requestBody = currentRequest.di;
-            // set type for next request
-            requestType = 'cms';
+            // we already have a token; good to go
+            setRequestOptions(function(error, requestOptions) {
+                if (error === null) {
+                    makeRequest(requestOptions, function(error) {
+                        if (error === null) {
+                            callback(null);
+                        } else {
+                            callback(error);
+                        }
+                    });
+                }
+            });
         }
-        requestOptions = {
-            method: options.requestType,
-            url: options.url,
-            headers: {
-                "Authorization": "Bearer " + options.token,
-                "Content-Type": "application/json"
-            },
-            body: options.requestBody
-        };
+}
 
-        // make the request
-        makeRequest();
-    }
-    if (options.token === null || options.expires_in < now) {
-        // get an access token
-        getAccessToken(function(error) {
-            if (error === null) {
-                setRequestOptions();
-            } else {
-                callback(error);
-            }
-        });
+
+function setRequestOptions(callback) {
+    var requestType = 'cms',
+    currentRequest = requestQueue[0];
+    if (requestType === 'cms') {
+        options.url = cmsURL;
+        options.requestType = 'POST';
+        options.requestBody = currentRequest.cms;
+        // set type for next request
+        requestType = 'di';
     } else {
-        // we already have a token; good to go
-        setRequestOptions();
+        options.url = diURL;
+        options.requestType = 'POST';
+        options.requestBody = currentRequest.di;
+        // set type for next request
+        requestType = 'cms';
     }
+    requestOptions = {
+        method: options.requestType,
+        url: options.url,
+        headers: {
+            "Authorization": "Bearer " + options.token,
+            "Content-Type": "application/json"
+        },
+        body: options.requestBody
+    };
 
+    // make the request
+    makeRequest(requestOptions);
 }
 
 /*
@@ -103,8 +115,6 @@ function getAccessToken(callback) {
         body: 'grant_type=client_credentials'
     }, function(error, response, body) {
         // check for errors
-        console.log("error", error);
-        console.log("body", body);
         if (error === null) {
             // return the access token to the callback
             bodyObj = JSON.parse(body);
@@ -182,7 +192,7 @@ router.post('/requests', function(req, res, next) {
         requestQueue = requestQueue.concat(requestData);
         console.log('requestData', requestData);
         if (runningJobCount < 101) {
-            sendRequest(function(error) {
+            setUpRequest(function(error) {
                 if (error === null) {
                     runningJobCount += 1;
                 } else {

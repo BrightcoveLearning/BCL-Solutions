@@ -43,14 +43,14 @@ function sendRequest() {
     var httpRequest = new XMLHttpRequest(),
         responseRaw,
         parsedData,
-        requestData = ingestData.textContent,
+        requestData = ingestData.value,
         dataString,
         // response handler
         getResponse = function() {
             try {
                 if (httpRequest.readyState === 4) {
                     if (httpRequest.status === 200) {
-                        logit('request submitted');
+                        logit('request submitted', requestData);
                         responseRaw = httpRequest.responseText;
                     } else {
                         alert('There was a problem with the request. Request returned ' + httpRequest.status);
@@ -60,21 +60,23 @@ function sendRequest() {
                 alert('Caught Exception: ' + e);
             }
         };
-        // set up request data
+      console.log('requestData', requestData);
       // set response handler
       httpRequest.onreadystatechange = getResponse;
       // open the request
       httpRequest.open('POST', requestURL);
       // set headers
-      httpRequest.setRequestHeader("Content-Type", "application/json");
+      httpRequest.setRequestHeader("Accept", "application/json");
       // open and send request
       httpRequest.send(requestData);
     }
     submitData.addEventListener('click', function() {
-        if (isDefined(ingestData.textContent) && isValidJson(ingestData.textContent)) {
+        var requestData = ingestData.value;
+        console.log(requestData);
+        if (isDefined(requestData) && isValidJson(requestData)) {
             logIt('data entered!');
             sendRequest();
         } else {
-            logIt('no data or invalid data entered', null);
+            logIt('no data or invalid data entered', isValidJson(requestData));
         }
     });

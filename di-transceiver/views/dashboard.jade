@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1=  title
+  p This page will auto-refresh every 10 seconds.
+  p Current running job count: #{runningJobCount}
+  p Curtent request queue: #{jobQueue}
+  p Jobs complete: #{jobsComplete}
+  script(src='/javascripts/dashboard.js')

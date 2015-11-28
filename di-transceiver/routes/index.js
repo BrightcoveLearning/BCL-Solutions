@@ -1,8 +1,10 @@
 var express = require('express'),
     router = express.Router(),
-    request = require("request"),
+    request = require('request'),
+    bodyParser = require('body-parser'),
     requestQueue = [],
     runningJobCount = 0,
+    successCount = 0,
     account_id = '57838016001',
     client_id = '553d4903-4547-435d-944c-2c8e2f6abc5d',
     client_secret = 'ENBQH6pHfJQub7oR0SGCn2Pu_W2SY5QsVw24fK-frXcE6hdTRnJO-0_LBmKZh15rVliIAiECAQF1yBYP_l90gQ',
@@ -10,11 +12,23 @@ var express = require('express'),
     cmsURL = 'https://cms.api.brightcove.com/v1/accounts/57838016001/videos',
     diURL = 'https://ingest.api.brightcove.com/v1/accounts/57838016001/ingest-requests';
 
+    router.use(bodyParser.urlencoded({ extended: false }));
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.render('index', {
         title: 'Dynamic Ingest Transceiver',
         runningJobCount: runningJobCount
+    });
+});
+
+/* GET dashboard. */
+router.get('/dashboard', function(req, res, next) {
+    res.render('dashboard', {
+        title: 'Dynamic Ingest Transceiver Dashboard',
+        runningJobCount: runningJobCount,
+        jobQueue: requestQueue.length,
+        jobsComplete: successCount
     });
 });
 
@@ -25,6 +39,7 @@ router.post('/notifications', function(req, res, next) {
 
 /* POST requests. */
 router.post('/requests', function(req, res, next) {
+    console.log(req);
     var requestData = JSON.parse(req.body),
     options = {};
 

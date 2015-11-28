@@ -8,17 +8,22 @@ function logIt(context, message) {
 }
 logIt('requestURL', requestURL);
 
+// polyfill isNaN for IE
+Number.isNaN = Number.isNaN || function(value) {
+    return typeof value === "number" && isNaN(value);
+};
+
 /**
- * tests for all the ways a variable might be undefined or not have a value
- * @param {*} x the variable to test
+ * tests for ways a variable might be undefined or not have a value
+ * @param {String|Number} x the variable to test
  * @return {Boolean} true if variable is defined and has a value
  */
-isDefined = function(x){
-    if ( x === "" || x === null || x === undefined || x === NaN) {
+function isDefined(x){
+    if ( x === '' || x === null || x === undefined || Number.isNaN(x)) {
         return false;
     }
     return true;
-};
+}
 
 /**
  * check string to insure it's valid json

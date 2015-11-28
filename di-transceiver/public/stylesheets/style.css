@@ -14,7 +14,7 @@ textarea {
 button {
     padding: .5em;
 }
-#logger {
+.logger {
     padding: .5em;
     background-color: #f5f5f5;
 }

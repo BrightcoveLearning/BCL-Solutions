@@ -3,13 +3,16 @@ var express = require('express'),
     request = require('request'),
     bodyParser = require('body-parser'),
     requestQueue = [],
-    submittedJobsQueue = [],
+    requestType = 'cms',
+    currentVideoId = '',
+    submittedJobs = [],
+    errorLog = [],
     runningJobCount = 0,
     successCount = 0,
     account_id = '57838016001',
     callbackURL = 'http://solutions.brightcove.com:3000/notications',
-    cmsURL = 'https://cms.api.brightcove.com/v1/accounts/57838016001/videos',
-    diURL = 'https://ingest.api.brightcove.com/v1/accounts/57838016001/ingest-requests',
+    cmsURL = '',
+    diURL = '',
     options = {
         expires_in: 0,
         token: null,
@@ -24,13 +27,23 @@ router.use(bodyParser.urlencoded({
 function makeRequest(requestOptions, callback) {
     console.log("requestOptions", requestOptions);
     request(requestOptions, function(error, response, body) {
+        console.log('response', response);
         console.log("body", body);
-        console.log("error", error);
         if (error === null) {
-            callback(null, response.headers, body);
+            responseData = JSON.parse(body);
+            if (requestType === 'cms') {
+                currentVideoId = responseData.id;
+                requestType = 'di';
+            } else {
+                submittedJobs.push(responseData.id);
+                runningJobCount += 1;
+                requestQueue.splice(0, 1);
+                requestType = 'cms';
+            }
         } else {
-            callback(error);
+            errorLog.push(error);
         }
+        checkJobCount();
     });
 
 }
@@ -39,21 +52,18 @@ function makeRequest(requestOptions, callback) {
  * sends the request to the targeted API
  */
 function setUpRequest(callback) {
+    console.log('setUpRequest');
     var now = new Date().valueOf(),
         currentRequest;
         if (options.token === null || options.expires_in < now) {
             // get an access token
             getAccessToken(function(error) {
                 if (error === null) {
-                    setRequestOptions(function(error, requestOptions, requestType) {
+                    setRequestOptions(function(error, requestOptions) {
                         if (error === null) {
-                            makeRequest(requestOptions, requestType, function(error) {
-                                if (error === null) {
-                                    callback(null);
-                                } else {
-                                    callback(error);
-                                }
-                            });
+                            makeRequest(requestOptions);
+                        } else {
+                            errorLog.push(error);
                         }
                     });
                 } else {
@@ -62,15 +72,11 @@ function setUpRequest(callback) {
             });
         } else {
             // we already have a token; good to go
-            setRequestOptions(function(error, requestOptions, requestType) {
+            setRequestOptions(function(error, requestOptions) {
                 if (error === null) {
-                    makeRequest(requestOptions, requestType, function(error) {
-                        if (error === null) {
-                            callback(null);
-                        } else {
-                            callback(error);
-                        }
-                    });
+                    makeRequest(requestOptions);
+                } else {
+                    errorLog.push(error);
                 }
             });
         }
@@ -78,21 +84,18 @@ function setUpRequest(callback) {
 
 
 function setRequestOptions(callback) {
+    console.log('setRequestOptions');
     var requestType = 'cms',
     currentRequest = requestQueue[0];
     if (requestType === 'cms') {
-        options.url = cmsURL;
+        options.url = 'https://cms.api.brightcove.com/v1/accounts/' + account_id + '/videos';
         options.requestType = 'POST';
-        options.requestBody = currentRequest.cms;
-        // set type for next request
-        requestType = 'di';
+        options.requestBody = JSON.stringify(currentRequest.cms);
     } else {
-        options.url = diURL;
+        options.url = 'https://ingest.api.brightcove.com/v1/accounts/' + account_id + '/videos/' + currentVideoId + '/ingest-requests';
         options.requestType = 'POST';
-        options.requestBody = currentRequest.di;
+        options.requestBody = JSON.stringify(currentRequest.di);
         options.requestBody.callbacks = [callbackURL];
-        // set type for next request
-        requestType = 'cms';
     }
     requestOptions = {
         method: options.requestType,
@@ -105,13 +108,14 @@ function setRequestOptions(callback) {
     };
 
     // make the request
-    makeRequest(requestOptions, requestType);
+    makeRequest(requestOptions);
 }
 
 /*
  * get new access_token for other APIs
  */
 function getAccessToken(callback) {
+    console.log('getAccessToken');
     // base64 encode the ciient_id:client_secret string for basic auth
     var auth_string = new Buffer(options.client_id + ":" + options.client_secret).toString("base64"),
         bodyObj,
@@ -136,6 +140,13 @@ function getAccessToken(callback) {
             callback(error);
         }
     });
+}
+
+function checkJobCount() {
+    console.log('checkJobCount');
+    if (requestQueue.length > 0 && runningJobCount < 101) {
+        setUpRequest();
+    }
 }
 
 
@@ -174,6 +185,7 @@ router.post('/notifications', function(req, res, next) {
         if (notificationData.status === 'SUCCESS') {
             successCount += 1;
             runningJobCount -= 1;
+            checkJobCount();
         }
         // console.log('requestData', requestData);
     });
@@ -183,6 +195,7 @@ router.post('/notifications', function(req, res, next) {
 /* POST requests. */
 router.post('/requests', function(req, res, next) {
     var requestData,
+        origin = (req.headers.origin || "*"),
         options = {};
 
     var content = '';
@@ -195,30 +208,24 @@ router.post('/requests', function(req, res, next) {
     req.on('end', function() {
         // Assuming, we're receiving JSON, parse the string into a JSON object to return.
         requestData = JSON.parse(content);
-        res.send('OK');
+        if (requestData.length > 0) {
+            requestQueue = requestQueue.concat(requestData);
+            console.log('requestData', requestData.length);
+            checkJobCount();
+        }
+        // return ok
+        res.writeHead(
+            "200",
+            "OK", {
+                "access-control-allow-origin": origin,
+                "content-type": "text/plain"
+            }
+        );
+        res.end('Request received');
         // console.log('requestData', requestData);
     });
 
-    if (requestData.length > 0) {
-        requestQueue = requestQueue.concat(requestData);
-        console.log('requestData', requestData);
-        if (runningJobCount < 101) {
-            setUpRequest(function(error) {
-                if (error === null) {
-                    runningJobCount += 1;
-                } else {
-                    console.log('request error', error);
-                }
-            });
-        }
-    }
 
-
-
-
-    res.render('index', {
-        title: 'Dynamic Ingest Transceiver'
-    });
 });
 
 

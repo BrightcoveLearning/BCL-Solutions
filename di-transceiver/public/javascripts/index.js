@@ -55,17 +55,16 @@ function sendRequest() {
             try {
                 if (httpRequest.readyState === 4) {
                     if (httpRequest.status === 200) {
-                        logit('request submitted', requestData);
+                        logIt('request submitted', '');
                         responseRaw = httpRequest.responseText;
                     } else {
-                        alert('There was a problem with the request. Request returned ' + httpRequest.status);
+                        console.log('There was a problem with the request. Request returned ' + httpRequest.status);
                     }
                 }
             } catch (e) {
-                alert('Caught Exception: ' + e);
+                console.log('Caught Exception: ' + e);
             }
         };
-      console.log('requestData', requestData);
       // set response handler
       httpRequest.onreadystatechange = getResponse;
       // open the request

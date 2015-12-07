@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" />
+  <!-- change title to match the h1 heading -->
+  <title>Brightcove Player Sample: iframe Overlay</title>
+
+<!-- Page styles -->
+<style>
+  .player-block iframe {
+    width: 640px;
+    height: 360px;
+  }
+</style>
+</head>
+
+<body>
+    <!-- header navbar -->
+      <div id="player" class="section">
+        <h2>The player</h2>
+        <p>This example displays an overlay and hides the player controls and play button. When the user confirms their age by clicking on the overlay text, the controls are displayed and the video plays. Test the functionality by <strong>clicking on the text</strong>.</p>
+
+        <div class="player-block">
+          <iframe src='//players.brightcove.net/1752604059001/416301c6-cd51-4ae2-85a8-ba4fffde4199_default/index.html' allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
+        </div>
+
+      </div><!-- id="player" -->
+
+  <!-- bcl scripts -->
+  <script type="text/JavaScript">
+        var myPlayer,
+        eAgeGateButton;
+
+        videojs("video_1").ready(function(){
+            myPlayer = this;
+            myPlayer.addClass("video-agelist");
+
+            myPlayer.on("loadedmetadata", function() {
+                eAgeGateButton = document.getElementById("ageGateButton");
+                eAgeGateButton.addEventListener("click", function() {
+                    myPlayer.removeClass("video-agelist");
+                    myPlayer.play();
+                });
+            });
+        });
+  </script>
+    </body>
+
+</html>

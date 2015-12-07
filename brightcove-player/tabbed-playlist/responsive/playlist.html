@@ -1,0 +1,273 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Responsive Tabbed Playlist</title>
+  <style type="text/css">
+
+
+    body, html {
+      height: 100%;
+      width: 100%;
+      margin:0;
+      padding:0;
+    }
+
+    /* container for the tabbed menu, player and playlist */
+    .outer {
+      width: 100%;
+      height: 100%;
+      display: block;
+      position: relative;
+      margin:0;
+      background-color: #1a1a1a;
+    }
+    
+    /* tabbed menu */
+    #menu {
+        float: right;
+        padding:0;
+        padding-right: 15px;
+        margin:0;
+        color:#fff;
+        font-family: arial, helvetica, sans-serif;
+        white-space:nowrap;
+        list-style-type:none;
+    }
+    #menu li {
+        display:inline;
+    }
+    #menu li input{
+        min-width: 50px;
+        height: 30px;
+        padding:0.2em 1em;
+        background:#0000cc;
+        color:#fff;
+        text-decoration:none;
+        float:left;
+        border:1px solid #fff;
+        border-top-left-radius: 1em;
+        border-top-right-radius: 1em;
+    }
+    .button {
+        background:#0000cc;
+    }
+    #menu li input:hover {
+        background:#08c;
+        color:#fff;
+    }
+    
+    /* set the player to be responsive */
+    .myplayer {
+      width: 100%;
+      display: block;
+      position: absolute;
+      margin:0;
+      float:left;
+      background-color: #1a1a1a;
+    }
+
+    .myplayer:after {
+      padding-bottom: 56.25%;
+      display: block;
+      content: '';
+    }
+
+    .video-js {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      float:left;
+    }
+
+/* playlist stacked below the player */
+@media only screen and (max-width:49.9375em) and (min-width:20em) {
+
+    .outer  {
+      background-color: #1a1a1a;
+      overflow-y: hidden;
+    }
+  
+    .vidWrapper {
+      height:100%;
+    }
+  
+    .myplayer {
+      position: relative;
+    }
+  
+    .playlist-wrapper{
+      width: 100%;
+      overflow-y: scroll;
+      clear:left;
+      height:100%;
+      overflow-y: hidden;
+    }
+
+    .vjs-playlist {
+      max-height: 433px;
+      position: relative;
+      top: 15px;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+    }
+
+    .vjs-playlist .vjs-playlist-item  {
+      min-height: 100px;
+
+    }
+    .vjs-playlist-item.vjs-selected {
+      background: rgb(89, 44,54);
+    }
+
+    .vjs-mouse.vjs-playlist .vjs-playlist-description {
+      white-space: normal;
+      min-height: 99px;
+    }
+  }
+
+/* horizontal playlist below the player */
+@media only screen and (max-width:74.9375em) and (min-width:50.0625em) {
+
+    .outer {
+      height: 0;
+    }
+    .myplayer {
+      width: 100%;
+      position: relative;
+    }
+
+    .playlist-wrapper{
+      width:100%;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      float:left;
+    }
+    
+    .vjs-playlist.vjs-playlist {
+      width: 100%;
+      display: block;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .vjs-playlist-item {
+      display: inline-block;
+      height: 75px;
+    }
+    cite.vjs-playlist-name {
+      display:none;
+    }
+    .vjs-playlist-description {
+      display: none;
+    }
+  
+}
+
+/* vertical playlist to the right of the player */
+@media only screen and (max-width: 2500px) and (min-width:75em) {
+  
+    .outer  {
+      overflow-y: hidden;
+    }  
+  
+    /* the player */
+    .myplayer {
+      width: 70%;
+      position: relative;
+    }
+  
+    /* the player */
+    .video-js {
+      float: left;
+    }
+
+    /* the playlist */
+    .playlist-wrapper{
+      width: 30%;
+      height: 100%;
+      overflow-x: scroll;
+      
+    }
+
+}
+
+  </style>
+</head>
+
+<body>
+    <div class="outer">
+        <div>
+            <ul id="menu">
+                <li><input id="tab0" type="button" class="button" onclick="processTab(0);" value="Short Videos"></input></li>
+                <li><input id="tab1" type="button" class="button" onclick="processTab(1);" value="Assorted Bugs and Birds"></li>
+                <li><input id="tab2" type="button" class="button" onclick="processTab(2);" value="Sea and Water"></li>
+                <li><input id="tab3" type="button" class="button" onclick="processTab(3);" value="Sea Life"></li>
+                <li><input id="tab4" type="button" class="button" onclick="processTab(4);" value="Space"></li>
+            </ul>
+        </div>
+
+        <div class="myplayer">
+
+             <video id="video_1"      
+                data-account="1752604059001"
+                data-player="b547079e-00cc-4585-b354-04020a7ed70a"
+                data-embed="default"
+                class="video-js" controls></video>
+        </div><!-- end myplayer-->
+        
+  
+        <div class="playlist-wrapper">
+            <ol class="vjs-playlist"></ol>
+        </div><!-- end playlist-weapper -->
+  
+    </div><!-- end outer -->
+  
+    <script src="//players.brightcove.net/1752604059001/b547079e-00cc-4585-b354-04020a7ed70a_default/index.min.js"></script>
+
+
+    <script id="pageScript" type="text/javascript">
+        var myPlayer,
+            playlistIds = ["4450721964001","2805100167001","2764931905001","1754200320001","1754200353001"],
+            playlistIdsLength = playlistIds.length,
+            tabs = document.getElementsByClassName("button"),
+            currentTab,
+            currentTabName,
+            playlistNames = [];
+
+        videojs("video_1").ready(function(){
+            myPlayer = this;
+            // console.log("ready");
+            processTab(0);
+        });
+
+        function processTab (index) {
+            // console.log("processTab");
+            resetTabs();
+            document.getElementById("tab" + index).setAttribute("style","background:#08c;color: #00FFFF; border-bottom: 1px solid #00FFFF;"); 
+            loadPlaylist(playlistIds[index]);
+        };
+
+        function loadPlaylist (currentId) {
+            myPlayer.catalog.getPlaylist(currentId, function(error, playlist){
+                myPlayer.catalog.load(playlist);
+            });
+        };
+
+        function resetTabs () {
+            var i,
+                iMax = tabs.length;
+            for (i = 0; i < iMax; i++) {
+                tabs[i].setAttribute("style", "background: #0000cc;color: #fff;")
+            }
+        }
+
+    </script>
+
+</body>
+</html>

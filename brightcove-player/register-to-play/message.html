@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>iframe in overlay test</title>
+        <style>
+            body {
+            font-family: sans-serif;
+            font-size: .9em;
+            color: #333;
+            }
+            button {
+                font-size: .8em;
+                padding: .4em;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="regForm">
+            </p>First name: <input id="fname" type="text" size="20"></p>
+            </p>Last name: <input id="lname" type="text" size="20"></p>
+            </p>Email: <input id="email" type="text" size="20"></p>
+            <p>
+                <button id="reg">Register</button>
+                <button id="login">Login</button>
+                <button id="noThanks">No thanks</button>
+            </p>
+        </div>
+        <div id="regPass" style="display:none;">
+            <p><input type="text" id="regPassword"></p>
+            <p><button id="submitRegPassword">Submit</button></p>
+        </div>
+        <div id="loginPass" style="display:none;">
+            <p><input type="text" id="loginPassword"></p>
+            <p><button id="submitLoginPassword">Submit</button></p>
+        </div>
+        <div id="noThanksMessage" style="display:none;">
+            <p>
+                That's ok - thanks for coming by anyway!
+            </p>
+        </div>
+        <script>
+        var // flags
+            registered = false,
+            loggedIn = false,
+            // user infro
+            firstName,
+            lastName,
+            emailAddress,
+            // element references
+            fname = document.getElementById('fname'),
+            lname = document.getElementById('lname'),
+            email = document.getElementById('email'),
+            reg = document.getElementById('reg'),
+            login = document.getElementById('login'),
+            noThanks = document.getElementById('noThanks'),
+            noThanksMessage = document.getElementById('noThanksMessage'),
+            regForm = document.getElementById('regForm').
+            regPass = document.getElementById('regPass'),
+            regPassword = document.getElementById('regPassword'),
+            submitRegPassword = document.getElementById('submitRegPassword'),
+            loginPass = document.getElementById('loginPass'),
+            loginPassword = document.getElementById('loginPassword'),
+            submitLoginPassword = document.getElementById('submitLoginPassword');
+
+        function buttonHandler(evt) {
+            // here you would want to validate the field values
+
+            switch (evt.target.id) {
+                case 'reg':
+
+                break;
+                default:
+
+            }
+        }
+
+        noThanks.addEventListener('click', function() {
+            // hide the registration form
+            regForm.setAttribute('style', 'display:none;');
+            // show the goodbye message
+            noThanksMessage.setAttribute('style', 'display:block;');
+        })
+        </script>
+    </body>
+</html>

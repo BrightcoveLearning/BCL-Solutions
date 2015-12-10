@@ -17,37 +17,6 @@
         width: 700px;
     }
 </style>
-<style>
-    /* override default styles for overlay */
-    .vjs-overlay,
-    .vjs-overlay.vjs-overlay-top {
-        width: 100%;
-        height: 100%;
-        margin: auto;
-        left: 0;
-        top: 0;
-        background: none;
-    }
-    .vjs-overlay iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
-    }
-    /* hide the overlay */
-    .hide-overlay .vjs-overlay {
-      display: none;
-    }
-    /* hide controls */
-    .hide-controls.video-js .vjs-control-bar, .hide-controls .vjs-big-play-button {
-        display: none;
-    }
-
-    /* set player size */
-    .video-js {
-      width: 640px;
-      height: 360px;
-    }
-</style>
 </head>
 
 <body>
@@ -71,26 +40,8 @@
 
         </div>
 
-      </div><!-- id="player" -->
+      </div>
 
-  <!-- bcl scripts -->
-  <script type="text/JavaScript">
-        var myPlayer,
-            // function to be defined - needs to be in the global scope
-            playVideo;
-
-        playVideo = function () {
-            myPlayer.addClass('hide-overlay');
-            myPlayer.removeClass('hide-controls');
-            myPlayer.play();
-        }
-
-        videojs('registerToPlay').ready(function(){
-            myPlayer = this;
-            myPlayer.removeClass('hide-overlay');
-            myPlayer.addClass('hide-controls');
-        });
-  </script>
     </body>
 
 </html>

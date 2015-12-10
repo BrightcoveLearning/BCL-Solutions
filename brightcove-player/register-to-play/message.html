@@ -8,6 +8,7 @@
             font-family: sans-serif;
             font-size: .9em;
             color: #333;
+            margin-left: 4em;
             }
             button {
                 font-size: .8em;
@@ -17,9 +18,9 @@
     </head>
     <body>
         <div id="regForm">
-            </p>First name: <input id="fname" type="text" size="20"></p>
-            </p>Last name: <input id="lname" type="text" size="20"></p>
-            </p>Email: <input id="email" type="text" size="20"></p>
+            <p>First name: <input id="fname" type="text" size="30"></p>
+            <p>Last name: <input id="lname" type="text" size="30"></p>
+            <p>Email: <input id="email" type="text" size="35"></p>
             <p>
                 <button id="reg">Register</button>
                 <button id="login">Login</button>
@@ -27,23 +28,20 @@
             </p>
         </div>
         <div id="regPass" style="display:none;">
-            <p><input type="text" id="regPassword"></p>
+            <p>Choose a password: <input type="text" id="regPassword"></p>
             <p><button id="submitRegPassword">Submit</button></p>
         </div>
         <div id="loginPass" style="display:none;">
-            <p><input type="text" id="loginPassword"></p>
+            <p>Enter your password: <input type="text" id="loginPassword"></p>
             <p><button id="submitLoginPassword">Submit</button></p>
         </div>
         <div id="noThanksMessage" style="display:none;">
             <p>
-                That's ok - thanks for coming by anyway!
+                <strong>Thanks for dropping by anyway!</strong>
             </p>
         </div>
         <script>
-        var // flags
-            registered = false,
-            loggedIn = false,
-            // user infro
+        var // user infro
             firstName,
             lastName,
             emailAddress,
@@ -63,24 +61,59 @@
             loginPassword = document.getElementById('loginPassword'),
             submitLoginPassword = document.getElementById('submitLoginPassword');
 
-        function buttonHandler(evt) {
-            // here you would want to validate the field values
-
-            switch (evt.target.id) {
-                case 'reg':
-
-                break;
-                default:
-
-            }
-        }
-
+        // decline event listener
         noThanks.addEventListener('click', function() {
-            // hide the registration form
-            regForm.setAttribute('style', 'display:none;');
             // show the goodbye message
             noThanksMessage.setAttribute('style', 'display:block;');
-        })
+        });
+
+        // register event listener
+        reg.addEventListener('click', function() {
+            // here you would want to validate the field values
+            //
+            // show the create password form
+            regPass.setAttribute('style', 'display:block;')
+        });
+
+        // login event listener
+        login.addEventListener('click', function() {
+            // here you would want to validate the field values
+            //
+            // show the create password form
+            loginPass.setAttribute('style', 'display:block;')
+        });
+
+        // registration password event listener
+        submitRegPassword.addEventListener('click', function() {
+            // here you would want to validate the field values
+            firstName = fname.value;
+            lastName = lname.value;
+            emailAddress = email.value;
+            password = regPassword.value;
+
+            // here you would submit the information to your
+            // backend registration system
+
+            // invoke the function on the parent page to play the video
+            parent.playVideo();
+        });
+
+        // login password event listener
+        submitLoginPassword.addEventListener('click', function() {
+            // here you would want to validate the field values
+            firstName = fname.value;
+            lastName = lname.value;
+            emailAddress = email.value;
+            password = loginPassword.value;
+
+            // here you would submit the information to your
+            // backend authentication system
+
+            // if authentication succeeded,
+            // invoke the function on the parent page to play the video
+            parent.playVideo();
+        });
+
         </script>
     </body>
 </html>

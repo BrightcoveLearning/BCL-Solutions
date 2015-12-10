@@ -6,25 +6,66 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" />
   <!-- change title to match the h1 heading -->
-  <title>Brightcove Player Sample: iframe Overlay</title>
+  <title>Register to Play Sample</title>
 
 <!-- Page styles -->
 <style>
-  .player-block iframe {
-    width: 640px;
-    height: 360px;
-  }
+    /* just body layout stuff - not essential */
+    body {
+        margin: 5em;
+        font-family: sans-serif;
+        width: 700px;
+    }
+
+    /* override default styles for overlay */
+    .vjs-overlay,
+    .vjs-overlay.vjs-overlay-top {
+        width: 97%;
+        height: 95%;
+        margin: auto;
+        left: 0;
+        top: 0;
+        background: none;
+    }
+    .vjs-overlay iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+    /* hide the overlay */
+    .hide-overlay .vjs-overlay {
+      display: none;
+    }
+    /* hide controls */
+    .hide-controls.video-js .vjs-control-bar, .hide-controls .vjs-big-play-button {
+        display: none;
+    }
+
+    /* set player size */
+    .video-js {
+      width: 640px;
+      height: 360px;
+    }
 </style>
 </head>
 
 <body>
     <!-- header navbar -->
+    <h2>Register to Play Sample</h2>
       <div id="player" class="section">
         <h2>The player</h2>
-        <p>This example displays an overlay and hides the player controls and play button. When the user confirms their age by clicking on the overlay text, the controls are displayed and the video plays. Test the functionality by <strong>clicking on the text</strong>.</p>
+        <p>This example presents a registration form when the player loads. In order to play the video you have to register or login. (Note that the sample doesn't actually do any field validation or authentication, so clicking either Register or Login and then the password Submit button that appears will cause the video to play.)</p>
 
         <div class="player-block">
-          <iframe src='//players.brightcove.net/1752604059001/416301c6-cd51-4ae2-85a8-ba4fffde4199_default/index.html' allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
+            <video style='width: 640px;height: 360px;'
+                id="registerToPlay"
+                data-video-id="4454620113001"
+                data-account="1752604059001"
+                data-player="fe0371d4-efa1-42c0-a2c1-c26a56c48f13"
+                data-embed="default"
+                class="video-js" controls></video>
+            <script src="//players.brightcove.net/1752604059001/fe0371d4-efa1-42c0-a2c1-c26a56c48f13_default/index.min.js"></script>
+
         </div>
 
       </div><!-- id="player" -->
@@ -32,19 +73,19 @@
   <!-- bcl scripts -->
   <script type="text/JavaScript">
         var myPlayer,
-        eAgeGateButton;
+            // function to be defined - needs to be in the global scope
+            playVideo;
 
-        videojs("video_1").ready(function(){
+        playVideo = function () {
+            myPlayer.addClass('hide-overlay');
+            myPlayer.removeClass('hide-controls');
+            myPlayer.play();
+        }
+
+        videojs('registerToPlay').ready(function(){
             myPlayer = this;
-            myPlayer.addClass("video-agelist");
-
-            myPlayer.on("loadedmetadata", function() {
-                eAgeGateButton = document.getElementById("ageGateButton");
-                eAgeGateButton.addEventListener("click", function() {
-                    myPlayer.removeClass("video-agelist");
-                    myPlayer.play();
-                });
-            });
+            myPlayer.removeClass('hide-overlay');
+            myPlayer.addClass('hide-controls');
         });
   </script>
     </body>

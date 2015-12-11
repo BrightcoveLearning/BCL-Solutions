@@ -54,8 +54,6 @@
 <body>
     <!-- header navbar -->
     <h2>Register to Play Sample</h2>
-      <div id="player" class="section">
-        <h2>The player</h2>
         <p>This example presents a registration form when the player loads. In order to play the video you have to register or login.</p>
 
         <p>(Note that the sample doesn't actually do any field validation or authentication, so clicking either Register or Login and then the password Submit button that appears will cause the video to play.)</p>
@@ -69,16 +67,11 @@
                 data-embed="default"
                 class="video-js" controls></video>
             <script src="//players.brightcove.net/1752604059001/fe0371d4-efa1-42c0-a2c1-c26a56c48f13_default/index.min.js"></script>
-
         </div>
-
-      </div><!-- id="player" -->
 
   <!-- bcl scripts -->
 <script type="text/JavaScript">
-    var myPlayer,
-        // function to be defined - needs to be in the global scope
-        playVideo;
+    var myPlayer;
     /**
      * hides the overlay, unhides the controls, and plays the video
      * this function is called from the registration form in the iframe

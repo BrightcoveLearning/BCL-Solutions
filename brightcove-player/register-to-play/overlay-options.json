@@ -1,8 +1,10 @@
 {
-  "content": "<iframe src=\"//solutions.brightcove.com/bcls/brightcove-player/register-to-play/message.html\"></iframe>",
-  "overlays" : [{
-      "content": "<iframe src=\"//solutions.brightcove.com/bcls/brightcove-player/register-to-play/message.html\"></iframe>",
-      "start" : "loadedmetadata",
-      "end" : "play"
-   }]
+  "overlays": [
+    {
+      "end": "play",
+      "start": "loadstart",
+      "content": "<iframe src=\"//solutions.brightcove.com/bcls/brightcove-player/register-to-play/message.html\"></iframe>"
+    }
+  ],
+  "content": "<iframe src=\"//solutions.brightcove.com/bcls/brightcove-player/register-to-play/message.html\"></iframe>"
 }

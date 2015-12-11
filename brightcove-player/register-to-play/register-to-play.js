@@ -1,5 +1,5 @@
-videojs.plugin('pluginDev', function(options) {
-    var player = this;
+videojs.plugin('registerToPlay', function(options) {
+    var myPlayer = this;
 
     /**
      * hides the overlay, unhides the controls, and plays the video
@@ -7,6 +7,7 @@ videojs.plugin('pluginDev', function(options) {
      * and that is why it is defined in the global scope
      */
     playVideo = function () {
+        // hide the overlay, show the controls, play
         myPlayer.addClass('hide-overlay');
         myPlayer.removeClass('hide-controls');
         myPlayer.play();

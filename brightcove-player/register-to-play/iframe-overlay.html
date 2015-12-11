@@ -28,6 +28,7 @@
         top: 0;
         background: none;
     }
+    /* styles for iframe */
     .vjs-overlay iframe {
         width: 100%;
         height: 100%;
@@ -74,23 +75,29 @@
       </div><!-- id="player" -->
 
   <!-- bcl scripts -->
-  <script type="text/JavaScript">
-        var myPlayer,
-            // function to be defined - needs to be in the global scope
-            playVideo;
+<script type="text/JavaScript">
+    var myPlayer,
+        // function to be defined - needs to be in the global scope
+        playVideo;
+    /**
+     * hides the overlay, unhides the controls, and plays the video
+     * this function is called from the registration form in the iframe
+     * and that is why it is defined in the global scope
+     */
+    playVideo = function () {
+        // hide the overlay, reveal the controls, play
+        myPlayer.addClass('hide-overlay');
+        myPlayer.removeClass('hide-controls');
+        myPlayer.play();
+    }
 
-        playVideo = function () {
-            myPlayer.addClass('hide-overlay');
-            myPlayer.removeClass('hide-controls');
-            myPlayer.play();
-        }
-
-        videojs('registerToPlay').ready(function(){
-            myPlayer = this;
-            myPlayer.removeClass('hide-overlay');
-            myPlayer.addClass('hide-controls');
-        });
-  </script>
+    videojs('registerToPlay').ready(function(){
+        myPlayer = this;
+        // show the overlay, hide the controls
+        myPlayer.removeClass('hide-overlay');
+        myPlayer.addClass('hide-controls');
+    });
+</script>
     </body>
 
 </html>

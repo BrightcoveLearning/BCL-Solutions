@@ -58,16 +58,15 @@
 
         <p>(Note that the sample doesn't actually do any field validation or authentication, so clicking either Register or Login and then the password Submit button that appears will cause the video to play.)</p>
 
-        <div class="player-block">
-            <video style='width: 640px;height: 360px;'
-                id="registerToPlay"
-                data-video-id="4454620113001"
-                data-account="1752604059001"
-                data-player="fe0371d4-efa1-42c0-a2c1-c26a56c48f13"
-                data-embed="default"
-                class="video-js" controls></video>
-            <script src="//players.brightcove.net/1752604059001/fe0371d4-efa1-42c0-a2c1-c26a56c48f13_default/index.min.js"></script>
-        </div>
+        <video style='width: 640px;height: 360px;'
+            id="registerToPlay"
+  data-video-id="4454620113001"
+  data-account="1752604059001"
+  data-player="9926a1db-fd97-4ccf-85df-a566c808139d"
+  data-embed="default"
+  class="video-js" controls></video>
+<script src="//players.brightcove.net/1752604059001/9926a1db-fd97-4ccf-85df-a566c808139d_default/index.min.js"></script>
+
 
   <!-- bcl scripts -->
 <script type="text/JavaScript">
@@ -86,9 +85,21 @@
 
     videojs('registerToPlay').ready(function(){
         myPlayer = this;
-        // show the overlay, hide the controls
-        myPlayer.removeClass('hide-overlay');
-        myPlayer.addClass('hide-controls');
+        // hide the overlay
+        myPlayer.addClass('hide-overlay');
+        myPlayer.on('timeupdate', function(evt) {
+            console.log(myPlayer.currentTime());
+            // use my player.currentTime() to get the current position
+            // you can't be sure the event will fire at 5 seconds, so check for
+            // when the currentTime exceeds 3
+            if (myPlayer.currentTime() > 3) {
+                myPlayer.pause();
+                // we only want to do this once, so unload the listener
+                myPlayer.off('timeupdate');
+                myPlayer.removeClass('hide-overlay');
+                myPlayer.addClass('hide-controls');
+            }
+        });
     });
 
 </script>

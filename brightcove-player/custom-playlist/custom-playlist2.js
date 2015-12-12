@@ -31,12 +31,12 @@ videojs.plugin('customPlaylist', function (options) {
             playerWrapper = document.createElement('div'),
             playlistWrapper = document.createElement('div'),
             playlistItem,
+            itemInnerDiv,
             itemTitle,
             playlistData = myPlayer.playlist(),
             videoItem,
             playerWidth = myPlayer.width(),
             playerHeight = (9 / 16) * playerWidth;
-
 
         /**
          * removes highlight from all playlist items
@@ -88,14 +88,20 @@ videojs.plugin('customPlaylist', function (options) {
             playlistItem = document.createElement('div');
             playlistItem.setAttribute('data-playlist-index', i),
             playlistItem.setAttribute('class', 'bcls-playlist-item');
-            playlistItem.setAttribute('style', 'background-image:url(' + videoItem.thumbnail + ');');
+            // create the inner div and set class and style
+            itemInnerDiv = document.createElement('div');
+            itemInnerDiv.setAttribute('class', 'bcls-item-inner-div');
+            itemInnerDiv.setAttribute('style', 'background-image:url(' + videoItem.thumbnail + ');');
             // create the title and set its class
             itemTitle = document.createElement('span');
             itemTitle.setAttribute('class', 'bcls-title');
             // add the video name to the title element
             itemTitle.appendChild(document.createTextNode(videoItem.name));
-            // now append the title to the item, and the item to the playlist
-            playlistItem.appendChild(itemTitle);
+            // now append the title to the innerdiv,
+            // the innerdiv to the item,
+            // and the item to the playlist
+            itemInnerDiv.appendChild(itemTitle);
+            playlistItem.appendChild(itemInnerDiv);
             playlistWrapper.appendChild(playlistItem);
         }
 
@@ -105,7 +111,7 @@ videojs.plugin('customPlaylist', function (options) {
             setHighlight();
         });
         // set click listeners on playlist items
-        playlistItems = document.getElementsByClassName('bcls-thumbnail');
+        playlistItems = document.getElementsByClassName('bcls-playlist-item');
         iMax = playlistItems.length;
         for (i = 0; i < iMax; i++) {
             playlistItems[i].addEventListener('click', loadPlaylistItem);

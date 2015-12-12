@@ -5,11 +5,10 @@
 /*style for the div that wraps the playlist*/
 .bcls-playlist {
     background-color: #141B17;
-    background-size: cover;
     width: 100%;
     max-height: 82px;
     min-height: 82px;
-    line-height: 82px;
+    line-height: 76px;
     text-align: center;
     overflow-x: scroll;
     overflow-y: hidden;
@@ -29,23 +28,32 @@
     cursor: pointer;
     vertical-align: middle;
 }
+/*style for the divs that make up the playlist item inner div */
+.bcls-item-inner-div {
+    background-size: cover;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    vertical-align: middle;
+}
 /* mouse over style for items */
 .bcls-playlist-item:hover {
     border-color:#FF0000;
 }
 /*style for the thumbnail images*/
 .bcls-title {
-    background-color: #141B17;
+    /*background-color: #141B17;*/
     color: #fff;
-    opacity: .8;
-    font-size: .6em;
+    /*opacity: .8;*/
+    font-size: .7em;
     font-family: sans-serif;
+    font-weight: bold;
     max-width: 124px;
     width: 124px;
     height: 66px;
-    word-wrap: break-word;
     margin-top: 30%;
-    padding: 2px;
     text-align: center;
     cursor: pointer;
 }

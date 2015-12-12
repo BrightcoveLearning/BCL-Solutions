@@ -85,10 +85,9 @@
 
     videojs('registerToPlay').ready(function(){
         myPlayer = this;
-        // hide the overlay
+        // hide the overlay until needed
         myPlayer.addClass('hide-overlay');
         myPlayer.on('timeupdate', function(evt) {
-            console.log(myPlayer.currentTime());
             // use my player.currentTime() to get the current position
             // you can't be sure the event will fire at 5 seconds, so check for
             // when the currentTime exceeds 3

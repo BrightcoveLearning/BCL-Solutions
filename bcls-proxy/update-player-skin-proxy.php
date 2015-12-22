@@ -20,12 +20,17 @@ header("Access-Control-Allow-Origin: *");
 
 // get the current player config
 
-$username     = $_POST["username"];
-$password     = $_POST["password"];
-$account_id   = $_POST["account_id"];
+// $username     = $_POST["username"];
+// $password     = $_POST["password"];
+// $account_id   = $_POST["account_id"];
+// $player_id    = $_POST["player_id"]
+// for testing
+$username     = 'rcrooks@brightcove.com';
+$password     = 'MA55comm';
+$account_id   = '57838016001';
 $player_id    = $_POST["player_id"]
 $URL          = 'https://players.api.brightcove.com/v1/accounts/'.$account_id.'/'.$player_id;
-$ch            = curl_init($request);
+$ch           = curl_init($request);
 curl_setopt($ch, CURLOPT_URL,$URL);
 curl_setopt($ch, CURLOPT_TIMEOUT, 30); //timeout after 30 seconds
 curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);

@@ -24,18 +24,14 @@ $username     = $_POST["username"];
 $password     = $_POST["password"];
 $account_id   = $_POST["account_id"];
 $player_id    = $_POST["player_id"]
-$request      = 'https://players.api.brightcove.com/v1/accounts/'.$account_id.'/'.$player_id;
+$URL          = 'https://players.api.brightcove.com/v1/accounts/'.$account_id.'/'.$player_id;
 $ch            = curl_init($request);
-curl_setopt_array($ch, array(
-        CURLOPT_POST           => TRUE,
-        CURLOPT_RETURNTRANSFER => TRUE,
-        CURLOPT_SSL_VERIFYPEER => FALSE,
-        CURLOPT_USERPWD        => $auth_string,
-        CURLOPT_HTTPHEADER     => array(
-            'Content-type: application/x-www-form-urlencoded',
-        ),
-        CURLOPT_POSTFIELDS => $data
-    ));
+curl_setopt($ch, CURLOPT_URL,$URL);
+curl_setopt($ch, CURLOPT_TIMEOUT, 30); //timeout after 30 seconds
+curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
+$status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 $response = curl_exec($ch);
 curl_close($ch);
 
@@ -45,7 +41,7 @@ if ($response === FALSE) {
 }
 
 // Decode the response
-$responseData = json_decode($response, TRUE);
+$playerConfig = json_decode($response, TRUE);
 $access_token = $responseData["access_token"];
 
 // set up the API call

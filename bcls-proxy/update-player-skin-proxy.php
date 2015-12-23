@@ -28,7 +28,7 @@ header("Access-Control-Allow-Origin: *");
 $username     = 'rcrooks@brightcove.com';
 $password     = 'MA55comm';
 $account_id   = '57838016001';
-$player_id    = $_POST["player_id"]
+$player_id    = '79f65908-cb5c-4c02-b7f8-813d997c23b9'
 $URL          = 'https://players.api.brightcove.com/v1/accounts/'.$account_id.'/'.$player_id;
 $ch           = curl_init($request);
 curl_setopt($ch, CURLOPT_URL,$URL);
@@ -47,55 +47,6 @@ if ($response === FALSE) {
 
 // Decode the response
 $playerConfig = json_decode($response, TRUE);
-$access_token = $responseData["access_token"];
-
-// set up the API call
-// get data
-if ($_POST["requestBody"]) {
-    $data = json_decode($_POST["requestBody"]);
-} else {
-    $data = array();
-}
-// set request type  to GET
-if ($_POST["requestType"]) {
-    $method = $_POST["requestType"];
-} else {
-    $method = "GET";
-}
-
-// get the URL and authorization info from the form data
-$request = $_POST["url"];
-
-//send the http request
-$ch = curl_init($request);
-curl_setopt_array($ch, array(
-        CURLOPT_CUSTOMREQUEST  => $method,
-        CURLOPT_RETURNTRANSFER => TRUE,
-        CURLOPT_SSL_VERIFYPEER => FALSE,
-        CURLOPT_HTTPHEADER     => array(
-            'Content-type: application/json',
-            "Authorization: Bearer {$access_token}",
-        ),
-        CURLOPT_POSTFIELDS => json_encode($data)
-    ));
-$response = curl_exec($ch);
-curl_close($ch);
-
-// Check for errors
-if ($response === FALSE) {
-    $logEntry = "\nError:\n".
-    "\n".date("Y-m-d H:i:s")." UTC \n"
-    .$response;
-    $logFileLocation = "log.txt";
-    $fileHandle      = fopen($logFileLocation, 'a') or die("-1");
-    fwrite($fileHandle, $logEntry);
-    fclose($fileHandle);
-    echo "Error: there was a problem with your API call"+
-    die(curl_error($ch));
-}
-
-// Decode the response
-// $responseData = json_decode($response, TRUE);
-// return the response to the AJAX caller
 echo $response;
+
 ?>

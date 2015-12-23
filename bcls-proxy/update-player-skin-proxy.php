@@ -30,7 +30,7 @@ $password     = 'MA55comm';
 $account_id   = '57838016001';
 $player_id    = '79f65908-cb5c-4c02-b7f8-813d997c23b9'
 $URL          = 'https://players.api.brightcove.com/v1/accounts/'.$account_id.'/'.$player_id;
-$ch           = curl_init($request);
+$ch           = curl_init($URL);
 curl_setopt($ch, CURLOPT_URL,$URL);
 curl_setopt($ch, CURLOPT_TIMEOUT, 30); //timeout after 30 seconds
 curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
@@ -43,6 +43,7 @@ curl_close($ch);
 // Check for errors
 if ($response === FALSE) {
     die(curl_error($ch));
+    echo $status_code;
 }
 
 // Decode the response

@@ -26,7 +26,7 @@ $account_id   = $_POST["account_id"];
 $player_id    = $_POST["player_id"]
 $URL          = 'https://players.api.brightcove.com/v1/accounts/'.$account_id.'/'.$player_id;
 $ch           = curl_init($URL);
-curl_setopt($ch, CURLOPT_URL,$URL);
+curl_setopt($ch, CURLOPT_URL, $URL);
 curl_setopt($ch, CURLOPT_TIMEOUT, 30); //timeout after 30 seconds
 curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
 curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);

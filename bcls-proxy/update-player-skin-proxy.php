@@ -44,14 +44,13 @@ if ($response === FALSE) {
 // Decode the response
 $playerConfig = json_decode($response, TRUE);
 // remove skin and compatibility properties
-// unset($playerConfig["branches"]["master"]["configuration"]["compatibility"], $playerConfig["branches"]["master"]["configuration"]["skin"], $playerConfig["branches"]["preview"]["configuration"]["compatibility"], $playerConfig["branches"]["preview"]["configuration"]["skin"], $playerConfig["id"]);
-echo json_encode($playerConfig, TRUE);
+unset($playerConfig["compatibility"], $playerConfig["skin"]);
+// echo json_encode($playerConfig, TRUE);
 
 // make the update call
 
-/*
 $newPlayerConfig = json_encode($playerConfig);
-$headers = array('Content-Type: application/json');
+$headers = array('Content-Type: application/json', 'Content-Length: ' . strlen($newPlayerConfig));
 
 $ch = curl_init($url);
 curl_setopt($ch, CURLOPT_URL, $url);
@@ -59,9 +58,10 @@ curl_setopt($ch, CURLOPT_TIMEOUT, 30); //timeout after 30 seconds
 curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
 curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
-curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PUT');
-curl_setopt($curl, CURLOPT_POSTFIELDS, $newPlayerConfig);
-url_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+curl_setopt($ch, CURLOPT_POSTFIELDS, $newPlayerConfig);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 $response = curl_exec($ch);
 curl_close($ch);
@@ -72,7 +72,31 @@ if ($response === FALSE) {
     echo $status_code;
 }
 $playerConfig = json_decode($response);
-echo ($playerConfig);
-*/
+// echo json_encode($playerConfig) . PHP_EOL;
+
+// now publish the player
+
+$url = 'https://players.api.brightcove.com/v1/accounts/'.$account_id.'/players/'.$player_id.'/publish';
+
+
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_TIMEOUT, 30); //timeout after 30 seconds
+curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+$status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+$response = curl_exec($ch);
+curl_close($ch);
+
+// Check for errors
+if ($response === FALSE) {
+    die(curl_error($ch));
+    echo $status_code;
+}
+$playerConfig = json_decode($response);
+echo json_encode($playerConfig) . PHP_EOL;
 
 ?>

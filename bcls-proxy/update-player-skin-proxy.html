@@ -5,7 +5,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     <style>
-
+        body {
+            margin: 1em;
+            font-family: sans-serif;
+        }
+        button {
+            padding: .5em;
+            margin-left: 12em;
+        }
     </style>
 </head>
 
@@ -25,11 +32,16 @@
         <input id="player_id" type="text" placeholder="79f65908-cb5c-4c02-b7f8-813d997c23b9">
     </p>
     <p>
+        Publish the player after updating it?<br />
+        <input type="radio" name="publish" value="1" checked> Yes</input><br />
+        <input type="radio" name="publish" value="0"> No, I'll publish it myself</input><br />
+
+    </p>
+    <p>
         <button id="submit">Update my player skin</button>
     </p>
-    <pre>
-        <code id="response"></code>
-    </pre>
+    <p>Result (will be shown below)</p>
+<pre><code id="response"></code></pre>
 
     <script>
         var username = document.getElementById('username'),

@@ -23,10 +23,10 @@ header("Access-Control-Allow-Origin: *");
 $username     = $_POST["username"];
 $password     = $_POST["password"];
 $account_id   = $_POST["account_id"];
-$player_id    = $_POST["player_id"]
-$URL          = 'https://players.api.brightcove.com/v1/accounts/'.$account_id.'/'.$player_id;
-$ch           = curl_init($URL);
-curl_setopt($ch, CURLOPT_URL, $URL);
+$player_id    = $_POST["player_id"];
+$url = 'https://players.api.brightcove.com/v1/accounts/'.$account_id.'/players/'.$player_id.'/configuration';
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_TIMEOUT, 30); //timeout after 30 seconds
 curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
 curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
@@ -43,6 +43,36 @@ if ($response === FALSE) {
 
 // Decode the response
 $playerConfig = json_decode($response, TRUE);
-echo $response;
+// remove skin and compatibility properties
+// unset($playerConfig["branches"]["master"]["configuration"]["compatibility"], $playerConfig["branches"]["master"]["configuration"]["skin"], $playerConfig["branches"]["preview"]["configuration"]["compatibility"], $playerConfig["branches"]["preview"]["configuration"]["skin"], $playerConfig["id"]);
+echo json_encode($playerConfig, TRUE);
+
+// make the update call
+
+/*
+$newPlayerConfig = json_encode($playerConfig);
+$headers = array('Content-Type: application/json');
+
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_TIMEOUT, 30); //timeout after 30 seconds
+curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
+curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PUT');
+curl_setopt($curl, CURLOPT_POSTFIELDS, $newPlayerConfig);
+url_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+$status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+$response = curl_exec($ch);
+curl_close($ch);
+
+// Check for errors
+if ($response === FALSE) {
+    die(curl_error($ch));
+    echo $status_code;
+}
+$playerConfig = json_decode($response);
+echo ($playerConfig);
+*/
 
 ?>

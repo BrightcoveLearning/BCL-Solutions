@@ -1,79 +1,78 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title></title>
-        <style>
 
-        </style>
-    </head>
-    <body>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+
+    </style>
+</head>
+
+<body>
     <h1>Player Skin Updater</h1>
     <p>Enter informatin below to update a player to the new 5.x skin.</p>
-    <p>Video Cloud username: <input id="username" type="text" placeholder="your@email.com"></p>
-    <p>Video Cloud password: <input id="password" type="password"></p>
-    <p>Video Cloud account id: <input id="account_id" type="text" placeholder="57838016001"></p>
-    <p>ID for the player you want to modify: <input id="player_id" type="text" placeholder="79f65908-cb5c-4c02-b7f8-813d997c23b9"></p>
-    <p><button id="submit">Update my player skin</button></p>
-    <pre><code id="response"></code></pre>
+    <p>Video Cloud username:
+        <input id="username" type="text" placeholder="your@email.com">
+    </p>
+    <p>Video Cloud password:
+        <input id="password" type="password">
+    </p>
+    <p>Video Cloud account id:
+        <input id="account_id" type="text" placeholder="57838016001">
+    </p>
+    <p>ID for the player you want to modify:
+        <input id="player_id" type="text" placeholder="79f65908-cb5c-4c02-b7f8-813d997c23b9">
+    </p>
+    <p>
+        <button id="submit">Update my player skin</button>
+    </p>
+    <pre>
+        <code id="response"></code>
+    </pre>
 
-        <script>
-            var username = document.getElementById('username'),
-                password = document.getElementById('password'),
-                account_id = document.getElementById('account_id'),
-                player_id = document.getElementById('player_id'),
-                submit = document.getElementById('submit'),
-                response = document.getElementById('response');
+    <script>
+        var username = document.getElementById('username'),
+            password = document.getElementById('password'),
+            account_id = document.getElementById('account_id'),
+            player_id = document.getElementById('player_id'),
+            submit = document.getElementById('submit'),
+            response = document.getElementById('response');
 
-            // event handler
-            submit.addEventListener('click', updatePlayer);
+        // event handler
+        submit.addEventListener('click', updatePlayer);
 
-            /**
-             * sends request to the proxy
-             */
-            function updatePlayer() {
-                var httpRequest = new XMLHttpRequest(),
-                    proxyURL = 'https://solutions.brightcove.com/bcls/bcls-proxy/update-player-skin-proxy.php',
-                    responseRaw,
-                    parsedData,
-                    requestParams,
-                    dataString,
-                    // response handler
-                    getResponse = function() {
-                        try {
-                          if (httpRequest.readyState === 4) {
-                            if (httpRequest.status === 200) {
-                              console.log(httpRequest.responseText);
-                              // add/remove folder video return no data
-                              if (requestID === 'addVideoToFolder' || requestID === 'removeVideoFromFolder') {
-                                responseData.textContent = 'This request returns 204 No Content';
-                              } else {
-                                responseRaw = httpRequest.responseText;
-                                responseData.textContent = responseRaw;
-                                parsedData = JSON.parse(responseRaw);
-                                response.innerHTML = JSON.stringify(parsedData, null, '  ');
-                              }
-                            } else {
-                              alert('There was a problem with the request. Request returned ' + httpRequest.status);
-                            }
-                          }
-                        } catch (e) {
-                          alert('Caught Exception: ' + e);
-                        }
-                    };
-                // set up request data
-                requestParams = 'username=' + username.value + '&password=' + password.value + '&account_id=' + account_id.value + '&player_id=' + player_id.value;
-                console.log(requestParams);
+        /**
+         * sends request to the proxy
+         */
+        function updatePlayer() {
+            var httpRequest = new XMLHttpRequest(),
+                proxyURL = 'https://solutions.brightcove.com/bcls/bcls-proxy/update-player-skin-proxy.php',
+                responseRaw,
+                parsedData,
+                requestParams,
+                dataString,
+                // response handler
+                getResponse = function() {
+                    console.log(httpRequest.responseText);
+                    responseRaw = httpRequest.responseText;
+                    parsedData = JSON.parse(responseRaw);
+                    response.innerHTML = JSON.stringify(parsedData, null, '  ');
+        };
+        // set up request data
+        requestParams = 'username=' + username.value + '&password=' + password.value + '&account_id=' + account_id.value + '&player_id=' + player_id.value;
+        console.log(requestParams);
 
-                // set response handler
-                httpRequest.onreadystatechange = getResponse;
-                // open the request
-                httpRequest.open('POST', proxyURL);
-                // set headers
-                httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                // open and send request
-                httpRequest.send(requestParams);
-            }
-        </script>
-    </body>
+        // set response handler
+        httpRequest.onreadystatechange = getResponse;
+        // open the request
+        httpRequest.open('POST', proxyURL);
+        // set headers
+        httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        // open and send request
+        httpRequest.send(requestParams);
+        }
+    </script>
+</body>
+
 </html>

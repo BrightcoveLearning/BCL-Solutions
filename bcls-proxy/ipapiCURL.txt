@@ -1,10 +1,10 @@
 
 curl \
   --include \
-  --header 'Authorization: BC_TOKEN AEnTxTh3YV-ccfnMO1fk1sS1EGgVnxLHK-PKi0L-IVIM5a9Kjdc5qU8kKSpSwDgMSw9ED2rFEoUvmuVYtwdPMpMyybr36CjigXQiOaWNWvTUHWYzQvX-8FU' \
-  --data 'name=SampleClient&maximum_scope=[
+  --header 'Authorization: BC_TOKEN AEnTxTj-D8PCP8nzEBuD-XyD99DLOrS50aU935-xmJ4eFDQwSP-1RrkeBFwZpzZiabduBqqIcJ4RwIsz3gvIbPZB79zbifZ7FYgdfKh-2p_KWRo8Ng0A56w' \
+  --data 'name=DRMall&maximum_scope=[
     {"identity": {
-        "type": "video-cloud-account", "account-id": 57838016001
+        "type": "video-cloud-account", "account-id": 2728142649001
       },
       "operations": [
         "video-cloud/ingest-profiles/profile/read",
@@ -14,7 +14,7 @@ curl \
       ]
     }
   ]' \
-  https://oauth.brightcove.com/v3/client_credentials
+  https://oauth.brightcove.com/v4/client_credentials
 
   AEnTxTgHqK0DcliEwG9LSaABan4-SM6vCP6aqihVfVNgnvQbLGqzGjz9IheRigrRyXsGeBON9JDMbZnQg30UuIbz3GHrDGG6mRFZm4NDveTE22juZKSlmF0
 

@@ -13,8 +13,8 @@
       padding:0;
     }
 
-    /* container for the tabbed menu, player and playlist */
-    .outer {
+    /* container for the tabbed bclsmenu, player and playlist */
+    .bclsouter {
       width: 100%;
       height: 100%;
       display: block;
@@ -22,9 +22,9 @@
       margin:0;
       background-color: #1a1a1a;
     }
-    
-    /* tabbed menu */
-    #menu {
+
+    /* tabbed bclsmenu */
+    #bclsmenu {
       float: right;
       padding:0;
       padding-right: 15px;
@@ -34,10 +34,10 @@
       white-space:nowrap;
       list-style-type:none;
     }
-    #menu li {
+    #bclsmenu li {
       display:inline;
     }
-    #menu li input{
+    #bclsmenu li input{
       min-width: 50px;
       height: 30px;
       padding:0.2em 1em;
@@ -49,14 +49,15 @@
       border-top-left-radius: 1em;
       border-top-right-radius: 1em;
     }
-    .button {
+    .bclsbutton {
       background:#0000cc;
+      line-height: 3em;
     }
-    #menu li input:hover {
+    #bclsmenu li input:hover {
       background:#08c;
       color:#fff;
     }
-    
+
     /* set the player to be responsive */
     .myplayer {
       width: 100%;
@@ -87,19 +88,19 @@
 /* playlist stacked below the player */
 @media only screen and (max-width:49.999em) and (min-width:20em) {
 
-    .outer  {
+    .bclsouter  {
       background-color: #1a1a1a;
       overflow-y: hidden;
     }
-  
+
     .vidWrapper {
       height:100%;
     }
-  
+
     .myplayer {
       position: relative;
     }
-  
+
     .playlist-wrapper{
       width: 100%;
       overflow-y: scroll;
@@ -133,7 +134,7 @@
 /* horizontal playlist below the player */
 @media only screen and (max-width:74.999em) and (min-width:50em) {
 
-    .outer {
+    .bclsouter {
       height: 0;
     }
     .myplayer {
@@ -147,7 +148,7 @@
       overflow-y: hidden;
       float:left;
     }
-    
+
     .vjs-playlist.vjs-playlist {
       width: 100%;
       display: block;
@@ -165,22 +166,22 @@
     .vjs-playlist-description {
       display: none;
     }
-  
+
 }
 
 /* vertical playlist to the right of the player */
 @media only screen and (max-width: 2500px) and (min-width:75em) {
-  
-    .outer  {
+
+    .bclsouter  {
       overflow-y: hidden;
-    }  
-  
+    }
+
     /* the player */
     .myplayer {
       width: 70%;
       position: relative;
     }
-  
+
     /* the player */
     .video-js {
       float: left;
@@ -190,7 +191,7 @@
     .playlist-wrapper{
       width: 30%;
       height: 100%;
-      overflow-x: scroll;     
+      overflow-x: scroll;
     }
 
 }
@@ -204,13 +205,13 @@
 	.hide-overlay .vjs-overlay {
 	  display: none;
 	}
-	
+
 	/* make the endscreen buttons smaller */
 	.vjs-overlay-buttons {
 	  font-size: .5em;
 	  position: absolute;
 	  top: 15%;
-	}    
+	}
 
 	/* position the endscreen call to action text */
 	div.vjs-custom-overlay {
@@ -220,37 +221,37 @@
 	  position: absolute;
 	  top: 35%;
       text-align: center;
-      width: 100%; 
+      width: 100%;
 	}
 
     /* hide the custom endscreen */
 	.hide-endscreen .vjs-custom-overlay {
 	  display: none;
 	}
-	
+
   </style>
-  
+
   <link href="//players.brightcove.net/videojs-overlay/lib/videojs-overlay.css" rel="stylesheet">
   <link href="//players.brightcove.net/videojs-custom-endscreen/dist/videojs-custom-endscreen.css" rel="stylesheet">
 
 </head>
 
 <body>
-    <div class="outer">
+    <div class="bclsouter">
         <div>
-            <ul id="menu">
-				<li><input id="tab0" type="button" class="button" onclick="processTab(0);" value="Roof Systems"></input></li>
-				<li><input id="tab1" type="button" class="button" onclick="processTab(1);" value="Roofing Details"></li>
-				<li><input id="tab2" type="button" class="button" onclick="processTab(2);" value="Sustainability"></li>
-				<li><input id="tab3" type="button" class="button" onclick="processTab(3);" value="Service & Maintenance"></li>
-				<li><input id="tab4" type="button" class="button" onclick="processTab(4);" value="Safety"></li>
-				<li><input id="tab5" type="button" class="button" onclick="processTab(5);" value="Online Roof Management"></li>
-				<li><input id="tab6" type="button" class="button" onclick="processTab(6);" value="Flooring Solutions"></li>
+            <ul id="bclsmenu">
+				<li><input id="tab0" type="button" class="bclsbutton" onclick="processTab(0);" value="Roof Systems"></input></li>
+				<li><input id="tab1" type="button" class="bclsbutton" onclick="processTab(1);" value="Roofing Details"></li>
+				<li><input id="tab2" type="button" class="bclsbutton" onclick="processTab(2);" value="Sustainability"></li>
+				<li><input id="tab3" type="button" class="bclsbutton" onclick="processTab(3);" value="Service & Maintenance"></li>
+				<li><input id="tab4" type="button" class="bclsbutton" onclick="processTab(4);" value="Safety"></li>
+				<li><input id="tab5" type="button" class="bclsbutton" onclick="processTab(5);" value="Online Roof Management"></li>
+				<li><input id="tab6" type="button" class="bclsbutton" onclick="processTab(6);" value="Flooring Solutions"></li>
 			</ul>
         </div>
 
         <div class="myplayer">
-		  
+
             <video id="video_1"
             data-account="1330301281001"
             data-player="ba1ec69b-da15-4369-990b-7833a3648921"
@@ -259,13 +260,13 @@
 <script src="//players.brightcove.net/1330301281001/ba1ec69b-da15-4369-990b-7833a3648921_default/index.min.js"></script>
 		    <p id="cta" style="color:00338e; font-weight: bold; font-size: 20px"></p>
         </div><!-- end myplayer-->
-        
-  
+
+
         <div class="playlist-wrapper">
             <ol class="vjs-playlist"></ol>
         </div><!-- end playlist-weapper -->
-  
-    </div><!-- end outer -->
+
+    </div><!-- end bclsouter -->
 
 
   	<script src="//players.brightcove.net/videojs-overlay/lib/videojs-overlay.js"></script>
@@ -276,37 +277,37 @@
         var myPlayer,
 			playlistIds = ["1330297259001", "1397836971001", "1336061734001", "1336061735001", "1391880055001", "1336061736001", "13302972580011"],
             playlistIdsLength = playlistIds.length,
-            tabs = document.getElementsByClassName("button"),
+            tabs = document.getElementsByClassName("bclsbutton"),
             currentTab,
             currentTabName,
             playlistNames = [],
 			overlayDisplayed = false;
-      		  
+
 
         videojs("video_1").ready(function(){
 		  console.log("player is ready");
             myPlayer = this;
-            
+
             // when a video is loaded, build the call to action
             myPlayer.on('loadedmetadata', function(){
 			    buildCTA();
 			});
-          
+
             // when a video ends, show the custom endscreen
             myPlayer.on('ended', function(){
                 myPlayer.removeClass('hide-endscreen');
             });
-		  
+
 		    myPlayer.on('pause', function(){
                 myPlayer.removeClass('hide-overlay');
             });
-		  
+
 		    myPlayer.on('play', function(){
                 myPlayer.addClass('hide-overlay');
             });
-		  
+
 		    processTab(0);
-		  
+
 		    function buildCTA(){
 			  console.log("build CTA");
 			    var playlistAra,
@@ -314,9 +315,9 @@
 					linkText = '',
       		        linkURL = '',
 					hrefString = '';
-			  
+
 			    //Hide custom endscreen
-				myPlayer.addClass('hide-endscreen');	
+				myPlayer.addClass('hide-endscreen');
 			    //Set div with CTA to blank
 				document.getElementById("cta").innerHTML = '';
 				//Build CTA
@@ -339,18 +340,18 @@
 						    "end": "loadedmetadata"
 						}]
 					});
-				  
+
 					//Put CTA in endscreen
 					myPlayer.customEndscreen({
 					    "content": "<p style='color:white; background-color: black; font-weight: bold; font-size: 20px; padding: 1em;'>" + hrefString + "</p>"
 					});
-				} 
+				}
 			}
         });
 
-        function processTab (index) { 
+        function processTab (index) {
 		    resetTabs();
-            document.getElementById("tab" + index).setAttribute("style","background:#08c;color: #00FFFF; border-bottom: 1px solid #00FFFF;"); 
+            document.getElementById("tab" + index).setAttribute("style","background:#08c;color: #00FFFF; border-bottom: 1px solid #00FFFF;");
             loadPlaylist(playlistIds[index]);
         };
 
@@ -361,9 +362,9 @@
 				} catch (e) {
 					myPlayer.catalog.load(playlist);
 				} ;
-			    
+
 				myPlayer.play();
-				
+
             });
         };
 
@@ -374,7 +375,7 @@
                 tabs[i].setAttribute("style", "background: #0000cc;color: #fff;")
             }
         }
-	  
+
     </script>
 
 </body>

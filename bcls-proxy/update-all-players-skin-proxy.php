@@ -1,9 +1,9 @@
 <?php
 /**
  * pmapi-proxy.php - proxy for Brightcove PLayer Management API
- * updates the skin for a player to the 5.x skin (luna)
+ * updates the skin for all players in an account to the 5.x skin (luna)
  * Accessing:
- *     URL: https://solutions.brightcove.com/bcls/bcls-proxy/update-player-skin-proxy.php
+ *     URL: https://solutions.brightcove.com/bcls/bcls-proxy/update-all-players-skin-proxy.php
  *         (note you should *always* access the proxy via HTTPS)
  *     Method: POST
  *
@@ -23,9 +23,12 @@ header("Access-Control-Allow-Origin: *");
 $username     = $_POST["username"];
 $password     = $_POST["password"];
 $account_id   = $_POST["account_id"];
-$player_id    = $_POST["player_id"];
 $publish      = $_POST["publish"];
-$url = 'https://players.api.brightcove.com/v1/accounts/'.$account_id.'/players/'.$player_id.'/configuration';
+$results      = new stdClass();
+$results->updated = array();
+$results->skipped = array();
+// get all players
+$url = 'https://players.api.brightcove.com/v1/accounts/'.$account_id.'/players/';
 $ch = curl_init($url);
 curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_TIMEOUT, 30); //timeout after 30 seconds
@@ -43,32 +46,18 @@ if ($response === FALSE) {
 }
 
 // Decode the response
-$playerConfig = json_decode($response, TRUE);
+$allPlayers = json_decode($response, TRUE);
+$players = $allPlayers->items;
 
-// check for player version
-$player_version = substr($playerConfig['player']['template']['version'],0,1);
-
-// only act if player version is 5.x or later
-if ($player_version > 4) {
-    // remove skin and compatibility properties
-    unset($playerConfig["compatibility"], $playerConfig["skin"]);
-    // echo json_encode($playerConfig, TRUE);
-
-    // make the update call
-
-    $newPlayerConfig = json_encode($playerConfig);
-    $headers = array('Content-Type: application/json', 'Content-Length: ' . strlen($newPlayerConfig));
-
+foreach ($players as $player) {
+    $player_id = $player->id;
+    $url = 'https://players.api.brightcove.com/v1/accounts/'.$account_id.'/players/'.$player_id.'/configuration';
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_TIMEOUT, 30); //timeout after 30 seconds
     curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
     curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
     curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $newPlayerConfig);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
     $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     $response = curl_exec($ch);
     curl_close($ch);
@@ -78,14 +67,24 @@ if ($player_version > 4) {
         die(curl_error($ch));
         echo $status_code;
     }
-    $playerConfig = json_decode($response);
 
-    // now publish the player
+    // Decode the response
+    $playerConfig = json_decode($response, TRUE);
 
-    $url = 'https://players.api.brightcove.com/v1/accounts/'.$account_id.'/players/'.$player_id.'/publish';
-    $headers = array('Content-Type: application/json');
+    // check for player version
+    $player_version = substr($playerConfig['player']['template']['version'],0,1);
 
-    if ($publish == "true") {
+    // only act if player version is 5.x or later
+    if ($player_version > 4) {
+        // remove skin and compatibility properties
+        unset($playerConfig["compatibility"], $playerConfig["skin"]);
+        // echo json_encode($playerConfig, TRUE);
+
+        // make the update call
+
+        $newPlayerConfig = json_encode($playerConfig);
+        $headers = array('Content-Type: application/json', 'Content-Length: ' . strlen($newPlayerConfig));
+
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_TIMEOUT, 30); //timeout after 30 seconds
@@ -93,9 +92,9 @@ if ($player_version > 4) {
         curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
         curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $newPlayerConfig);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
         $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $response = curl_exec($ch);
         curl_close($ch);
@@ -106,14 +105,46 @@ if ($player_version > 4) {
             echo $status_code;
         }
         $playerConfig = json_decode($response);
-        echo json_encode($playerConfig) . PHP_EOL;
+
+        // now publish the player
+
+        $url = 'https://players.api.brightcove.com/v1/accounts/'.$account_id.'/players/'.$player_id.'/publish';
+        $headers = array('Content-Type: application/json');
+
+        if ($publish == "true") {
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 30); //timeout after 30 seconds
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+            curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+            curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+            $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            $response = curl_exec($ch);
+            curl_close($ch);
+
+            // Check for errors
+            if ($response === FALSE) {
+                die(curl_error($ch));
+                echo $status_code;
+            }
+            $playerConfig = json_decode($response);
+            $results->updated[$player_id];
+        } else {
+            $results->updated[$player_id];;
+        }
+
     } else {
-        echo json_encode($playerConfig) . PHP_EOL;
+        $results->skipped[$player_id];
     }
 
-} else {
-    echo 'This converter can only be used on players with version 5.0.0 or later';
 }
+
+echo json_encode($results);
+
 
 
 ?>

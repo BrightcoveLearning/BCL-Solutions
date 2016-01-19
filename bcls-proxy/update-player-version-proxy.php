@@ -27,12 +27,12 @@ $password     = $_POST["password"];
 $account_id   = $_POST["account_id"];
 $player_id    = $_POST["player_id"];
 $publish      = $_POST["publish"];
-$version      = $_POST["version"];
+$version      = str_replace("-", ".", $_POST["version"]);
 $url = 'https://players.api.brightcove.com/v1/accounts/'.$account_id.'/players/'.$player_id.'/configuration';
 
 // make the update call
 
-$configData = new stdClass();;
+$configData = new stdClass();
 $headers = array('Content-Type: application/json', 'Content-Length: ' . strlen($newPlayerConfig));
 
 $ch = curl_init($url);

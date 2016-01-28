@@ -51,7 +51,8 @@ $player_version = substr($playerConfig['player']['template']['version'],0,1);
 // only act if player version is 5.x or later
 if ($player_version > 4) {
     // remove skin and compatibility properties
-    unset($playerConfig["compatibility"], $playerConfig["skin"]);
+    // unset($playerConfig["compatibility"], $playerConfig["skin"]);
+    unset($playerConfig["skin"]);
     // echo json_encode($playerConfig, TRUE);
 
     // make the update call

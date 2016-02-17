@@ -10,6 +10,8 @@
  * @post {string} url - the URL for the API request
  * @post {string} [requestType=GET] - HTTP method for the request
  * @post {string} [requestBody=null] - JSON data to be sent with write requests
+ * @post {string} client_id - OAuth2 client id with sufficient permissions for the request
+ * @post {string} client_secret - OAuth2 client secret with sufficient permissions for the request
  *
  * @returns {string} $response - JSON response received from the API
  */
@@ -20,11 +22,20 @@ header("Access-Control-Allow-Origin: *");
 // set up request for access token
 $data = array();
 
-$client_id     = 'c5d0a622-5479-46d8-8d8a-5f034b943fab';
-$client_secret = 'w7NQYu0vUloM4GYYy2SXAxrvyFpt8fwI35qAFZcS13-VIgs0itwKNsAwHOS80sOWKJ1BUwHIvSFG2IbgcxEGKg';
-$auth_string   = "{$client_id}:{$client_secret}";
-$request       = "https://oauth.brightcove.com/v3/access_token?grant_type=client_credentials";
-$ch            = curl_init($request);
+if ($_POST["client_id"]) {
+    $client_id = $_POST["client_id"];
+} else {
+    $client_id = 'c5d0a622-5479-46d8-8d8a-5f034b943fab';
+}
+if ($_POST["client_secret"]) {
+    $client_secret = $_POST["client_secret"];
+} else {
+    $client_secret = 'w7NQYu0vUloM4GYYy2SXAxrvyFpt8fwI35qAFZcS13-VIgs0itwKNsAwHOS80sOWKJ1BUwHIvSFG2IbgcxEGKg';
+}
+
+$auth_string = "{$client_id}:{$client_secret}";
+$request     = "https://oauth.brightcove.com/v3/access_token?grant_type=client_credentials";
+$ch          = curl_init($request);
 curl_setopt_array($ch, array(
         CURLOPT_POST           => TRUE,
         CURLOPT_RETURNTRANSFER => TRUE,

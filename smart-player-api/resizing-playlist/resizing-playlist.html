@@ -15,7 +15,7 @@
 			padding-bottom: 56.25%;
 		}
 		.BrightcoveExperience {
-			float: left;
+			position: absolute;
 			top: 0;
 			left: 0;
 			width: 100%;
@@ -34,7 +34,6 @@
 			float:left;
 			width:40%;
 		}
-/*		position: absolute;*/
 	</style>
 </head>
 
@@ -75,9 +74,11 @@
 			</script>
 			<!-- End of Brightcove Player -->
 			
-			<div id="playlist"></div>
+			
 		</div>
+		 <div id="playlist"></div>
 	</div>
+	
 	<!-- jquery script -->
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js">
 	</script>
@@ -142,7 +143,7 @@
 			var resizeWidth = $(".BrightcoveExperience").width(),
 				resizeHeight = $(".BrightcoveExperience").height();
 			if (experienceModule.experience.type == "html") {
-				experienceModule.setSize(resizeWidth, resizeHeight)
+				experienceModule.setSize(resizeWidth, resizeHeight);
 			}
 		}
 	</script>

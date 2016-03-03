@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+ <html lang="en">
+
+ <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" />
+<!-- change title to match the h1 heading -->
+<title>Playback Technology Guide</title>
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/foundation.min.css" />
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/normalize.css" />
+<script src="//use.edgefonts.net/source-code-pro.js"></script>
+<link href='http://fonts.googleapis.com/css?family=OpenSans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/font-hack/2.015/css/hack-extended.min.css">
+
+<link rel="stylesheet" type="text/css" href="/en/styles/bcls-doc-site.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/atelier-forest.light.min.css">
+<link href='http://fonts.googleapis.com/css?family=OpenSans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/font-hack/2.015/css/hack-extended.min.css">
+
+<script>
+	(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r;
+		i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date();
+		a = s.createElement(o),
+		m = s.getElementsByTagName(o)[0];
+		a.async = 1;
+		a.src = g;
+		m.parentNode.insertBefore(a, m)
+	})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	ga('create', 'UA-2728311-29', 'auto');
+	ga('send', 'pageview');
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/js/vendor/modernizr.js"></script>
+ </head>
+
+ <body>
+<!-- header navbar -->
+<div id="navWrapper" class="fixed"></div>
+<!-- breadcrumbs -->
+<nav id="breadCrumbWrapper" class="breadcrumbs show-for-medium-up"></nav>
+<!-- search -->
+<div id="searchModal" class="reveal-modal" data-reveal></div>
+<!-- content -->
+<div class="row">
+	<div class="sidebar large-2 columns show-for-large-up">
+		<div id="sidenav" class="side-nav"></div>
+	</div>
+	<div id="main" class="large-10 small-12 columns">
+		<div id="top" class="section">
+			<h1>Playback Technology Guide</h1>
+			<p>Playback Technology refers to the specific browser or plugin technology used to play the video or audio. (The playback technology will usually be referred to simply as a <strong>Tech</strong>.) When using HTML5, the playback technology is the video
+				or audio element. When using Flash, the playback technology is the specific Flash player used, e.g. Flowplayer, YouTube Player, video-js.swf, etc. (not just &quot;Flash&quot;). This could also include Silverlight, Quicktime, or any other plugin that
+				will play back video in the browser, as long as there is an API wrapper written for it.</p>
+			<p>The Brightcove Player includes the HLS playback engine Tech by default. If the video you provide to the player includes HLS renditions, it will play those before it tries MP4 because the default Tech order is <code>["hls","html5","flash"]</code>. If
+				the browser supports HLS natively, it will use that capability (e.g. Safari on desktop or iOS). If it doesn't support HLS but the browser has Flash installed, it will load the Flash fallback. You can change this behavior by changing the tech order,
+				as explained above, but if you want to take advantage of HLS everywhere the default is the right configuration.</p>
+		</div>
+
+             <div class="section" id="determineTech">
+			<h2>Determining playback tech</h2>
+			<p>It may be helpful to determine which playback tech is being used by your player within the browser. Let's take a look at a video playing in the Chrome browser.</p>
+                 <h3>techName property</h3>
+			<p>First, let's see which playback tech is currently being used. With your video in the Chrome browser, open Developer Tools to view the console messages. In the console's command prompt, enter the following:</p>
+         <p class="BCL-aside">Note: The <code>vjs_video_3</code> section of the entry represents the default ID of the player in this case. If you are experimenting and have a player with an ID, that ID will replace <code>vjs_video_3</code>.</p>
+                 <pre><code>videojs.players.vjs_video_3.techName</code></pre>
+			<p>You should see the value of "Hls". Remember that the default tech order is <code>["hls","html5","flash"]</code>. </p>
+			<div>
+				<img src="assets/tech/techName.png" alt="tech name">
+			</div>
+                 <p>You might not expect the hls rendition to be playing in this browser, since Chrome does not natively support hls. But, the Brightcove player will play hls within the Flash player, if Flash is installed in the browser.</p>
+                 <h3>vjs-tech class</h3>
+                 <p>Next, let's verify that Flash is being used to play the hls rendition. In the console's command promt, enter the following to return the first player element which uses the class named <code>vjs-tech</code>:</p>
+                 <pre><code>videojs.players.vjs_video_3.el().querySelector('.vjs-tech')</code></pre>
+			<div>
+				<img src="assets/tech/techDetails.png" alt="tech name">
+			</div>
+			<p>Here, you can see that Flash player is being used.</p>
+                 <h3>HTML5 rendition</h3>
+                 <p>Now, let's see which rendition is used when you turn off Flash player in the browser. </p>
+                 <p>In Chrome, open a new tab and enter the following to navigate to the browser plugins:</p>
+                 <pre><code>chrome://plugins/</code></pre>
+                 <p>On this page, disable the <strong>Adobe Flash Player</strong>.</p>
+                 <div><img src="assets/tech/flashPlugin.png" alt="Flash plugin"></div>
+                 <p>In the console's command prompt, enter the following:</p>
+                 <pre><code>videojs.players.vjs_video_3.techName</code></pre>
+                 <p>You should see that the HTML5 rendition is being used.</p>
+			<p>In the console's command promt, enter the following :</p>
+                 <pre><code>videojs.players.vjs_video_3.el().querySelector('.vjs-tech')</code></pre>
+			<div>
+				<img src="assets/tech/htmlRendition.png" alt="HTML5 rendition">
+			</div>
+                 <p>You can see that the mp4 video is playing in the HTML5 <code>video</code> element. Return to the browser plugins page and enable Adobe Flash Player.</p>
+		</div>
+
+       <div id="formattable" class="section">
+         <h2>Expected format table</h2>
+         <p>This table shows the expected format to play based on tech order and browser. The tables assumes there are both HLS and MP4 renditions available for a video source.</p>
+			<table class="table-styles">
+			  <thead>
+			    <tr>
+			      <td>Browser</td>
+			      <td>Flash?</td>
+			      <td colspan="3">Tech Order:</td>
+			    </tr>
+			    <tr>
+			      <td></td>
+			      <td></td>
+			      <td>hls, html5, flash *</td>
+			      <td>html5, flash</td>
+			      <td>flash, html5</td>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr>
+			      </th>
+			      <td>iOS</td>
+			      <td>n/a</td>
+			      <td>Native HLS</td>
+			      <td>Native HLS</td>
+			      <td>Native HLS</td>
+			    </tr>
+			    <tr>
+			      <td>Android</td>
+			      <td>n/a</td>
+			      <td>Native HLS</td>
+			      <td>Native HLS</td>
+			      <td>Native HLS</td>
+			    </tr>
+			    <tr>
+			      <td>Safari</td>
+			      <td>no Flash</td>
+			      <td>Native HLS</td>
+			      <td>Native HLS</td>
+			      <td>Native HLS</td>
+			    </tr>
+			    <tr>
+			      <td>Safari</td>
+			      <td>with Flash</td>
+			      <td>Native HLS</td>
+			      <td>Native HLS</td>
+			      <td>MP4 via Flash</td>
+			    </tr>
+			    <tr>
+			      <td>Chrome</td>
+			      <td>built-in Flash</td>
+			      <td>HLS via Flash<sup>1, 3</sup></td>
+			      <td>MP4 via HTML5</td>
+			      <td>MP4 via Flash</td>
+			    </tr>
+			    <tr>
+			      <td>Firefox</td>
+			      <td>no Flash</td>
+			      <td>MP4 via HTML5 <sup>1, 2</sup></td>
+			      <td>MP4 via HTML5 <sup>2</sup></td>
+			      <td>MP4 via HTML5 <sup>2</sup></td>
+			    </tr>
+			    <tr>
+			      <td>Firefox</td>
+			      <td>with Flash</td>
+			      <td>HLS via Flash <sup>1, 3</sup></td>
+			      <td>MP4 via HTML5 <sup>2</sup></td>
+			      <td>MP4 via Flash</td>
+			    </tr>
+			    <tr>
+			      <td>IE 11</td>
+			      <td>no Flash</td>
+			      <td>MP4 via HTML5 <sup>1</sup></td>
+			      <td>MP4 via HTML5</td>
+			      <td>MP4 via HTML5</td>
+			    </tr>
+			    <tr>
+			      <td>IE 11</td>
+			      <td>with Flash</td>
+			      <td>HLS via Flash<sup>1, 3</sup></td>
+			      <td>MP4 via HTML5</td>
+			      <td>MP4 via Flash</td>
+			    </tr>
+			    <tr>
+			      <td>IE 10</td>
+			      <td>no Flash</td>
+			      <td>MP4 via HTML5</td>
+			      <td>MP4 via HTML5</td>
+			      <td>MP4 via HTML5</td>
+			    </tr>
+			    <tr>
+			      <td>IE 10</td>
+			      <td>with Flash</td>
+			      <td>HLS via Flash<sup>3</sup></td>
+			      <td>MP4 via HTML5</td>
+			      <td>MP4 via Flash</td>
+			    </tr>
+			    <tr>
+			      <td>IE 9</td>
+			      <td>no Flash</td>
+			      <td>MP4 via HTML5</td>
+			      <td>MP4 via HTML5</td>
+			      <td>MP4 via HTML5</td>
+			    </tr>
+			    <tr>
+			      <td>IE 9</td>
+			      <td>with Flash</td>
+			      <td>MP4 via HTML5</td>
+			      <td>MP4 via HTML5</td>
+			      <td>MP4 via Flash</td>
+			    </tr>
+			    <tr>
+			      <td>IE 8</td>
+			      <td>with Flash</td>
+			      <td>MP4 via Flash</td>
+			      <td>MP4 via Flash</td>
+			      <td>MP4 via Flash</td>
+			    </tr>
+			    <tr>
+			      <td>Windows phone</td>
+			      <td>n/a</td>
+			      <td>MP4 via HTML5</td>
+			      <td>MP4 via HTML5</td>
+			      <td>MP4 via HTML5</td>
+			    </tr>
+			  </tbody>
+			</table>
+			<p>Legend:</p>
+			<p><strong>*</strong> Default and recommended tech order</p>
+			<p><strong><sup>1</sup></strong> Would in future play HLS via HTML5 media source extensions</p>
+			<p><strong><sup>2</sup></strong> Firefox's HTML5/MP4 support is not built into the browser but depends on the underlying OS. May not be available on older OS versions or particular configurations.</p>
+			<p><strong><sup>3</sup></strong> Requires CORS headers</p>
+       </div>
+
+		<div class="section" id="playbackTechnology">
+			<h2>Adding Playback Technology</h2>
+			<p>When adding additional Tech to a video player, make sure to add the supported tech to the video object.</p>
+			<h3>Tag Method</h3>
+                 <p>You can use the <code>techOrder</code> property in the <code>video</code> element of your in-page embed code:</p>
+			<pre><code>&lt;video data-setup=&#39;{&quot;techOrder&quot;: [&quot;hls&quot;, &quot;html5&quot;, &quot;flash&quot;, &quot;other supported tech&quot;]}&#39;
+ </code></pre>
+			<h3>Player Management API Method</h3>
+			<p>Alternatively, if not using the in-page embed player implementation or want the value set for all player instances, you can configure the tech order using the <a href="../../player-management/index.html">Player Management API</a> using an HTTP <code>PATCH</code> method,
+				as shown here:</p> <pre><code>curl \
+   --header "Content-Type: application/json" \
+   --user $EMAIL \
+   --request PATCH \
+   --data '{
+       "techOrder": ["html5", "hls", "flash"]
+     }' \
+   https://players.api.brightcove.com/v1/accounts/$ACCOUNT_ID/players/$PLAYER_ID/configuration</code></pre>
+		</div>
+
+		<div class="section" id="flashTechnology">
+			<h2>Flash Technology</h2>
+			<p>The Flash playback tech is a part of the default <code>techOrder</code>. You may notice undesirable playback behavior in browsers that are subject to using this playback tech, in particular when scrubbing and seeking within a video. This behavior is
+				a result of Flash&#39;s progressive video playback.</p>
+		</div>
+		<div class="section" id="streamingPlayback">
+			<h2>Enabling Streaming Playback</h2>
+			<p>In order to force the Flash tech to choose streaming playback, you need to provide a valid streaming source <strong>before other valid Flash video sources</strong>. This is necessary because of the source selection algorithm, where playback tech chooses the first possible source object with a valid type. The streaming <code>src</code> value requires valid connection and stream strings, separated by an <code>&amp;</code>. An example of supplying a streaming source through your HTML markup might look like:</p>
+ <pre><code>&lt;source src=&quot;http://mylivefeed.net/hls/master.m3u8?play=1&line=2&quot; type=&quot;application/x-mpegURL&quot;&gt;</code></pre>
+			<p>Note that the only valid streaming format for Brightcove Player is HLS.</p>
+		</div>
+		<div class="section" id="wrapper">
+			<h2>Building an API Wrapper</h2>
+			<p>For guidance on writing a wrapper the best resource is the <a href="https://github.com/zencoder/video-js/tree/master/src">Video.js</a> source where you can see how both the HTML5 and video-js.swf API wrappers were created.</p>
+			<h3>Required Methods</h3>
+			<ul>
+				<li><code>canPlayType</code>
+				</li>
+				<li><code>play</code>
+				</li>
+				<li><code>pause</code>
+				</li>
+				<li><code>currentTime</code>
+				</li>
+				<li><code>volume</code>
+				</li>
+				<li><code>duration</code>
+				</li>
+				<li><code>buffered</code>
+				</li>
+				<li><code>supportsFullScreen</code>
+				</li>
+			</ul>
+			<h3>Required Events</h3>
+			<ul>
+				<li><code>loadstart</code>
+				</li>
+				<li><code>play</code>
+				</li>
+				<li><code>pause</code>
+				</li>
+				<li><code>playing</code>
+				</li>
+				<li><code>ended</code>
+				</li>
+				<li><code>volumechange</code>
+				</li>
+				<li><code>durationchange</code>
+				</li>
+				<li><code>error</code>
+				</li>
+			</ul>
+			<h3>Optional Events (include if supported)</h3>
+			<ul>
+				<li><code>timeupdate</code>
+				</li>
+				<li><code>progress</code>
+				</li>
+				<li><code>enterFullScreen</code>
+				</li>
+				<li><code>exitFullScreen</code>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- bcl scripts -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/js/foundation.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.3/handlebars.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
+<script src="/en/scripts/log.js"></script>
+<script src="/en/scripts/docs-nav-data.min.js"></script>
+<script src="/en/scripts/bcls-doc-site-v1.js"></script>
+<script src="/en/scripts/bc-mapi.js"></script>
+<script>
+	$(document).foundation();
+</script>
+<script type="text/javascript">
+	/******** Any scripts specific to page samples should go here *********/
+</script>
+<div class="footer text-center"><a id="feedbackMail" href="mailto:docs@brightcove.com">Questions or comments?</a>
+</div>
+<script>
+	var feedbackMail = document.getElementById("feedbackMail");
+	feedbackMail.setAttribute("href", "mailto:docs@brightcove.com?subject=question regarding "  encodeURI(document.location.href));
+</script>
+ </body>
+
+ </html>

@@ -1,0 +1,388 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:06.550 align:middle line:90%
+
+
+00:00:06.550 --> 00:00:07.050 align:middle line:90%
+Hi.
+
+00:00:07.050 --> 00:00:09.830 align:middle line:84%
+I'm Bob Bailey, a Learning
+Specialist with Brightcove.
+
+00:00:09.830 --> 00:00:11.820 align:middle line:84%
+In this video, we'll
+learn how to add captions
+
+00:00:11.820 --> 00:00:16.010 align:middle line:84%
+to a video using the
+Brightcove player.
+
+00:00:16.010 --> 00:00:17.930 align:middle line:84%
+Closed captions can be
+added to your videos
+
+00:00:17.930 --> 00:00:20.480 align:middle line:84%
+to provide additional or
+interpretive information
+
+00:00:20.480 --> 00:00:23.300 align:middle line:84%
+to individuals who
+wish to access it.
+
+00:00:23.300 --> 00:00:25.720 align:middle line:84%
+Captions are necessary so
+the deaf and hard of hearing
+
+00:00:25.720 --> 00:00:29.970 align:middle line:84%
+can access the audio portion
+of video presentations.
+
+00:00:29.970 --> 00:00:33.260 align:middle line:84%
+There are three basic steps
+to add captions to a video.
+
+00:00:33.260 --> 00:00:37.130 align:middle line:84%
+First, you need to create a
+caption file for your video.
+
+00:00:37.130 --> 00:00:38.710 align:middle line:84%
+You'll need a
+separate caption file
+
+00:00:38.710 --> 00:00:41.510 align:middle line:84%
+for each language
+you want to support.
+
+00:00:41.510 --> 00:00:44.110 align:middle line:84%
+Second, you need to modify
+the In-Page embed code
+
+00:00:44.110 --> 00:00:47.160 align:middle line:84%
+for the player to
+include the track tag.
+
+00:00:47.160 --> 00:00:49.580 align:middle line:84%
+The track tag is used to
+specify the captions that
+
+00:00:49.580 --> 00:00:52.850 align:middle line:84%
+should be visible as
+the video is playing.
+
+00:00:52.850 --> 00:00:55.220 align:middle line:84%
+Finally, you may want
+to style the captions
+
+00:00:55.220 --> 00:00:59.620 align:middle line:84%
+to change the font, colors,
+or location of the captions.
+
+00:00:59.620 --> 00:01:01.482 align:middle line:90%
+Let's get started.
+
+00:01:01.482 --> 00:01:03.190 align:middle line:84%
+The first thing we
+need are caption files
+
+00:01:03.190 --> 00:01:06.370 align:middle line:84%
+for all the languages
+we want to support.
+
+00:01:06.370 --> 00:01:10.920 align:middle line:84%
+The Brightcove player supports
+caption files in WebVTT format.
+
+00:01:10.920 --> 00:01:12.710 align:middle line:84%
+To create a caption
+file, you can
+
+00:01:12.710 --> 00:01:15.290 align:middle line:84%
+use one of the many
+third-party software packages
+
+00:01:15.290 --> 00:01:18.510 align:middle line:84%
+or in my case, I
+uploaded one of my videos
+
+00:01:18.510 --> 00:01:21.510 align:middle line:84%
+to one of our
+partners, 3Play Media.
+
+00:01:21.510 --> 00:01:24.280 align:middle line:84%
+They're just one of our partners
+that provide transcription,
+
+00:01:24.280 --> 00:01:27.596 align:middle line:84%
+captioning, and
+translation services.
+
+00:01:27.596 --> 00:01:28.970 align:middle line:84%
+For a complete
+list of Brightcove
+
+00:01:28.970 --> 00:01:34.667 align:middle line:84%
+partners visit Brightcove.com
+and click on the Partners link.
+
+00:01:34.667 --> 00:01:36.250 align:middle line:84%
+I've already gone
+ahead and downloaded
+
+00:01:36.250 --> 00:01:40.670 align:middle line:84%
+the WebVTT caption files
+from the 3Play Media website.
+
+00:01:40.670 --> 00:01:43.810 align:middle line:84%
+For this video, I want to add
+English and French captions
+
+00:01:43.810 --> 00:01:47.530 align:middle line:84%
+to my video so I have
+two caption files.
+
+00:01:47.530 --> 00:01:50.450 align:middle line:84%
+Remember, you'll have
+a separate WebVTT file
+
+00:01:50.450 --> 00:01:53.790 align:middle line:84%
+for each language
+you want to support.
+
+00:01:53.790 --> 00:01:55.750 align:middle line:84%
+If I open one of
+the caption files,
+
+00:01:55.750 --> 00:01:58.140 align:middle line:84%
+you can see it has time
+markings and the text
+
+00:01:58.140 --> 00:02:01.110 align:middle line:84%
+to be displayed
+during that time.
+
+00:02:01.110 --> 00:02:02.860 align:middle line:84%
+Now that we have
+caption files, we'll
+
+00:02:02.860 --> 00:02:05.270 align:middle line:84%
+get the in-page embed
+code for the player
+
+00:02:05.270 --> 00:02:08.380 align:middle line:84%
+and then modify
+it add track tags.
+
+00:02:08.380 --> 00:02:13.062 align:middle line:84%
+To do this, I'll start by
+going to the Players module.
+
+00:02:13.062 --> 00:02:14.895 align:middle line:84%
+I've already created a
+player and associated
+
+00:02:14.895 --> 00:02:18.720 align:middle line:84%
+a video from my Video Cloud
+account with the player.
+
+00:02:18.720 --> 00:02:20.720 align:middle line:84%
+To get the in-page
+embed code, I'll
+
+00:02:20.720 --> 00:02:23.690 align:middle line:84%
+click on the embed
+code and URL button
+
+00:02:23.690 --> 00:02:26.970 align:middle line:90%
+and select Published Player.
+
+00:02:26.970 --> 00:02:31.170 align:middle line:84%
+I'm going to copy the
+in-page embed code
+
+00:02:31.170 --> 00:02:33.360 align:middle line:84%
+and paste it into
+my HTML editor.
+
+00:02:33.360 --> 00:02:36.410 align:middle line:90%
+
+
+00:02:36.410 --> 00:02:38.350 align:middle line:84%
+Now I need to
+modify the video tag
+
+00:02:38.350 --> 00:02:42.990 align:middle line:84%
+to include a track tag for
+each caption file I have.
+
+00:02:42.990 --> 00:02:45.010 align:middle line:84%
+If we look at the
+track tag, I'm going
+
+00:02:45.010 --> 00:02:48.420 align:middle line:84%
+to specify what kind of
+track it is, captions,
+
+00:02:48.420 --> 00:02:50.150 align:middle line:84%
+and then specify the
+location of where
+
+00:02:50.150 --> 00:02:53.320 align:middle line:90%
+the caption file is located.
+
+00:02:53.320 --> 00:02:56.449 align:middle line:84%
+Keep in mind that Brightcove
+does not host caption files,
+
+00:02:56.449 --> 00:02:57.990 align:middle line:84%
+so you'll need to
+host them somewhere
+
+00:02:57.990 --> 00:03:01.060 align:middle line:90%
+once they are created.
+
+00:03:01.060 --> 00:03:04.630 align:middle line:84%
+Next, I'll specify the source
+language and the label.
+
+00:03:04.630 --> 00:03:06.260 align:middle line:84%
+The label will be
+displayed to the user
+
+00:03:06.260 --> 00:03:09.050 align:middle line:84%
+to allow them to
+select this language.
+
+00:03:09.050 --> 00:03:11.100 align:middle line:84%
+Notice that I have
+two track tags, one
+
+00:03:11.100 --> 00:03:15.720 align:middle line:84%
+for the English captions and the
+other for the French captions.
+
+00:03:15.720 --> 00:03:18.500 align:middle line:84%
+When I'm done, I'll save
+the page, and then upload.
+
+00:03:18.500 --> 00:03:22.100 align:middle line:90%
+
+
+00:03:22.100 --> 00:03:25.541 align:middle line:84%
+Let's test this to make sure
+the captions are working.
+
+00:03:25.541 --> 00:03:29.650 align:middle line:84%
+I'll open my page in a
+browser and play the video.
+
+00:03:29.650 --> 00:03:33.550 align:middle line:84%
+Notice there is a CC button
+as part of the player chrome.
+
+00:03:33.550 --> 00:03:35.910 align:middle line:84%
+If I hover over that, I
+can select the language
+
+00:03:35.910 --> 00:03:39.120 align:middle line:90%
+to display the captions.
+
+00:03:39.120 --> 00:03:41.340 align:middle line:84%
+There are a few options
+available for styling
+
+00:03:41.340 --> 00:03:42.660 align:middle line:90%
+the captions.
+
+00:03:42.660 --> 00:03:45.980 align:middle line:84%
+First, it is possible to
+add tags to the WebVTT
+
+00:03:45.980 --> 00:03:48.150 align:middle line:84%
+file directly to
+control the layout
+
+00:03:48.150 --> 00:03:50.460 align:middle line:90%
+and position of the captions.
+
+00:03:50.460 --> 00:03:53.700 align:middle line:84%
+You can also style the
+captions using CSS.
+
+00:03:53.700 --> 00:03:55.120 align:middle line:84%
+Both of these
+methods are covered
+
+00:03:55.120 --> 00:03:58.170 align:middle line:90%
+in the caption documentation.
+
+00:03:58.170 --> 00:04:01.990 align:middle line:84%
+Viewers also have the ability to
+style the captions themselves.
+
+00:04:01.990 --> 00:04:04.650 align:middle line:84%
+For viewers on desktop
+and Android devices,
+
+00:04:04.650 --> 00:04:06.760 align:middle line:84%
+there's a Caption
+Settings menu, which
+
+00:04:06.760 --> 00:04:10.620 align:middle line:84%
+viewers can select to customize
+the style of the captions.
+
+00:04:10.620 --> 00:04:12.870 align:middle line:84%
+If I select it,
+an overlay appears
+
+00:04:12.870 --> 00:04:16.060 align:middle line:84%
+allowing me to change
+colors, opacity,
+
+00:04:16.060 --> 00:04:19.180 align:middle line:90%
+font size, and font family.
+
+00:04:19.180 --> 00:04:23.650 align:middle line:84%
+The Defaults button will
+restore the default settings.
+
+00:04:23.650 --> 00:04:26.580 align:middle line:84%
+For viewers on iOS
+devices, caption styling
+
+00:04:26.580 --> 00:04:29.590 align:middle line:84%
+is controlled through
+the iOS settings.
+
+00:04:29.590 --> 00:04:35.460 align:middle line:84%
+If I go to my iOS device and
+select Settings, General,
+
+00:04:35.460 --> 00:04:43.360 align:middle line:84%
+Accessibility, Subtitles
+and Captioning, Style,
+
+00:04:43.360 --> 00:04:47.630 align:middle line:84%
+I can select a pre-defined
+style or create new styles.
+
+00:04:47.630 --> 00:04:49.370 align:middle line:84%
+I've already created
+a custom style,
+
+00:04:49.370 --> 00:04:50.700 align:middle line:90%
+so I'm going to select it.
+
+00:04:50.700 --> 00:04:53.480 align:middle line:90%
+
+
+00:04:53.480 --> 00:04:56.910 align:middle line:84%
+When I return to
+my video, I can see
+
+00:04:56.910 --> 00:04:59.660 align:middle line:84%
+the styles applied
+to the captions.
+
+00:04:59.660 --> 00:05:11.844 align:middle line:90%

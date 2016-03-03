@@ -1,0 +1,14 @@
+    .video-js {
+      float: left;
+      margin: 15px;
+      width: 400px;
+      height: 200px;
+    }
+    .vjs-playlist {
+      width: 250px;
+      float: left;
+      margin: 15px;
+    }
+    .hide-overlay .vjs-overlay {
+      display: none;
+    }

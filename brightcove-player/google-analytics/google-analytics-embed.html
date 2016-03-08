@@ -3,13 +3,6 @@
 <head>
   <meta charset="utf-8">
   <title>Google Analytics Plugin</title>
-
-  <style>
-     #video_1 {
-		  width: 640px; 
-		  height: 360px;
-	   }
-  </style>
 </head>
 <body>
   
@@ -26,27 +19,39 @@
   </script>  
   
   <!--  video player-->
-  <video id="video_1"
-    data-account="1752604059001"
-    data-player="597312a3-3a06-4b8b-8db9-93a475288633"
-    data-embed="default"
-    data-video-id="1754276205001"
-
-    class="video-js" controls></video>
-  <script src="//players.brightcove.net/1752604059001/597312a3-3a06-4b8b-8db9-93a475288633_default/index.min.js"></script>
+	<video id="video_1" style="width: 640px; height: 360px;"
+		data-video-id="4029697544001"
+		data-account="1752604059001"
+		data-player="default"
+		data-embed="default"
+		class="video-js"
+		controls></video>
+	<script src="//players.brightcove.net/1752604059001/default_default/index.min.js"></script>
   
-  <script src="http://solutions.brightcove.com/bcls/brightcove-player/google-analytics/videojs.ga.videocloud.min.js"></script>
+    <!-- google analytics plugin -->
+    <script src="http://solutions.brightcove.com/bcls/brightcove-player/google-analytics/videojs.ga.videocloud.min.js"></script>
 	
+	<!-- custom script -->
 	<script type="text/javascript">
     var myPlayer;
 		
-    videojs("video_1").ready(function() {
-      myPlayer = this;
-      console.log("mediainfo object: ", myPlayer.mediainfo); 
+	videojs("video_1").on('loadstart', function(){
+		myPlayer = this;
+      	console.log("mediainfo object: ", myPlayer.mediainfo); 
       
-      myPlayer.ga();
-    });
-    
+      	myPlayer.ga();		
+	});    
     </script>
+	
+	<!--  perform player-->
+<!--
+	 <video id="video_1" style="width: 640px; height: 360px;"
+		data-account="3676484087001"
+		data-player="V1gkWvsBcx"
+		data-embed="default"
+		class="video-js"
+		controls></video>
+	<script src="//players.brightcove.net/3676484087001/V1gkWvsBcx_default/index.min.js"></script> 
+-->
 </body>
 </html>

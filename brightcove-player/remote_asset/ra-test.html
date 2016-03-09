@@ -9,7 +9,8 @@
     </head>
     <body>
     <h1>Remote Asset Test</h1>
-    <video data-video-id="4773907014001"
+    <h2>Brightcove Player</h2>
+    <video data-video-id="4773907014001" style="width:640px;height:360px;"
 data-account="57838016001"
 data-player="default"
 data-embed="default"
@@ -17,4 +18,39 @@ class="video-js"
 controls></video>
 <script src="//players.brightcove.net/57838016001/default_default/index.min.js"></script>
     </body>
+    <h2>Smart Player</h2>
+    <!-- Start of Brightcove Player -->
+
+<div style="display:none">
+
+</div>
+
+<!--
+By use of this code snippet, I agree to the Brightcove Publisher T and C
+found at https://accounts.brightcove.com/en/terms-and-conditions/.
+-->
+
+<script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
+
+<object id="myExperience4773907014001" class="BrightcoveExperience">
+  <param name="bgcolor" value="#FFFFFF" />
+  <param name="width" value="480" />
+  <param name="height" value="270" />
+  <param name="playerID" value="4774165590001" />
+  <param name="playerKey" value="AQ~~,AAAADXdqFgE~,aEKmio9UXaiZOdYxUWENmOJRRyRvMdTc" />
+  <param name="isVid" value="true" />
+  <param name="isUI" value="true" />
+  <param name="dynamicStreaming" value="true" />
+
+  <param name="@videoPlayer" value="4773907014001" />
+</object>
+
+<!--
+This script tag will cause the Brightcove Players defined above it to be created as soon
+as the line is read by the browser. If you wish to have the player instantiated only after
+the rest of the HTML is processed and the page load is complete, remove the line.
+-->
+<script type="text/javascript">brightcove.createExperiences();</script>
+
+<!-- End of Brightcove Player -->
 </html>

@@ -1,5 +1,5 @@
 /* override default styles for overlay */
-.vjs-overlay,
+.video-js .vjs-overlay,
 .vjs-overlay.vjs-overlay-top {
     width: 97%;
     height: 95%;

@@ -21,21 +21,19 @@ header("Access-Control-Allow-Origin: *");
 
 // set up request for access token
 $data = array();
-
 if ($_POST["client_id"]) {
     $client_id = $_POST["client_id"];
 } else {
-    $client_id = 'c5d0a622-5479-46d8-8d8a-5f034b943fab';
+    $client_id = 'e20b9edf-8b6c-44d1-8110-bc0bf399b78f';
 }
 if ($_POST["client_secret"]) {
     $client_secret = $_POST["client_secret"];
 } else {
-    $client_secret = 'w7NQYu0vUloM4GYYy2SXAxrvyFpt8fwI35qAFZcS13-VIgs0itwKNsAwHOS80sOWKJ1BUwHIvSFG2IbgcxEGKg';
+    $client_secret = 'c9n25db7R_Ik8o3zNrKBN3zkx-BZVlEcm6mXGBH8aGhZGcljsb9pLCneABkBUl2Op3FIvB5sJCJUUPfiThtraQ';
 }
-
-$auth_string = "{$client_id}:{$client_secret}";
-$request     = "https://oauth.brightcove.com/v3/access_token?grant_type=client_credentials";
-$ch          = curl_init($request);
+$auth_string   = "{$client_id}:{$client_secret}";
+$request       = "https://oauth.brightcove.com/v3/access_token?grant_type=client_credentials";
+$ch            = curl_init($request);
 curl_setopt_array($ch, array(
         CURLOPT_POST           => TRUE,
         CURLOPT_RETURNTRANSFER => TRUE,
@@ -89,7 +87,7 @@ curl_setopt_array($ch, array(
     ));
 $response = curl_exec($ch);
 curl_close($ch);
-
+// var_dump($data);
 // Check for errors
 if ($response === FALSE) {
     $logEntry = "\nError:\n".

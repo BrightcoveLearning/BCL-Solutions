@@ -1,8 +1,8 @@
 
 curl \
   --include \
-  --header 'Authorization: BC_TOKEN AEnTxTj-D8PCP8nzEBuD-XyD99DLOrS50aU935-xmJ4eFDQwSP-1RrkeBFwZpzZiabduBqqIcJ4RwIsz3gvIbPZB79zbifZ7FYgdfKh-2p_KWRo8Ng0A56w' \
-  --data 'name=DRMall&maximum_scope=[
+  --header 'Authorization: BC_TOKEN AEnTxTjQOo9OIiEOH7eM_gx2fKoPGgJSg6wNHiYkPYfeQIrv-9Z7MeE8NUhZKtNjKcrci1t5KzkzTfv2nkJg_mFJ7rlD_gVM-TwcGSMLHIJ3zSmu00x6g94' \
+  --data 'name=Set_Defaults_App&maximum_scope=[
     {"identity": {
         "type": "video-cloud-account", "account-id": 2728142649001
       },

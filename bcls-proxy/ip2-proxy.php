@@ -68,7 +68,7 @@ if ($_POST["requestBody"]) {
 if ($_POST["requestType"]) {
     $method = $_POST["requestType"];
 } else {
-    $method = "GET";
+    $method = "PUT";
 }
 
 // get the URL and authorization info from the form data

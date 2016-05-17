@@ -55,7 +55,7 @@ if ($response === FALSE) {
 // Decode the response
 $responseData = json_decode($response, TRUE);
 $access_token = $responseData["access_token"];
-
+// var_dump($_POST);
 // set up the API call
 // get data
 if ($_POST["requestBody"]) {
@@ -69,7 +69,7 @@ if ($_POST["requestType"]) {
 } else {
     $method = "GET";
 }
-
+// echo $_POST["requestType"];
 // get the URL and authorization info from the form data
 $request = $_POST["url"];
 

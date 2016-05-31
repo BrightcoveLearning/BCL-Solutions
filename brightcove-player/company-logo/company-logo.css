@@ -1,0 +1,15 @@
+/***************************
+ * Company Logo            *
+ ***************************/
+/* size and position the logo div */
+#companyLogo {
+    margin-top: 3px;
+    margin-right: 4px;
+    width: 85px;
+    height: 22px;
+}
+/* size the logo image */
+#companyLogo img {
+    width: 85px;
+    height: 22px;
+}

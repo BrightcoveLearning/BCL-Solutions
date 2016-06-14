@@ -1,0 +1,43 @@
+
+Raw Response: 
+Notification Origin: Dynamic Ingest API
+2016-05-24 12:38:27 UTC 
+Timestamp: 
+Version: 
+Entity: 
+Entity Type: 
+Account ID: 
+Video ID: 
+Status: 
+Error Message: 
+Action: 
+Notification Errors: No errors
+-------------------------------
+Raw Response: 
+Notification Origin: Dynamic Ingest API
+2016-05-24 12:38:27 UTC 
+Timestamp: 
+Version: 
+Entity: 
+Entity Type: 
+Account ID: 
+Video ID: 
+Status: 
+Error Message: 
+Action: 
+Notification Errors: No errors
+-------------------------------
+Raw Response: 
+Notification Origin: Dynamic Ingest API
+2016-05-24 12:38:29 UTC 
+Timestamp: 
+Version: 
+Entity: 
+Entity Type: 
+Account ID: 
+Video ID: 
+Status: 
+Error Message: 
+Action: 
+Notification Errors: No errors
+-------------------------------

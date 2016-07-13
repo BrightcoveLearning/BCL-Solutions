@@ -1,6 +1,28 @@
 <?php
-// POST won't work for JSON data
+// var to log errors, if any
 $problem = "No errors";
+// get the data file contents and parse them
+try {
+	$notificationData    = file_get_contents('di.json');
+	$notificationDataDecoded = json_decode($notificationData, true);
+} catch (Exception $e) {
+	$problem = $e->getMessage();
+	echo $problem;
+}
+
+// function to get index of video object if it already exists
+function doesVideoExist($videoId)
+{
+    $idx = -1;
+    for($i = 0; $i < count($notificationDataDecoded); $i++) {
+        if ($notificationDataDecoded[$i]->videoId == $videoId) {
+            $idx = $i;
+            break;
+        }
+    }
+    return $idx;
+}
+
 try {
 	$json    = file_get_contents('php://input');
 	$decoded = json_decode($json, true);
@@ -12,9 +34,9 @@ try {
 // Begin by extracting the useful parts of the notification
 
 if (isset($decoded["entity"])) {
-	$entityId = $decoded["entity"];
+	$videoId = $decoded["videoId"];
 } else {
-	$entityId = null;
+	$videoId = null;
 }
 
 if (isset($decoded["entityType"])) {
@@ -33,6 +55,12 @@ if (isset($decoded["action"])) {
 	$action = $decoded["action"];
 } else {
 	$action = null;
+}
+
+if (isset($decoded["profileRefId"])) {
+	$profileRefId = $decoded["profileRefId"];
+} else {
+	$profileRefId = null;
 }
 
 // if notification is for completed title, act

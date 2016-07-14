@@ -57,7 +57,7 @@
         </div>
         <script src="video-ids.js"></script>
         <script>
-        var BCLS = ( function (videoIdArray) {
+        var BCLS = ( function () {
             // to use another account, set the account_id value appropriately
             // the client_id and client_secret will also need to be changed in the proxy
             var account_id = 57838016001,
@@ -71,15 +71,7 @@
                 videoDataArray = [],
                 videoDataItem = {},
                 requestOptions = {},
-                currentVideo,
-                // functions
-                submitRequest,
-                setVideoRequestOptions,
-                setSourcesRequestOptions,
-                getVideoInfo,
-                writeReport,
-                clearLog,
-                bclslog;
+                currentVideo;
 
                 /**
                  * Logging function - safe for IE
@@ -87,7 +79,7 @@
                  * @param  {*} message - the data to be logged by the console
                  * @return {}
                  */
-                bclslog = function (context, message) {
+                function bclslog(context, message) {
                     if (window["console"] && console["log"]) {
                       console.log(context, message);
                     }
@@ -95,7 +87,7 @@
                 };
 
                 // write out the report table
-                writeReport = function () {
+                function writeReport() {
                     var j,
                         jMax = videoDataArray.length,
                         item;
@@ -108,20 +100,25 @@
                     }
                 };
 
+                // function to set up the notification data request
+                function setJSONRequestOptions() {
+
+                }
+
                 // function to set up video data request
-                setVideoRequestOptions = function () {
+                function setVideoRequestOptions() {
                     requestOptions = {};
                     requestOptions.url = 'https://cms.api.brightcove.com/v1/accounts/' + account_id + '/videos/' + currentVideo;
                     submitRequest(requestOptions, proxyURL, 'video');
                 };
                 // function to set up video sources request
-                setSourcesRequestOptions = function () {
+                function setSourcesRequestOptions() {
                     requestOptions.url = 'https://cms.api.brightcove.com/v1/accounts/' + account_id + '/videos/' + currentVideo + '/sources';
                     submitRequest(requestOptions, proxyURL, 'sources');
                 };
 
                 // initiates the cms api requests
-                getVideoInfo = function () {
+                function getVideoInfo() {
                     if (videoIdArray.length > 0) {
                         currentVideo = videoIdArray[i];
                         setVideoRequestOptions();
@@ -131,7 +128,7 @@
                 };
 
                 // function to make the cms api requests
-                submitRequest = function (options, url, type) {
+                function submitRequest(options, url, type) {
                     var httpRequest = new XMLHttpRequest(),
                         requestData,
                         responseData,
@@ -206,7 +203,7 @@
                 // get things started
                 getVideoInfo();
 
-            })(videoIdArray);
+            })();
         </script>
     </body>
 </html>

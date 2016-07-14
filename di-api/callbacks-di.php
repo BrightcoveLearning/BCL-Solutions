@@ -15,7 +15,7 @@ try {
 
 // get the data file contents and parse them
 try {
-    $notificationData    = file_get_contents('di.json');
+    $notificationData = file_get_contents('di.json');
     $notificationDataDecoded = json_decode($notificationData, true);
 } catch (Exception $e) {
     $problem = $e->getMessage();

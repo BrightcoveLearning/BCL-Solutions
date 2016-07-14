@@ -22,9 +22,11 @@
                 background-color: #666666;
                 color: #f5f5f5;
                 padding: .5em;
+                font-size: .7em;
             }
             td {
                 border: 1px #999999 solid;
+                font-size: .7em;
                 padding: .5em
             }
             .hidden {
@@ -48,19 +50,22 @@
                         <th>Video ID</th>
                         <th>Name</th>
                         <th>Reference ID</th>
-                        <th>Renditions created</th>
+                        <th>HLS Manifests Created</th>
+                        <th>HLS Renditions Created</th>
+                        <th>MP4 Renditions Created</th>
+                        <th>Processing Complete</th>
                     </tr>
                 </thead>
                 <tbody id="logBody"></tbody>
             </table>
             <h4 id="loadingMessage">Loading data, please wait...</h4>
         </div>
-        <script src="video-ids.js"></script>
         <script>
-        var BCLS = ( function () {
+        var BCLS = ( function (window, document) {
             // to use another account, set the account_id value appropriately
             // the client_id and client_secret will also need to be changed in the proxy
-            var account_id = 57838016001,
+            var my_account_id = 57838016001,
+                account_id = my_account_id,
                 logBody = document.getElementById('logBody'),
                 loadingMessage = document.getElementById('loadingMessage'),
                 clearLogBtn = document.getElementById('clearLogBtn'),
@@ -68,10 +73,11 @@
                 iMax,
                 // set the proxyURL to the location of the proxy app that makes Brightcove API requests
                 proxyURL = './brightcove-learning-proxy.php',
+                dataFileURL = './di.json',
                 videoDataArray = [],
-                videoDataItem = {},
                 requestOptions = {},
-                currentVideo;
+                currentVideo,
+                currentIndex = 0;
 
                 /**
                  * Logging function - safe for IE
@@ -90,37 +96,43 @@
                 function writeReport() {
                     var j,
                         jMax = videoDataArray.length,
-                        item;
-                    loadingMessage.className = 'hidden';
+                        item,
+                        t;
+                    loadingMessage.textContent = 'This page will refresh in 1 minute...';
+                    /* just showing HLS and MP4 renditions, because
+                     * that's all that will be produced in this account,
+                     * but you could modify the notification handler and
+                     * this page to handle other formats
+                     */
                     for (j = 0; j < jMax; j++) {
                         item = videoDataArray[j];
                         if (item.id !== undefined) {
-                            logBody.innerHTML += '<tr><td>' + item.id + '</td><td>' + item.name + '</td><td>' + item.reference_id + '</td><td>' + item.sources + '</td></tr>';
+                            logBody.innerHTML += '<tr><td>' + item.id + '</td><td>' + item.name + '</td><td>' + item.reference_id + '</td><td>' + item.hlsManifests + '</td><td>' + item.hlsRenditions + '</td><td>' + item.mp4Renditions + '</td><td>' + item.complete + '</td></tr>';
                         }
                     }
+                    // set timeout for refresh
+                    t = window.setTimeout(init, 60000);
                 };
 
                 // function to set up the notification data request
                 function setJSONRequestOptions() {
-
+                    submitRequest(null, dataFileURL, 'notificationData');
                 }
 
                 // function to set up video data request
                 function setVideoRequestOptions() {
                     requestOptions = {};
-                    requestOptions.url = 'https://cms.api.brightcove.com/v1/accounts/' + account_id + '/videos/' + currentVideo;
+                    requestOptions.url = 'https://cms.api.brightcove.com/v1/accounts/' + account_id + '/videos/' + currentVideo.id;
+                    bclslog('requestOptions', requestOptions);
                     submitRequest(requestOptions, proxyURL, 'video');
-                };
-                // function to set up video sources request
-                function setSourcesRequestOptions() {
-                    requestOptions.url = 'https://cms.api.brightcove.com/v1/accounts/' + account_id + '/videos/' + currentVideo + '/sources';
-                    submitRequest(requestOptions, proxyURL, 'sources');
                 };
 
                 // initiates the cms api requests
                 function getVideoInfo() {
-                    if (videoIdArray.length > 0) {
-                        currentVideo = videoIdArray[i];
+                    iMax = videoDataArray.length;
+                    if (currentIndex < iMax) {
+                        currentVideo = videoDataArray[currentIndex];
+                        bclslog('currentVideo', currentVideo);
                         setVideoRequestOptions();
                     } else {
                         loadingMessage.innerHTML = 'No videos have been ingested - you can add some using the <a href="./di-tester.html">Dynamic Ingest tester</a>';
@@ -132,34 +144,33 @@
                     var httpRequest = new XMLHttpRequest(),
                         requestData,
                         responseData,
+                        videoDataObject,
                         parsedData,
                         getResponse = function () {
                             try {
                                 if (httpRequest.readyState === 4) {
                                   if (httpRequest.status === 200) {
                                     responseData = httpRequest.responseText;
+                                    bclslog('responseData', responseData);
                                     switch (type) {
-                                        case "video":
-                                        videoDataItem = {};
-                                        parsedData = JSON.parse(responseData);
-                                        videoDataItem.id = parsedData.id;
-                                        videoDataItem.reference_id = parsedData.reference_id;
-                                        videoDataItem.name = parsedData.name;
-                                        setSourcesRequestOptions();
-                                        break;
-                                        case "sources":
-                                        parsedData = JSON.parse(responseData);
-                                        if (parsedData.length > 0) {
-                                            videoDataItem.sources = parsedData.length;
-                                        } else {
-                                            videoDataItem.sources = '<span style="color:#990000">No renditions - ingest failed!</span>';
+                                        case 'notificationData':
+                                        videoDataObject = JSON.parse(responseData);
+                                        for (ID in videoDataObject) {
+                                            if (ID !== '-1') {
+                                                videoDataObject[ID].id = ID;
+                                                videoDataArray.push(videoDataObject[ID]);
+                                            }
                                         }
-
-                                        videoDataArray.push(videoDataItem);
-
-                                        i++;
-                                        if (i < iMax) {
-                                            getVideoInfo();
+                                        getVideoInfo();
+                                        break;
+                                        case 'video':
+                                        parsedData = JSON.parse(responseData);
+                                        videoDataArray[currentIndex].reference_id = parsedData.reference_id;
+                                        videoDataArray[currentIndex].name = parsedData.name;
+                                        currentIndex++;
+                                        if (currentIndex < iMax) {
+                                            currentVideo = videoDataArray[currentIndex];
+                                            setVideoRequestOptions();
                                         } else {
                                             writeReport();
                                         }
@@ -179,16 +190,30 @@
                                 bclslog('Caught Exception: ' + e);
                               }
                         };
-                    // set up request data
-                    requestData = "url=" + encodeURIComponent(options.url) + "&requestType=GET";
-                    // set response handler
-                    httpRequest.onreadystatechange = getResponse;
-                    // open the request
-                    httpRequest.open("POST", url);
-                    // set headers
-                    httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                    // open and send request
-                    httpRequest.send(requestData);
+                    // notifications data is a special case
+                    if (type === 'notificationData') {
+                        // set response handler
+                        httpRequest.onreadystatechange = getResponse;
+                        // open the request
+                        httpRequest.open("GET", url);
+                        // set headers
+                        httpRequest.setRequestHeader("Content-Type", "application/json");
+                        bclslog('request', httpRequest);
+                        // open and send request
+                        httpRequest.send();
+                    } else {
+                        // requests via proxy
+                        // set up request data
+                        requestData = "url=" + encodeURIComponent(options.url) + "&requestType=GET";
+                        // set response handler
+                        httpRequest.onreadystatechange = getResponse;
+                        // open the request
+                        httpRequest.open("POST", url);
+                        // set headers
+                        httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                        // open and send request
+                        httpRequest.send(requestData);
+                    }
                 };
 
                 // event handlers
@@ -198,12 +223,17 @@
                         window.location.href = 'clear-log.php';
                     }
                 });
-                // bclslog('videoIdArray', videoIdArray);
 
                 // get things started
-                getVideoInfo();
-
-            })();
+                function init() {
+                    // clear table and the video data array
+                    logBody.innerHTML = "";
+                    videoDataArray = [];
+                    setJSONRequestOptions();
+                }
+                // kick off the app
+                init();
+            })(window, document);
         </script>
     </body>
 </html>

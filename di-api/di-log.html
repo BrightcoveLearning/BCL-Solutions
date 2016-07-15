@@ -90,9 +90,110 @@
                       console.log(context, message);
                     }
                     return;
-                };
+                }
 
-                // write out the report table
+                /**
+                 * tests for all the ways a variable might be undefined or not have a value
+                 * @param {*} x the variable to test
+                 * @return {Boolean} true if variable is defined and has a value
+                 */
+                function isDefined(x) {
+                    if ( x === '' || x === null || x === undefined || x === NaN) {
+                        return false;
+                    }
+                    return true;
+                }
+
+                /**
+                 * find index of an object in array of objects
+                 * based on some property value
+                 *
+                 * @param {array} targetArray - array to search
+                 * @param {string} objProperty - object property to search
+                 * @param {string|number} value - value of the property to search for
+                 * @return {integer} index of first instance if found, otherwise returns null
+                 */
+                function findObjectInArray(targetArray, objProperty, value) {
+                    var i, totalItems = targetArray.length, objFound = false;
+                    for (i = 0; i < totalItems; i++) {
+                        if (targetArray[i][objProperty] === value) {
+                            objFound = true;
+                            return i;
+                        }
+                    }
+                    if (objFound === false) {
+                        return null;
+                    }
+                }
+
+                /**
+                 * factory for new video objects
+                 * @param {String} videoId the video id
+                 * @return {object} the new object
+                 */
+                function makeVideoDataObject(videoId) {
+                    var obj = {};
+                    obj.id = videoId;
+                    obj.name = '';
+                    obj.reference_id = '';
+                    obj.hlsManifests = 0;
+                    obj.hlsRenditions = 0;
+                    obj.mp4Renditions = 0;
+                    obj.complete = 'no';
+                    return obj;
+                }
+
+                /**
+                 * processes notification objects
+                 * creates a new object in the videoDataArray if it doesn't exist
+                 * and updates the videoDataArray object based on the notification
+                 * @param {Object} notificationObj the raw notification object
+                 */
+                function processNotification(notificationObj) {
+                    var objIndex, videoObj;
+                    // if notification object contains a video id, find the corresponding
+                    // object in the videoDataArray or create it if it's not there
+                    if (isDefined(notificationObj) && isDefined(notificationObj.videoId)) {
+                        objIndex = findObjectInArray(videoDataArray, 'id', notificationObj.videoId);
+                        // if not found, create one
+                        if (!isDefined(objIndex)) {
+                            videoObj = makeVideoDataObject(notificationObj.videoId);
+                            videoDataArray.push(videoObj);
+                            objIndex = videoDataArray.length - 1;
+                        }
+                        // now update properties based on what's in the notification
+                        if (notificationObj.entityType === 'ASSET') {
+                            // if it's a rendition or manifest, there will be a profileRefId
+                            if (isDefined(notificationObj.profileRefId)) {
+                                // see if it's an HLS manifest
+                                if (notificationObj.profileRefId === 'HlsManifest') {
+                                    // increment the hls manifest count
+                                    videoDataArray[objIndex].hlsManifests++;
+                                } else if (notificationObj.profileRefId.charAt(0) === 't') {
+                                    // increment the hls rendition count
+                                    videoDataArray[objIndex].hlsRenditions++;
+                                } else if (notificationObj.profileRefId.charAt(0) === 'm') {
+                                    // increment the mp4 rendition count
+                                    videoDataArray[objIndex].mp4Renditions++;
+                                }
+                            }
+                        } else if (notificationObj.entityType === 'TITLE') {
+                            // overall processing notification - checked for SUCCESS / FAILED
+                            if (notificationObj.status === 'SUCCESS') {
+                                // mark complete
+                                videoDataArray[objIndex].complete = 'yes';
+                            } else if (notificationObj.status === 'FAILED') {
+                                // mark failed
+                                videoDataArray[objIndex].complete = 'failed';
+                            }
+                        }
+                    }
+                    return;
+                }
+
+                /**
+                 * creates the dashboard table body
+                 */
                 function writeReport() {
                     var j,
                         jMax = videoDataArray.length,
@@ -123,23 +224,28 @@
                 function setVideoRequestOptions() {
                     requestOptions = {};
                     requestOptions.url = 'https://cms.api.brightcove.com/v1/accounts/' + account_id + '/videos/' + currentVideo.id;
-                    bclslog('requestOptions', requestOptions);
                     submitRequest(requestOptions, proxyURL, 'video');
-                };
+                }
 
-                // initiates the cms api requests
+                /**
+                 * initiates the cms api requests
+                 */
                 function getVideoInfo() {
                     iMax = videoDataArray.length;
                     if (currentIndex < iMax) {
                         currentVideo = videoDataArray[currentIndex];
-                        bclslog('currentVideo', currentVideo);
                         setVideoRequestOptions();
                     } else {
                         loadingMessage.innerHTML = 'No videos have been ingested - you can add some using the <a href="./di-tester.html">Dynamic Ingest tester</a>';
                     }
-                };
+                }
 
-                // function to make the cms api requests
+                /**
+                 * make the cms api requests
+                 * @param {Object} options request options
+                 * @param (String) url URL to send request to
+                 * @param (String) type the request type
+                 */
                 function submitRequest(options, url, type) {
                     var httpRequest = new XMLHttpRequest(),
                         requestData,
@@ -151,20 +257,21 @@
                                 if (httpRequest.readyState === 4) {
                                   if (httpRequest.status === 200) {
                                     responseData = httpRequest.responseText;
-                                    bclslog('responseData', responseData);
                                     switch (type) {
                                         case 'notificationData':
-                                        videoDataObject = JSON.parse(responseData);
-                                        for (ID in videoDataObject) {
-                                            if (ID !== '-1') {
-                                                videoDataObject[ID].id = ID;
-                                                videoDataArray.push(videoDataObject[ID]);
-                                            }
+                                        var k, kMax, dataArray;
+                                        dataArray = JSON.parse(responseData);
+                                        bclslog('dataArray', dataArray);
+                                        // process the notifications
+                                        kMax = dataArray.length;
+                                        for (k = 0; k < kMax; k++) {
+                                            processNotification(dataArray[k]);
                                         }
                                         getVideoInfo();
                                         break;
                                         case 'video':
                                         parsedData = JSON.parse(responseData);
+                                        bclslog('parsedData', parsedData);
                                         videoDataArray[currentIndex].reference_id = parsedData.reference_id;
                                         videoDataArray[currentIndex].name = parsedData.name;
                                         currentIndex++;
@@ -198,7 +305,6 @@
                         httpRequest.open("GET", url);
                         // set headers
                         httpRequest.setRequestHeader("Content-Type", "application/json");
-                        bclslog('request', httpRequest);
                         // open and send request
                         httpRequest.send();
                     } else {

@@ -63,9 +63,11 @@ if ($_POST["requestType"]) {
     $method = "GET";
 }
 
+if (strpos($_POST["url"], 'api.brightcove.com') == false) {
+    exit('Only requests to Brightcove APIs are accepted by this proxy');
+}
 // get the URL and authorization info from the form data
 $request = $_POST["url"];
-
 //send the http request
 $ch = curl_init($request);
 curl_setopt_array($ch, array(

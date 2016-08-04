@@ -1,9 +1,359 @@
-Raw Response: {"accountId":"57838016001","version":"1","status":"SUCCESS","entityType":"DIGITAL_MASTER","action":"CREATE","entity":"5002361895001","videoId":"5002361895001","jobId":"31f0b112-9890-4567-adb5-0f4ed1673701"}
+Raw Response: {"accountId":"57838016001","jobId":"aa03490d-1e02-41f8-9eae-2913836acaa2","errorMessage":"Fail to process rendition0","action":"CREATE","status":"FAILED","entityType":"ASSET","videoId":"5070225954001","version":"1"}
 Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:25 UTC 
+2016-08-04 04:02:58 UTC 
 Timestamp: 
 Version: 1
-Entity: 5002361895001
+Entity: 
+Entity Type: ASSET
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: Fail to process rendition0
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"errorMessage":"failed to create hls manifest","jobId":"aa03490d-1e02-41f8-9eae-2913836acaa2","profileRefId":"HlsManifest","action":"CREATE","accountId":"57838016001","status":"FAILED","entityType":"ASSET","version":"1","videoId":"5070225954001"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 04:02:58 UTC 
+Timestamp: 
+Version: 1
+Entity: 
+Entity Type: ASSET
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: failed to create hls manifest
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"jobId":"aa03490d-1e02-41f8-9eae-2913836acaa2","videoId":"5070225954001","errorMessage":"Fail to process rendition3","action":"CREATE","entityType":"ASSET","version":"1","accountId":"57838016001","status":"FAILED"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 04:02:58 UTC 
+Timestamp: 
+Version: 1
+Entity: 
+Entity Type: ASSET
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: Fail to process rendition3
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"FAILED","version":"1","action":"CREATE","videoId":"5070225954001","entityType":"ASSET","accountId":"57838016001","errorMessage":"Fail to process rendition1","jobId":"aa03490d-1e02-41f8-9eae-2913836acaa2"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 04:02:58 UTC 
+Timestamp: 
+Version: 1
+Entity: 
+Entity Type: ASSET
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: Fail to process rendition1
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"action":"CREATE","accountId":"57838016001","status":"FAILED","errorMessage":"Fail to process rendition2","entityType":"ASSET","version":"1","videoId":"5070225954001","jobId":"aa03490d-1e02-41f8-9eae-2913836acaa2"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 04:02:58 UTC 
+Timestamp: 
+Version: 1
+Entity: 
+Entity Type: ASSET
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: Fail to process rendition2
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"action":"CREATE","errorMessage":"Fail to process rendition3","status":"FAILED","version":"1","jobId":"9fbac3b9-028b-4e25-bab2-f38a7af02d02","videoId":"5070466776001","accountId":"57838016001","entityType":"ASSET"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 04:03:00 UTC 
+Timestamp: 
+Version: 1
+Entity: 
+Entity Type: ASSET
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: Fail to process rendition3
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"jobId":"9fbac3b9-028b-4e25-bab2-f38a7af02d02","errorMessage":"failed to create hls manifest","profileRefId":"HlsManifest","videoId":"5070466776001","accountId":"57838016001","version":"1","entityType":"ASSET","action":"CREATE","status":"FAILED"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 04:03:00 UTC 
+Timestamp: 
+Version: 1
+Entity: 
+Entity Type: ASSET
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: failed to create hls manifest
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"accountId":"57838016001","jobId":"9fbac3b9-028b-4e25-bab2-f38a7af02d02","version":"1","errorMessage":"Fail to process rendition0","videoId":"5070466776001","action":"CREATE","entityType":"ASSET","status":"FAILED"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 04:03:01 UTC 
+Timestamp: 
+Version: 1
+Entity: 
+Entity Type: ASSET
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: Fail to process rendition0
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"FAILED","action":"CREATE","entityType":"ASSET","version":"1","jobId":"9fbac3b9-028b-4e25-bab2-f38a7af02d02","accountId":"57838016001","errorMessage":"Fail to process rendition2","videoId":"5070466776001"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 04:03:01 UTC 
+Timestamp: 
+Version: 1
+Entity: 
+Entity Type: ASSET
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: Fail to process rendition2
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"jobId":"9fbac3b9-028b-4e25-bab2-f38a7af02d02","action":"CREATE","status":"FAILED","videoId":"5070466776001","version":"1","errorMessage":"Fail to process rendition1","entityType":"ASSET","accountId":"57838016001"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 04:03:01 UTC 
+Timestamp: 
+Version: 1
+Entity: 
+Entity Type: ASSET
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: Fail to process rendition1
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"entity":"5070466776001","videoId":"5070466776001","version":"1","action":"CREATE","accountId":"57838016001","status":"FAILED","jobId":"9fbac3b9-028b-4e25-bab2-f38a7af02d02","entityType":"TITLE"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 04:03:02 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070466776001
+Entity Type: TITLE
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"jobId":"aa03490d-1e02-41f8-9eae-2913836acaa2","accountId":"57838016001","action":"CREATE","videoId":"5070225954001","entityType":"TITLE","entity":"5070225954001","status":"FAILED","version":"1"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 04:03:03 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070225954001
+Entity Type: TITLE
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"entityType":"ASSET","version":"1","errorMessage":"Fail to process rendition3","accountId":"57838016001","videoId":"5070464010001","jobId":"9849a1cb-60d3-4b30-86bf-59251bfc6925","action":"CREATE","status":"FAILED"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 04:03:04 UTC 
+Timestamp: 
+Version: 1
+Entity: 
+Entity Type: ASSET
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: Fail to process rendition3
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"entityType":"ASSET","status":"FAILED","accountId":"57838016001","videoId":"5070464010001","action":"CREATE","version":"1","profileRefId":"HlsManifest","errorMessage":"failed to create hls manifest","jobId":"9849a1cb-60d3-4b30-86bf-59251bfc6925"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 04:03:04 UTC 
+Timestamp: 
+Version: 1
+Entity: 
+Entity Type: ASSET
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: failed to create hls manifest
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"version":"1","status":"FAILED","action":"CREATE","jobId":"9849a1cb-60d3-4b30-86bf-59251bfc6925","accountId":"57838016001","errorMessage":"Fail to process rendition0","videoId":"5070464010001","entityType":"ASSET"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 04:03:04 UTC 
+Timestamp: 
+Version: 1
+Entity: 
+Entity Type: ASSET
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: Fail to process rendition0
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"errorMessage":"Fail to process rendition1","videoId":"5070464010001","action":"CREATE","jobId":"9849a1cb-60d3-4b30-86bf-59251bfc6925","accountId":"57838016001","status":"FAILED","entityType":"ASSET","version":"1"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 04:03:04 UTC 
+Timestamp: 
+Version: 1
+Entity: 
+Entity Type: ASSET
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: Fail to process rendition1
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"accountId":"57838016001","status":"FAILED","videoId":"5070464010001","entityType":"ASSET","errorMessage":"Fail to process rendition2","jobId":"9849a1cb-60d3-4b30-86bf-59251bfc6925","action":"CREATE","version":"1"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 04:03:04 UTC 
+Timestamp: 
+Version: 1
+Entity: 
+Entity Type: ASSET
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: Fail to process rendition2
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"entity":"5070464010001","jobId":"9849a1cb-60d3-4b30-86bf-59251bfc6925","action":"CREATE","status":"FAILED","version":"1","entityType":"TITLE","videoId":"5070464010001","accountId":"57838016001"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 04:03:05 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070464010001
+Entity Type: TITLE
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+------------------------------
+Raw Response: {"version":"1","status":"FAILED","action":"CREATE","errorMessage":"Fail to process rendition1","jobId":"8e08792f-e71d-4284-a0e1-d345770e7be6","videoId":"5070468800001","entityType":"ASSET","accountId":"57838016001"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 04:03:07 UTC 
+Timestamp: 
+Version: 1
+Entity: 
+Entity Type: ASSET
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: Fail to process rendition1
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"errorMessage":"Fail to process rendition0","jobId":"8e08792f-e71d-4284-a0e1-d345770e7be6","videoId":"5070468800001","accountId":"57838016001","status":"FAILED","entityType":"ASSET","version":"1","action":"CREATE"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 04:03:07 UTC 
+Timestamp: 
+Version: 1
+Entity: 
+Entity Type: ASSET
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: Fail to process rendition0
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"profileRefId":"HlsManifest","errorMessage":"failed to create hls manifest","version":"1","entityType":"ASSET","accountId":"57838016001","jobId":"8e08792f-e71d-4284-a0e1-d345770e7be6","videoId":"5070468800001","action":"CREATE","status":"FAILED"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 04:03:07 UTC 
+Timestamp: 
+Version: 1
+Entity: 
+Entity Type: ASSET
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: failed to create hls manifest
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"FAILED","version":"1","videoId":"5070468800001","accountId":"57838016001","jobId":"8e08792f-e71d-4284-a0e1-d345770e7be6","entityType":"ASSET","errorMessage":"Fail to process rendition3","action":"CREATE"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 04:03:08 UTC 
+Timestamp: 
+Version: 1
+Entity: 
+Entity Type: ASSET
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: Fail to process rendition3
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"FAILED","version":"1","accountId":"57838016001","entityType":"ASSET","action":"CREATE","videoId":"5070468800001","errorMessage":"Fail to process rendition2","jobId":"8e08792f-e71d-4284-a0e1-d345770e7be6"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 04:03:08 UTC 
+Timestamp: 
+Version: 1
+Entity: 
+Entity Type: ASSET
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: Fail to process rendition2
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"FAILED","entity":"5070468800001","action":"CREATE","jobId":"8e08792f-e71d-4284-a0e1-d345770e7be6","entityType":"TITLE","videoId":"5070468800001","version":"1","accountId":"57838016001"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 04:03:09 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070468800001
+Entity Type: TITLE
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: 
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:29:22 UTC 
+Timestamp: 
+Version: 
+Entity: 
+Entity Type: 
+Account ID: 
+Video ID: 
+Status: 
+Error Message: 
+Action: 
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"accountId":"4239126013001","videoId":"5070851717001","entityType":"DIGITAL_MASTER","entity":"5070851717001","jobId":"b3da5106-89d0-4807-a3c8-5324cf44b401","version":"1","action":"CREATE","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:37:57 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070851717001
 Entity Type: DIGITAL_MASTER
 Account ID: 
 Video ID: 
@@ -12,12 +362,12 @@ Error Message:
 Action: CREATE
 Notification Errors: No errors
 -------------------------------
-Raw Response: {"accountId":"57838016001","action":"CREATE","profileRefId":"ts2","status":"SUCCESS","videoId":"5002361895001","entity":"5002414614001","jobId":"31f0b112-9890-4567-adb5-0f4ed1673701","version":"1","entityType":"ASSET"}
+Raw Response: {"videoId":"5070851717001","entity":"5070872898001","jobId":"b3da5106-89d0-4807-a3c8-5324cf44b401","status":"SUCCESS","version":"1","accountId":"4239126013001","entityType":"ASSET","action":"CREATE"}
 Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:27 UTC 
+2016-08-04 12:38:01 UTC 
 Timestamp: 
 Version: 1
-Entity: 5002414614001
+Entity: 5070872898001
 Entity Type: ASSET
 Account ID: 
 Video ID: 
@@ -26,82 +376,12 @@ Error Message:
 Action: CREATE
 Notification Errors: No errors
 -------------------------------
-Raw Response: {"jobId":"bb316631-c58b-4bd4-a686-13c5f7a3a779","videoId":"5002361893001","entityType":"DIGITAL_MASTER","accountId":"57838016001","version":"1","status":"SUCCESS","action":"CREATE","entity":"5002361893001"}
+Raw Response: {"status":"SUCCESS","accountId":"4239126013001","entity":"5070874113001","action":"CREATE","videoId":"5070851717001","jobId":"b3da5106-89d0-4807-a3c8-5324cf44b401","entityType":"ASSET","version":"1"}
 Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:28 UTC 
+2016-08-04 12:38:02 UTC 
 Timestamp: 
 Version: 1
-Entity: 5002361893001
-Entity Type: DIGITAL_MASTER
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467126988859,"account_id":"57838016001","event":"video-change","video":"5002361893001","version":17}
-Notification Origin: CMS API
-2016-06-28 15:16:29 UTC 
-Timestamp: 1467126988859
-Version: 17
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002361893001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467126988859,"account_id":"57838016001","event":"video-change","video":"5002361893001","version":17}
-Notification Origin: CMS API
-2016-06-28 15:16:29 UTC 
-Timestamp: 1467126988859
-Version: 17
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002361893001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467126988896,"account_id":"57838016001","event":"video-change","video":"5002412652001","version":4}
-Notification Origin: CMS API
-2016-06-28 15:16:29 UTC 
-Timestamp: 1467126988896
-Version: 4
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412652001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467126988896,"account_id":"57838016001","event":"video-change","video":"5002412652001","version":4}
-Notification Origin: CMS API
-2016-06-28 15:16:29 UTC 
-Timestamp: 1467126988896
-Version: 4
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412652001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"entityType":"ASSET","entity":"5002412422001","accountId":"57838016001","status":"SUCCESS","version":"1","jobId":"bb316631-c58b-4bd4-a686-13c5f7a3a779","videoId":"5002361893001","action":"CREATE"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:31 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002412422001
+Entity: 5070874113001
 Entity Type: ASSET
 Account ID: 
 Video ID: 
@@ -110,26 +390,12 @@ Error Message:
 Action: CREATE
 Notification Errors: No errors
 -------------------------------
-Raw Response: {"timestamp":1467126991670,"account_id":"57838016001","event":"video-change","video":"5002412652001","version":5}
-Notification Origin: CMS API
-2016-06-28 15:16:32 UTC 
-Timestamp: 1467126991670
-Version: 5
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412652001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"accountId":"57838016001","entity":"5002419408001","videoId":"5002361893001","entityType":"ASSET","version":"1","action":"CREATE","status":"SUCCESS","profileRefId":"ts1","jobId":"bb316631-c58b-4bd4-a686-13c5f7a3a779"}
+Raw Response: {"profileRefId":"mp1","status":"SUCCESS","videoId":"5070851717001","entity":"5070872930001","version":"1","accountId":"4239126013001","jobId":"b3da5106-89d0-4807-a3c8-5324cf44b401","entityType":"ASSET","action":"CREATE"}
 Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:32 UTC 
+2016-08-04 12:38:45 UTC 
 Timestamp: 
 Version: 1
-Entity: 5002419408001
+Entity: 5070872930001
 Entity Type: ASSET
 Account ID: 
 Video ID: 
@@ -138,26 +404,194 @@ Error Message:
 Action: CREATE
 Notification Errors: No errors
 -------------------------------
-Raw Response: {"timestamp":1467126991670,"account_id":"57838016001","event":"video-change","video":"5002412652001","version":5}
-Notification Origin: CMS API
-2016-06-28 15:16:32 UTC 
-Timestamp: 1467126991670
-Version: 5
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412652001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"status":"SUCCESS","action":"CREATE","profileRefId":"ts1","entityType":"ASSET","videoId":"5002361895001","accountId":"57838016001","entity":"5002412960001","jobId":"31f0b112-9890-4567-adb5-0f4ed1673701","version":"1"}
+Raw Response: {"status":"SUCCESS","entity":"5070850506001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"9c3b510a-4af7-4212-8a27-0bce690c6f36","videoId":"5070850506001","dynamicRenditionId":"default/audio128","status":"SUCCESS"}
 Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:32 UTC 
+2016-08-04 12:38:51 UTC 
 Timestamp: 
 Version: 1
-Entity: 5002412960001
+Entity: 5070850506001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070850506001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"9c3b510a-4af7-4212-8a27-0bce690c6f36","videoId":"5070850506001","dynamicRenditionId":"default/audio96","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:38:51 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070850506001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070850506001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"9c3b510a-4af7-4212-8a27-0bce690c6f36","videoId":"5070850506001","dynamicRenditionId":"default/audio64","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:38:51 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070850506001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070857248001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"a793f2e0-84a6-46ed-b9e6-082db293d3de","videoId":"5070857248001","dynamicRenditionId":"default/audio128","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:38:52 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070857248001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070857248001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"a793f2e0-84a6-46ed-b9e6-082db293d3de","videoId":"5070857248001","dynamicRenditionId":"default/audio64","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:38:52 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070857248001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070857248001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"a793f2e0-84a6-46ed-b9e6-082db293d3de","videoId":"5070857248001","dynamicRenditionId":"default/audio96","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:38:52 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070857248001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070850506001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"9c3b510a-4af7-4212-8a27-0bce690c6f36","videoId":"5070850506001","dynamicRenditionId":"default/video1700","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:38:56 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070850506001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070850506001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"9c3b510a-4af7-4212-8a27-0bce690c6f36","videoId":"5070850506001","dynamicRenditionId":"default/video450","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:38:56 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070850506001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070850506001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"9c3b510a-4af7-4212-8a27-0bce690c6f36","videoId":"5070850506001","dynamicRenditionId":"default/video900","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:38:56 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070850506001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070850506001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"9c3b510a-4af7-4212-8a27-0bce690c6f36","videoId":"5070850506001","dynamicRenditionId":"default/video4000","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:38:56 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070850506001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070850506001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"9c3b510a-4af7-4212-8a27-0bce690c6f36","videoId":"5070850506001","dynamicRenditionId":"default/video700","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:38:56 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070850506001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070850506001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"9c3b510a-4af7-4212-8a27-0bce690c6f36","videoId":"5070850506001","dynamicRenditionId":"default/video1200","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:38:56 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070850506001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070850506001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"9c3b510a-4af7-4212-8a27-0bce690c6f36","videoId":"5070850506001","dynamicRenditionId":"default/video2500","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:38:56 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070850506001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"videoId":"5070851717001","jobId":"b3da5106-89d0-4807-a3c8-5324cf44b401","status":"SUCCESS","accountId":"4239126013001","entityType":"ASSET","profileRefId":"mp2","version":"1","action":"CREATE","entity":"5070875221001"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:38:57 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070875221001
 Entity Type: ASSET
 Account ID: 
 Video ID: 
@@ -166,69 +600,13 @@ Error Message:
 Action: CREATE
 Notification Errors: No errors
 -------------------------------
-Raw Response: {"timestamp":1467126992319,"account_id":"57838016001","event":"video-change","video":"5002412742001","version":3}
-Notification Origin: CMS API
-2016-06-28 15:16:32 UTC 
-Timestamp: 1467126992319
-Version: 3
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412742001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467126992319,"account_id":"57838016001","event":"video-change","video":"5002412742001","version":3}
-Notification Origin: CMS API
-2016-06-28 15:16:32 UTC 
-Timestamp: 1467126992319
-Version: 3
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412742001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467126993456,"account_id":"57838016001","event":"video-change","video":"5002412742001","version":4}
-Notification Origin: CMS API
-2016-06-28 15:16:33 UTC 
-Timestamp: 1467126993456
-Version: 4
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412742001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467126993456,"account_id":"57838016001","event":"video-change","video":"5002412742001","version":4}
-Notification Origin: CMS API
-2016-06-28 15:16:33 UTC 
-Timestamp: 1467126993456
-Version: 4
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412742001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"entity":"5002412652001","entityType":"DIGITAL_MASTER","version":"1","action":"CREATE","status":"SUCCESS","accountId":"57838016001","jobId":"3e98b3a0-f624-4f2d-81c1-4e43e1d04a0f","videoId":"5002412652001"}
+Raw Response: {"status":"SUCCESS","entity":"5070855890001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"392ed61b-4965-48c4-97a9-76be900198d4","videoId":"5070855890001","dynamicRenditionId":"default/audio64","status":"SUCCESS"}
 Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:34 UTC 
+2016-08-04 12:38:57 UTC 
 Timestamp: 
 Version: 1
-Entity: 5002412652001
-Entity Type: DIGITAL_MASTER
+Entity: 5070855890001
+Entity Type: DYNAMIC_RENDITION
 Account ID: 
 Video ID: 
 Status: SUCCESS
@@ -236,41 +614,13 @@ Error Message:
 Action: CREATE
 Notification Errors: No errors
 -------------------------------
-Raw Response: {"timestamp":1467126994766,"account_id":"57838016001","event":"video-change","video":"5002412742001","version":5}
-Notification Origin: CMS API
-2016-06-28 15:16:35 UTC 
-Timestamp: 1467126994766
-Version: 5
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412742001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467126994766,"account_id":"57838016001","event":"video-change","video":"5002412742001","version":5}
-Notification Origin: CMS API
-2016-06-28 15:16:35 UTC 
-Timestamp: 1467126994766
-Version: 5
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412742001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"accountId":"57838016001","status":"SUCCESS","entityType":"ASSET","version":"1","jobId":"bb316631-c58b-4bd4-a686-13c5f7a3a779","action":"CREATE","entity":"5002412950001","videoId":"5002361893001"}
+Raw Response: {"status":"SUCCESS","entity":"5070855890001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"392ed61b-4965-48c4-97a9-76be900198d4","videoId":"5070855890001","dynamicRenditionId":"default/audio128","status":"SUCCESS"}
 Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:37 UTC 
+2016-08-04 12:38:58 UTC 
 Timestamp: 
 Version: 1
-Entity: 5002412950001
-Entity Type: ASSET
+Entity: 5070855890001
+Entity Type: DYNAMIC_RENDITION
 Account ID: 
 Video ID: 
 Status: SUCCESS
@@ -278,13 +628,13 @@ Error Message:
 Action: CREATE
 Notification Errors: No errors
 -------------------------------
-Raw Response: {"entity":"5002417792001","version":"1","status":"SUCCESS","entityType":"ASSET","videoId":"5002361895001","jobId":"31f0b112-9890-4567-adb5-0f4ed1673701","accountId":"57838016001","profileRefId":"mp2","action":"CREATE"}
+Raw Response: {"status":"SUCCESS","entity":"5070855890001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"392ed61b-4965-48c4-97a9-76be900198d4","videoId":"5070855890001","dynamicRenditionId":"default/audio96","status":"SUCCESS"}
 Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:37 UTC 
+2016-08-04 12:38:58 UTC 
 Timestamp: 
 Version: 1
-Entity: 5002417792001
-Entity Type: ASSET
+Entity: 5070855890001
+Entity Type: DYNAMIC_RENDITION
 Account ID: 
 Video ID: 
 Status: SUCCESS
@@ -292,13 +642,13 @@ Error Message:
 Action: CREATE
 Notification Errors: No errors
 -------------------------------
-Raw Response: {"entityType":"ASSET","version":"1","videoId":"5002361893001","status":"SUCCESS","accountId":"57838016001","profileRefId":"ts0","action":"CREATE","entity":"5002412427001","jobId":"bb316631-c58b-4bd4-a686-13c5f7a3a779"}
+Raw Response: {"status":"SUCCESS","entity":"5070850506001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"9c3b510a-4af7-4212-8a27-0bce690c6f36","videoId":"5070850506001","dynamicRenditionId":"default/video3500","status":"SUCCESS"}
 Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:38 UTC 
+2016-08-04 12:38:59 UTC 
 Timestamp: 
 Version: 1
-Entity: 5002412427001
-Entity Type: ASSET
+Entity: 5070850506001
+Entity Type: DYNAMIC_RENDITION
 Account ID: 
 Video ID: 
 Status: SUCCESS
@@ -306,657 +656,26 @@ Error Message:
 Action: CREATE
 Notification Errors: No errors
 -------------------------------
-Raw Response: {"entityType":"ASSET","entity":"5002414619001","videoId":"5002361895001","jobId":"31f0b112-9890-4567-adb5-0f4ed1673701","action":"CREATE","accountId":"57838016001","status":"SUCCESS","profileRefId":"mp0","version":"1"}
+Raw Response: {"status":"SUCCESS","entity":"5070850506001","entityType":"TITLE","version":"1","action":"PUBLISH","jobId":"9c3b510a-4af7-4212-8a27-0bce690c6f36","videoId":"5070850506001","status":"SUCCESS"}
 Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:38 UTC 
+2016-08-04 12:39:00 UTC 
 Timestamp: 
 Version: 1
-Entity: 5002414619001
-Entity Type: ASSET
+Entity: 5070850506001
+Entity Type: TITLE
 Account ID: 
 Video ID: 
 Status: SUCCESS
 Error Message: 
-Action: CREATE
+Action: PUBLISH
 Notification Errors: No errors
 -------------------------------
-Raw Response: {"jobId":"31f0b112-9890-4567-adb5-0f4ed1673701","videoId":"5002361895001","action":"CREATE","status":"SUCCESS","entity":"5002412951001","accountId":"57838016001","version":"1","entityType":"ASSET"}
+Raw Response: {"status":"SUCCESS","entity":"5070850506001","entityType":"TITLE","version":"1","action":"CREATE","jobId":"9c3b510a-4af7-4212-8a27-0bce690c6f36","videoId":"5070850506001","status":"SUCCESS"}
 Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:39 UTC 
+2016-08-04 12:39:00 UTC 
 Timestamp: 
 Version: 1
-Entity: 5002412951001
-Entity Type: ASSET
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"videoId":"5002361895001","entity":"5002417694001","entityType":"ASSET","action":"CREATE","jobId":"31f0b112-9890-4567-adb5-0f4ed1673701","version":"1","accountId":"57838016001","status":"SUCCESS","profileRefId":"ts5"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:39 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002417694001
-Entity Type: ASSET
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"version":"1","jobId":"bb316631-c58b-4bd4-a686-13c5f7a3a779","entity":"5002412968001","entityType":"ASSET","videoId":"5002361893001","status":"SUCCESS","accountId":"57838016001","profileRefId":"ts3","action":"CREATE"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:40 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002412968001
-Entity Type: ASSET
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"videoId":"5002361895001","jobId":"31f0b112-9890-4567-adb5-0f4ed1673701","status":"SUCCESS","entityType":"ASSET","version":"1","profileRefId":"ts3","action":"CREATE","accountId":"57838016001","entity":"5002412963001"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:40 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002412963001
-Entity Type: ASSET
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"entity":"5002412637001","action":"CREATE","status":"SUCCESS","profileRefId":"ts0","jobId":"31f0b112-9890-4567-adb5-0f4ed1673701","version":"1","videoId":"5002361895001","accountId":"57838016001","entityType":"ASSET"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:40 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002412637001
-Entity Type: ASSET
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"jobId":"31f0b112-9890-4567-adb5-0f4ed1673701","version":"1","profileRefId":"ts7","entityType":"ASSET","videoId":"5002361895001","status":"SUCCESS","action":"CREATE","entity":"5002412956001","accountId":"57838016001"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:41 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002412956001
-Entity Type: ASSET
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467127001113,"account_id":"57838016001","event":"video-change","video":"5002412652001","version":6}
-Notification Origin: CMS API
-2016-06-28 15:16:41 UTC 
-Timestamp: 1467127001113
-Version: 6
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412652001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467127001113,"account_id":"57838016001","event":"video-change","video":"5002412652001","version":6}
-Notification Origin: CMS API
-2016-06-28 15:16:41 UTC 
-Timestamp: 1467127001113
-Version: 6
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412652001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"version":"1","videoId":"5002361893001","accountId":"57838016001","entityType":"ASSET","jobId":"bb316631-c58b-4bd4-a686-13c5f7a3a779","profileRefId":"mp0","status":"SUCCESS","action":"CREATE","entity":"5002412955001"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:41 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002412955001
-Entity Type: ASSET
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"jobId":"31f0b112-9890-4567-adb5-0f4ed1673701","entityType":"ASSET","videoId":"5002361895001","accountId":"57838016001","version":"1","status":"SUCCESS","entity":"5002412423001","action":"CREATE"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:42 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002412423001
-Entity Type: ASSET
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"action":"CREATE","entityType":"ASSET","accountId":"57838016001","videoId":"5002412652001","version":"1","entity":"5002417796001","jobId":"3e98b3a0-f624-4f2d-81c1-4e43e1d04a0f","status":"SUCCESS"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:42 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002417796001
-Entity Type: ASSET
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"entityType":"ASSET","profileRefId":"ts5","jobId":"bb316631-c58b-4bd4-a686-13c5f7a3a779","entity":"5002414618001","version":"1","accountId":"57838016001","action":"CREATE","videoId":"5002361893001","status":"SUCCESS"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:43 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002414618001
-Entity Type: ASSET
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"videoId":"5002361893001","jobId":"bb316631-c58b-4bd4-a686-13c5f7a3a779","action":"CREATE","profileRefId":"ts6","entity":"5002414613001","entityType":"ASSET","version":"1","status":"SUCCESS","accountId":"57838016001"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:45 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002414613001
-Entity Type: ASSET
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467127004868,"account_id":"57838016001","event":"video-change","video":"5002412652001","version":7}
-Notification Origin: CMS API
-2016-06-28 15:16:45 UTC 
-Timestamp: 1467127004868
-Version: 7
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412652001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467127004868,"account_id":"57838016001","event":"video-change","video":"5002412652001","version":7}
-Notification Origin: CMS API
-2016-06-28 15:16:45 UTC 
-Timestamp: 1467127004868
-Version: 7
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412652001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467127005120,"account_id":"57838016001","event":"video-change","video":"5002412652001","version":8}
-Notification Origin: CMS API
-2016-06-28 15:16:45 UTC 
-Timestamp: 1467127005120
-Version: 8
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412652001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467127005120,"account_id":"57838016001","event":"video-change","video":"5002412652001","version":8}
-Notification Origin: CMS API
-2016-06-28 15:16:45 UTC 
-Timestamp: 1467127005120
-Version: 8
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412652001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467127005943,"account_id":"57838016001","event":"video-change","video":"5002412652001","version":9}
-Notification Origin: CMS API
-2016-06-28 15:16:46 UTC 
-Timestamp: 1467127005943
-Version: 9
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412652001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467127005943,"account_id":"57838016001","event":"video-change","video":"5002412652001","version":9}
-Notification Origin: CMS API
-2016-06-28 15:16:46 UTC 
-Timestamp: 1467127005943
-Version: 9
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412652001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"status":"SUCCESS","videoId":"5002361893001","profileRefId":"ts4","jobId":"bb316631-c58b-4bd4-a686-13c5f7a3a779","version":"1","accountId":"57838016001","entity":"5002417689001","action":"CREATE","entityType":"ASSET"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:47 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002417689001
-Entity Type: ASSET
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467127007298,"account_id":"57838016001","event":"video-change","video":"5002412652001","version":10}
-Notification Origin: CMS API
-2016-06-28 15:16:47 UTC 
-Timestamp: 1467127007298
-Version: 10
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412652001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467127007298,"account_id":"57838016001","event":"video-change","video":"5002412652001","version":10}
-Notification Origin: CMS API
-2016-06-28 15:16:47 UTC 
-Timestamp: 1467127007298
-Version: 10
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412652001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"videoId":"5002361893001","accountId":"57838016001","entity":"5002419409001","jobId":"bb316631-c58b-4bd4-a686-13c5f7a3a779","entityType":"ASSET","action":"CREATE","profileRefId":"ts2","status":"SUCCESS","version":"1"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:47 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002419409001
-Entity Type: ASSET
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"status":"SUCCESS","entityType":"ASSET","version":"1","jobId":"bb316631-c58b-4bd4-a686-13c5f7a3a779","profileRefId":"mp2","videoId":"5002361893001","action":"CREATE","accountId":"57838016001","entity":"5002414615001"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:48 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002414615001
-Entity Type: ASSET
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467127007835,"account_id":"57838016001","event":"video-change","video":"5002412652001","version":11}
-Notification Origin: CMS API
-2016-06-28 15:16:48 UTC 
-Timestamp: 1467127007835
-Version: 11
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412652001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467127007835,"account_id":"57838016001","event":"video-change","video":"5002412652001","version":11}
-Notification Origin: CMS API
-2016-06-28 15:16:48 UTC 
-Timestamp: 1467127007835
-Version: 11
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412652001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467127008478,"account_id":"57838016001","event":"video-change","video":"5002412652001","version":12}
-Notification Origin: CMS API
-2016-06-28 15:16:48 UTC 
-Timestamp: 1467127008478
-Version: 12
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412652001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467127008478,"account_id":"57838016001","event":"video-change","video":"5002412652001","version":12}
-Notification Origin: CMS API
-2016-06-28 15:16:48 UTC 
-Timestamp: 1467127008478
-Version: 12
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412652001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"jobId":"bb316631-c58b-4bd4-a686-13c5f7a3a779","accountId":"57838016001","profileRefId":"mp1","entityType":"ASSET","version":"1","videoId":"5002361893001","status":"SUCCESS","entity":"5002419415001","action":"CREATE"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:49 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002419415001
-Entity Type: ASSET
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"entityType":"ASSET","profileRefId":"mp1","entity":"5002417791001","accountId":"57838016001","videoId":"5002361895001","version":"1","action":"CREATE","jobId":"31f0b112-9890-4567-adb5-0f4ed1673701","status":"SUCCESS"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:49 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002417791001
-Entity Type: ASSET
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467127009059,"account_id":"57838016001","event":"video-change","video"
-Raw Response: {"status":"SUCCESS","profileRefId":"ts6","jobId":"31f0b112-9890-4567-adb5-0f4ed1673701","entityType":"ASSET","videoId":"5002361895001","version":"1","accountId":"57838016001","entity":"5002414621001","action":"CREATE"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:50 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002414621001
-Entity Type: ASSET
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"entityType":"ASSET","status":"SUCCESS","action":"CREATE","version":"1","entity":"5002412958001","accountId":"57838016001","profileRefId":"ts4","videoId":"5002361895001","jobId":"31f0b112-9890-4567-adb5-0f4ed1673701"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:51 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002412958001
-Entity Type: ASSET
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"entity":"5002412132001","profileRefId":"ts7","accountId":"57838016001","entityType":"ASSET","videoId":"5002361893001","status":"SUCCESS","version":"1","action":"CREATE","jobId":"bb316631-c58b-4bd4-a686-13c5f7a3a779"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:51 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002412132001
-Entity Type: ASSET
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"jobId":"31f0b112-9890-4567-adb5-0f4ed1673701","status":"SUCCESS","version":"1","action":"CREATE","entityType":"ASSET","entity":"5002412528001","videoId":"5002361895001","profileRefId":"HlsManifest","accountId":"57838016001"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:56 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002412528001
-Entity Type: ASSET
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467127016168,"account_id":"57838016001","event":"video-change","video":"5002412742001","version":8}
-Notification Origin: CMS API
-2016-06-28 15:16:56 UTC 
-Timestamp: 1467127016168
-Version: 8
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412742001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467127016168,"account_id":"57838016001","event":"video-change","video":"5002412742001","version":8}
-Notification Origin: CMS API
-2016-06-28 15:16:56 UTC 
-Timestamp: 1467127016168
-Version: 8
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412742001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"jobId":"bb316631-c58b-4bd4-a686-13c5f7a3a779","action":"CREATE","entityType":"ASSET","entity":"5002412015001","accountId":"57838016001","status":"SUCCESS","profileRefId":"HlsManifest","version":"1","videoId":"5002361893001"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:57 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002412015001
-Entity Type: ASSET
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"entityType":"DIGITAL_MASTER","entity":"5002412742001","jobId":"fc6195ff-f294-487f-b927-a6bc44da4345","videoId":"5002412742001","version":"1","status":"SUCCESS","accountId":"57838016001","action":"CREATE"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:16:57 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002412742001
-Entity Type: DIGITAL_MASTER
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"entityType":"ASSET","entity":"5002417725001","profileRefId":"mp2","jobId":"3e98b3a0-f624-4f2d-81c1-4e43e1d04a0f","accountId":"57838016001","action":"CREATE","videoId":"5002412652001","version":"1","status":"SUCCESS"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:17:15 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002417725001
-Entity Type: ASSET
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"action":"CREATE","accountId":"57838016001","jobId":"3e98b3a0-f624-4f2d-81c1-4e43e1d04a0f","entity":"5002417327001","profileRefId":"ts3","status":"SUCCESS","version":"1","videoId":"5002412652001","entityType":"ASSET"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:17:16 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002417327001
-Entity Type: ASSET
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"accountId":"57838016001","entityType":"ASSET","action":"CREATE","entity":"5002414654001","jobId":"fc6195ff-f294-487f-b927-a6bc44da4345","version":"1","videoId":"5002412742001","status":"SUCCESS","profileRefId":"ts2"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:17:18 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002414654001
-Entity Type: ASSET
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"profileRefId":"ts1","accountId":"57838016001","entity":"5002417739001","videoId":"5002412742001","version":"1","jobId":"fc6195ff-f294-487f-b927-a6bc44da4345","status":"SUCCESS","action":"CREATE","entityType":"ASSET"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:17:18 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002417739001
-Entity Type: ASSET
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"action":"CREATE","accountId":"57838016001","profileRefId":"HlsManifest","entity":"5002412017001","status":"SUCCESS","jobId":"3e98b3a0-f624-4f2d-81c1-4e43e1d04a0f","version":"1","entityType":"ASSET","videoId":"5002412652001"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:17:19 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002412017001
-Entity Type: ASSET
-Account ID: 
-Video ID: 
-Status: SUCCESS
-Error Message: 
-Action: CREATE
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467127040360,"account_id":"57838016001","event":"video-change","video":"5002412652001","version":18}
-Notification Origin: CMS API
-2016-06-28 15:17:20 UTC 
-Timestamp: 1467127040360
-Version: 18
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412652001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"timestamp":1467127040360,"account_id":"57838016001","event":"video-change","video":"5002412652001","version":18}
-Notification Origin: CMS API
-2016-06-28 15:17:20 UTC 
-Timestamp: 1467127040360
-Version: 18
-Entity: 
-Entity Type: 
-Account ID: 57838016001
-Video ID: 5002412652001
-Status: 
-Error Message: 
-Action: 
-Notification Errors: No errors
--------------------------------
-Raw Response: {"entityType":"TITLE","status":"SUCCESS","accountId":"57838016001","entity":"5002412652001","action":"CREATE","jobId":"3e98b3a0-f624-4f2d-81c1-4e43e1d04a0f","version":"1","videoId":"5002412652001"}
-Notification Origin: Dynamic Ingest API
-2016-06-28 15:17:21 UTC 
-Timestamp: 
-Version: 1
-Entity: 5002412652001
+Entity: 5070850506001
 Entity Type: TITLE
 Account ID: 
 Video ID: 
@@ -965,12 +684,26 @@ Error Message:
 Action: CREATE
 Notification Errors: No errors
 -------------------------------
-Raw Response: {"accountId":"57838016001","status":"SUCCESS","videoId":"5002412742001","version":"1","action":"CREATE","jobId":"fc6195ff-f294-487f-b927-a6bc44da4345","entityType":"ASSET","entity":"5002417343001","profileRefId":"ts3"}
+Raw Response: {"status":"SUCCESS","entity":"5070857248001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"a793f2e0-84a6-46ed-b9e6-082db293d3de","videoId":"5070857248001","dynamicRenditionId":"default/video700","status":"SUCCESS"}
 Notification Origin: Dynamic Ingest API
-2016-06-28 15:17:21 UTC 
+2016-08-04 12:39:01 UTC 
 Timestamp: 
 Version: 1
-Entity: 5002417343001
+Entity: 5070857248001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"profileRefId":"mp0","action":"CREATE","jobId":"b3da5106-89d0-4807-a3c8-5324cf44b401","version":"1","videoId":"5070851717001","entityType":"ASSET","entity":"5070874382001","accountId":"4239126013001","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:04 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070874382001
 Entity Type: ASSET
 Account ID: 
 Video ID: 
@@ -979,12 +712,124 @@ Error Message:
 Action: CREATE
 Notification Errors: No errors
 -------------------------------
-Raw Response: {"videoId":"5002412742001","entityType":"ASSET","accountId":"57838016001","entity":"5002419455001","action":"CREATE","status":"SUCCESS","profileRefId":"ts4","jobId":"fc6195ff-f294-487f-b927-a6bc44da4345","version":"1"}
+Raw Response: {"status":"SUCCESS","entity":"5070857248001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"a793f2e0-84a6-46ed-b9e6-082db293d3de","videoId":"5070857248001","dynamicRenditionId":"default/video450","status":"SUCCESS"}
 Notification Origin: Dynamic Ingest API
-2016-06-28 15:17:24 UTC 
+2016-08-04 12:39:06 UTC 
 Timestamp: 
 Version: 1
-Entity: 5002419455001
+Entity: 5070857248001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070857248001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"a793f2e0-84a6-46ed-b9e6-082db293d3de","videoId":"5070857248001","dynamicRenditionId":"default/video1200","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:07 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070857248001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070857248001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"a793f2e0-84a6-46ed-b9e6-082db293d3de","videoId":"5070857248001","dynamicRenditionId":"default/video1700","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:07 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070857248001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070857248001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"a793f2e0-84a6-46ed-b9e6-082db293d3de","videoId":"5070857248001","dynamicRenditionId":"default/video900","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:07 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070857248001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070857248001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"a793f2e0-84a6-46ed-b9e6-082db293d3de","videoId":"5070857248001","dynamicRenditionId":"default/video3500","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:12 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070857248001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070857250001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"4b218550-a8ff-4e85-aeb1-57934bc41159","videoId":"5070857250001","dynamicRenditionId":"default/video700","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:12 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070857250001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070857248001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"a793f2e0-84a6-46ed-b9e6-082db293d3de","videoId":"5070857248001","dynamicRenditionId":"default/video2500","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:12 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070857248001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070857248001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"a793f2e0-84a6-46ed-b9e6-082db293d3de","videoId":"5070857248001","dynamicRenditionId":"default/video4000","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:12 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070857248001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"accountId":"4239126013001","profileRefId":"ts2","action":"CREATE","jobId":"b3da5106-89d0-4807-a3c8-5324cf44b401","entityType":"ASSET","version":"1","entity":"5070875206001","status":"SUCCESS","videoId":"5070851717001"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:13 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070875206001
 Entity Type: ASSET
 Account ID: 
 Video ID: 
@@ -993,12 +838,166 @@ Error Message:
 Action: CREATE
 Notification Errors: No errors
 -------------------------------
-Raw Response: {"profileRefId":"ts7","entityType":"ASSET","status":"SUCCESS","version":"1","entity":"5002421643001","jobId":"fc6195ff-f294-487f-b927-a6bc44da4345","videoId":"5002412742001","accountId":"57838016001","action":"CREATE"}
+Raw Response: {"status":"SUCCESS","entity":"5070850508001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"7ce28281-3d98-4f61-bedb-3530d5afb5fd","videoId":"5070850508001","dynamicRenditionId":"default/audio64","status":"SUCCESS"}
 Notification Origin: Dynamic Ingest API
-2016-06-28 15:17:25 UTC 
+2016-08-04 12:39:13 UTC 
 Timestamp: 
 Version: 1
-Entity: 5002421643001
+Entity: 5070850508001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070857248001","entityType":"TITLE","version":"1","action":"PUBLISH","jobId":"a793f2e0-84a6-46ed-b9e6-082db293d3de","videoId":"5070857248001","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:13 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070857248001
+Entity Type: TITLE
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: PUBLISH
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070850508001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"7ce28281-3d98-4f61-bedb-3530d5afb5fd","videoId":"5070850508001","dynamicRenditionId":"default/audio128","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:14 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070850508001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070857248001","entityType":"TITLE","version":"1","action":"CREATE","jobId":"a793f2e0-84a6-46ed-b9e6-082db293d3de","videoId":"5070857248001","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:14 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070857248001
+Entity Type: TITLE
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070857250001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"4b218550-a8ff-4e85-aeb1-57934bc41159","videoId":"5070857250001","dynamicRenditionId":"default/video450","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:14 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070857250001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070857250001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"4b218550-a8ff-4e85-aeb1-57934bc41159","videoId":"5070857250001","dynamicRenditionId":"default/video1200","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:14 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070857250001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070850508001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"7ce28281-3d98-4f61-bedb-3530d5afb5fd","videoId":"5070850508001","dynamicRenditionId":"default/audio96","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:14 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070850508001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070857250001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"4b218550-a8ff-4e85-aeb1-57934bc41159","videoId":"5070857250001","dynamicRenditionId":"default/video900","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:15 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070857250001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070857250001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"4b218550-a8ff-4e85-aeb1-57934bc41159","videoId":"5070857250001","dynamicRenditionId":"default/video1700","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:18 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070857250001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070857250001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"4b218550-a8ff-4e85-aeb1-57934bc41159","videoId":"5070857250001","dynamicRenditionId":"default/video2500","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:21 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070857250001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070855890001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"392ed61b-4965-48c4-97a9-76be900198d4","videoId":"5070855890001","dynamicRenditionId":"default/video900","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:22 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070855890001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"entityType":"ASSET","action":"CREATE","jobId":"b3da5106-89d0-4807-a3c8-5324cf44b401","accountId":"4239126013001","entity":"5070872928001","videoId":"5070851717001","version":"1","status":"SUCCESS","profileRefId":"ts1"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:22 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070872928001
 Entity Type: ASSET
 Account ID: 
 Video ID: 
@@ -1007,12 +1006,12 @@ Error Message:
 Action: CREATE
 Notification Errors: No errors
 -------------------------------
-Raw Response: {"videoId":"5002412742001","accountId":"57838016001","profileRefId":"ts0","action":"CREATE","status":"SUCCESS","version":"1","entityType":"ASSET","entity":"5002417335001","jobId":"fc6195ff-f294-487f-b927-a6bc44da4345"}
+Raw Response: {"action":"CREATE","profileRefId":"ts0","accountId":"4239126013001","status":"SUCCESS","entity":"5070875051001","videoId":"5070851717001","entityType":"ASSET","jobId":"b3da5106-89d0-4807-a3c8-5324cf44b401","version":"1"}
 Notification Origin: Dynamic Ingest API
-2016-06-28 15:17:27 UTC 
+2016-08-04 12:39:23 UTC 
 Timestamp: 
 Version: 1
-Entity: 5002417335001
+Entity: 5070875051001
 Entity Type: ASSET
 Account ID: 
 Video ID: 
@@ -1021,12 +1020,222 @@ Error Message:
 Action: CREATE
 Notification Errors: No errors
 -------------------------------
-Raw Response: {"entityType":"ASSET","accountId":"57838016001","jobId":"fc6195ff-f294-487f-b927-a6bc44da4345","action":"CREATE","entity":"5002417338001","videoId":"5002412742001","profileRefId":"ts5","version":"1","status":"SUCCESS"}
+Raw Response: {"status":"SUCCESS","entity":"5070855890001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"392ed61b-4965-48c4-97a9-76be900198d4","videoId":"5070855890001","dynamicRenditionId":"default/video450","status":"SUCCESS"}
 Notification Origin: Dynamic Ingest API
-2016-06-28 15:17:29 UTC 
+2016-08-04 12:39:23 UTC 
 Timestamp: 
 Version: 1
-Entity: 5002417338001
+Entity: 5070855890001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070855890001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"392ed61b-4965-48c4-97a9-76be900198d4","videoId":"5070855890001","dynamicRenditionId":"default/video3500","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:23 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070855890001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070855890001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"392ed61b-4965-48c4-97a9-76be900198d4","videoId":"5070855890001","dynamicRenditionId":"default/video700","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:23 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070855890001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070857250001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"4b218550-a8ff-4e85-aeb1-57934bc41159","videoId":"5070857250001","dynamicRenditionId":"default/video3500","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:23 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070857250001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070857250001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"4b218550-a8ff-4e85-aeb1-57934bc41159","videoId":"5070857250001","dynamicRenditionId":"default/video4000","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:24 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070857250001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070855890001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"392ed61b-4965-48c4-97a9-76be900198d4","videoId":"5070855890001","dynamicRenditionId":"default/video2500","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:26 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070855890001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070855890001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"392ed61b-4965-48c4-97a9-76be900198d4","videoId":"5070855890001","dynamicRenditionId":"default/video1700","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:26 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070855890001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070850508001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"7ce28281-3d98-4f61-bedb-3530d5afb5fd","videoId":"5070850508001","dynamicRenditionId":"default/video700","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:28 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070850508001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070850508001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"7ce28281-3d98-4f61-bedb-3530d5afb5fd","videoId":"5070850508001","dynamicRenditionId":"default/video450","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:28 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070850508001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070850508001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"7ce28281-3d98-4f61-bedb-3530d5afb5fd","videoId":"5070850508001","dynamicRenditionId":"default/video900","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:30 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070850508001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070850508001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"7ce28281-3d98-4f61-bedb-3530d5afb5fd","videoId":"5070850508001","dynamicRenditionId":"default/video3500","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:31 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070850508001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070855890001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"392ed61b-4965-48c4-97a9-76be900198d4","videoId":"5070855890001","dynamicRenditionId":"default/video1200","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:31 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070855890001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070855890001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"392ed61b-4965-48c4-97a9-76be900198d4","videoId":"5070855890001","dynamicRenditionId":"default/video4000","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:39 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070855890001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070855890001","entityType":"TITLE","version":"1","action":"PUBLISH","jobId":"392ed61b-4965-48c4-97a9-76be900198d4","videoId":"5070855890001","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:41 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070855890001
+Entity Type: TITLE
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: PUBLISH
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070855890001","entityType":"TITLE","version":"1","action":"CREATE","jobId":"392ed61b-4965-48c4-97a9-76be900198d4","videoId":"5070855890001","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:41 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070855890001
+Entity Type: TITLE
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"entityType":"ASSET","version":"1","profileRefId":"ts5","videoId":"5070851717001","accountId":"4239126013001","action":"CREATE","status":"SUCCESS","entity":"5070875220001","jobId":"b3da5106-89d0-4807-a3c8-5324cf44b401"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:44 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070875220001
 Entity Type: ASSET
 Account ID: 
 Video ID: 
@@ -1035,13 +1244,223 @@ Error Message:
 Action: CREATE
 Notification Errors: No errors
 -------------------------------
-Raw Response: {"videoId":"5002412742001","version":"1","jobId":"fc6195ff-f294-487f-b927-a6bc44da4345","accountId":"57838016001","status":"SUCCESS","action":"CREATE","entityType":"ASSET","entity":"5002414657001","profileRefId":"mp2"}
+Raw Response: {"entityType":"ASSET","status":"SUCCESS","action":"CREATE","entity":"5070872648001","version":"1","jobId":"b3da5106-89d0-4807-a3c8-5324cf44b401","profileRefId":"ts4","accountId":"4239126013001","videoId":"5070851717001"}
 Notification Origin: Dynamic Ingest API
-2016-06-28 15:17:30 UTC 
+2016-08-04 12:39:48 UTC 
 Timestamp: 
 Version: 1
-Entity: 5002414657001
+Entity: 5070872648001
 Entity Type: ASSET
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entityType":"ASSET","jobId":"b3da5106-89d0-4807-a3c8-5324cf44b401","videoId":"5070851717001","action":"CREATE","accountId":"4239126013001","version":"1","profileRefId":"ts7","entity":"5070872938001"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:39:57 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070872938001
+Entity Type: ASSET
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"FAILED","entity":"5070857250001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"4b218550-a8ff-4e85-aeb1-57934bc41159","videoId":"5070857250001","errorCode":"NoMediaError","errorMessage":"Audio-only output was requested on a file that only contains video.","status":"FAILED"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:40:01 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070857250001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: Audio-only output was requested on a file that only contains video.
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"FAILED","entity":"5070857250001","entityType":"TITLE","version":"1","action":"PUBLISH","jobId":"4b218550-a8ff-4e85-aeb1-57934bc41159","videoId":"5070857250001","errorCode":"NoMediaError","errorMessage":"Audio-only output was requested on a file that only contains video.","status":"FAILED"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:40:01 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070857250001
+Entity Type: TITLE
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: Audio-only output was requested on a file that only contains video.
+Action: PUBLISH
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"FAILED","entity":"5070857250001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"4b218550-a8ff-4e85-aeb1-57934bc41159","videoId":"5070857250001","errorCode":"NoMediaError","errorMessage":"Audio-only output was requested on a file that only contains video.","status":"FAILED"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:40:01 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070857250001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: Audio-only output was requested on a file that only contains video.
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"FAILED","entity":"5070857250001","entityType":"TITLE","version":"1","action":"CREATE","jobId":"4b218550-a8ff-4e85-aeb1-57934bc41159","videoId":"5070857250001","errorCode":"NoMediaError","errorMessage":"Audio-only output was requested on a file that only contains video.","status":"FAILED"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:40:01 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070857250001
+Entity Type: TITLE
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: Audio-only output was requested on a file that only contains video.
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"FAILED","entity":"5070857250001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"4b218550-a8ff-4e85-aeb1-57934bc41159","videoId":"5070857250001","errorCode":"NoMediaError","errorMessage":"Audio-only output was requested on a file that only contains video.","status":"FAILED"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:40:02 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070857250001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: FAILED
+Error Message: Audio-only output was requested on a file that only contains video.
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070850508001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"7ce28281-3d98-4f61-bedb-3530d5afb5fd","videoId":"5070850508001","dynamicRenditionId":"default/video1200","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:40:25 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070850508001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070850508001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"7ce28281-3d98-4f61-bedb-3530d5afb5fd","videoId":"5070850508001","dynamicRenditionId":"default/video4000","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:40:25 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070850508001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070850508001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"7ce28281-3d98-4f61-bedb-3530d5afb5fd","videoId":"5070850508001","dynamicRenditionId":"default/video1700","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:40:27 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070850508001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070850508001","entityType":"DYNAMIC_RENDITION","version":"1","action":"CREATE","jobId":"7ce28281-3d98-4f61-bedb-3530d5afb5fd","videoId":"5070850508001","dynamicRenditionId":"default/video2500","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:40:27 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070850508001
+Entity Type: DYNAMIC_RENDITION
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"entityType":"ASSET","action":"CREATE","accountId":"4239126013001","entity":"5070875263001","videoId":"5070851717001","status":"SUCCESS","jobId":"b3da5106-89d0-4807-a3c8-5324cf44b401","profileRefId":"ts3","version":"1"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:40:28 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070875263001
+Entity Type: ASSET
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070850508001","entityType":"TITLE","version":"1","action":"PUBLISH","jobId":"7ce28281-3d98-4f61-bedb-3530d5afb5fd","videoId":"5070850508001","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:40:29 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070850508001
+Entity Type: TITLE
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: PUBLISH
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"status":"SUCCESS","entity":"5070850508001","entityType":"TITLE","version":"1","action":"CREATE","jobId":"7ce28281-3d98-4f61-bedb-3530d5afb5fd","videoId":"5070850508001","status":"SUCCESS"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:40:30 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070850508001
+Entity Type: TITLE
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"videoId":"5070851717001","profileRefId":"ts6","action":"CREATE","status":"SUCCESS","accountId":"4239126013001","jobId":"b3da5106-89d0-4807-a3c8-5324cf44b401","entityType":"ASSET","entity":"5070875308001","version":"1"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:40:33 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070875308001
+Entity Type: ASSET
+Account ID: 
+Video ID: 
+Status: SUCCESS
+Error Message: 
+Action: CREATE
+Notification Errors: No errors
+-------------------------------
+Raw Response: {"jobId":"b3da5106-89d0-4807-a3c8-5324cf44b401","entity":"5070851717001","action":"CREATE","accountId":"4239126013001","videoId":"5070851717001","status":"SUCCESS","version":"1","entityType":"TITLE"}
+Notification Origin: Dynamic Ingest API
+2016-08-04 12:40:34 UTC 
+Timestamp: 
+Version: 1
+Entity: 5070851717001
+Entity Type: TITLE
 Account ID: 
 Video ID: 
 Status: SUCCESS

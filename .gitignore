@@ -10,3 +10,5 @@ VideoChaptering/.project
 *.m4v
 
 *.mov
+
+.DS_Store

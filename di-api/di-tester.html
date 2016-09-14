@@ -82,7 +82,8 @@
                                 <p>
                                     Choose an ingest profile: <br>
                                     <select id="profileSelector" name="profileSelector">
-                                        <option value="MyFirstBoltProfile" selected="selected">MyFirstBoltProfile</option>
+                                        <option value="BoltIngestProfile" selected="selected">BoltIngestProfile</option>
+                                        <option value="MyFirstBoltProfile">MyFirstBoltProfile</option>
                                         <option value="screencast-1280">screencast-1280</option>
                                         <option value="high-resolution">high-resolution</option>
                                         <option value="single-bitrate-high">single-bitrate-high</option>
@@ -110,8 +111,7 @@
                             <legend>Caller for the Dynamic Ingest API</legend>
                             <p>Submits to http://solutions.brightcove.com:<strong>8004</strong></p>
                                     Call body (generated automatically - don't change it):<br />
-                                    <textarea name="requestBody" id="di_requestBody" readonly="true"></textarea>
-                                </p>
+                                    <textarea name="requestBody" id="di_requestBody" readonly="readonly"></textarea>
                                 <p>
                                     Full request URL for the API call:<br />
                                     <textarea name="url" id="di_url">https://ingest.api.brightcove.com/v1/accounts/57838016001/videos/videoId/ingest-requests</textarea>

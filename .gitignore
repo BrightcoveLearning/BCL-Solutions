@@ -12,3 +12,5 @@ VideoChaptering/.project
 *.mov
 
 .DS_Store
+
+di-api/di-log.txt

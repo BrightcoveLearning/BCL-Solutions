@@ -95,10 +95,13 @@ $logEntry = "\nRaw Response: ".$json.
 
 // Lastly, tell PHP where it can find the log file and tell PHP to open it
 // and add the string we created earlier to it.
-$logFileLocation = "di-log.txt";
-$fileHandle      = fopen($logFileLocation, 'a') or die("-1");
-fwrite($fileHandle, $logEntry);
-fclose($fileHandle);
+// 2016-09-15: turning off CMS API notifications for now
+if ($notificationType == 'CMS API') {
+    $logFileLocation = "di-log.txt";
+    $fileHandle      = fopen($logFileLocation, 'a') or die("-1");
+    fwrite($fileHandle, $logEntry);
+    fclose($fileHandle);
+}
 
 echo "Dynamic Ingest callback app is running";
 ?>

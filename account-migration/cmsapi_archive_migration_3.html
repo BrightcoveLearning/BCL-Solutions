@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" />
+    <!-- change title to match the h1 heading -->
+    <title>Internal Archive migration</title>
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/css/foundation.min.css" />
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/css/normalize.css" />
+    <script src="//use.edgefonts.net/source-code-pro.js"></script>
+    <link href="//files.brightcove.com/proxima-nova/font-faces.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+    <style>
+    input, select {
+        max-width: 60%;
+        font-size: .8rem;
+    }
+    textarea {
+        width: 90%;
+        height: 4rem;
+        font-size: .8rem;
+    }textarea#videoData {
+        width: 90%;
+        background-color: #f5f5f5;
+        height: 24rem;
+        font-size: .8rem;
+    }
+    </style>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/js/vendor/modernizr.js"></script>
+</head>
+<body>
+
+<fieldset>
+    <legend>Input</legend>
+    <p>
+        Enter the information for the target and source accounts. Here are the operations that the client credentials require:
+    </p>
+    <dl>
+        <dt>Target account</dt>
+        <dd>
+            <ol>
+                <li>video-cloud/video/all</li>
+            </ol>
+        </dd>
+        <dt>Source Account</dt>
+        <dd>
+            <ol>
+                <li>video-cloud/video/all</li>
+                <li>video-cloud/asset/read</li>
+            </ol>
+        </dd>
+    </dl>
+    <fieldset>
+        <legend>Target Account</legend>
+        <p>(The account you are migrating videos TO)</p>
+        <p>Account id: <input id="target_account_id" type="text" value="4324533894001"></p>
+        <p>Client id: <input id="target_client_id" type="text" size="60" value="a656c78c-8947-44af-a51b-9413d75f8ef0"></p>
+        <p>Client secret: <input id="target_client_secret" type="text" size="60" value="ccslr6agKP7KS4mH7S2fis7RcYxrLYAfqHRERt9pXo0aMjHlw1xJqUJDM7S374kGpTS2D9jGrKfkupuzQEbhcw"></p>
+        <p>
+        Ingestion profile:
+        <select id="ingest_profile_display"></select>
+        <br>or Custom Profile:
+        <input id="custom_profile_display" name="custom_profile_display" type="text" value="">
+        </p>
+    <p>Import images? (will import poster and thumbnail) <select id="captureImages">
+    <option value="false">NO (create new - default)</option>  
+    <option value="true" selected>YES (keep existing)</option>       
+    </select></p>
+    </fieldset>
+    <fieldset>
+        <legend>Source Account</legend>
+        <p>(The account you are migrating videos FROM)</p>
+        <p>Account id: <input id="source_account_id" type="text" value="3871979174001"></p>
+        <p>Client id: <input id="source_client_id" type="text" size="60" value="9b591d93-5f27-4623-b55a-49c7113eab34"></p>
+        <p>Client secret: <input id="source_client_secret" type="text" size="60" value="foFSMQQolwVoq3ll7SQF95kAHCxcFHL3-IzuBNt0EzN84pEiY1XECKQZDNdtR3_RB2OzDk1GKUKXeykFcSqlsA"></p>
+    </fieldset>
+    <p>Search string to select videos (optional - see <a href="//docs.brightcove.com/en/video-cloud/cms-api/guides/search-videos.html">Search for Videos</a>)<br><small>If left empty, it will search for all assets</small> <input id="searchStr" type="text" placeholder="tags:foo"></p>
+    <p>Sort by:
+        <select name="sortSelect" id="sortSelect" style="width:150px;">
+            <option value="updated_at">Date last updated</option>
+            <option value="created_at" selected="selected">Date added</option>
+            <option value="name">Name</option>
+            <option value="reference_id">Reference ID</option>
+            <option value="published_at">Date Published</option>
+            <option value="schedule_starts_at">Scheduled Start Date</option>
+            <option value="schedule_ends_at">Scheduled End Date</option>
+            <option value="plays_total">All time plays</option>
+            <option value="plays_trailing_week">Plays in the last week</option>
+        </select>
+        <select name="directionSelect" id="directionSelect" style="width:120px;">
+            <option value="-">descending</option>
+            <option value="" selected="selected">ascending</option>
+        </select>
+    </p>
+    <p>Number of videos to include: <select name="numberSelect" id="numberSelect" style="width:100px;">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="25">25</option>
+        <option value="all" selected="selected">all</option>
+    </select></p>
+    <p><button class="bcls-button" id="doMigration">Migrate the Videos</button></p>
+</fieldset>
+<fieldset>
+    <legend>Output</legend>
+    <p id="logger" style="color:rgb(237, 104, 38)">Waiting for input...</p>
+    <p>Current API request</p>
+    <pre><code id="apiRequest"></code></pre>
+    <p>Video data</p>
+    <textarea style="width:99%;height:20em;border:1px #999 solid;border-left:5px #999 solid;" id="linksDisplay"></textarea>
+    <p>Export matchlogs:</p>
+    <div id="responseExport">
+</fieldset>
+
+<script>
+/*
+To do:
+- Error logs more accurate, providing information on what the error is
+- Run batches for large jobs
+- Enter list of custom fields to add
+- Enter ID to pick up job from and up by creation date or else
+*/
+
+var BCLS = ( function (window, document) {
+        var fragment = document.createDocumentFragment(),
+        // account stuff
+        targetAccountId,
+        targetClientId,
+        targetClientSecret,
+        sourceAccountId,
+        sourceClientId,
+        sourceClientSecret,
+        // api stuff
+        proxyURL = 'migration-proxy.php',
+        baseURL = 'https://cms.api.brightcove.com/v1/accounts/',
+        diBaseURL = 'https://ingest.api.brightcove.com/v1/accounts/',
+        diSuffix = '/ingest-requests',
+        sort,
+        sortDirection = '',
+        search,
+        offset,
+        limit = 5,
+        totalVideos = 0,
+        totalCalls = 0,
+        callNumber = 0,
+        videoCollection = [],
+        noMasters = [],
+        videosArray = [],
+        currentVideo,
+        newVideoId,
+        // Dynamic Ingest API stuff
+        profilesArray = ['smart-player-transition', 'balanced-nextgen-player', 'screencast-1280', 'single-bitrate-standard', 'single-bitrate-high', 'audio-only', 'videocloud-default-v1', 'high-resolution'],
+        // elements
+        target_account_id = document.getElementById('target_account_id'),
+        target_client_id = document.getElementById('target_client_id'),
+        target_client_secret = document.getElementById('target_client_secret'),
+        source_account_id = document.getElementById('source_account_id'),
+        source_client_id = document.getElementById('source_client_id'),
+        source_client_secret = document.getElementById('source_client_secret'),
+        custom_profile_display = document.getElementById('custom_profile_display'),
+        capture_images = document.getElementById('captureImages'),
+        numberSelect = document.getElementById('numberSelect'),
+        searchStr = document.getElementById('searchStr'),
+        sortSelect = document.getElementById('sortSelect'),
+        directionSelect = document.getElementById('directionSelect'),
+        doMigration = document.getElementById('doMigration'),
+        logger = document.getElementById('logger'),
+        apiRequest = document.getElementById('apiRequest'),
+        linksDisplay = document.getElementById('linksDisplay'),
+        allButtons = document.getElementsByName('button');
+
+    /**
+     * tests for all the ways a variable might be undefined or not have a value
+     * @param {String|Number} x the variable to test
+     * @return {Boolean} true if variable is defined and has a value
+     */
+    function isDefined(x){
+        if ( x === "" || x === null || x === undefined || x === NaN) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * get a copy of (rather than reference to) an object
+     * @param  {object} obj - the object you want a copy
+     * @return {object} the copy
+     */
+    function copyObj(obj) {
+        return JSON.parse(JSON.stringify(obj));
+    }
+
+    /**
+     * get selected value for single select element
+     * @param {htmlElement} e the select element
+     */
+    function getSelectedValue(e) {
+        return e.options[e.selectedIndex].value;
+    }
+
+
+    /**
+     * disables all buttons so user can't submit new request until current one finishes
+     */
+    function disableButtons() {
+        var i,
+            iMax = allButtons.length;
+        for (i = 0; i < iMax; i++) {
+            allButtons[i].setAttribute('disabled', 'disabled');
+        }
+    }
+
+    /**
+    * re-enables all buttons
+    */
+    function enableButtons() {
+        var i,
+        iMax = allButtons.length;
+        for (i = 0; i < iMax; i++) {
+            allButtons[i].removeAttribute('disabled');
+        }
+    }
+
+
+    function addItems() {
+        var i,
+            iMax,
+            video;
+        logger.textContent = 'Finished getting videos'
+        linksDisplay.textContent = JSON.stringify(videoCollection, null, '  ');
+        // reset call number
+        callNumber = 0;
+        setRequestData('createVideo');
+    }
+
+    function addVideosToCollection(videoData) {
+        var i,
+            j,
+            video,
+            vidObj,
+            vidImgs,
+            ingest_profile,
+            iMax = videoData.length;
+        for (i = 0; i < iMax; i++) {
+            j = videoCollection.length;
+            video = videoData[i];
+            videosArray.push(video.id);
+            // make a copy of the object
+            vidObj = copyObj(video);
+
+            /* DI OPTIONS */
+            //retain current images for DI if selected
+            if(captureImages == "true"){
+                console.log("KEEP IMAGES");
+                vidImgs = vidObj.images;
+                console.log(vidImgs);
+            }else{
+                console.log("DO NOT KEEP IMAGES");
+                vidImgs = {};
+            }
+
+            // add ingestion profile
+            if (isDefined(customProfileDisplay)) {
+                ingest_profile = customProfileDisplay;
+            } else {
+                ingest_profile = ingest_profile_display.options[ingest_profile_display.selectedIndex].value;
+            }
+            /* END OF DI OPTIONS */
+
+            // remove the id from the copy
+            delete vidObj.id;
+            delete vidObj.account_id;
+            delete vidObj.complete;
+            delete vidObj.cue_points;
+            delete vidObj.custom_fields;
+            delete vidObj.duration;
+            delete vidObj.digital_master_id;
+            delete vidObj.has_digital_master;
+            delete vidObj.folder_id;
+            delete vidObj.geo;
+            delete vidObj.images;
+            delete vidObj.original_filename;
+            delete vidObj.published_at;
+            delete vidObj.schedule;
+            delete vidObj.state;
+            delete vidObj.sharing;
+            delete vidObj.text_tracks;
+            delete vidObj.updated_at;
+            videoCollection[j] = {};
+            videoCollection[j].cmsRequestBody = vidObj;
+            videoCollection[j].diRequestBody = {};
+
+            /* DI OPTIONS */
+            // Images
+            videoCollection[j].diRequestBody.master = {}; 
+
+            if(Object.keys(vidImgs).length === 0 && vidImgs.constructor === Object){
+                console.log('NO POSTER OR THUMBNAIL');
+                videoCollection[j].diRequestBody["capture-images"] = true;
+            }else if(vidImgs.poster.src && vidImgs.thumbnail.src){
+                console.log('POSTER: ');
+                console.log(vidImgs.poster);
+                console.log('THUMBNAIL: ');
+                console.log(vidImgs.thumbnail);   
+                videoCollection[j].diRequestBody["capture-images"] = false;
+                videoCollection[j].diRequestBody.poster = {};
+                videoCollection[j].diRequestBody.thumbnail = {};
+                videoCollection[j].diRequestBody.poster.url = vidImgs.poster.sources[0].src;
+                videoCollection[j].diRequestBody.thumbnail.url = vidImgs.thumbnail.sources[0].src;
+                console.log('SOURCES: ' + vidImgs.poster.sources[0].src);
+
+                    if(vidImgs.poster.sources[0].width && vidImgs.poster.sources[0].height){
+                        console.log('WIDTH AND HEIGHT CONFIRMED: ' + vidImgs.poster.sources[0].width);
+                        console.log('WIDTH AND HEIGHT CONFIRMED: ' + vidImgs.poster.sources[0].height);
+                        videoCollection[j].diRequestBody.poster.width = vidImgs.poster.sources[0].width;
+                        videoCollection[j].diRequestBody.poster.height = vidImgs.poster.sources[0].height;
+                    }
+
+                    if(vidImgs.thumbnail.sources[0].width && vidImgs.thumbnail.sources[0].height){
+                        videoCollection[j].diRequestBody.thumbnail.width = vidImgs.thumbnail.sources[0].width;
+                        videoCollection[j].diRequestBody.thumbnail.height = vidImgs.thumbnail.sources[0].height;
+                    }
+                }else{
+                    console.log('NO POSTER OR THUMBNAIL');
+                    videoCollection[j].diRequestBody["capture-images"] = true;
+                }
+
+            // Ingestion profile
+            videoCollection[j].diRequestBody.profile = ingest_profile;
+
+            // Add callback
+            videoCollection[j].diRequestBody.callbacks = ["http://solutions.brightcove.com/lchok/APIs/notifications/v1.0/notifications_proxy.php?account=" + targetAccountId];
+            /* END OF DI OPTIONS */
+
+            console.log('TOTAL VIDEO COLLECTION:');
+            console.log(videoCollection);
+        }
+    }
+
+    /**
+     * logs finished message and displays failed items
+     */
+    function finish() {
+        logger.textContent = 'All finished! See below for videos that could not be migrated';
+        linksDisplay.textContent = JSON.stringify(noMasters, null, '  ');
+    }
+
+    /**
+     * sets up the data for the API request
+     * @param {String} id the id of the button that was clicked
+     */
+    function setRequestData(id) {
+        var endPoint = '',
+            requestData = {};
+        // disable buttons to prevent a new request before current one finishes
+        disableButtons();
+        switch (id) {
+            case 'getCount':
+                endPoint = sourceAccountId + '/counts/videos?sort=' + sort;
+                if (isDefined(search)) {
+                    endPoint += '&q=' + search;
+                }
+                requestData.url = baseURL + endPoint;
+                requestData.requestType = 'GET';
+                apiRequest.textContent = requestData.url;
+                requestData.client_id = sourceClientId;
+                requestData.client_secret = sourceClientSecret;
+                getMediaData(requestData, id);
+                break;
+            case 'getVideos':
+            var numVideos = getSelectedValue(numberSelect);
+            offset = limit * callNumber;
+            console.log('OFFSET: ' + callNumber);
+            console.log('LIMIT: ' + limit);
+            if(numVideos < 5){
+                limit = numVideos;
+            }
+            endPoint = sourceAccountId + '/videos?sort=' + sort + '&limit=' + limit + '&offset=' + limit * callNumber;
+            if (isDefined(search)) {
+                endPoint += '&q=' + search;
+            }
+            requestData.url = baseURL + endPoint;
+            requestData.client_id = sourceClientId;
+            requestData.client_secret = sourceClientSecret;
+            requestData.requestType = 'GET';
+            apiRequest.textContent = requestData.url;
+            getMediaData(requestData, id);
+            break;
+            case 'getVideoMaster':
+                var callback = function(master) {
+                        if (isDefined(master)) {
+                            console.log('video has master: ' + master.url);
+                            videoCollection[callNumber].diRequestBody.master.url = master.url;
+                        } else {
+                            // video has no master
+                            console.log('video has no master', videoCollection[callNumber].cmsRequestBody);
+                        }
+                        callNumber++;
+                        if (callNumber < videoCollection.length) {
+                            setRequestData('getVideoMaster');
+                        } else {
+                            addItems();
+                        }
+                    };
+                endPoint = sourceAccountId + '/videos/' + videosArray[callNumber] + '/archive';
+                requestData.url = baseURL + endPoint;
+                requestData.client_id = sourceClientId;
+                requestData.client_secret = sourceClientSecret;
+                requestData.requestType = 'GET';
+                apiRequest.textContent = requestData.url;
+                logger.textContent = 'Getting master for video ' + videoCollection[callNumber].cmsRequestBody.name;
+                getMediaData(requestData, id, callback);
+                break;
+            case 'createVideo':
+                var callback = function(videoId) {
+                    console.log('** CREATE VIDEO **');
+                    if (isDefined(videoId)) {
+                        newVideoId = videoId;
+                        setRequestData('ingestVideo');
+                        console.log('videoId: ' + videoId);
+
+                        // Export match logs
+                        exportMatchLogs(videosArray[callNumber],newVideoId);
+                    } else {
+                        console.log('Issue with creation, see logs');
+                        logger.textContent = 'Video ' + videoCollection[callNumber].cmsRequestBody.name + ' could not be created in the new account - most likely cause is a reference id already in use ... proceeding to the next video...';
+                        noMasters.push(videoCollection[callNumber]);
+
+                        // Export match logs
+                        exportMatchLogs(videosArray[callNumber],"Error (Ref id?)");
+                        
+                        callNumber++;
+
+                        console.log('CREATE VIDEO callNumber ' + callNumber);
+                        console.log('VideoCollection length: ' + videoCollection.length);
+
+                        if (callNumber < videoCollection.length) {
+                            setRequestData('createVideo');
+                        } else {
+                            finish();
+                        }
+                    }
+                }
+                if (isDefined(videoCollection[callNumber].diRequestBody.master.url)) {
+                    logger.textContent = 'Creating new video for ' + videoCollection[callNumber].cmsRequestBody.name;
+                    endPoint = targetAccountId + '/videos';
+                    requestData.url = baseURL + endPoint;
+                    requestData.client_id = targetClientId;
+                    requestData.client_secret = targetClientSecret;
+                    requestData.requestType = 'POST';
+                    requestData.requestBody = JSON.stringify(videoCollection[callNumber].cmsRequestBody);
+                    apiRequest.textContent = requestData.url;
+                    getMediaData(requestData, id, callback);
+                } else {
+                    logger.textContent = 'Video ' + videoCollection[callNumber].cmsRequestBody.name + ' has no video master...proceeding to the next video...';
+                    noMasters.push(videoCollection[callNumber]);
+
+                    // send export logs
+                    exportMatchLogs('Error (no master): ' + videoCollection[callNumber],'No target video ID created');
+
+                    callNumber++;
+
+                    if (callNumber < videoCollection.length) {
+                        setRequestData('createVideo');
+                    } else {
+                        finish();
+                    }
+                }
+                break;
+            case 'ingestVideo':            
+                var callback = function() {
+                    console.log('** INGEST VIDEO **');
+                    console.log('callNumber: ' + callNumber);
+                    callNumber++;
+                    if (callNumber < videoCollection.length) {
+                        setRequestData('createVideo');
+                    } else {
+                        finish();
+                    }
+                }
+                logger.textContent = 'Ingesting new video for ' + videoCollection[callNumber].cmsRequestBody.name;
+                endPoint = targetAccountId + '/videos/' + newVideoId + diSuffix;
+                requestData.url = diBaseURL + endPoint;
+                requestData.client_id = targetClientId;
+                requestData.client_secret = targetClientSecret;
+                requestData.requestType = 'POST';
+                requestData.requestBody = JSON.stringify(videoCollection[callNumber].diRequestBody);
+                apiRequest.textContent = requestData.url;
+                getMediaData(requestData, id, callback);
+                break;
+        }
+    }
+
+    /**
+     * send API request to the proxy
+     * @param  {Object} requestData options for the request
+     * @param  {String} requestID the type of request = id of the button
+     * @param  {Function} [callback] callback function
+     */
+    function getMediaData(options, requestID, callback) {
+        var httpRequest = new XMLHttpRequest(),
+            responseRaw,
+            parsedData,
+            requestParams,
+            dataString,
+            sources,
+            // response handler
+            getResponse = function() {
+                try {
+                    if (httpRequest.readyState === 4) {
+                        if (httpRequest.status === 200) {
+                            // check for completion
+                            if (requestID === 'getCount') {
+                                responseRaw = httpRequest.responseText;
+                                parsedData = JSON.parse(responseRaw);
+                                // set total videos
+                                totalVideos = parsedData.count;
+                                totalCalls = Math.ceil(totalVideos / limit);
+                                logger.textContent = 'Total videos: ' + totalVideos;
+                                setRequestData('getVideos');
+                            } else if (requestID === 'getVideos') {
+                                if (httpRequest.responseText === '[]') {
+                                    // no video returned
+                                    alert('no video returned');
+                                }
+                                responseRaw = httpRequest.responseText;
+                                parsedData = JSON.parse(responseRaw);
+                                addVideosToCollection(parsedData);
+                                // videoCollection = videoCollection.concat(parsedData);
+                                callNumber++;
+                                if (callNumber < totalCalls) {
+                                    logger.textContent = 'Getting video set ' + callNumber;
+                                    setRequestData('getVideos');
+                                } else {
+                                    logger.textContent = 'Video data for ' + totalVideos + ' retrieved; getting sources...';
+                                    callNumber = 0;
+                                    setRequestData('getVideoMaster');
+                                }
+                            } else if (requestID === 'getVideoMaster') {
+                                if (httpRequest.responseText === '{}') {
+                                    console.log('No master');
+                                    // nothing returned
+                                    master = null;
+                                    callback(master);
+                                } else {
+                                    responseRaw = httpRequest.responseText;
+                                    master = JSON.parse(responseRaw);
+                                    // increment offset
+                                    callback(master);
+                                }
+
+                            } else if (requestID === 'createVideo') {
+                                parsedData = JSON.parse(httpRequest.responseText);
+                                callback(parsedData.id);
+                            } else if (requestID === 'ingestVideo') {
+                                parsedData = JSON.parse(httpRequest.responseText);
+                                callback();
+                            } else {
+                              alert('There was a problem with the request. Request returned ' + httpRequest.status);
+                            }
+                        }
+                    }
+                } catch (e) {
+                  console.dir('Caught Exception: ' + e);
+                }
+            };
+
+        // set up request data
+        requestParams = "url=" + encodeURIComponent(options.url) + "&requestType=" + options.requestType + "&client_id=" + options.client_id + "&client_secret=" + options.client_secret + "&accountid=" + targetAccountId;
+        
+        // add requestBody if any
+        if (isDefined(options.requestBody)) {
+            requestParams += "&requestBody=" + encodeURIComponent(options.requestBody);
+        }
+
+        // set response handler
+        httpRequest.onreadystatechange = getResponse;
+        // open the request
+        httpRequest.open('POST', proxyURL);
+        // set headers
+        httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        // open and send request
+        httpRequest.send(requestParams);
+    }
+
+    function exportMatchLogs(sourcevideoid, targetvideoid) {
+        var responseExport = document.getElementById("responseExport");
+        var xmlhttpExport = new XMLHttpRequest();
+        xmlhttpExport.onreadystatechange=function(){
+          if (xmlhttpExport.readyState==4 && xmlhttpExport.status==200){
+            responseExport.innerHTML='<a href="'+xmlhttpExport.responseText+'">'+xmlhttpExport.responseText+'</a>';
+          }
+        }
+        xmlhttpExport.open("POST","exportLogs.php",true);
+
+        //Must add this request header to XMLHttpRequest request for POST
+        xmlhttpExport.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttpExport.send("source_account_id=" + sourceAccountId + "&target_account_id=" + targetAccountId + "&source_video_id=" + sourcevideoid + "&target_video_id=" + targetvideoid);
+    }
+
+    function init() {
+        // event handlers
+        doMigration.addEventListener('click', function() {
+            var numVideos;
+            /* get the inputs
+             */
+            targetAccountId = target_account_id.value;
+            targetClientId = target_client_id.value;
+            targetClientSecret = target_client_secret.value;
+            sourceAccountId = source_account_id.value;
+            sourceClientId =  source_client_id.value;
+            sourceClientSecret = source_client_secret.value;
+            captureImages = capture_images.value;
+            customProfileDisplay = custom_profile_display.value;
+            sort = getSelectedValue(sortSelect);
+            sortDirection = getSelectedValue(directionSelect);
+            if (isDefined(sortDirection)) {
+                sort = sortDirection + sort;
+            }
+            search = searchStr.value;
+            numVideos = getSelectedValue(numberSelect);
+            // add title and description
+            // if all videos wanted, get count; otherwise get videos
+            if (numVideos === 'all') {
+                // we need to get the count
+                setRequestData('getCount');
+            } else {
+                totalVideos = parseInt(numVideos);
+                totalCalls = Math.ceil(numVideos / limit);
+                logger.textContent = 'Total videos to retrieve: ' + totalVideos;
+                setRequestData('getVideos');
+            }
+        });
+        linksDisplay.addEventListener('click', function() {
+            linksDisplay.select();
+        });
+
+        var i,
+            iMax = profilesArray.length,
+            newOpt;
+                // add options for standard ingest profiles
+                for (i = 0; i < iMax; i++) {
+                    newOpt = new Option(profilesArray[i]);
+                    ingest_profile_display.add(newOpt);
+                }
+    }
+
+    init();
+})(window, document);
+    </script>
+</body>
+</html>

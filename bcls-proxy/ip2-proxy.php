@@ -16,8 +16,9 @@
  * @returns {string} $response - JSON response received from the API
  */
 
+// security checks
 if (strpos($_SERVER['HTTP_REFERER'], 'solutions.brightcove.com') == false && strpos($_SERVER['HTTP_REFERER'], 'docs.brightcove.com') == false && strpos($_SERVER['HTTP_REFERER'], 's.codepen.io') == false && strpos($_SERVER['HTTP_REFERER'], 'players.brightcove.net') == false) {
-    exit('Only requests from http://docs.brightcove.com or http:solutions.brightcove.com are accepted by this proxy');
+    exit('{"ERROR":"Only requests from http://docs.brightcove.com or http:solutions.brightcove.com are accepted by this proxy"}');
 }
 // CORS enablement
 header("Access-Control-Allow-Origin: *");
@@ -80,6 +81,17 @@ if ($_POST["url"]) {
 } else {
     $request = "https://ingestion.api.brightcove.com/v1/accounts/57838016001/configuration";
 }
+
+// more security checks
+$needle = '.com';
+$endapi = strpos($request, $needle) + 4;
+$nextChar = substr($request, $endapi, 1);
+if (strpos($request, 'api.brightcove.com') == false) {
+    exit('{"ERROR":"Only requests to Brightcove APIs are accepted by this proxy"}');
+} else if ($nextChar !== '/' && $nextChar !== '?') {
+    exit('{"ERROR": "There was a problem with your API request - please check the URL"}');
+}
+
 
 
 //send the http request

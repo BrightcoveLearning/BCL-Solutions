@@ -16,9 +16,11 @@
  * @returns {string} $response - JSON response received from the API
  */
 
+// security checks
 if (strpos($_SERVER['HTTP_REFERER'], 'solutions.brightcove.com') == false && strpos($_SERVER['HTTP_REFERER'], 'docs.brightcove.com') == false && strpos($_SERVER['HTTP_REFERER'], 's.codepen.io') == false && strpos($_SERVER['HTTP_REFERER'], 'players.brightcove.net') == false) {
-    exit('Only requests from http://docs.brightcove.com or http:solutions.brightcove.com are accepted by this proxy');
+    exit('{"ERROR":"Only requests from http://docs.brightcove.com or http:solutions.brightcove.com are accepted by this proxy"}');
 }
+
 // CORS enablement
 header("Access-Control-Allow-Origin: *");
 
@@ -65,9 +67,14 @@ if ($_POST["requestType"]) {
 } else {
     $method = "GET";
 }
-
+// more security checks
+$needle = '.com';
+$endapi = strpos($_POST["url"], $needle) + 4;
+$nextChar = substr($_POST['url'], $endapi, 1);
 if (strpos($_POST["url"], 'api.brightcove.com') == false) {
-    exit('Only requests to Brightcove APIs are accepted by this proxy');
+    exit('{"ERROR":"Only requests to Brightcove APIs are accepted by this proxy"}');
+} else if ($nextChar !== '/' && $nextChar !== '?') {
+    exit('{"ERROR": "There was a problem with your API request - please check the URL"}');
 }
 // get the URL and authorization info from the form data
 $request = $_POST["url"];
@@ -95,7 +102,7 @@ if ($response === FALSE) {
     $fileHandle      = fopen($logFileLocation, 'a') or die("-1");
     fwrite($fileHandle, $logEntry);
     fclose($fileHandle);
-    echo "Error: there was a problem with your API call"+
+    echo '{"ERROR": "There was a problem with your API call"}'+
     die(curl_error($ch));
 }
 

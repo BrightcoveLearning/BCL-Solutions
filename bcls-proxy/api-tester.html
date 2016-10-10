@@ -35,7 +35,9 @@
 </script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/js/vendor/modernizr.js"></script>
 </head>
-
+<script type="text/javascript">
+        window.location = "//docs.brightcove.com/en/video-cloud/concepts/api-tester/api-tester.html";
+    </script>
 <body>
     <!-- header navbar -->
     <div id="navWrapper" class="fixed"></div>
@@ -52,76 +54,8 @@
         <div id="main" class="large-10 small-12 columns">
             <div id="top" class="section">
                 <h1>api-proxy tester</h1>
-                <p>Welcome to the Brightcove Learning Services proxy tester. The tester can be used for the following APIs:
-                    <ul>
-                        <li>Perform, Video Cloud: Player Management</li>
-                        <li>Video Cloud: Analytics</li>
-                        <li>Video Cloud: Dynamic Ingest</li>
-                        <li>Video Cloud: CMS</li>
-                        <li>Video Cloud: Ingest Profiles</li>
-                    </ul>
+                <p>The page you are looking for has moved to <a href="//docs.brightcove.com/en/video-cloud/concepts/api-tester/api-tester.html">http://docs.brightcove.com/en/video-cloud/concepts/api-tester/api-tester.html</a>. You should be redirected automatically, but if not, click that link.
                 </p>
-            </div>
-            <div class="section" id="gettingCredentials">
-                <h2>Getting Credentials</h2>
-                <p>To get a <code>client_id</code> and <code>client_secret</code>, you will need to go to the OAuth UI and register this app:</p>
-                    <ul>
-                        <li>Perform: <a href="https://studio.brightcove.com/products/perform/admin/oauthsettings">https://studio.brightcove.com/products/perform/admin/oauthsettings</a></li>
-                        <li>Video Cloud: <a href="https://studio.brightcove.com/products/videocloud/admin/oauthsettings">https://studio.brightcove.com/products/videocloud/admin/oauthsettings</a></li>
-
-                    </ul>
-                <p>You can also get your credentials via CURL or Postman - see:</p>
-                <ul>
-                    <li><a href="https://docs.brightcove.com/en/video-cloud/oauth-api/guides/get-client-credentials.html">Get Client Credentials Using CURL</a></li>
-                    <li><a href="https://docs.brightcove.com/en/video-cloud/oauth-api/guides/get-client-credentials-postman.html">Get Client Credentials Using Postman</a></li>
-                </ul>
-            </div>
-
-            <div class="section" id="ajax">
-                <h2>API tester</h2>
-                <p>This test sends an API GET request to the proxy via AJAX</p>
-                    <div class="form-wrapper">
-                        <fieldset>
-                            <legend>Tester for Brightcove APIs</legend>
-                            <p>Submits to http://solutions.brightcove.com:<strong>8001</strong></p>
-                                <p>
-                                    Client id:
-                                    <input name="client_id" id="ajax_client_id" type="text" value="">
-                                </p>
-                                <p>
-                                    Client secret:
-                                    <input name="client_secret" id="ajax_client_secret" type="text" value="">
-                                </p>
-                                <p>
-                                    Call type:
-                                    <select name="requestType" id="ajax_requestType">
-                                        <option selected="selected">GET</option>
-                                        <option>POST</option>
-                                        <option>PUT</option>
-                                        <option>PATCH</option>
-                                        <option>DELETE</option>
-                                    </select>
-                                </p>
-                                <p>
-                                    Full request URL for the API call:<br />
-                                    <textarea name="url" id="ajax_url"></textarea>
-                                </p>
-                                <p>
-                                    Call body (optional - include if you need to submit data with the request):<br />
-                                    <textarea name="requestBody" id="ajax_requestBody"></textarea>
-                                </p>
-                                <p>
-                                    <input id="ajaxSubmit" type="submit" value="Submit">
-                                </p>
-                                <p>Response:</p>
-                            <pre><code id="ajax_response"></code></pre>
-                        </fieldset>
-                    </div>
-                </div>
-            <div class="section" id="codeAJAX">
-                <h2>Sample code</h2>
-                <p>Sample code for calling proxy via AJAX (this sample uses jquery, but that's not required)</p>
-                <script src="https://gist.github.com/e07841e5fd480ee6334b.js"></script>
             </div>
         </div>
     </div>

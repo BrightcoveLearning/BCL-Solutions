@@ -82,5 +82,9 @@ if ($response === FALSE) {
 }
 
 // return the response to the AJAX caller
+$responseDecoded = json_decode($response);
+if (!isset($responseDecoded)) {
+	$response = '{null}';
+}
 echo $response;
 ?>

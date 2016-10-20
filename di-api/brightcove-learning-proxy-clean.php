@@ -14,8 +14,10 @@
  * @returns {string} $response - JSON response received from the API
  */
 
-// CORS enablement
+// CORS enablement and other headers
 header("Access-Control-Allow-Origin: *");
+header("Content-type: application/json");
+header("X-Content-Type-Options: nosniff");
 
 // set up request for access token
 $data = array();
@@ -98,5 +100,9 @@ if ($response === FALSE) {
 // Decode the response
 // $responseData = json_decode($response, TRUE);
 // return the response to the AJAX caller
+$responseDecoded = json_decode($response);
+if (!isset($responseDecoded)) {
+	$response = '{null}';
+}
 echo $response;
 ?>

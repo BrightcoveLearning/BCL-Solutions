@@ -21,8 +21,10 @@ if (strpos($_SERVER['HTTP_REFERER'], 'solutions.brightcove.com') == false && str
     exit('{"ERROR":"Only requests from http://docs.brightcove.com or http:solutions.brightcove.com are accepted by this proxy"}');
 }
 
-// CORS enablement
+// CORS enablement and other headers
 header("Access-Control-Allow-Origin: *");
+header("Content-type: application/json");
+header("X-Content-Type-Options: nosniff");
 
 // set up request for access token
 $data = array();
@@ -109,5 +111,9 @@ if ($response === FALSE) {
 // Decode the response
 // $responseData = json_decode($response, TRUE);
 // return the response to the AJAX caller
+$responseDecoded = json_decode($response);
+if (!isset($responseDecoded)) {
+	$response = '{null}';
+}
 echo $response;
 ?>

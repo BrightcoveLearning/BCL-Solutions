@@ -1,97 +1,29 @@
 <?php
 // POST won't work for JSON data
 $problem = "No errors";
+$notificationType = null;
 try {
-	$json    = file_get_contents('php://input');
-	$decoded = json_decode($json, true);
+    $json    = file_get_contents('php://input');
+    $decoded = json_decode($json, true);
 } catch (Exception $e) {
-	$problem = $e->getMessage();
+    $problem = $e->getMessage();
 }
 
-// Begin by checking to see if "entity" is included in the POST request.
-// If it is, assign its value to the $entity Variable.
-// If it is not, assign the value of null to $entity.
-
-if (isset($decoded["timestamp"])) {
-	$timestamp        = $decoded["timestamp"];
-	$notificationType = 'CMS API';
+// below is check just needed for this app, because it
+// is also a target for CMS API notifications
+// for now, it is not logging those
+if (isset($decoded['timestamp'])) {
+    $notificationType = 'CMS API';
 } else {
-	$timestamp        = null;
-	$notificationType = 'Dynamic Ingest API';
+    // turn notification into pretty printed JSON
+    $notification = json_encode($decoded, JSON_PRETTY_PRINT);
 }
 
-if (isset($decoded["entity"])) {
-	$entityId = $decoded["entity"];
-} else {
-	$entityId = null;
-}
 
-if (isset($decoded["entityType"])) {
-	$entityType = $decoded["entityType"];
-} else {
-	$entityType = null;
-}
 
-if (isset($decoded["account_id"])) {
-	$accountId = $decoded["account_id"];
-} else {
-	$accountId = null;
-}
-
-if (isset($decoded["event"])) {
-	$event = $decoded["event"];
-} else {
-	$event = null;
-}
-
-if (isset($decoded["video"])) {
-	$video = $decoded["video"];
-} else {
-	$video = null;
-}
-
-if (isset($decoded["version"])) {
-	$version = $decoded["version"];
-} else {
-	$version = null;
-}
-
-if (isset($decoded["errorMessage"])) {
-	$errorMessage = $decoded["errorMessage"];
-} else {
-	$errorMessage = null;
-}
-
-if (isset($decoded["status"])) {
-	$status = $decoded["status"];
-} else {
-	$status = null;
-}
-
-if (isset($decoded["action"])) {
-	$action = $decoded["action"];
-} else {
-	$action = null;
-}
-
-// Next build a string that contains the current date and time as well as
-// the value for each key that was included in the request separated by
-// a comma so that it can easily be imported as a CSV file.
-
-$logEntry = "\nRaw Response: ".$json.
-"\nNotification Origin: ".$notificationType.
-"\n".date("Y-m-d H:i:s")." UTC ".
-"\nTimestamp: ".$timestamp.
-"\nVersion: ".$version.
-"\nEntity: ".$entityId.
-"\nEntity Type: ".$entityType.
-"\nAccount ID: ".$accountId.
-"\nVideo ID: ".$video.
-"\nStatus: ".$status.
-"\nError Message: ".$errorMessage.
-"\nAction: ".$action.
-"\nNotification Errors: ".$problem.
-"\n-------------------------------";
+$logEntry = $notification.
+"\nErrors receiving notificatons: ".$problem.
+"\n-------------------------------\n";
 
 // Lastly, tell PHP where it can find the log file and tell PHP to open it
 // and add the string we created earlier to it.
@@ -103,5 +35,6 @@ if ($notificationType !== 'CMS API') {
     fclose($fileHandle);
 }
 
+// line below is displayed when you browse the app directly
 echo "Dynamic Ingest callback app is running";
 ?>

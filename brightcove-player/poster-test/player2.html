@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+    </head>
+    <style media="screen">
+        #a {
+            background-color: #A5C13F;
+            color: #ffffff;
+            font-weight: bold;
+            padding: 1em;
+        }
+        #b {
+            background-color: #409CA9;
+            color: #ffffff;
+            font-weight: bold;
+            padding: 1em;
+        }
+        #pa {
+            border: 1px #A5C13F solid;
+            padding: 1em;
+        }
+        #pb {
+            border: 1px #409CA9 solid;
+            padding: 1em;
+        }
+    </style>
+    <body>
+    <p><button id="a">Bolt</button> <button id="b">Non-Bolt</button></p>
+    <div id="pa" style="display:block;">
+        <div style="display: block; position: relative;"><div style="padding-top: 56.25%;"><video data-video-id="5215610031001"
+data-account="57838016001"
+data-player="SyAkRq2Zl"
+data-embed="default"
+data-application-id
+class="video-js"
+controls
+style="width: 100%; height: 100%; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px;"></video>
+<script src="//players.brightcove.net/57838016001/SyAkRq2Zl_default/index.min.js"></script></div></div>
+    </div>
+    <div id="pb" style="display:none;">
+        <div style="display: block; position: relative;"><div style="padding-top: 56.25%;"><video data-video-id="5214230978001"
+data-account="57838016001"
+data-player="SyAkRq2Zl"
+data-embed="default"
+data-application-id
+class="video-js"
+controls
+style="width: 100%; height: 100%; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px;"></video>
+<script src="//players.brightcove.net/57838016001/SyAkRq2Zl_default/index.min.js"></script></div></div>
+    </div>
+    <script>
+    var a = document.getElementById('a'),
+        b = document.getElementById('b'),
+        pa = document.getElementById('pa'),
+        pb = document.getElementById('pb');
+
+    a.addEventListener('click', function() {
+        pa.setAttribute('style', 'display:block;');
+        pb.setAttribute('style', 'display:none;')
+    });
+    b.addEventListener('click', function() {
+        pb.setAttribute('style', 'display:block;');
+        pa.setAttribute('style', 'display:none;')
+    });
+    </script>
+    </body>
+</html>

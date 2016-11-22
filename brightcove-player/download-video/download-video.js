@@ -6,7 +6,7 @@ videojs.plugin('downloadVideoPlugin', function() {
       totalRenditions,
       mp4Ara=[],
       highestQuality,
-      controlBar,
+      spacer,
       newElement = document.createElement('div'),
       newLink = document.createElement('a'),
 	  newImage = document.createElement('img');

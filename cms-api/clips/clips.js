@@ -42,15 +42,12 @@ var BCLS = (function (window, document) {
                 endpoint = '/' + account_id.value + '/counts/videos?q=%2Bis_clip:true';
                 options.url = baseURL + endpoint;
                 options.requestType = 'GET';
-                console.log('count url', options.url );
                 makeRequest(options, function(response) {
                     if (response) {
                         responseDecoded = JSON.parse(response);
                         videoCount = parseInt(responseDecoded.count);
-                        console.log('videoCount', videoCount);
                         // calculate total calls needed to get the video clips
                         totalCalls = Math.ceil(videoCount / limit);
-                        console.log('totalCalls', totalCalls);
                         setUpRequest('getVideoClips');
                     }
                 });
@@ -60,7 +57,6 @@ var BCLS = (function (window, document) {
                 endpoint = '/' + account_id.value + '/videos?q=%2Bis_clip:true&limit=' + limit + '&offset=' + (limit * callNumber);
                 options.url = baseURL + endpoint;
                 options.requestType = 'GET';
-                console.log('clips url', options.url );
                 makeRequest(options, function(response) {
                     if (response) {
                         responseDecoded = JSON.parse(response);
@@ -75,7 +71,6 @@ var BCLS = (function (window, document) {
                         setUpRequest('getVideoClips');
                     } else {
                         // got all the clips
-                        console.log('videoData', videoData);
                         // update status
                         status.textContent =+ videoData.length + ' video clips found \n';
                         // reset the callNumber
@@ -88,7 +83,6 @@ var BCLS = (function (window, document) {
                 endpoint = '/' + account_id.value + '/videos/' + videoData[videoNumber].id + '/assets/renditions';
                 options.url = baseURL + endpoint;
                 options.requestType = 'GET';
-                console.log('renditions url', options.url );
                 // update status
                 status.textContent =+ 'fetching renditions for clip ' + videoData[callNumber].name + ' \n';
                 makeRequest(options, function(response) {
@@ -97,7 +91,11 @@ var BCLS = (function (window, document) {
                         renditionData = responseDecoded;
                         // update status
                         status.textContent =+ renditionData.length + ' renditions found for clip ' + videoData[callNumber].name + ' \n';
-                        setUpRequest('deleteRendition');
+                        if (renditionData.length > 0) {
+                            setUpRequest('deleteRendition');
+                        } else {
+                            setUpRequest('getPoster');
+                        }
                     } else {
                         // no renditions
                         status.textContent =+ 'no renditions found for clip number ' + videoData[callNumber].name + ' \n';
@@ -109,7 +107,6 @@ var BCLS = (function (window, document) {
                 endpoint = '/' + account_id.value + '/videos/' + videoData[videoNumber].id + '/assets/renditions/' + renditionData[renditionNumber].id;
                 options.url = baseURL + endpoint;
                 options.requestType = 'DELETE';
-                console.log('delete rendition url', options.url );
                 makeRequest(options, function(response) {
                     // there should be no response unless there was an error
                     if (response) {
@@ -139,7 +136,6 @@ var BCLS = (function (window, document) {
                 endpoint = '/' + account_id.value + '/videos/' + videoData[videoNumber].id + '/assets/poster';
                 options.url = baseURL + endpoint;
                 options.requestType = 'GET';
-                console.log('poster url', options.url );
                 makeRequest(options, function(response) {
                     if (response) {
                         posterData = JSON.parse(response);
@@ -154,7 +150,6 @@ var BCLS = (function (window, document) {
                 endpoint = '/' + account_id.value + '/videos/' + videoData[videoNumber].id + '/assets/poster/' + posterData.id;
                 options.url = baseURL + endpoint;
                 options.requestType = 'DELETE';
-                console.log('delete poster url', options.url );
                 makeRequest(options, function(response) {
                     // no response unless something went wront
                     if (response) {
@@ -163,16 +158,15 @@ var BCLS = (function (window, document) {
                         setUpRequest('getThumbnail');
                     } else {
                         // success; do thumbnail
-                        status.textContent += 'Poster deleted for ' + videoData[callNumber].name + '\n';
+                        status.textContent += 'Poster deleted for ' + videoData[callNumber].name + ' \n';
                         setUpRequest('getThumbnail');
                     }
                  });
                 break;
             case 'getThumbnail':
-                endpoint = '/' + account_id.value + '/videos/' + videoData[videoNumber].id + '/assets/thumbnail';
+                endpoint = '/' + account_id.value + '/videos/' + videoData[callNumber].id + '/assets/thumbnail';
                 options.url = baseURL + endpoint;
                 options.requestType = 'GET';
-                console.log('thumnbnail url', options.url );
                 makeRequest('options', function(response) {
                     if (response) {
                         thumbnailData = JSON.parse(response);
@@ -193,7 +187,6 @@ var BCLS = (function (window, document) {
                 endpoint = '/' + account_id.value + '/videos/' + videoData[videoNumber].id + '/assets/thumbnail/' + thumbnailData.id;
                 options.url = baseURL + endpoint;
                 options.requestType = 'DELETE';
-                console.log('delete thumbnail url', options.url );
                 makeRequest(options, function(response) {
                     // no response unless something went wrong
                     if (response) {
@@ -208,7 +201,7 @@ var BCLS = (function (window, document) {
                         }
                     } else {
                         // success
-                        status.textContent += 'Thumbnail deleted for ' + videoData[callNumber].name + '\n';
+                        status.textContent += 'Thumbnail deleted for ' + videoData[callNumber].name + ' \n';
                         // do next video if any
                         videoNumber++;
                         if (videoNumber < videoCount) {
@@ -244,7 +237,9 @@ var BCLS = (function (window, document) {
                     if (httpRequest.readyState === 4) {
                         if (httpRequest.status === 200 || httpRequest.status === 204) {
                             response = httpRequest.responseText;
-                            console.log('response', response);
+                            if (response === '{null}') {
+                                response = null;
+                            }
                             // return the response
                             callback(response);
                         } else {
@@ -284,7 +279,7 @@ var BCLS = (function (window, document) {
         if (account_id.value) {
             setUpRequest('getCount');
         } else {
-            console.log('no account id');
+            alert('no account id submitted');
         }
     });
 

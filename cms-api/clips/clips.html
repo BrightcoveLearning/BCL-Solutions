@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Manage Clips Sample</title>
+        <style>
+            body {
+                font-family: sans-serif;
+            }
+            fieldset {
+                border: 1px #999999 solid;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Code Sample: Managing Clips</h1>
+        <fieldset>
+            <legend>Inputs</legend>
+            <p>Account id: <input type="text" name="account_id" id="account_id" value=""></p>
+            <p>Client id: <input type="text" name="client_id" id="client_id" value=""></p>
+            <p>Client secret: <input type="text" name="client_secret" id="client_secret" value=""></p>
+            <p><button id="goBtn">Remove all clip assets</button></p>
+        </fieldset>
+        <h2>Results</h2>
+        <pre id="status"></pre>
+        <script src="clips.js"></script>
+    </body>
+</html>

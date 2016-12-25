@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Retranscode App</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            color: #293b70;
+            margin: 4em;
+        }
+        fieldset {
+            border: 1px #293b70 solid;
+            border-radius: 4px;
+        }
+        legend {
+            text-align: center;
+        }
+        iframe {
+            width: 95%;
+            height: 95%;
+        }
+        button {
+            padding: 10px;
+            border: 4px #ecb612 solid;
+            border-radius: 5px;
+            background-color: #293b70;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1em;
+        }
+        select {
+            background: transparent;
+            border: none;
+            font-size: 14px;
+            height: 30px;
+            padding: 5px;
+            width: 270px;
+        }
+        .highlight {
+            padding: 10px;
+            border: 1px #990000 solid;
+            border-radius: 5px;
+            background-color: #F9F9F9;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Retranscoding App</h1>
+    <p>This app retranscode all the videos in a Video Cloud account. There are limitations:</p>
+    <ul>
+        <li>One ingest profile will be used for all videos</li>
+        <li>Because the app respects rate limiting for the system, it may take a long time to run on very large libraries</li>
+    </ul>
+    <div class="highlight">Notes:
+        <ul>
+            <li>Once transcoding begins, do not leave this page until you see the completed message! If you do, you will have to start over.</li>
+            <li>If you want to use a custom ingest profile from your account, you will need client credentials that include permissions for the Ingest Profiles API - see the <a href="get-credentials.html">instructions for getting these credentials</a>.</li>
+        </ul>
+    </div>
+    <fieldset>
+        <legend>Inputs</legend>
+        <p>Account id: <input type="text" id="account"></p>
+        <p>Client id: <input type="text" id="cid"></p>
+        <p>Client secret: <input type="text" id="secret"></p>
+        <p><input type="checkbox" id="captureImages"> <label for="captureImages">Capture new images?</label></p>
+        <p>
+            <select name="profile" id="profile">
+                <option value="videocloud-default-v1">videocloud-default-v1</option>
+                <option value="high-resolution">high-resolution</option>
+                <option value="single-bitrate-high">single-bitrate-high</option>
+                <option value="single-bitrate-standard">single-bitrate-standard</option>
+                <option value="screencast-1280">screencast-1280</option>
+                <option value="smart-player-transition">smart-player-transition</option>
+                <option value="audio-only">audio-only</option>
+            </select> <span id="profileText">(standard profiles)</span> <button id="profileBtn">Get Account Profiles Instead</button>
+        </p>
+        <p><button id="goBtn">Start Retranscoding</button></p>
+    </fieldset>
+    <fieldset>
+        <legend>Status Messages</legend>
+        <pre id="messages"></pre>
+    </fieldset>
+    <script src="retranscode.js"></script>
+</body>
+
+</html>

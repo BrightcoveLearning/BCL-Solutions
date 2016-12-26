@@ -38,6 +38,9 @@
             padding: 5px;
             width: 270px;
         }
+        td {
+            font-weight: bold;
+        }
         .highlight {
             padding: 10px;
             border: 1px #990000 solid;
@@ -81,7 +84,26 @@
     </fieldset>
     <fieldset>
         <legend>Status Messages</legend>
-        <pre id="messages"></pre>
+        <div id="messages">
+            <table>
+                <tr>
+                    <td>Total videos in account</td>
+                    <td id="videoCount"></td>
+                </tr>
+                <tr>
+                    <td>Total videos in account</td>
+                    <td id="videosRetrieved"></td>
+                </tr>
+                <tr>
+                    <td>Videos re-transcoded</td>
+                    <td id="videosRetranscoded"></td>
+                </tr>
+                <tr>
+                    <td>Current status</td>
+                    <td id="status"></td>
+                </tr>
+            </table>
+        </div>
     </fieldset>
     <script src="retranscode.js"></script>
 </body>

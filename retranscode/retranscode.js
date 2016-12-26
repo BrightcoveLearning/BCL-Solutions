@@ -1,13 +1,22 @@
 (function(window, document) {
-    var account       = document.getElementById('account'),
-        cid           = document.getElementById('cid'),
-        secret        = document.getElementById('secret');
-        captureImages = document.getElementById('captureImages'),
-        profiles      = document.getElementById('profile'),
-        profileText   = document.getElementById('profileText'),
-        profileBtn    = document.getElementById('profileBtn'),
-        goBtn         = document.getElementById('goBtn'),
-        messages      = document.getElementById('messages');
+    var account            = document.getElementById('account'),
+        cid                = document.getElementById('cid'),
+        secret             = document.getElementById('secret');
+        captureImages      = document.getElementById('captureImages'),
+        profiles           = document.getElementById('profile'),
+        profileText        = document.getElementById('profileText'),
+        profileBtn         = document.getElementById('profileBtn'),
+        goBtn              = document.getElementById('goBtn'),
+        videoCount         = document.getElementById('videoCount'),
+        videosRetrieved    = document.getElementById('videosRetrieved'),
+        videosRetranscoded = document.getElementById('videosRetranscoded'),
+        status             = document.getElementById('status'),
+        selectedProfile,
+        videoIDs           = [],
+        newImages          = false,
+        totalVideos        = 0,
+        totalCMSCalls      = 0,
+        callNumber         = 0;
 
     // event listeners
     profileBtn.addEventListener('click', function() {
@@ -18,9 +27,34 @@
         }
     });
 
+    goBtn.addEventListener('click', function() {
+        if (checkRequired()) {
+            selectedProfile = getSelectedValue(profiles);
+            newImages = isChecked(captureImages);
+            createRequest('getVideoCount');
+        } else {
+            alert('The account id, client id, and client secret are required');
+        }
+    });
 
+    /**
+     * check for required fields
+     * @return {Boolean} true if all required fields have values
+     */
     function checkRequired() {
         if (account.value && cid.value && secret.value) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * determines if checkbox is checked
+     * @param  {htmlElement}  e the checkbox to check
+     * @return {Boolean}  true if box is checked
+     */
+    function isChecked(e) {
+        if (e.value) {
             return true;
         }
         return false;
@@ -43,12 +77,18 @@
         }
     }
 
+    /**
+     * createRequest sets up requests, send them to makeRequest(), and handles responses
+     * @param  {string} type the request type
+     */
     function createRequest(type) {
-        var options   = {},
-            ipBaseURL = 'https://ingestion.api.brightcove.com/v1/accounts/' + account.value,
-            diBaseURL = 'https://ingest.api.brightcove.com/v1/accounts/' + account.value,
+        var options    = {},
+            ipBaseURL  = 'https://ingestion.api.brightcove.com/v1/accounts/' + account.value,
+            cmsBaseURL = 'https://cms.api.brightcove.com/v1/accounts/' + account.value,
+            diBaseURL  = 'https://ingest.api.brightcove.com/v1/accounts/' + account.value,
             endpoint,
             responseDecoded,
+            limit = 25,
             i,
             iMax,
             el,
@@ -83,9 +123,31 @@
                     }
                 });
                 break;
+            case 'getVideoCount':
+                options.proxyURL = './profiles-proxy.php';
+                endpoint = '/counts/videos';
+                options.url = cmsBaseURL + endpoint;
+                makeRequest(options, function(response) {
+
+                });
+                break;
+            case 'getVideos':
+                options.proxyURL = './profiles-proxy.php';
+                endpoint = '/videos?sort=created_at&limit=' + limit + '&offset=' + (callNumber * limit);
+                options.url = cmsBaseURL + endpoint;
+                makeRequest(options, function(response) {
+
+                });
+                break;
+            case 'transcodeVideo':
+                options.proxyURL = './retranscode-proxy.php';
+                endpoint = '/videos/' + videoIDs[callNumber];
+                options.url = cmsBaseURL + endpoint;
+                makeRequest(options, function(response) {
+
+                });
+                break;
         }
-
-
     }
 
     /**
@@ -93,8 +155,9 @@
      * @param  {Object} requestData options for the request
      * @param  {String} requestData options.url the full API request URL
      * @param  {String="GET","POST","PATCH","PUT","DELETE"} requestData [options.requestType="GET"] HTTP type for the request
-     * @param  {String} requestData [options.client_id] client id for the account (default is in the proxy)
-     * @param  {String} requestData [options.client_secret] client secret for the account (default is in the proxy)
+     * @param  {String} requestData options.proxyURL proxyURL to send the request to
+     * @param  {String} requestData options.client_id client id for the account (default is in the proxy)
+     * @param  {String} requestData options.client_secret client secret for the account (default is in the proxy)
      * @param  {JSON} requestData [options.requestData] Data to be sent in the request body in the form of a JSON string
      * @param  {Function} [callback] callback function that will process the response
      */
@@ -103,7 +166,7 @@
             response,
             requestParams,
             dataString,
-            proxyURL = 'retranscode-proxy.php',
+            proxyURL    = options.proxyURL,
             // response handler
             getResponse = function() {
                 try {
@@ -135,8 +198,8 @@
          */
         requestParams = "url=" + encodeURIComponent(options.url) + "&requestType=" + options.requestType;
         // only add client id and secret if both were submitted
-        if (client_id.value && client_secret.value) {
-            requestParams += '&client_id=' + clientId + '&client_secret=' + clientSecret;
+        if (options.client_id && options.client_secret) {
+            requestParams += '&client_id=' + options.clientId + '&client_secret=' + options.clientSecret;
         }
         // add request data if any
         if (options.requestData) {

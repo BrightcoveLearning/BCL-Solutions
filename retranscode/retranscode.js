@@ -3,11 +3,29 @@
         cid           = document.getElementById('cid'),
         secret        = document.getElementById('secret');
         captureImages = document.getElementById('captureImages'),
-        profile       = document.getElementById('profile'),
+        profiles      = document.getElementById('profile'),
         profileText   = document.getElementById('profileText'),
         profileBtn    = document.getElementById('profileBtn'),
         goBtn         = document.getElementById('goBtn'),
         messages      = document.getElementById('messages');
+
+    // event listeners
+    profileBtn.addEventListener('click', function() {
+        if (checkRequired()) {
+            createRequest('getProfiles');
+        } else {
+            alert('The account id, client id, and client secret are required');
+        }
+    });
+
+
+    function checkRequired() {
+        if (account.value && cid.value && secret.value) {
+            return true;
+        }
+        return false;
+    }
+
 
     /**
      * get selected value for single select element
@@ -26,9 +44,46 @@
     }
 
     function createRequest(type) {
-        var options = {},
-            ipBaseURL = 'https://ingestion.api.brightcove.com/v1/accounts/',
-            diBaseURL = 'https://ingest.api.brightcove.com/v1/accounts/';
+        var options   = {},
+            ipBaseURL = 'https://ingestion.api.brightcove.com/v1/accounts/' + account.value,
+            diBaseURL = 'https://ingest.api.brightcove.com/v1/accounts/' + account.value,
+            endpoint,
+            responseDecoded,
+            i,
+            iMax,
+            el,
+            txt;
+
+        // set credentials
+        options.client_id     = cid.value;
+        options.client_secret = secret.value;
+
+        switch (type) {
+            case 'getProfiles':
+                options.proxyURL = './profiles-proxy.php';
+                endpoint         = '/profiles';
+                options.url      = ipBaseURL + endpoint;
+                makeRequest(options, function(response) {
+                    responseDecoded = JSON.parse(response);
+                    if (Array.isArray(responseDecoded)) {
+                        // remove existing options
+                        iMax = profiles.length;
+                        for (i = 0; i < iMax; i++) {
+                            profiles.remove(i);
+                        }
+                        // add new options
+                        iMax = responseDecoded.length;
+                        for (i = 0; i < iMax; i++) {
+                            el = document.createElement('option');
+                            el.setAttribute('value', responseDecoded[i].name);
+                            txt = document.createTextNode(responseDecoded[i].name);
+                            el.appendChild(txt);
+                            profiles.appendChild(el);
+                        }
+                    }
+                });
+                break;
+        }
 
 
     }

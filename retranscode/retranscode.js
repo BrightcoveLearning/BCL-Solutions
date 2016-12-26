@@ -17,7 +17,7 @@
     function getSelectedValue(e) {
         var selected = e.options[e.selectedIndex],
             val      = selected.value,
-            txt      = selected.textContent,
+            txt      = selected.textContent;
         if (val) {
             return val;
         } else {

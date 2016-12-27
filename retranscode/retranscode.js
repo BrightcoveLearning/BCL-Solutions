@@ -1,7 +1,7 @@
-(function(window, document) {
+var BCLS = (function(window, document) {
     var account            = document.getElementById('account'),
         cid                = document.getElementById('cid'),
-        secret             = document.getElementById('secret');
+        secret             = document.getElementById('secret'),
         captureImages      = document.getElementById('captureImages'),
         profiles           = document.getElementById('profiles'),
         profileText        = document.getElementById('profileText'),
@@ -11,13 +11,14 @@
         videosRetrieved    = document.getElementById('videosRetrieved'),
         videosRetranscoded = document.getElementById('videosRetranscoded'),
         status             = document.getElementById('status'),
+        errors             = document.getElementById('errors'),
         selectedProfile    = '',
         videoIDs           = [],
         newImages          = false,
         totalVideos        = 0,
         totalCMSCalls      = 0,
         callNumber         = 0,
-        deprecatedProfiles = ["balanced-nextgen-player","Express Standard","mp4-only","balanced-high-definition","low-bandwidth-devices","balanced-standard-definition","single-rendition","Live - Standard","high-bandwidth-devices","Live - Premium HD","Live - HD","videocloud-default-trial","screencast"];
+        deprecatedProfiles = ['balanced-nextgen-player','Express Standard','mp4-only','balanced-high-definition','low-bandwidth-devices','balanced-standard-definition','single-rendition','Live - Standard','high-bandwidth-devices','Live - Premium HD','Live - HD','videocloud-default-trial','screencast'];
 
     // event listeners
     profileBtn.addEventListener('click', function() {
@@ -37,6 +38,15 @@
             alert('The account id, client id, and client secret are required');
         }
     });
+
+    /**
+     * write messages to the UI
+     * @param  {htmlElement} el The element to write the message to
+     * @param  {String} m  the message to write
+     */
+    function logMessage(el, m) {
+        el.textContent = m;
+    }
 
     /**
      * determines whether specified item is in an array
@@ -123,7 +133,7 @@
                 endpoint            = '/profiles';
                 options.url         = ipBaseURL + endpoint;
                 options.requestType = 'GET';
-                console.table(options);
+                logMessage(status, 'Getting account ingest profiles');
                 makeRequest(options, function(response) {
                     responseDecoded = JSON.parse(response);
                     console.log('profiles', responseDecoded);
@@ -144,6 +154,7 @@
                                 profiles.appendChild(el);
                             }
                         }
+                        logMessage(status, 'Account ingests profiles retrieved');
                     }
                 });
                 break;
@@ -152,8 +163,14 @@
                 endpoint            = '/counts/videos';
                 options.url         = cmsBaseURL + endpoint;
                 options.requestType = 'GET';
+                logMessage(status, 'Getting video count');
                 makeRequest(options, function(response) {
-
+                    responseDecoded = JSON.parse(response);
+                    console.log(responseDecoded);
+                    totalVideos = parseInt(responseDecoded.count);
+                    totalCMSCalls = Math.ceil(totalVideos / limit);
+                    logMessage(status, 'Video count retrieved');
+                    logMessage(videoCount, totalVideos);
                 });
                 break;
             case 'getVideos':

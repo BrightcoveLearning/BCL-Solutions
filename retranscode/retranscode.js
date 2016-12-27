@@ -3,7 +3,7 @@
         cid                = document.getElementById('cid'),
         secret             = document.getElementById('secret');
         captureImages      = document.getElementById('captureImages'),
-        profiles           = document.getElementById('profile'),
+        profiles           = document.getElementById('profiles'),
         profileText        = document.getElementById('profileText'),
         profileBtn         = document.getElementById('profileBtn'),
         goBtn              = document.getElementById('goBtn'),
@@ -11,12 +11,13 @@
         videosRetrieved    = document.getElementById('videosRetrieved'),
         videosRetranscoded = document.getElementById('videosRetranscoded'),
         status             = document.getElementById('status'),
-        selectedProfile,
+        selectedProfile    = '',
         videoIDs           = [],
         newImages          = false,
         totalVideos        = 0,
         totalCMSCalls      = 0,
-        callNumber         = 0;
+        callNumber         = 0,
+        deprecatedProfiles = ["balanced-nextgen-player","Express Standard","mp4-only","balanced-high-definition","low-bandwidth-devices","balanced-standard-definition","single-rendition","Live - Standard","high-bandwidth-devices","Live - Premium HD","Live - HD","videocloud-default-trial","screencast"];
 
     // event listeners
     profileBtn.addEventListener('click', function() {
@@ -36,6 +37,24 @@
             alert('The account id, client id, and client secret are required');
         }
     });
+
+    /**
+     * determines whether specified item is in an array
+     *
+     * @param {array} array to check
+     * @param {string} item to check for
+     * @return {boolean} true if item is in the array, else false
+     */
+    function arrayContains(arr, item) {
+        var i,
+            iMax = arr.length;
+        for (i = 0; i < iMax; i++) {
+            if (arr[i] === item) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * check for required fields
@@ -100,49 +119,57 @@
 
         switch (type) {
             case 'getProfiles':
-                options.proxyURL = './profiles-proxy.php';
-                endpoint         = '/profiles';
-                options.url      = ipBaseURL + endpoint;
+                options.proxyURL    = './profiles-proxy.php';
+                endpoint            = '/profiles';
+                options.url         = ipBaseURL + endpoint;
+                options.requestType = 'GET';
+                console.table(options);
                 makeRequest(options, function(response) {
                     responseDecoded = JSON.parse(response);
+                    console.log('profiles', responseDecoded);
                     if (Array.isArray(responseDecoded)) {
                         // remove existing options
-                        iMax = profiles.length;
+                        iMax = profiles.options.length;
                         for (i = 0; i < iMax; i++) {
-                            profiles.remove(i);
+                            profiles.remove(profiles.options[i]);
                         }
                         // add new options
                         iMax = responseDecoded.length;
                         for (i = 0; i < iMax; i++) {
-                            el = document.createElement('option');
-                            el.setAttribute('value', responseDecoded[i].name);
-                            txt = document.createTextNode(responseDecoded[i].name);
-                            el.appendChild(txt);
-                            profiles.appendChild(el);
+                            if (!arrayContains(deprecatedProfiles, responseDecoded[i].name)) {
+                                el = document.createElement('option');
+                                el.setAttribute('value', responseDecoded[i].name);
+                                txt = document.createTextNode(responseDecoded[i].name);
+                                el.appendChild(txt);
+                                profiles.appendChild(el);
+                            }
                         }
                     }
                 });
                 break;
             case 'getVideoCount':
-                options.proxyURL = './profiles-proxy.php';
-                endpoint = '/counts/videos';
-                options.url = cmsBaseURL + endpoint;
+                options.proxyURL    = './profiles-proxy.php';
+                endpoint            = '/counts/videos';
+                options.url         = cmsBaseURL + endpoint;
+                options.requestType = 'GET';
                 makeRequest(options, function(response) {
 
                 });
                 break;
             case 'getVideos':
-                options.proxyURL = './profiles-proxy.php';
-                endpoint = '/videos?sort=created_at&limit=' + limit + '&offset=' + (callNumber * limit);
-                options.url = cmsBaseURL + endpoint;
+                options.proxyURL    = './profiles-proxy.php';
+                endpoint            = '/videos?sort=created_at&limit=' + limit + '&offset=' + (callNumber * limit);
+                options.url         = cmsBaseURL + endpoint;
+                options.requestType = 'GET';
                 makeRequest(options, function(response) {
 
                 });
                 break;
             case 'transcodeVideo':
-                options.proxyURL = './retranscode-proxy.php';
-                endpoint = '/videos/' + videoIDs[callNumber];
-                options.url = cmsBaseURL + endpoint;
+                options.proxyURL    = './retranscode-proxy.php';
+                endpoint            = '/videos/' + videoIDs[callNumber];
+                options.url         = cmsBaseURL + endpoint;
+                options.requestType = 'POST';
                 makeRequest(options, function(response) {
 
                 });
@@ -199,13 +226,13 @@
         requestParams = "url=" + encodeURIComponent(options.url) + "&requestType=" + options.requestType;
         // only add client id and secret if both were submitted
         if (options.client_id && options.client_secret) {
-            requestParams += '&client_id=' + options.clientId + '&client_secret=' + options.clientSecret;
+            requestParams += '&client_id=' + options.client_id + '&client_secret=' + options.client_secret;
         }
         // add request data if any
         if (options.requestData) {
             requestParams += '&requestData=' + options.requestData;
         }
-
+        console.log('requestParams', requestParams);
         // set response handler
         httpRequest.onreadystatechange = getResponse;
         // open the request

@@ -14,6 +14,7 @@ var BCLS = (function(window, document) {
         errors             = document.getElementById('errors'),
         selectedProfile    = '',
         videoIDs           = [],
+        errorCodes         = [],
         newImages          = false,
         totalVideos        = 0,
         totalCMSCalls      = 0,
@@ -166,11 +167,15 @@ var BCLS = (function(window, document) {
                 logMessage(status, 'Getting video count');
                 makeRequest(options, function(response) {
                     responseDecoded = JSON.parse(response);
-                    console.log(responseDecoded);
-                    totalVideos = parseInt(responseDecoded.count);
-                    totalCMSCalls = Math.ceil(totalVideos / limit);
-                    logMessage(status, 'Video count retrieved');
-                    logMessage(videoCount, totalVideos);
+                    if (responseDecoded.error_code) {
+                        errorCodes.push('get video count error: ' + responseDecoded.error_code);
+                    } else {
+                        totalVideos = parseInt(responseDecoded.count);
+                        totalCMSCalls = Math.ceil(totalVideos / limit);
+                        logMessage(status, 'Video count retrieved');
+                        logMessage(videoCount, totalVideos);
+                        createRequest('getVideos');
+                    }
                 });
                 break;
             case 'getVideos':
@@ -178,8 +183,26 @@ var BCLS = (function(window, document) {
                 endpoint            = '/videos?sort=created_at&limit=' + limit + '&offset=' + (callNumber * limit);
                 options.url         = cmsBaseURL + endpoint;
                 options.requestType = 'GET';
+                logMessage(status, 'Getting videos');
                 makeRequest(options, function(response) {
-
+                    responseDecoded = JSON.parse(response);
+                    if (responseDecoded.error_code) {
+                        errorCodes.push('get videos: ' + responseDecoded.error_code);
+                    } else {
+                        iMax = responseDecoded.length;
+                        for (i = 0; i < iMax; i++) {
+                            videoIDs.push(responseDecoded[i].id);
+                        }
+                        callNumber++;
+                        if (callNumber < totalCMSCalls) {
+                            logMessage(status, 'Got ' + iMax + ' videos');
+                            logMessage(videosRetrieved, videoIDs.length);
+                            createRequest('getVideos');
+                        } else {
+                            logMessage(status, 'Finished retrieving videos');
+                            logMessage(videosRetrieved, videoIDs.length);
+                        }
+                    }
                 });
                 break;
             case 'transcodeVideo':

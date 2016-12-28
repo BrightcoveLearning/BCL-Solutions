@@ -38,8 +38,18 @@
             padding: 5px;
             width: 270px;
         }
+        table {
+            border-collapse: collapse;
+        }
         td {
             font-weight: bold;
+            padding: 5px;
+        }
+        .messages {
+            background-color: #FEF7E4;
+            border: 1px #990000 solid;
+            border-collapse: collapse;
+            min-width: 200px;
         }
         .highlight {
             padding: 10px;
@@ -88,23 +98,23 @@
             <table>
                 <tr>
                     <td>Total videos in account</td>
-                    <td id="videoCount"></td>
+                    <td id="videoCount" class="messages"></td>
                 </tr>
                 <tr>
                     <td>Total videos in account</td>
-                    <td id="videosRetrieved"></td>
+                    <td id="videosRetrieved" class="messages"></td>
                 </tr>
                 <tr>
                     <td>Videos re-transcoded</td>
-                    <td id="videosRetranscoded"></td>
+                    <td id="videosRetranscoded" class="messages"></td>
                 </tr>
                 <tr>
                     <td>Current status</td>
-                    <td id="status"></td>
+                    <td id="status" class="messages"></td>
                 </tr>
                 <tr>
                     <td>Errors</td>
-                    <td id="errors"></td>
+                    <td id="errors" class="messages"></td>
                 </tr>
             </table>
         </div>

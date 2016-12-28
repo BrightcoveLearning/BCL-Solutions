@@ -25,6 +25,9 @@ header("Access-Control-Allow-Origin: *");
 header("Content-type: application/json");
 header("X-Content-Type-Options: nosniff");
 
+// first check to see if the running job count is under 100
+$job_count_file
+
 // set up request for access token
 $data = array();
 

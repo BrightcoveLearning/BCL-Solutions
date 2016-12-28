@@ -13,6 +13,8 @@ try {
 $notification = json_encode($decoded, JSON_PRETTY_PRINT);
 $account_id = $decoded->account_id;
 
+// if job complete, update the job count file
+
 $job_count_file = $account_id.'_count.txt';
 if ($notification->entityType == 'TITLE') {
     if ($notification->status == 'SUCCESS') {

@@ -128,6 +128,7 @@ var BCLS = (function(window, document) {
         // set credentials
         options.client_id     = cid.value;
         options.client_secret = secret.value;
+        options.account_id    = account.value;
 
         switch (type) {
             case 'getProfiles':
@@ -203,6 +204,7 @@ var BCLS = (function(window, document) {
                             logMessage(status, 'Finished retrieving videos');
                             logMessage(videosRetrieved, videoIDs.length);
                             callNumber = 0;
+                            console(videoIDs);
                         }
                     }
                 });
@@ -212,7 +214,7 @@ var BCLS = (function(window, document) {
                 endpoint            = '/videos/' + videoIDs[callNumber];
                 options.url         = cmsBaseURL + endpoint;
                 options.requestType = 'POST';
-                options.requestData = '{"profile":"' + selectedProfile + '","capture-images":' + captureImages + ',"master":{"use_archived_master": true},"callbacks":["http://solutions.brightcove.com/bcls/retranscode/notifications.php"]}';
+                options.requestBody = '{"profile":"' + selectedProfile + '","capture-images":' + captureImages + ',"master":{"use_archived_master": true},"callbacks":["http://solutions.brightcove.com/bcls/retranscode/notifications.php"]}';
                 logMessage(status, 'Sending retranscode requests - do NOT leave this page');
                 makeRequest(options, function(response) {
                     responseDecoded = JSON.parse(response);
@@ -243,9 +245,10 @@ var BCLS = (function(window, document) {
      * @param  {String} options.url the full API request URL
      * @param  {String="GET","POST","PATCH","PUT","DELETE"} requestData [options.requestType="GET"] HTTP type for the request
      * @param  {String} options.proxyURL proxyURL to send the request to
+     * @param  {String} options.account_id the account id
      * @param  {String} options.client_id client id for the account (default is in the proxy)
      * @param  {String} options.client_secret client secret for the account (default is in the proxy)
-     * @param  {JSON} [options.requestData] Data to be sent in the request body in the form of a JSON string
+     * @param  {JSON} [options.requestBody] Data to be sent in the request body in the form of a JSON string
      * @param  {Function} [callback] callback function that will process the response
      */
     function makeRequest(options, callback) {
@@ -278,19 +281,20 @@ var BCLS = (function(window, document) {
          * set up request data
          * the proxy used here takes the following params:
          * url - the full API request (required)
+         * account_id - the account id
          * requestType - the HTTP request type (default: GET)
          * clientId - the client id (defaults here to a Brightcove sample account value - this should always be stored on the server side if possible)
          * clientSecret - the client secret (defaults here to a Brightcove sample account value - this should always be stored on the server side if possible)
          * requestData - request body for write requests (optional JSON string)
          */
-        requestParams = "url=" + encodeURIComponent(options.url) + "&requestType=" + options.requestType;
+        requestParams = 'url=' + encodeURIComponent(options.url) + '&requestType=' + options.requestType + 'account_id=' + options.account_id;
         // only add client id and secret if both were submitted
         if (options.client_id && options.client_secret) {
             requestParams += '&client_id=' + options.client_id + '&client_secret=' + options.client_secret;
         }
         // add request data if any
-        if (options.requestData) {
-            requestParams += '&requestData=' + options.requestData;
+        if (options.requestBody) {
+            requestParams += '&requestBody=' + options.requestBody;
         }
         console.log('requestParams', requestParams);
         // set response handler

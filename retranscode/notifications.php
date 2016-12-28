@@ -9,32 +9,37 @@ try {
     $problem = $e->getMessage();
 }
 
-// below is check just needed for this app, because it
-// is also a target for CMS API notifications
-// for now, it is not logging those
-if (isset($decoded['timestamp'])) {
-    $notificationType = 'CMS API';
-} else {
-    // turn notification into pretty printed JSON
-    $notification = json_encode($decoded, JSON_PRETTY_PRINT);
+// turn notification into pretty printed JSON
+$notification = json_encode($decoded, JSON_PRETTY_PRINT);
+$account_id = $decoded->account_id;
+
+$job_count_file = $account_id.'_count.txt';
+if ($notification->entityType == 'TITLE') {
+    if ($notification->status == 'SUCCESS') {
+        $job_count = fopen($job_count_file, 'w');
+        $job_count_decoded = json_decode($job_count);
+        $job_count_decoded->job_count--;
+        fwrite($job_count, json_encode($job_count_decoded));
+    } elseif ($notification->status == 'FAILED') {
+        $job_count = fopen($job_count_file, 'w');
+        $job_count_decoded = json_decode($job_count);
+        $job_count_decoded->job_count--;
+        $job_count_decoded->failed++;
+        fwrite($job_count, json_encode($job_count_decoded));
+    }
 }
 
 
 
-$logEntry = $notification.
-"\nErrors receiving notificatons: ".$problem.
-"\n-------------------------------\n";
+$logEntry = $notification."\n";
 
 // Lastly, tell PHP where it can find the log file and tell PHP to open it
-// and add the string we created earlier to it.
-// 2016-09-15: turning off CMS API notifications for now
-if ($notificationType !== 'CMS API') {
-    $logFileLocation = "di-log.txt";
-    $fileHandle      = fopen($logFileLocation, 'a') or die("-1");
-    fwrite($fileHandle, $logEntry);
-    fclose($fileHandle);
-}
+
+$logFileLocation = $account_id.'_notifications.txt';
+$fileHandle      = fopen($logFileLocation, 'a') or die("-1");
+fwrite($fileHandle, $logEntry);
+fclose($fileHandle);
 
 // line below is displayed when you browse the app directly
-echo "Dynamic Ingest callback app is running";
+echo "Callback app is running";
 ?>

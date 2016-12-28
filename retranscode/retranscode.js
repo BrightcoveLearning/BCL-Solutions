@@ -119,6 +119,7 @@ var BCLS = (function(window, document) {
             endpoint,
             responseDecoded,
             limit = 25,
+            t,
             i,
             iMax,
             el,
@@ -201,6 +202,7 @@ var BCLS = (function(window, document) {
                         } else {
                             logMessage(status, 'Finished retrieving videos');
                             logMessage(videosRetrieved, videoIDs.length);
+                            callNumber = 0;
                         }
                     }
                 });
@@ -210,8 +212,26 @@ var BCLS = (function(window, document) {
                 endpoint            = '/videos/' + videoIDs[callNumber];
                 options.url         = cmsBaseURL + endpoint;
                 options.requestType = 'POST';
+                options.requestData = '{"profile":"' + selectedProfile + '","capture-images":' + captureImages + ',"master":{"use_archived_master": true},"callbacks":["http://solutions.brightcove.com/bcls/retranscode/notifications.php"]}';
+                logMessage(status, 'Sending retranscode requests - do NOT leave this page');
                 makeRequest(options, function(response) {
-
+                    responseDecoded = JSON.parse(response);
+                    if (responseDecoded.error_code) {
+                        errorCodes.push('retranscoding: ' + responseDecoded.error_code);
+                    } else if (responseDecoded.message === 'wait') {
+                        t = window.setTimeout(createRequest('transcodeVideo'), 20000);
+                        logMessage(status, 'Job queue full - retrying in 20 seconds');
+                    } else {
+                        callNumber++;
+                        if (callNumber < totalVideos) {
+                            logMessage(videosRetranscoded, callNumber);
+                            createRequest('transcodeVideo');
+                        } else {
+                            logMessage(videosRetranscoded, callNumber);
+                            logMessage(status, 'All retranscode requests submitted');
+                            logMessage(errors, JSON.stringify(errorCodes, null, '  '));
+                        }
+                    }
                 });
                 break;
         }
@@ -219,13 +239,13 @@ var BCLS = (function(window, document) {
 
     /**
      * send API request to the proxy
-     * @param  {Object} requestData options for the request
-     * @param  {String} requestData options.url the full API request URL
+     * @param  {Object} options for the request
+     * @param  {String} options.url the full API request URL
      * @param  {String="GET","POST","PATCH","PUT","DELETE"} requestData [options.requestType="GET"] HTTP type for the request
-     * @param  {String} requestData options.proxyURL proxyURL to send the request to
-     * @param  {String} requestData options.client_id client id for the account (default is in the proxy)
-     * @param  {String} requestData options.client_secret client secret for the account (default is in the proxy)
-     * @param  {JSON} requestData [options.requestData] Data to be sent in the request body in the form of a JSON string
+     * @param  {String} options.proxyURL proxyURL to send the request to
+     * @param  {String} options.client_id client id for the account (default is in the proxy)
+     * @param  {String} options.client_secret client secret for the account (default is in the proxy)
+     * @param  {JSON} [options.requestData] Data to be sent in the request body in the form of a JSON string
      * @param  {Function} [callback] callback function that will process the response
      */
     function makeRequest(options, callback) {
@@ -261,7 +281,7 @@ var BCLS = (function(window, document) {
          * requestType - the HTTP request type (default: GET)
          * clientId - the client id (defaults here to a Brightcove sample account value - this should always be stored on the server side if possible)
          * clientSecret - the client secret (defaults here to a Brightcove sample account value - this should always be stored on the server side if possible)
-         * requestBody - request body for write requests (optional JSON string)
+         * requestData - request body for write requests (optional JSON string)
          */
         requestParams = "url=" + encodeURIComponent(options.url) + "&requestType=" + options.requestType;
         // only add client id and secret if both were submitted

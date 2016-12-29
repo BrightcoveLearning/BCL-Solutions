@@ -193,6 +193,7 @@ var BCLS = (function(window, document) {
                         errorCodes.push('get videos: ' + responseDecoded.error_code);
                     } else {
                         iMax = responseDecoded.length;
+                        console.log('iMax', iMax);
                         for (i = 0; i < iMax; i++) {
                             videoIDs.push(responseDecoded[i].id);
                         }
@@ -205,21 +206,23 @@ var BCLS = (function(window, document) {
                             logMessage(status, 'Finished retrieving videos');
                             logMessage(videosRetrieved, videoIDs.length);
                             callNumber = 0;
-                            console(videoIDs);
+                            console.log(JSON.stringify(videoIDs, null, '  '));
+                            // createRequest('transcodeVideo');
                         }
                     }
                 });
                 break;
             case 'transcodeVideo':
                 options.proxyURL    = './retranscode-proxy.php';
-                endpoint            = '/videos/' + videoIDs[callNumber];
-                options.url         = cmsBaseURL + endpoint;
+                endpoint            = '/videos/' + videoIDs[callNumber] + '/ingest-requests';
+                options.url         = diBaseURL + endpoint;
                 options.requestType = 'POST';
                 options.requestBody = '{"profile":"' + selectedProfile + '","capture-images":' + captureImages + ',"master":{"use_archived_master": true},"callbacks":["http://solutions.brightcove.com/bcls/retranscode/notifications.php"]}';
                 logMessage(status, 'Sending retranscode requests - do NOT leave this page');
                 makeRequest(options, function(response) {
                     responseDecoded = JSON.parse(response);
-                    if (responseDecoded.error_code) {
+                    console.log('responseDecoded', responseDecoded);
+                    if (responseDecoded[0].error_code) {
                         errorCodes.push('retranscoding: ' + responseDecoded.error_code);
                     } else if (responseDecoded.message === 'wait') {
                         t = window.setTimeout(createRequest('transcodeVideo'), 20000);
@@ -265,6 +268,7 @@ var BCLS = (function(window, document) {
                         if (httpRequest.status === 200 || httpRequest.status === 204) {
                             response = httpRequest.responseText;
                             // some API requests return '{null}' for empty responses - breaks JSON.parse
+                            console.log('response', response);
                             if (response === '{null}') {
                                 response = null;
                             }
@@ -281,12 +285,12 @@ var BCLS = (function(window, document) {
         /**
          * set up request data
          * the proxy used here takes the following params:
-         * url - the full API request (required)
-         * account_id - the account id
-         * requestType - the HTTP request type (default: GET)
-         * clientId - the client id (defaults here to a Brightcove sample account value - this should always be stored on the server side if possible)
-         * clientSecret - the client secret (defaults here to a Brightcove sample account value - this should always be stored on the server side if possible)
-         * requestData - request body for write requests (optional JSON string)
+         * options.url - the full API request (required)
+         * options.account_id - the account id
+         * options.requestType - the HTTP request type (default: GET)
+         * options.client_id - the client id (defaults here to a Brightcove sample account value - this should always be stored on the server side if possible)
+         * options.client_secret - the client secret (defaults here to a Brightcove sample account value - this should always be stored on the server side if possible)
+         * options.requestBody - request body for write requests (optional JSON string)
          */
          console.log('options', options);
         requestParams = 'url=' + encodeURIComponent(options.url) + '&requestType=' + options.requestType + '&account_id=' + options.account_id;
@@ -296,7 +300,7 @@ var BCLS = (function(window, document) {
         }
         // add request data if any
         if (options.requestBody) {
-            requestParams += '&requestBody=' + options.requestBody;
+            requestParams += '&requestBody=' + encodeURI(options.requestBody);
         }
         console.log('requestParams', requestParams);
         // set response handler

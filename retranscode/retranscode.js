@@ -207,7 +207,7 @@ var BCLS = (function(window, document) {
                             logMessage(videosRetrieved, videoIDs.length);
                             callNumber = 0;
                             console.log(JSON.stringify(videoIDs, null, '  '));
-                            // createRequest('transcodeVideo');
+                            createRequest('transcodeVideo');
                         }
                     }
                 });
@@ -217,13 +217,13 @@ var BCLS = (function(window, document) {
                 endpoint            = '/videos/' + videoIDs[callNumber] + '/ingest-requests';
                 options.url         = diBaseURL + endpoint;
                 options.requestType = 'POST';
-                options.requestBody = '{"profile":"' + selectedProfile + '","capture-images":' + captureImages + ',"master":{"use_archived_master": true},"callbacks":["http://solutions.brightcove.com/bcls/retranscode/notifications.php"]}';
+                options.requestBody = '{"profile":"' + selectedProfile + '","capture-images":' + isChecked(captureImages) + ',"master":{"use_archived_master": true},"callbacks":["http://solutions.brightcove.com/bcls/retranscode/notifications.php"]}';
                 logMessage(status, 'Sending retranscode requests - do NOT leave this page');
                 makeRequest(options, function(response) {
                     responseDecoded = JSON.parse(response);
                     console.log('responseDecoded', responseDecoded);
-                    if (responseDecoded[0].error_code) {
-                        errorCodes.push('retranscoding: ' + responseDecoded.error_code);
+                    if (Array.isArray(responseDecoded)) {
+                        errorCodes.push('retranscoding: ' + responseDecoded[0].error_code);
                     } else if (responseDecoded.message === 'wait') {
                         t = window.setTimeout(createRequest('transcodeVideo'), 20000);
                         logMessage(status, 'Job queue full - retrying in 20 seconds');
@@ -300,9 +300,9 @@ var BCLS = (function(window, document) {
         }
         // add request data if any
         if (options.requestBody) {
-            requestParams += '&requestBody=' + encodeURI(options.requestBody);
+            requestParams += '&requestBody=' + encodeURIComponent(options.requestBody);
         }
-        console.log('requestParams', requestParams);
+        console.log('requestParams', decodeURIComponent(requestParams));
         // set response handler
         httpRequest.onreadystatechange = getResponse;
         // open the request

@@ -129,6 +129,7 @@ var BCLS = (function(window, document) {
         options.client_id     = cid.value;
         options.client_secret = secret.value;
         options.account_id    = account.value;
+        console.log('options', options);
 
         switch (type) {
             case 'getProfiles':
@@ -287,7 +288,8 @@ var BCLS = (function(window, document) {
          * clientSecret - the client secret (defaults here to a Brightcove sample account value - this should always be stored on the server side if possible)
          * requestData - request body for write requests (optional JSON string)
          */
-        requestParams = 'url=' + encodeURIComponent(options.url) + '&requestType=' + options.requestType + 'account_id=' + options.account_id;
+         console.log('options', options);
+        requestParams = 'url=' + encodeURIComponent(options.url) + '&requestType=' + options.requestType + '&account_id=' + options.account_id;
         // only add client id and secret if both were submitted
         if (options.client_id && options.client_secret) {
             requestParams += '&client_id=' + options.client_id + '&client_secret=' + options.client_secret;

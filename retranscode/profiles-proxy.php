@@ -28,16 +28,10 @@ header("X-Content-Type-Options: nosniff");
 // set up request for access token
 $data = array();
 
-if ($_POST["client_id"]) {
-    $client_id = $_POST["client_id"];
-} else {
-    $client_id = 'c5d0a622-5479-46d8-8d8a-5f034b943fab';
-}
-if ($_POST["client_secret"]) {
-    $client_secret = $_POST["client_secret"];
-} else {
-    $client_secret = 'w7NQYu0vUloM4GYYy2SXAxrvyFpt8fwI35qAFZcS13-VIgs0itwKNsAwHOS80sOWKJ1BUwHIvSFG2IbgcxEGKg';
-}
+$client_id = $_POST["client_id"];
+$client_id = 'c5d0a622-5479-46d8-8d8a-5f034b943fab';
+$client_secret = $_POST["client_secret"];
+$client_secret = 'w7NQYu0vUloM4GYYy2SXAxrvyFpt8fwI35qAFZcS13-VIgs0itwKNsAwHOS80sOWKJ1BUwHIvSFG2IbgcxEGKg';
 
 $auth_string = "{$client_id}:{$client_secret}";
 $request     = "https://oauth.brightcove.com/v3/access_token?grant_type=client_credentials";

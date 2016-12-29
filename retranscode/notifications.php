@@ -11,7 +11,7 @@ try {
 
 // turn notification into pretty printed JSON
 $notification = json_encode($decoded, JSON_PRETTY_PRINT);
-$account_id = $decoded->account_id;
+$account_id = $decoded->accountId;
 
 // if job complete, update the job count file
 

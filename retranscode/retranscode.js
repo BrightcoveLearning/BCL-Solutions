@@ -191,6 +191,17 @@ var BCLS = (function(window, document) {
                     responseDecoded = JSON.parse(response);
                     if (responseDecoded.error_code) {
                         errorCodes.push('get videos: ' + responseDecoded.error_code);
+                        callNumber++;
+                        if (callNumber < totalCMSCalls) {
+                            logMessage(videosRetrieved, videoIDs.length);
+                            createRequest('getVideos');
+                        } else {
+                            logMessage(status, 'Finished retrieving videos');
+                            logMessage(videosRetrieved, videoIDs.length);
+                            callNumber = 0;
+                            console.log(JSON.stringify(videoIDs, null, '  '));
+                            createRequest('transcodeVideo');
+                        }
                     } else {
                         iMax = responseDecoded.length;
                         console.log('iMax', iMax);
@@ -224,6 +235,15 @@ var BCLS = (function(window, document) {
                     console.log('responseDecoded', responseDecoded);
                     if (Array.isArray(responseDecoded)) {
                         errorCodes.push('retranscoding: ' + responseDecoded[0].error_code);
+                        callNumber++;
+                        if (callNumber < totalVideos) {
+                            logMessage(videosRetranscoded, callNumber);
+                            createRequest('transcodeVideo');
+                        } else {
+                            logMessage(videosRetranscoded, callNumber);
+                            logMessage(status, 'All retranscode requests submitted');
+                            logMessage(errors, JSON.stringify(errorCodes, null, '  '));
+                        }
                     } else if (responseDecoded.message === 'wait') {
                         t = window.setTimeout(createRequest('transcodeVideo'), 20000);
                         logMessage(status, 'Job queue full - retrying in 20 seconds');

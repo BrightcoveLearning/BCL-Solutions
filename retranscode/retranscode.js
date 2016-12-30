@@ -200,7 +200,7 @@ var BCLS = (function(window, document) {
                             logMessage(videosRetrieved, videoIDs.length);
                             callNumber = 0;
                             console.log(JSON.stringify(videoIDs, null, '  '));
-                            createRequest('transcodeVideo');
+                            createRequest(videoIDs[callNumber] + ': transcodeVideo');
                         }
                     } else {
                         iMax = responseDecoded.length;

@@ -18,12 +18,12 @@ $account_id = $decoded->accountId;
 $job_count_file = $account_id.'_count.txt';
 if ($notification->entityType == 'TITLE') {
     if ($notification->status == 'SUCCESS') {
-        $job_count = fopen($job_count_file, 'w');
+        $job_count         = fopen($job_count_file, 'w');
         $job_count_decoded = json_decode($job_count);
         $job_count_decoded->job_count--;
         fwrite($job_count, json_encode($job_count_decoded));
     } elseif ($notification->status == 'FAILED') {
-        $job_count = fopen($job_count_file, 'w');
+        $job_count         = fopen($job_count_file, 'w');
         $job_count_decoded = json_decode($job_count);
         $job_count_decoded->job_count--;
         $job_count_decoded->failed++;
@@ -38,7 +38,7 @@ $logEntry = $notification."\n";
 // Lastly, tell PHP where it can find the log file and tell PHP to open it
 
 $logFileLocation = $account_id.'_notifications.txt';
-$fileHandle      = fopen($logFileLocation, 'a') or die("-1");
+$fileHandle      = fopen($logFileLocation, 'a');
 fwrite($fileHandle, $logEntry);
 fclose($fileHandle);
 

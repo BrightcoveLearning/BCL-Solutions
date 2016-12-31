@@ -234,7 +234,7 @@ var BCLS = (function(window, document) {
                     responseDecoded = JSON.parse(response);
                     console.log('responseDecoded', responseDecoded);
                     if (Array.isArray(responseDecoded)) {
-                        errorCodes.push('retranscoding: ' + responseDecoded[0].error_code);
+                        errorCodes.push('retranscoding ' + videoIDs[callNumber] + ': ' + responseDecoded[0].error_code);
                         callNumber++;
                         if (callNumber < totalVideos) {
                             logMessage(videosRetranscoded, callNumber);

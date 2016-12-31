@@ -39,8 +39,11 @@ if ($_POST["client_secret"]) {
 } else {
     $client_secret = 'w7NQYu0vUloM4GYYy2SXAxrvyFpt8fwI35qAFZcS13-VIgs0itwKNsAwHOS80sOWKJ1BUwHIvSFG2IbgcxEGKg';
 }
-
-$account_id = $_POST["account_id"];
+if ($_POST["account_id"]) {
+    $account_id = $_POST["account_id"];
+} else {
+    $account_id = '123456';
+}
 
 // first check to see if the running job count is under 100
 $job_count_file    = $account_id.'count.txt';
@@ -54,7 +57,7 @@ if ($job_count_decoded) {
     $job_count_decoded->job_count = 1;
     $job_count_decoded->failed    = 0;
 }
-$job_count = json_encode($job_count_decoded );
+$job_count = json_encode($job_count_decoded);
 fwrite($job_count_file, $job_count);
 
 $auth_string = "{$client_id}:{$client_secret}";

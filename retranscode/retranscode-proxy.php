@@ -46,20 +46,22 @@ if ($_POST["account_id"]) {
 }
 
 // first check to see if the running job count is under 100
-$job_count_file    = $account_id.'count.txt';
-$job_count         = fopen($job_count_file, 'w' );
-$job_count_decoded = json_decode($job_count);
-
+$job_count_file    = $account_id.'_count.txt';
+$job_count_data    = file_get_contents($job_count_file);
+$job_count_decoded = json_decode($job_count_data);
 if ($job_count_decoded) {
     $job_count_decoded->job_count++;
 } else {
     $job_count_decoded            = new stdClass();
-    $job_count_decoded->job_count = 1;
-    $job_count_decoded->failed    = 0;
+    $job_count_decoded->job_count = "1";
+    $job_count_decoded->failed    = "0";
 }
-$job_count = json_encode($job_count_decoded);
-fwrite($job_count_file, $job_count);
+$job_count_encoded = json_encode($job_count_decoded);
+$job_count         = fopen($job_count_file, 'w');
+fwrite($job_count, $job_count_encoded);
+fclose($job_count);
 
+// get access token
 $auth_string = "{$client_id}:{$client_secret}";
 $request     = "https://oauth.brightcove.com/v3/access_token?grant_type=client_credentials";
 $ch          = curl_init($request);

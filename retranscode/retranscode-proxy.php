@@ -50,6 +50,11 @@ $job_count_file    = $account_id.'_count.txt';
 $job_count_data    = file_get_contents($job_count_file);
 $job_count_decoded = json_decode($job_count_data);
 if ($job_count_decoded) {
+    if ($job_count_decoded->job_count > 99) {
+        $m = new stdClass();
+        $m->message = 'wait';
+        exit(json_encode($m));
+    }
     $job_count_decoded->job_count++;
 } else {
     $job_count_decoded            = new stdClass();

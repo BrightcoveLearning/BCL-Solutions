@@ -132,6 +132,9 @@ var BCLS = (function(window, document) {
         console.log('options', options);
 
         switch (type) {
+            case 'deleteOldLogs':
+                options.proxyURL = './delete-log.php';
+                break;
             case 'getProfiles':
                 options.proxyURL    = './profiles-proxy.php';
                 endpoint            = '/profiles';

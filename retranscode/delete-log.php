@@ -34,5 +34,5 @@ if ($result) {
 } else {
     $m_account->message = 'No old log files found';
 }
-echo $response;
+echo json_encode($m_account);
 ?>

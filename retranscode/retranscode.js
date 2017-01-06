@@ -34,7 +34,7 @@ var BCLS = (function(window, document) {
         if (checkRequired()) {
             selectedProfile = getSelectedValue(profiles);
             newImages = isChecked(captureImages);
-            createRequest('getVideoCount');
+            createRequest('deleteOldLogs');
         } else {
             alert('The account id, client id, and client secret are required');
         }
@@ -133,7 +133,15 @@ var BCLS = (function(window, document) {
 
         switch (type) {
             case 'deleteOldLogs':
-                options.proxyURL = './delete-log.php';
+                options.proxyURL    = './delete-log.php';
+                // the only option this case needs is the proxy id, but makeRequest function expects url and requestType
+                options.url         = ipBaseURL;
+                options.requestType = 'GET';
+                makeRequest(options, function(response) {
+                    responseDecoded = JSON.parse(response);
+                    logMessage(status, responseDecoded.message);
+                    createRequest('getVideoCount');
+                });
                 break;
             case 'getProfiles':
                 options.proxyURL    = './profiles-proxy.php';
@@ -156,6 +164,9 @@ var BCLS = (function(window, document) {
                             if (!arrayContains(deprecatedProfiles, responseDecoded[i].name)) {
                                 el = document.createElement('option');
                                 el.setAttribute('value', responseDecoded[i].name);
+                                if (i === 0) {
+                                    el.setAttribute('selected', 'selected');
+                                }
                                 txt = document.createTextNode(responseDecoded[i].name);
                                 el.appendChild(txt);
                                 profiles.appendChild(el);
@@ -166,7 +177,7 @@ var BCLS = (function(window, document) {
                 });
                 break;
             case 'getVideoCount':
-                options.proxyURL    = './profiles-proxy.php';
+                options.proxyURL    = './videos-proxy.php';
                 endpoint            = '/counts/videos';
                 options.url         = cmsBaseURL + endpoint;
                 options.requestType = 'GET';
@@ -185,7 +196,7 @@ var BCLS = (function(window, document) {
                 });
                 break;
             case 'getVideos':
-                options.proxyURL    = './profiles-proxy.php';
+                options.proxyURL    = './videos-proxy.php';
                 endpoint            = '/videos?sort=created_at&limit=' + limit + '&offset=' + (callNumber * limit);
                 options.url         = cmsBaseURL + endpoint;
                 options.requestType = 'GET';
@@ -248,8 +259,8 @@ var BCLS = (function(window, document) {
                             logMessage(errors, JSON.stringify(errorCodes, null, '  '));
                         }
                     } else if (responseDecoded.message === 'wait') {
-                        t = window.setTimeout(createRequest('transcodeVideo'), 20000);
-                        logMessage(status, 'Job queue full - retrying in 20 seconds');
+                        t = window.setTimeout(createRequest('transcodeVideo'), 30000);
+                        logMessage(status, 'Job queue full - retrying in 30 seconds');
                     } else {
                         callNumber++;
                         if (callNumber < totalVideos) {

@@ -55,16 +55,15 @@ if ($job_count_decoded) {
         $m->message = 'wait';
         exit(json_encode($m));
     }
-    $job_count_decoded->job_count++;
 } else {
     $job_count_decoded            = new stdClass();
     $job_count_decoded->job_count = "1";
     $job_count_decoded->failed    = "0";
+    $job_count_encoded = json_encode($job_count_decoded);
+    $job_count         = fopen($job_count_file, 'w');
+    fwrite($job_count, $job_count_encoded);
+    fclose($job_count);
 }
-$job_count_encoded = json_encode($job_count_decoded);
-$job_count         = fopen($job_count_file, 'w');
-fwrite($job_count, $job_count_encoded);
-fclose($job_count);
 
 // get access token
 $auth_string = "{$client_id}:{$client_secret}";
@@ -151,6 +150,15 @@ if ($response === FALSE) {
 $responseDecoded = json_decode($response);
 if (!isset($responseDecoded)) {
     $response = '{null}';
+} elseif ($responseDecoded->id) {
+    $job_count_data    = file_get_contents($job_count_file);
+    $job_count_decoded = json_decode($job_count_data);
+    $job_count_decoded->job_count++;
+    $job_count_encoded = json_encode($job_count_decoded);
+    $job_count         = fopen($job_count_file, 'w');
+    fwrite($job_count, $job_count_encoded);
+    fclose($job_count);
 }
+
 echo $response;
 ?>

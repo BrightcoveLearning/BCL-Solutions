@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Video Library</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            color: #293b70;
+            margin: 4em;
+            max-width: 800px;
+        }
+        fieldset {
+            border: 1px #293b70 solid;
+            border-radius: 4px;
+        }
+        legend {
+            text-align: center;
+        }
+        iframe {
+            width: 95%;
+            height: 95%;
+        }
+        button {
+            padding: 10px;
+            border: 4px #ecb612 solid;
+            border-radius: 5px;
+            background-color: #293b70;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        table {
+            border-collapse: collapse;
+        }
+        td {
+            font-weight: bold;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Brightcove Videos</h1>
+    <p>Select the videos you want to add captions to.</p>
+    <p><button id="getNextVideos">Get Next 20 Videos</button> <button id="addCaptions">Add Captions to Selected Videos</button></p>
+    <table id="videoTable">
+        <tbody id="videoTableBody"></tbody>
+    </table>
+    <script src="videos.js"></script>
+</body>
+
+</html>

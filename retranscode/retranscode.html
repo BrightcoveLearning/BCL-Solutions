@@ -58,6 +58,12 @@
             border-radius: 5px;
             background-color: #FEF7E4;
         }
+        .hidden {
+            opacity: .5;
+        }
+        .shown {
+            opacity: 1;
+        }
     </style>
 </head>
 
@@ -72,6 +78,7 @@
         <ul>
             <li>Once transcoding begins, do not leave this page until you see the completed message! If you do, you will have to start over.</li>
             <li>If you want to use a custom ingest profile from your account, you will need client credentials that include permissions for the Ingest Profiles API - see the <a href="get-credentials.html">instructions for getting these credentials</a>.</li>
+            <li>If something goes wrong and you want to rerun this app on the same account, <a href="mailto:rcrooks@brightcove.com">contact Robert</a> first! There are logs I can check to help figure out what when wrong, but they will be automatically cleared when you rerun the app.</li>
         </ul>
     </div>
     <fieldset>

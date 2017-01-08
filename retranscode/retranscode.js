@@ -15,14 +15,17 @@ var BCLS = (function(window, document) {
         rejected           = document.getElementById('rejected'),
         status             = document.getElementById('status'),
         errors             = document.getElementById('errors'),
+        timeElapsed        = document.getElementById('timeElapsed'),
         selectedProfile    = '',
         videoIDs           = [],
         rejectedVideoIDs   = [],
         errorCodes         = [],
+        intervalID,
         newImages          = false,
         totalVideos        = 0,
         totalCMSCalls      = 0,
         callNumber         = 0,
+        timePassed         = 0,
         deprecatedProfiles = ['balanced-nextgen-player','Express Standard','mp4-only','balanced-high-definition','low-bandwidth-devices','balanced-standard-definition','single-rendition','Live - Standard','high-bandwidth-devices','Live - Premium HD','Live - HD','videocloud-default-trial','screencast'];
 
     // event listeners
@@ -38,6 +41,12 @@ var BCLS = (function(window, document) {
         if (checkRequired()) {
             selectedProfile = getSelectedValue(profiles);
             newImages = isChecked(captureImages);
+            intervalID = window.setInterval(function() {
+                var now;
+                timePassed++;
+                now = secondsToTime(timePassed);
+                logMessage(timeElapsed, now.h + ':' + now.m + ':' + now.s);
+            }, 1000);
             createRequest('deleteOldLogs');
         } else {
             alert('The account id, client id, and client secret are required');
@@ -51,6 +60,46 @@ var BCLS = (function(window, document) {
      */
     function logMessage(el, m) {
         el.textContent = m;
+    }
+
+/**
+ * utility to extract h/m/s from seconds
+ * @param {number} secs - seconds to convert to hh:mm:ss
+ * @returns {object} object with members h (hours), m (minutes), s (seconds)
+ */
+    function secondsToTime(secs) {
+        var hours = Math.floor(secs / (60 * 60)),
+            divisor_for_minutes = secs % (60 * 60),
+            minutes = Math.floor(divisor_for_minutes / 60),
+            divisor_for_seconds = divisor_for_minutes % 60,
+            seconds = Math.ceil(divisor_for_seconds),
+            obj = {};
+
+        if (hours < 10) {
+            hours = "0" + hours.toString();
+        } else {
+            hours = hours.toString();
+        }
+
+        if (minutes < 10) {
+            minutes = "0" + minutes.toString();
+        } else {
+            minutes = minutes.toString();
+        }
+
+        if (seconds < 10) {
+            seconds = "0" + seconds.toString();
+        } else {
+            seconds = seconds.toString();
+        }
+
+        obj = {
+            'h': hours,
+            'm': minutes,
+            's': seconds
+        };
+
+        return obj;
     }
 
     /**
@@ -280,6 +329,7 @@ var BCLS = (function(window, document) {
                             logMessage(videosRetranscoded, callNumber);
                             createRequest('transcodeVideo');
                         } else {
+                            window.clearInterval(intervalID);
                             logMessage(videosRetranscoded, callNumber);
                             logMessage(status, 'All retranscode requests submitted');
                             logMessage(errors, JSON.stringify(errorCodes, null, '  '));

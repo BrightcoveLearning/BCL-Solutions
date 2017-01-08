@@ -58,7 +58,7 @@ if ($job_count_decoded) {
 } else {
     $job_count_decoded            = new stdClass();
     $job_count_decoded->job_count = "1";
-    $job_count_decoded->failed    = "0";
+    $job_count_decoded->failed    = [];
     $job_count_encoded = json_encode($job_count_decoded);
     $job_count         = fopen($job_count_file, 'w');
     fwrite($job_count, $job_count_encoded);

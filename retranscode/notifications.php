@@ -24,7 +24,7 @@ if ($decoded) {
                 $job_count_decoded->job_count--;
             } elseif ($decoded['status'] == 'FAILED') {
                 $job_count_decoded->job_count--;
-                $job_count_decoded->failed++;
+                $job_count_decoded->failed.push($decoded['videoId']);
             }
         }
         $job_count = fopen($job_count_file, 'w');

@@ -41,16 +41,20 @@
         }
         table {
             border-collapse: collapse;
+            max-width: 100%;
+            width: 100%;
         }
         td {
             font-weight: bold;
             padding: 5px;
+            text-align: right;
         }
         .messages {
             background-color: #FEF7E4;
             border: 1px #990000 solid;
             border-collapse: collapse;
             min-width: 200px;
+            text-align: left;
         }
         .highlight {
             padding: 10px;
@@ -69,16 +73,18 @@
 
 <body>
     <h1>Retranscoding App</h1>
-    <p>This app retranscode all the videos in a Video Cloud account. There are limitations:</p>
+    <p>This app retranscode all the videos in a Video Cloud account.</p>
     <ul>
-        <li>One ingest profile will be used for all videos</li>
-        <li>Because the app respects rate limiting for the system, it may take a long time to run on very large libraries</li>
     </ul>
     <div class="highlight">Notes:
         <ul>
+            <li>One ingest profile will be used for all videos</li>
+            <li>By default, this app will transcode all videos in an account (if they have stored digital masters). You can enter a search string here to limit transcoding to a smaller set of videos - a <strong>good idea</strong> for large accounts, or if you want to use different ingest profiles for different sets of videos. See <a href="http://docs.brightcove.com/en/video-cloud/cms-api/guides/search-videos.html">Search for Videos</a> for details on constructing search strings.</li>
+            <li>Because the app respects rate limiting for the system, it may take a long time to run on very large libraries</li>
             <li>Once transcoding begins, do not leave this page until you see the completed message! If you do, you will have to start over.</li>
             <li>If you want to use a custom ingest profile from your account, you will need client credentials that include permissions for the Ingest Profiles API - see the <a href="get-credentials.html">instructions for getting these credentials</a>.</li>
             <li>If something goes wrong and you want to rerun this app on the same account, <a href="mailto:rcrooks@brightcove.com">contact Robert</a> first! There are logs I can check to help figure out what when wrong, but they will be automatically cleared when you rerun the app.</li>
+            <li>If you are retranscoding thousands of videos, the process will take <strong>hours</strong> to complete. You need to make sure your machine doesn't go to sleep before the app finishes.</li>
         </ul>
     </div>
     <fieldset>
@@ -87,6 +93,7 @@
         <p>Client id: <input type="text" id="cid"></p>
         <p>Client secret: <input type="text" id="secret"></p>
         <p><input type="checkbox" id="captureImages"> <label for="captureImages">Capture new images?</label></p>
+        <p>Search String<input type="text" id="searchString" placeholder="+tags:foo"></p>
         <p>
             <select name="profiles" id="profiles">
                 <option value="videocloud-default-v1" selected="selected">videocloud-default-v1</option>
@@ -109,8 +116,12 @@
                     <td id="videoCount" class="messages"></td>
                 </tr>
                 <tr>
-                    <td>Videos retrieved</td>
+                    <td>Retranscodable videos retrieved</td>
                     <td id="videosRetrieved" class="messages"></td>
+                </tr>
+                <tr>
+                    <td>Un-retranscodable videos retrieved</td>
+                    <td id="videosRejected" class="messages"></td>
                 </tr>
                 <tr>
                     <td>Retranscode requests submitted</td>
@@ -119,6 +130,10 @@
                 <tr>
                     <td>Current status</td>
                     <td id="status" class="messages"></td>
+                </tr>
+                <tr>
+                    <td>Rejected videos (no master)</td>
+                    <td id="rejected" class="messages"></td>
                 </tr>
                 <tr>
                     <td>Errors</td>

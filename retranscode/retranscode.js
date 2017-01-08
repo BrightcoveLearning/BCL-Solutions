@@ -3,17 +3,21 @@ var BCLS = (function(window, document) {
         cid                = document.getElementById('cid'),
         secret             = document.getElementById('secret'),
         captureImages      = document.getElementById('captureImages'),
+        searchString       = document.getElementById('searchString'),
         profiles           = document.getElementById('profiles'),
         profileText        = document.getElementById('profileText'),
         profileBtn         = document.getElementById('profileBtn'),
         goBtn              = document.getElementById('goBtn'),
         videoCount         = document.getElementById('videoCount'),
         videosRetrieved    = document.getElementById('videosRetrieved'),
+        videosRejected     = document.getElementById('videosRejected'),
         videosRetranscoded = document.getElementById('videosRetranscoded'),
+        rejected           = document.getElementById('rejected'),
         status             = document.getElementById('status'),
         errors             = document.getElementById('errors'),
         selectedProfile    = '',
         videoIDs           = [],
+        rejectedVideoIDs   = [],
         errorCodes         = [],
         newImages          = false,
         totalVideos        = 0,
@@ -129,7 +133,6 @@ var BCLS = (function(window, document) {
         options.client_id     = cid.value;
         options.client_secret = secret.value;
         options.account_id    = account.value;
-        console.log('options', options);
 
         switch (type) {
             case 'deleteOldLogs':
@@ -151,7 +154,6 @@ var BCLS = (function(window, document) {
                 logMessage(status, 'Getting account ingest profiles');
                 makeRequest(options, function(response) {
                     responseDecoded = JSON.parse(response);
-                    console.log('profiles', responseDecoded);
                     if (Array.isArray(responseDecoded)) {
                         // remove existing options
                         iMax = profiles.options.length;
@@ -179,6 +181,9 @@ var BCLS = (function(window, document) {
             case 'getVideoCount':
                 options.proxyURL    = './videos-proxy.php';
                 endpoint            = '/counts/videos';
+                if (searchString.value) {
+                    endpoint += '?q=' + encodeURI(searchString.value);
+                }
                 options.url         = cmsBaseURL + endpoint;
                 options.requestType = 'GET';
                 logMessage(status, 'Getting video count');
@@ -198,6 +203,9 @@ var BCLS = (function(window, document) {
             case 'getVideos':
                 options.proxyURL    = './videos-proxy.php';
                 endpoint            = '/videos?sort=created_at&limit=' + limit + '&offset=' + (callNumber * limit);
+                if (searchString.value) {
+                    endpoint += '&q=' + encodeURI(searchString.value);
+                }
                 options.url         = cmsBaseURL + endpoint;
                 options.requestType = 'GET';
                 logMessage(status, 'Getting videos');
@@ -208,30 +216,35 @@ var BCLS = (function(window, document) {
                         callNumber++;
                         if (callNumber < totalCMSCalls) {
                             logMessage(videosRetrieved, videoIDs.length);
+                            logMessage(videosRejected, rejectedVideoIDs.length);
                             createRequest('getVideos');
                         } else {
                             logMessage(status, 'Finished retrieving videos');
                             logMessage(videosRetrieved, videoIDs.length);
+                            logMessage(videosRejected, rejectedVideoIDs.length);
                             callNumber = 0;
-                            console.log(JSON.stringify(videoIDs, null, '  '));
                             createRequest(videoIDs[callNumber] + ': transcodeVideo');
                         }
                     } else {
                         iMax = responseDecoded.length;
-                        console.log('iMax', iMax);
                         for (i = 0; i < iMax; i++) {
-                            videoIDs.push(responseDecoded[i].id);
+                            if (responseDecoded[i].has_digital_master === true) {
+                                videoIDs.push(responseDecoded[i].id);
+                            } else {
+                                rejectedVideoIDs.push(responseDecoded[i].id);
+                            }
                         }
                         callNumber++;
                         if (callNumber < totalCMSCalls) {
                             logMessage(status, 'Got ' + iMax + ' videos');
                             logMessage(videosRetrieved, videoIDs.length);
+                            logMessage(videosRejected, rejectedVideoIDs.length);
                             createRequest('getVideos');
                         } else {
                             logMessage(status, 'Finished retrieving videos');
                             logMessage(videosRetrieved, videoIDs.length);
+                            logMessage(videosRejected, rejectedVideoIDs.length);
                             callNumber = 0;
-                            console.log(JSON.stringify(videoIDs, null, '  '));
                             createRequest('transcodeVideo');
                         }
                     }
@@ -246,16 +259,16 @@ var BCLS = (function(window, document) {
                 logMessage(status, 'Sending retranscode requests - do NOT leave this page');
                 makeRequest(options, function(response) {
                     responseDecoded = JSON.parse(response);
-                    console.log('responseDecoded', responseDecoded);
                     if (Array.isArray(responseDecoded)) {
                         errorCodes.push('retranscoding ' + videoIDs[callNumber] + ': ' + responseDecoded[0].error_code);
                         callNumber++;
-                        if (callNumber < totalVideos) {
+                        if (callNumber < videoIDs.length) {
                             logMessage(videosRetranscoded, callNumber);
                             createRequest('transcodeVideo');
                         } else {
                             logMessage(videosRetranscoded, callNumber);
                             logMessage(status, 'All retranscode requests submitted');
+                            logMessage(rejected, JSON.stringify(rejectedVideoIDs));
                             logMessage(errors, JSON.stringify(errorCodes, null, '  '));
                         }
                     } else if (responseDecoded.message === 'wait') {
@@ -263,7 +276,7 @@ var BCLS = (function(window, document) {
                         logMessage(status, 'Job queue full - retrying in 30 seconds');
                     } else {
                         callNumber++;
-                        if (callNumber < totalVideos) {
+                        if (callNumber < videoIDs.length) {
                             logMessage(videosRetranscoded, callNumber);
                             createRequest('transcodeVideo');
                         } else {
@@ -302,7 +315,7 @@ var BCLS = (function(window, document) {
                         if (httpRequest.status === 200 || httpRequest.status === 204) {
                             response = httpRequest.responseText;
                             // some API requests return '{null}' for empty responses - breaks JSON.parse
-                            console.log('response', response);
+                            // console.log('response', response);
                             if (response === '{null}') {
                                 response = null;
                             }
@@ -326,7 +339,6 @@ var BCLS = (function(window, document) {
          * options.client_secret - the client secret (defaults here to a Brightcove sample account value - this should always be stored on the server side if possible)
          * options.requestBody - request body for write requests (optional JSON string)
          */
-         console.log('options', options);
         requestParams = 'url=' + encodeURIComponent(options.url) + '&requestType=' + options.requestType + '&account_id=' + options.account_id;
         // only add client id and secret if both were submitted
         if (options.client_id && options.client_secret) {
@@ -336,7 +348,6 @@ var BCLS = (function(window, document) {
         if (options.requestBody) {
             requestParams += '&requestBody=' + encodeURIComponent(options.requestBody);
         }
-        console.log('requestParams', decodeURIComponent(requestParams));
         // set response handler
         httpRequest.onreadystatechange = getResponse;
         // open the request

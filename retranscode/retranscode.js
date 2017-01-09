@@ -62,18 +62,18 @@ var BCLS = (function(window, document) {
         el.textContent = m;
     }
 
-/**
- * utility to extract h/m/s from seconds
- * @param {number} secs - seconds to convert to hh:mm:ss
- * @returns {object} object with members h (hours), m (minutes), s (seconds)
- */
+    /**
+     * utility to extract h/m/s from seconds
+     * @param {number} secs - seconds to convert to hh:mm:ss
+     * @returns {object} object with members h (hours), m (minutes), s (seconds)
+     */
     function secondsToTime(secs) {
-        var hours = Math.floor(secs / (60 * 60)),
+        var hours               = Math.floor(secs / (60 * 60)),
             divisor_for_minutes = secs % (60 * 60),
-            minutes = Math.floor(divisor_for_minutes / 60),
+            minutes             = Math.floor(divisor_for_minutes / 60),
             divisor_for_seconds = divisor_for_minutes % 60,
-            seconds = Math.ceil(divisor_for_seconds),
-            obj = {};
+            seconds             = Math.ceil(divisor_for_seconds),
+            obj                 = {};
 
         if (hours < 10) {
             hours = "0" + hours.toString();
@@ -332,6 +332,7 @@ var BCLS = (function(window, document) {
                             window.clearInterval(intervalID);
                             logMessage(videosRetranscoded, callNumber);
                             logMessage(status, 'All retranscode requests submitted');
+                            logMessage(rejected, JSON.stringify(rejectedVideoIDs));
                             logMessage(errors, JSON.stringify(errorCodes, null, '  '));
                         }
                     }

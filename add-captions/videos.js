@@ -1,5 +1,6 @@
 var BCLS = (function(window, document) {
     var videoTableBody      = document.getElementById('videoTableBody'),
+        getPreviousVideos   = document.getElementById('getPreviousVideos'),
         getNextVideos       = document.getElementById('getNextVideos'),
         addCaptions         = document.getElementById('addCaptions'),
         totalVideos         = 0,
@@ -193,7 +194,7 @@ var BCLS = (function(window, document) {
             response,
             requestParams,
             dataString,
-            proxyURL    = './videos-proxy.php',
+            proxyURL    = 'https://solutions.brightcove.com/bcls/add-captions/videos-proxy.php',
             // response handler
             getResponse = function() {
                 try {

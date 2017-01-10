@@ -1,0 +1,40 @@
+body {
+    font-family: sans-serif;
+    color: #293b70;
+    margin: 2em;
+    max-width: 800px;
+}
+
+fieldset {
+    border: 1px #293b70 solid;
+    border-radius: 4px;
+}
+
+legend {
+    text-align: center;
+}
+
+iframe {
+    width: 95%;
+    height: 95%;
+}
+
+button {
+    background-color: #cccccc;
+    border-radius: .5em;
+    cursor: pointer;
+    padding: .5em;
+}
+
+#addCaptions {
+    float: right;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td {
+    font-weight: bold;
+    padding: .5em;
+}

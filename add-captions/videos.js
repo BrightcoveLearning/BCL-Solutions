@@ -50,6 +50,7 @@ var BCLS = (function(window, document) {
      * of checked checkboxes
      * @param {htmlElementCollection} checkboxCollection a collection of the checkbox elements, usually gotten by document.getElementsByName()
      * @param {Array} targetArray the array to store the values in
+     * @returns {Array} the target array
      */
     function getSelectedCheckboxes(checkboxCollection, targetArray) {
         var i,
@@ -58,6 +59,25 @@ var BCLS = (function(window, document) {
             if (checkboxCollection[i].checked) {
                 targetArray.push(checkboxCollection[i].value);
             }
+        }
+        return targetArray;
+    }
+
+    function disableButton(el) {
+        el.setAttribute('disabled', 'disabled');
+        el.setAttribute('style', 'cursor:not-allowed;opacity:.5')
+    }
+
+    /**
+     * getSelectedCheckboxes returns an array of the values
+     * of checked checkboxes
+     * @param {htmlElementCollection} checkboxCollection a collection of the checkbox elements, usually gotten by document.getElementsByName()
+     */
+    function selectAllCheckboxes(checkboxCollection) {
+        var i,
+            iMax = checkboxCollection.length;
+        for (i = 0; i < iMax; i += 1) {
+            checkboxCollection[i].setAttribute('checked', 'checked');
         }
         return targetArray;
     }

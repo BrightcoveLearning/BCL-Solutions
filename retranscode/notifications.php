@@ -20,7 +20,7 @@ if ($decoded) {
         $job_count_data    = file_get_contents($job_count_file);
         $job_count_decoded = json_decode($job_count_data);
         if ($decoded['entityType'] == 'TITLE') {
-            if ($decoded['status'] == 'SUCCESS') {
+            if ($decoded['status'] == 'SUCCESS' && $decoded['action'] == 'CREATE') {
                 $job_count_decoded->job_count--;
             } elseif ($decoded['status'] == 'FAILED') {
                 $job_count_decoded->job_count--;
@@ -31,12 +31,12 @@ if ($decoded) {
         fwrite($job_count, json_encode($job_count_decoded));
         fclose($job_count);
 
-
+        $logFileLocation = $account_id.'_notifications.txt';
+        $current_log = file_get_contents($logFileLocation);
         $logEntry = $notification."\n";
 
         // Lastly, tell PHP where it can find the log file and tell PHP to open it
 
-        $logFileLocation = $account_id.'_notifications.txt';
         $fileHandle      = fopen($logFileLocation, 'a');
         fwrite($fileHandle, $logEntry);
         fclose($fileHandle);

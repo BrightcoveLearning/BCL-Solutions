@@ -69,7 +69,7 @@ var BCLS = (function(window, document) {
     }
 
     /**
-     * getSelectedCheckboxes returns an array of the values
+     * selects all checkboxes in a collection
      * of checked checkboxes
      * @param {htmlElementCollection} checkboxCollection a collection of the checkbox elements, usually gotten by document.getElementsByName()
      */

@@ -32,7 +32,7 @@ if ($decoded) {
                 $err->job_id = $decoded['jobId'];
                 $err->video_id = $decoded['videoId'];
                 $err->error_message = $decoded['errorMessage'];
-                $job_count_decoded->failed.push($err);
+                array_push($job_count_decoded->failed, $err);
             }
         }
         $job_count = fopen($job_count_file, 'w');

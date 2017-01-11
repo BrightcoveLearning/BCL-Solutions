@@ -77,15 +77,16 @@
     <p>This app retranscode all the videos in a Video Cloud account. If you're interested in how the app works, see <a href="./app-logic.html">this explanation.</a>.</p>
     <ul>
     </ul>
-    <div class="highlight">Notes:
+    <div class="highlight"><strong>Please read these notes before proceeding</strong>:
         <ul>
             <li>One ingest profile will be used for all videos</li>
             <li>By default, this app will transcode all videos in an account (if they have stored digital masters). You can enter a search string here to limit transcoding to a smaller set of videos - a <strong>good idea</strong> for large accounts, or if you want to use different ingest profiles for different sets of videos. See <a href="http://docs.brightcove.com/en/video-cloud/cms-api/guides/search-videos.html">Search for Videos</a> for details on constructing search strings.</li>
-            <li>Because the app respects rate limiting for the system, it may take a long time to run on very large libraries</li>
+            <li>Because the app respects rate limiting for the DI system, it will take a long time to run on very large libraries</li>
             <li>Once transcoding begins, do not leave this page until you see the completed message! If you do, you will have to start over.</li>
             <li>If you want to use a custom ingest profile from your account, you will need client credentials that include permissions for the Ingest Profiles API - see the <a href="get-credentials.html">instructions for getting these credentials</a>.</li>
-            <li>If something goes wrong and you want to rerun this app on the same account, <a href="mailto:rcrooks@brightcove.com">contact Robert</a> first! There are logs I can check to help figure out what went wrong, but they will be automatically cleared when you rerun the app.</li>
+            <li>If something goes wrong and you want to rerun this app on the same account, check the notifications first! This is a log to help you figure out what went wrong, but it will be automatically cleared when you rerun the app.</li>
             <li>If you are retranscoding thousands of videos, the process will take <strong>hours</strong> to complete. You need to make sure your machine doesn't go to sleep before the app finishes.</li>
+            <li>Because I do not expect heavy use of this app, I built in only minimal handling for concurrent users. If you run multiple instances of this app on the same account, it will definitely break.</li>
         </ul>
     </div>
     <fieldset>

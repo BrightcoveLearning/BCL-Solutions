@@ -188,6 +188,7 @@ var BCLS = (function(window, document) {
      */
     function createRequest(type) {
         var options    = {},
+            url,
             ipBaseURL  = 'https://ingestion.api.brightcove.com/v1/accounts/' + account.value,
             cmsBaseURL = 'https://cms.api.brightcove.com/v1/accounts/' + account.value,
             diBaseURL  = 'https://ingest.api.brightcove.com/v1/accounts/' + account.value,
@@ -361,8 +362,8 @@ var BCLS = (function(window, document) {
                 });
                 break;
             case 'showJobCount':
-                options.url = './' + jobCountFile;
-                getFile(options, function(response) {
+                url = './' + jobCountFile;
+                getFile(url, function(response) {
                     if (response) {
                         responseDecoded = JSON.parse(response);
                         logMessage(jobCount, responseDecoded.job_count);
@@ -372,8 +373,8 @@ var BCLS = (function(window, document) {
                 });
                 break;
             case 'showFailedJobs':
-                options.url = './' + jobCountFile;
-                getFile(options, function(response) {
+                url = './' + jobCountFile;
+                getFile(url, function(response) {
                     if (response) {
                         responseDecoded = JSON.parse(response);
                         logMessage(failedJobs, JSON.stringify(responseDecoded.failed, null, ' '));
@@ -381,8 +382,8 @@ var BCLS = (function(window, document) {
                 });
                 break;
             case 'showNotifications':
-                options.url = './' + notificationsFile;
-                getFile(options, function(response) {
+                url = './' + notificationsFile;
+                getFile(url, function(response) {
                     if (response) {
                         responseDecoded = JSON.parse(response);
                         logMessage(notifications, JSON.stringify(responseDecoded, null, '  '));
@@ -464,12 +465,11 @@ var BCLS = (function(window, document) {
     }
 
     /**
-     * send API request to the proxy
-     * @param  {Object} options for the request
-     * @param  {String} options.url the url of the txt file
+     * get the contents of a text file
+     * @param  {String} url the url of the txt file
      * @param  {Function} [callback] callback function that will process the response
      */
-    function getFile(options, callback) {
+    function getFile(url, callback) {
         var httpRequest = new XMLHttpRequest(),
             response,
             // response handler
@@ -499,7 +499,7 @@ var BCLS = (function(window, document) {
         // set response handler
         httpRequest.onreadystatechange = getResponse;
         // open the request
-        httpRequest.open('GET', options.url);
+        httpRequest.open('GET', url);
         // open and send request
         httpRequest.send();
     }

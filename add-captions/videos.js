@@ -3,6 +3,8 @@ var BCLS = (function(window, document) {
         getPreviousVideos   = document.getElementById('getPreviousVideos'),
         getNextVideos       = document.getElementById('getNextVideos'),
         addCaptions         = document.getElementById('addCaptions'),
+        selectAll           = document.getElementById('selectAll'),
+        statusMessages      = document.getElementById('statusMessages'),
         totalVideos         = 0,
         totalVideoSets      = 0,
         nextVideoSet        = 0,
@@ -13,36 +15,65 @@ var BCLS = (function(window, document) {
         // place holder for the array of selected video ids
         selectedVideos      = [],
         /**
-         * since i don't have captions per video, i'm just going to add
-         * these samples to all videos
-         * note i'm adding English and Spanish both in case you guys do
+         * since i don't have captions per video, i'm just adding
+         * sample captions to all videos
+         * note i'm adding English and Spanish both in case you do
          * multilanguage
          */
         text_tracks         = [{url:'http://solutions.brightcove.com/bcls/assets/vtt/sample.vtt', srclang:'en', kind:'captions', label:'English',default:'true'}, {url:'http://solutions.brightcove.com/bcls/assets/vtt/sample-es.vtt', srclang:'es', kind:'captions', label:'Español',default:'false'}],
-        // somehow I know this
+        /**
+         * in case this is for a multi-user environment
+         * with multiple accounts, I'm simulating
+         * user/account information obtained from some backend system
+         */
         customer_id         = 'customer1',
         brightcoveAccountId = '1485884786001';
 
     /**
      * event listeners
      */
+    // initial operations on page load
     window.addEventListener('load', function() {
         // get the video count and load the first set immediately
+        disableButton(getPreviousVideos);
         createRequest('getVideoCount');
         createRequest('getVideos');
     });
-
+    // get next set of videos
     getNextVideos.addEventListener('click', function() {
         // get the next video set
+        enableButton(getPreviousVideos);
         nextVideoSet++;
+        console.log('nextVideoSet', nextVideoSet);
+        if (nextVideoSet === (totalVideoSets - 1)) {
+            disableButton(getNextVideos);
+        }
         createRequest('getVideos');
     });
-
+    // get previous set of videos
+    getPreviousVideos.addEventListener('click', function() {
+        // get the next video set
+        enableButton(getNextVideos);
+        nextVideoSet--;
+        if (nextVideoSet === 0) {
+            disableButton(getPreviousVideos);
+        }
+        createRequest('getVideos');
+    });
+    // add captions to selected videos
     addCaptions.addEventListener('click', function() {
         // add captions to selected videos
         getSelectedCheckboxes(checkBoxes, selectedVideos);
         totalDiCalls = selectedVideos.length;
         createRequest('addCaptions');
+    });
+    // select all videos in the current set
+    selectAll.addEventListener('change', function() {
+        if (selectAll.checked) {
+            selectAllCheckboxes(checkBoxes);
+        } else if (!selectAll.checked) {
+            deselectAllCheckboxes(checkBoxes);
+        }
     });
 
     /**
@@ -63,9 +94,22 @@ var BCLS = (function(window, document) {
         return targetArray;
     }
 
+    /**
+     * Enable a button
+     * @param {htmlElement} el the button
+     */
+    function enableButton(el) {
+        el.removeAttribute('disabled');
+        el.setAttribute('style', 'cursor:pointer;opacity:1;');
+    }
+
+    /**
+    * Disable a button
+    * @param {htmlElement} el the button
+    */
     function disableButton(el) {
         el.setAttribute('disabled', 'disabled');
-        el.setAttribute('style', 'cursor:not-allowed;opacity:.5')
+        el.setAttribute('style', 'cursor:not-allowed;opacity:.7;');
     }
 
     /**
@@ -78,6 +122,20 @@ var BCLS = (function(window, document) {
             iMax = checkboxCollection.length;
         for (i = 0; i < iMax; i += 1) {
             checkboxCollection[i].setAttribute('checked', 'checked');
+        }
+        return targetArray;
+    }
+
+    /**
+     * deselects all checkboxes in a collection
+     * of checked checkboxes
+     * @param {htmlElementCollection} checkboxCollection a collection of the checkbox elements, usually gotten by document.getElementsByName()
+     */
+    function deselectAllCheckboxes(checkboxCollection) {
+        var i,
+            iMax = checkboxCollection.length;
+        for (i = 0; i < iMax; i += 1) {
+            checkboxCollection[i].removeAttribute('checked');
         }
         return targetArray;
     }
@@ -190,13 +248,18 @@ var BCLS = (function(window, document) {
                     responseDecoded = JSON.parse(response);
                     console.log('responseDecoded', responseDecoded);
                     diCallNumber++;
+                    console.log('totalDiCalls', totalDiCalls);
                     if (diCallNumber < totalDiCalls) {
-                        createRequest('transcodeVideo');
+                        createRequest('addCaptions');
                     } else {
-                        // you could display some completed message here
+                        statusMessages.textContent = 'Captions added to ' + totalDiCalls + ' videos';
+                        deselectAllCheckboxes(checkBoxes);
                     }
                 });
                 break;
+            default:
+                // shouldn't be here
+                console.log('somehow got to default case');
         }
     }
 

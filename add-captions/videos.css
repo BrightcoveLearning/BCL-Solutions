@@ -30,6 +30,11 @@ button {
     float: right;
 }
 
+#statusMessage {
+    color: #990000;
+    font-weight: bold;
+}
+
 table {
     border-collapse: collapse;
 }

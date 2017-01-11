@@ -30,7 +30,7 @@ button {
     float: right;
 }
 
-#statusMessage {
+#statusMessages {
     color: #990000;
     font-weight: bold;
 }

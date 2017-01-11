@@ -42,6 +42,7 @@ var BCLS = (function(window, document) {
     // get next set of videos
     getNextVideos.addEventListener('click', function() {
         // get the next video set
+        statusMessages.textContent = '';
         enableButton(getPreviousVideos);
         nextVideoSet++;
         console.log('nextVideoSet', nextVideoSet);
@@ -53,6 +54,7 @@ var BCLS = (function(window, document) {
     // get previous set of videos
     getPreviousVideos.addEventListener('click', function() {
         // get the next video set
+        statusMessages.textContent = '';
         enableButton(getNextVideos);
         nextVideoSet--;
         if (nextVideoSet === 0) {
@@ -91,7 +93,6 @@ var BCLS = (function(window, document) {
                 targetArray.push(checkboxCollection[i].value);
             }
         }
-        return targetArray;
     }
 
     /**
@@ -123,7 +124,6 @@ var BCLS = (function(window, document) {
         for (i = 0; i < iMax; i += 1) {
             checkboxCollection[i].setAttribute('checked', 'checked');
         }
-        return targetArray;
     }
 
     /**
@@ -137,7 +137,6 @@ var BCLS = (function(window, document) {
         for (i = 0; i < iMax; i += 1) {
             checkboxCollection[i].removeAttribute('checked');
         }
-        return targetArray;
     }
 
     /**

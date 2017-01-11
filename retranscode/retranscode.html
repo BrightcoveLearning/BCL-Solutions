@@ -22,8 +22,8 @@
             height: 95%;
         }
         button {
-            padding: 10px;
-            border: 4px #ecb612 solid;
+            padding: 5px;
+            border: 3px #ecb612 solid;
             border-radius: 5px;
             background-color: #293b70;
             color: #fff;
@@ -48,6 +48,7 @@
             font-weight: bold;
             padding: 5px;
             text-align: right;
+            vertical-align: top;
         }
         .messages {
             background-color: #FEF7E4;
@@ -137,11 +138,23 @@
                 </tr>
                 <tr>
                     <td>Rejected videos (no master)</td>
-                    <td id="rejected" class="messages"></td>
+                    <td class="messages"><pre id="rejected"></pre></td>
                 </tr>
                 <tr>
                     <td>Errors</td>
                     <td id="errors" class="messages"></td>
+                </tr>
+                <tr>
+                    <td><button id="showJobCount">Get Running Job Count</button></td>
+                    <td id="jobCount" class="messages"></td>
+                </tr>
+                <tr>
+                    <td><button id="showFailedJobs">Show Failed Jobs</button><br>(List will not be complete until all jobs have processed)</td>
+                    <td class="messages"><pre id="failedJobs"></pre></td>
+                </tr>
+                <tr>
+                    <td><button id="showNotifications">Show All Notifications</button><br>(List will not be complete until all jobs have processed)</td>
+                    <td class="messages"><pre id="notifications"></pre></td>
                 </tr>
             </table>
         </div>

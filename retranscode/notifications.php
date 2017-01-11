@@ -21,10 +21,18 @@ if ($decoded) {
         if ($decoded['entityType'] == 'TITLE') {
             // check action as well as status for Bolt compatibility
             if ($decoded['status'] == 'SUCCESS' && $decoded['action'] == 'CREATE') {
-                $job_count_decoded->job_count--;
+                if ($job_count_decoded->job_count > 0) {
+                    $job_count_decoded->job_count--;
+                }
             } elseif ($decoded['status'] == 'FAILED') {
-                $job_count_decoded->job_count--;
-                $job_count_decoded->failed.push($decoded['videoId']);
+                if ($job_count_decoded->job_count > 0) {
+                    $job_count_decoded->job_count--;
+                }
+                $err = new stdClass();
+                $err->job_id = $decoded['jobId'];
+                $err->video_id = $decoded['videoId'];
+                $err->error_message = $decoded['errorMessage'];
+                $job_count_decoded->failed.push($err);
             }
         }
         $job_count = fopen($job_count_file, 'w');
@@ -33,18 +41,15 @@ if ($decoded) {
 
         $logFileLocation = $account_id.'_notifications.txt';
         $current_log = file_get_contents($logFileLocation);
-        if (!current_log) {
-            $current_log_decoded = array();
-        } else {
+        if ($current_log) {
             $current_log_decoded = json_decode($current_log);
+        } else {
+            $current_log_decoded = array();
         }
-        $current_log_decoded.push($decoded);
-        $current_log = json_encode($current_log_decoded, JSON_PRETTY_PRINT);
+        array_push($current_log_decoded, $decoded);
 
-        // Lastly, tell PHP where it can find the log file and tell PHP to open it
-
-        $fileHandle      = fopen($logFileLocation, 'a');
-        fwrite($fileHandle, $current_log);
+        $fileHandle = fopen($logFileLocation, 'w');
+        fwrite($fileHandle, json_encode($current_log_decoded));
         fclose($fileHandle);
     }
 }

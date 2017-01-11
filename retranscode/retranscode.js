@@ -16,6 +16,14 @@ var BCLS = (function(window, document) {
         status             = document.getElementById('status'),
         errors             = document.getElementById('errors'),
         timeElapsed        = document.getElementById('timeElapsed'),
+        showJobCount       = document.getElementById('showJobCount'),
+        jobCount           = document.getElementById('jobCount'),
+        showFailedJobs     = document.getElementById('showFailedJobs'),
+        failedJobs         = document.getElementById('failedJobs'),
+        showNotifications  = document.getElementById('showNotifications'),
+        notifications      = document.getElementById('notifications'),
+        jobCountFile,
+        notificationsFile,
         selectedProfile    = '',
         videoIDs           = [],
         rejectedVideoIDs   = [],
@@ -39,9 +47,11 @@ var BCLS = (function(window, document) {
 
     goBtn.addEventListener('click', function() {
         if (checkRequired()) {
-            selectedProfile = getSelectedValue(profiles);
-            newImages = isChecked(captureImages);
-            intervalID = window.setInterval(function() {
+            jobCountFile      = account.value + '_count.txt';
+            notificationsFile = account.value + '_notifications.txt';
+            selectedProfile   = getSelectedValue(profiles);
+            newImages         = isChecked(captureImages);
+            intervalID        = window.setInterval(function() {
                 var now;
                 timePassed++;
                 now = secondsToTime(timePassed);
@@ -51,6 +61,18 @@ var BCLS = (function(window, document) {
         } else {
             alert('The account id, client id, and client secret are required');
         }
+    });
+
+    showJobCount.addEventListener('click', function() {
+        createRequest('showJobCount');
+    });
+
+    showFailedJobs.addEventListener('click', function() {
+        createRequest('showFailedJobs');
+    });
+
+    showNotifications.addEventListener('click', function() {
+        createRequest('showNotifications');
     });
 
     /**
@@ -332,12 +354,44 @@ var BCLS = (function(window, document) {
                             window.clearInterval(intervalID);
                             logMessage(videosRetranscoded, callNumber);
                             logMessage(status, 'All retranscode requests submitted');
-                            logMessage(rejected, JSON.stringify(rejectedVideoIDs));
+                            logMessage(rejected, JSON.stringify(rejectedVideoIDs, null, ' '));
                             logMessage(errors, JSON.stringify(errorCodes, null, '  '));
                         }
                     }
                 });
                 break;
+            case 'showJobCount':
+                options.url = './' + jobCountFile;
+                getFile(options, function(response) {
+                    if (response) {
+                        responseDecoded = JSON.parse(response);
+                        logMessage(jobCount, responseDecoded.job_count);
+                    } else {
+                        logMessage(jobCount, 'Job count unavailable');
+                    }
+                });
+                break;
+            case 'showFailedJobs':
+                options.url = './' + jobCountFile;
+                getFile(options, function(response) {
+                    if (response) {
+                        responseDecoded = JSON.parse(response);
+                        logMessage(failedJobs, JSON.stringify(responseDecoded.failed, null, ' '));
+                    }
+                });
+                break;
+            case 'showNotifications':
+                options.url = './' + notificationsFile;
+                getFile(options, function(response) {
+                    if (response) {
+                        responseDecoded = JSON.parse(response);
+                        logMessage(notifications, JSON.stringify(responseDecoded, null, '  '));
+                    }
+                });
+                break;
+            default:
+                alert('Something went wrong here - please report this message to rcrooks@brightcove.com');
+            break;
         }
     }
 
@@ -407,6 +461,47 @@ var BCLS = (function(window, document) {
         httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         // open and send request
         httpRequest.send(requestParams);
+    }
+
+    /**
+     * send API request to the proxy
+     * @param  {Object} options for the request
+     * @param  {String} options.url the url of the txt file
+     * @param  {Function} [callback] callback function that will process the response
+     */
+    function getFile(options, callback) {
+        var httpRequest = new XMLHttpRequest(),
+            response,
+            // response handler
+            getResponse = function() {
+                try {
+                    if (httpRequest.readyState === 4) {
+                        if (httpRequest.status === 200) {
+                            response = httpRequest.responseText;
+                            // some API requests return '{null}' for empty responses - breaks JSON.parse
+                            // console.log('response', response);
+                            if (response === '{null}') {
+                                response = null;
+                            }
+                            // return the response
+                            callback(response);
+                        } else {
+                            callback(null);
+                        }
+                    }
+                } catch (e) {
+                    callback(null);
+                }
+            };
+        /**
+         * set up request data
+         */
+        // set response handler
+        httpRequest.onreadystatechange = getResponse;
+        // open the request
+        httpRequest.open('GET', options.url);
+        // open and send request
+        httpRequest.send();
     }
 
 

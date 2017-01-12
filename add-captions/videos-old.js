@@ -3,6 +3,7 @@ var BCLS = (function(window, document) {
         getPreviousVideos   = document.getElementById('getPreviousVideos'),
         getNextVideos       = document.getElementById('getNextVideos'),
         addCaptions         = document.getElementById('addCaptions'),
+        selectAll           = document.getElementById('selectAll'),
         statusMessages      = document.getElementById('statusMessages'),
         totalVideos         = 0,
         totalVideoSets      = 0,
@@ -10,15 +11,8 @@ var BCLS = (function(window, document) {
         diCallNumber        = 0,
         totalDiCalls        = 0,
         // placeholder for a collection of checkboxes we'll get later
-        eight_hour_checkBoxes,
-        twelve_hour_checkBoxes,
-        one_day_checkBoxes,
-        two_day_checkBoxes,
+        checkBoxes,
         // place holder for the array of selected video ids
-        eight_hourVideos    = [],
-        twelve_hourVideos   = [],
-        one_dayVideos       = [],
-        two_dayVideos       = [],
         selectedVideos      = [],
         /**
          * since i don't have captions per video, i'm just adding
@@ -33,8 +27,7 @@ var BCLS = (function(window, document) {
          * user/account information obtained from some backend system
          */
         customer_id         = 'customer1',
-        brightcoveAccountId = '1485884786001',
-        pricePoints = ['8_hour', '12_hour', '1_day', '2_day'];
+        brightcoveAccountId = '1485884786001';
 
     /**
      * event listeners
@@ -71,25 +64,18 @@ var BCLS = (function(window, document) {
     // add captions to selected videos
     addCaptions.addEventListener('click', function() {
         // add captions to selected videos
-        getSelectedCheckboxes(eight_hour_checkBoxes, eight_hourVideos);
-        getSelectedCheckboxes(twelve_hour_checkBoxes, twelve_hourVideos);
-        getSelectedCheckboxes(one_day_checkBoxes, one_dayVideos);
-        getSelectedCheckboxes(two_day_checkBoxes, two_dayVideos);
-        selectedVideos = eight_hourVideos.concat(twelve_hourVideos, one_dayVideos, two_dayVideos);
-        console.log('selectedVideos', selectedVideos);
-        // getSelectedCheckboxes(two_day_checkBoxes, two_dayVideos);
+        getSelectedCheckboxes(checkBoxes, selectedVideos);
         totalDiCalls = selectedVideos.length;
         statusMessages.textContent = 'Adding captions...';
         createRequest('addCaptions');
-        //
-        console.log('eight_hourVideos', eight_hourVideos);
-        console.log('twelve_hourVideos', twelve_hourVideos);
-        console.log('one_dayVideos', one_dayVideos);
-        console.log('two_dayVideos', two_dayVideos);
-        /**
-         * now you have arrays of the video ids for each pricepoint
-         * to handoff to Vantage
-         */
+    });
+    // select all videos in the current set
+    selectAll.addEventListener('change', function() {
+        if (selectAll.checked) {
+            selectAllCheckboxes(checkBoxes);
+        } else if (!selectAll.checked) {
+            deselectAllCheckboxes(checkBoxes);
+        }
     });
 
     /**
@@ -191,10 +177,8 @@ var BCLS = (function(window, document) {
                         td,
                         br,
                         input,
-                        label,
                         img,
                         txt,
-                        j,
                         docFragment = document.createDocumentFragment();
                     // parse the response
                     responseDecoded = JSON.parse(response);
@@ -206,21 +190,12 @@ var BCLS = (function(window, document) {
                             tr = document.createElement('tr');
                             // checkbox cell
                             td = document.createElement('td');
-                            for (j = 0; j < pricePoints.length; j++) {
-                                input = document.createElement('input');
-                                input.setAttribute('type', 'checkbox');
-                                input.setAttribute('id', pricePoints[j] + '_check_' + j);
-                                input.setAttribute('name', pricePoints[j]);
-                                input.setAttribute('value', video.id);
-                                td.appendChild(input);
-                                label = document.createElement('label');
-                                label.setAttribute('for', pricePoints[j] + '_check_' + j);
-                                txt = document.createTextNode(pricePoints[j]);
-                                label.appendChild(txt);
-                                td.appendChild(label);
-                                br = document.createElement('br');
-                                td.appendChild(br);
-                            }
+                            input = document.createElement('input');
+                            input.setAttribute('type', 'checkbox');
+                            input.setAttribute('id', video.id);
+                            input.setAttribute('name', 'videoSelect');
+                            input.setAttribute('value', video.id);
+                            td.appendChild(input);
                             tr.appendChild(td);
                             // thumbnail cell
                             if (video.images && video.images.thumbnail) {
@@ -253,10 +228,7 @@ var BCLS = (function(window, document) {
                     videoTableBody.innerHTML = '';
                     videoTableBody.appendChild(docFragment);
                     // get a reference to the checkbox collection
-                    eight_hour_checkBoxes = document.getElementsByName('8_hour');
-                    twelve_hour_checkBoxes = document.getElementsByName('12_hour');
-                    one_day_checkBoxes = document.getElementsByName('1_day');
-                    two_day_checkBoxes = document.getElementsByName('2_day');
+                    checkBoxes = document.getElementsByName('videoSelect');
                 });
                 break;
             case 'addCaptions':
@@ -282,10 +254,7 @@ var BCLS = (function(window, document) {
                         createRequest('addCaptions');
                     } else {
                         statusMessages.textContent = 'Captions added to ' + totalDiCalls + ' videos';
-                        deselectAllCheckboxes(eight_hour_checkBoxes);
-                        deselectAllCheckboxes(twelve_hour_checkBoxes);
-                        deselectAllCheckboxes(one_day_checkBoxes);
-                        deselectAllCheckboxes(two_day_checkBoxes);
+                        deselectAllCheckboxes(checkBoxes);
                     }
                 });
                 break;

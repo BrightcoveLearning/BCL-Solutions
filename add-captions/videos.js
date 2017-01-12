@@ -45,7 +45,6 @@ var BCLS = (function(window, document) {
         statusMessages.textContent = '';
         enableButton(getPreviousVideos);
         nextVideoSet++;
-        console.log('nextVideoSet', nextVideoSet);
         if (nextVideoSet === (totalVideoSets - 1)) {
             disableButton(getNextVideos);
         }
@@ -67,6 +66,7 @@ var BCLS = (function(window, document) {
         // add captions to selected videos
         getSelectedCheckboxes(checkBoxes, selectedVideos);
         totalDiCalls = selectedVideos.length;
+        statusMessages.textContent = 'Adding captions...';
         createRequest('addCaptions');
     });
     // select all videos in the current set
@@ -175,6 +175,7 @@ var BCLS = (function(window, document) {
                     var video,
                         tr,
                         td,
+                        br,
                         input,
                         img,
                         txt,
@@ -214,6 +215,10 @@ var BCLS = (function(window, document) {
                             td = document.createElement('td');
                             txt = document.createTextNode(video.name);
                             td.appendChild(txt);
+                            br = document.createElement('br');
+                            td.appendChild(br);
+                            txt = document.createTextNode(video.description);
+                            td.appendChild(txt);
                             tr.appendChild(td);
                             // append this row to the doc fragment
                             docFragment.appendChild(tr);
@@ -227,7 +232,6 @@ var BCLS = (function(window, document) {
                 });
                 break;
             case 'addCaptions':
-                console.log('selectedVideos', selectedVideos);
                 options.proxyURL    = './retranscode-proxy.php';
                 endpoint            = '/videos/' + selectedVideos[diCallNumber] + '/ingest-requests';
                 options.url         = diBaseURL + endpoint;
@@ -245,9 +249,7 @@ var BCLS = (function(window, document) {
                 options.requestBody += ']}';
                 makeRequest(options, function(response) {
                     responseDecoded = JSON.parse(response);
-                    console.log('responseDecoded', responseDecoded);
                     diCallNumber++;
-                    console.log('totalDiCalls', totalDiCalls);
                     if (diCallNumber < totalDiCalls) {
                         createRequest('addCaptions');
                     } else {
@@ -284,7 +286,6 @@ var BCLS = (function(window, document) {
                         if (httpRequest.status === 200) {
                             response = httpRequest.responseText;
                             // some API requests return '{null}' for empty responses - breaks JSON.parse
-                            console.log('response', response);
                             if (response === '{null}') {
                                 response = null;
                             }
@@ -308,7 +309,6 @@ var BCLS = (function(window, document) {
          * options.client_secret - the client secret (defaults here to a Brightcove sample account value - this should always be stored on the server side if possible)
          * options.requestBody - request body for write requests (optional JSON string)
          */
-         console.log('options', options);
         requestParams = 'url=' + encodeURIComponent(options.url) + '&requestType=' + options.requestType + '&account_id=' + options.account_id + '&customer_id=' + options.customer_id;
         // only add client id and secret if both were submitted
         if (options.client_id && options.client_secret) {
@@ -318,7 +318,6 @@ var BCLS = (function(window, document) {
         if (options.requestBody) {
             requestParams += '&requestBody=' + encodeURIComponent(options.requestBody);
         }
-        console.log('requestParams', decodeURIComponent(requestParams));
         // set response handler
         httpRequest.onreadystatechange = getResponse;
         // open the request

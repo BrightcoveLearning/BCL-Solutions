@@ -195,6 +195,7 @@ var BCLS = (function(window, document) {
             endpoint,
             responseDecoded,
             limit = 25,
+            message,
             t,
             i,
             iMax,
@@ -295,7 +296,7 @@ var BCLS = (function(window, document) {
                             logMessage(videosRetrieved, videoIDs.length);
                             logMessage(videosRejected, rejectedVideoIDs.length);
                             callNumber = 0;
-                            createRequest(videoIDs[callNumber] + ': transcodeVideo');
+                            createRequest('transcodeVideo');
                         }
                     } else {
                         iMax = responseDecoded.length;
@@ -317,6 +318,7 @@ var BCLS = (function(window, document) {
                             logMessage(videosRetrieved, videoIDs.length);
                             logMessage(videosRejected, rejectedVideoIDs.length);
                             callNumber = 0;
+                            createRequest('sendStartMessage');
                             createRequest('transcodeVideo');
                         }
                     }
@@ -338,6 +340,7 @@ var BCLS = (function(window, document) {
                             logMessage(videosRetranscoded, callNumber);
                             createRequest('transcodeVideo');
                         } else {
+                            createRequest('sendEndMessage');
                             logMessage(videosRetranscoded, callNumber);
                             logMessage(status, 'All retranscode requests submitted');
                             logMessage(rejected, JSON.stringify(rejectedVideoIDs));
@@ -353,6 +356,7 @@ var BCLS = (function(window, document) {
                             createRequest('transcodeVideo');
                         } else {
                             window.clearInterval(intervalID);
+                            createRequest('sendEndMessage');
                             logMessage(videosRetranscoded, callNumber);
                             logMessage(status, 'All retranscode requests submitted');
                             logMessage(rejected, JSON.stringify(rejectedVideoIDs, null, ' '));
@@ -378,6 +382,8 @@ var BCLS = (function(window, document) {
                     if (response) {
                         responseDecoded = JSON.parse(response);
                         logMessage(failedJobs, JSON.stringify(responseDecoded.failed, null, ' '));
+                    } else {
+                        logMessage(failedJobs, 'Failed jobs info not yet available');
                     }
                 });
                 break;
@@ -387,7 +393,23 @@ var BCLS = (function(window, document) {
                     if (response) {
                         responseDecoded = JSON.parse(response);
                         logMessage(notifications, JSON.stringify(responseDecoded, null, '  '));
+                    } else {
+                        logMessage(notifications, 'Notifications not yet available');
                     }
+                });
+                break;
+            case 'sendStartMessage':
+                message = encodeURI('Retranscoding app is retranscoding ' + videoIDs.length + ' videos on account: ' + account.value);
+                url = 'https://api.hipchat.com/v1/rooms/message?format=json&auth_token=f10a6edaeb025f2672155424a8881f&color=yellow&room_id=328124&from=Robert%20Crooks&message=' + message;
+                sendMessage(url, function(response) {
+                    console.log(response);
+                });
+                break;
+            case 'sendEndMessage':
+                message = encodeURI('Retranscoding app has completed on account: ' + account.value);
+                url = 'https://api.hipchat.com/v1/rooms/message?format=json&auth_token=f10a6edaeb025f2672155424a8881f&color=green&room_id=328124&from=Robert%20Crooks&message=' + message;
+                sendMessage(url, function(response) {
+                    console.log(response);
                 });
                 break;
             default:
@@ -500,6 +522,48 @@ var BCLS = (function(window, document) {
         httpRequest.onreadystatechange = getResponse;
         // open the request
         httpRequest.open('GET', url);
+        // open and send request
+        httpRequest.send();
+    }
+
+    /**
+     * send a message to OVP room in Hipchat
+     * @param  {String} url to send to
+     * @param  {Function} [callback] callback function that will process the response
+     */
+    function sendMessage(url, callback) {
+        var httpRequest = new XMLHttpRequest(),
+            response,
+            // response handler
+            getResponse = function() {
+                try {
+                    if (httpRequest.readyState === 4) {
+                        if (httpRequest.status === 200) {
+                            response = httpRequest.responseText;
+                            // some API requests return '{null}' for empty responses - breaks JSON.parse
+                            // console.log('response', response);
+                            if (response === '{null}') {
+                                response = null;
+                            }
+                            // return the response
+                            callback(response);
+                        } else if (httpRequest.status === 404) {
+                            callback(null);
+                        } else {
+                            callback(null);
+                        }
+                    }
+                } catch (e) {
+                    callback(null);
+                }
+            };
+        /**
+         * set up request data
+         */
+        // set response handler
+        httpRequest.onreadystatechange = getResponse;
+        // open the request
+        httpRequest.open('POST', url);
         // open and send request
         httpRequest.send();
     }

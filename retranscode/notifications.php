@@ -31,7 +31,6 @@ if ($decoded) {
                 $err = new stdClass();
                 $err->job_id = $decoded['jobId'];
                 $err->video_id = $decoded['videoId'];
-                $err->error_message = $decoded['errorMessage'];
                 array_push($job_count_decoded->failed, $err);
             }
         }

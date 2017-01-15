@@ -1,17 +1,12 @@
 <?php
 /**
- * bcls-proxy.php - proxy for Brightcove RESTful APIs
+ * proxy for Brightcove RESTful APIs
  * gets an access token, makes the request, and returns the response
  * Accessing:
- *     URL: https://solutions.brightcove.com/bcls/bcls-proxy/bcsl-proxy.php
- *         (note you should *always* access the proxy via HTTPS)
  *     Method: POST
  *
  * @post {string} url - the URL for the API request
  * @post {string} [requestType=GET] - HTTP method for the request
- * @post {string} [requestBody=null] - JSON data to be sent with write requests
- * @post {string} [client_id] - OAuth2 client id with sufficient permissions for the request
- * @post {string} [client_secret] - OAuth2 client secret with sufficient permissions for the request
  *
  * @returns {string} $response - JSON response received from the API
  */
@@ -28,16 +23,8 @@ header("X-Content-Type-Options: nosniff");
 // set up request for access token
 $data = array();
 
-if ($_POST["client_id"]) {
-    $client_id = $_POST["client_id"];
-} else {
-    $client_id = 'ab10631d3-7597-4be8-b8b5-dce142f81006';
-}
-if ($_POST["client_secret"]) {
-    $client_secret = $_POST["client_secret"];
-} else {
+    $client_id = 'b10631d3-7597-4be8-b8b5-dce142f81006';
     $client_secret = 'h1dbPZCMFsloMCiXprlGDvdDR7QXtcw9alyocJ1ShDfLZ5QxqBqb9u_5gGcU6mlyA1PbbG6ABYS1FMDVE4JNDQ';
-}
 
 $auth_string = "{$client_id}:{$client_secret}";
 $request     = "https://oauth.brightcove.com/v3/access_token?grant_type=client_credentials";

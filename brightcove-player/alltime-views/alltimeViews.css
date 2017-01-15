@@ -1,0 +1,12 @@
+.video-js {
+  height: 350px;
+  width: 640px;
+  float: left;
+}
+.vjs-playlist {
+  width: 200px;
+  height: 338px;
+}
+.vjs-playlist-item {
+    min-height: 120px;
+}

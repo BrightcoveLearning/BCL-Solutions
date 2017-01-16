@@ -26,6 +26,11 @@ $data = array();
     $client_id = 'b10631d3-7597-4be8-b8b5-dce142f81006';
     $client_secret = 'h1dbPZCMFsloMCiXprlGDvdDR7QXtcw9alyocJ1ShDfLZ5QxqBqb9u_5gGcU6mlyA1PbbG6ABYS1FMDVE4JNDQ';
 
+// note that the $auth_string below must be BASE64 encoded - the PHP CURL
+// functions will take case of that automatically, but if you are
+// writing a proxy in another language, you may need to do that
+// encoding explicitly
+//
 $auth_string = "{$client_id}:{$client_secret}";
 $request     = "https://oauth.brightcove.com/v3/access_token?grant_type=client_credentials";
 $ch          = curl_init($request);

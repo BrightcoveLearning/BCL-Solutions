@@ -1,27 +1,41 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Player Sample: Alltime Views</title>
-        <style>
-          body {
-              font-family: sans-serif;
-              margin: 4em;
-          }
-        </style>
-    </head>
-    <body>
-        <h1>Player Sample: Alltime Views</h1>
-        <video id="bcls_alltimePlaysPlayer" data-video-id="4825279519001"
-        data-account="1752604059001"
-        data-player="BJ1pCv88x"
-        data-embed="default"
-        data-application-id
-        class="video-js"
-        controls
-        width="600"
-        height="338"></video>
-        <script src="//players.brightcove.net/1752604059001/BJ1pCv88x_default/index.min.js"></script>
 
-    </body>
+<head>
+  <meta charset="UTF-8">
+  <title>Untitled Document</title>
+  <style type="text/css">
+    .video-js {
+      height: 309px;
+      width: 550px;
+      float: left;
+    }
+    #bcls_alltimePlaysPlaylist {
+      max-width: 170px;
+      min-width: 150px;
+      height: 304px;
+      padding: 5px 5px 0 5px;
+      background-color: #6A8D9D; /* lighter blue */
+    }
+    #bcls_alltimePlaysPlaylist .vjs-playlist-item {
+        background-color: #6A8D9D; /* lighter blue */
+  margin-bottom: 5px;
+  height: 90px;
+    }
+  </style>
+</head>
+
+<body>
+
+    <video id="bcls_alltimePlaysPlayer" data-playlist-id="5282200243001"
+                      data-account="1752604059001"
+                      data-player="BJFYWrtUl"
+                      data-embed="default"
+                      data-application-id
+                      class="video-js"
+                      controls></video>
+                      <script src="//players.brightcove.net/1752604059001/BJFYWrtUl_default/index.min.js"></script>
+                      <ol id="bcls_alltimePlaysPlaylist" class="vjs-playlist"></ol>
+
+</body>
 </html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Single Playlist</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 4em;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Single Playlist</h1>
+    <p>This sample shows the 9-item playlist once, correctly. Compare <a href="dupeplaylist.html">Duplicate Playlist Sample</a>. The only difference between the two is that in this page, I have modified the in-page embed code from Studio by moving the &gt;ol&lt; tag for the playlist <strong>above</strong> the player script tag.</p>
+    <p>My best guess as to what's going on is that the script looks for ol tag, and since it loads first, doesn't find it, and generates one instead (in addition to one that loads after the script).</p>
+    <video id="bcls_alltimePlaysPlayer" data-playlist-id="5282200243001" data-account="1752604059001" data-player="BJFYWrtUl" data-embed="default" data-application-id class="video-js" controls width="800" height="450"></video>
+    <ol id="bcls_alltimePlaysPlaylist" class="vjs-playlist" style="height:450px;"></ol>
+    <script src="//players.brightcove.net/1752604059001/BJFYWrtUl_default/index.min.js"></script>
+</body>
+
+</html>

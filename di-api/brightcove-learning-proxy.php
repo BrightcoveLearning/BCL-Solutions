@@ -3,7 +3,6 @@
  * brightcove-learning-proxy.php - proxy for Brightcove RESTful APIs
  * gets an access token, makes the request, and returns the response
  * Accessing:
- *     URL: https://solutions.brightcove.com/bcls/bcls-proxy/bcsl-proxy.php
  *         (note you should *always* access the proxy via HTTPS)
  *     Method: POST
  *

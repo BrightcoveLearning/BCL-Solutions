@@ -23,6 +23,7 @@ if (strpos($_SERVER['HTTP_REFERER'], 'solutions.brightcove.com') == false && str
 header("Access-Control-Allow-Origin: *");
 header("Content-type: application/json");
 header("X-Content-Type-Options: nosniff");
+header("X-XSS-Protection");
 
 // set up request for access token
 $data = array();

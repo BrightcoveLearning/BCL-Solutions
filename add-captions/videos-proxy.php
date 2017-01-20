@@ -23,6 +23,7 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-type: application/json");
 header("X-Content-Type-Options: nosniff");
+header("X-XSS-Protection");
 
 /**
  * Note that I don't know how you store/retrieve customer data

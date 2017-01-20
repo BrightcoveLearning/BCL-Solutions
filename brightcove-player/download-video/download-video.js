@@ -12,6 +12,9 @@ videojs.plugin('downloadVideoPlugin', function() {
 	  newImage = document.createElement('img');
 
   myPlayer.on('loadstart',function(){
+      //Reinitialize array of MP4 renditions in case used with playlist
+      //This prevents the array having a cumulative list for all videos in playlist
+      mp4Ara=[];
       // Get video name and the MP4 renditions
       console.log('mediainfo', myPlayer.mediainfo);
       videoName = myPlayer.mediainfo['name'];

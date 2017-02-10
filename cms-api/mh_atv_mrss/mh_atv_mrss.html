@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>MRSS Feed from Playlist</title>
+        <style>
+          body {
+              font-family: sans-serif;
+              margin: 3em;
+          }
+        </style>
+    </head>
+    <body>
+
+
+            <article class="bcls-article">
+                <section class="bcls-section" id="workingSample">
+                    <h1>MRSS Feed from Playlist</h1>
+                    <p>You can use the form below to generate a sample MRSS feed either for your own account or for a sample Brightcove account.</p>
+                    <fieldset class="bcls-fieldset">
+                        <legend>Input</legend>
+                        <p>
+                            If you do not enter account information, a Brightcove sample account will be used.
+                        </p>
+                        <p>Account id: <input id="account_id" type="text" value="" placeholder="5182475793001"></p>
+                        <p>Client id: <input id="client_id" type="text" size="60" value="" placeholder="1c46b01a-6610-4a39-87c2-fe9253723912"></p>
+                        <p>Client secret: <input id="client_secret" type="text" size="60" value="" placeholder="1p0oaoHBxuEfNFUdwkaILhFn0cWu__UFBY2Yj8-HgmEgXtWfPHqNCBGOC_AI__Xe3_IAMy8fUCNWSxy1Rk9CNg"></p>
+                        <p>Feed title: <input type="text" id="feedTitle" value="MRSS Feed"></p>
+                        <p>Feed description: <input type="text" id="feedDescription" value="My MRSS Feed"></p>
+                        <p>Playlist ID <input id="playlist_id" type="text"></p>
+                        <p><button class="bcls-button" id="makeFeed">Generate the Feed</button></p>
+                    </fieldset>
+                    <fieldset class="bcls-fieldset">
+                        <legend>Output</legend>
+                        <p id="logger" style="color:rgb(237, 104, 38)">Waiting for input...</p>
+                        <p>Current API request</p>
+                        <pre><code id="apiRequest"></code></pre>
+                        <p>Generated MRSS feed</p>
+                        <textarea id="feedDisplay" style="width:95%;height:30em;"></textarea>
+                    </fieldset>
+                </section>
+                <section class="bcls-section" id="javascript">
+                    <h2>Code for this app</h2>
+                    <h3>HTML</h3>
+                    <p>To see the HTML code used in this app, view the source for this page.</p>
+                    <h3>JavaScript</h3>
+                    <p>Below is the JavaScript code used for this app. If the code does not appear, try refreshing the page.</p>
+                <pre data-src="//solutions.brightcove.com/crutman/mh/mh_atv_mrss.js?buster" class="line-numbers"></pre>
+                </section>
+            </article>
+            <script src="//learning-services-media.brightcove.com/doc-assets/video-cloud-apis/cms-api/code-samples/mrss-generator/vkbeautify.0.99.00.beta.js"></script>
+            <script src="./mh_atv_mrss.js"></script>
+        </body>
+    </html>

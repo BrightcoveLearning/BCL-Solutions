@@ -31,12 +31,12 @@ $data = array();
 if ($_POST["client_id"]) {
     $client_id = $_POST["client_id"];
 } else {
-    $client_id = 'c5d0a622-5479-46d8-8d8a-5f034b943fab';
+    $client_id = 'b10631d3-7597-4be8-b8b5-dce142f81006';
 }
 if ($_POST["client_secret"]) {
     $client_secret = $_POST["client_secret"];
 } else {
-    $client_secret = 'w7NQYu0vUloM4GYYy2SXAxrvyFpt8fwI35qAFZcS13-VIgs0itwKNsAwHOS80sOWKJ1BUwHIvSFG2IbgcxEGKg';
+    $client_secret = 'h1dbPZCMFsloMCiXprlGDvdDR7QXtcw9alyocJ1ShDfLZ5QxqBqb9u_5gGcU6mlyA1PbbG6ABYS1FMDVE4JNDQ';
 }
 
 $auth_string = "{$client_id}:{$client_secret}";
@@ -122,7 +122,7 @@ if ($response === FALSE) {
 // return the response to the AJAX caller
 $responseDecoded = json_decode($response);
 if (!isset($responseDecoded)) {
-	$response = '{null}';
+    $response = '{null}';
 }
 echo $response;
 ?>

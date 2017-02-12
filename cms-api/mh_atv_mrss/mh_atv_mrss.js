@@ -202,7 +202,8 @@ var BCLS = ( function (window, document) {
                 var i,
                     iMax = videosArray.length;
                     endpoint = accountId + '/videos/' + videosArray[callNumber].id + '/sources';
-                    callback = function(sources) {
+                    callback = function(response) {
+                        sources = JSON.parse(response);
                         if (sources.length > 0) {
                             // get the best MP4 rendition
                             var source = processSources(sources);
@@ -266,8 +267,7 @@ var BCLS = ( function (window, document) {
                                 callback(responseRaw);
                             } else if (requestID === 'getVideoSources') {
                                 responseRaw = httpRequest.responseText;
-                                parsedData = JSON.parse(responseRaw);
-                                callback(parsedData);
+                                callback(responseRaw);
                             } else {
                               alert('There was a problem with the request. Request returned ' + httpRequest.status);
                             }

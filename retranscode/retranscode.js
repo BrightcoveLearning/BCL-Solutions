@@ -195,7 +195,8 @@ var BCLS = (function(window, document) {
             endpoint,
             responseDecoded,
             limit = 25,
-            message,
+            text,
+            slackMessage = {},
             t,
             i,
             iMax,
@@ -399,16 +400,18 @@ var BCLS = (function(window, document) {
                 });
                 break;
             case 'sendStartMessage':
-                message = encodeURI('Retranscoding app is retranscoding ' + videoIDs.length + ' videos on account: ' + account.value);
-                url = 'https://api.hipchat.com/v1/rooms/message?format=json&auth_token=f10a6edaeb025f2672155424a8881f&color=yellow&room_id=328124&from=Robert%20Crooks&message=' + message;
-                sendMessage(url, function(response) {
+                slackMessage.text = 'Retranscoding app is retranscoding ' + videoIDs.length + ' videos on account: ' + account.value;
+                options.url = 'https://hooks.slack.com/services/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';
+                options.requestBody = JSON.stringify(slackMessage);
+                sendMessage(options, function(response) {
                     console.log(response);
                 });
                 break;
             case 'sendEndMessage':
-                message = encodeURI('Retranscoding app has completed on account: ' + account.value);
-                url = 'https://api.hipchat.com/v1/rooms/message?format=json&auth_token=f10a6edaeb025f2672155424a8881f&color=green&room_id=328124&from=Robert%20Crooks&message=' + message;
-                sendMessage(url, function(response) {
+                slackMessage.text = 'Retranscoding app has completed on account: ' + account.value;
+                options.url = 'https://hooks.slack.com/services/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';
+                options.requestBody = JSON.stringify(slackMessage);
+                sendMessage(options, function(response) {
                     console.log(response);
                 });
                 break;
@@ -531,7 +534,7 @@ var BCLS = (function(window, document) {
      * @param  {String} url to send to
      * @param  {Function} [callback] callback function that will process the response
      */
-    function sendMessage(url, callback) {
+    function sendMessage(options, callback) {
         var httpRequest = new XMLHttpRequest(),
             response,
             // response handler
@@ -563,9 +566,9 @@ var BCLS = (function(window, document) {
         // set response handler
         httpRequest.onreadystatechange = getResponse;
         // open the request
-        httpRequest.open('POST', url);
+        httpRequest.open('POST', options.url);
         // open and send request
-        httpRequest.send();
+        httpRequest.send(options.requestBody);
     }
 
 

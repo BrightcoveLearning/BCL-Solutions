@@ -73,7 +73,7 @@ if ($_POST["requestType"]) {
 $needle = '.com';
 $endapi = strpos($_POST["url"], $needle) + 4;
 $nextChar = substr($_POST['url'], $endapi, 1);
-if (strpos($_POST["url"], 'api.brightcove.com') == false) {
+if (strpos($_POST["url"], 'api.brightcove.com') == false && strpos($_POST["url"], 'data.brightcove.co.jp') == false){
     exit('{"ERROR":"Only requests to Brightcove APIs are accepted by this proxy"}');
 } else if ($nextChar !== '/' && $nextChar !== '?') {
     exit('{"ERROR": "There was a problem with your API request - please check the URL"}');

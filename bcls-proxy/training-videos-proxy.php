@@ -29,7 +29,7 @@ $data = array();
 $client_id     = 'ca19e0b5-8ab1-4df5-a565-4ebb05fee738';
 $client_secret = 'uZsLicAVTrkeQ9sYHNyVk9iv2OY8fCtIYvfs4bnqoGwFRcMrXx8sjL8IY035n4QW2H45Jo1GTLF017L_9Cdokg';
 $auth_string   = "{$client_id}:{$client_secret}";
-$request       = "https://oauth.brightcove.com/v3/access_token?grant_type=client_credentials";
+$request       = "https://oauth.brightcove.com/v4/access_token?grant_type=client_credentials";
 $ch            = curl_init($request);
 curl_setopt_array($ch, array(
 		CURLOPT_POST           => TRUE,

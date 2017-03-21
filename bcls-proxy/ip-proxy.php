@@ -38,7 +38,7 @@ if ($_POST["client_secret"]) {
     $client_secret = 'c9n25db7R_Ik8o3zNrKBN3zkx-BZVlEcm6mXGBH8aGhZGcljsb9pLCneABkBUl2Op3FIvB5sJCJUUPfiThtraQ';
 }
 $auth_string   = "{$client_id}:{$client_secret}";
-$request       = "https://oauth.brightcove.com/v3/access_token?grant_type=client_credentials";
+$request       = "https://oauth.brightcove.com/v4/access_token?grant_type=client_credentials";
 $ch            = curl_init($request);
 curl_setopt_array($ch, array(
         CURLOPT_POST           => TRUE,

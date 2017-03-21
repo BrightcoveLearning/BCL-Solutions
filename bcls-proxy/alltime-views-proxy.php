@@ -33,7 +33,7 @@ $data = array();
 // encoding explicitly
 //
 $auth_string = "{$client_id}:{$client_secret}";
-$request     = "https://oauth.brightcove.com/v3/access_token?grant_type=client_credentials";
+$request     = "https://oauth.brightcove.com/v4/access_token?grant_type=client_credentials";
 $ch          = curl_init($request);
 curl_setopt_array($ch, array(
         CURLOPT_POST           => TRUE,

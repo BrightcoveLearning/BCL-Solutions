@@ -34,7 +34,7 @@ if ($_POST["bc_token"]) {
     $bc_token = 'c5d0a622-5479-46d8-8d8a-5f034b943fab';
 }
 
-$request     = "https://oauth.brightcove.com/v3/access_token?grant_type=client_credentials";
+$request     = "https://oauth.brightcove.com/v4/access_token?grant_type=client_credentials";
 $ch          = curl_init($request);
 curl_setopt_array($ch, array(
         CURLOPT_POST           => TRUE,

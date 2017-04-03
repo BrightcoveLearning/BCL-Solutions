@@ -16,19 +16,15 @@ videojs.plugin('carousel', function() {
 		i = 0,
 		max = 0,
 		currentVideo,
-		playlistData = 
+		playlistData =
 			{
 			"items": [
 			{
 			"id":0,
-			"name":"Tiger", 
-			"shortDescription":"Tigers in the wild", 
+			"name":"Tiger",
+			"shortDescription":"Tigers in the wild",
 			"thumbnailURL":"//solutions.brightcove.com/bcls/assets/images/Tiger.jpg",
 			"sources":[
-				{
-				"type":"application/x-mpegURL",
-				"src":"http://solutions.brightcove.com/bcls/assets/videos/Tiger.m3u8"
-				},
 				{
 				"type":"video/mp4",
 				"src":"http://solutions.brightcove.com/bcls/assets/videos/Tiger.mp4"
@@ -38,49 +34,45 @@ videojs.plugin('carousel', function() {
 			{
 			"id":1,
 			"name":"Great Blue Heron",
-			"shortDescription":"The great blue heron", 
+			"shortDescription":"The great blue heron",
 			"thumbnailURL":"//solutions.brightcove.com/bcls/assets/images/Great-Blue-Heron.png",
 			"sources":[
-				{
-				"type":"application/x-mpegURL",
-				"src":"http://solutions.brightcove.com/bcls/assets/videos/Great-Blue-Heron.m3u8"
-				},
 				{
 				"type":"video/mp4",
 				"src":"http://solutions.brightcove.com/bcls/assets/videos/Great-Blue-Heron.mp4"
 				}
-				]	
+				]
 			},
 			{
 			"id":2,
 			"name":"Birds of a Feather",
-			"shortDescription":"A variety of birds", 
+			"shortDescription":"A variety of birds",
 			"thumbnailURL":"http://solutions.brightcove.com/bcls/assets/images/BirdsOfAFeather.png",
 			"sources":[
 				{
 				"type":"video/mp4",
 				"src":"http://solutions.brightcove.com/bcls/assets/videos/BirdsOfAFeather.mp4"
 				}
-				]	
+				]
 			},
 			{
 			"id":3,
 			"name":"Sea Marvels",
-			"shortDescription":"A collection of sea life", 
+			"shortDescription":"A collection of sea life",
 			"thumbnailURL":"http://solutions.brightcove.com/bcls/assets/images/Sea Marvels.png",
 			"sources":[
 				{
 				"type":"video/mp4",
 				"src":"http://solutions.brightcove.com/bcls/assets/videos/Sea-Marvels.mp4"
 				}
-				]	
+				]
 			}
 
 		]};
-	
-	
+
+
 	function buildPlaylistData() {
-			  
+
 	  // build the related videos carousel
 	  template = Handlebars.compile(videosTemplate);
 	  results = template(playlistData);
@@ -91,7 +83,7 @@ videojs.plugin('carousel', function() {
 		  smallFeatureHeight:		.7,
 		  "trackerIndividual" : false
 	  });
-	 
+
 		// add event listener for clicks on videos
 		$(".carousel-image").on("click", showAndLoad);
 		$("#but_prev").click(function () {
@@ -111,9 +103,9 @@ videojs.plugin('carousel', function() {
 	   // let the video selector know the player is loaded
 	   playerLoaded = true;
 	};
-	
+
 	buildPlaylistData();
-	
+
 	function showAndLoad(videoID) {
 		// make sure the player is loaded
 		if (playerLoaded) {

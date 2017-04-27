@@ -28,8 +28,16 @@ header("X-XSS-Protection");
 // set up request for access token
 $data = array();
 
-$client_id     = 'b10631d3-7597-4be8-b8b5-dce142f81006';
-$client_secret = 'h1dbPZCMFsloMCiXprlGDvdDR7QXtcw9alyocJ1ShDfLZ5QxqBqb9u_5gGcU6mlyA1PbbG6ABYS1FMDVE4JNDQ';
+if ($_POST["client_id"]) {
+    $client_id = $_POST["client_id"];
+} else {
+    $client_id = 'b10631d3-7597-4be8-b8b5-dce142f81006';
+}
+if ($_POST["client_secret"]) {
+    $client_secret = $_POST["client_secret"];
+} else {
+    $client_secret = 'h1dbPZCMFsloMCiXprlGDvdDR7QXtcw9alyocJ1ShDfLZ5QxqBqb9u_5gGcU6mlyA1PbbG6ABYS1FMDVE4JNDQ';
+}
 $auth_string   = "{$client_id}:{$client_secret}";
 $request       = "https://oauth.brightcove.com/v4/access_token?grant_type=client_credentials";
 $ch            = curl_init($request);

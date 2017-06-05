@@ -326,6 +326,7 @@ var BCLS = (function(window, document) {
                 });
                 break;
             case 'transcodeVideo':
+                var timeDelay;
                 options.proxyURL    = './retranscode-proxy.php';
                 endpoint            = '/videos/' + videoIDs[callNumber] + '/ingest-requests';
                 options.url         = diBaseURL + endpoint;
@@ -354,7 +355,7 @@ var BCLS = (function(window, document) {
                         callNumber++;
                         if (callNumber < videoIDs.length) {
                             logMessage(videosRetranscoded, callNumber);
-                            createRequest('transcodeVideo');
+                            timeDelay = window.setTimeout(createRequest('transcodeVideo'), 1000);
                         } else {
                             window.clearInterval(intervalID);
                             createRequest('sendEndMessage');

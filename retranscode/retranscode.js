@@ -335,6 +335,7 @@ var BCLS = (function(window, document) {
                 logMessage(status, 'Sending retranscode requests - do NOT leave this page');
                 makeRequest(options, function(response) {
                     responseDecoded = JSON.parse(response);
+console.log('response', responseDecoded);
                     if (Array.isArray(responseDecoded)) {
                         errorCodes.push('retranscoding ' + videoIDs[callNumber] + ': ' + responseDecoded[0].error_code);
                         callNumber++;
@@ -355,7 +356,7 @@ var BCLS = (function(window, document) {
                         callNumber++;
                         if (callNumber < videoIDs.length) {
                             logMessage(videosRetranscoded, callNumber);
-                            timeDelay = window.setTimeout(createRequest('transcodeVideo'), 5000);
+                            timeDelay = window.setTimeout(createRequest('transcodeVideo'), 10000);
                         } else {
                             window.clearInterval(intervalID);
                             createRequest('sendEndMessage');

@@ -7,6 +7,11 @@ try {
     $decoded = json_decode($json, true);
 } catch (Exception $e) {
     $problem = $e->getMessage();
+    $errorFile = 'notification-error-log.txt';
+    $fileHandle = fopen($errorFile, 'a+');
+    fwrite($fileHandle, $problem);
+    fclose($fileHandle);
+
 }
 
 // if notification received turn notification into pretty printed JSON

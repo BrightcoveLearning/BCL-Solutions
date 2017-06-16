@@ -34,7 +34,7 @@ if ($decoded) {
                 array_push($job_count_decoded->failed, $err);
             }
         }
-        $job_count = fopen($job_count_file, 'w');
+        $job_count = fopen($job_count_file, 'w+');
         fwrite($job_count, json_encode($job_count_decoded));
         fclose($job_count);
 
@@ -50,7 +50,7 @@ if ($decoded) {
         }
         array_push($current_log_decoded, $decoded);
 
-        $fileHandle = fopen($logFileLocation, 'w');
+        $fileHandle = fopen($logFileLocation, 'w+');
         fwrite($fileHandle, json_encode($current_log_decoded));
         fclose($fileHandle);
     }

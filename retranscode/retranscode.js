@@ -355,7 +355,7 @@ var BCLS = (function(window, document) {
                         callNumber++;
                         if (callNumber < videoIDs.length) {
                             logMessage(videosRetranscoded, callNumber);
-                            timeDelay = window.setTimeout(createRequest('transcodeVideo'), 1000);
+                            timeDelay = window.setTimeout(createRequest('transcodeVideo'), 5000);
                         } else {
                             window.clearInterval(intervalID);
                             createRequest('sendEndMessage');

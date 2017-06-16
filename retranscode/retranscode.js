@@ -331,17 +331,19 @@ var BCLS = (function(window, document) {
                 endpoint            = '/videos/' + videoIDs[callNumber] + '/ingest-requests';
                 options.url         = diBaseURL + endpoint;
                 options.requestType = 'POST';
-                options.requestBody = '{"profile":"' + selectedProfile + '","capture-images":' + isChecked(captureImages) + ',"master":{"use_archived_master": true},"callbacks":["http://solutions.brightcove.com/bcls/retranscode/notifications.php"]}';
+                options.requestBody = '{"profile":"' + selectedProfile + '","capture-images":' + isChecked(captureImages) + ',"master":{"use_archived_master": true},"callbacks":["https://solutions.brightcove.com/bcls/retranscode/notifications.php"]}';
                 logMessage(status, 'Sending retranscode requests - do NOT leave this page');
                 makeRequest(options, function(response) {
                     responseDecoded = JSON.parse(response);
 console.log('response', responseDecoded);
                     if (Array.isArray(responseDecoded)) {
                         errorCodes.push('retranscoding ' + videoIDs[callNumber] + ': ' + responseDecoded[0].error_code);
-                        callNumber++;
+                        if (responseDecoded[0].error_code !== 'RATE_LIMIT_EXCEEDED') {
+                            callNumber++;
+                        }
                         if (callNumber < videoIDs.length) {
                             logMessage(videosRetranscoded, callNumber);
-                            createRequest('transcodeVideo');
+                            timeDelay = window.setTimeout(createRequest('transcodeVideo'), 10000);
                         } else {
                             createRequest('sendEndMessage');
                             logMessage(videosRetranscoded, callNumber);
@@ -356,6 +358,7 @@ console.log('response', responseDecoded);
                         callNumber++;
                         if (callNumber < videoIDs.length) {
                             logMessage(videosRetranscoded, callNumber);
+console.log('pausing 10 sec');
                             timeDelay = window.setTimeout(createRequest('transcodeVideo'), 10000);
                         } else {
                             window.clearInterval(intervalID);

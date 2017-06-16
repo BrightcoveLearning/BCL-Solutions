@@ -54,6 +54,11 @@ if ($decoded) {
         fwrite($fileHandle, json_encode($current_log_decoded));
         fclose($fileHandle);
     }
+} else {
+    $errorFile = 'notification-error-log.txt';
+    $fileHandle = fopen($errorFile, 'a+');
+    fwrite($fileHandle, $json);
+    fclose($fileHandle);
 }
 
 // line below is displayed when you browse the app directly

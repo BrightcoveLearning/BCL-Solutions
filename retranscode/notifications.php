@@ -47,7 +47,7 @@ if ($decoded) {
         $current_log = file_get_contents($logFileLocation);
         if ($current_log) {
             $current_log_decoded = json_decode($current_log);
-            if ($current_log_decoded == 'null') {
+            if ($current_log_decoded == null) {
                 $current_log_decoded = array();
             }
         } else {

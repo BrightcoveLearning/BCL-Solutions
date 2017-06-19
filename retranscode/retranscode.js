@@ -331,7 +331,7 @@ var BCLS = (function(window, document) {
                 endpoint            = '/videos/' + videoIDs[callNumber] + '/ingest-requests';
                 options.url         = diBaseURL + endpoint;
                 options.requestType = 'POST';
-                options.requestBody = '{"profile":"' + selectedProfile + '","capture-images":' + isChecked(captureImages) + ',"master":{"use_archived_master": true},"callbacks":["https://solutions.brightcove.com/bcls/retranscode/notifications.php"]}';
+                options.requestBody = '{"profile":"' + selectedProfile + '","capture-images":' + isChecked(captureImages) + ',"master":{"use_archived_master": true},"callbacks":["https://solutions.brightcove.com/bcls/retranscode/notifications.php","http://solutions.brightcove.com/bcls/di-api/di-callbacks.php"]}';
                 logMessage(status, 'Sending retranscode requests - do NOT leave this page');
                 makeRequest(options, function(response) {
                     responseDecoded = JSON.parse(response);

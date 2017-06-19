@@ -154,7 +154,7 @@ if ($response === FALSE) {
 // return the response to the AJAX caller
 $responseDecoded = json_decode($response);
 if (!isset($responseDecoded)) {
-    $response = '{null}';
+    $response = '{}';
 } elseif ($responseDecoded->id) {
     $job_count_data    = file_get_contents($job_count_file);
     $job_count_decoded = json_decode($job_count_data);

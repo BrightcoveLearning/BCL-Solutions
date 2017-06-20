@@ -184,7 +184,8 @@ var BCLS = (function(window, document) {
 
 
     function submitTranscodeRequest() {
-        createReqest('transcodeVideo');
+console.log('sending next transcode request');
+        createRequest('transcodeVideo');
     }
 
     /**
@@ -348,7 +349,7 @@ console.log('response', responseDecoded);
                         }
                         if (callNumber < videoIDs.length) {
                             logMessage(videosRetranscoded, callNumber);
-                            timeDelay = window.setTimeout(submitTranscodeRequest, 5000);
+                            timeDelay = window.setTimeout(submitTranscodeRequest, 1000);
                         } else {
                             createRequest('sendEndMessage');
                             logMessage(videosRetranscoded, callNumber);
@@ -363,8 +364,8 @@ console.log('response', responseDecoded);
                         callNumber++;
                         if (callNumber < videoIDs.length) {
                             logMessage(videosRetranscoded, callNumber);
-console.log('pausing 5 sec');
-                            timeDelay = window.setTimeout(submitTranscodeRequest, 5000);
+console.log('pausing 1 sec');
+                            timeDelay = window.setTimeout(submitTranscodeRequest, 1000);
                         } else {
                             window.clearInterval(intervalID);
                             createRequest('sendEndMessage');

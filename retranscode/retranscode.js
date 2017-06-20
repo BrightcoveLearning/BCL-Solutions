@@ -182,6 +182,11 @@ var BCLS = (function(window, document) {
         }
     }
 
+
+    function submitTranscodeRequest() {
+        createReqest('transcodeVideo');
+    }
+
     /**
      * createRequest sets up requests, send them to makeRequest(), and handles responses
      * @param  {string} type the request type
@@ -343,7 +348,7 @@ console.log('response', responseDecoded);
                         }
                         if (callNumber < videoIDs.length) {
                             logMessage(videosRetranscoded, callNumber);
-                            timeDelay = window.setTimeout(createRequest('transcodeVideo'), 10000);
+                            timeDelay = window.setTimeout(submitTranscodeRequest, 5000);
                         } else {
                             createRequest('sendEndMessage');
                             logMessage(videosRetranscoded, callNumber);
@@ -352,14 +357,14 @@ console.log('response', responseDecoded);
                             logMessage(errors, JSON.stringify(errorCodes, null, '  '));
                         }
                     } else if (responseDecoded.message === 'wait') {
-                        t = window.setTimeout(createRequest('transcodeVideo'), 30000);
-                        logMessage(status, 'Job queue full - retrying in 30 seconds');
+                        t = window.setTimeout(submitTranscodeRequest, 10000);
+                        logMessage(status, 'Job queue full - retrying in 10 seconds');
                     } else {
                         callNumber++;
                         if (callNumber < videoIDs.length) {
                             logMessage(videosRetranscoded, callNumber);
-console.log('pausing 10 sec');
-                            timeDelay = window.setTimeout(createRequest('transcodeVideo'), 10000);
+console.log('pausing 5 sec');
+                            timeDelay = window.setTimeout(submitTranscodeRequest, 5000);
                         } else {
                             window.clearInterval(intervalID);
                             createRequest('sendEndMessage');

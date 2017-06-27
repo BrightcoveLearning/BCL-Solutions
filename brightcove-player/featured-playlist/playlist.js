@@ -77,7 +77,7 @@
 //        selectItem();
 //      });
 //    }
-//  }
+  }
 
   player.one('loadedmetadata', function() {
       selectItem();

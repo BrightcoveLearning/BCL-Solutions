@@ -25,7 +25,7 @@
         <section class="bcls-section">
             <h2 id="The_feed">The feed</h2>
             <button id="showJSON" class="bcls-button">Show JSON</button> <button id="showMRSS" class="bcls-button">Show MRSS</button>
-            <textareaid="feed" class="bcls-code">Feed will appear here...</textarea>
+            <textarea id="feed" class="bcls-code">Feed will appear here...</textarea>
         </section>
         <section class="bcls-section">
             <h2 id="How_its_done">How it's done</h2>
@@ -45,7 +45,36 @@
             var showJSON = document.getElementById('showJSON'),
                 showMRSS = document.getElementById('showMRSS'),
                 feed = document.getElementById('feed'),
-                playlistData;
+                playlistData,
+                // the next two lines are the ones that need to be changed
+                policyKey = 'BCpkADawqM0DlMm-mmZdR_q_priFJTDyJxUBhhxYr53p5EuLPoQqo1cYvivG2CtAEqfPB1ryttayMpCtFzgU-L2VKd-0nX63Z5D9fZzpV7gEbypYtgET_vkKS6eeiH3R02EDD_ZKnhmgNp01',
+                playlist_id = '5492280057001',
+                // vars for MRSS generation
+                mrssStr = '<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">',
+                sChannel = '<channel>',
+                eChannel = '</channel>',
+                sTitle = '<title>',
+                eTitle = '</title>',
+                sDescription = '<description>',
+                eDescription = '</description>',
+                sItem = '<item xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">',
+                defaultEndDate = '2020-10-15T00:00+01:00',
+                eItemStart = '<dcterms:valid xmlns:dcterms="http://purl.org/dc/terms/">end=',
+                eItemEnd = '; scheme=W3C-DTF</dcterms:valid><dcterms:type>live-video</dcterms:type></item>',
+                sLink = '<link>',
+                eLink = '</link>',
+                sPubDate = '<pubDate>',
+                ePubDate = '</pubDate>',
+                sMediaContent = '<media:content',
+                eMediaContent = '</media:content>',
+                sMediaPlayer = '<media:player',
+                eMediaPlayer = '/>',
+                sMediaDescription = '<media:description>',
+                eMediaDescription = '</media:description>',
+                sMediaThumbnail = '<media:thumbnail',
+                eMediaThumbnail = '/>',
+                sMediaTitle = '<media:title>',
+                eMediaTitle = '</media:title>',
         })(window, document);
         </script>
     </body>

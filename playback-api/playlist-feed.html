@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>JSON or MRSS Feed from Playlist</title>
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <h1>JSON or MRSS Feed from a Playlist</h1>
+        <section class="bcls-section">
+            <h2 id="Introduction">Introduction</h2>
+            <p>This is a simple example of how to use the Playlist API to get the data for a Video Cloud playlist and present it either as JSON or MRSS data that you could pass to a syndication partner.</p>
+        </section>
+        <section class="bcls-section">
+            <h2 id="Requirements">Requirements</h2>
+            <p>To build this yourself, you need two things:</p>
+            <ul>
+                <li>A Video Cloud playlist id, which you can obtain from <a href="/node/15152">Studio</a></li>
+                <li>A policy key for your Video Cloud account, which you can obtain from any <a href="/node/18125">Brightcove Player</a> in your account, or from the <a href="/node/18004">Policy API</a></li>
+            </ul>
+            <p>The rest is a little bit of HTML and JavaScript, explained in detail in the <a href="#How_its_done">How it's done</a> section below.</p>
+        </section>
+        <section class="bcls-section">
+            <h2 id="The_feed">The feed</h2>
+            <button id="showJSON" class="bcls-button">Show JSON</button> <button id="showMRSS" class="bcls-button">Show MRSS</button>
+            <textareaid="feed" class="bcls-code">Feed will appear here...</textarea>
+        </section>
+        <section class="bcls-section">
+            <h2 id="How_its_done">How it's done</h2>
+            <h3>HTML</h3>
+            <p>You only need three HTML elements for this app, but they must have the ids shown below. You can add whatever styling you want to.</p>
+            <ul>
+                <li><code>&lt;button id="showJSON"&gt;Show JSON&lt;/button&gt;</code></li>
+                <li><code>&lt;button id="showMRSS"&gt;Show JSON&lt;/button&gt;</code></li>
+                <li><code>&lt;textarea id="feed"&gt;&lt;/textarea&gt;</code></li>
+            </ul>
+            <h3>JavaScript</h3>
+            <p>The JavaScript is a little more involved, but the only change you need to make in the code shown below to a make a sample that will work in your own account is the substitution of your own playlist id and policy key for highlighted text in lines </p>
+<pre class="line-numbers"><code class="language-json"></code></pre>
+        </section>
+        <script>
+        var BCLS = ( function (window, document) {
+            var showJSON = document.getElementById('showJSON'),
+                showMRSS = document.getElementById('showMRSS'),
+                feed = document.getElementById('feed'),
+                playlistData;
+        })(window, document);
+        </script>
+    </body>
+</html>

@@ -12,10 +12,10 @@
     var options = {loadVideoNotInPlaylist:true};
     var featuredItem, playlist, index, queries, query, i;
     var selectItem, selectWhenReady, iterations = 0, loadVideo;
-      
+
       console.log("jeffs plugin test 0711");
-    
-    options = videojs.util.mergeOptions(options,settings);
+
+    options = videojs.mergeOptions(options,settings);
 
     queries = window.location.search.slice(1).split('&');
     for (i = 0; i < queries.length; i++) {
@@ -77,8 +77,8 @@
 //        selectItem();
 //      });
 //    }
-//  }
-  
+  }
+
   player.one('loadedmetadata', function() {
       selectItem();
   });

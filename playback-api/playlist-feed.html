@@ -61,14 +61,14 @@
             and <strong>policy key</strong> for highlighted text in lines </p>
         <pre class="line-numbers"><code class="language-json"></code></pre>
     </section>
-    <!-- the first script below is just a utility to beautify XML (for the MRSS feed) -->
+    <!-- the first script below is just a utility to beautify XML (for the MRSS feed); it's the second script that does the main work -->
     <script src="//learning-services-media.brightcove.com/doc-assets/video-cloud-apis/cms-api/code-samples/mrss-generator/vkbeautify.0.99.00.beta.js"></script>
     <script>
         var BCLS = (function(window, document) {
             var showJSON = document.getElementById('showJSON'),
                 showMRSS = document.getElementById('showMRSS'),
                 feed = document.getElementById('feed'),
-                playlistData,
+                videoData,
                 // the next three lines are the ones that need to be changed
                 account_id = '1752604059001',
                 policyKey = 'BCpkADawqM3_9ax216PJYuUTLApMLkLJ3apjFlTRKHHS4q0DE33J0XsiDWmc6SfKwrwRAhejCZpTbwljz4-OlUwyqKi64L25Dwy4yhY1eSZ9ZduI-dO0mjSNVcR9C8nz0jtkimOOtzQgswCr',
@@ -99,6 +99,39 @@
                 eMediaThumbnail = '/>',
                 sMediaTitle = '<media:title>',
                 eMediaTitle = '</media:title>';
+
+            // event listeners for the buttons
+            showJSON.addEventListener('click', function() {
+                // just restore the JSON data to the textarea
+                feed.textContent = JSON.stringify(videoData, null, '  ');
+            });
+
+            showMRSS.addEventListener('click', function() {
+                var iMax = videoData.length,
+                    i,
+                    sources;
+                for (i = 0; i < iMax; i++) {
+                    sources = videoData[i].sources;
+                    if (sources.length > 0) {
+                        // get the best MP4 rendition
+                        var source = processSources(sources);
+                        videoData[i].source = source;
+                    } else {
+                        // video has no sources
+                        videoData[callNumber].source = null;
+                    }
+                }
+                // remove videos with no sources
+                i = videoData.length;
+                while (i > 0) {
+                    i--;
+                    if (!isDefined(videoData[i].source)) {
+                        videoData.splice(i, 1);
+                    }
+                }
+                // generate and display the MRSS data
+                addItems();
+            });
 
             /**
              * tests for all the ways a variable might be undefined or not have a value
@@ -210,6 +243,9 @@
                 feed.textContent = vkbeautify.xml(mrssStr);
             }
 
+            /**
+             * makes the request to the Playback API
+             */
             function getMediaData() {
                 var httpRequest = new XMLHttpRequest(),
                     responseData,
@@ -222,7 +258,8 @@
                             if (httpRequest.status >= 200 && httpRequest.status < 300) {
                                 responseData = httpRequest.responseText;
                                 parsedData = JSON.parse(responseData);
-                                feed.textContent = JSON.stringify(parsedData.videos, null, '  ');
+                                videoData = parsedData.videos;
+                                feed.textContent = JSON.stringify(videoData.videos, null, '  ');
                             } else {
                                 alert('There was a problem with the request. Request returned ' + httpRequest.status);
                             }
@@ -240,6 +277,7 @@
                 // open and send request
                 httpRequest.send();
             }
+            // call the getMediaData function immediately to get the data
             getMediaData();
         })(window, document);
     </script>

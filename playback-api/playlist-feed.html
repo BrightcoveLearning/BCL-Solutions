@@ -27,6 +27,12 @@
 
 <body>
     <h1>JSON or MRSS Feed from a Playlist</h1>
+    <article class="bcls-article">
+        <header id="bcls_header" class="blcs-header">
+            <p>This topic ...</p>
+        </header>
+    </article>
+
     <section class="bcls-section">
         <h2 id="Introduction">Introduction</h2>
         <p>This is a simple example of how to use the Playlist API to get the data for a Video Cloud playlist and present it either as JSON or MRSS data that you could pass to a syndication partner.</p>
@@ -39,11 +45,16 @@
             <li>A policy key for your Video Cloud account, which you can obtain from any <a href="/node/18125">Brightcove Player</a> in your account, or from the <a href="/node/18004">Policy API</a></li>
         </ul>
         <h3><strong>Optional</strong></h3>
-        <p>You don't need to do this for any functional reason, but to prettify the MRSS code and make it easier to read, we have included <a href="https://github.com/vkiryukhin/vkBeautify">vkBeautify</a> JavaScript library.</p>
+        <p>You don't need to do this for any functional reason, but to prettify the MRSS code and make it easier to read, we have included the <a href="https://github.com/vkiryukhin/vkBeautify">vkBeautify</a> JavaScript library.</p>
         <p>The rest is a little bit of HTML and JavaScript, explained in detail in the <a href="#How_its_done">How it's done</a> section below.</p>
     </section>
     <section class="bcls-section">
         <h2 id="The_feed">The feed</h2>
+        <h3>Optional inputs</h3>
+        <p>If you don't include values below, a Brightcove sample account will be used.</p>
+        <p>Account id: <input type="text" id="account_id_input" style="width:40%;"></p>
+        <p>Policy key: <input type="text" id="policy_key_input" style="width:50%;"></p>
+        <p>Playlist id: <input type="text" id="playlist_id_input" style="width:40%;"></p>
         <button id="showJSON" class="bcls-button">Show JSON</button> <button id="showMRSS" class="bcls-button">Show MRSS</button>
         <div>
             <textarea id="feed" class="bcls-code" style="height:400px;">Feed will appear here...</textarea>
@@ -289,11 +300,17 @@
             var showJSON = document.getElementById('showJSON'),
                 showMRSS = document.getElementById('showMRSS'),
                 feed = document.getElementById('feed'),
+                account_id_display = document.getElementById('account_id_display'),
                 videoData,
+                policy_key_display = document.getElementById('policy_key_display'),
+                playlist_id_display = document.getElementById('playlist_id_display'),
+                account_id,
+                policyKey,
+                playlist_id,
                 // the next three lines are the ones that need to be changed
-                account_id = '1752604059001',
-                policyKey = 'BCpkADawqM3_9ax216PJYuUTLApMLkLJ3apjFlTRKHHS4q0DE33J0XsiDWmc6SfKwrwRAhejCZpTbwljz4-OlUwyqKi64L25Dwy4yhY1eSZ9ZduI-dO0mjSNVcR9C8nz0jtkimOOtzQgswCr',
-                playlist_id = '5492280057001',
+                account_id_default = '1752604059001',
+                policyKey_default = 'BCpkADawqM3_9ax216PJYuUTLApMLkLJ3apjFlTRKHHS4q0DE33J0XsiDWmc6SfKwrwRAhejCZpTbwljz4-OlUwyqKi64L25Dwy4yhY1eSZ9ZduI-dO0mjSNVcR9C8nz0jtkimOOtzQgswCr',
+                playlist_id_default = '5492280057001',
                 // vars for MRSS generation
                 mrssStr = '<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">',
                 sChannel = '<channel>',
@@ -323,14 +340,45 @@
 
             // event listeners for the buttons
             showJSON.addEventListener('click', function() {
-                // just restore the JSON data to the textarea
+                // get media data if we haven't already
+                if (!isDefined(videoData)) {
+                    // check inputs to see if we use those or default values
+                    if (isDefined(account_id_display.value) && isDefined(policy_key_display.value) && isDefined(playlist_id_display.value)) {
+                        account_id = removeSpaces(account_id_display.value);
+                        policyKey = removeSpaces(policy_key_display.value);
+                        playlist_id = removeSpaces(playlist_id_display.value);
+                    } else {
+                        account_id = account_id_default;
+                        policyKey = policyKey_default;
+                        playlist_id = playlist_id_default;
+                    }
+                    getMediaData();
+                }
+
+                // JSON data to the textarea
                 feed.textContent = JSON.stringify(videoData, null, '  ');
             });
 
             showMRSS.addEventListener('click', function() {
-                var iMax = videoData.length,
+                var iMax,
                     i,
                     sources;
+                // get media data if we haven't already
+                if (!isDefined(videoData)) {
+                    // check inputs to see if we use those or default values
+                    if (isDefined(account_id_display.value) && isDefined(policy_key_display.value) && isDefined(playlist_id_display.value)) {
+                        account_id = removeSpaces(account_id_display.value);
+                        policyKey = removeSpaces(policy_key_display.value);
+                        playlist_id = removeSpaces(playlist_id_display.value);
+                    } else {
+                        account_id = account_id_default;
+                        policyKey = policyKey_default;
+                        playlist_id = playlist_id_default;
+                    }
+                    getMediaData();
+                }
+
+                iMax = videoData.length;
                 for (i = 0; i < iMax; i++) {
                     sources = videoData[i].sources;
                     if (sources.length > 0) {
@@ -364,6 +412,16 @@
                     return false;
                 }
                 return true;
+            }
+
+            /**
+             * remove spaces from a string
+             * @param {String} str string to process
+             * @return {String} trimmed string
+             */
+            function removeSpaces(str) {
+                str= str.replace(/\s/g, '');
+                return str;
             }
 
             /**
@@ -502,8 +560,6 @@
                 // open and send request
                 httpRequest.send();
             }
-            // call the getMediaData function immediately to get the data
-            getMediaData();
         })(window, document);
     </script>
 </body>

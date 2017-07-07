@@ -38,13 +38,15 @@
             <li>A Video Cloud playlist id, which you can obtain from <a href="/node/15152">Studio</a></li>
             <li>A policy key for your Video Cloud account, which you can obtain from any <a href="/node/18125">Brightcove Player</a> in your account, or from the <a href="/node/18004">Policy API</a></li>
         </ul>
+        <h3><strong>Optional</strong></h3>
+        <p>You don't need to do this for any functional reason, but to prettify the MRSS code and make it easier to read, we have included <a href="https://github.com/vkiryukhin/vkBeautify">vkBeautify</a> JavaScript library.</p>
         <p>The rest is a little bit of HTML and JavaScript, explained in detail in the <a href="#How_its_done">How it's done</a> section below.</p>
     </section>
     <section class="bcls-section">
         <h2 id="The_feed">The feed</h2>
         <button id="showJSON" class="bcls-button">Show JSON</button> <button id="showMRSS" class="bcls-button">Show MRSS</button>
         <div>
-            <textarea id="feed" class="bcls-code">Feed will appear here...</textarea>
+            <textarea id="feed" class="bcls-code" style="height:400px;">Feed will appear here...</textarea>
         </div>
     </section>
     <section class="bcls-section">
@@ -59,7 +61,226 @@
         <h3>JavaScript</h3>
         <p>The JavaScript is a little more involved, but the only change you need to make in the code shown below to a make a sample that will work in your own account is the substitution of your own <strong>account id</strong>, <strong>playlist id</strong>,
             and <strong>policy key</strong> for highlighted text in lines </p>
-        <pre class="line-numbers"><code class="language-json"></code></pre>
+<pre class="line-numbers"><code class="language-json">var BCLS = (function(window, document) {
+    var showJSON = document.getElementById('showJSON'),
+        showMRSS = document.getElementById('showMRSS'),
+        feed = document.getElementById('feed'),
+        videoData,
+        // the next three lines are the ones that need to be changed
+        account_id = '<span class="bcls-input">YOUR_ACCOUNT_ID</span>',
+        policyKey = '<span class="bcls-input">YOUR_POLICY_KEY</span>',
+        playlist_id = '<span class="bcls-input">YOUR_PLAYLIST_ID</span>',
+        // vars for MRSS generation
+        mrssStr = '&lt;rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/"&gt;',
+        sChannel = '&lt;channel&gt;',
+        eChannel = '&lt;/channel&gt;',
+        sTitle = '&lt;title&gt;',
+        eTitle = '&lt;/title&gt;',
+        sDescription = '&lt;description&gt;',
+        eDescription = '&lt;/description&gt;',
+        sItem = '&lt;item xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/"&gt;',
+        defaultEndDate = '2020-10-15T00:00+01:00',
+        eItemStart = '&lt;dcterms:valid xmlns:dcterms="http://purl.org/dc/terms/"&gt;end=',
+        eItemEnd = '; scheme=W3C-DTF&lt;/dcterms:valid&gt;&lt;dcterms:type&gt;live-video&lt;/dcterms:type&gt;&lt;/item&gt;',
+        sLink = '&lt;link&gt;',
+        eLink = '&lt;/link&gt;',
+        sPubDate = '&lt;pubDate&gt;',
+        ePubDate = '&lt;/pubDate&gt;',
+        sMediaContent = '&lt;media:content',
+        eMediaContent = '&lt;/media:content&gt;',
+        sMediaPlayer = '&lt;media:player',
+        eMediaPlayer = '/&gt;',
+        sMediaDescription = '&lt;media:description&gt;',
+        eMediaDescription = '&lt;/media:description&gt;',
+        sMediaThumbnail = '&lt;media:thumbnail',
+        eMediaThumbnail = '/&gt;',
+        sMediaTitle = '&lt;media:title&gt;',
+        eMediaTitle = '&lt;/media:title&gt;';
+
+    // event listeners for the buttons
+    showJSON.addEventListener('click', function() {
+        // just restore the JSON data to the textarea
+        feed.textContent = JSON.stringify(videoData, null, '  ');
+    });
+
+    showMRSS.addEventListener('click', function() {
+        var iMax = videoData.length,
+            i,
+            sources;
+        for (i = 0; i &lt; iMax; i++) {
+            sources = videoData[i].sources;
+            if (sources.length &gt; 0) {
+                // get the best MP4 rendition
+                var source = processSources(sources);
+                videoData[i].source = source;
+            } else {
+                // video has no sources
+                videoData[callNumber].source = null;
+            }
+        }
+        // remove videos with no sources
+        i = videoData.length;
+        while (i &gt; 0) {
+            i--;
+            if (!isDefined(videoData[i].source)) {
+                videoData.splice(i, 1);
+            }
+        }
+        // generate and display the MRSS data
+        addItems();
+    });
+
+    /**
+     * tests for all the ways a variable might be undefined or not have a value
+     * @param {String|Number} x the variable to test
+     * @return {Boolean} true if variable is defined and has a value
+     */
+    function isDefined(x) {
+        if (x === "" || x === null || x === undefined) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * sort an array of objects based on an object property
+     * @param {array} targetArray - array to be sorted
+     * @param {string|number} objProperty - object property to sort on
+     * @return sorted array
+     */
+    function sortArray(targetArray, objProperty) {
+        targetArray.sort(function(b, a) {
+            var propA = a[objProperty],
+                propB = b[objProperty];
+            // sort ascending; reverse propA and propB to sort descending
+            if (propA &lt; propB) {
+                return -1;
+            } else if (propA &gt; propB) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+        return targetArray;
+    }
+
+    /**
+     * [processSources gets the highest bitrate source for the MRSS feed
+     * @param  {Array} sources array of video sources
+     * @return {Object} the highest bitrate MP4 source
+     */
+    function processSources(sources) {
+        var i = sources.length;
+        // remove non-MP4 sources
+        while (i &gt; 0) {
+            i--;
+            if (sources[i].container !== 'MP4') {
+                sources.splice(i, 1);
+            } else if (sources[i].hasOwnProperty('stream_name')) {
+                sources.splice(i, 1);
+            }
+        }
+        // sort sources by encoding rate
+        sortArray(sources, 'encoding_rate');
+        // return the first item (highest bitrate)
+        return sources[0];
+    }
+
+    /**
+     * add video items to the MRSS feed
+     */
+    function addItems() {
+        var i, iMax, video, pubdate, eItem, videoURL, thumbnailURL, doThumbnail = true;
+        if (videoData.length &gt; 0) {
+            iMax = videoData.length;
+            for (i = 0; i &lt; iMax; i += 1) {
+                video = videoData[i];
+                // video may not have a valid source
+                if (isDefined(video.source) && isDefined(video.source.src)) {
+                    videoURL = encodeURI(video.source.src.replace(/&/g, '&amp;'));
+                } else {
+                    videoURL = "";
+                }
+                // depending on when/how the video was created, it may have different thumbnail properties or none at all
+                if (isDefined(video.images) && isDefined(video.images.thumbnail)) {
+                    thumbnailURL = encodeURI(video.images.thumbnail.sources[0].src.replace(/&/g, '&amp;'));
+                } else if (isDefined(video.thumbnail)) {
+                    thumbnailURL = encodeURI(video.thumbnail.replace(/&/g, '&amp;'));
+                } else {
+                    doThumbnail = false;
+                }
+
+                pubdate = new Date(video.created_at).toGMTString();
+                mrssStr += sItem;
+                mrssStr += sLink + 'https://players.brightcove.net/' + account_id + '/default_default/index.html?videoId=' + video.id + eLink;
+                mrssStr += sPubDate + pubdate + ePubDate;
+                mrssStr += sMediaContent + ' url="' + videoURL + '" fileSize="' + video.source.size + '" type="video/quicktime" medium="video" duration="' + video.duration / 1000 + '" isDefault="true" height="' + video.source.height +
+                    '" width="' + video.source.width + '"&gt;';
+                mrssStr += sMediaPlayer + ' url="' + 'https://players.brightcove.net/' + account_id + '/default_default/index.html?videoId=' + video.id + '"' + eMediaPlayer;
+                mrssStr += sMediaTitle + video.name + eMediaTitle;
+                mrssStr += sMediaDescription + video.description + eMediaDescription;
+                if (doThumbnail) {
+                    mrssStr += sMediaThumbnail + ' url="' + thumbnailURL + '"';
+                    if (isDefined(video.images)) {
+                        mrssStr += ' height="' + video.images.thumbnail.sources[0].height + '" width="' + video.images.thumbnail.sources[0].width + '"' + eMediaThumbnail;
+                    } else {
+                        mrssStr += eMediaThumbnail;
+                    }
+                }
+                mrssStr += eMediaContent;
+                if (isDefined(video.schedule) && video.schedule.ends_at) {
+                    eItem = eItemStart + video.schedule.ends_at + eItemEnd;
+                } else {
+                    eItem = eItemStart + defaultEndDate + eItemEnd;
+                }
+                mrssStr += eItem;
+            }
+        }
+        mrssStr += eChannel + '&lt;/rss&gt;';
+        feed.textContent = vkbeautify.xml(mrssStr);
+    }
+
+    feed.addEventListener('click', function() {
+        feed.select();
+    });
+
+    /**
+     * makes the request to the Playback API
+     */
+    function getMediaData() {
+        var httpRequest = new XMLHttpRequest(),
+            responseData,
+            parsedData,
+            requestURL = 'https://edge.api.brightcove.com/playback/v1/accounts/' + account_id + '/playlists/' + playlist_id + '?limit=100';
+        // response handler
+        getResponse = function() {
+            try {
+                if (httpRequest.readyState === 4) {
+                    if (httpRequest.status &gt;= 200 && httpRequest.status &lt; 300) {
+                        responseData = httpRequest.responseText;
+                        parsedData = JSON.parse(responseData);
+                        videoData = parsedData.videos;
+                        feed.textContent = JSON.stringify(videoData, null, '  ');
+                    } else {
+                        alert('There was a problem with the request. Request returned ' + httpRequest.status);
+                    }
+                }
+            } catch (e) {
+                alert('Caught Exception: ' + e);
+            }
+        };
+        // set response handler
+        httpRequest.onreadystatechange = getResponse;
+        // open the request
+        httpRequest.open('GET', requestURL);
+        // set headers
+        httpRequest.setRequestHeader('Accept', 'application/json;pk=' + policyKey);
+        // open and send request
+        httpRequest.send();
+    }
+    // call the getMediaData function immediately to get the data
+    getMediaData();
+})(window, document);</code></pre>
     </section>
     <!-- the first script below is just a utility to beautify XML (for the MRSS feed); it's the second script that does the main work -->
     <script src="//learning-services-media.brightcove.com/doc-assets/video-cloud-apis/cms-api/code-samples/mrss-generator/vkbeautify.0.99.00.beta.js"></script>
@@ -194,10 +415,10 @@
              */
             function addItems() {
                 var i, iMax, video, pubdate, eItem, videoURL, thumbnailURL, doThumbnail = true;
-                if (videosArray.length > 0) {
-                    iMax = videosArray.length;
+                if (videoData.length > 0) {
+                    iMax = videoData.length;
                     for (i = 0; i < iMax; i += 1) {
-                        video = videosArray[i];
+                        video = videoData[i];
                         // video may not have a valid source
                         if (isDefined(video.source) && isDefined(video.source.src)) {
                             videoURL = encodeURI(video.source.src.replace(/&/g, '&amp;'));
@@ -215,11 +436,11 @@
 
                         pubdate = new Date(video.created_at).toGMTString();
                         mrssStr += sItem;
-                        mrssStr += sLink + 'https://players.brightcove.net/' + accountId + '/default_default/index.html?videoId=' + video.id + eLink;
+                        mrssStr += sLink + 'https://players.brightcove.net/' + account_id + '/default_default/index.html?videoId=' + video.id + eLink;
                         mrssStr += sPubDate + pubdate + ePubDate;
                         mrssStr += sMediaContent + ' url="' + videoURL + '" fileSize="' + video.source.size + '" type="video/quicktime" medium="video" duration="' + video.duration / 1000 + '" isDefault="true" height="' + video.source.height +
                             '" width="' + video.source.width + '">';
-                        mrssStr += sMediaPlayer + ' url="' + 'https://players.brightcove.net/' + accountId + '/default_default/index.html?videoId=' + video.id + '"' + eMediaPlayer;
+                        mrssStr += sMediaPlayer + ' url="' + 'https://players.brightcove.net/' + account_id + '/default_default/index.html?videoId=' + video.id + '"' + eMediaPlayer;
                         mrssStr += sMediaTitle + video.name + eMediaTitle;
                         mrssStr += sMediaDescription + video.description + eMediaDescription;
                         if (doThumbnail) {
@@ -243,6 +464,10 @@
                 feed.textContent = vkbeautify.xml(mrssStr);
             }
 
+            feed.addEventListener('click', function() {
+                feed.select();
+            });
+
             /**
              * makes the request to the Playback API
              */
@@ -259,7 +484,7 @@
                                 responseData = httpRequest.responseText;
                                 parsedData = JSON.parse(responseData);
                                 videoData = parsedData.videos;
-                                feed.textContent = JSON.stringify(videoData.videos, null, '  ');
+                                feed.textContent = JSON.stringify(videoData, null, '  ');
                             } else {
                                 alert('There was a problem with the request. Request returned ' + httpRequest.status);
                             }

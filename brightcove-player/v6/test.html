@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+        <style>
+          body {
+              font-family: sans-serif;
+              margin: 4em;
+          }
+          iframe {
+              width: 800px;
+              height: 450px;
+          }
+          /* keep the controls visible during playback */
+                          #audioOnly .vjs-control-bar {
+                          transform: none;
+                          background-color: transparent;
+                          }
+                          /* round the corners of the player */
+                          #audioOnly {
+                          border-radius: 1em;
+                          }
+                          /* remove the background from the big play button */
+                          .video-js.vjs-mouse .vjs-big-play-button {
+                          background: none;
+                          }
+                          /* round the corners of the dock */
+                          #audioOnly .vjs-dock-text {
+                          border-radius: 1em 1em 0 0;
+                          }
+        </style>
+    </head>
+    <body>
+    <h1>Test page for samples with v6 players</h1>
+    <figure class="video-cloud-only">
+<video id="audioOnly" data-video-id="4841158458001" data-account="1752604059001" data-player="SklmDOyhHZ" data-embed="default" class="video-js" controls="" style="width: 480px; height: 80px;">&nbsp;</video>
+<script src="//players.brightcove.net/1752604059001/rkgpS9K_default/index.min.js"></script></figure>
+        <script>
+
+        </script>
+    </body>
+</html>

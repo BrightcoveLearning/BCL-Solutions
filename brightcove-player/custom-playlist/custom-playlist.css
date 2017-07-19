@@ -2,10 +2,9 @@
  * Custom Playlist  *
  ********************/
 /*style for the div that wraps the playlist*/
-.bcls-playlist-wrapper {
-    position:relative;
+.bcls-playlist {
     background-color: #141B17;
-    width: 100%;
+    width: 480px;
     max-height: 95px;
     min-height: 82px;
     line-height: 76px;
@@ -13,6 +12,7 @@
     overflow-x: scroll;
     overflow-y: hidden;
     position: absolute;
+    top: 362px;
     white-space: nowrap;
     margin: 0;
     padding: 0;

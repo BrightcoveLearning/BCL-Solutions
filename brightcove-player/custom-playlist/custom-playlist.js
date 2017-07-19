@@ -7,7 +7,7 @@
  * created by Robert Crooks, Brightcove Learning Services, rcrooks@brightcove.com
  * last modified: 2015-09-15
  */
-videojs.plugin('customPlaylist', function (options) {
+videojs.registerPlugin('customPlaylist', function (options) {
     var myPlayer = this,
         defaults = {width: 500},
         playlistItems;

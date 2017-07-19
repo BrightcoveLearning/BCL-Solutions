@@ -18,7 +18,7 @@ videojs.registerPlugin('customPlaylist', function (options) {
      * @return {Boolean} true if variable is defined and has a value
      */
     function isDefined(x) {
-        if (x === "" || x === null || x === undefined || x === NaN) {
+        if (x === "" || x === null || x === undefined) {
             return false;
         }
         return true;

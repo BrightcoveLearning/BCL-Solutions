@@ -20,6 +20,7 @@
         //  console.log("loadstart");
          playlistWrapper = document.createElement('div');
          playlistWrapper.className = "bcls-playlist-wrapper";
+         playlistWrapper.setAttribute('style', 'width:640px;');
      });
 
      myPlayer.one('loadedmetadata', function() {

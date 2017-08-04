@@ -21,7 +21,7 @@
 <body>
     <h1>First Video in Playlist Sample</h1>
     <h3>iframe</h3>
-    <iframe src="//players.brightcove.net/1752604059001/HkYoUgMwW_default/index.html?playlistId=5510487311001" allowfullscreen webkitallowfullscreen mozallowfullscreen width="640" height="360"></iframe>
+    <iframe src="//players.brightcove.net/1752604059001/HkYoUgMwW_default/index.html?playlistId=5531423971001&playlistVideoId=5510487311001" allowfullscreen webkitallowfullscreen mozallowfullscreen width="640" height="360"></iframe>
     <h3>in-page</h3>
     <p><button type="button" id="button">Refresh with New First Video</button></p>
     <video data-playlist-id="5531423971001" data-account="1752604059001" data-player="HkYoUgMwW" data-embed="default" data-application-id class="video-js" controls width="640" height="360" style="width:640px;height:360px"></video>
@@ -31,8 +31,8 @@
             var button = document.getElementById('button'),
                 location = window.location.href;
 
-            button.addEventListener('click'function() {
-                window.location.href = location + '?playlistId=5510487311001'
+            button.addEventListener('click', function() {
+                window.location.href = location + '?playlistVideoId=5510487311001'
             });
         })(window, document);
     </script>

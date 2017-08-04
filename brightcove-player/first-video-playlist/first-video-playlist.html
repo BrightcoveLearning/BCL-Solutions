@@ -15,6 +15,17 @@
             background-color: #333;
             color: #fff;
         }
+
+        .video-js {
+            height: 350px;
+            width: 640px;
+            float: left;
+        }
+
+        .vjs-playlist {
+            width: 280px;
+            height: 365px;
+        }
     </style>
 </head>
 
@@ -25,6 +36,10 @@
     <h3>in-page</h3>
     <p><button type="button" id="button">Refresh with New First Video</button></p>
     <video data-playlist-id="5531423971001" data-account="1752604059001" data-player="HkYoUgMwW" data-embed="default" data-application-id class="video-js" controls width="640" height="360" style="width:640px;height:360px"></video>
+
+    <ol class="vjs-playlist"></ol>
+
+
     <script src="//players.brightcove.net/1752604059001/HkYoUgMwW_default/index.min.js"></script>
     <script type="text/javascript">
         var BCLS = (function(window, document) {

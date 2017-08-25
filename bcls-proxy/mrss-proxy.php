@@ -94,7 +94,7 @@ if (strpos($_POST["url"], 'api.brightcove.com') == false && strpos($_POST["url"]
 // get the URL and authorization info from the form data
 $request = $_POST["url"];
 //send the http request
-echo $request;
+// echo $request;
 $ch = curl_init($request);
 curl_setopt_array($ch, array(
         CURLOPT_CUSTOMREQUEST  => $method,
@@ -126,8 +126,8 @@ if ($response === FALSE) {
 // $responseData = json_decode($response, TRUE);
 // return the response to the AJAX caller
 $responseDecoded = json_decode($response);
-// if (!isset($responseDecoded)) {
-//     $response = 'null';
-// }
+if (!isset($responseDecoded)) {
+    $response = 'null';
+}
 echo $response;
 ?>

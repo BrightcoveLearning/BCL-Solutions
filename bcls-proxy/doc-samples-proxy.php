@@ -85,7 +85,7 @@ if (strpos($_POST["url"], 'api.brightcove.com') == false && strpos($_POST["url"]
 }
 // get the URL and authorization info from the form data
 $request = $_POST["url"];
-echo $_POST["url"];
+// echo $_POST["url"];
 //send the http request
 $ch = curl_init($request);
 curl_setopt_array($ch, array(

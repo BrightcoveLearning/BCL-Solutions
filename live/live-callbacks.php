@@ -9,15 +9,8 @@ try {
     $problem = $e->getMessage();
 }
 
-// below is check just needed for this app, because it
-// is also a target for CMS API notifications
-// for now, it is not logging those
-if (isset($decoded['timestamp'])) {
-    $notificationType = 'CMS API';
-} else {
-    // turn notification into pretty printed JSON
-    $notification = json_encode($decoded, JSON_PRETTY_PRINT);
-}
+// turn notification into pretty printed JSON
+$notification = json_encode($decoded, JSON_PRETTY_PRINT);
 
 
 
@@ -29,7 +22,7 @@ $logEntry = $notification.
 // and add the string we created earlier to it.
 // 2016-09-15: turning off CMS API notifications for now
 if ($notificationType !== 'CMS API') {
-    $logFileLocation = "di-log.txt";
+    $logFileLocation = "live-log.txt";
     $fileHandle      = fopen($logFileLocation, 'a') or die("-1");
     fwrite($fileHandle, $logEntry);
     fclose($fileHandle);

@@ -15,7 +15,6 @@ $notification = json_encode($decoded, JSON_PRETTY_PRINT);
 
 
 $logEntry = $notification.
-"\nErrors receiving notificatons: ".$problem.
 "\n-------------------------------\n";
 
 // Lastly, tell PHP where it can find the log file and tell PHP to open it
@@ -29,5 +28,5 @@ if ($notificationType !== 'CMS API') {
 }
 
 // line below is displayed when you browse the app directly
-echo "Dynamic Ingest callback app is running";
+echo "Live callback app is running";
 ?>

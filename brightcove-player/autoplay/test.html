@@ -36,10 +36,10 @@ height="360"></video>
 <script src="//players.brightcove.net/1752604059001/HJzcJIva9b_default/index.min.js"></script>
 <script>
 videojs('myPlayerID').ready(function(){
-    // var myPlayer = this;
-    // this.on('metadataloaded', function() {
-    //     this.play();
-    // });
+    var myPlayer = this;
+    this.on('metadataloaded', function() {
+        this.play();
+    });
 });
 </script>
     </body>

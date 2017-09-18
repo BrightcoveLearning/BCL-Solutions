@@ -9,12 +9,38 @@
               margin: 4em;
           }
           iframe {
-              width: 16em;
-              height: 9em;
+              width: 32em;
+              height: 18em;
           }
         </style>
     </head>
     <body>
-
+<h1>Autoplay test</h1>
+<h2>iframe</h2>
+<iframe src="//players.brightcove.net/1752604059001/HJzcJIva9b_default/index.html?videoId=5553757486001"
+allowfullscreen
+webkitallowfullscreen
+mozallowfullscreen
+></iframe>
+<h2>In-page</h2>
+<video data-video-id="5553757486001"
+    id="myPlayerID"
+data-account="1752604059001"
+data-player="HJzcJIva9b"
+data-embed="default"
+data-application-id
+class="video-js"
+controls
+width="640"
+height="360"></video>
+<script src="//players.brightcove.net/1752604059001/HJzcJIva9b_default/index.min.js"></script>
+<script>
+videojs('myPlayerID').ready(function(){
+    // var myPlayer = this;
+    // this.on('metadataloaded', function() {
+    //     this.play();
+    // });
+});
+</script>
     </body>
 </html>

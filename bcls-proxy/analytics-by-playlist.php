@@ -31,12 +31,12 @@ $data = array();
 if ($_POST["client_id"]) {
     $client_id = $_POST["client_id"];
 } else {
-    $client_id = 'c5d0a622-5479-46d8-8d8a-5f034b943fab';
+    $client_id = '05c69ddf-b44d-4fa7-8457-fcff7de76416';
 }
 if ($_POST["client_secret"]) {
     $client_secret = $_POST["client_secret"];
 } else {
-    $client_secret = 'w7NQYu0vUloM4GYYy2SXAxrvyFpt8fwI35qAFZcS13-VIgs0itwKNsAwHOS80sOWKJ1BUwHIvSFG2IbgcxEGKg';
+    $client_secret = 'e0xhYCoUi8vVFCbUpUiIEQMOCrlx64MsaSxJr42112UODV-i21nSS0_x0_Ksly7YuEVvMUuXFNFPzK8n5aaECA';
 }
 
 $auth_string = "{$client_id}:{$client_secret}";

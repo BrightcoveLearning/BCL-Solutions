@@ -10,7 +10,8 @@ try {
 }
 
 // turn notification into pretty printed JSON
-$notification = json_encode($decoded, JSON_PRETTY_PRINT);
+// $notification = json_encode($decoded, JSON_PRETTY_PRINT);
+$notification = $json;
 
 
 

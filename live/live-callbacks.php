@@ -5,13 +5,14 @@ $notificationType = null;
 try {
     $json    = file_get_contents('php://input');
     $decoded = json_decode($json, true);
+    // turn notification into pretty printed JSON
+    $notification = json_encode($decoded, JSON_PRETTY_PRINT);
 } catch (Exception $e) {
     $problem = $e->getMessage();
+    $notification = $problem;
 }
 
-// turn notification into pretty printed JSON
-// $notification = json_encode($decoded, JSON_PRETTY_PRINT);
-$notification = $json;
+// $notification = $json;
 
 
 

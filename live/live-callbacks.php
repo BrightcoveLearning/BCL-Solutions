@@ -14,8 +14,7 @@ $notification = json_encode($decoded, JSON_PRETTY_PRINT);
 
 
 
-$logEntry = $notification.
-"\n \n";
+$logEntry = $notification."\n \n";
 
 // Lastly, tell PHP where it can find the log file and tell PHP to open it
 // and add the string we created earlier to it.

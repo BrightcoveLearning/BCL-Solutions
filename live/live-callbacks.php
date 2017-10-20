@@ -9,7 +9,7 @@ try {
     $notification = json_encode($decoded, JSON_PRETTY_PRINT);
 } catch (Exception $e) {
     $problem = $e->getMessage();
-    $notification = $problem;
+    $notification = $json;
 }
 
 // $notification = $json;

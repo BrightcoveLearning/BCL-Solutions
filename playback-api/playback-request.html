@@ -64,7 +64,8 @@ console.log('response', httpRequest.responseText);
         // open the request
         httpRequest.open('GET', api_request);
         // set headers
-        httpRequest.setRequestHeader("Accept'", "application/json;pk=" + policyKey);
+        httpRequest.setRequestHeader("Accept", "application/json;pk=" + policyKey);
+        // httpRequest.setRequestHeader("", "application/json;pk=" + policyKey);
         // open and send request
         httpRequest.send();
     }

@@ -9,7 +9,7 @@
               margin: 3em;
           }
           button {
-              padding: 1em;
+              padding: .6em;
               font-size: 1rem;
           }
           pre {
@@ -18,20 +18,21 @@
               border-left: 5px #666 solid;
               font-family: monospace;
               font-size: 1.1rem;
-              padding: 1em;
+              padding: .5em;
           }
         </style>
     </head>
     <body>
     <h1>Playback API Test</h1>
-    <pre id="apiRequest">API request will appear here...</pre>
-
-    <pre id="apiResponse">API response will appear here...</pre>
+    <h2>Request URL</h2>
+<pre id="apiRequest">API request will appear here...</pre>
+<h2>Response</h2>
+<pre id="apiResponse">API response will appear here...</pre>
 
     <p><button class="bcls-button" id="runButton">Send Request</button></p>
 
     <h4>Script in this page</h4>
-    <pre id="script"></pre>
+<pre id="script"></pre>
 
         <script id="pageScript">
         var apiRequest = document.getElementById('apiRequest'),

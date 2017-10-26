@@ -1,0 +1,105 @@
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <title>Brightcove Player in AMP HTML</title>
+  <link rel="icon" type="image/ico" href="/bclifford/demo/player/img/favicon.ico">
+  <link rel="canonical" href="https://solutions.brightcove.com/bclifford/demo/player/amp.html">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,700' rel='stylesheet' type='text/css'>
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <style amp-custom>
+  h1 {
+    color: #222;
+  }
+  body main {
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+  pre {
+    overflow: auto;
+    background-color: #efefef;
+    padding: 1em;
+  }
+  .important {
+    color: red
+  }
+  .avoidwrap {
+    display:inline-block;
+  }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "TechArticle",
+    "headline": "Using the Brightcove Player in Accelerated Mobile Pages",
+    "datePublished": "2015-12-07T11:00:00Z",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Brightcove",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "img.brightcove.com/header-logo-2015.png",
+        "width": "193",
+        "height": "47"
+      }
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Ben Clifford"
+    }
+  }
+  </script>
+  <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+  <script async custom-element="amp-brightcove" src="https://cdn.ampproject.org/v0/amp-brightcove-0.1.js"></script>
+  <style>body {opacity: 0}</style><noscript><style>body {opacity: 1}</style></noscript>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+</head>
+<body>
+  <main>
+    <h1>Using the <span class="avoidwrap">Brightcove Player</span> in <span class="avoidwrap">Accelerated Mobile Pages</span></h1>
+    <p>
+      This page is an example of an <a href="https://www.ampproject.org">AMP HTML</a> page containing a Brightcove Player.
+    </p>
+    <amp-brightcove
+      data-account="906043040001"
+      data-video-id="1401169490001"
+      data-player="14034c56-aa15-49f8-b644-2a01edec6d50"
+      layout="responsive" width="480" height="270">
+    </amp-brightcove>
+    <p>AMP HTML includes an <code>amp-brightcove</code> component which allows publishers to embed Brightcove Players within AMP HTML documents.</p>
+    <p>First, add this scpript tag to the head of the AMP HTML document.</p>
+    <pre><code>&lt;script async custom-element="amp-brightcove" src="https://cdn.ampproject.org/v0/amp-brightcove-0.1.js"&gt;&lt;/script&gt;</code></pre>
+    <p>Then add the <code>amp-brightcove</code> element to the page. It takes the same <code>data-account</code>, <code>data-player</code> and <code>data-video-id</code> attributes as the regular in-page (advanced) embed code.</p>
+    <pre><code>&lt;amp-brightcove
+    data-account="906043040001"
+    data-video-id="1401169490001"
+    data-player="14034c56-aa15-49f8-b644-2a01edec6d50"
+    layout="responsive" width="480" height="270"&gt;
+  &lt;/amp-brightcove&gt;</code></pre>
+    <h2>Advertising</h2>
+    <p>Advertising including prerolls works in players used in AMP.</p>
+    <p>The ad plugin and its configuration just need to be included in the player's configuration. If you need to include article-specific values in your ad server calls, you can pass custom data through to a player plugin as described below.</p>
+    <h2>Custom parameters</h2>
+    <p>You may want to pass additional information through to your player for your plugins to access. You can do this by adding extra attributes on the <code>amp-brightcove</code> element named <code>data-param-*</code>, where <code>*</code> is the name of your property.</p>
+    <p>The parameters are passed through as camel cased attribute names appended to the player URL. Keys and values are URL encoded. For example:</p>
+    <ul>
+      <li><code>data-param-language="de"</code> becomes <code>&amp;language=de</code></li>
+      <li><code>data-param-ad-vars="key:val;key2:val2"</code> becomes <code>&amp;adVars=key%3Aval%3Bkey2%3Aval2</code></li>
+    </ul>
+    <h2>Player setup</h2>
+    <p>The AMP HTML page can pause playback if it deems the page to be idle. To enable this, add this script to the player configuration in the studio, or via the player management API. You need only add the script, no name or json are required.</p>
+    <pre>http://players.brightcove.net/906043040001/plugins/postmessage_pause.js</pre>
+    <p><a href="https://www.ampproject.org/docs/reference/extended/amp-brightcove.html">Read the AMP Project documentation for <code>amp-brightcove</code>.</a></p>
+  </main>
+  <amp-pixel src="https://ssl.google-analytics.com/collect?v=1&amp;tid=UA-1341343-10&amp;t=pageview&amp;cid=$RANDOM&amp;dt=$TITLE&amp;dl=$AMPDOC_URL&amp;z=$RANDOM"></amp-pixel>
+<div style="text-align:center">
+    <iframe id="CSAT" src="//learning-services-media.brightcove.com/doc-assets/general/surveylink.html" style=" padding-bottom:20px;border:none"></iframe>
+</div>
+<div class="bcls-footer"><a id="feedbackMail" href="mailto:docs@brightcove.com">Questions or comments?</a></div>
+<script>
+var feedbackMail = document.getElementById("feedbackMail");
+feedbackMail.setAttribute("href", "mailto:docs@brightcove.com?subject=question regarding " + encodeURI(document.location.href));
+</script>
+</body>
+</html>

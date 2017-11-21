@@ -22,6 +22,13 @@ var BCLS = (function(window, document, rome) {
         failedJobs         = document.getElementById('failedJobs'),
         showNotifications  = document.getElementById('showNotifications'),
         notifications      = document.getElementById('notifications'),
+        dateRangeType      = document.getElementById('dateRangeType'),
+        fromDate           = document.getElementById('fromDate'),
+        toDate             = document.getElementById('toDate'),
+        dateTypeValue,
+        fromDateValue,
+        toDateValue,
+        searchStringValue,
         jobCountFile,
         notificationsFile,
         selectedProfile    = '',
@@ -35,6 +42,10 @@ var BCLS = (function(window, document, rome) {
         callNumber         = 0,
         timePassed         = 0,
         deprecatedProfiles = ['balanced-nextgen-player','Express Standard','mp4-only','balanced-high-definition','low-bandwidth-devices','balanced-standard-definition','single-rendition','Live - Standard','high-bandwidth-devices','Live - Premium HD','Live - HD','videocloud-default-trial','screencast'];
+
+    // date pickers
+    rome(fromDate);
+    rome(toDate);
 
     // event listeners
     profileBtn.addEventListener('click', function() {
@@ -213,6 +224,13 @@ console.log('sending next transcode request');
         options.client_id     = cid.value;
         options.client_secret = secret.value;
         options.account_id    = account.value;
+
+        // set searchStringValue
+        dateTypeValue = getSelectedValue(dateRangeType);
+        if (searchString.value) {
+            searchStringValue += '?q=' + encodeURI(searchString.value);
+            if ()
+        }
 
         switch (type) {
             case 'deleteOldLogs':

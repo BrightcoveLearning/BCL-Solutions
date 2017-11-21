@@ -71,6 +71,27 @@ var BCLS = (function(window, document, rome) {
                 now = secondsToTime(timePassed);
                 logMessage(timeElapsed, now.h + ':' + now.m + ':' + now.s);
             }, 1000);
+            // get values
+            accountIdValue = account.value;
+            clientIdValue  = cid.value;
+            clientSecretValue = secret.value;
+            // set searchStringValue
+            dateTypeValue = getSelectedValue(dateRangeType);
+            fromDateValue = rome(fromDate).getDate();
+            if (isDefined(fromDateValue)) {
+                fromDateValue = fromDateValue.toISOString();
+            }
+            toDateValue = rome(toDate).getDate();
+            if (isDefined(toDateValue)) {
+                toDateValue = toDateValue.toISOString();
+            }
+
+            if (searchString.value) {
+                searchStringValue += '?q=' + encodeURI(searchString.value);
+                if (isDefined(fromDateValue) || isDefined(toDateValue)) {
+
+                }
+            }
             createRequest('deleteOldLogs');
         } else {
             alert('The account id, client id, and client secret are required');
@@ -209,9 +230,9 @@ console.log('sending next transcode request');
     function createRequest(type) {
         var options    = {},
             url,
-            ipBaseURL  = 'https://ingestion.api.brightcove.com/v1/accounts/' + account.value,
-            cmsBaseURL = 'https://cms.api.brightcove.com/v1/accounts/' + account.value,
-            diBaseURL  = 'https://ingest.api.brightcove.com/v1/accounts/' + account.value,
+            ipBaseURL  = 'https://ingestion.api.brightcove.com/v1/accounts/' + accountIdValue,
+            cmsBaseURL = 'https://cms.api.brightcove.com/v1/accounts/' + accountIdValue,
+            diBaseURL  = 'https://ingest.api.brightcove.com/v1/accounts/' + accountIdValue,
             endpoint,
             responseDecoded,
             limit = 25,
@@ -224,16 +245,9 @@ console.log('sending next transcode request');
             txt;
 
         // set credentials
-        options.client_id     = cid.value;
-        options.client_secret = secret.value;
-        options.account_id    = account.value;
-
-        // set searchStringValue
-        dateTypeValue = getSelectedValue(dateRangeType);
-        if (searchString.value) {
-            searchStringValue += '?q=' + encodeURI(searchString.value);
-            if ()
-        }
+        options.client_id     = clientIdValue;
+        options.client_secret = clientSecretValue;
+        options.account_id    = accountIdValue;
 
         switch (type) {
             case 'deleteOldLogs':

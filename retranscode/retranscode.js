@@ -298,8 +298,8 @@ console.log('sending next transcode request');
             case 'getVideoCount':
                 options.proxyURL    = './videos-proxy.php';
                 endpoint            = '/counts/videos';
-                if (searchString.value) {
-                    endpoint += '?q=' + encodeURI(searchString.value);
+                if (searchStringValue) {
+                    endpoint += searchStringValue;
                 }
                 options.url         = cmsBaseURL + endpoint;
                 options.requestType = 'GET';
@@ -320,8 +320,8 @@ console.log('sending next transcode request');
             case 'getVideos':
                 options.proxyURL    = './videos-proxy.php';
                 endpoint            = '/videos?sort=created_at&limit=' + limit + '&offset=' + (callNumber * limit);
-                if (searchString.value) {
-                    endpoint += '&q=' + encodeURI(searchString.value);
+                if (searchStringValue) {
+                    endpoint += searchStringValue;
                 }
                 options.url         = cmsBaseURL + endpoint;
                 options.requestType = 'GET';

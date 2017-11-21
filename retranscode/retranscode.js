@@ -1,4 +1,4 @@
-var BCLS = (function(window, document) {
+var BCLS = (function(window, document, rome) {
     var account            = document.getElementById('account'),
         cid                = document.getElementById('cid'),
         secret             = document.getElementById('secret'),
@@ -583,4 +583,4 @@ console.log('pausing 1 sec');
     }
 
 
-})(window, document);
+})(window, document, rome);

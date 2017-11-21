@@ -89,7 +89,9 @@ var BCLS = (function(window, document, rome) {
             if (searchString.value) {
                 searchStringValue += '?q=' + encodeURI(searchString.value);
                 if (isDefined(fromDateValue) || isDefined(toDateValue)) {
-
+                  searchStringValue += '+' + dateTypeValue + ':' + fromDateValue + '..' + toDateValue;
+                } else if (isDefined(fromDateValue) || isDefined(toDateValue)) {
+                  searchStringValue += '?q=' + dateTypeValue + ':' + fromDateValue + '..' + toDateValue;
                 }
             }
             createRequest('deleteOldLogs');

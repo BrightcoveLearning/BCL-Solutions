@@ -25,7 +25,7 @@
       height: 95%;
     }
 
-    button {
+    .bcls-button {
       padding: 5px;
       border: 3px #ecb612 solid;
       border-radius: 5px;
@@ -134,9 +134,9 @@
                 <option value="screencast-1280">legacy - screencast-1280</option>
                 <option value="smart-player-transition">legacy - smart-player-transition</option>
                 <option value="audio-only">legacy - audio-only</option>
-            </select> <span id="profileText">(standard profiles)</span> <button id="profileBtn">Get Account Profiles Instead</button>
+            </select> <span id="profileText">(standard profiles)</span> <button class="bcls-button" id="profileBtn">Get Account Profiles Instead</button>
     </p>
-    <p><button id="goBtn">Start Retranscoding</button></p>
+    <p><button class="bcls-button" id="goBtn">Start Retranscoding</button></p>
   </fieldset>
   <fieldset>
     <legend>Status Messages</legend>
@@ -175,15 +175,15 @@
           <td id="errors" class="messages"></td>
         </tr>
         <tr>
-          <td><button id="showJobCount">Get Running Job Count</button></td>
+          <td><button class="bcls-button" id="showJobCount">Get Running Job Count</button></td>
           <td id="jobCount" class="messages"></td>
         </tr>
         <tr>
-          <td><button id="showFailedJobs">Show Failed Jobs</button><br>(List will not be complete until all jobs have processed)</td>
+          <td><button class="bcls-button" id="showFailedJobs">Show Failed Jobs</button><br>(List will not be complete until all jobs have processed)</td>
           <td class="messages"><pre id="failedJobs"></pre></td>
         </tr>
         <tr>
-          <td><button id="showNotifications">Show All Notifications</button><br>(List will not be complete until all jobs have processed)</td>
+          <td><button class="bcls-button" id="showNotifications">Show All Notifications</button><br>(List will not be complete until all jobs have processed)</td>
           <td class="messages"><pre id="notifications"></pre></td>
         </tr>
       </table>

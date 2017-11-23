@@ -281,7 +281,9 @@ console.log('sending next transcode request');
                 options.url         = ipBaseURL + endpoint;
                 options.requestType = 'GET';
                 logMessage(status, 'Getting account ingest profiles');
+console.log('profiles options', options);
                 makeRequest(options, function(response) {
+console.log('profiles response', response);
                     responseDecoded = JSON.parse(response);
                     if (Array.isArray(responseDecoded)) {
                         // remove existing options

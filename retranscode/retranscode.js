@@ -292,10 +292,8 @@ var BCLS = (function(window, document, rome) {
         options.url = ipBaseURL + endpoint;
         options.requestType = 'GET';
         logMessage(status, 'Getting account ingest profiles');
-        console.log('profiles options', options);
         makeRequest(options, function(response) {
           var profileNamePrefix;
-          console.log('profiles response', response);
           responseDecoded = JSON.parse(response);
           if (Array.isArray(responseDecoded)) {
             // remove existing options

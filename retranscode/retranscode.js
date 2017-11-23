@@ -53,6 +53,8 @@ var BCLS = (function(window, document, rome) {
     // event listeners
     profileBtn.addEventListener('click', function() {
         if (checkRequired()) {
+          // get account getAccountInfo
+          getAccountInfo();
             createRequest('getProfiles');
         } else {
             alert('The account id, client id, and client secret are required');
@@ -71,29 +73,8 @@ var BCLS = (function(window, document, rome) {
                 now = secondsToTime(timePassed);
                 logMessage(timeElapsed, now.h + ':' + now.m + ':' + now.s);
             }, 1000);
-            // get values
-            accountIdValue = account.value;
-            clientIdValue  = cid.value;
-            clientSecretValue = secret.value;
-            // set searchStringValue
-            dateTypeValue = getSelectedValue(dateRangeType);
-            fromDateValue = rome(fromDate).getDate();
-            if (isDefined(fromDateValue)) {
-                fromDateValue = fromDateValue.toISOString();
-            }
-            toDateValue = rome(toDate).getDate();
-            if (isDefined(toDateValue)) {
-                toDateValue = toDateValue.toISOString();
-            }
-
-            if (searchString.value) {
-                searchStringValue += '?q=' + encodeURI(searchString.value);
-                if (isDefined(fromDateValue) || isDefined(toDateValue)) {
-                  searchStringValue += '+' + dateTypeValue + ':' + fromDateValue + '..' + toDateValue;
-                } else if (isDefined(fromDateValue) || isDefined(toDateValue)) {
-                  searchStringValue += '?q=' + dateTypeValue + ':' + fromDateValue + '..' + toDateValue;
-                }
-            }
+            // get account field values
+            getAccountInfo();
             createRequest('deleteOldLogs');
         } else {
             alert('The account id, client id, and client secret are required');
@@ -111,6 +92,36 @@ var BCLS = (function(window, document, rome) {
     showNotifications.addEventListener('click', function() {
         createRequest('showNotifications');
     });
+
+    /**
+     * gets various values from account info fields
+     */
+    function getAccountInfo() {
+      // get values
+      accountIdValue = account.value;
+      clientIdValue  = cid.value;
+      clientSecretValue = secret.value;
+      // set searchStringValue
+      dateTypeValue = getSelectedValue(dateRangeType);
+      fromDateValue = rome(fromDate).getDate();
+      if (isDefined(fromDateValue)) {
+          fromDateValue = fromDateValue.toISOString();
+      }
+      toDateValue = rome(toDate).getDate();
+      if (isDefined(toDateValue)) {
+          toDateValue = toDateValue.toISOString();
+      }
+
+      if (searchString.value) {
+          searchStringValue += '?q=' + encodeURI(searchString.value);
+          if (isDefined(fromDateValue) || isDefined(toDateValue)) {
+            searchStringValue += '+' + dateTypeValue + ':' + fromDateValue + '..' + toDateValue;
+          } else if (isDefined(fromDateValue) || isDefined(toDateValue)) {
+            searchStringValue += '?q=' + dateTypeValue + ':' + fromDateValue + '..' + toDateValue;
+          }
+      }
+
+    }
 
     /**
      * tests for all the ways a variable might be undefined or not have a value

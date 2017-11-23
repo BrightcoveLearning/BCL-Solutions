@@ -113,6 +113,18 @@ var BCLS = (function(window, document, rome) {
     });
 
     /**
+     * tests for all the ways a variable might be undefined or not have a value
+     * @param {*} x the variable to test
+     * @return {Boolean} true if variable is defined and has a value
+     */
+    function isDefined(x) {
+        if ( x === '' || x === null || x === undefined) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * write messages to the UI
      * @param  {htmlElement} el The element to write the message to
      * @param  {String} m  the message to write

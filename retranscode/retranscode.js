@@ -294,6 +294,7 @@ var BCLS = (function(window, document, rome) {
         logMessage(status, 'Getting account ingest profiles');
         console.log('profiles options', options);
         makeRequest(options, function(response) {
+          var profileNamePrefix;
           console.log('profiles response', response);
           responseDecoded = JSON.parse(response);
           if (Array.isArray(responseDecoded)) {
@@ -310,6 +311,15 @@ var BCLS = (function(window, document, rome) {
                 el.setAttribute('value', responseDecoded[i].name);
                 if (i === 0) {
                   el.setAttribute('selected', 'selected');
+                }
+                if (responseDecoded[i].hasOwnProperty('dynamic_origin')) {
+                  if (responseDecoded[i].dynamic_origin.hasOwnProperty('dynamic_profile_options')) {
+                    profileNamePrefix = 'CAE - ';
+                  } else {
+                    profileNamePrefix = 'DD - ';
+                  }
+                } else {
+                  profileNamePrefix = 'Legacy - ';
                 }
                 txt = document.createTextNode(responseDecoded[i].name);
                 el.appendChild(txt);

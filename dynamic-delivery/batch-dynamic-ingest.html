@@ -141,8 +141,7 @@
 				    </div>
 				    <div class="form-wrapper">
 				        <fieldset>
-				            <legend>Inputs for the Dynamic Ingest API (AJAX version)</legend>
-				            <p>Submits to http://solutions.brightcove.com:<strong>8004</strong></p>
+				            <legend>Inputs for the Dynamic Ingest API</legend>
 				                <p>
 				                    Client id:
 				                    <input name="client_id" id="di_client_id" type="text" value="">
@@ -216,18 +215,9 @@
 			videoNumber = 0,
 			t1,
 			t2,
-			totalIngested = 0,
-			// functions
-			bclslog,
-			doIngest,
-			submitRequest,
-			setCMSOptions,
-			setDIOptions;
+			totalIngested = 0
+      defaultAccountId = '57838016001';
 
-		// IE safe logger
-		bclslog = function (context, message) {
-			logger += context + ": " + message + "<br>";
-		};
 		// set options for the CMS API request
 		setCMSOptions = function () {
 			var options = {};
@@ -247,7 +237,7 @@
 			var options = {};
 			options.client_id = $di_client_id.val();
 			options.client_secret = $di_client_secret.val();
-			options.requestBody = '{"master":{"url":"' + videoData[videoNumber].ArchiveURL +'"},"profile":"balanced-high-definition"}';
+			options.requestBody = '{"master":{"url":"' + videoData[videoNumber].ArchiveURL +'"},"profile":"multi-platform-standard-static"}';
 			options.requestType = $di_requestType.val();
 			options.url = $di_url.val();
 			// now submit the request

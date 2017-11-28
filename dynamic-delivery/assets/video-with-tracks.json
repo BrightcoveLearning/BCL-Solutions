@@ -1,0 +1,22 @@
+{
+"name": "BC Player",
+"description": "Video about the old BC player",
+"reference_id": "bc_player",
+"tags": ["training", "sample", "captions"],
+	"text_tracks": [
+		{"src": "http://learning-services-media.brightcove.com/captions/bc_smart.vtt", "kind": "captions", "srclang": "en", "label": "English", "default": true }
+		,
+		{"src": "http://learning-services-media.brightcove.com/captions/bc_smart_ja.vtt", "kind": "captions", "srclang": "ja", "label": "日本人" }
+		,
+		{"src": "http://learning-services-media.brightcove.com/captions/bc_smart_fr.vtt", "kind": "captions", "srclang": "fr", "label": "français" }
+		,
+		{"src": "http://learning-services-media.brightcove.com/captions/bc_smart_es.vtt", "kind": "captions", "srclang": "es", "label": "español" }
+		,
+		{"src": "http://learning-services-media.brightcove.com/captions/bc_smart_de.vtt", "kind": "captions", "srclang": "de", "label": "Deutsch" }
+	]
+}
+
+"url": "http://learning-services-media.brightcove.com/captions/BC_players.mp4",
+
+
+"id" : "3938779385001"

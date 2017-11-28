@@ -216,24 +216,37 @@
 			t1,
 			t2,
 			totalIngested = 0
-      defaultAccountId = '57838016001';
+      defaultAccountId = '57838016001',
+      account_id;
+
+      /**
+   * tests for all the ways a variable might be undefined or not have a value
+   * @param {*} x the variable to test
+   * @return {Boolean} true if variable is defined and has a value
+   */
+  function isDefined(x) {
+      if ( x === '' || x === null || x === undefined) {
+          return false;
+      }
+      return true;
+  }
 
 		// set options for the CMS API request
-		setCMSOptions = function () {
+		function setCMSOptions() {
 			var options = {};
 			videoData[videoNumber].description = videoData[videoNumber].description.substr(0, 250);
-			console.log("description", videoData[videoNumber].description);
-			options.client_id = $cms_client_id.val();
-			options.client_secret = $cms_client_secret.val();
+      if (isDefined($cms_client_id.val())) {
+        options.client_id = $cms_client_id.val();
+        options.client_secret = $cms_client_secret.val();
+      }
 			options.requestBody = '{"name":"' + videoData[videoNumber].name + '","description":"' + videoData[videoNumber].description + '","reference_id":"' + videoData[videoNumber].reference_id + '"}';
 			options.requestType = $cms_requestType.val();
 			options.url = $cms_url.val();
-			console.log(options);
 			// now submit the request
 			submitRequest(options, cmsURL, "cms");
 		};
 	    // set options for the Dynamic Ingest API request
-		setDIOptions = function () {
+		function setDIOptions() {
 			var options = {};
 			options.client_id = $di_client_id.val();
 			options.client_secret = $di_client_secret.val();
@@ -245,7 +258,7 @@
 		};
 
 		// function to submit Request
-		submitRequest = function (options, proxyURL, type) {
+		function submitRequest(options, proxyURL, type) {
 			var parsedData = {};
 			$.ajax({
 				url: proxyURL,
@@ -296,12 +309,13 @@
 		$di_submit.on("click", function () {
 			var i, descr;
 			totalVideos = videoData.length;
-			console.log("totalVideos", totalVideos);
+      account_id = (isDefined($account_id.val())) ? $account_id.val() : defaultAccountId;
 			videoNumber = 0;
 			setCMSOptions();
 		});
 		$account_id.on("change", function (){
-			$cms_url.val("https://cms.api.brightcove.com/v1/accounts/" + $account_id.val() + "/videos");
+      account_id = (isDefined($account_id.val())) ? $account_id.val() : defaultAccountId;
+			$cms_url.val("https://cms.api.brightcove.com/v1/accounts/" + account_id + "/videos");
 			$di_url.val("")
 		});
 	})($);

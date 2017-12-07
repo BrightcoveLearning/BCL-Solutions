@@ -72,8 +72,6 @@ $access_token = $responseData["access_token"];
 // get data
 if ($_POST["requestBody"]) {
     $data = json_decode($_POST["requestBody"]);
-} else {
-    $data = array();
 }
 // get request type or default to GET
 if ($_POST["requestType"]) {
@@ -85,19 +83,34 @@ if ($_POST["requestType"]) {
 // get the URL and authorization info from the form data
 $request = $_POST["url"];
 //send the http request
-$ch = curl_init($request);
-curl_setopt_array($ch, array(
-        CURLOPT_CUSTOMREQUEST  => $method,
-        CURLOPT_RETURNTRANSFER => TRUE,
-        CURLOPT_SSL_VERIFYPEER => FALSE,
-        CURLOPT_HTTPHEADER     => array(
-            'Content-type: application/json',
-            "Authorization: Bearer {$access_token}",
-        ),
-        CURLOPT_POSTFIELDS => json_encode($data)
-    ));
-$response = curl_exec($ch);
-curl_close($ch);
+if ($_POST["requestBody"]) {
+  $ch = curl_init($request);
+  curl_setopt_array($ch, array(
+    CURLOPT_CUSTOMREQUEST  => $method,
+    CURLOPT_RETURNTRANSFER => TRUE,
+    CURLOPT_SSL_VERIFYPEER => FALSE,
+    CURLOPT_HTTPHEADER     => array(
+      'Content-type: application/json',
+      "Authorization: Bearer {$access_token}",
+    ),
+    CURLOPT_POSTFIELDS => json_encode($data)
+  ));
+  $response = curl_exec($ch);
+  curl_close($ch);
+} else {
+  $ch = curl_init($request);
+  curl_setopt_array($ch, array(
+    CURLOPT_CUSTOMREQUEST  => $method,
+    CURLOPT_RETURNTRANSFER => TRUE,
+    CURLOPT_SSL_VERIFYPEER => FALSE,
+    CURLOPT_HTTPHEADER     => array(
+      'Content-type: application/json',
+      "Authorization: Bearer {$access_token}",
+    )
+  ));
+  $response = curl_exec($ch);
+  curl_close($ch);
+}
 
 // Check for errors
 if ($response === FALSE) {

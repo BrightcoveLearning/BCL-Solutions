@@ -61,8 +61,6 @@ $access_token = $responseData["access_token"];
 // get data
 if ($_POST["requestBody"]) {
     $data = json_decode($_POST["requestBody"]);
-} else {
-    $data = array();
 }
 // get request type or default to GET
 if ($_POST["requestType"]) {
@@ -119,8 +117,8 @@ if ($response === FALSE) {
 // $responseData = json_decode($response, TRUE);
 // return the response to the AJAX caller
 $responseDecoded = json_decode($response);
-if (!isset($responseDecoded)) {
-	$response = '{null}';
-}
+// if (!isset($responseDecoded)) {
+// 	$response = '{null}';
+// }
 echo $response;
 ?>

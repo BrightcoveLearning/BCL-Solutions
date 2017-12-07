@@ -94,19 +94,34 @@ if (strpos($request, 'api.brightcove.com') == false) {
 
 
 //send the http request
-$ch = curl_init($request);
-curl_setopt_array($ch, array(
-        CURLOPT_CUSTOMREQUEST  => $method,
-        CURLOPT_RETURNTRANSFER => TRUE,
-        CURLOPT_SSL_VERIFYPEER => FALSE,
-        CURLOPT_HTTPHEADER     => array(
-            'Content-type: application/json',
-            "Authorization: Bearer {$access_token}",
-        ),
-        CURLOPT_POSTFIELDS => json_encode($data)
-    ));
-$response = curl_exec($ch);
-curl_close($ch);
+if ($_POST["requestBody"]) {
+  $ch = curl_init($request);
+  curl_setopt_array($ch, array(
+    CURLOPT_CUSTOMREQUEST  => $method,
+    CURLOPT_RETURNTRANSFER => TRUE,
+    CURLOPT_SSL_VERIFYPEER => FALSE,
+    CURLOPT_HTTPHEADER     => array(
+      'Content-type: application/json',
+      "Authorization: Bearer {$access_token}",
+    ),
+    CURLOPT_POSTFIELDS => json_encode($data)
+  ));
+  $response = curl_exec($ch);
+  curl_close($ch);
+} else {
+  $ch = curl_init($request);
+  curl_setopt_array($ch, array(
+    CURLOPT_CUSTOMREQUEST  => $method,
+    CURLOPT_RETURNTRANSFER => TRUE,
+    CURLOPT_SSL_VERIFYPEER => FALSE,
+    CURLOPT_HTTPHEADER     => array(
+      'Content-type: application/json',
+      "Authorization: Bearer {$access_token}",
+    )
+  ));
+  $response = curl_exec($ch);
+  curl_close($ch);
+}
 // var_dump($data);
 // Check for errors
 if ($response === FALSE) {
@@ -125,8 +140,8 @@ if ($response === FALSE) {
 // $responseData = json_decode($response, TRUE);
 // return the response to the AJAX caller
 $responseDecoded = json_decode($response);
-if (!isset($responseDecoded)) {
-	$response = '{null}';
-}
+// if (!isset($responseDecoded)) {
+// 	$response = '{null}';
+// }
 echo $response;
 ?>

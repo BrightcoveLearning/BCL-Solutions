@@ -49,7 +49,7 @@ $nextChar = substr($_POST['url'], $endapi, 1);
 if (strpos($_POST["url"], 'api.bcovlive.io') == false) {
     exit('{"ERROR":"Only requests to the Brightcove Live APIs are accepted by this proxy"}');
 }
-echo $request .' '. $method .' '. $data;
+echo json_encode($data);
 // get the URL and authorization info from the form data
 $request = $_POST["url"];
 //send the http request

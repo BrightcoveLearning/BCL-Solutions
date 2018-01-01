@@ -75,8 +75,8 @@ if ($_POST["requestBody"]) {
     CURLOPT_SSL_VERIFYPEER => FALSE,
     CURLOPT_HTTPHEADER     => array(
       'Content-type: application/json',
-      "Authorization: Bearer {$access_token}",
-    )
+      "X-API-KEY: {$apikey}",
+    ),
   ));
   $response = curl_exec($ch);
   curl_close($ch);

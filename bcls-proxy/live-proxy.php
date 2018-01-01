@@ -41,8 +41,8 @@ if ($_POST["requestType"]) {
     $method = "GET";
 }
 // more security checks
-$needle = '.com';
-$endapi = strpos($_POST["url"], $needle) + 4;
+$needle = '.io';
+$endapi = strpos($_POST["url"], $needle) + 3;
 
 $nextChar = substr($_POST['url'], $endapi, 1);
 

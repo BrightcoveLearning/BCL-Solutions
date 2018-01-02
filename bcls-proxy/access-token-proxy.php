@@ -50,88 +50,9 @@ curl_close($ch);
 // Check for errors
 if ($response === FALSE) {
     die(curl_error($ch));
-}
-
-// Decode the response
-$responseData = json_decode($response, TRUE);
-$access_token = $responseData["access_token"];
-
-// set up the API call
-// get data
-if ($_POST["requestBody"]) {
-    $data = json_decode($_POST["requestBody"]);
-}
-// get request type or default to GET
-if ($_POST["requestType"]) {
-    $method = $_POST["requestType"];
+    echo 'An error occurred';
 } else {
-    $method = "GET";
-}
-// more security checks
-$needle = '.com';
-$endapi = strpos($_POST["url"], $needle) + 4;
-
-if (strpos($_POST["url"], 'data.brightcove.co.jp')) {
-    $endapi = strpos($_POST["url"], $needle) + 6;
-}
-$nextChar = substr($_POST['url'], $endapi, 1);
-
-if (strpos($_POST["url"], 'api.brightcove.com') == false && strpos($_POST["url"], 'data.brightcove.co.jp') == false && strpos($_POST["url"], 'data.brightcove.com') == false) {
-    exit('{"ERROR":"Only requests to Brightcove APIs are accepted by this proxy"}');
-} else if ($nextChar !== '/' && $nextChar !== '?') {
-    exit('{"ERROR": "There was a problem with your API request - please check the URL"}');
-}
-// get the URL and authorization info from the form data
-$request = $_POST["url"];
-//send the http request
-if ($_POST["requestBody"]) {
-  $ch = curl_init($request);
-  curl_setopt_array($ch, array(
-    CURLOPT_CUSTOMREQUEST  => $method,
-    CURLOPT_RETURNTRANSFER => TRUE,
-    CURLOPT_SSL_VERIFYPEER => FALSE,
-    CURLOPT_HTTPHEADER     => array(
-      'Content-type: application/json',
-      "Authorization: Bearer {$access_token}",
-    ),
-    CURLOPT_POSTFIELDS => json_encode($data)
-  ));
-  $response = curl_exec($ch);
-  curl_close($ch);
-} else {
-  $ch = curl_init($request);
-  curl_setopt_array($ch, array(
-    CURLOPT_CUSTOMREQUEST  => $method,
-    CURLOPT_RETURNTRANSFER => TRUE,
-    CURLOPT_SSL_VERIFYPEER => FALSE,
-    CURLOPT_HTTPHEADER     => array(
-      'Content-type: application/json',
-      "Authorization: Bearer {$access_token}",
-    )
-  ));
-  $response = curl_exec($ch);
-  curl_close($ch);
+  echo $response;
 }
 
-// Check for errors
-if ($response === FALSE) {
-    $logEntry = "\nError:\n".
-    "\n".date("Y-m-d H:i:s")." UTC \n"
-    .$response;
-    $logFileLocation = "log.txt";
-    $fileHandle      = fopen($logFileLocation, 'a') or die("-1");
-    fwrite($fileHandle, $logEntry);
-    fclose($fileHandle);
-    echo '{"ERROR": "There was a problem with your API call"}'+
-    die(curl_error($ch));
-}
-
-// Decode the response
-// $responseData = json_decode($response, TRUE);
-// return the response to the AJAX caller
-$responseDecoded = json_decode($response);
-// if (!isset($responseDecoded)) {
-// 	$response = '{null}';
-// }
-echo $response;
 ?>

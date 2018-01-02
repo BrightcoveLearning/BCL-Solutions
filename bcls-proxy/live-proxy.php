@@ -48,6 +48,8 @@ $nextChar = substr($_POST['url'], $endapi, 1);
 
 if (strpos($_POST["url"], 'api.brightcove.com') == false && strpos($_POST["url"], 'api.bcovlive.io') == false) {
     exit('{"ERROR":"Only requests to Brightcove APIs are accepted by this proxy"}');
+} else if ($nextChar !== '/' && $nextChar !== '?') {
+    exit('{"ERROR": "There was a problem with your API request - please check the URL"}');
 }
 
 // get the URL and authorization info from the form data
@@ -75,7 +77,7 @@ if ($_POST["requestBody"]) {
     CURLOPT_SSL_VERIFYPEER => FALSE,
     CURLOPT_HTTPHEADER     => array(
       'Content-type: application/json',
-      "Authorization: Bearer {$access_token}",
+      "X-API-KEY: {$apikey}",
     )
   ));
   $response = curl_exec($ch);

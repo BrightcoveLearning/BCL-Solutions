@@ -41,8 +41,8 @@ if ($_POST["requestType"]) {
     $method = "GET";
 }
 // more security checks
-$needle = '.com';
-$endapi = strpos($_POST["url"], $needle) + 4;
+$needle = '.io';
+$endapi = strpos($_POST["url"], $needle) + 3;
 
 $nextChar = substr($_POST['url'], $endapi, 1);
 
@@ -51,7 +51,6 @@ if (strpos($_POST["url"], 'api.brightcove.com') == false && strpos($_POST["url"]
 } else if ($nextChar !== '/' && $nextChar !== '?') {
     exit('{"ERROR": "There was a problem with your API request - please check the URL"}');
 }
-
 // get the URL and authorization info from the form data
 $request = $_POST["url"];
 //send the http request

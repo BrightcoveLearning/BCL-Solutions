@@ -1,18 +1,15 @@
 <?php
 /**
- * bcls-proxy.php - proxy for Brightcove RESTful APIs
- * gets an access token, makes the request, and returns the response
+ * access-token-proxy.php - proxy for Brightcove RESTful APIs
+ * gets an access token and returns the whole response
  * Accessing:
  *         (note you should *always* access the proxy via HTTPS)
  *     Method: POST
  *
- * @post {string} url - the URL for the API request
- * @post {string} [requestType=GET] - HTTP method for the request
- * @post {string} [requestBody=null] - JSON data to be sent with write requests
  * @post {string} client_id - OAuth2 client id with sufficient permissions for the request
  * @post {string} client_secret - OAuth2 client secret with sufficient permissions for the request
  *
- * @returns {string} $response - JSON response received from the API
+ * @returns {string} $response - JSON response received from the OAuth API
  */
 
 // security checks

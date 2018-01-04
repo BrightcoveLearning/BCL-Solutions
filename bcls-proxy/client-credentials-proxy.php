@@ -1,13 +1,13 @@
 <?php
 /**
- * access-token-proxy.php - proxy for Brightcove RESTful APIs
- * gets an access token and returns the whole response
+ * client-credentials-proxy.php - proxy for Brightcove RESTful APIs
+ * gets a client id and client secret and returns the whole response
  * Accessing:
  *         (note you should *always* access the proxy via HTTPS)
  *     Method: POST
  *
- * @post {string} client_id - OAuth2 client id with sufficient permissions for the request
- * @post {string} client_secret - OAuth2 client secret with sufficient permissions for the request
+ * @post {string} bctoken - BC_TOKEN with admin permissions on all accounts that credentials are requested for
+ * @post {JSONstring} requestBody - the full request body as a JSON string
  *
  * @returns {string} $response - JSON response received from the OAuth API
  */

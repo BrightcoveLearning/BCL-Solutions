@@ -6,7 +6,7 @@
  *         (note you should *always* access the proxy via HTTPS)
  *     Method: POST
  *
- * @post {string} bctoken - BC_TOKEN with admin permissions on all accounts that credentials are requested for
+ * @post {string} bc_token - BC_TOKEN with admin permissions on all accounts that credentials are requested for
  * @post {JSONstring} requestBody - the full request body as a JSON string
  *
  * @returns {string} $response - JSON response received from the OAuth API
@@ -29,7 +29,7 @@ $data = array();
 $client_id     = $_POST["client_id"];
 $client_secret = $_POST["client_secret"];
 $auth_string   = "{$client_id}:{$client_secret}";
-$request       = "https://oauth.brightcove.com/v4/access_token?grant_type=client_credentials";
+$request       = "https://oauth.brightcove.com/v4/client_credentials";
 $ch            = curl_init($request);
 curl_setopt_array($ch, array(
         CURLOPT_POST           => TRUE,

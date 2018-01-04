@@ -24,20 +24,19 @@ header("X-Content-Type-Options: nosniff");
 header("X-XSS-Protection");
 
 // set up request for access token
-$data = array();
+$data     = json_decode($_POST["requestBody"]);
+$bc_token = $_POST["bc_token"];
 
-$client_id     = $_POST["client_id"];
-$client_secret = $_POST["client_secret"];
-$auth_string   = "{$client_id}:{$client_secret}";
-$request       = "https://oauth.brightcove.com/v4/client_credentials";
-$ch            = curl_init($request);
+$request  = "https://oauth.brightcove.com/v4/client_credentials";
+$ch       = curl_init($request);
 curl_setopt_array($ch, array(
         CURLOPT_POST           => TRUE,
         CURLOPT_RETURNTRANSFER => TRUE,
         CURLOPT_SSL_VERIFYPEER => FALSE,
         CURLOPT_USERPWD        => $auth_string,
         CURLOPT_HTTPHEADER     => array(
-            'Content-type: application/x-www-form-urlencoded',
+            'Content-type: application/json',
+            'Authorization: BC_TOKEN {$bc_token}'
         ),
         CURLOPT_POSTFIELDS => $data
     ));

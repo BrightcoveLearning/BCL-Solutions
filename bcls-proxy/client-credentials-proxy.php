@@ -23,9 +23,24 @@ header("Content-type: application/json");
 header("X-Content-Type-Options: nosniff");
 header("X-XSS-Protection");
 
-// set up request for access token
-$data     = json_decode($_POST["requestBody"]);
-$bc_token = $_POST["bc_token"];
+// get data or die
+if ($_POST["requestBody"]) {
+    $data = json_decode($_POST["requestBody"]);
+} else {
+  exit("request body missing");
+}
+// get request type or default to POST
+if ($_POST["requestType"]) {
+    $method = $_POST["requestType"];
+} else {
+  $method = 'POST';
+}
+// get bc_token or die
+if ($_POST["bc_token"]) {
+    $bc_token = $_POST["bc_token"];
+} else {
+  exit("bc_token missing");
+}
 
 $request  = "https://oauth.brightcove.com/v4/client_credentials";
 $ch       = curl_init($request);
@@ -33,7 +48,6 @@ curl_setopt_array($ch, array(
         CURLOPT_POST           => TRUE,
         CURLOPT_RETURNTRANSFER => TRUE,
         CURLOPT_SSL_VERIFYPEER => FALSE,
-        CURLOPT_USERPWD        => $auth_string,
         CURLOPT_HTTPHEADER     => array(
             'Content-type: application/json',
             'Authorization: BC_TOKEN {$bc_token}'
@@ -46,7 +60,7 @@ curl_close($ch);
 // Check for errors
 if ($response === FALSE) {
     die(curl_error($ch));
-    echo 'An error occurred';
+    exit('An error occurred on making the request');
 } else {
   echo $response;
 }

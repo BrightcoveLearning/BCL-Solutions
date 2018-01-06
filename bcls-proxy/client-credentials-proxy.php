@@ -26,7 +26,6 @@ header("X-XSS-Protection");
 // get data or die
 if ($_POST["requestBody"]) {
     $data = json_decode($_POST["requestBody"]);
-    exit(json_encode($data));
 } else {
   exit("request body missing");
 }
@@ -53,7 +52,7 @@ curl_setopt_array($ch, array(
         'Content-type: application/json',
         'Authorization: BC_TOKEN {$bc_token}'
     ),
-    CURLOPT_POSTFIELDS => $data
+    CURLOPT_POSTFIELDS => json_encode($data)
 ));
 $response = curl_exec($ch);
 curl_close($ch);

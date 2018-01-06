@@ -26,6 +26,7 @@ header("X-XSS-Protection");
 // get data or die
 if ($_POST["requestBody"]) {
     $data = json_decode($_POST["requestBody"]);
+    // exit(json_encode($data));
 } else {
   exit("request body missing");
 }
@@ -45,15 +46,15 @@ if ($_POST["bc_token"]) {
 $request  = "https://oauth.brightcove.com/v4/client_credentials";
 $ch       = curl_init($request);
 curl_setopt_array($ch, array(
-        CURLOPT_POST           => TRUE,
-        CURLOPT_RETURNTRANSFER => TRUE,
-        CURLOPT_SSL_VERIFYPEER => FALSE,
-        CURLOPT_HTTPHEADER     => array(
-            'Content-type: application/json',
-            'Authorization: BC_TOKEN {$bc_token}'
-        ),
-        CURLOPT_POSTFIELDS => $data
-    ));
+    CURLOPT_CUSTOMREQUEST  => $method,
+    CURLOPT_RETURNTRANSFER => TRUE,
+    CURLOPT_SSL_VERIFYPEER => FALSE,
+    CURLOPT_HTTPHEADER     => array(
+        'Content-type: application/json',
+        'Authorization: BC_TOKEN {$bc_token}'
+    ),
+    CURLOPT_POSTFIELDS => $data
+));
 $response = curl_exec($ch);
 curl_close($ch);
 

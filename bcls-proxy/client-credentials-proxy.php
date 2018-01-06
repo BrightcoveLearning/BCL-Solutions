@@ -26,7 +26,7 @@ header("X-XSS-Protection");
 // get data or die
 if ($_POST["requestBody"]) {
     $data = json_decode($_POST["requestBody"]);
-    // exit(json_encode($data));
+    exit(json_encode($data));
 } else {
   exit("request body missing");
 }

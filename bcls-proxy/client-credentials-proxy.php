@@ -50,11 +50,10 @@ curl_setopt_array($ch, array(
     CURLOPT_SSL_VERIFYPEER => FALSE,
     CURLOPT_HTTPHEADER     => array(
         'Content-type: application/json',
-        'Authorization: BC_TOKEN {$bc_token}'
+        "Authorization: BC_TOKEN {$bc_token}"
     ),
     CURLOPT_POSTFIELDS => json_encode($data)
 ));
-exit(json_encode(CURLOPT_HTTPHEADER));
 $response = curl_exec($ch);
 curl_close($ch);
 

@@ -54,6 +54,7 @@ curl_setopt_array($ch, array(
     ),
     CURLOPT_POSTFIELDS => json_encode($data)
 ));
+exit(json_encode(CURLOPT_HTTPHEADER));
 $response = curl_exec($ch);
 curl_close($ch);
 

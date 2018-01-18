@@ -3,7 +3,7 @@
  * bcls-proxy.php - proxy for Brightcove RESTful APIs
  * gets an access token, makes the request, and returns the response
  * Accessing:
- *         (note you should *always* access the proxy via HTTPS)
+ *     (note you should *always* access the proxy via HTTPS)
  *     Method: POST
  *
  * @post {string} url - the URL for the API request

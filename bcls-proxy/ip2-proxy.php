@@ -27,12 +27,12 @@ $data = array();
 if ($_POST["client_id"]) {
     $client_id = $_POST["client_id"];
 } else {
-    $client_id = 'e20b9edf-8b6c-44d1-8110-bc0bf399b78f';
+    $client_id = '3e23bbec-59b8-4861-b5ba-7c26e110a746';
 }
 if ($_POST["client_secret"]) {
     $client_secret = $_POST["client_secret"];
 } else {
-    $client_secret = 'c9n25db7R_Ik8o3zNrKBN3zkx-BZVlEcm6mXGBH8aGhZGcljsb9pLCneABkBUl2Op3FIvB5sJCJUUPfiThtraQ';
+    $client_secret = 'quNdrH07IVoG8yZxSFsCySWmtvUuWfPYyzeg1Nil7Md7VpQ50A3KVV4eeMrZSR7FdeZA_3JS5jV9pBBI0skwWA';
 }
 $auth_string   = "{$client_id}:{$client_secret}";
 $request       = "https://oauth.brightcove.com/v4/access_token?grant_type=client_credentials";
@@ -139,7 +139,7 @@ if ($response === FALSE) {
 // Decode the response
 // $responseData = json_decode($response, TRUE);
 // return the response to the AJAX caller
-$responseDecoded = json_decode($response);
+// $responseDecoded = json_decode($response);
 // if (!isset($responseDecoded)) {
 // 	$response = '{null}';
 // }

@@ -1,3 +1,0 @@
-http://api.3playmedia.com/files?apikey=TBHMgJqRoP_Kq8Yj9CYAbS8QC6ai6A_Z
-
-http://api.3playmedia.com/files/2079975065001?apikey=TBHMgJqRoP_Kq8Yj9CYAbS8QC6ai6A_Z&usevideoid=1

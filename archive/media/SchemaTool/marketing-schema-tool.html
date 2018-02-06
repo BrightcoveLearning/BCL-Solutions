@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Schema Generation Tool</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="/bcls/bootstrap/js/html5shiv.js"></script>
+        <![endif]-->
+        <!-- Fav and touch icons -->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/bcls/bootstrap/img/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/bcls/bootstrap/img/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/bcls/bootstrap/img/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="/bcls/bootstrap/img/apple-touch-icon-57-precomposed.png">
+        <link rel="shortcut icon" href="/bcls/assets/images/favicon.ico">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/atelier-forest.light.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/foundation.min.css" />
+        <script src="//use.edgefonts.net/source-code-pro.js"></script>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
+        <style>
+            /* element styles */
+            body {
+                font-family:'ProximaNovaA-Regular', "Helvetica Neue", Arial, Helvetica, sans-serif;
+                margin: 0 30px;
+                padding-left: 40px;
+                padding-top: 100px;
+            }
+            fieldset {
+                width: 800px;
+                display: block;
+                margin-bottom: 20px;
+                border-radius: 5px;
+            }
+            h1 {
+                border-bottom: 1px #CCC solid;
+            }
+            input {
+                font-family: source-code-pro, Monaco, Consolas, Menlo, "Lucida Console", monospace;
+            }
+            table {
+                border-collapse: collapse;
+                border: 0 #999 solid;
+                border-radius: 5px;
+            }
+            td {
+                padding: 5px;
+            }
+            tr td:first {
+                text-align: right;
+            }
+            textarea {
+                width: 750px;
+                height: 500px;
+            }
+            iframe {
+                width: 900px;
+                height: 600px;
+                border: 1px #999 solid;
+                border-radius: 5px;
+            }
+            input {
+                width: 400px;
+            }
+            /* class styles */
+            .align-right {
+                text-align: right;
+            }
+            .align-top {
+                vertical-align: top;
+            }
+            .bcls-button {
+                background-color: #666;
+                border: 1px #000 solid;
+                color: #FFF;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: small;
+                padding: 5px;
+            }
+            .required {
+                border: 2px #900 solid;
+            }
+            .red {
+                color: #F00;
+                font-weight: bold;
+                font-size: 120%;
+            }
+            .outline-red {
+                border: 2px #900 solid;
+                padding: 2px;
+            }
+            .where-terms {
+                border: 1px #999 solid;
+                border-radius: 5px;
+                padding: 5px;
+                text-align: right;
+            }
+            .request {
+                background-color: #FEF7E4;
+                border: 1px #999 solid;
+                border-radius: 5px;
+                font-size: .8em;
+                padding: 5px;
+            }
+        </style>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/js/vendor/modernizr.js"></script>
+    </head>
+
+    <body>
+    <!-- header navbar -->
+	<div id="navWrapper" class="fixed"></div>
+	<!-- breadcrumbs -->
+	<nav id="breadCrumbWrapper" class="breadcrumbs show-for-medium-up"></nav>
+    <!-- search -->
+    <div id="searchModal" class="reveal-modal" data-reveal></div>
+    <!-- content -->
+    <div class="row">
+        <div class="large-12 large-centered small-12 small-centered">
+        <!-- main content starts here -->
+        <h1>Video Cloud Schema Builder</h1>
+        <p>This app generates an
+            <a href="http://schema.org/VideoObject">VideoObject Schema</a>based on the
+            <a href="http://schema.org">schema.org</a>specification. Including a schema with your video provides information to search engine indexers and enhances SEO. You can generate the code here and use it as your publishing code.</p>
+        <p class="text-warning">Note: this app produces code for a single video player only. Also, you should update the code periodically, as URLs can change.</p>
+        <h2>Data Input</h2>
+        <p class="text-warning">
+            <span class="red">All fields are
+                <strong>required</strong>
+            </span>. Default values are included from the Brightcove Learning Services demo account to allow you to test the tool &mdash; you must replace all of these to get a schema for your own video.</p>
+        <div id="inputFields" class="input-fields">
+            <fieldset>
+                <legend>Account Information</legend>
+                <div id="accountInfo">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Video Cloud Account ID (Publisher ID):</td>
+                                <td>
+                                    <input id="accountID" type="text" size="60" value="1160438696001">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Media API READ Token:</td>
+                                <td>
+                                    <input id="token" type="text" size="60" value="L5GNlEiIcRyG2jwfyyFHYTu5Qv6cxzpizmJQLW7gwGQUu8iFkHE0gQ.." />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Service URL</td>
+                                <td>
+                                    <select id="serviceURL">
+                                        <option value="http://api.brightcove.com/services/library">http://api.brightcove.com/services/library</option>
+                                        <option value="http://api.brightcove.co.jp/services/library">http://api.brightcove.co.jp/services/library (Japan)</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Player Information</legend>
+                <div id="playerInfo">
+                    <h4>Note: use a single video player</h4>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>URL for the player page:</td>
+                                <td>
+                                    <input id="pageURL" type="text" size="60" value="http://www.brightcove.com/" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Player ID (from Publishing Module or publishing code):</td>
+                                <td>
+                                    <input id="playerID" size="60" value="1469902813001" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Player key (from publishing code):</td>
+                                <td>
+                                    <input id="playerKey" size="60" value="AQ~~,AAAABLsQgFE~,jGXrTxeVLAQAxWWh5tR_yAk4ujie9FeT" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Player width:</td>
+                                <td>
+                                    <input id="playerWidth" type="text" size="60" value="640" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Player height:</td>
+                                <td>
+                                    <input id="playerHeight" type="text" size="60" value="360" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Select the Video</legend>
+                <div id="videoInfo">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Number of videos to retrieve on each call:</td>
+                                <td>
+                                    <select id="pageSize">
+                                        <option value="10">10</option>
+                                        <option value="25" selected="selected">25</option>
+                                        <option value="50">50</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Search for videos (leave search terms blank to retrieve all videos)</td>
+                                <td><p>What to search:</p>
+                                    <select id="searchType">
+                                        <option value="" selected="selected">Title and Description</option>
+                                        <option value="tag">Tags</option>
+                                        <option value="custom_fields">Custom Fields</option>
+                                    </select>
+                                    <p>Search for (separate multiple terms by commas): <input id="searchTerms" value="" size="60" /></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Sort results by:</td>
+                                <td>
+                                    <select id="sortBy">
+                                        <option value="DISPLAY_NAME">Video Name</option>
+                                        <option value="REFERENCE_ID">Reference ID</option>
+                                        <option value="PUBLISH_DATE">Date Published</option>
+                                        <option value="CREATION_DATE">Date Created</option>
+                                        <option value="MODIFIED_DATE">Date Last Modified</option>
+                                        <option value="START_DATE">Date Scheduled to Start</option>
+                                        <option value="PLAYS_TRAILING_WEEK">Trailing Week Plays</option>
+                                        <option value="PLAYS_TOTAL">All-Time Plays</option>
+                                    </select>
+                                    <select id="sortOrder">
+                                        <option value="ASC">Ascending</option>
+                                        <option value="DESC">Descending</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <span id="getVideosButton" class="bcls-button">Get videos</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Select a video:</td>
+                                <td>
+                                    <select id="videoSelector"></select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </fieldset>
+            <p>
+                <span id="generateButton" class="bcls-button">Generate Schema</span>
+            </p>
+        </div>
+        <h2>The Generated Schema and Player Publishing Code</h2>
+        <!-- <fieldset>
+		<legend>Generated Results</legend>
+		<div id="generatedResults"></div>
+	</fieldset> -->
+        <div id="publishingCodeWrapper">
+            <fieldset>
+                <legend>Publishing Code</legend>
+                <p>
+                    <span class="bcls-button" id="selectCode">Select the code</span> and then copy and paste it into your page (both the schema and player publishing code are included).</p>
+                <p>
+                    <textarea id="publishingCode"></textarea>
+                </p>
+            </fieldset>
+        </div>
+    </div>
+</div>
+        <!-- scripts -->
+        <!-- jquery -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/js/foundation.min.js"></script>
+        <link href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/foundation.min.css" rel="stylesheet" type="text/css" />
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.3/handlebars.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
+
+        <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
+        <script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
+        <!-- javascript mapi wrapper -->
+        <script src="//docs.brightcove.com/en/scripts/bc-mapi.js"></script>
+        <!-- space remover -->
+        <script src="//solutions.brightcove.com/bcls/scripts/remove_spaces.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
+        <script>
+            var BCLS = (function() {
+                "use strict";
+                var $serviceURL = $("#serviceURL"),
+                    $accountID = $("#accountID"),
+                    $token = $("#token"),
+                    $pageURL = $("#pageURL"),
+                    $playerID = $("#playerID"),
+                    $playerKey = $("#playerKey"),
+                    $playerWidth = $("#playerWidth"),
+                    $playerHeight = $("#playerHeight"),
+                    $pageSize = $("#pageSize"),
+                    $searchType = $("#searchType"),
+                    $searchTerms = $("#searchTerms"),
+                    $sortBy = $("#sortBy"),
+                    pageNumber = 0,
+                    $getVideosButton = $("#getVideosButton"),
+                    $videoSelector = $("#videoSelector"),
+                    $sortOrder = $("#sortOrder"),
+                    $generateButton = $("#generateButton"),
+                    $generatedResults = $("#generatedResults"),
+                    $publishingCode = $("#publishingCode"),
+                    params = {}, totalVideos = 0,
+                    totalPages = 0,
+                    videoData = null, template, data, result, selectedVideo, $selectCode = $("#selectCode"),
+                    $this,
+                    videoOptionTemplate = "{{#items}}<option value=\"{{id}}\">{{name}}</option>{{/items}}",
+                    schemaTemplates = {
+                        EntertainmentBusiness: "&lt;div id=\"content\"&gt; &lt;div itemscope itemid=\"\"itemtype=\"http://schema.org/VideoObject\"&gt;&lt;link itemprop=\"url\"href=\"{{pageURL}}?bctid={{id}}\"&gt;&lt;meta itemprop=\"name\" content=\"{{name}}\"&gt;&lt;meta itemprop=\"description\" content=\"{{shortDescription}}\"&gt;&lt;meta itemprop=\"paid\" content=\"False\"&gt;&lt;meta itemprop=\"videoId\" content=\"{{id}}\"&gt;&lt;meta itemprop=\"duration\" content=\"PT3M4S\"&gt;&lt;meta itemprop=\"unlisted\" content=\"False\"&gt;&lt;link itemprop=\"thumbnailUrl\" href=\"{{thumbnailURL}}\"&gt;&lt;span itemprop=\"thumbnail\" itemscope itemtype=\"http://schema.org/ImageObject\"&gt;&lt;link itemprop=\"url\" href=\"{{thumbnailURL}}\"&gt;&lt;meta itemprop=\"width\" content=\"320\"&gt;&lt;meta itemprop=\"height\" content=\"180\"&gt;&lt;/span&gt;&lt;link itemprop=\"embedURL\" href=\"href=\\\"http://c.brightcove.com/services/viewer/federated_f9/{{playerID}}?isVid=1&isUI=1&publisherID={{accountID}}&playerID={{playerID}}&domain=embed&videoId={{id}}\"&gt;&lt;meta itemprop=\"width\" content=\"640\"&gt;&lt;meta itemprop=\"height\" content=\"360\"&gt;!-- END OF SCHEMA --&gt;&lt;script src=\"http://admin.brightcove.com/js/BrightcoveExperiences.js\"&gt;&lt;\/script&gt;&lt;object id=\"myExperience{{id}}\" class=\"BrightcoveExperience\"&gt;&lt;param name=\"bgcolor\" value=\"#333333\" /&gt;&lt;param name=\"width\" value=\"{{playerWidth}}\" /&gt;&lt;param name=\"height\" value=\"{{playerHeight}}\" /&gt;&lt;param name=\"playerID\" value=\"{{playerID}}\" /&gt;&lt;param name=\"playerKey\" value=\"{{playerKey}}\"/&gt;&lt;param name=\"isVid\" value=\"true\" /&gt;&lt;param name=\"isUI\" value=\"true\" /&gt;&lt;param name=\"dynamicStreaming\" value=\"true\" /&gt;&lt;param name=\"@videoPlayer\" value=\"{{id}}\" /&gt;&lt;param name=\"linkBaseURL\" value=\"{{pageURL}}bctid={{id}}\" /&gt;&lt;/object&gt;&lt;/div&gt;"
+                    },
+                    getVideos,
+                    onGetVideos,
+                    generateSchema;
+                    // allow array forEach method in older browsers
+                    if ( !Array.prototype.forEach ) {
+                        Array.prototype.forEach = function(fn, scope) {
+                            for(var i = 0, len = this.length; i < len; ++i) {
+                                fn.call(scope || this, this[i], i, this);
+                            }
+                        }
+                    }
+                    // in case search terms added after initial video retrieval
+                    $searchTerms.on("change", function () {
+                        // re-initialize
+                        pageNumber = 0;
+                        totalPages = 0;
+                    })
+                    getVideos = function() {
+                        var searchTerms = $searchTerms.val(),
+                            searchTermsArray = searchTerms.split(","),
+                            searchType = $searchType.val();
+                        BCMAPI.url = $serviceURL.val();
+                        BCMAPI.callback = "BCLS.onGetVideos";
+                        BCMAPI.token = $token.val();
+                        params.page_number = pageNumber;
+                        params.page_size = $pageSize.val();
+                        params.sort_by = $sortBy.val();
+                        params.video_fields = "id,name,shortDescription,videoStillURL,thumbnailURL";
+                        params.get_item_count = true;
+                        if (searchTerms !== "") {
+                            if (searchType !== "") {
+                                searchTermsArray.forEach(function (element, index, array) {
+                                    element = searchType + ":" + element;
+                                });
+                            }
+                            params.any = searchTerms;
+                        }
+                        BCMAPI.search(params);
+                        pageNumber++;
+                    };
+                    onGetVideos = function(JSONdata) {
+                        videoData = JSONdata;
+                        totalVideos += JSONdata.total_count;
+                        totalPages = Math.ceil(JSONdata.total_count / $pageSize.val());
+                        if (totalPages === pageNumber) {
+                            $getVideosButton.html("No more videos");
+                            $getVideosButton.off("click", this.getVideos);
+                        } else {
+                            $getVideosButton.html("Get the next " + $pageSize.val() + " videos");
+                        }
+                        template = Handlebars.compile(videoOptionTemplate);
+                        data = JSONdata;
+                        result = template(data);
+                        $videoSelector.html(result);
+                    };
+                    generateSchema = function() {
+                        if (videoData === null) {
+                            // clicked on generate before getting videos
+                            alert("Please retrieve videos and select one");
+                            return;
+                        }
+                        selectedVideo = videoData.items[document.getElementById("videoSelector").selectedIndex];
+                        selectedVideo.playerID = $playerID.val();
+                        selectedVideo.playerKey = $playerKey.val();
+                        selectedVideo.pageURL = $pageURL.val();
+                        selectedVideo.playerWidth = $playerWidth.val();
+                        selectedVideo.playerHeight = $playerHeight.val();
+                        template = Handlebars.compile(schemaTemplates.EntertainmentBusiness);
+                        data = selectedVideo;
+                        result = template(data);
+                        $publishingCode.html("&lt;!-- Start of Brightcove Player --&gt;\n" + result +  "\n&lt;!-- End of Brightcove Player --&gt");
+                    };
+                // set listeners for buttons
+                $getVideosButton.on("click", getVideos);
+                $generateButton.on("click", generateSchema);
+                $selectCode.on("click", function() {
+                    document.getElementById("publishingCode").select();
+                });
+                return {
+                    onGetVideos: onGetVideos
+                };
+            })();
+        </script>
+        <div class="footer text-center"><a id="feedbackMail" href="mailto:docs@brightcove.com">Questions or comments?</a></div>
+    <script>
+	var feedbackMail = document.getElementById("feedbackMail");
+	feedbackMail.setAttribute("href", "mailto:docs@brightcove.com?subject=question regarding " + encodeURI(document.location.href));
+	</script>
+	</body>
+</html>

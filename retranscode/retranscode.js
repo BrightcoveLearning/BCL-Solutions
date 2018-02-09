@@ -335,6 +335,7 @@ var BCLS = (function(window, document, rome) {
           endpoint += searchStringValue;
         }
         options.url = cmsBaseURL + endpoint;
+console.log('url', options.url);
         options.requestType = 'GET';
         logMessage(status, 'Getting video count');
         makeRequest(options, function(response) {

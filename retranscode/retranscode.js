@@ -412,7 +412,13 @@ console.log('url', options.url);
         endpoint = '/videos/' + videoIDs[callNumber] + '/ingest-requests';
         options.url = diBaseURL + endpoint;
         options.requestType = 'POST';
-        options.requestBody = '{"profile":"' + selectedProfile + '","capture-images":' + isChecked(captureImages) + ',"master":{"use_archived_master": true},"callbacks":["https://solutions.brightcove.com/bcls/retranscode/notifications.php","http://solutions.brightcove.com/bcls/di-api/di-callbacks.php"]}';
+        requestBody.profile = selectedProfile;
+        requestBody['capture-images'] = isChecked(captureImages);
+        requestBody.master = {};
+        requestBody.master.use_archived_master = true;
+        requestBody.callbacks = ['https://solutions.brightcove.com/bcls/retranscode/notifications.php','http://solutions.brightcove.com/bcls/di-api/di-callbacks.php'];
+console.log('requestBody', requestBody);
+        options.requestBody = JSON.stringify(requestBody);
         logMessage(status, 'Sending retranscode requests - do NOT leave this page');
         makeRequest(options, function(response) {
           responseDecoded = JSON.parse(response);

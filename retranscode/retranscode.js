@@ -28,7 +28,7 @@ var BCLS = (function(window, document, rome) {
     dateTypeValue,
     fromDateValue,
     toDateValue,
-    searchStringValue,
+    searchStringValue  = '',
     accountIdValue,
     clientIdValue,
     clientSecretValue,

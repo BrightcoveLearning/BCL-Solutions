@@ -567,23 +567,15 @@ console.log('requestBody', requestBody);
      * options.client_secret - the client secret (defaults here to a Brightcove sample account value - this should always be stored on the server side if possible)
      * options.requestBody - request body for write requests (optional JSON string)
      */
-    requestParams = 'url=' + encodeURIComponent(options.url) + '&requestType=' + options.requestType + '&account_id=' + options.account_id;
-    // only add client id and secret if both were submitted
-    if (options.client_id && options.client_secret) {
-      requestParams += '&client_id=' + options.client_id + '&client_secret=' + options.client_secret;
-    }
-    // add request data if any
-    if (options.requestBody) {
-      requestParams += '&requestBody=' + encodeURIComponent(options.requestBody);
-    }
+
     // set response handler
     httpRequest.onreadystatechange = getResponse;
     // open the request
     httpRequest.open('POST', proxyURL);
     // set headers
-    httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    httpRequest.setRequestHeader("Content-Type", "application/json");
     // open and send request
-    httpRequest.send(requestParams);
+    httpRequest.send(JSON.stringify(options));
   }
 
   /**

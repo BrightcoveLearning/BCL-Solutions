@@ -349,10 +349,14 @@ console.log('count response', response);
             errorCodes.push('get video count error: ' + responseDecoded.error_code);
           } else {
             totalVideos = parseInt(responseDecoded.count);
-            totalCMSCalls = Math.ceil(totalVideos / limit);
-            logMessage(status, 'Video count retrieved');
-            logMessage(videoCount, totalVideos);
-            createRequest('getVideos');
+            if (totalVideos > 0) {
+              totalCMSCalls = Math.ceil(totalVideos / limit);
+              logMessage(status, 'Video count retrieved');
+              logMessage(videoCount, totalVideos);
+              createRequest('getVideos');
+            } else {
+              alert('Something went wrong - no videos found; the server returned: ' + response);
+            }
           }
         });
         break;

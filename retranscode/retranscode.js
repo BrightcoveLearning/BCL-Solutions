@@ -120,7 +120,7 @@ var BCLS = (function(window, document, rome) {
         searchStringValue += '?q=' + dateTypeValue + ':' + fromDateValue + '..' + toDateValue;
       }
     }
-console.log('searchString', searchString);
+console.log('searchStringValue', searchStringValue);
   }
 
   /**

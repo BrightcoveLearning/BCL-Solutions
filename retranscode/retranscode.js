@@ -257,6 +257,7 @@ console.log('searchStringValue', searchStringValue);
    */
   function createRequest(type) {
     var options = {},
+      requestBody = {},
       url,
       ipBaseURL = 'https://ingestion.api.brightcove.com/v1/accounts/' + accountIdValue,
       cmsBaseURL = 'https://cms.api.brightcove.com/v1/accounts/' + accountIdValue,

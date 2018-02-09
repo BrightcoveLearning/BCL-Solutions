@@ -118,7 +118,7 @@ console.log('fromDateValue', fromDateValue);
 console.log('toDateValue', toDateValue);
       searchStringValue += '?q=' + encodeURI(searchString.value);
       if (isDefined(fromDateValue) || isDefined(toDateValue)) {
-        searchStringValue += '%20+' + dateTypeValue + ':' + fromDateValue + '..' + toDateValue;
+        searchStringValue += '+%20' + dateTypeValue + ':' + fromDateValue + '..' + toDateValue;
       }
     } else if (isDefined(fromDateValue) || isDefined(toDateValue)) {
       searchStringValue += '?q=' + dateTypeValue + ':' + fromDateValue + '..' + toDateValue;
@@ -343,6 +343,7 @@ console.log('url', options.url);
         options.requestType = 'GET';
         logMessage(status, 'Getting video count');
         makeRequest(options, function(response) {
+console.log('count response', response);
           responseDecoded = JSON.parse(response);
           if (responseDecoded.error_code) {
             errorCodes.push('get video count error: ' + responseDecoded.error_code);

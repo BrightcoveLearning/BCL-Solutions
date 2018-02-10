@@ -18,9 +18,12 @@ header("X-XSS-Protection");
 $m_account = new stdClass();
 $m_account->message = 'An account id is required!';
 
+// get request body
+$requestData = json_decode(file_get_contents('php://input'));
+
 // get the account_id or die
-if ($_POST["account_id"]) {
-    $account_id = $_POST["account_id"];
+if ($requestData->account_id) {
+    $account_id = $requestData->account_id;
 } else {
     exit($m_account);
 }

@@ -5,12 +5,16 @@
  * Accessing:
  *         (note you should *always* access the proxy via HTTPS)
  *     Method: POST
+ *     request body (accessed via php://input) is a JSON object with the following properties
  *
- * @post {string} url - the URL for the API request
- * @post {string} [requestType=GET] - HTTP method for the request
- * @post {string} [requestBody=null] - JSON data to be sent with write requests
- * @post {string} client_id - OAuth2 client id with sufficient permissions for the request
- * @post {string} client_secret - OAuth2 client secret with sufficient permissions for the request
+ * {string} url - the URL for the API request
+ * {string} [requestType=GET] - HTTP method for the request
+ * {string} [requestBody] - JSON data to be sent with write requests
+ * {string} [client_id] - OAuth2 client id with sufficient permissions for the request
+ * {string} [client_secret] - OAuth2 client secret with sufficient permissions for the request
+ * {string} [account_id] - Brightcove account id
+ *
+ * if client_id, client_secret, or account_id are not included in the request, values for the BrightcoveLearning account will be used
  *
  * @returns {string} $response - JSON response received from the API
  */
@@ -25,11 +29,27 @@ header("Content-type: application/json");
 header("X-Content-Type-Options: nosniff");
 header("X-XSS-Protection");
 
+// get request body
+$requestData = json_decode(file_get_contents('php://input'));
+
 // set up request for access token
 $data = array();
 
-$client_id = $_POST["client_id"];
-$client_secret = $_POST["client_secret"];
+if ($requestData->client_id) {
+    $client_id = $requestData->client_id;
+} else {
+    $client_id = '3e23bbec-59b8-4861-b5ba-7c26e110a746';
+}
+if ($requestData->client_secret) {
+    $client_secret = $requestData->client_secret;
+} else {
+    $client_secret = 'quNdrH07IVoG8yZxSFsCySWmtvUuWfPYyzeg1Nil7Md7VpQ50A3KVV4eeMrZSR7FdeZA_3JS5jV9pBBI0skwWA';
+}
+if ($requestData->ccount_id) {
+    $account_id = $requestData->ccount_id;
+} else {
+    $account_id = '57838016001';
+}
 
 $auth_string = "{$client_id}:{$client_secret}";
 $request     = "https://oauth.brightcove.com/v4/access_token?grant_type=client_credentials";
@@ -56,36 +76,35 @@ if ($response === FALSE) {
 $responseData = json_decode($response, TRUE);
 $access_token = $responseData["access_token"];
 
-// set up the API call
 // get data
-if ($_POST["requestBody"]) {
-    $data = json_decode($_POST["requestBody"]);
+if ($requesteData->requestBody) {
+    $data = json_decode($requesteData->requestBody);
 }
 // get request type or default to GET
-if ($_POST["requestType"]) {
-    $method = $_POST["requestType"];
+if ($requestData->requestType) {
+    $method = $requestData->requestType;
 } else {
     $method = "GET";
 }
 
 // more security checks
 $needle = '.com';
-$endapi = strpos($_POST["url"], $needle) + 4;
+$endapi = strpos($requestData->url, $needle) + 4;
 
-if (strpos($_POST["url"], 'data.brightcove.co.jp')) {
-    $endapi = strpos($_POST["url"], $needle) + 6;
+if (strpos($requestData->url, 'data.brightcove.co.jp')) {
+    $endapi = strpos($requestData->url, $needle) + 6;
 }
-$nextChar = substr($_POST['url'], $endapi, 1);
+$nextChar = substr($requestData->url, $endapi, 1);
 
-if (strpos($_POST["url"], 'api.brightcove.com') == false && strpos($_POST["url"], 'data.brightcove.co.jp') == false && strpos($_POST["url"], 'data.brightcove.com') == false) {
+if (strpos($requestData->url, 'api.brightcove.com') == false && strpos($requestData->url, 'data.brightcove.co.jp') == false && strpos($requestData->url, 'data.brightcove.com') == false) {
     exit('{"ERROR":"Only requests to Brightcove APIs are accepted by this proxy"}');
 } else if ($nextChar !== '/' && $nextChar !== '?') {
     exit('{"ERROR": "There was a problem with your API request - please check the URL"}');
 }
 // get the URL and authorization info from the form data
-$request = $_POST["url"];
+$request = $requestData->url;
 //send the http request
-if ($_POST["requestBody"]) {
+if ($requestData->requestBody) {
   $ch = curl_init($request);
   curl_setopt_array($ch, array(
     CURLOPT_CUSTOMREQUEST  => $method,

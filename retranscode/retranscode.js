@@ -123,13 +123,13 @@ var BCLS = (function(window, document, rome) {
 console.log('search value: ', searchString.value);
 console.log('fromDateValue', fromDateValue);
 console.log('toDateValue', toDateValue);
-      searchStringValue += '?q=' + encodeURI(searchString.value);
+      searchStringValue += 'q=' + encodeURI(searchString.value);
       if (isDefined(fromDateValue) || isDefined(toDateValue)) {
         searchStringValue += '+%20' + dateTypeValue + ':' + fromDateValue + '..' + toDateValue;
       }
     } else {
       if (isDefined(fromDateValue) || isDefined(toDateValue)) {
-        searchStringValue += '?q=' + dateTypeValue + ':' + fromDateValue + '..' + toDateValue;
+        searchStringValue += 'q=' + dateTypeValue + ':' + fromDateValue + '..' + toDateValue;
       }
     }
 console.log('searchStringValue', searchStringValue);
@@ -345,7 +345,7 @@ console.log('searchStringValue', searchStringValue);
         options.proxyURL = './videos-proxy.php';
         endpoint = '/counts/videos';
         if (searchStringValue) {
-          endpoint += searchStringValue;
+          endpoint += '?' + searchStringValue;
         }
         options.url = cmsBaseURL + endpoint;
 console.log('url', options.url);
@@ -371,7 +371,10 @@ console.log('count response', response);
         break;
       case 'getVideos':
         options.proxyURL = './videos-proxy.php';
-        endpoint = '/videos?sort=created_at&limit=' + limit + '&offset=' + (callNumber * limit) + searchStringValue;
+        endpoint = '/videos?sort=created_at&limit=' + limit + '&offset=' + (callNumber * limit);
+        if (isDefined(searchStringValue)) {
+          endpoint += '&' + searchStringValue;
+        }
 console.log('video endpoint', endpoint);
         options.url = cmsBaseURL + endpoint;
         options.requestType = 'GET';

@@ -371,10 +371,8 @@ console.log('count response', response);
         break;
       case 'getVideos':
         options.proxyURL = './videos-proxy.php';
-        endpoint = '/videos?sort=created_at&limit=' + limit + '&offset=' + (callNumber * limit);
-        if (searchStringValue) {
-          endpoint += searchStringValue;
-        }
+        endpoint = '/videos?sort=created_at&limit=' + limit + '&offset=' + (callNumber * limit) + searchStringValue;
+console.log('video endpoint', endpoint);
         options.url = cmsBaseURL + endpoint;
         options.requestType = 'GET';
         logMessage(status, 'Getting videos');

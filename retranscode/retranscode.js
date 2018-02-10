@@ -379,6 +379,7 @@ console.log('count response', response);
         options.requestType = 'GET';
         logMessage(status, 'Getting videos');
         makeRequest(options, function(response) {
+console.log('videos response', response);
           responseDecoded = JSON.parse(response);
           if (responseDecoded.error_code) {
             errorCodes.push('get videos: ' + responseDecoded.error_code);

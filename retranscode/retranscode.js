@@ -53,7 +53,7 @@ var BCLS = (function(window, document, rome) {
   // event listeners
   profileBtn.addEventListener('click', function() {
     if (checkRequired()) {
-      // get account getAccountInfo
+      // get account info
       getAccountInfo();
       createRequest('getProfiles');
     } else {
@@ -75,6 +75,7 @@ var BCLS = (function(window, document, rome) {
       }, 1000);
       // get account field values
       getAccountInfo();
+      setSearchString();
       createRequest('deleteOldLogs');
     } else {
       alert('The account id, client id, and client secret are required');
@@ -101,6 +102,12 @@ var BCLS = (function(window, document, rome) {
     accountIdValue    = account.value;
     clientIdValue     = cid.value;
     clientSecretValue = secret.value;
+  }
+
+  /*
+   * set up search string value based on inputs
+   */
+  function setSearchString() {
     // set searchStringValue
     dateTypeValue     = getSelectedValue(dateRangeType);
     fromDateValue     = rome(fromDate).getDate();

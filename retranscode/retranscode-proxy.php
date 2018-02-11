@@ -127,7 +127,6 @@ if (strpos($requestData->url, 'api.brightcove.com') == false && strpos($requestD
 $request = $requestData->url;
 //send the http request
 if ($requestData->requestBody) {
-  echo json_encode($data);
   $ch = curl_init($request);
   curl_setopt_array($ch, array(
     CURLOPT_CUSTOMREQUEST  => $method,

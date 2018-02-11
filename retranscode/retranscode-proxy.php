@@ -29,6 +29,9 @@ header("Content-type: application/json");
 header("X-Content-Type-Options: nosniff");
 header("X-XSS-Protection");
 
+// get request body
+$requestData = json_decode(file_get_contents('php://input'));
+
 // set up request for access token
 $data = array();
 

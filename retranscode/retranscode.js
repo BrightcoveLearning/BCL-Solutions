@@ -123,7 +123,7 @@ console.log('fromDateValue', fromDateValue);
 console.log('toDateValue', toDateValue);
       searchStringValue += 'q=' + encodeURI(searchString.value);
       if (isDefined(fromDateValue) || isDefined(toDateValue)) {
-        searchStringValue += '+%20' + dateTypeValue + ':' + fromDateValue + '..' + toDateValue;
+        searchStringValue += '+%2B' + dateTypeValue + ':' + fromDateValue + '..' + toDateValue;
       }
     } else {
       if (isDefined(fromDateValue) || isDefined(toDateValue)) {

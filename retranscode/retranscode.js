@@ -111,10 +111,14 @@ var BCLS = (function(window, document, rome) {
     fromDateValue     = rome(fromDate).getDate();
     if (isDefined(fromDateValue)) {
       fromDateValue   = fromDateValue.toISOString();
+    } else {
+      fromDateValue   = '';
     }
     toDateValue       = rome(toDate).getDate();
     if (isDefined(toDateValue)) {
       toDateValue     = toDateValue.toISOString();
+    } else {
+      toDateValue     = '';
     }
 
     if (searchString.value) {

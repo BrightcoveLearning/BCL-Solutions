@@ -433,6 +433,7 @@ console.log('videos response', response);
         requestBody.callbacks = ['https://solutions.brightcove.com/bcls/retranscode/notifications.php','http://solutions.brightcove.com/bcls/di-api/di-callbacks.php'];
 console.log('requestBody', requestBody);
         options.requestBody = JSON.stringify(requestBody);
+console.log('stringified body', options.requestBody);
         logMessage(status, 'Sending retranscode requests - do NOT leave this page');
         makeRequest(options, function(response) {
           responseDecoded = JSON.parse(response);

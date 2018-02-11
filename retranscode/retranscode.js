@@ -39,7 +39,6 @@ var BCLS = (function(window, document, rome) {
     rejectedVideoIDs   = [],
     errorCodes         = [],
     intervalID,
-    newImages          = false,
     totalVideos        = 0,
     totalCMSCalls      = 0,
     callNumber         = 0,
@@ -66,7 +65,6 @@ var BCLS = (function(window, document, rome) {
       jobCountFile      = account.value + '_count.txt';
       notificationsFile = account.value + '_notifications.txt';
       selectedProfile   = getSelectedValue(profiles);
-      newImages         = isChecked(captureImages);
       intervalID        = window.setInterval(function() {
         var now;
         timePassed++;

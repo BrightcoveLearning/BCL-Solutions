@@ -576,7 +576,7 @@ console.log('requestBody', requestBody);
      * options.client_secret - the client secret (defaults here to a Brightcove sample account value - this should always be stored on the server side if possible)
      * options.requestBody - request body for write requests (optional JSON string)
      */
-
+console.log('options', options);
     // set response handler
     httpRequest.onreadystatechange = getResponse;
     // open the request

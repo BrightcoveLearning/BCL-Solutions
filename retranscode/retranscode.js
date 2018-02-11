@@ -121,7 +121,7 @@ var BCLS = (function(window, document, rome) {
 console.log('search value: ', searchString.value);
 console.log('fromDateValue', fromDateValue);
 console.log('toDateValue', toDateValue);
-      searchStringValue += 'q=' + encodeURI(searchString.value);
+      searchStringValue += 'q=' + searchString.value;
       if (isDefined(fromDateValue) || isDefined(toDateValue)) {
         searchStringValue += '+%2B' + dateTypeValue + ':' + fromDateValue + '..' + toDateValue;
       }

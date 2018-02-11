@@ -231,7 +231,7 @@ console.log('searchStringValue', searchStringValue);
    * @return {Boolean}  true if box is checked
    */
   function isChecked(e) {
-    if (e.value) {
+    if (e.checked) {
       return true;
     }
     return false;

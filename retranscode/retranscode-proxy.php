@@ -136,7 +136,7 @@ if ($requestData->requestBody) {
       'Content-type: application/json',
       "Authorization: Bearer {$access_token}",
     ),
-    CURLOPT_POSTFIELDS => json_encode($data)
+    CURLOPT_POSTFIELDS => $requestData->requestBody
   ));
   $response = curl_exec($ch);
   curl_close($ch);

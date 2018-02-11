@@ -510,7 +510,7 @@ console.log('requestBody', requestBody);
         options.url = 'https://hooks.slack.com/services/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';
         options.requestBody = JSON.stringify(slackMessage);
         sendMessage(options, function(response) {
-          console.log(response);
+          console.log('di responses', response);
         });
         break;
       case 'sendEndMessage':

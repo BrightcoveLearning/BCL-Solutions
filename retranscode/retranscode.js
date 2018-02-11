@@ -557,6 +557,7 @@ console.log('requestBody', requestBody);
                 response = null;
               }
               // return the response
+console.log('raw response', response);
               callback(response);
             } else {
               alert('There was a problem with the request. Request returned ' + httpRequest.status);

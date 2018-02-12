@@ -33,7 +33,6 @@ header("X-XSS-Protection");
 $requestData = json_decode(file_get_contents('php://input'));
 
 // set up request for access token
-$data = array();
 
 if ($requestData->client_id) {
     $client_id = $requestData->client_id;
@@ -62,7 +61,6 @@ curl_setopt_array($ch, array(
         CURLOPT_HTTPHEADER     => array(
             'Content-type: application/x-www-form-urlencoded',
         ),
-        CURLOPT_POSTFIELDS => $data
     ));
 $response = curl_exec($ch);
 curl_close($ch);
@@ -77,10 +75,6 @@ $responseData = json_decode($response, TRUE);
 $access_token = $responseData["access_token"];
 
 // set up the API call
-// get data
-if ($requesteData->requestBody) {
-    $data = json_decode($requesteData->requestBody);
-}
 // get request type or default to GET
 if ($requestData->requestType) {
     $method = $requestData->requestType;
@@ -115,7 +109,7 @@ if ($requestData->requestBody) {
       'Content-type: application/json',
       "Authorization: Bearer {$access_token}",
     ),
-    CURLOPT_POSTFIELDS => json_encode($data)
+    CURLOPT_POSTFIELDS => $requestData->requestBody
   ));
   $response = curl_exec($ch);
   curl_close($ch);

@@ -45,7 +45,7 @@ if ($requestData->client_secret) {
     $client_secret = 'quNdrH07IVoG8yZxSFsCySWmtvUuWfPYyzeg1Nil7Md7VpQ50A3KVV4eeMrZSR7FdeZA_3JS5jV9pBBI0skwWA';
 }
 if ($requestData->ccount_id) {
-    $account_id = $requestData->ccount_id;
+    $account_id = $requestData->account_id;
 } else {
     $account_id = '57838016001';
 }

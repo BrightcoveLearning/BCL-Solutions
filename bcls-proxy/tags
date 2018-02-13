@@ -1,2 +1,0 @@
-domain	README.md	/^    \/\/ or remove the if block to accept requests/
-function	bcls-proxy.js	/^var BCLSPROXY = (function () {$/

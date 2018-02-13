@@ -1,0 +1,38 @@
+
+curl \
+  --include \
+  --header 'Authorization: BC_TOKEN AEnTxTjQOo9OIiEOH7eM_gx2fKoPGgJSg6wNHiYkPYfeQIrv-9Z7MeE8NUhZKtNjKcrci1t5KzkzTfv2nkJg_mFJ7rlD_gVM-TwcGSMLHIJ3zSmu00x6g94' \
+  --data 'name=Set_Defaults_App&maximum_scope=[
+    {"identity": {
+        "type": "video-cloud-account", "account-id": 2728142649001
+      },
+      "operations": [
+        "video-cloud/ingest-profiles/profile/read",
+        "video-cloud/ingest-profiles/profile/write",
+        "video-cloud/ingest-profiles/account/read",
+        "video-cloud/ingest-profiles/account/write"
+      ]
+    }
+  ]' \
+  https://oauth.brightcove.com/v4/client_credentials
+
+  AEnTxTgHqK0DcliEwG9LSaABan4-SM6vCP6aqihVfVNgnvQbLGqzGjz9IheRigrRyXsGeBON9JDMbZnQg30UuIbz3GHrDGG6mRFZm4NDveTE22juZKSlmF0
+
+  curl \
+  --include \
+  --header 'Authorization: BC_TOKEN AEnTxTgHqK0DcliEwG9LSaABan4-SM6vCP6aqihVfVNgnvQbLGqzGjz9IheRigrRyXsGeBON9JDMbZnQg30UuIbz3GHrDGG6mRFZm4NDveTE22juZKSlmF0' \
+  --data 'name=SampleClient&maximum_scope=[
+    {"identity": {
+        "type": "video-cloud-account", "account-id": 2728142649001
+      },
+      "operations": [
+        "video-cloud/ingest-profiles/profile/read",
+        "video-cloud/ingest-profiles/profile/write",
+        "video-cloud/ingest-profiles/account/read",
+        "video-cloud/ingest-profiles/account/write"
+      ]
+    }
+  ]' \
+  https://oauth.brightcove.com/v3/client_credentials
+
+  http://ingestion.api.brightcove.com/v1/accounts/2728142649001/profiles

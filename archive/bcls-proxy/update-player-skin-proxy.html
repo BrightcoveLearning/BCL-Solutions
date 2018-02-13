@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+        body {
+            margin: 1em;
+            font-family: sans-serif;
+            max-width: 700px;
+        }
+        button {
+            padding: .5em;
+            margin-left: 12em;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Player Skin Updater</h1>
+    <p>Enter informatin below to update a player to the new 5.x skin.</p>
+    <p>Video Cloud username:
+        <input id="username" type="text" placeholder="your@email.com">
+    </p>
+    <p>Video Cloud password:
+        <input id="password" type="password">
+    </p>
+    <p>Video Cloud account id:
+        <input id="account_id" type="text" placeholder="57838016001">
+    </p>
+    <p>ID for the player you want to modify:
+        <input id="player_id" type="text" placeholder="79f65908-cb5c-4c02-b7f8-813d997c23b9">
+    </p>
+    <p>
+        Publish the player after updating it?<br />
+        <input type="radio" name="publish" value="yes" checked> Yes</input><br />
+        <input type="radio" name="publish" value="no"> No, I'll publish it myself</input><br />
+
+    </p>
+    <p>
+        <button id="submit">Update my player skin</button>
+    </p>
+    <p>Result (will be shown below)</p>
+    <p id="note" style="display: none;">Note: because of latency in the publishing system, the player you see below may not show the new skin yet. If not, <a id="playerLink">open the player in a new tab</a> and refresh the page after a minute or two.</p>
+<pre><code id="response"></code></pre>
+
+    <script>
+        var username = document.getElementById('username'),
+            password = document.getElementById('password'),
+            account_id = document.getElementById('account_id'),
+            player_id = document.getElementById('player_id'),
+            submit = document.getElementById('submit'),
+            response = document.getElementById('response')
+            radios = document.getElementsByName('publish'),
+            playerLink = document.getElementById('playerLink'),
+            note,
+            publish = true;
+
+        // event handler
+        submit.addEventListener('click', updatePlayer);
+
+        /**
+         * sends request to the proxy
+         */
+        function updatePlayer() {
+            var httpRequest = new XMLHttpRequest(),
+                proxyURL = 'https://solutions.brightcove.com/bcls/bcls-proxy/update-player-skin-proxy.php',
+                i,
+                responseRaw,
+                parsedData,
+                requestParams,
+                dataString,
+                // response handler
+                getResponse = function() {
+                    responseRaw = httpRequest.responseText;
+                    parsedData = JSON.parse(responseRaw);
+                    response.innerHTML = JSON.stringify(parsedData, null, '  ');
+                    note = document.getElementById('note');
+                    note.setAttribute('style', 'display:block;');
+                    playerLink.setAttribute('href', parsedData.url);
+                };
+
+        // set up request data
+        for (i = 0; i < radios.length; i += 1) {
+            if (radios[i].checked) {
+                if (radios[i].value === "no") {
+                    publish = false;
+                }
+            }
+        }
+
+        requestParams = 'username=' + username.value + '&password=' + password.value + '&account_id=' + account_id.value + '&player_id=' + player_id.value + '&publish=' + publish;
+        console.log(requestParams);
+
+        // set response handler
+        httpRequest.onreadystatechange = getResponse;
+        // open the request
+        httpRequest.open('POST', proxyURL);
+        // set headers
+        httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        // open and send request
+        httpRequest.send(requestParams);
+        }
+    </script>
+</body>
+
+</html>

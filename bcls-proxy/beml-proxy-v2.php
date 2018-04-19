@@ -52,7 +52,7 @@ if ($requestData->client_secret) {
     // default to the secret for all permissions for most BCLS accounts
     $client_secret = $default_client_secret;
 }
-if ($requestData->ccount_id) {
+if ($requestData->account_id) {
     $account_id = $requestData->account_id;
 } else {
     // default to Doc Samples account; change to default to BrightcoveLearning or another account

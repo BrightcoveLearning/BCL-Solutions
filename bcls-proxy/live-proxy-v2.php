@@ -30,28 +30,28 @@ $requestData = json_decode(file_get_contents('php://input'));
 
 // set up the API call
 // get api key
-$apikey = $_POST["apiKey"];
+$apikey = $requestData->apiKey;
 // get request type or default to GET
-if ($_POST["requestType"]) {
-    $method = $_POST["requestType"];
+if ($requestData->requestType) {
+    $method = $requestData->requestType;
 } else {
     $method = "GET";
 }
 // more security checks
 $needle = '.io';
-$endapi = strpos($_POST["url"], $needle) + 3;
+$endapi = strpos($requestData->url, $needle) + 3;
 
-$nextChar = substr($_POST['url'], $endapi, 1);
+$nextChar = substr($requestData->url, $endapi, 1);
 
-if (strpos($_POST["url"], 'api.bcovlive.io') == false) {
+if (strpos($requestData->url, 'api.bcovlive.io') == false) {
     exit('{"ERROR":"Only requests to Brightcove Live APIs are accepted by this proxy"}');
 } else if ($nextChar !== '/' && $nextChar !== '?') {
     exit('{"ERROR": "There was a problem with your API request - please check the URL"}');
 }
 // get the URL and authorization info from the form data
-$request = $_POST["url"];
+$request = $requestData->url;
 //send the http request
-if ($_POST["requestBody"]) {
+if ($requestData->requestBody) {
   $ch = curl_init($request);
   curl_setopt_array($ch, array(
     CURLOPT_CUSTOMREQUEST  => $method,

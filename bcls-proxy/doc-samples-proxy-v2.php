@@ -12,7 +12,6 @@
  * {string} [requestBody] - JSON data to be sent with write requests
  * {string} [client_id] - OAuth2 client id with sufficient permissions for the request
  * {string} [client_secret] - OAuth2 client secret with sufficient permissions for the request
- * {string} [account_id] - Brightcove account id
  *
  * if client_id, client_secret, or account_id are not included in the request, default values will be used
  *
@@ -32,7 +31,6 @@ header("X-XSS-Protection");
 // default account values
 // client id and secret values have all permissions for most BCLS accounts
 // default account is Docs Samples account - change this to use a different account
-$default_account_id    = '1752604059001';
 $default_client_id     = '3e23bbec-59b8-4861-b5ba-7c26e110a746';
 $default_client_secret = 'quNdrH07IVoG8yZxSFsCySWmtvUuWfPYyzeg1Nil7Md7VpQ50A3KVV4eeMrZSR7FdeZA_3JS5jV9pBBI0skwWA';
 
@@ -51,12 +49,6 @@ if ($requestData->client_secret) {
 } else {
     // default to the secret for all permissions for most BCLS accounts
     $client_secret = $default_client_secret;
-}
-if ($requestData->account_id) {
-    $account_id = $requestData->account_id;
-} else {
-    // default to Doc Samples account; change to default to BrightcoveLearning or another account
-    $account_id = $default_account_id;
 }
 
 $auth_string = "{$client_id}:{$client_secret}";

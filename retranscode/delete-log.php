@@ -34,7 +34,7 @@ $files = [
 ];
 foreach ($files as $file) {
     if (file_exists($file)) {
-        unlink($file);
+        unlink(realpath($file));
     } else {
         // File not found.
     }

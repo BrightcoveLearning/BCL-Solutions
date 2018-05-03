@@ -48,7 +48,8 @@ $job_count_encoded = json_encode($job_count_decoded);
 $job_count         = fopen($job_count_file, 'w');
 fwrite($job_count, $job_count_encoded);
 fclose($job_count);
-
-    $m_account->message = 'No old log files found';
+$notifications_file = $account_id.'_notifications.txt';
+fopen($notifications_file, 'w');
+$m_account->message = 'Old files deleted; new ones created';
 echo json_encode($m_account);
 ?>

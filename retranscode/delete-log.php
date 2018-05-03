@@ -27,16 +27,28 @@ if ($requestData->account_id) {
 } else {
     exit($m_account);
 }
-// first check to see if the running job count is under 100
-$job_count_file    = $account_id.'_count.txt';
-$notification_file    = $account_id.'_notifications.txt';
-$count_delete = unlink($job_count_file);
-$notification_delete = unlink($notification_file);
-$result = ($count_delete && $notification_delete) ? true : false;
-if ($result) {
-    $m_account->message = 'Old log files were deleted';
-} else {
-    $m_account->message = 'No old log files found';
+// delete existing files if any
+$files = [
+  "$account_id.'_count.txt'",
+  "$account_id.'_notifications.txt"
+];
+foreach ($files as $file) {
+    if (file_exists($file)) {
+        unlink($file);
+    } else {
+        // File not found.
+    }
 }
+// now create new ones
+$job_count_file    = $account_id.'_count.txt';
+$job_count_decoded            = new stdClass();
+$job_count_decoded->job_count = "1";
+$job_count_decoded->failed    = [];
+$job_count_encoded = json_encode($job_count_decoded);
+$job_count         = fopen($job_count_file, 'w');
+fwrite($job_count, $job_count_encoded);
+fclose($job_count);
+
+    $m_account->message = 'No old log files found';
 echo json_encode($m_account);
 ?>

@@ -132,7 +132,7 @@ function isDefined(x) {
   /*
    * set up search string value based on inputs
    */
-  function setSearchString() {
+  function setSearchString(callback) {
     // set searchStringValue
     dateTypeValue     = getSelectedValue(dateRangeType);
     fromDateValue     = rome(fromDate).getDate();

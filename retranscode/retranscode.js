@@ -49,6 +49,18 @@ var BCLS = (function(window, document, rome) {
   rome(fromDate);
   rome(toDate);
 
+  /**
+ * tests for all the ways a variable might be undefined or not have a value
+ * @param {*} x the variable to test
+ * @return {Boolean} true if variable is defined and has a value
+ */
+function isDefined(x) {
+    if ( x === '' || x === null || x === undefined) {
+        return false;
+    }
+    return true;
+}
+
   // event listeners
   profileBtn.addEventListener('click', function() {
     if (checkRequired()) {
@@ -72,9 +84,15 @@ var BCLS = (function(window, document, rome) {
         logMessage(timeElapsed, now.h + ':' + now.m + ':' + now.s);
       }, 1000);
       // get account field values
-      getAccountInfo();
-      setSearchString();
-      createRequest('deleteOldLogs');
+      getAccountInfo(function(response) {
+        if (response) {
+          setSearchString(function(response) {
+            if (response) {
+              createRequest('deleteOldLogs');
+            }
+          });
+        }
+      });
     } else {
       alert('The account id, client id, and client secret are required');
     }
@@ -95,11 +113,17 @@ var BCLS = (function(window, document, rome) {
   /**
    * gets various values from account info fields
    */
-  function getAccountInfo() {
+  function getAccountInfo(callback) {
     // get values
     accountIdValue    = account.value;
     clientIdValue     = cid.value;
     clientSecretValue = secret.value;
+    if (isDefined(accountIdValue) && isDefined(clientIdValue) && isDefined(clientSecretValue)) {
+      callback(true);
+    } else {
+      console.log('You must provide the account id, client id, and client secret');
+      callback(false);
+    }
   }
 
   /*
@@ -134,7 +158,8 @@ console.log('toDateValue', toDateValue);
         searchStringValue += 'q=' + dateTypeValue + ':' + fromDateValue + '..' + toDateValue;
       }
     }
-console.log('searchStringValue', searchStringValue);
+    console.log('searchStringValue', searchStringValue);
+    callback(true);
   }
 
   /**

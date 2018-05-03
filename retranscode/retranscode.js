@@ -400,6 +400,7 @@ console.log('count response', response);
         });
         break;
       case 'getVideos':
+        var shared = false;
         options.proxyURL = './videos-proxy.php';
         endpoint = '/videos?sort=created_at&limit=' + limit + '&offset=' + (callNumber * limit);
         if (isDefined(searchStringValue)) {
@@ -429,7 +430,12 @@ console.log('videos response', response);
           } else {
             iMax = responseDecoded.length;
             for (i = 0; i < iMax; i++) {
-              if (responseDecoded[i].has_digital_master === true && responseDecoded[i].digital_master_id !== null) {
+              if (responseDecoded[i].sharing.hasOwnProperty('by_external_acct')) {
+                if (responseDecoded[i].sharing.by_external_acct) {
+                  shared = true;
+                }
+              }
+              if (responseDecoded[i].has_digital_master === true && !shared) {
                 videoIDs.push(responseDecoded[i].id);
               } else {
                 rejectedVideoIDs.push(responseDecoded[i].id);

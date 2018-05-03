@@ -401,7 +401,7 @@ console.log('videos response', response);
           } else {
             iMax = responseDecoded.length;
             for (i = 0; i < iMax; i++) {
-              if (responseDecoded[i].has_digital_master === true) {
+              if (responseDecoded[i].has_digital_master === true && responseDecoded[i].digital_master_id !== null) {
                 videoIDs.push(responseDecoded[i].id);
               } else {
                 rejectedVideoIDs.push(responseDecoded[i].id);

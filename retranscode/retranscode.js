@@ -65,8 +65,11 @@ function isDefined(x) {
   profileBtn.addEventListener('click', function() {
     if (checkRequired()) {
       // get account info
-      getAccountInfo();
-      createRequest('getProfiles');
+      getAccountInfo(function(response) {
+        if (response) {
+          createRequest('getProfiles');
+        }
+      });
     } else {
       alert('The account id, client id, and client secret are required');
     }

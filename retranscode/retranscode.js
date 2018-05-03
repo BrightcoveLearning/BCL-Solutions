@@ -430,9 +430,11 @@ console.log('videos response', response);
           } else {
             iMax = responseDecoded.length;
             for (i = 0; i < iMax; i++) {
-              if (responseDecoded[i].sharing.hasOwnProperty('by_external_acct')) {
-                if (responseDecoded[i].sharing.by_external_acct) {
-                  shared = true;
+              if (isDefined(responseDecoded[i].sharing)) {
+                if (responseDecoded[i].sharing.hasOwnProperty('by_external_acct')) {
+                  if (responseDecoded[i].sharing.by_external_acct) {
+                    shared = true;
+                  }
                 }
               }
               if (responseDecoded[i].has_digital_master === true && !shared) {

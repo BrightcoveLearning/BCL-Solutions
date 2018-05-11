@@ -29,8 +29,8 @@ if ($requestData->account_id) {
 }
 // delete existing files if any
 $files = [
-  "$account_id.'_count.txt'",
-  "$account_id.'_notifications.txt"
+  "https://solutions.brightcove.com/bcls/retranscode/.$account_id.'_count.txt'",
+  "https://solutions.brightcove.com/bcls/retranscode/.$account_id.'_notifications.txt"
 ];
 foreach ($files as $file) {
     if (file_exists($file)) {

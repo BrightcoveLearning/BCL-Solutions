@@ -45,11 +45,11 @@ $job_count_decoded            = new stdClass();
 $job_count_decoded->job_count = "1";
 $job_count_decoded->failed    = [];
 $job_count_encoded = json_encode($job_count_decoded);
-$job_count         = fopen($job_count_file, 'w');
+$job_count         = fopen($job_count_file, 'w+');
 fwrite($job_count, $job_count_encoded);
 fclose($job_count);
 $notifications_file = $account_id.'_notifications.txt';
-fopen($notifications_file, 'w');
+fopen($notifications_file, 'w+');
 $m_account->message = 'Old files deleted; new ones created';
 echo json_encode($m_account);
 ?>

@@ -769,38 +769,6 @@ For testing, you can either run `npm test` or use `grunt` directly.
 
 Tests run in the headless [PhantomJS](http://phantomjs.org/) webkit and are written in the [QUnit](http://qunitjs.com/) framework.
 
-### Deployment
-
-Trigger the TC Builder #11 here to package an artifact off the master branch:
-
-http://trunkcity/viewType.html?buildTypeId=VideoJs_VideoJsOnceUX_11CreateVersionedReleaseArtifact
-
-Confirm that the artifact has what you want, then trigger build #12 to push it to S3:
-
-http://trunkcity/viewType.html?buildTypeId=VideoJs_VideoJsOnceUX_12StageToS3
-
-Now the artifact is on S3.  You will need to run these commands to extract it and make it accessible:
-
-1- Login to james
-
-2- Find a production dangerzone host
-
-3- Login to the host
-
-4- Traverse to dangerzone's root directory
-
-5- Run the cdn-deploy script
-
-```bash
-ssh login.jam.brightcove.com
-ssh `nodeattr -s "dangerzone&&status=production"`
-ssh <host from response above>
-cd /usr/local/brightcove/dangerzone
-sudo -u tomcat bash -c "source ./environmentVariables.sh && node_modules/grunt-cli/bin/grunt --gruntfile=node_modules/cdn-deploy/Gruntfile.js --name=videojs-onceux --number='production'"
-```
-All Done. Confirm that the file is updated here:
-
-https://players.brightcove.net/videojs-onceux/videojs-onceux.min.js
 
 ### Players
 

@@ -496,7 +496,7 @@ console.log('stringified body', options.requestBody);
               logMessage(errors, JSON.stringify(errorCodes, null, '  '));
             }
           } else if (responseDecoded.message === 'wait') {
-            t = window.setTimeout(submitTranscodeRequest, 10000);
+            t = window.setTimeout(submitTranscodeRequest, 60000);
             logMessage(status, 'Job queue full - retrying in 10 seconds');
           } else {
             callNumber++;

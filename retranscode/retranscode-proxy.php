@@ -165,7 +165,7 @@ if (!isset($responseDecoded)) {
     $job_count_decoded = json_decode($job_count_data);
     $job_count_decoded->job_count++;
     $job_count_encoded = json_encode($job_count_decoded);
-    $job_count         = fopen($job_count_file, 'w');
+    $job_count         = fopen($job_count_file, 'w+');
     fwrite($job_count, $job_count_encoded);
     fclose($job_count);
 }

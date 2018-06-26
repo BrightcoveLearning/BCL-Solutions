@@ -147,7 +147,7 @@ if ($response === FALSE) {
     "\n".date("Y-m-d H:i:s")." UTC \n"
     .$response;
     $logFileLocation = "log.txt";
-    $fileHandle      = fopen($logFileLocation, 'a') or die("-1");
+    $fileHandle      = fopen($logFileLocation, 'a+') or die("-1");
     fwrite($fileHandle, $logEntry);
     fclose($fileHandle);
     echo "Error: there was a problem with your API call"+

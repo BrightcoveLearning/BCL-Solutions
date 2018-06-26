@@ -25,6 +25,7 @@ var BCLS = (function(window, document, rome) {
     dateRangeType      = document.getElementById('dateRangeType'),
     fromDate           = document.getElementById('fromDate'),
     toDate             = document.getElementById('toDate'),
+    current_response   = document.getElementById('current_response'),
     dateTypeValue,
     fromDateValue,
     toDateValue,
@@ -478,6 +479,7 @@ console.log('stringified body', options.requestBody);
         makeRequest(options, function(response) {
           responseDecoded = JSON.parse(response);
           console.log('response', responseDecoded);
+          logMessage(current_response, JSON.stringify(responseDecoded, null, '  '));
           if (Array.isArray(responseDecoded)) {
             errorCodes.push('retranscoding ' + videoIDs[callNumber] + ': ' + responseDecoded[0].error_code);
             if (responseDecoded[0].error_code !== 'RATE_LIMIT_EXCEEDED') {

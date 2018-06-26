@@ -168,6 +168,9 @@ if (!isset($responseDecoded)) {
     $job_count         = fopen($job_count_file, 'w+');
     fwrite($job_count, $job_count_encoded);
     fclose($job_count);
+} elseif ($responseDecoded->error_code) {
+  $job_count_data    = file_get_contents($job_count_file);
+  $job_count_decoded = json_decode($job_count_data);
 }
 
 echo $response;

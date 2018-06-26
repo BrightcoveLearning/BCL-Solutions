@@ -80,6 +80,7 @@ function isDefined(x) {
     if (checkRequired()) {
       jobCountFile      = account.value + '_count.txt';
       notificationsFile = account.value + '_notifications.txt';
+      console.log('jobCountFile', jobCountFile);
       selectedProfile   = getSelectedValue(profiles);
       intervalID        = window.setInterval(function() {
         var now;

@@ -645,9 +645,9 @@ console.log('options', options);
               response = httpRequest.responseText;
               // some API requests return '{null}' for empty responses - breaks JSON.parse
               // console.log('response', response);
-              if (response === '{null}') {
-                response = null;
-              }
+              // if (response === '{null}') {
+              //   response = null;
+              // }
               // return the response
               callback(response);
             } else {
@@ -655,6 +655,7 @@ console.log('options', options);
             }
           }
         } catch (e) {
+          console.log('e', e);
           callback(null);
         }
       };

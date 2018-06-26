@@ -1,0 +1,33 @@
+[
+    {
+        "limit": 200,
+        "name": "JobsInQueue",
+        "type": "MANUAL"
+    },
+    {
+        "limit": 100,
+        "name": "JobsInFlight",
+        "type": "MANUAL"
+    },
+    {
+        "limit": 100,
+        "name": "di_mh_jobs_in_flight",
+        "type": "MANUAL"
+    },
+    {
+        "limit": 100000,
+        "name": "JobsInQueueLow",
+        "type": "MANUAL"
+    },
+    {
+        "expiration_time_seconds": 3,
+        "limit": 1,
+        "name": "JobProcessorLock",
+        "type": "TIME_BASED"
+    },
+    {
+        "limit": 99,
+        "name": "JobsInFlightLow",
+        "type": "MANUAL"
+    }
+]

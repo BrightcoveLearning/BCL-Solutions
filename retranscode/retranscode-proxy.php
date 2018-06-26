@@ -171,6 +171,7 @@ if (!isset($responseDecoded)) {
 } elseif ($responseDecoded->error_code) {
   $job_count_data    = file_get_contents($job_count_file);
   $job_count_decoded = json_decode($job_count_data);
+  array_push($job_count_decoded->failed, $responseDecoded);
 }
 
 echo $response;

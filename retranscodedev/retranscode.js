@@ -446,7 +446,7 @@ function isDefined(x) {
           removeObsoleteProfiles();
           iMax = all_current_profiles.length;
           for (i = 0; i < iMax; i++) {
-            all_profiles.push(all_current_profiles[1]);
+            all_profiles.push(all_current_profiles[i]);
           }
           console.log('all_profiles', all_profiles);
           if (Array.isArray(responseDecoded)) {

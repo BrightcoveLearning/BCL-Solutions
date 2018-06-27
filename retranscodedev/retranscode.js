@@ -90,7 +90,7 @@ function isDefined(x) {
     if (checkRequired()) {
       jobCountFile      = account.value + '_count.txt';
       notificationsFile = account.value + '_notifications.txt';
-      console.log('jobCountFile', jobCountFile);
+      // console.log('jobCountFile', jobCountFile);
       selectedProfile   = getSelectedValue(profiles);
       if (isChecked(lowPriority)) {
         normalPriority = false;
@@ -228,7 +228,7 @@ function isDefined(x) {
    */
   function filterProfiles() {
     var filter_type = getRadioValue(profileFilters);
-    console.log('filter_type', filter_type);
+    // console.log('filter_type', filter_type);
     all_current_profiles = [];
     iMax = all_profiles.length;
     for (i = 0; i < iMax; i++) {
@@ -244,7 +244,7 @@ function isDefined(x) {
               all_current_profiles.splice(i, 1);
             }
           }
-          console.log('all_current_profiles', all_current_profiles);
+          // console.log('all_current_profiles', all_current_profiles);
           break;
         case 'show_dynamic_delivery':
           i = all_current_profiles.length;
@@ -397,7 +397,7 @@ function isDefined(x) {
 
 
   function submitTranscodeRequest() {
-    console.log('sending next transcode request');
+    // console.log('sending next transcode request');
     createRequest('transcodeVideo');
   }
 
@@ -457,7 +457,7 @@ function isDefined(x) {
           for (i = 0; i < iMax; i++) {
             all_profiles.push(all_current_profiles[i]);
           }
-          console.log('all_profiles', all_profiles);
+          // console.log('all_profiles', all_profiles);
           if (Array.isArray(responseDecoded)) {
             filterProfiles();
             logMessage(status, 'Account ingests profiles retrieved');
@@ -471,7 +471,7 @@ function isDefined(x) {
           endpoint += '?' + searchStringValue;
         }
         options.url = cmsBaseURL + endpoint;
-console.log('url', options.url);
+// console.log('url', options.url);
         options.requestType = 'GET';
         logMessage(status, 'Getting video count');
         makeRequest(options, function(response) {

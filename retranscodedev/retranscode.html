@@ -36,6 +36,13 @@
       cursor: pointer;
     }
 
+    .list-filters {
+      display: inline-block;
+      border: 1px #293b70 solid;
+      border-radius: 4px;
+      padding: 1em;
+    }
+
     select {
       background: transparent;
       border: none;
@@ -113,13 +120,13 @@
     <p><input type="checkbox" id="captureImages"> <label for="captureImages">Capture new images?</label></p>
     <p><input type="checkbox" id="lowPriority"> <label for="lowPriority">Use Low Priority Queue? (<strong>Dynamic Delivery jobs only</strong>)</label></p>
     <p>Search String<input type="text" id="searchString" placeholder="tags:foo,bar"> (for exact match, enclose term in <code>""</code>; e.g. tags:"foo")</p>
-    <table class="bcls-table">
+    <table>
       <caption>Limit search by dates:</caption>
       <tbody>
         <tr>
-          <td>Date type</td>
-          <td>From date</td>
-          <td>To date</td>
+          <td style="text-align: left">Date type</td>
+          <td style="text-align: left">From date</td>
+          <td style="text-align: left">To date</td>
         </tr>
         <tr>
           <td><select class="date-field" id="dateRangeType"><option value="created_at" selected="selected">created_at</option><option value="updated_at">updated_at</option><option value="published_at">published_at</option><option value="schedule.starts_at">schedule.starts_at</option><option value="schedule.ends_at">schedule.ends_at</option> </select></td>

@@ -137,21 +137,14 @@
     </table>
     <p>
       <select name="profiles" id="profiles">
-                <option value="videocloud-default-v1" selected="selected">legacy - videocloud-default-v1</option>
-                <option value="high-resolution">legacy - high-resolution</option>
-                <option value="single-bitrate-high">legacy - single-bitrate-high</option>
-                <option value="single-bitrate-standard">legacy - single-bitrate-standard</option>
-                <option value="screencast-1280">legacy - screencast-1280</option>
-                <option value="smart-player-transition">legacy - smart-player-transition</option>
-                <option value="audio-only">legacy - audio-only</option>
             </select> <span id="profileText">(standard profiles)</span> <button class="bcls-button" id="profileBtn">Get Account Profiles Instead</button>
-            <div class="profile-filters">
-              <input type="checkbox" id="showDD"> <label for="showDD">Show Dynamic Delivery Profiles Only</label> <br>
-              <input type="checkbox" id="showLegacy"> <label for="showLegacy">Show legacy Profiles Only</label>
-            </div>
+      <div class="profile-filters">
+        <input type="checkbox" id="showDD"> <label for="showDD">Show Dynamic Delivery Profiles Only</label> <br>
+        <input type="checkbox" id="showLegacy"> <label for="showLegacy">Show legacy Profiles Only</label>
+      </div>
     </p>
     <p><button class="bcls-button" id="goBtn">Start Retranscoding</button></p>
-  <pre><code class="language-json" id="current_response">Current Dynamic Ingest Reponses will appear here</code></pre>
+    <pre><code class="language-json" id="current_response">Current Dynamic Ingest Reponses will appear here</code></pre>
   </fieldset>
   <fieldset>
     <legend>Status Messages</legend>

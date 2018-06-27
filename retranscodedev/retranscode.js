@@ -130,10 +130,14 @@ function isDefined(x) {
 
   iMax = profileFilters.length;
   for (i = 0; i < iMax; i++) {
-    profileFilters[i].addEventListener('change', filterProfiles);
+    profileFilters[i].addEventListener('change', function() {
+      filterProfiles();
+    });
   }
 
-  lowPriority.addEventListener('change', togglefilters);
+  lowPriority.addEventListener('change', function() {
+    togglefilters();
+  });
 
   /**
    * gets various values from account info fields

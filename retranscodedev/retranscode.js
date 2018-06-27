@@ -27,7 +27,7 @@ var BCLS = (function(window, document, rome) {
     toDate             = document.getElementById('toDate'),
     current_response   = document.getElementById('current_response'),
     lowPriority        = document.getElementById('lowPriority'),
-    showDD             = document.getElementById('showDD'),
+    profileFilters     = document.getElementsByName('profileFilters'),
     showLegacy         = document.getElementById('showLegacy'),
     showDDonly         = false,
     showLegacyOnly     = false,
@@ -190,7 +190,7 @@ function isDefined(x) {
    * @param  {string} filter_type the type of filter to use
    */
   function filterProfiles() {
-    var filter_type = 
+    var filter_type =
     if (filter_type) {
       switch (filter_type) {
         case 'show_all':

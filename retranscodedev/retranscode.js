@@ -224,10 +224,8 @@ function isDefined(x) {
    */
   function filterProfiles() {
     var filter_type = getRadioValue(profileFilters);
+    all_current_profiles = all_profiles;
       switch (filter_type) {
-        case 'show_all':
-          // nothing to do here; just a pass-through
-          break;
         case 'show_legacy':
           i = all_current_profiles.length;
           while (i > 0) {

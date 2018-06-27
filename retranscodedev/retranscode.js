@@ -174,17 +174,93 @@ console.log('toDateValue', toDateValue);
   }
 
   /**
-   * tests for all the ways a variable might be undefined or not have a value
-   * @param {*} x the variable to test
-   * @return {Boolean} true if variable is defined and has a value
+   * filters the profile list
+   * @param  {string} filter_type the type of filter to use
    */
-  function isDefined(x) {
-    if (x === '' || x === null || x === undefined) {
-      return false;
+  function filterProfiles(filter_type) {
+    if (filter_type) {
+      resetAllCurrentProfiles();
+      toggleObsoleteProfiles();
+      switch (filter_type) {
+        case 'show_all':
+          // nothing to do here; just a pass-through
+          break;
+        case 'show_standard':
+          i = all_current_profiles.length;
+          while (i > 0) {
+            i--;
+            if (all_current_profiles[i].brightcove_standard === false) {
+              all_current_profiles.splice(i, 1);
+            }
+          }
+          break;
+        case 'show_custom':
+          i = all_current_profiles.length;
+          while (i > 0) {
+            i--;
+            if (all_current_profiles[i].brightcove_standard === true) {
+              all_current_profiles.splice(i, 1);
+            }
+          }
+          break;
+        case 'show_live':
+          i = all_current_profiles.length;
+          while (i > 0) {
+            i--;
+            if (!arrayContains(live_profiles, all_current_profiles[i].name)) {
+              all_current_profiles.splice(i, 1);
+            }
+          }
+          break;
+        case 'hide_legacy':
+          i = all_current_profiles.length;
+          while (i > 0) {
+            i--;
+            if (all_current_profiles[i].hasOwnProperty('dynamic_origin')) {
+              all_current_profiles.splice(i, 1);
+            }
+          }
+          break;
+        case 'hide_dynamic_delivery':
+          i = all_current_profiles.length;
+          while (i > 0) {
+            i--;
+            if (!all_current_profiles[i].hasOwnProperty('dynamic_origin')) {
+              all_current_profiles.splice(i, 1);
+            }
+          }
+          break;
+        case 'hide_cae':
+          i = all_current_profiles.length;
+          while (i > 0) {
+            i--;
+            if (!all_current_profiles[i].hasOwnProperty('dynamic_origin')) {
+              all_current_profiles.splice(i, 1);
+            } else if (all_current_profiles[i].dynamic_origin.hasOwnProperty('dynamic_profile_options')) {
+              all_current_profiles.splice(i, 1);
+            }
+          }
+          break;
+        case 'show_cae':
+          i = all_current_profiles.length;
+          while (i > 0) {
+            i--;
+            if (!all_current_profiles[i].hasOwnProperty('dynamic_origin')) {
+              all_current_profiles.splice(i, 1);
+            } else if (!all_current_profiles[i].dynamic_origin.hasOwnProperty('dynamic_profile_options')) {
+              all_current_profiles.splice(i, 1);
+            }
+          }
+          break;
+        default:
+        console.log('should not be here - unknown filter_type: ', filter_type);
+      }
+      displayFilteredProfiles();
+    } else {
+      console.log('no filter_type passed');
     }
-    return true;
+    return;
   }
-
   /**
    * write messages to the UI
    * @param  {htmlElement} el The element to write the message to

@@ -271,6 +271,12 @@ function isDefined(x) {
       frag = document.createDocumentFragment(),
       i = 0,
       iMax = all_current_profiles.length;
+    // remove existing options
+    iMax = profiles.options.length;
+    for (i = 0; i < iMax; i++) {
+      profiles.remove(profiles.options[i]);
+    }
+
     for (i; i < iMax; i++) {
       profile = all_current_profiles[i],
       option = document.createElement('option');
@@ -452,11 +458,6 @@ function isDefined(x) {
           }
           console.log('all_profiles', all_profiles);
           if (Array.isArray(responseDecoded)) {
-            // remove existing options
-            iMax = profiles.options.length;
-            for (i = 0; i < iMax; i++) {
-              profiles.remove(profiles.options[i]);
-            }
             filterProfiles();
             logMessage(status, 'Account ingests profiles retrieved');
           }

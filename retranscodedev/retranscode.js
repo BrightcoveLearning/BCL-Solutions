@@ -35,12 +35,14 @@ var BCLS = (function(window, document, rome) {
     fromDateValue,
     toDateValue,
     searchStringValue  = '',
-    accountIdValue,
+    accountIdValue ,
     clientIdValue,
     clientSecretValue,
     jobCountFile,
     notificationsFile,
     selectedProfile    = '',
+    all_profiles       = [],
+    all_current_profiles = [],
     videoIDs           = [],
     rejectedVideoIDs   = [],
     errorCodes         = [],
@@ -388,35 +390,17 @@ function isDefined(x) {
         makeRequest(options, function(response) {
           var profileNamePrefix;
           responseDecoded = JSON.parse(response);
+          all_current_profiles = responseDecoded;
+          // remove deprecated Profiles
+          removeObsoleteProfiles();
+          all_profiles = all_current_profiles;
           if (Array.isArray(responseDecoded)) {
             // remove existing options
             iMax = profiles.options.length;
             for (i = 0; i < iMax; i++) {
               profiles.remove(profiles.options[i]);
             }
-            // add new options
-            iMax = responseDecoded.length;
-            for (i = 0; i < iMax; i++) {
-              if (!arrayContains(deprecatedProfiles, responseDecoded[i].name)) {
-                el = document.createElement('option');
-                el.setAttribute('value', responseDecoded[i].name);
-                if (i === 0) {
-                  el.setAttribute('selected', 'selected');
-                }
-                if (responseDecoded[i].hasOwnProperty('dynamic_origin')) {
-                  if (responseDecoded[i].dynamic_origin.hasOwnProperty('dynamic_profile_options')) {
-                    profileNamePrefix = 'CAE - ';
-                  } else {
-                    profileNamePrefix = 'DD - ';
-                  }
-                } else {
-                  profileNamePrefix = 'Legacy - ';
-                }
-                txt = document.createTextNode(responseDecoded[i].name);
-                el.appendChild(txt);
-                profiles.appendChild(el);
-              }
-            }
+            filterProfiles();
             logMessage(status, 'Account ingests profiles retrieved');
           }
         });

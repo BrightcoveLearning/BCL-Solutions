@@ -229,6 +229,7 @@ function isDefined(x) {
   function filterProfiles() {
     var filter_type = getRadioValue(profileFilters);
     all_current_profiles = all_profiles;
+    console.log('all_current_profiles', all_current_profiles);
       switch (filter_type) {
         case 'show_legacy':
           i = all_current_profiles.length;

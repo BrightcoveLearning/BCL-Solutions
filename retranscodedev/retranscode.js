@@ -448,6 +448,7 @@ function isDefined(x) {
           for (i = 0; i < iMax; i++) {
             all_profiles.push(all_current_profiles[1]);
           }
+          console.log('all_profiles', all_profiles);
           if (Array.isArray(responseDecoded)) {
             // remove existing options
             iMax = profiles.options.length;

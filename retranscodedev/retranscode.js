@@ -269,15 +269,16 @@ function isDefined(x) {
     var option,
       profile,
       frag = document.createDocumentFragment(),
-      i = 0,
-      iMax = all_current_profiles.length;
+      i,
+      iMax;
     // remove existing options
     iMax = profiles.options.length;
     for (i = 0; i < iMax; i++) {
       profiles.remove(profiles.options[i]);
     }
 
-    for (i; i < iMax; i++) {
+    iMax = all_current_profiles.length;
+    for (i = 0; i < iMax; i++) {
       profile = all_current_profiles[i],
       option = document.createElement('option');
       option.setAttribute('value', profile.name);

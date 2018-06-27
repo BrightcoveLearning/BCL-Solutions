@@ -36,7 +36,7 @@
       cursor: pointer;
     }
 
-    .list-filters {
+    .profile-filters {
       display: inline-block;
       border: 1px #293b70 solid;
       border-radius: 4px;
@@ -129,9 +129,9 @@
           <td style="text-align: left">To date</td>
         </tr>
         <tr>
-          <td><select class="date-field" id="dateRangeType"><option value="created_at" selected="selected">created_at</option><option value="updated_at">updated_at</option><option value="published_at">published_at</option><option value="schedule.starts_at">schedule.starts_at</option><option value="schedule.ends_at">schedule.ends_at</option> </select></td>
-          <td><input id="fromDate" class="date-field" /></td>
-          <td><input id="toDate" class="date-field" /></td>
+          <td style="text-align: left"><select class="date-field" id="dateRangeType"><option value="created_at" selected="selected">created_at</option><option value="updated_at">updated_at</option><option value="published_at">published_at</option><option value="schedule.starts_at">schedule.starts_at</option><option value="schedule.ends_at">schedule.ends_at</option> </select></td>
+          <td style="text-align: left"><input id="fromDate" class="date-field" /></td>
+          <td style="text-align: left"><input id="toDate" class="date-field" /></td>
         </tr>
       </tbody>
     </table>
@@ -145,6 +145,10 @@
                 <option value="smart-player-transition">legacy - smart-player-transition</option>
                 <option value="audio-only">legacy - audio-only</option>
             </select> <span id="profileText">(standard profiles)</span> <button class="bcls-button" id="profileBtn">Get Account Profiles Instead</button>
+            <div class="profile-filters">
+              <input type="checkbox" id="showDD"> <label for="showDD">Show Dynamic Delivery Profiles Only</label> <br>
+              <input type="checkbox" id="showLegacy"> <label for="showLegacy">Show legacy Profiles Only</label>
+            </div>
     </p>
     <p><button class="bcls-button" id="goBtn">Start Retranscoding</button></p>
   <pre><code class="language-json" id="current_response">Current Dynamic Ingest Reponses will appear here</code></pre>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Retranscode App</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      color: #293b70;
+      margin: 4em;
+    }
+
+    fieldset {
+      border: 1px #293b70 solid;
+      border-radius: 4px;
+    }
+
+    legend {
+      text-align: center;
+    }
+
+    iframe {
+      width: 95%;
+      height: 95%;
+    }
+
+    .bcls-button {
+      padding: 5px;
+      border: 3px #ecb612 solid;
+      border-radius: 5px;
+      background-color: #293b70;
+      color: #fff;
+      font-weight: bold;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    select {
+      background: transparent;
+      border: none;
+      font-size: 14px;
+      height: 30px;
+      padding: 5px;
+      width: 270px;
+    }
+
+    table {
+      border-collapse: collapse;
+      max-width: 100%;
+      width: 100%;
+    }
+
+    td {
+      font-weight: bold;
+      padding: 5px;
+      text-align: right;
+      vertical-align: top;
+    }
+
+    .messages {
+      background-color: #FEF7E4;
+      border: 1px #990000 solid;
+      border-collapse: collapse;
+      min-width: 200px;
+      text-align: left;
+    }
+
+    .highlight {
+      padding: 10px;
+      border: 1px #990000 solid;
+      border-radius: 5px;
+      background-color: #FEF7E4;
+    }
+
+    .hidden {
+      opacity: .5;
+    }
+
+    .shown {
+      opacity: 1;
+    }
+  </style>
+  <!-- date picker styles -->
+  <link rel="stylesheet" href="//learning-services-media.brightcove.com/doc-assets/js/rome/rome.min.css" />
+</head>
+
+<body>
+  <h1>Retranscoding App</h1>
+  <!-- <p class="highlight"><strong>This app is currently BROKEN while I am fixing a problem with handling CMS API searches. As soon as I fix it, this message will disappear. If you have questions, contact <a href="mailto:rcrooks@brightcove.com">Robert Crooks</a>.</strong></p> -->
+  <p>This app retranscode all the videos in a Video Cloud account. If you're interested in how the app works, see <a href="./app-logic.html">this explanation.</a>.</p>
+  <ul>
+  </ul>
+  <div class="highlight"><strong>Please read these notes before proceeding</strong>:
+    <ul>
+      <li>One ingest profile will be used for all videos</li>
+      <li>By default, this app will transcode all videos in an account (if they have stored digital masters). You can enter a search string here to limit transcoding to a smaller set of videos - a <strong>good idea</strong> for large accounts, or if you want
+        to use different ingest profiles for different sets of videos. See <a href="http://docs.brightcove.com/en/video-cloud/cms-api/guides/search-videos.html">Search for Videos</a> for details on constructing search strings.</li>
+      <li>Because the app respects rate limiting for the DI system, it will take a long time to run on very large libraries</li>
+      <li>Once transcoding begins, do not leave this page until you see the completed message! If you do, you will have to start over.</li>
+      <li>If you want to use a custom ingest profile from your account, you will need client credentials that include permissions for the Ingest Profiles API - see the <a href="get-credentials.html">instructions for getting these credentials</a>.</li>
+      <li>If something goes wrong and you want to rerun this app on the same account, check the notifications first! This is a log to help you figure out what went wrong, but it will be automatically cleared when you rerun the app.</li>
+      <li>If you are retranscoding thousands of videos, the process will take <strong>hours</strong> to complete. You need to make sure your machine doesn't go to sleep before the app finishes.</li>
+      <li>Because I do not expect heavy use of this app, I built in only minimal handling for concurrent users. If you run multiple instances of this app on the same account, it will definitely break.</li>
+      <li>NOTE: Dynamic Delivery and Context Aware Encoding profiles will be shown even if the account is not enabled for them - if you use one of these for an non-enabled account, the retranscode request will return an error.</li>
+    </ul>
+  </div>
+  <fieldset>
+    <legend>Inputs</legend>
+    <p>Account id: <input type="text" id="account"></p>
+    <p>Client id: <input type="text" id="cid"></p>
+    <p>Client secret: <input type="text" id="secret"></p>
+    <p><input type="checkbox" id="captureImages"> <label for="captureImages">Capture new images?</label></p>
+    <p>Search String<input type="text" id="searchString" placeholder="tags:foo,bar"> (for exact match, enclose term in <code>""</code>; e.g. tags:"foo")</p>
+    <table class="bcls-table">
+      <caption>Limit search by dates:</caption>
+      <tbody>
+        <tr>
+          <td>Date type</td>
+          <td>From date</td>
+          <td>To date</td>
+        </tr>
+        <tr>
+          <td><select class="date-field" id="dateRangeType"><option value="created_at" selected="selected">created_at</option><option value="updated_at">updated_at</option><option value="published_at">published_at</option><option value="schedule.starts_at">schedule.starts_at</option><option value="schedule.ends_at">schedule.ends_at</option> </select></td>
+          <td><input id="fromDate" class="date-field" /></td>
+          <td><input id="toDate" class="date-field" /></td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      <select name="profiles" id="profiles">
+                <option value="videocloud-default-v1" selected="selected">legacy - videocloud-default-v1</option>
+                <option value="high-resolution">legacy - high-resolution</option>
+                <option value="single-bitrate-high">legacy - single-bitrate-high</option>
+                <option value="single-bitrate-standard">legacy - single-bitrate-standard</option>
+                <option value="screencast-1280">legacy - screencast-1280</option>
+                <option value="smart-player-transition">legacy - smart-player-transition</option>
+                <option value="audio-only">legacy - audio-only</option>
+            </select> <span id="profileText">(standard profiles)</span> <button class="bcls-button" id="profileBtn">Get Account Profiles Instead</button>
+    </p>
+    <p><button class="bcls-button" id="goBtn">Start Retranscoding</button></p>
+  <pre><code class="language-json" id="current_response">Current Dynamic Ingest Reponses will appear here</code></pre>
+  </fieldset>
+  <fieldset>
+    <legend>Status Messages</legend>
+    <div id="messages">
+      <table>
+        <tr>
+          <td>Total videos in account</td>
+          <td id="videoCount" class="messages"></td>
+        </tr>
+        <tr>
+          <td>Retranscodable videos retrieved</td>
+          <td id="videosRetrieved" class="messages"></td>
+        </tr>
+        <tr>
+          <td>Un-retranscodable videos retrieved</td>
+          <td id="videosRejected" class="messages"></td>
+        </tr>
+        <tr>
+          <td>Retranscode requests submitted</td>
+          <td id="videosRetranscoded" class="messages"></td>
+        </tr>
+        <tr>
+          <td>Time elapsed</td>
+          <td id="timeElapsed" class="messages"></td>
+        </tr>
+        <tr>
+          <td>Current status</td>
+          <td id="status" class="messages"></td>
+        </tr>
+        <tr>
+          <td>Rejected videos (no master)</td>
+          <td class="messages"><pre id="rejected"></pre></td>
+        </tr>
+        <tr>
+          <td>Errors</td>
+          <td id="errors" class="messages"></td>
+        </tr>
+        <tr>
+          <td><button class="bcls-button" id="showJobCount">Get Running Job Count</button></td>
+          <td id="jobCount" class="messages"></td>
+        </tr>
+        <tr>
+          <td><button class="bcls-button" id="showFailedJobs">Show Failed Jobs</button><br>(List will not be complete until all jobs have processed)</td>
+          <td class="messages"><pre id="failedJobs"></pre></td>
+        </tr>
+        <tr>
+          <td><button class="bcls-button" id="showNotifications">Show All Notifications</button><br>(List will not be complete until all jobs have processed)</td>
+          <td class="messages"><pre id="notifications"></pre></td>
+        </tr>
+      </table>
+    </div>
+  </fieldset>
+  <!-- date picker script-->
+  <script src="//learning-services-media.brightcove.com/doc-assets/js/rome/rome.min.js"></script>
+  <script src="retranscode.js"></script>
+</body>
+
+</html>

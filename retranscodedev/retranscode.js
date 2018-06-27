@@ -228,7 +228,11 @@ function isDefined(x) {
    */
   function filterProfiles() {
     var filter_type = getRadioValue(profileFilters);
-    all_current_profiles = all_profiles;
+    all_current_profiles = [];
+    iMax = all_profiles.length;
+    for (i = 0; i < iMax; i++) {
+      all_current_profiles.push(all_profiles[i]);
+    }
     console.log('all_current_profiles', all_current_profiles);
       switch (filter_type) {
         case 'show_legacy':
@@ -440,7 +444,10 @@ function isDefined(x) {
           all_current_profiles = responseDecoded;
           // remove deprecated Profiles
           removeObsoleteProfiles();
-          all_profiles = all_current_profiles;
+          iMax = all_current_profiles.lenth;
+          for (i = 0; i < iMax; i++) {
+            all_profiles.push(all_current_profiles[1]);
+          }
           if (Array.isArray(responseDecoded)) {
             // remove existing options
             iMax = profiles.options.length;

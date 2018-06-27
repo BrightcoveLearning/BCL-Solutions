@@ -31,6 +31,7 @@ var BCLS = (function(window, document, rome) {
     showLegacy         = document.getElementById('showLegacy'),
     showDDonly         = false,
     showLegacyOnly     = false,
+    normalPriority     = true,
     dateTypeValue,
     fromDateValue,
     toDateValue,
@@ -90,6 +91,9 @@ function isDefined(x) {
       notificationsFile = account.value + '_notifications.txt';
       console.log('jobCountFile', jobCountFile);
       selectedProfile   = getSelectedValue(profiles);
+      if (isChecked(lowPriority)) {
+        normalPriority = false;
+      }
       intervalID        = window.setInterval(function() {
         var now;
         timePassed++;
@@ -398,6 +402,7 @@ function isDefined(x) {
     options.client_id     = clientIdValue;
     options.client_secret = clientSecretValue;
     options.account_id    = accountIdValue;
+    options.normalPriority = normalPriority;
 
     switch (type) {
       case 'deleteOldLogs':

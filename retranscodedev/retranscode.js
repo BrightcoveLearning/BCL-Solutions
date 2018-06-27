@@ -228,12 +228,13 @@ function isDefined(x) {
    */
   function filterProfiles() {
     var filter_type = getRadioValue(profileFilters);
+    console.log('filter_type', filter_type);
     all_current_profiles = [];
     iMax = all_profiles.length;
     for (i = 0; i < iMax; i++) {
       all_current_profiles.push(all_profiles[i]);
     }
-    console.log('all_current_profiles', all_current_profiles);
+    // console.log('all_current_profiles', all_current_profiles);
       switch (filter_type) {
         case 'show_legacy':
           i = all_current_profiles.length;
@@ -243,6 +244,7 @@ function isDefined(x) {
               all_current_profiles.splice(i, 1);
             }
           }
+          console.log('all_current_profiles', all_current_profiles);
           break;
         case 'show_dynamic_delivery':
           i = all_current_profiles.length;

@@ -35,7 +35,7 @@ var BCLS = (function(window, document, rome) {
     fromDateValue,
     toDateValue,
     searchStringValue  = '',
-    accountIdValue ,
+    accountIdValue     = '3921507403001', // initial account value for profiles
     clientIdValue,
     clientSecretValue,
     jobCountFile,
@@ -777,5 +777,7 @@ console.log('options', options);
     httpRequest.send(options.requestBody);
   }
 
+
+createRequest('getProfiles');
 
 })(window, document, rome);

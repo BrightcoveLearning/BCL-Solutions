@@ -44,7 +44,13 @@ var BCLS = (function(window, document, rome) {
     totalCMSCalls      = 0,
     callNumber         = 0,
     timePassed         = 0,
-    deprecatedProfiles = ['balanced-nextgen-player', 'Express Standard', 'mp4-only', 'balanced-high-definition', 'low-bandwidth-devices', 'balanced-standard-definition', 'single-rendition', 'Live - Standard', 'high-bandwidth-devices', 'Live - Premium HD', 'Live - HD', 'videocloud-default-trial', 'screencast'];
+    deprecatedProfiles = ['balanced-nextgen-player', 'Express Standard', 'mp4-only', 'balanced-high-definition', 'low-bandwidth-devices', 'balanced-standard-definition', 'single-rendition', 'Live - Standard', 'high-bandwidth-devices', 'Live - Premium HD', 'Live - HD', 'videocloud-default-trial', 'screencast'],
+    legacyProfiles     = ['screencast-1280','smart-player-transition','single-bitrate-high','audio-only'
+standard-live-sd-tier-1
+premium-live-hd-1080p-tier-2
+videocloud-default-v1
+single-bitrate-standard
+high-resolution];
 
   // date pickers
   rome(fromDate);

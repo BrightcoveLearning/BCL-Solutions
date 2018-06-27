@@ -26,16 +26,25 @@ var BCLS = (function(window, document, rome) {
     fromDate           = document.getElementById('fromDate'),
     toDate             = document.getElementById('toDate'),
     current_response   = document.getElementById('current_response'),
+    lowPriority        = document.getElementById('lowPriority'),
+    profileFilters     = document.getElementsByName('profileFilters'),
+    show_legacy         = document.getElementById('show_legacy'),
+    show_dynamic_delivery        = document.getElementById('show_dynamic_delivery'),
+    showDDonly         = false,
+    showLegacyOnly     = false,
+    normalPriority     = true,
     dateTypeValue,
     fromDateValue,
     toDateValue,
     searchStringValue  = '',
-    accountIdValue,
+    accountIdValue     = '3921507403001', // initial account value for profiles
     clientIdValue,
     clientSecretValue,
     jobCountFile,
     notificationsFile,
     selectedProfile    = '',
+    all_profiles       = [],
+    all_current_profiles = [],
     videoIDs           = [],
     rejectedVideoIDs   = [],
     errorCodes         = [],
@@ -44,7 +53,8 @@ var BCLS = (function(window, document, rome) {
     totalCMSCalls      = 0,
     callNumber         = 0,
     timePassed         = 0,
-    deprecatedProfiles = ['balanced-nextgen-player', 'Express Standard', 'mp4-only', 'balanced-high-definition', 'low-bandwidth-devices', 'balanced-standard-definition', 'single-rendition', 'Live - Standard', 'high-bandwidth-devices', 'Live - Premium HD', 'Live - HD', 'videocloud-default-trial', 'screencast'];
+    i,
+    iMax;
 
   // date pickers
   rome(fromDate);
@@ -82,6 +92,9 @@ function isDefined(x) {
       notificationsFile = account.value + '_notifications.txt';
       console.log('jobCountFile', jobCountFile);
       selectedProfile   = getSelectedValue(profiles);
+      if (isChecked(lowPriority)) {
+        normalPriority = false;
+      }
       intervalID        = window.setInterval(function() {
         var now;
         timePassed++;
@@ -115,6 +128,17 @@ function isDefined(x) {
     createRequest('showNotifications');
   });
 
+  iMax = profileFilters.length;
+  for (i = 0; i < iMax; i++) {
+    profileFilters[i].addEventListener('change', function() {
+      filterProfiles();
+    });
+  }
+
+  lowPriority.addEventListener('change', function() {
+    togglefilters();
+  });
+
   /**
    * gets various values from account info fields
    */
@@ -128,6 +152,12 @@ function isDefined(x) {
     } else {
       console.log('You must provide the account id, client id, and client secret');
       callback(false);
+    }
+  }
+
+  function togglefilters() {
+    if (isChecked(lowPriority)) {
+      show_dynamic_delivery.checked = true;
     }
   }
 
@@ -151,9 +181,9 @@ function isDefined(x) {
     }
 
     if (searchString.value) {
-console.log('search value: ', searchString.value);
-console.log('fromDateValue', fromDateValue);
-console.log('toDateValue', toDateValue);
+// console.log('search value: ', searchString.value);
+// console.log('fromDateValue', fromDateValue);
+// console.log('toDateValue', toDateValue);
       searchStringValue += 'q=' + encodeURI(searchString.value);
       if (isDefined(fromDateValue) || isDefined(toDateValue)) {
         searchStringValue += '+%2B' + dateTypeValue + ':' + fromDateValue + '..' + toDateValue;
@@ -163,20 +193,99 @@ console.log('toDateValue', toDateValue);
         searchStringValue += 'q=' + dateTypeValue + ':' + fromDateValue + '..' + toDateValue;
       }
     }
-    console.log('searchStringValue', searchStringValue);
+    // console.log('searchStringValue', searchStringValue);
     callback(true);
   }
 
   /**
-   * tests for all the ways a variable might be undefined or not have a value
-   * @param {*} x the variable to test
-   * @return {Boolean} true if variable is defined and has a value
-   */
-  function isDefined(x) {
-    if (x === '' || x === null || x === undefined) {
-      return false;
+  * get value of a selected radio buttom
+  * @param {htmlElementCollection} rgroup the collection of radio buttom elements
+  */
+  function getRadioValue(rgroup) {
+      var i = 0,
+      iMax = rgroup.length;
+      for (i; i < iMax; i++) {
+          if (rgroup[i].checked) {
+              return rgroup[i].value;
+          }
+      }
+  }
+
+  function removeObsoleteProfiles() {
+    var deprecated_profiles = ['balanced-nextgen-player', 'Express Standard', 'mp4-only', 'balanced-high-definition', 'low-bandwidth-devices', 'balanced-standard-definition', 'single-rendition', 'Live - Standard', 'high-bandwidth-devices', 'Live - Premium HD', 'Live - HD', 'videocloud-default-trial', 'screencast'],
+      i = all_current_profiles.length;
+    while (i > 0) {
+      i--;
+      if (arrayContains(deprecated_profiles, all_current_profiles[i].name)) {
+        all_current_profiles.splice(i, 1);
+      }
     }
-    return true;
+  }
+
+  /**
+   * filters the profile list
+   * @param  {string} filter_type the type of filter to use
+   */
+  function filterProfiles() {
+    var filter_type = getRadioValue(profileFilters);
+    console.log('filter_type', filter_type);
+    all_current_profiles = [];
+    iMax = all_profiles.length;
+    for (i = 0; i < iMax; i++) {
+      all_current_profiles.push(all_profiles[i]);
+    }
+    // console.log('all_current_profiles', all_current_profiles);
+      switch (filter_type) {
+        case 'show_legacy':
+          i = all_current_profiles.length;
+          while (i > 0) {
+            i--;
+            if (all_current_profiles[i].hasOwnProperty('dynamic_origin')) {
+              all_current_profiles.splice(i, 1);
+            }
+          }
+          console.log('all_current_profiles', all_current_profiles);
+          break;
+        case 'show_dynamic_delivery':
+          i = all_current_profiles.length;
+          while (i > 0) {
+            i--;
+            if (!all_current_profiles[i].hasOwnProperty('dynamic_origin')) {
+              all_current_profiles.splice(i, 1);
+            }
+          }
+          break;
+        default:
+        console.log('should not be here - unknown filter_type: ', filter_type);
+      }
+      displayFilteredProfiles();
+    return;
+  }
+
+/**
+ * add profile options to the profile select
+ */
+  function displayFilteredProfiles() {
+    var option,
+      profile,
+      frag = document.createDocumentFragment(),
+      i,
+      iMax;
+    // remove existing options
+    iMax = profiles.options.length;
+    for (i = 0; i < iMax; i++) {
+      profiles.remove(profiles.options[i]);
+    }
+
+    iMax = all_current_profiles.length;
+    for (i = 0; i < iMax; i++) {
+      profile = all_current_profiles[i],
+      option = document.createElement('option');
+      option.setAttribute('value', profile.name);
+      option.textContent = profile.display_name;
+      frag.appendChild(option);
+    }
+    profiles.appendChild(frag);
   }
 
   /**
@@ -318,6 +427,7 @@ console.log('toDateValue', toDateValue);
     options.client_id     = clientIdValue;
     options.client_secret = clientSecretValue;
     options.account_id    = accountIdValue;
+    options.normalPriority = normalPriority;
 
     switch (type) {
       case 'deleteOldLogs':
@@ -340,35 +450,16 @@ console.log('toDateValue', toDateValue);
         makeRequest(options, function(response) {
           var profileNamePrefix;
           responseDecoded = JSON.parse(response);
+          all_current_profiles = responseDecoded;
+          // remove deprecated Profiles
+          removeObsoleteProfiles();
+          iMax = all_current_profiles.length;
+          for (i = 0; i < iMax; i++) {
+            all_profiles.push(all_current_profiles[i]);
+          }
+          console.log('all_profiles', all_profiles);
           if (Array.isArray(responseDecoded)) {
-            // remove existing options
-            iMax = profiles.options.length;
-            for (i = 0; i < iMax; i++) {
-              profiles.remove(profiles.options[i]);
-            }
-            // add new options
-            iMax = responseDecoded.length;
-            for (i = 0; i < iMax; i++) {
-              if (!arrayContains(deprecatedProfiles, responseDecoded[i].name)) {
-                el = document.createElement('option');
-                el.setAttribute('value', responseDecoded[i].name);
-                if (i === 0) {
-                  el.setAttribute('selected', 'selected');
-                }
-                if (responseDecoded[i].hasOwnProperty('dynamic_origin')) {
-                  if (responseDecoded[i].dynamic_origin.hasOwnProperty('dynamic_profile_options')) {
-                    profileNamePrefix = 'CAE - ';
-                  } else {
-                    profileNamePrefix = 'DD - ';
-                  }
-                } else {
-                  profileNamePrefix = 'Legacy - ';
-                }
-                txt = document.createTextNode(responseDecoded[i].name);
-                el.appendChild(txt);
-                profiles.appendChild(el);
-              }
-            }
+            filterProfiles();
             logMessage(status, 'Account ingests profiles retrieved');
           }
         });
@@ -408,12 +499,12 @@ console.log('count response', response);
         if (isDefined(searchStringValue)) {
           endpoint += '&' + searchStringValue;
         }
-console.log('video endpoint', endpoint);
+// console.log('video endpoint', endpoint);
         options.url = cmsBaseURL + endpoint;
         options.requestType = 'GET';
         logMessage(status, 'Getting videos');
         makeRequest(options, function(response) {
-console.log('videos response', response);
+// console.log('videos response', response);
           responseDecoded = JSON.parse(response);
           if (responseDecoded.error_code) {
             errorCodes.push('get videos: ' + responseDecoded.error_code);
@@ -715,5 +806,7 @@ console.log('options', options);
     httpRequest.send(options.requestBody);
   }
 
+
+createRequest('getProfiles');
 
 })(window, document, rome);

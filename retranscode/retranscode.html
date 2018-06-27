@@ -36,6 +36,13 @@
       cursor: pointer;
     }
 
+    .profile-filters {
+      display: inline-block;
+      border: 1px #293b70 solid;
+      border-radius: 4px;
+      padding: 1em;
+    }
+
     select {
       background: transparent;
       border: none;
@@ -111,35 +118,33 @@
     <p>Client id: <input type="text" id="cid"></p>
     <p>Client secret: <input type="text" id="secret"></p>
     <p><input type="checkbox" id="captureImages"> <label for="captureImages">Capture new images?</label></p>
+    <p><input type="checkbox" id="lowPriority"> <label for="lowPriority">Use Low Priority Queue? (<strong>Dynamic Delivery jobs only</strong>)</label></p>
     <p>Search String<input type="text" id="searchString" placeholder="tags:foo,bar"> (for exact match, enclose term in <code>""</code>; e.g. tags:"foo")</p>
-    <table class="bcls-table">
+    <table>
       <caption>Limit search by dates:</caption>
       <tbody>
         <tr>
-          <td>Date type</td>
-          <td>From date</td>
-          <td>To date</td>
+          <td style="text-align: left">Date type</td>
+          <td style="text-align: left">From date</td>
+          <td style="text-align: left">To date</td>
         </tr>
         <tr>
-          <td><select class="date-field" id="dateRangeType"><option value="created_at" selected="selected">created_at</option><option value="updated_at">updated_at</option><option value="published_at">published_at</option><option value="schedule.starts_at">schedule.starts_at</option><option value="schedule.ends_at">schedule.ends_at</option> </select></td>
-          <td><input id="fromDate" class="date-field" /></td>
-          <td><input id="toDate" class="date-field" /></td>
+          <td style="text-align: left"><select class="date-field" id="dateRangeType"><option value="created_at" selected="selected">created_at</option><option value="updated_at">updated_at</option><option value="published_at">published_at</option><option value="schedule.starts_at">schedule.starts_at</option><option value="schedule.ends_at">schedule.ends_at</option> </select></td>
+          <td style="text-align: left"><input id="fromDate" class="date-field" /></td>
+          <td style="text-align: left"><input id="toDate" class="date-field" /></td>
         </tr>
       </tbody>
     </table>
     <p>
       <select name="profiles" id="profiles">
-                <option value="videocloud-default-v1" selected="selected">legacy - videocloud-default-v1</option>
-                <option value="high-resolution">legacy - high-resolution</option>
-                <option value="single-bitrate-high">legacy - single-bitrate-high</option>
-                <option value="single-bitrate-standard">legacy - single-bitrate-standard</option>
-                <option value="screencast-1280">legacy - screencast-1280</option>
-                <option value="smart-player-transition">legacy - smart-player-transition</option>
-                <option value="audio-only">legacy - audio-only</option>
             </select> <span id="profileText">(standard profiles)</span> <button class="bcls-button" id="profileBtn">Get Account Profiles Instead</button>
+      <div class="profile-filters">
+        <input type="radio" name="profileFilters" id="show_dynamic_delivery" value="show_dynamic_delivery" checked> <label for="showDD">Show Dynamic Delivery Profiles Only</label> (must be selected for Low Priority Jobs)<br>
+        <input type="radio" name="profileFilters" id="show_legacy" value="show_legacy"> <label for="showLegacy">Show legacy Profiles Only</label>
+      </div>
     </p>
     <p><button class="bcls-button" id="goBtn">Start Retranscoding</button></p>
-  <pre><code class="language-json" id="current_response">Current Dynamic Ingest Reponses will appear here</code></pre>
+    <pre><code class="language-json" id="current_response">Current Dynamic Ingest Reponses will appear here</code></pre>
   </fieldset>
   <fieldset>
     <legend>Status Messages</legend>

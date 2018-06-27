@@ -29,6 +29,8 @@ var BCLS = (function(window, document, rome) {
     lowPriority        = document.getElementById('lowPriority'),
     showDD             = document.getElementById('showDD'),
     showLegacy         = document.getElementById('showLegacy'),
+    showDDonly         = false,
+    showLegacyOnly     = false,
     dateTypeValue,
     fromDateValue,
     toDateValue,

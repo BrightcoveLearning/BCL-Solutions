@@ -44,22 +44,26 @@ if ($requestData->client_secret) {
 } else {
     $client_secret = 'quNdrH07IVoG8yZxSFsCySWmtvUuWfPYyzeg1Nil7Md7VpQ50A3KVV4eeMrZSR7FdeZA_3JS5jV9pBBI0skwWA';
 }
-if ($requestData->ccount_id) {
+if ($requestData->account_id) {
     $account_id = $requestData->account_id;
 } else {
     $account_id = '57838016001';
 }
 
-// first check to see if the running job count is under 100
-$job_count_file    = $account_id.'_count.txt';
-$job_count_data    = file_get_contents($job_count_file);
-$job_count_decoded = json_decode($job_count_data);
-if ($job_count_decoded) {
+$normal_priority = ($requestData->normalPriority);
+
+// first check to see if the running job count is under 100 unless low Priority
+if ($normal_priority) {
+  $job_count_file    = $account_id.'_count.txt';
+  $job_count_data    = file_get_contents($job_count_file);
+  $job_count_decoded = json_decode($job_count_data);
+  if ($job_count_decoded) {
     if ($job_count_decoded->job_count > 99) {
-        $m = new stdClass();
-        $m->message = 'wait';
-        exit(json_encode($m));
+      $m = new stdClass();
+      $m->message = 'wait';
+      exit(json_encode($m));
     }
+  }
 }
 
 // get access token

@@ -28,7 +28,8 @@ var BCLS = (function(window, document, rome) {
     current_response   = document.getElementById('current_response'),
     lowPriority        = document.getElementById('lowPriority'),
     profileFilters     = document.getElementsByName('profileFilters'),
-    showLegacy         = document.getElementById('showLegacy'),
+    show_legacy         = document.getElementById('show_legacy'),
+    show_dynamic_delivery        = document.getElementById('show_dynamic_delivery'),
     showDDonly         = false,
     showLegacyOnly     = false,
     normalPriority     = true,
@@ -132,6 +133,8 @@ function isDefined(x) {
     profileFilters[i].addEventListener('change', filterProfiles);
   }
 
+  lowPriority.addEventListener('change', togglefilters);
+
   /**
    * gets various values from account info fields
    */
@@ -145,6 +148,12 @@ function isDefined(x) {
     } else {
       console.log('You must provide the account id, client id, and client secret');
       callback(false);
+    }
+  }
+
+  function togglefilters() {
+    if (isChecked(lowPriority)) {
+      show_dynamic_delivery.checked = true;
     }
   }
 

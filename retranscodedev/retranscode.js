@@ -162,9 +162,9 @@ function isDefined(x) {
     }
 
     if (searchString.value) {
-console.log('search value: ', searchString.value);
-console.log('fromDateValue', fromDateValue);
-console.log('toDateValue', toDateValue);
+// console.log('search value: ', searchString.value);
+// console.log('fromDateValue', fromDateValue);
+// console.log('toDateValue', toDateValue);
       searchStringValue += 'q=' + encodeURI(searchString.value);
       if (isDefined(fromDateValue) || isDefined(toDateValue)) {
         searchStringValue += '+%2B' + dateTypeValue + ':' + fromDateValue + '..' + toDateValue;
@@ -174,7 +174,7 @@ console.log('toDateValue', toDateValue);
         searchStringValue += 'q=' + dateTypeValue + ':' + fromDateValue + '..' + toDateValue;
       }
     }
-    console.log('searchStringValue', searchStringValue);
+    // console.log('searchStringValue', searchStringValue);
     callback(true);
   }
 
@@ -190,34 +190,7 @@ console.log('toDateValue', toDateValue);
         case 'show_all':
           // nothing to do here; just a pass-through
           break;
-        case 'show_standard':
-          i = all_current_profiles.length;
-          while (i > 0) {
-            i--;
-            if (all_current_profiles[i].brightcove_standard === false) {
-              all_current_profiles.splice(i, 1);
-            }
-          }
-          break;
-        case 'show_custom':
-          i = all_current_profiles.length;
-          while (i > 0) {
-            i--;
-            if (all_current_profiles[i].brightcove_standard === true) {
-              all_current_profiles.splice(i, 1);
-            }
-          }
-          break;
-        case 'show_live':
-          i = all_current_profiles.length;
-          while (i > 0) {
-            i--;
-            if (!arrayContains(live_profiles, all_current_profiles[i].name)) {
-              all_current_profiles.splice(i, 1);
-            }
-          }
-          break;
-        case 'hide_legacy':
+        case 'show_legacy':
           i = all_current_profiles.length;
           while (i > 0) {
             i--;
@@ -226,33 +199,11 @@ console.log('toDateValue', toDateValue);
             }
           }
           break;
-        case 'hide_dynamic_delivery':
+        case 'show_dynamic_delivery':
           i = all_current_profiles.length;
           while (i > 0) {
             i--;
             if (!all_current_profiles[i].hasOwnProperty('dynamic_origin')) {
-              all_current_profiles.splice(i, 1);
-            }
-          }
-          break;
-        case 'hide_cae':
-          i = all_current_profiles.length;
-          while (i > 0) {
-            i--;
-            if (!all_current_profiles[i].hasOwnProperty('dynamic_origin')) {
-              all_current_profiles.splice(i, 1);
-            } else if (all_current_profiles[i].dynamic_origin.hasOwnProperty('dynamic_profile_options')) {
-              all_current_profiles.splice(i, 1);
-            }
-          }
-          break;
-        case 'show_cae':
-          i = all_current_profiles.length;
-          while (i > 0) {
-            i--;
-            if (!all_current_profiles[i].hasOwnProperty('dynamic_origin')) {
-              all_current_profiles.splice(i, 1);
-            } else if (!all_current_profiles[i].dynamic_origin.hasOwnProperty('dynamic_profile_options')) {
               all_current_profiles.splice(i, 1);
             }
           }

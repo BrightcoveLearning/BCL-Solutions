@@ -444,7 +444,7 @@ function isDefined(x) {
           all_current_profiles = responseDecoded;
           // remove deprecated Profiles
           removeObsoleteProfiles();
-          iMax = all_current_profiles.lenth;
+          iMax = all_current_profiles.length;
           for (i = 0; i < iMax; i++) {
             all_profiles.push(all_current_profiles[1]);
           }

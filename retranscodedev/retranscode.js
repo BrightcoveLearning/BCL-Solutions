@@ -475,12 +475,12 @@ console.log('count response', response);
         if (isDefined(searchStringValue)) {
           endpoint += '&' + searchStringValue;
         }
-console.log('video endpoint', endpoint);
+// console.log('video endpoint', endpoint);
         options.url = cmsBaseURL + endpoint;
         options.requestType = 'GET';
         logMessage(status, 'Getting videos');
         makeRequest(options, function(response) {
-console.log('videos response', response);
+// console.log('videos response', response);
           responseDecoded = JSON.parse(response);
           if (responseDecoded.error_code) {
             errorCodes.push('get videos: ' + responseDecoded.error_code);

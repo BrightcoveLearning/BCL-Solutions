@@ -51,7 +51,8 @@ var BCLS = (function(window, document, rome) {
     totalCMSCalls      = 0,
     callNumber         = 0,
     timePassed         = 0,
-    deprecatedProfiles = ['balanced-nextgen-player', 'Express Standard', 'mp4-only', 'balanced-high-definition', 'low-bandwidth-devices', 'balanced-standard-definition', 'single-rendition', 'Live - Standard', 'high-bandwidth-devices', 'Live - Premium HD', 'Live - HD', 'videocloud-default-trial', 'screencast'];
+    i,
+    iMax;
 
   // date pickers
   rome(fromDate);
@@ -122,6 +123,11 @@ function isDefined(x) {
     createRequest('showNotifications');
   });
 
+  iMax = profileFilters.length;
+  for (i = 0; i < iMax; i++) {
+    profileFilters[i].addEventListener('change', filterProfiles);
+  }
+
   /**
    * gets various values from account info fields
    */
@@ -174,6 +180,20 @@ function isDefined(x) {
     callback(true);
   }
 
+  /**
+  * get value of a selected radio buttom
+  * @param {htmlElementCollection} rgroup the collection of radio buttom elements
+  */
+  function getRadioValue(rgroup) {
+      var i = 0,
+      iMax = rgroup.length;
+      for (i; i < iMax; i++) {
+          if (rgroup[i].checked) {
+              return rgroup[i].value;
+          }
+      }
+  }
+
   function removeObsoleteProfiles() {
     var deprecated_profiles = ['balanced-nextgen-player', 'Express Standard', 'mp4-only', 'balanced-high-definition', 'low-bandwidth-devices', 'balanced-standard-definition', 'single-rendition', 'Live - Standard', 'high-bandwidth-devices', 'Live - Premium HD', 'Live - HD', 'videocloud-default-trial', 'screencast'],
       i = all_current_profiles.length;
@@ -190,8 +210,7 @@ function isDefined(x) {
    * @param  {string} filter_type the type of filter to use
    */
   function filterProfiles() {
-    var filter_type =
-    if (filter_type) {
+    var filter_type = getRadioValue(profileFilters);
       switch (filter_type) {
         case 'show_all':
           // nothing to do here; just a pass-through
@@ -218,11 +237,28 @@ function isDefined(x) {
         console.log('should not be here - unknown filter_type: ', filter_type);
       }
       displayFilteredProfiles();
-    } else {
-      console.log('no filter_type passed');
-    }
     return;
   }
+
+/**
+ * add profile options to the profile select
+ */
+  function displayFilteredProfiles() {
+    var option,
+      profile,
+      frag = document.createDocumentFragment(),
+      i = 0,
+      iMax = all_current_profiles.length;
+    for (i; i < iMax; i++) {
+      profile = all_current_profiles[i],
+      option = document.createElement('option');
+      option.setAttribute('value', profile.name);
+      option.textContent = profile.display_name;
+      frag.appendChild(option);
+    }
+    profiles.appendChild(frag);
+  }
+
   /**
    * write messages to the UI
    * @param  {htmlElement} el The element to write the message to

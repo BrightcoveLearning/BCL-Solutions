@@ -444,6 +444,7 @@ function isDefined(x) {
         options.url = ipBaseURL + endpoint;
         options.requestType = 'GET';
         logMessage(status, 'Getting account ingest profiles');
+        console.log('options', options);
         makeRequest(options, function(response) {
           var profileNamePrefix;
           responseDecoded = JSON.parse(response);

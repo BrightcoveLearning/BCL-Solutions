@@ -272,10 +272,7 @@ function isDefined(x) {
       i,
       iMax;
     // remove existing options
-    iMax = profiles.options.length;
-    for (i = 0; i < iMax; i++) {
-      profiles.remove(profiles.options[i]);
-    }
+    profiles.innerHTML = '';
 
     iMax = all_current_profiles.length;
     for (i = 0; i < iMax; i++) {

@@ -137,6 +137,7 @@ function isDefined(x) {
 
   lowPriority.addEventListener('change', function() {
     togglefilters();
+    filterProfiles();
   });
 
   /**

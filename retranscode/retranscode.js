@@ -448,9 +448,9 @@ function isDefined(x) {
         makeRequest(options, function(response) {
           var profileNamePrefix;
           responseDecoded = JSON.parse(response);
-          all_current_profiles = responseDecoded;
           console.log('all_profiles', all_profiles);
           if (Array.isArray(responseDecoded)) {
+            all_current_profiles = responseDecoded;
             // remove deprecated Profiles
             removeObsoleteProfiles();
             iMax = all_current_profiles.length;

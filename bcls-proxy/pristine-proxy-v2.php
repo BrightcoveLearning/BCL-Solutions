@@ -89,10 +89,10 @@ $endapi = strpos($requestData->url, $needle) + 4;
 $nextChar = substr($requestData->url, $endapi, 1);
 
 if (strpos($requestData->url, 'api.brightcove.com') == false && strpos($requestData->url, 'data.brightcove.com') == false) {
-    exit('[{"ERROR":"Only requests to Brightcove APIs are accepted by this proxy"}]');
-} else if ($nextChar !== '/' && $nextChar !== '?') {
   $m = $requestData->url;
-    exit('{"ERROR": "$m"}');
+    exit('[{"ERROR":"$m"}]');
+} else if ($nextChar !== '/' && $nextChar !== '?') {
+    exit('{"ERROR": "There was a problem with your API request - please check the URL"}');
 }
 // get the URL and authorization info from the form data
 $request = $requestData->url;

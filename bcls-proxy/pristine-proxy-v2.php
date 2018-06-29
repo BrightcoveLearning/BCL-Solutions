@@ -82,19 +82,17 @@ if ($requestData->requestType) {
     $method = "GET";
 }
 
-// more security checks
-$needle = '.com';
-$endapi = strpos($requestData->url, $needle) + 4;
-
-if (strpos($requestData->url, 'data.brightcove.co.jp')) {
-    $endapi = strpos($requestData->url, $needle) + 6;
-}
-$nextChar = substr($requestData->url, $endapi, 1);
-
-if (strpos($requestData->url, 'api.brightcove.com') == false && strpos($requestData->url, 'data.brightcove.co.jp') == false && strpos($requestData->url, 'data.brightcove.com') == false) {
-    exit('{"ERROR":"Only requests to Brightcove APIs are accepted by this proxy"}');
-} else if ($nextChar !== '/' && $nextChar !== '?') {
-    exit('{"ERROR": "There was a problem with your API request - please check the URL"}');
+// // more security checks
+// $needle = '.com';
+// $endapi = strpos($requestData->url, $needle) + 4;
+//
+// $nextChar = substr($requestData->url, $endapi, 1);
+//
+// if (strpos($requestData->url, 'api.brightcove.com') == false && strpos($requestData->url, 'data.brightcove.com') == false) {
+//   $m = $requestData->url;
+//     exit('[{"error_cocde":'.$m.'}]');
+// } else if ($nextChar !== '/' && $nextChar !== '?') {
+//     exit('{"ERROR": "There was a problem with your API request - please check the URL"}');
 }
 // get the URL and authorization info from the form data
 $request = $requestData->url;

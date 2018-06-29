@@ -90,7 +90,7 @@ $nextChar = substr($requestData->url, $endapi, 1);
 
 if (strpos($requestData->url, 'api.brightcove.com') == false && strpos($requestData->url, 'data.brightcove.com') == false) {
   $m = $requestData->url;
-    exit('[{"ERROR":"$m"}]');
+    exit('[{"error_cocde":'.$m.'}]');
 } else if ($nextChar !== '/' && $nextChar !== '?') {
     exit('{"ERROR": "There was a problem with your API request - please check the URL"}');
 }

@@ -14,8 +14,11 @@
  * @returns {string} $response - JSON response received from the API
  */
 
-// CORS enablement
-header("Access-Control-Allow-Origin: *");
+ // CORS enablement and other headers
+ header("Access-Control-Allow-Origin: *");
+ header("Content-type: application/json");
+ header("X-Content-Type-Options: nosniff");
+ header("X-XSS-Protection");
 
 // set up request for access token
 $data = array();
@@ -23,8 +26,8 @@ $data = array();
  * change the values below to use this proxy with a different account
  * the client_id and client_secret must have read/write permissions for the Dynamic Ingest and CMS APIs
  */
-$client_id     = "your_client_id_here";
-$client_secret = "your_client_secret_here";
+$client_id     = "3e23bbec-59b8-4861-b5ba-7c26e110a746";
+$client_secret = "quNdrH07IVoG8yZxSFsCySWmtvUuWfPYyzeg1Nil7Md7VpQ50A3KVV4eeMrZSR7FdeZA_3JS5jV9pBBI0skwWA";
 $auth_string   = "{$client_id}:{$client_secret}";
 $request       = "https://oauth.brightcove.com/v3/access_token?grant_type=client_credentials";
 $ch            = curl_init($request);

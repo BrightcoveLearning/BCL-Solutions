@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" />
+    <!-- change title to match the h1 heading -->
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/css/foundation.min.css" />
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/css/normalize.css" />
+    <script src="//use.edgefonts.net/source-code-pro.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/atelier-forest.light.min.css" />
+    <style>
+    input, select {
+        max-width: 60%;
+        font-size: .8rem;
+    }
+    textarea {
+        width: 90%;
+        height: 4rem;
+        font-size: .8rem;
+    }
+    .blurred {
+        opacity: .5;
+    }
+    .shown {
+        opacity: inherit;
+        cursor: pointer;
+    }
+    </style>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2728311-29', 'auto');
+  ga('send', 'pageview');
+
+</script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/js/vendor/modernizr.js"></script>
+</head>
+
+<body>
+    <!-- header navbar -->
+    <div id="navWrapper" class="fixed"></div>
+    <!-- breadcrumbs -->
+    <nav id="breadCrumbWrapper" class="breadcrumbs show-for-medium-up"></nav>
+    <!-- search -->
+    <div id="searchModal" class="reveal-modal" data-reveal></div>
+    <!-- content -->
+    <!-- content -->
+    <div class="row">
+        <div class="sidebar large-2 columns show-for-large-up">
+            <div id="sidenav"></div>
+        </div>
+        <div id="main" class="large-10 small-12 columns">
+            <div id="top" class="section">
+                <h1>Dynamic Ingest tester</h1>
+                <h3>Account <span id="account"></span></h3>
+                <p>This app is used to test the Dynamic Ingest API <a href="./di-log.html">notifications callback app</a>.
+                </p>
+                <h3>The tester</h3>
+                    <div class="form-wrapper">
+                        <fieldset>
+                            <legend>Caller for the CMS API</legend>
+                                <p>
+                                    Choose a video to ingest:<br>
+                                    <select name="videoSelector" id="videoSelector">
+                                        <option selected="selected" value="http://learning-services-media.brightcove.com/videos/mp4/Sea_LionFish.mp4">Sea_LionFish.mp4</option>
+                                        <option selected="selected" value="http://learning-services-media.brightcove.com/videos/mp4/Sea-Dolphins.mp4">Sea-Dolphins.mp4 (short)</option>
+                                        <option value="http://learning-services-media.brightcove.com/videos/mp4/Space-Galaxy.mp4">Space-Galaxy.mp4</option>
+                                        <option value="http://learning-services-media.brightcove.com/videos/mp4/Water-Bubbles.mp4">Water-Bubbles.mp4 (low quality)</option>
+                                        <option value="http://learning-services-media.brightcove.com/videos/mp4/Space-Satellite.mp4">Space-Satellite.mp4 (corrupt file)</option>
+                                    </select>
+                                </p>
+                                <p>
+                                    Choose an ingest profile: <br>
+                                    <select id="profileSelector" name="profileSelector">
+                                        <option value="screencast-1280" selected="selected">screencast-1280</option>
+                                        <option value="high-resolution">high-resolution</option>
+                                        <option value="single-bitrate-high">single-bitrate-high</option>
+                                        <option value="single-bitrate-standard">single-bitrate-standard</option>
+                                        <option value="smart-player-transition">smart-player-transition</option>
+                                        <option value="audio-only">audio-only</option>
+                                    </select>
+                                </p>
+                                <p>
+                                    Call body:<br />
+                                    <textarea name="requestBody" id="cms_requestBody">{"name":"DI Tester Video"}</textarea>
+                                </p>
+                                <p>
+                                    Full request URL for the API call:<br />
+                                    <textarea name="url" id="cms_url">https://cms.api.brightcove.com/v1/accounts/57838016001/videos</textarea>
+                                </p>
+                                <p>
+                                    <input id="cms_Submit" type="submit" value="Submit">
+                                </p>
+                            <pre><code id="cms_response"></code></pre>
+                        </fieldset>
+                    </div>
+                    <div class="form-wrapper">
+                        <fieldset>
+                            <legend>Caller for the Dynamic Ingest API</legend>
+                            <p>Submits to http://solutions.brightcove.com:<strong>8004</strong></p>
+                                    Call body (readonly - auto-generated):<br />
+                                    <textarea name="requestBody" id="di_requestBody" readonly="true"></textarea>
+                                </p>
+                                <p>
+                                    Full request URL for the API call (readonly - auto-generated):<br />
+                                    <textarea name="url" id="di_url" readonly="true">https://ingest.api.brightcove.com/v1/accounts/57838016001/videos/videoId/ingest-requests</textarea>
+                                </p>
+                            <pre><code id="di_response"></code></pre>
+                        </fieldset>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <!-- bcl scripts -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.2/handlebars.min.js"></script>
+    <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
+    <script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
+    <script>
+    var BCLS = ( function ($) {
+        var // CMS API stuff
+            account_id = your_account_id_here,
+            callbackURL = '//path-to/callbacks-di.php',
+            account = document.getElementById('account'),
+            cms_requestBody = document.getElementById('cms_requestBody'),
+            cms_url = document.getElementById('cms_url'),
+            di_requestBody = document.getElementById('di_requestBody'),
+            di_url = document.getElementById('di_url'),
+            requestType = 'POST',
+            cms_submit = document.getElementById('cms_Submit'),
+            cms_response = document.getElementById('cms_response'),
+            di_response = document.getElementById('di_response'),
+            proxyURL = "./brightcove-learning-proxy.php",
+            videoSelector = document.getElementById('videoSelector'),
+            profileSelector = document.getElementById('profileSelector'),
+            selectedVideo,
+            selectedVideoURL,
+            selectedProfile,
+            videoName,
+            reference_id,
+            // functions
+            bclslog,
+            submitRequest,
+            cleanString,
+            setCMSOptions,
+            getSelectedValue,
+            getVideoName,
+            setCMSData,
+            setDIData,
+            setDIOptions;
+        // IE safe logger
+        bclslog = function (context, message) {
+            if (console) {
+                console.log(context, message);
+            }
+        };
+        // get selected value for single select element
+        getSelectedValue = function (e) {
+            bclslog('e.options', e.options);
+            return e.options[e.selectedIndex].value;
+        };
+        // function to remove spaces and line breaks
+        cleanString = function (str) {
+            if (str !== "") {
+                // remove line breaks
+                str = str.replace(/(\r\n|\n|\r)/gm,"");
+                // remove spaces
+                // here we have to be careful - spaces fine within strings
+                // but not outside them
+                str = JSON.stringify(JSON.parse(str));
+                return str;
+            } else {
+                return;
+            }
+
+        };
+        // set options for the CMS API request
+        setCMSOptions = function () {
+            var options = {};
+            options.requestBody = cleanString(cms_requestBody.value);
+            options.requestType = requestType;
+            options.url = cms_url.value;
+            bclslog("cms options", options);
+            // now submit the request
+            submitRequest(options, "cms");
+        };
+        // set options for the Dynamic Ingest API request
+        setDIOptions = function () {
+            var options = {};
+            options.requestBody = cleanString(di_requestBody.innerHTML);
+            options.requestType = requestType;
+            options.url = di_url.value;
+            bclslog("di options", options);
+            // now submit the request
+            submitRequest(options, "di");
+        };
+
+        // function to submit Request
+        submitRequest = function (options, type) {
+            var parsedData = {};
+            $.ajax({
+                url: proxyURL,
+                type: "POST",
+                data: options,
+                success : function (data) {
+                    bclslog(data);
+                    parsedData = JSON.parse(data);
+                    switch (type) {
+                        case 'cms':
+                        cms_response.innerHTML = data;
+                        di_url.value = 'https://ingest.api.brightcove.com/v1/accounts/' + account_id + '/videos/' + parsedData.id +'/ingest-requests';
+                        bclslog(di_url.value);
+                        setDIData();
+                        setDIOptions();
+                        break;
+                        case 'di':
+                        di_response.innerHTML = data;
+                        break;
+                    }
+                },
+                error : function (XMLHttpRequest, textStatus, errorThrown) {
+                    switch (type) {
+                        case "cms":
+                        cms_response.innerHTML = "The called failed; here's what the server sent back: " + errorThrown;
+                        break;
+                        case "di":
+                        di_response.innerHTML = "The called failed; here's what the server sent back: " + errorThrown;
+                        break;
+                    }
+                }
+            });
+        };
+        // set the CMS request data
+        setCMSData = function () {
+            cms_requestBody.value = '{"name":"' + selectedVideo + '","reference_id":"' + reference_id + '"}'
+        };
+
+        // set DI request data
+        setDIData = function () {
+            // note: you MUST change the path to callback handler!!!
+            di_requestBody.innerHTML = '{"master":{"url":"' + selectedVideoURL + '"},"profile":"' + selectedProfile + '","callbacks": [' + callbackURL + ']}'
+        };
+
+        // get the videoname from the path, append timestamp
+        getVideoName = function () {
+            var now = new Date().toISOString(),
+                video = getSelectedValue(videoSelector);
+            bclslog('now', now);
+            selectedVideo = video.substring(video.lastIndexOf('/') + 1);
+            reference_id = now + '-' + selectedProfile;
+            bclslog('selectedVideo', selectedVideo);
+            return selectedVideo;
+        };
+
+        // event listeners
+        videoSelector.addEventListener('change', function (){
+            selectedVideoURL = getSelectedValue(videoSelector);
+            videoName = getVideoName();
+            setCMSData();
+            setDIData();
+        });
+        profileSelector.addEventListener('change', function () {
+            selectedProfile = getSelectedValue(profileSelector);
+            videoName = getVideoName();
+            setCMSData();
+            setDIData();
+        });
+        cms_submit.addEventListener('click', setCMSOptions);
+
+        // get initial values
+        selectedProfile = getSelectedValue(profileSelector);
+        selectedVideoURL = getSelectedValue(videoSelector);
+        selectedVideo = getVideoName();
+        bclslog('selectedVideo', selectedVideo);
+        account.innerHTML = account_id;
+        setCMSData();
+    })($);
+    </script>
+    <div class="footer text-center"><a href="mailto:docs@brightcove.com">Questions or comments?</a></div>
+</body>
+
+</html>

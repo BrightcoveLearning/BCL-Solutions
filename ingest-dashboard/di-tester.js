@@ -18,16 +18,7 @@ var BCLS = ( function (window, document) {
       selectedProfile,
       videoName,
       reference_id,
-      // functions
-      bclslog,
-      submitRequest,
-      cleanString,
-      setCMSOptions,
-      getSelectedValue,
-      getVideoName,
-      setCMSData,
-      setDIData,
-      setDIOptions;
+      profiles;
 
     /**
      * get selected value for single select element
@@ -61,6 +52,32 @@ var BCLS = ( function (window, document) {
         }
 
     };
+
+    function findDynamicDelivery(profiles) {
+      var i = 0,
+        iMax = profiles.length,
+        ddProfiles = [];
+      for (i; i < iMax; i++) {
+        if (profiles[i].hasOwnProperty())
+      }
+
+    }
+
+    /**
+     * remove obsolete profiles from the current profiles list
+     */
+      function removeObsoleteProfiles(profiles) {
+        // below are the obsolete profiles - you just have to know their names
+        var deprecated_profiles = ['balanced-nextgen-player', 'Express Standard', 'mp4-only', 'balanced-high-definition', 'low-bandwidth-devices', 'balanced-standard-definition', 'single-rendition', 'Live - Standard', 'high-bandwidth-devices', 'Live - Premium HD', 'Live - HD', 'videocloud-default-trial', 'screencast'],
+          i = profiles.length;
+          while (i > 0) {
+            i--;
+            if (arrayContains(deprecated_profiles, profiles[i].name)) {
+              profiles.splice(i, 1);
+            }
+          }
+        return profiles;
+      }
     // set options for the CMS API request
     setCMSOptions = function () {
         var options = {};
@@ -110,8 +127,10 @@ function createRequest(type) {
             options.url         = ipBaseURL + endpoint;
             options.requestType = 'GET';
             makeRequest(options, function(response) {
-                responseDecoded = JSON.parse(response);
+                profiles = JSON.parse(response);
                 if (Array.isArray(responseDecoded)) {
+                    // remove obsolete profiles
+                    profiles = removeObsoleteProfiles(profiles);
                     // add new options
                     iMax = responseDecoded.length;
                     for (i = 0; i < iMax; i++) {

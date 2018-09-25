@@ -1,40 +1,52 @@
 var BCLS = ( function (window, document) {
     var // CMS API stuff
-        account_id = '57838016001',
-        callbackURL = './callbacks-di.php',
-        account = document.getElementById('account'),
-        cms_requestBody = document.getElementById('cms_requestBody'),
-        cms_url = document.getElementById('cms_url'),
-        di_requestBody = document.getElementById('di_requestBody'),
-        di_url = document.getElementById('di_url'),
-        requestType = 'POST',
-        cms_submit = document.getElementById('cms_Submit'),
-        cms_response = document.getElementById('cms_response'),
-        di_response = document.getElementById('di_response'),
-        proxyURL = "./brightcove-learning-proxy.php",
-        videoSelector = document.getElementById('videoSelector'),
-        profileSelector = document.getElementById('profileSelector'),
-        selectedVideo,
-        selectedVideoURL,
-        selectedProfile,
-        videoName,
-        reference_id,
-        // functions
-        bclslog,
-        submitRequest,
-        cleanString,
-        setCMSOptions,
-        getSelectedValue,
-        getVideoName,
-        setCMSData,
-        setDIData,
-        setDIOptions;
+      account_id = '57838016001',
+      callbackURL = './callbacks-di.php',
+      account = document.getElementById('account'),
+      cms_requestBody = document.getElementById('cms_requestBody'),
+      cms_url = document.getElementById('cms_url'),
+      di_requestBody = document.getElementById('di_requestBody'),
+      di_url = document.getElementById('di_url'),
+      requestType = 'POST',
+      cms_submit = document.getElementById('cms_Submit'),
+      cms_response = document.getElementById('cms_response'),
+      di_response = document.getElementById('di_response'),
+      proxyURL = "./brightcove-learning-proxy.php",
+      videoSelector = document.getElementById('videoSelector'),
+      profileSelector = document.getElementById('profileSelector'),
+      selectedVideo,
+      selectedVideoURL,
+      selectedProfile,
+      videoName,
+      reference_id,
+      // functions
+      bclslog,
+      submitRequest,
+      cleanString,
+      setCMSOptions,
+      getSelectedValue,
+      getVideoName,
+      setCMSData,
+      setDIData,
+      setDIOptions;
 
-    // get selected value for single select element
-    getSelectedValue = function (e) {
-        bclslog('e.options', e.options);
-        return e.options[e.selectedIndex].value;
-    };
+    /**
+     * get selected value for single select element
+     * @param {htmlElement} e the select element
+     * @return {Object} object containing the `value`, text, and selected `index`
+     */
+    function getSelectedValue(e) {
+        var selected = e.options[e.selectedIndex],
+            val = selected.value,
+            txt = selected.textContent,
+            idx = e.selectedIndex;
+        return {
+            value: val,
+            text: txt,
+            index: idx
+        };
+    }
+
     // function to remove spaces and line breaks
     cleanString = function (str) {
         if (str !== '') {
@@ -108,7 +120,7 @@ function createRequest(type) {
                         el.setAttribute('value', responseDecoded[i].name);
                         txt = document.createTextNode(responseDecoded[i].name);
                         el.appendChild(txt);
-                        profiles.appendChild(el);
+                        profileSelector.appendChild(el);
                     }
                 }
             });

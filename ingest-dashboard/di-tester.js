@@ -299,7 +299,6 @@ var BCLS = (function(window, document) {
   selectedProfile = getSelectedValue(profileSelector);
   selectedVideoURL = getSelectedValue(videoSelector);
   selectedVideo = getVideoName();
-  bclslog('selectedVideo', selectedVideo);
-  account.innerHTML = account_id;
-  setCMSData();
+  account.textContent = account_id;
+  createRequest('getProfiles');
 })(window, document);

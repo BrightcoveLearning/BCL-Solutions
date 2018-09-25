@@ -7,7 +7,6 @@ var BCLS = ( function (window, document) {
       cms_url = document.getElementById('cms_url'),
       di_requestBody = document.getElementById('di_requestBody'),
       di_url = document.getElementById('di_url'),
-      requestType = 'POST',
       cms_submit = document.getElementById('cms_Submit'),
       cms_response = document.getElementById('cms_response'),
       di_response = document.getElementById('di_response'),

@@ -18,7 +18,8 @@ var BCLS = ( function (window, document) {
       selectedProfile,
       videoName,
       reference_id,
-      profiles;
+      profiles,
+      ddProfiles = [];
 
     /**
      * get selected value for single select element
@@ -53,14 +54,18 @@ var BCLS = ( function (window, document) {
 
     };
 
+/**
+ * add any dynamic delivery profiles to ddProfiles
+ * @param {array} profiles the whole profiles array
+ */
     function findDynamicDelivery(profiles) {
       var i = 0,
-        iMax = profiles.length,
-        ddProfiles = [];
+        iMax = profiles.length;
       for (i; i < iMax; i++) {
-        if (profiles[i].hasOwnProperty())
+        if (profiles[i].hasOwnProperty('dynamic_origin') || profiles[i].hasOwnProperty('dynamic_profile_options')) {
+          ddProfiles.push(profiles[i]);
+        }
       }
-
     }
 
     /**
@@ -131,6 +136,12 @@ function createRequest(type) {
                 if (Array.isArray(responseDecoded)) {
                     // remove obsolete profiles
                     profiles = removeObsoleteProfiles(profiles);
+                    // get dynamic delivery profiles
+                    findDynamicDelivery(profiles);
+                    // if any found, show only Dyanmic Delivery profiles
+                    if (ddProfiles.length > 0) {
+                      profiles = ddProfiles;
+                    }
                     // add new options
                     iMax = responseDecoded.length;
                     for (i = 0; i < iMax; i++) {

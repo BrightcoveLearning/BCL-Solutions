@@ -13,6 +13,10 @@
     <link rel="stylesheet" type="text/css" href="//docs.brightcove.com/en/styles/bcls-doc-site.css">
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/atelier-forest.light.min.css" />
     <style>
+    body {
+      margin: 3em;
+      font-family: sans-serif;
+    }
     input, select {
         max-width: 60%;
         font-size: .8rem;
@@ -68,9 +72,9 @@
                                 <p>
                                     Choose a video to ingest:<br>
                                     <select name="videoSelector" id="videoSelector">
-                                        <option selected="selected" value="http://learning-services-media.brightcove.com/videos/mp4/Sea_LionFish.mp4">Sea_LionFish.mp4</option>
-                                        <option selected="selected" value="http://learning-services-media.brightcove.com/videos/mp4/Sea-Dolphins.mp4">Sea-Dolphins.mp4 (short)</option>
-                                        <option value="http://learning-services-media.brightcove.com/videos/mp4/Space-Galaxy.mp4">Space-Galaxy.mp4</option>
+                                        <option selected="selected" value="https://learning-services-media.brightcove.com/videos/mp4/IMG_0544.MOV">Oregon Coast</option>
+                                        <option selected="selected" value="https://learning-services-media.brightcove.com/videos/mp4/Brown_Pelican.mpg">Brown Pelican</option>
+                                        <option value="https://learning-services-media.brightcove.com/videos/mp4/greatblueheron.mp4">Great Blue Heron</option>
                                         <option value="http://learning-services-media.brightcove.com/videos/mp4/Water-Bubbles.mp4">Water-Bubbles.mp4 (low quality)</option>
                                         <option value="http://learning-services-media.brightcove.com/videos/mp4/Space-Satellite.mp4">Space-Satellite.mp4 (corrupt file)</option>
                                     </select>
@@ -111,17 +115,6 @@
         </div>
     </div>
     <!-- bcl scripts -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.2/handlebars.min.js"></script>
-    <script src="//docs.brightcove.com/en/scripts/docs-nav-data.min.js"></script>
-    <script src="//docs.brightcove.com/en/scripts/bcls-doc-site.js"></script>
-    <script>
-        $(document).foundation();
-    </script>
     <script>
     var BCLS = ( function ($) {
         var // CMS API stuff

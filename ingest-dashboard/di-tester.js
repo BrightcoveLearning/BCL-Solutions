@@ -1,7 +1,7 @@
-var BCLS = ( function ($) {
+var BCLS = ( function (window, document) {
     var // CMS API stuff
-        account_id = your_account_id_here,
-        callbackURL = '//path-to/callbacks-di.php',
+        account_id = '57838016001',
+        callbackURL = './callbacks-di.php',
         account = document.getElementById('account'),
         cms_requestBody = document.getElementById('cms_requestBody'),
         cms_url = document.getElementById('cms_url'),
@@ -29,12 +29,7 @@ var BCLS = ( function ($) {
         setCMSData,
         setDIData,
         setDIOptions;
-    // IE safe logger
-    bclslog = function (context, message) {
-        if (console) {
-            console.log(context, message);
-        }
-    };
+
     // get selected value for single select element
     getSelectedValue = function (e) {
         bclslog('e.options', e.options);
@@ -42,9 +37,9 @@ var BCLS = ( function ($) {
     };
     // function to remove spaces and line breaks
     cleanString = function (str) {
-        if (str !== "") {
+        if (str !== '') {
             // remove line breaks
-            str = str.replace(/(\r\n|\n|\r)/gm,"");
+            str = str.replace(/(\r\n|\n|\r)/gm,'');
             // remove spaces
             // here we have to be careful - spaces fine within strings
             // but not outside them
@@ -76,41 +71,152 @@ var BCLS = ( function ($) {
         submitRequest(options, "di");
     };
 
-    // function to submit Request
-    submitRequest = function (options, type) {
-        var parsedData = {};
-        $.ajax({
-            url: proxyURL,
-            type: "POST",
-            data: options,
-            success : function (data) {
-                bclslog(data);
-                parsedData = JSON.parse(data);
-                switch (type) {
-                    case 'cms':
-                    cms_response.innerHTML = data;
-                    di_url.value = 'https://ingest.api.brightcove.com/v1/accounts/' + account_id + '/videos/' + parsedData.id +'/ingest-requests';
-                    bclslog(di_url.value);
-                    setDIData();
-                    setDIOptions();
-                    break;
-                    case 'di':
-                    di_response.innerHTML = data;
-                    break;
+    /**
+ * createRequest sets up requests, send them to makeRequest(), and handles responses
+ * @param  {string} type the request type
+ */
+function createRequest(type) {
+    var options   = {},
+        requestBody = {},
+        ipBaseURL = 'https://ingestion.api.brightcove.com/v1/accounts/' + account_id,
+        cmsBaseURL = 'https://cms.api.brightcove.com/v1/accounts/' + account_id,
+        diBaseURL = 'https://ingest.api.brightcove.com/v1/accounts/' + account_id,
+        endpoint,
+        responseDecoded,
+        i,
+        iMax,
+        el,
+        txt;
+
+    // set credentials
+    options.client_id     = cid.value;
+    options.client_secret = secret.value;
+    options.proxyURL      = proxyURL;
+
+    switch (type) {
+        case 'getProfiles':
+            endpoint            = '/profiles';
+            options.url         = ipBaseURL + endpoint;
+            options.requestType = 'GET';
+            makeRequest(options, function(response) {
+                responseDecoded = JSON.parse(response);
+                if (Array.isArray(responseDecoded)) {
+                    // add new options
+                    iMax = responseDecoded.length;
+                    for (i = 0; i < iMax; i++) {
+                        el = document.createElement('option');
+                        el.setAttribute('value', responseDecoded[i].name);
+                        txt = document.createTextNode(responseDecoded[i].name);
+                        el.appendChild(txt);
+                        profiles.appendChild(el);
+                    }
                 }
-            },
-            error : function (XMLHttpRequest, textStatus, errorThrown) {
-                switch (type) {
-                    case "cms":
-                    cms_response.innerHTML = "The called failed; here's what the server sent back: " + errorThrown;
-                    break;
-                    case "di":
-                    di_response.innerHTML = "The called failed; here's what the server sent back: " + errorThrown;
-                    break;
+            });
+            break;
+        case 'createVideo':
+            endpoint            = '/profiles';
+            options.url         = cmsBaseURL + endpoint;
+            options.requestType = 'POST';
+            requestBody.master  = {};
+            requestBody.master.url = 'http://myvideos.com/foo.mp4';
+            // add more properties
+            options.requestBody = JSON.stringify(requestBody);
+            makeRequest(options, function(response) {
+                responseDecoded = JSON.parse(response);
+                // do more stuff
+            });
+            break;
+
+        case 'ingestVideo':
+            endpoint            = '/profiles';
+            options.url         = diBaseURL + endpoint;
+            options.requestType = 'POST';
+            requestBody.master  = {};
+            requestBody.master.url = selectedVideoURL;
+            requestBody.profile = selectedProfile;
+            requestBody.callbacks = [];
+            requestBody.callbacks.push(callbackURL);
+            // add more properties
+            options.requestBody = JSON.stringify(requestBody);
+            makeRequest(options, function(response) {
+                responseDecoded = JSON.parse(response);
+                // do more stuff
+            });
+            break;
+
+        // additional cases
+        default:
+            console.log('Should not be getting to the default case - bad request type sent');
+            break;
+    }
+}
+
+/**
+ * send API request to the proxy
+ * @param  {Object} options for the request
+ * @param  {String} options.url the full API request URL
+ * @param  {String="GET","POST","PATCH","PUT","DELETE"} requestData [options.requestType="GET"] HTTP type for the request
+ * @param  {String} options.proxyURL proxyURL to send the request to
+ * @param  {String} options.client_id client id for the account (default is in the proxy)
+ * @param  {String} options.client_secret client secret for the account (default is in the proxy)
+ * @param  {JSON} [options.requestBody] Data to be sent in the request body in the form of a JSON string
+ * @param  {Function} [callback] callback function that will process the response
+ */
+function makeRequest(options, callback) {
+    var httpRequest = new XMLHttpRequest(),
+        response,
+        requestParams,
+        dataString,
+        proxyURL    = options.proxyURL,
+        // response handler
+        getResponse = function() {
+            try {
+                if (httpRequest.readyState === 4) {
+                    if (httpRequest.status >= 200 && httpRequest.status < 300) {
+                        response = httpRequest.responseText;
+                        // some API requests return '{null}' for empty responses - breaks JSON.parse
+                        if (response === '{null}') {
+                            response = null;
+                        }
+                        // return the response
+                        callback(response);
+                    } else {
+                        alert('There was a problem with the request. Request returned ' + httpRequest.status);
+                    }
                 }
+            } catch (e) {
+                alert('Caught Exception: ' + e);
             }
-        });
-    };
+        };
+    /**
+     * set up request data
+     * the proxy used here takes the following params:
+     * url - the full API request (required)
+     * requestType - the HTTP request type (default: GET)
+     * clientId - the client id (defaults here to a Brightcove sample account value - this should always be stored on the server side if possible)
+     * clientSecret - the client secret (defaults here to a Brightcove sample account value - this should always be stored on the server side if possible)
+     * requestBody - request body for write requests (optional JSON string)
+     */
+    requestParams = "url=" + encodeURIComponent(options.url) + "&requestType=" + options.requestType;
+    // only add client id and secret if both were submitted
+    if (options.client_id && options.client_secret) {
+        requestParams += '&client_id=' + options.client_id + '&client_secret=' + options.client_secret;
+    }
+    // add request data if any
+    if (options.requestBody) {
+        requestParams += '&requestBody=' + options.requestBody;
+    }
+    console.log('requestParams', requestParams);
+    // set response handler
+    httpRequest.onreadystatechange = getResponse;
+    // open the request
+    httpRequest.open('POST', proxyURL);
+    // set headers
+    httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    // open and send request
+    httpRequest.send(requestParams);
+}
+
     // set the CMS request data
     setCMSData = function () {
         cms_requestBody.value = '{"name":"' + selectedVideo + '","reference_id":"' + reference_id + '"}'
@@ -155,4 +261,4 @@ var BCLS = ( function ($) {
     bclslog('selectedVideo', selectedVideo);
     account.innerHTML = account_id;
     setCMSData();
-})($);
+})(window, document);

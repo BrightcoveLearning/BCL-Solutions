@@ -255,7 +255,9 @@ var BCLS = (function(window, document) {
     setCMSDataDisplay();
     setDIDataDisplay();
   });
-  cms_submit.addEventListener('click', setCMSOptions);
+  cms_submit.addEventListener('click', function() {
+    createRequest('createVideo');
+  });
 
   // get profiles and initial values
   createRequest('getProfiles');

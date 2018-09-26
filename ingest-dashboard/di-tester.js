@@ -98,6 +98,11 @@ var BCLS = (function(window, document) {
           if (Array.isArray(responseDecoded)) {
             // remove obsolete profiles
             profiles = removeObsoleteProfiles(profiles);
+            findDynamicDelivery(profiles);
+            // if there are dynamic delivery profiles, only show those
+            if (ddProfiles.length > 0) {
+              profiles = ddProfiles;
+            }
             // add new options
             iMax = responseDecoded.length;
             for (i = 0; i < iMax; i++) {
@@ -215,7 +220,7 @@ var BCLS = (function(window, document) {
   }
 
   // set the CMS request data
-  function setCMSData() {
+  function setCMSDataDisplay() {
     var body = {};
     body.name = selectedVideo;
     body.reference_id = reference_id;
@@ -223,7 +228,7 @@ var BCLS = (function(window, document) {
   };
 
   // set DI request data
-  function setDIData() {
+  function setDIDataDisplay() {
     var body = {};
     di_requestBody.textContent = '{"master":{"url":"' + selectedVideoURL + '"},"profile":"' + selectedProfile + '","callbacks": [' + callbackURL + ']}'
   }
@@ -241,14 +246,14 @@ var BCLS = (function(window, document) {
   videoSelector.addEventListener('change', function() {
     selectedVideoURL = getSelectedValue(videoSelector);
     videoName = getVideoName();
-    setCMSData();
-    setDIData();
+    setCMSDataDisplay();
+    setDIDataDisplay();
   });
   profileSelector.addEventListener('change', function() {
     selectedProfile = getSelectedValue(profileSelector);
     videoName = getVideoName();
-    setCMSData();
-    setDIData();
+    setCMSDataDisplay();
+    setDIDataDisplay();
   });
   cms_submit.addEventListener('click', setCMSOptions);
 
@@ -257,5 +262,5 @@ var BCLS = (function(window, document) {
   selectedVideoURL = getSelectedValue(videoSelector);
   selectedVideo = getVideoName();
   account.innerHTML = account_id;
-  setCMSData();
+  setCMSDataDisplay();
 })(window, document);

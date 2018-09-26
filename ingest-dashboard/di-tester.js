@@ -274,4 +274,5 @@ var BCLS = (function(window, document) {
   selectedVideoURL = getSelectedValue(videoSelector);
   selectedVideo = getVideoName();
   account.innerHTML = account_id;
+  setCMSDataDisplay();
 })(window, document);

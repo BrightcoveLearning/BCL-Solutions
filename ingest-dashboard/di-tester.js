@@ -37,22 +37,6 @@ var BCLS = (function(window, document) {
     };
   }
 
-  // function to remove spaces and line breaks
-  function cleanString(str) {
-    if (str !== '') {
-      // remove line breaks
-      str = str.replace(/(\r\n|\n|\r)/gm, '');
-      // remove spaces
-      // here we have to be careful - spaces fine within strings
-      // but not outside them
-      str = JSON.stringify(JSON.parse(str));
-      return str;
-    } else {
-      return;
-    }
-
-  };
-
   function findDynamicDelivery(profiles) {
     var i = 0,
       iMax = profiles.length,
@@ -60,7 +44,6 @@ var BCLS = (function(window, document) {
     for (i; i < iMax; i++) {
       if (profiles[i].hasOwnProperty())
     }
-
   }
 
   /**
@@ -87,7 +70,7 @@ var BCLS = (function(window, document) {
     bclslog("cms options", options);
     // now submit the request
     submitRequest(options, "cms");
-  };
+  }
   // set options for the Dynamic Ingest API request
   function setDIOptions() {
     var options = {};
@@ -96,7 +79,7 @@ var BCLS = (function(window, document) {
     options.url = di_url.value;
     // now submit the request
     submitRequest(options, "di");
-  };
+  }
 
   /**
    * createRequest sets up requests, send them to makeRequest(), and handles responses
@@ -245,25 +228,26 @@ var BCLS = (function(window, document) {
 
   // set the CMS request data
   function setCMSData() {
-    cms_requestBody.value = '{"name":"' + selectedVideo + '","reference_id":"' + reference_id + '"}'
+    var body = {};
+    body.name = selectedVideo;
+    body.reference_id = reference_id;
+    cms_requestBody.value = JSON.stringify(body);
   };
 
   // set DI request data
   function setDIData() {
     // note: you MUST change the path to callback handler!!!
-    di_requestBody.innerHTML = '{"master":{"url":"' + selectedVideoURL + '"},"profile":"' + selectedProfile + '","callbacks": [' + callbackURL + ']}'
-  };
+    di_requestBody.textContent = '{"master":{"url":"' + selectedVideoURL + '"},"profile":"' + selectedProfile + '","callbacks": [' + callbackURL + ']}'
+  }
 
   // get the videoname from the path, append timestamp
   function getVideoName() {
     var now = new Date().toISOString(),
       video = getSelectedValue(videoSelector);
-    bclslog('now', now);
-    selectedVideo = video.substring(video.lastIndexOf('/') + 1);
-    reference_id = now + '-' + selectedProfile;
-    bclslog('selectedVideo', selectedVideo);
+    selectedVideo = video.text;
+    reference_id = video.text + now;
     return selectedVideo;
-  };
+  }
 
   // event listeners
   videoSelector.addEventListener('change', function() {

@@ -123,6 +123,7 @@ var BCLS = (function(window, document) {
           responseDecoded = JSON.parse(response);
           video_id = responseDecoded.id;
           cms_response.textContent = JSON.stringify(responseDecoded, null, 2);
+          createRequest('ingestVideo');
         });
         break;
 
@@ -142,12 +143,10 @@ var BCLS = (function(window, document) {
         options.requestBody = JSON.stringify(body);
         makeRequest(options, function(response) {
           responseDecoded = JSON.parse(response);
-          di_response.textContent = 
-          // do more stuff
+          di_response.textContent = JSON.stringify(responseDecoded);
         });
         break;
 
-        // additional cases
       default:
         console.log('Should not be getting to the default case - bad request type sent');
         break;

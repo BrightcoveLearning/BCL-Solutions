@@ -21,6 +21,7 @@ var BCLS = (function(window, document) {
     selectedProfile,
     videoName,
     reference_id,
+    video_id,
     profiles,
     ddProfiles = [];
 
@@ -115,20 +116,28 @@ var BCLS = (function(window, document) {
         });
         break;
       case 'createVideo':
-        endpoint = '/profiles';
+        endpoint = '/videos';
         options.url = cmsBaseURL + endpoint;
         options.requestType = 'POST';
-        requestBody.master = {};
-        requestBody.master.url = 'http://myvideos.com/foo.mp4';
-        // add more properties
-        options.requestBody = JSON.stringify(requestBody);
+        options.requestBody = cms_requestBody.textContent;
         makeRequest(options, function(response) {
           responseDecoded = JSON.parse(response);
-          // do more stuff
+          video_id = responseDecoded.id;
+          cms_response.textContent = JSON.stringify(responseDecoded, null, 2);
         });
         break;
 
       case 'ingestVideo':
+      var body = {};
+      body.master = {};
+      body.master.url = selectedVideoURL;
+      if (selectedProfile) {
+        body.profile = selectedProfile;
+      }
+      body['capture-images'] = true;
+      body.callbacks = [callbackURL];
+      di_requestBody.textContent = JSON.stringify(body);
+      di_url.textContent = diBaseUrl + '/' + account_id + '/video/' +
         endpoint = '/profiles';
         options.url = diBaseURL + endpoint;
         options.requestType = 'POST';
@@ -235,7 +244,10 @@ var BCLS = (function(window, document) {
     if (selectedProfile) {
       body.profile = selectedProfile;
     }
-    di_requestBody.textContent = '{"master":{"url":"' + selectedVideoURL + '"},"profile":"' + selectedProfile + '","callbacks": [' + callbackURL + ']}'
+    body['capture-images'] = true;
+    body.callbacks = [callbackURL];
+    di_requestBody.textContent = JSON.stringify(body);
+    di_url.textContent = diBaseUrl + '/' + account_id + '/video/' +
   }
 
   // get the videoname from the path, append timestamp
@@ -249,18 +261,19 @@ var BCLS = (function(window, document) {
 
   // event listeners
   videoSelector.addEventListener('change', function() {
-    selectedVideoURL = getSelectedValue(videoSelector);
     videoName = getVideoName();
     setCMSDataDisplay();
-    setDIDataDisplay();
   });
   profileSelector.addEventListener('change', function() {
     selectedProfile = getSelectedValue(profileSelector);
     videoName = getVideoName();
     setCMSDataDisplay();
-    setDIDataDisplay();
   });
   cms_submit.addEventListener('click', function() {
+    selectedProfile = getSelectedValue(profileSelector);
+    videoName = getVideoName();
+    setCMSDataDisplay();
+    setDIDataDisplay();
     createRequest('createVideo');
   });
 

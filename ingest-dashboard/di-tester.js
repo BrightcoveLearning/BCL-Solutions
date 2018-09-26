@@ -78,10 +78,6 @@ var BCLS = (function(window, document) {
    */
   function createRequest(type) {
     var options = {},
-      requestBody = {},
-      ipBaseURL = 'https://ingestion.api.brightcove.com/v1/accounts/' + account_id,
-      cmsBaseURL = 'https://cms.api.brightcove.com/v1/accounts/' + account_id,
-      diBaseURL = 'https://ingest.api.brightcove.com/v1/accounts/' + account_id,
       endpoint,
       responseDecoded,
       i,
@@ -228,11 +224,17 @@ var BCLS = (function(window, document) {
     body.name = selectedVideo;
     body.reference_id = reference_id;
     cms_requestBody.value = JSON.stringify(body);
+    cms_url.textContent = cmsBaseURL + account_id;
   };
 
   // set DI request data
   function setDIDataDisplay() {
     var body = {};
+    body.master = {};
+    body.master.url = selectedVideoURL;
+    if (selectedProfile) {
+      body.profile = selectedProfile;
+    }
     di_requestBody.textContent = '{"master":{"url":"' + selectedVideoURL + '"},"profile":"' + selectedProfile + '","callbacks": [' + callbackURL + ']}'
   }
 

@@ -99,7 +99,7 @@ var BCLS = ( function (window, document) {
         submitRequest(options, "di");
     };
 
-    /**
+/**
  * createRequest sets up requests, send them to makeRequest(), and handles responses
  * @param  {string} type the request type
  */

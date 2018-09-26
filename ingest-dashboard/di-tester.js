@@ -284,11 +284,11 @@ function makeRequest(options, callback) {
     });
     cms_submit.addEventListener('click', setCMSOptions);
 
-    // get initial values
+    // get profiles and initial values
+    createRequest('getProfiles');
     selectedProfile = getSelectedValue(profileSelector);
     selectedVideoURL = getSelectedValue(videoSelector);
     selectedVideo = getVideoName();
-    bclslog('selectedVideo', selectedVideo);
     account.innerHTML = account_id;
     setCMSData();
 })(window, document);

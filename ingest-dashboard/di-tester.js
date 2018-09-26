@@ -38,7 +38,7 @@ var BCLS = ( function (window, document) {
     }
 
     // function to remove spaces and line breaks
-    cleanString = function (str) {
+    function cleanString(str) {
         if (str !== '') {
             // remove line breaks
             str = str.replace(/(\r\n|\n|\r)/gm,'');
@@ -79,7 +79,7 @@ var BCLS = ( function (window, document) {
         return profiles;
       }
     // set options for the CMS API request
-    setCMSOptions = function () {
+    function setCMSOptions() {
         var options = {};
         options.requestBody = cleanString(cms_requestBody.value);
         options.requestType = requestType;
@@ -89,7 +89,7 @@ var BCLS = ( function (window, document) {
         submitRequest(options, "cms");
     };
     // set options for the Dynamic Ingest API request
-    setDIOptions = function () {
+    function setDIOptions() {
         var options = {};
         options.requestBody = cleanString(di_requestBody.innerHTML);
         options.requestType = requestType;
@@ -248,18 +248,18 @@ function makeRequest(options, callback) {
 }
 
     // set the CMS request data
-    setCMSData = function () {
+    function setCMSData() {
         cms_requestBody.value = '{"name":"' + selectedVideo + '","reference_id":"' + reference_id + '"}'
     };
 
     // set DI request data
-    setDIData = function () {
+    function setDIData() {
         // note: you MUST change the path to callback handler!!!
         di_requestBody.innerHTML = '{"master":{"url":"' + selectedVideoURL + '"},"profile":"' + selectedProfile + '","callbacks": [' + callbackURL + ']}'
     };
 
     // get the videoname from the path, append timestamp
-    getVideoName = function () {
+    function getVideoName() {
         var now = new Date().toISOString(),
             video = getSelectedValue(videoSelector);
         bclslog('now', now);

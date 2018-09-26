@@ -13,9 +13,9 @@ var BCLS = (function(window, document) {
     proxyURL = "./brightcove-learning-proxy.php",
     videoSelector = document.getElementById('videoSelector'),
     profileSelector = document.getElementById('profileSelector'),
-    ipBaseUrl = 'https://ingestion.api.brightcove.com/v1/accounts/',
-    cmsBaseUrl = 'https://cms.api.brightcove.com/v1/accounts/',
-    diBaseUrl =  'https://ingest.api.brightcove.com/v1/accounts/',
+    ipBaseUrl = 'https://ingestion.api.brightcove.com/v1/accounts',
+    cmsBaseUrl = 'https://cms.api.brightcove.com/v1/accounts',
+    diBaseUrl =  'https://ingest.api.brightcove.com/v1/accounts',
     selectedVideo,
     selectedVideoURL,
     selectedProfile,
@@ -90,7 +90,7 @@ var BCLS = (function(window, document) {
 
     switch (type) {
       case 'getProfiles':
-        endpoint = '/profiles';
+        endpoint = '/' + account_id + '/profiles';
         options.url = ipBaseURL + endpoint;
         options.requestType = 'GET';
         makeRequest(options, function(response) {
@@ -116,8 +116,7 @@ var BCLS = (function(window, document) {
         });
         break;
       case 'createVideo':
-        endpoint = '/videos';
-        options.url = cmsBaseURL + endpoint;
+        options.url = cms_url.textContent;
         options.requestType = 'POST';
         options.requestBody = cms_requestBody.textContent;
         makeRequest(options, function(response) {

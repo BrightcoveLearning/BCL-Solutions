@@ -136,19 +136,13 @@ var BCLS = (function(window, document) {
       body['capture-images'] = true;
       body.callbacks = [callbackURL];
       di_requestBody.textContent = JSON.stringify(body);
-      di_url.textContent = diBaseUrl + '/' + account_id + '/video/' +
-        video_id + '/';
-        options.url = diBaseURL + endpoint;
+      di_url.textContent = diBaseUrl + '/' + account_id + '/video/' + video_id + '/ingest-requests';
+        options.url = di_url.textContent;
         options.requestType = 'POST';
-        requestBody.master = {};
-        requestBody.master.url = selectedVideoURL;
-        requestBody.profile = selectedProfile;
-        requestBody.callbacks = [];
-        requestBody.callbacks.push(callbackURL);
-        // add more properties
-        options.requestBody = JSON.stringify(requestBody);
+        options.requestBody = JSON.stringify(body);
         makeRequest(options, function(response) {
           responseDecoded = JSON.parse(response);
+          di_response.textContent = 
           // do more stuff
         });
         break;

@@ -104,11 +104,11 @@ var BCLS = (function(window, document) {
               profiles = ddProfiles;
             }
             // add new options
-            iMax = responseDecoded.length;
+            iMax = profiles.length;
             for (i = 0; i < iMax; i++) {
               el = document.createElement('option');
-              el.setAttribute('value', responseDecoded[i].name);
-              txt = document.createTextNode(responseDecoded[i].name);
+              el.setAttribute('value', profiles[i].name);
+              txt = document.createTextNode(profiles[i].name);
               el.appendChild(txt);
               profileSelector.appendChild(el);
             }
@@ -137,7 +137,7 @@ var BCLS = (function(window, document) {
       body.callbacks = [callbackURL];
       di_requestBody.textContent = JSON.stringify(body);
       di_url.textContent = diBaseUrl + '/' + account_id + '/video/' +
-        endpoint = '/profiles';
+        video_id + '/';
         options.url = diBaseURL + endpoint;
         options.requestType = 'POST';
         requestBody.master = {};

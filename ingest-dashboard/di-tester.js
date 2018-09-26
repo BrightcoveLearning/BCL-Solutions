@@ -270,13 +270,13 @@ function makeRequest(options, callback) {
     };
 
     // event listeners
-    videoSelector.addEventListener('change', function (){
+    videoSelector.addEventListener('change', function(){
         selectedVideoURL = getSelectedValue(videoSelector);
         videoName = getVideoName();
         setCMSData();
         setDIData();
     });
-    profileSelector.addEventListener('change', function () {
+    profileSelector.addEventListener('change', function() {
         selectedProfile = getSelectedValue(profileSelector);
         videoName = getVideoName();
         setCMSData();

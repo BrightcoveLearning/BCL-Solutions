@@ -18,7 +18,8 @@ var BCLS = (function(window, document) {
     selectedProfile,
     videoName,
     reference_id,
-    profiles;
+    profiles,
+    ddProfiles = [];
 
   /**
    * get selected value for single select element
@@ -37,13 +38,19 @@ var BCLS = (function(window, document) {
     };
   }
 
+  /**
+   * find the dynamic delivery profiles
+   * @param {array} profiles the profiles array to search
+   */
   function findDynamicDelivery(profiles) {
     var i = 0,
-      iMax = profiles.length,
-      ddProfiles = [];
+      iMax = profiles.length;
     for (i; i < iMax; i++) {
-      if (profiles[i].hasOwnProperty())
+      if (profiles[i].hasOwnProperty('dynamic_origin')) {
+        ddProfiles.push(profiles[i]);
+      }
     }
+    return;
   }
 
   /**
@@ -60,25 +67,6 @@ var BCLS = (function(window, document) {
       }
     }
     return profiles;
-  }
-  // set options for the CMS API request
-  function setCMSOptions() {
-    var options = {};
-    options.requestBody = cleanString(cms_requestBody.value);
-    options.requestType = requestType;
-    options.url = cms_url.value;
-    bclslog("cms options", options);
-    // now submit the request
-    submitRequest(options, "cms");
-  }
-  // set options for the Dynamic Ingest API request
-  function setDIOptions() {
-    var options = {};
-    options.requestBody = cleanString(di_requestBody.textContent);
-    options.requestType = requestType;
-    options.url = di_url.value;
-    // now submit the request
-    submitRequest(options, "di");
   }
 
   /**
@@ -236,7 +224,7 @@ var BCLS = (function(window, document) {
 
   // set DI request data
   function setDIData() {
-    // note: you MUST change the path to callback handler!!!
+    var body = {};
     di_requestBody.textContent = '{"master":{"url":"' + selectedVideoURL + '"},"profile":"' + selectedProfile + '","callbacks": [' + callbackURL + ']}'
   }
 

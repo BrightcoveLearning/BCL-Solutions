@@ -286,7 +286,6 @@ function makeRequest(options, callback) {
 
     // get profiles and initial values
     createRequest('getProfiles');
-    selectedProfile = getSelectedValue(profileSelector);
     selectedVideoURL = getSelectedValue(videoSelector);
     selectedVideo = getVideoName();
     account.innerHTML = account_id;

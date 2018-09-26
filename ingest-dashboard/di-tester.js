@@ -91,10 +91,9 @@ var BCLS = (function(window, document) {
   // set options for the Dynamic Ingest API request
   function setDIOptions() {
     var options = {};
-    options.requestBody = cleanString(di_requestBody.innerHTML);
+    options.requestBody = cleanString(di_requestBody.textContent);
     options.requestType = requestType;
     options.url = di_url.value;
-    bclslog("di options", options);
     // now submit the request
     submitRequest(options, "di");
   };

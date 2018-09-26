@@ -116,9 +116,6 @@ function createRequest(type) {
         el,
         txt;
 
-    // set credentials
-    options.client_id     = cid.value;
-    options.client_secret = secret.value;
     options.proxyURL      = proxyURL;
 
     switch (type) {

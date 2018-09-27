@@ -225,7 +225,7 @@ var BCLS = (function(window, document) {
     body.name = selectedVideo;
     body.reference_id = reference_id;
     cms_requestBody.value = JSON.stringify(body);
-    cms_url.textContent = cmsBaseURL + account_id;
+    cms_url.textContent = cmsBaseUrl + account_id;
   };
 
   // get the videoname from the path, append timestamp

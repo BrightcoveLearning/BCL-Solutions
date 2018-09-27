@@ -93,6 +93,7 @@ var BCLS = (function(window, document) {
         endpoint = '/' + account_id + '/profiles';
         options.url = ipBaseUrl + endpoint;
         options.requestType = 'GET';
+        console.log('profiles options', options);
         makeRequest(options, function(response) {
           profiles = JSON.parse(response);
           if (Array.isArray(responseDecoded)) {

@@ -228,20 +228,6 @@ var BCLS = (function(window, document) {
     cms_url.textContent = cmsBaseURL + account_id;
   };
 
-  // set DI request data
-  function setDIDataDisplay() {
-    var body = {};
-    body.master = {};
-    body.master.url = selectedVideoURL;
-    if (selectedProfile) {
-      body.profile = selectedProfile;
-    }
-    body['capture-images'] = true;
-    body.callbacks = [callbackURL];
-    di_requestBody.textContent = JSON.stringify(body);
-    di_url.textContent = diBaseUrl + '/' + account_id + '/video/' +
-  }
-
   // get the videoname from the path, append timestamp
   function getVideoName() {
     var now = new Date().toISOString(),
@@ -265,7 +251,6 @@ var BCLS = (function(window, document) {
     selectedProfile = getSelectedValue(profileSelector);
     videoName = getVideoName();
     setCMSDataDisplay();
-    setDIDataDisplay();
     createRequest('createVideo');
   });
 

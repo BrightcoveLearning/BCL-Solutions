@@ -91,7 +91,7 @@ var BCLS = (function(window, document) {
     switch (type) {
       case 'getProfiles':
         endpoint = '/' + account_id + '/profiles';
-        options.url = ipBaseURL + endpoint;
+        options.url = ipBaseUrl + endpoint;
         options.requestType = 'GET';
         makeRequest(options, function(response) {
           profiles = JSON.parse(response);

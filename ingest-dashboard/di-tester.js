@@ -113,7 +113,6 @@ var BCLS = (function(window, document) {
         console.log('profiles options', options);
         makeRequest(options, function(response) {
           profiles = JSON.parse(response);
-          if (Array.isArray(responseDecoded)) {
             // remove obsolete profiles
             profiles = removeObsoleteProfiles(profiles);
             console.log('profiles', profiles);
@@ -131,7 +130,6 @@ var BCLS = (function(window, document) {
               el.appendChild(txt);
               profileSelector.appendChild(el);
             }
-          }
         });
         break;
       case 'createVideo':

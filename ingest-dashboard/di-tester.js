@@ -115,7 +115,6 @@ var BCLS = (function(window, document) {
           profiles = JSON.parse(response);
             // remove obsolete profiles
             profiles = removeObsoleteProfiles(profiles);
-            console.log('profiles', profiles);
             findDynamicDelivery(profiles);
             // if there are dynamic delivery profiles, only show those
             if (ddProfiles.length > 0) {
@@ -229,7 +228,7 @@ var BCLS = (function(window, document) {
     body.name = selectedVideo;
     body.reference_id = reference_id;
     cms_requestBody.value = JSON.stringify(body);
-    cms_url.textContent = cmsBaseUrl + account_id + '/videos';
+    cms_url.textContent = cmsBaseUrl + '/' + account_id + '/videos';
   };
 
   // get the videoname from the path, append timestamp

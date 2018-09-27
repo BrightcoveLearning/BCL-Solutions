@@ -49,5 +49,15 @@ if (($entityType == 'TITLE') && ($action == 'CREATE') && ($status == 'SUCCESS'))
 	fclose($fileHandle);
 }
 
+// save full notification for audit trail
+
+$logEntry = $notification.",\n";
+
+$logFileLocation = "full-log.json";
+$fileHandle      = fopen($logFileLocation, 'a') or die("-1");
+fwrite($fileHandle, $logEntry);
+fclose($fileHandle);
+
+
 echo "Dynamic Ingest callback app is running";
 ?>

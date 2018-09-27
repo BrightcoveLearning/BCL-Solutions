@@ -148,7 +148,7 @@ var BCLS = (function(window, document) {
       body.master = {};
       body.master.url = selectedVideoURL.value;
       if (selectedProfile) {
-        body.profile = selectedProfile;
+        body.profile = selectedProfile.value;
       }
       body['capture-images'] = true;
       body.callbacks = [callbackURL];

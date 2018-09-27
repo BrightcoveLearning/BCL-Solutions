@@ -43,6 +43,23 @@ var BCLS = (function(window, document) {
   }
 
   /**
+   * determines whether specified item is in an array
+   *
+   * @param {array} array to check
+   * @param {string} item to check for
+   * @return {boolean} true if item is in the array, else false
+   */
+  function arrayContains(arr, item) {
+      var i,
+          iMax = arr.length;
+      for (i = 0; i < iMax; i++) {
+          if (arr[i] === item) {
+              return true;
+          }
+      }
+      return false;
+  }
+  /**
    * find the dynamic delivery profiles
    * @param {array} profiles the profiles array to search
    */

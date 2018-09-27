@@ -11,7 +11,9 @@ try {
 
 // Begin by extracting the useful parts of the notification
 
-if (isset($decoded["entity"])) {
+if (isset($decoded["videoId"])) {
+	$entityId = $decoded["videoId"];
+} elseif (isset($decoded["entity"])) {
 	$entityId = $decoded["entity"];
 } else {
 	$entityId = null;

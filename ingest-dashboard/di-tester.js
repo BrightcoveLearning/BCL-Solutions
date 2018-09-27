@@ -146,7 +146,7 @@ var BCLS = (function(window, document) {
       case 'ingestVideo':
       var body = {};
       body.master = {};
-      body.master.url = selectedVideoURL;
+      body.master.url = selectedVideoURL.value;
       if (selectedProfile) {
         body.profile = selectedProfile;
       }

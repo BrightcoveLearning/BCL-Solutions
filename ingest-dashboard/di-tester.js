@@ -96,6 +96,7 @@ var BCLS = (function(window, document) {
         console.log('profiles options', options);
         makeRequest(options, function(response) {
           profiles = JSON.parse(response);
+          console.log('profiles', profiles);
           if (Array.isArray(responseDecoded)) {
             // remove obsolete profiles
             profiles = removeObsoleteProfiles(profiles);

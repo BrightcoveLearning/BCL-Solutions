@@ -95,11 +95,11 @@ var BCLS = (function(window, document) {
         options.requestType = 'GET';
         console.log('profiles options', options);
         makeRequest(options, function(response) {
-          profiles = JSON.parse(response);
           console.log('profiles', profiles);
           if (Array.isArray(responseDecoded)) {
             // remove obsolete profiles
             profiles = removeObsoleteProfiles(profiles);
+            profiles = JSON.parse(response);
             findDynamicDelivery(profiles);
             // if there are dynamic delivery profiles, only show those
             if (ddProfiles.length > 0) {

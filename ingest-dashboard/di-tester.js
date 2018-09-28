@@ -131,7 +131,7 @@ var BCLS = (function(window, document) {
         });
         break;
       case 'createVideo':
-        options.url = cms_url.textContent;
+        options.url = cms_url.value;
         options.requestType = 'POST';
         options.requestBody = cms_requestBody.value;
         console.log('video options', options);
@@ -228,7 +228,7 @@ var BCLS = (function(window, document) {
     body.name = selectedVideo;
     body.reference_id = reference_id;
     cms_requestBody.value = JSON.stringify(body);
-    cms_url.textContent = cmsBaseUrl + '/' + account_id + '/videos';
+    cms_url.value = cmsBaseUrl + '/' + account_id + '/videos';
   };
 
   // get the videoname from the path, append timestamp

@@ -1,7 +1,11 @@
 <?php
     $logFileLocation = "video-ids.js";
     $freshContent = "var videoIdArray = [];";
-    file_put_contents($logFileLocation, $freshContent);
+
+    $fileHandle      = fopen($logFileLocation, 'w') or die("-1");
+    fwrite($fileHandle, $freshContent);
+    fclose($fileHandle);
+
 
 echo 'Log file cleared - <a href="di-log.html">go back to the dashboard</a>';
 ?>

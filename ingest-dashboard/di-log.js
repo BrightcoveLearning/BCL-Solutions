@@ -6,8 +6,8 @@ var BCLS = ( function (videoIdArray) {
         logBody = document.getElementById('logBody'),
         loadingMessage = document.getElementById('loadingMessage'),
         clearLogBtn = document.getElementById('clearLogBtn'),
-        i = 0,
-        iMax = videoIdArray.length,
+        videoNumber = 0,
+        videoNumberMax = videoIdArray.length,
         // set the proxyURL to the location of the proxy app that makes Brightcove API requests
         proxyURL = './brightcove-learning-proxy.php',
         videoDataArray = [],
@@ -31,7 +31,8 @@ var BCLS = ( function (videoIdArray) {
         // function to set up video data request
         function setVideoRequestOptions() {
             requestOptions = {};
-            requestOptions.url = 'https://cms.api.brightcove.com/v1/accounts/' + account_id + '/videos/' + currentVideo;
+            requestOptions.url = 'https://cms.api.brightcove.com/v1/accounts/' + account_id + '/videos/' + currentVideo);
+            console.log(requestOptions.url);
             submitRequest(requestOptions, proxyURL, 'video');
         };
         // function to set up video sources request
@@ -43,7 +44,7 @@ var BCLS = ( function (videoIdArray) {
         // initiates the cms api requests
         function getVideoInfo() {
             if (videoIdArray.length > 0) {
-                currentVideo = videoIdArray[i];
+                currentVideo = videoIdArray[videoNumber];
                 setVideoRequestOptions();
             } else {
                 loadingMessage.innerHTML = 'No videos have been ingested';
@@ -80,8 +81,8 @@ var BCLS = ( function (videoIdArray) {
 
                                 videoDataArray.push(videoDataItem);
 
-                                i++;
-                                if (i < iMax) {
+                                videoNumber++;
+                                if (videoNumber < videoNumberMax) {
                                     getVideoInfo();
                                 } else {
                                     writeReport();

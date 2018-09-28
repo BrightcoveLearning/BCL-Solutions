@@ -35,7 +35,7 @@ var BCLS = ( function (videoIdArray) {
             options.proxyURL = proxyURL;
             options.requestType = 'GET';
             console.log(options.url);
-            submitRequest(options, function{response} {
+            submitRequest(options, function(response) {
               var o = {};
               response = JSON.parse(response);
               o.id = response.id;

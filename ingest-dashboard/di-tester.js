@@ -133,7 +133,7 @@ var BCLS = (function(window, document) {
       case 'createVideo':
         options.url = cms_url.textContent;
         options.requestType = 'POST';
-        options.requestBody = cms_requestBody.textContent;
+        options.requestBody = cms_requestBody.value;
         console.log('video options', options);
         makeRequest(options, function(response) {
           responseDecoded = JSON.parse(response);

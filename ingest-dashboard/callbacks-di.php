@@ -51,7 +51,7 @@ if (($entityType == 'TITLE') && ($action == 'CREATE') && ($status == 'SUCCESS'))
 }
 
 // save full notification for audit trail
-
+$notification = json_encode($decoded, JSON_PRETTY_PRINT);
 $logEntry = $notification.",\n";
 
 $logFileLocation = "full-log.json";

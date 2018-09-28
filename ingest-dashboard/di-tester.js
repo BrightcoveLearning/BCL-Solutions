@@ -1,7 +1,7 @@
 var BCLS = (function(window, document) {
   var // CMS API stuff
     account_id = '57838016001',
-    callbackURL = '//solutions.brightcove.com/bcls/ingest-dashboard/callbacks-di.php',
+    callbackURL = 'https://solutions.brightcove.com/bcls/ingest-dashboard/callbacks-di.php',
     account = document.getElementById('account'),
     cms_requestBody = document.getElementById('cms_requestBody'),
     cms_url = document.getElementById('cms_url'),

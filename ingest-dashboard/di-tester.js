@@ -1,7 +1,7 @@
 var BCLS = (function(window, document) {
   var // CMS API stuff
     account_id = '57838016001',
-    callbackURL = './callbacks-di.php',
+    callbackURL = 'https://solutions.brightcove.com/bcls/ingest-dashboard/callbacks-di.php',
     account = document.getElementById('account'),
     cms_requestBody = document.getElementById('cms_requestBody'),
     cms_url = document.getElementById('cms_url'),
@@ -210,7 +210,7 @@ var BCLS = (function(window, document) {
       /**
        * set up request data
        * the proxy used here takes the following request body:
-       * JSON.strinify(options)
+       * JSON.stringify(options)
        */
       // set response handler
       httpRequest.onreadystatechange = getResponse;

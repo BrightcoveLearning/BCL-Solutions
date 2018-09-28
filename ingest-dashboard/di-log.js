@@ -33,6 +33,7 @@ var BCLS = ( function (videoIdArray) {
             options = {};
             options.url = 'https://cms.api.brightcove.com/v1/accounts/' + account_id + '/videos/' + currentVideo);
             options.proxyURL = proxyURL;
+            options.requestType = 'GET';
             console.log(options.url);
             submitRequest(options, function{response} {
               var o = {};
@@ -48,6 +49,7 @@ var BCLS = ( function (videoIdArray) {
         function setSourcesRequestOptions() {
             options.url = 'https://cms.api.brightcove.com/v1/accounts/' + account_id + '/videos/' + currentVideo + '/sources';
             options.proxyURL = proxyURL;
+            options.requestType = 'GET';
 
             submitRequest(options, function(response) {
               response = JSON.parse(response);
@@ -88,7 +90,6 @@ var BCLS = ( function (videoIdArray) {
         function makeRequest(options, callback) {
             var httpRequest = new XMLHttpRequest(),
                 response,
-                requestParams,
                 dataString,
                 proxyURL    = options.proxyURL,
                 // response handler

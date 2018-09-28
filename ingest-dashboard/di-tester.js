@@ -110,7 +110,6 @@ var BCLS = (function(window, document) {
         endpoint = '/' + account_id + '/profiles';
         options.url = ipBaseUrl + endpoint;
         options.requestType = 'GET';
-        console.log('profiles options', options);
         makeRequest(options, function(response) {
           profiles = JSON.parse(response);
             // remove obsolete profiles
@@ -135,6 +134,7 @@ var BCLS = (function(window, document) {
         options.url = cms_url.textContent;
         options.requestType = 'POST';
         options.requestBody = cms_requestBody.textContent;
+        console.log('video options', options);
         makeRequest(options, function(response) {
           responseDecoded = JSON.parse(response);
           video_id = responseDecoded.id;

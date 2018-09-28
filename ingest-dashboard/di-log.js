@@ -52,6 +52,15 @@ var BCLS = ( function (videoIdArray) {
             submitRequest(options, function(response) {
               response = JSON.parse(response);
               videoDataArray[videoNumber].sources = response.length;
+
+              // increment count and go on if we're not done
+              videoNumber++;
+              if (videoNumber < videoNumberMax) {
+                getVideoInfo();
+              } else {
+                // we done, write the data
+                writeReport();
+              }
             });
         }
 

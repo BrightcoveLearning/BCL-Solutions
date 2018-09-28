@@ -15,18 +15,6 @@ var BCLS = ( function (videoIdArray) {
         requestOptions = {},
         currentVideo;
 
-        /**
-         * Logging function - safe for IE
-         * @param  {string} context - description of the data
-         * @param  {*} message - the data to be logged by the console
-         * @return {}
-         */
-        function bclslog(context, message) {
-            if (window["console"] && console["log"]) {
-              console.log(context, message);
-            }
-            return;
-        };
 
         // write out the report table
         function writeReport() {
@@ -101,7 +89,7 @@ var BCLS = ( function (videoIdArray) {
                                 break;
                             }
                           } else {
-                            bclslog("There was a problem with the request. Request returned " + httpRequest.status);
+                            console.log("There was a problem with the request. Request returned " + httpRequest.status);
                             if (type === 'video') {
                                 setVideoRequestOptions();
                             } else {
@@ -111,7 +99,7 @@ var BCLS = ( function (videoIdArray) {
                         }
                       }
                       catch(e) {
-                        bclslog('Caught Exception: ' + e);
+                        console.log('Caught Exception: ' + e);
                       }
                 };
             // set up request data
@@ -133,7 +121,7 @@ var BCLS = ( function (videoIdArray) {
                 window.location.href = 'clear-log.php';
             }
         });
-        // bclslog('videoIdArray', videoIdArray);
+        console.log('videoIdArray', videoIdArray);
 
         // get things started
         account.innerHTML = account_id;

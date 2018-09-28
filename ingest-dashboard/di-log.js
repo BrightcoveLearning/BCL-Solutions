@@ -13,15 +13,7 @@ var BCLS = ( function (videoIdArray) {
         videoDataArray = [],
         videoDataItem = {},
         requestOptions = {},
-        currentVideo,
-        // functions
-        submitRequest,
-        setVideoRequestOptions,
-        setSourcesRequestOptions,
-        getVideoInfo,
-        writeReport,
-        clearLog,
-        bclslog;
+        currentVideo;
 
         /**
          * Logging function - safe for IE
@@ -29,7 +21,7 @@ var BCLS = ( function (videoIdArray) {
          * @param  {*} message - the data to be logged by the console
          * @return {}
          */
-        bclslog = function (context, message) {
+        function bclslog(context, message) {
             if (window["console"] && console["log"]) {
               console.log(context, message);
             }
@@ -37,7 +29,7 @@ var BCLS = ( function (videoIdArray) {
         };
 
         // write out the report table
-        writeReport = function () {
+        function writeReport() {
             var j,
                 jMax = videoDataArray.length,
                 item;
@@ -49,19 +41,19 @@ var BCLS = ( function (videoIdArray) {
         };
 
         // function to set up video data request
-        setVideoRequestOptions = function () {
+        function setVideoRequestOptions() {
             requestOptions = {};
             requestOptions.url = 'https://cms.api.brightcove.com/v1/accounts/' + account_id + '/videos/' + currentVideo;
             submitRequest(requestOptions, proxyURL, 'video');
         };
         // function to set up video sources request
-        setSourcesRequestOptions = function () {
+        function setSourcesRequestOptions() {
             requestOptions.url = 'https://cms.api.brightcove.com/v1/accounts/' + account_id + '/videos/' + currentVideo + '/sources';
             submitRequest(requestOptions, proxyURL, 'sources');
         };
 
         // initiates the cms api requests
-        getVideoInfo = function () {
+        function getVideoInfo() {
             if (videoIdArray.length > 0) {
                 currentVideo = videoIdArray[i];
                 setVideoRequestOptions();
@@ -71,7 +63,7 @@ var BCLS = ( function (videoIdArray) {
         };
 
         // function to make the cms api requests
-        submitRequest = function (options, url, type) {
+        function submitRequest(options, url, type) {
             var httpRequest = new XMLHttpRequest(),
                 requestData,
                 responseData,

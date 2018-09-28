@@ -82,9 +82,6 @@ var BCLS = ( function (videoIdArray) {
          * @param  {String} options.url the full API request URL
          * @param  {String="GET","POST","PATCH","PUT","DELETE"} requestData [options.requestType="GET"] HTTP type for the request
          * @param  {String} options.proxyURL proxyURL to send the request to
-         * @param  {String} options.client_id client id for the account (default is in the proxy)
-         * @param  {String} options.client_secret client secret for the account (default is in the proxy)
-         * @param  {JSON} [options.requestBody] Data to be sent in the request body in the form of a JSON string
          * @param  {Function} [callback] callback function that will process the response
          */
         function makeRequest(options, callback) {

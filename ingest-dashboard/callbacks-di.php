@@ -42,15 +42,17 @@ if (isset($decoded["action"])) {
 
 // if notification is for completed title, act
 
-if (($entityType == 'TITLE') && ($action == 'CREATE') && ($status == 'SUCCESS') || ($status == 'FAIL')) {
-  $newLine = "\nvideoIdArray.unshift(".$videoId.");";
-  // Tell PHP where it can find the log file and tell PHP to open it
-  // and add the string we created earlier to it.
-  $logFileLocation = "video-ids.js";
-  $fileHandle      = fopen($logFileLocation, 'a') or die("-1");
-  chmod($logFileLocation, 0777);
-  fwrite($fileHandle, $newLine);
-  fclose($fileHandle);
+if (($entityType == 'TITLE') && ($action == 'CREATE')) {
+  if (($status == 'SUCCESS') || ($status == 'FAIL')) {
+    $newLine = "\nvideoIdArray.unshift(".$videoId.");";
+    // Tell PHP where it can find the log file and tell PHP to open it
+    // and add the string we created earlier to it.
+    $logFileLocation = "video-ids.js";
+    $fileHandle      = fopen($logFileLocation, 'a') or die("-1");
+    chmod($logFileLocation, 0777);
+    fwrite($fileHandle, $newLine);
+    fclose($fileHandle);
+  }
 }
 
 // save full notification for audit trail

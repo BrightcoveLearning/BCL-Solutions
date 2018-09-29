@@ -9,6 +9,9 @@ try {
   echo $problem;
 }
 
+// full notification
+$notification = json_encode($decoded, JSON_PRETTY_PRINT);
+
 // Begin by extracting the useful parts of the notification
 
 if (isset($decoded["videoId"])) {
@@ -51,11 +54,11 @@ if (($entityType == 'TITLE') && ($action == 'CREATE') && ($status == 'SUCCESS') 
 }
 
 // save full notification for audit trail
-$notification = json_encode($decoded, JSON_PRETTY_PRINT);
 $logEntry = $notification.",\n";
 
 $logFileLocation = "full-log.json";
 $fileHandle      = fopen($logFileLocation, 'a') or die("-1");
+chmod($logFileLocation, 0777);
 fwrite($fileHandle, $logEntry);
 fclose($fileHandle);
 

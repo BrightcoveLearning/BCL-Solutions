@@ -146,9 +146,9 @@ var BCLS = (function(window, document) {
       case 'ingestVideo':
       var body = {};
       body.master = {};
-      body.master.url = selectedVideoURL.value;
+      body.master.url = selectedVideoURL;
       if (selectedProfile) {
-        body.profile = selectedProfile.value;
+        body.profile = selectedProfile;
       }
       body['capture-images'] = true;
       body.callbacks = [callbackURL];
@@ -248,12 +248,12 @@ var BCLS = (function(window, document) {
     setCMSDataDisplay();
   });
   profileSelector.addEventListener('change', function() {
-    selectedProfile = getSelectedValue(profileSelector);
+    selectedProfile = getSelectedValue(profileSelector).value;
     videoName = getVideoName();
     setCMSDataDisplay();
   });
   cms_submit.addEventListener('click', function() {
-    selectedProfile = getSelectedValue(profileSelector);
+    selectedProfile = getSelectedValue(profileSelector).value;
     videoName = getVideoName();
     setCMSDataDisplay();
     createRequest('createVideo');

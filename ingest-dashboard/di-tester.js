@@ -235,6 +235,7 @@ var BCLS = (function(window, document) {
   function getVideoName() {
     var now = new Date().toISOString(),
       video = getSelectedValue(videoSelector);
+      console.log('video', video);
     selectedVideo = video.text;
     selectedVideoURL = video.value;
     reference_id = video.text + now;

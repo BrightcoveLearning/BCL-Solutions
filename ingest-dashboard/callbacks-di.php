@@ -39,7 +39,7 @@ if (isset($decoded["action"])) {
 
 // if notification is for completed title, act
 
-if (($entityType == 'TITLE') && ($action == 'CREATE') && ($status == 'SUCCESS')) {
+if (($entityType == 'TITLE') && ($action == 'CREATE') && ($status == 'SUCCESS') || ($status == 'FAIL')) {
   $newLine = "\nvideoIdArray.unshift(".$videoId.");";
   // Tell PHP where it can find the log file and tell PHP to open it
   // and add the string we created earlier to it.

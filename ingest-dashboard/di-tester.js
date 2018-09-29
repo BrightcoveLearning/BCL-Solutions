@@ -236,6 +236,7 @@ var BCLS = (function(window, document) {
     var now = new Date().toISOString(),
       video = getSelectedValue(videoSelector);
     selectedVideo = video.text;
+    selectedVideoURL = video.value;
     reference_id = video.text + now;
     return selectedVideo;
   }

@@ -30,6 +30,7 @@ var BCLS = ( function (videoIdArray) {
 
         // function to set up video data request
         function setVideoRequestOptions() {
+          loadingMessage.textContent = 'Processing video ' + (videoNumber + 1) + ' of ' + videoNumberMax;
             options = {};
             options.url = 'https://cms.api.brightcove.com/v1/accounts/' + account_id + '/videos/' + currentVideo;
             options.proxyURL = proxyURL;

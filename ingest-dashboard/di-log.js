@@ -55,9 +55,9 @@ var BCLS = ( function (videoIdArray) {
             makeRequest(options, function(response) {
               response = JSON.parse(response);
               if (response.length === 0) {
-                videoDataArray[videoNumbe r].sources = 'Ingest failed';
+                videoDataArray[videoNumber].sources = 'Ingest failed';
               } else {
-                videoDataArray[videoNumbe r].sources = response.length;
+                videoDataArray[videoNumber].sources = response.length;
               }
 
               // increment count and go on if we're not done

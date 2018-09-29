@@ -58,7 +58,7 @@ if (($entityType == 'TITLE') && ($action == 'CREATE')) {
 // save full notification for audit trail
 $logEntry = $notification.",\n";
 
-$logFileLocation = "full-log.json";
+$logFileLocation = "full-log.txt";
 $fileHandle      = fopen($logFileLocation, 'a') or die("-1");
 chmod($logFileLocation, 0777);
 fwrite($fileHandle, $logEntry);

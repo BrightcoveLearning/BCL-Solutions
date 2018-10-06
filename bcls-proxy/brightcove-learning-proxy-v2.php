@@ -32,8 +32,8 @@ header("X-XSS-Protection");
 // client id and secret values have all permissions for most BCLS accounts
 // default account is Docs Samples account - change this to use a different account
 $default_account_id    = '57838016001';
-$default_client_id     = '3e23bbec-59b8-4861-b5ba-7c26e110a746';
-$default_client_secret = 'quNdrH07IVoG8yZxSFsCySWmtvUuWfPYyzeg1Nil7Md7VpQ50A3KVV4eeMrZSR7FdeZA_3JS5jV9pBBI0skwWA';
+$default_client_id     = '1cc58a75-9eb4-4667-9e98-c51e6e634729';
+$default_client_secret = '--z1b1PMzBfrK3cvPx6lbLayczxPBxSMdWaoKclejO7pJpYoqtU6-UuV224t3EA9IW94gYZ-bUewVYuxFWx7AA';
 
 // get request body
 $requestData = json_decode(file_get_contents('php://input'));

@@ -136,7 +136,6 @@ if ($requestData->requestBody) {
     }
   $response = curl_exec($curl);
   curl_close($curl);
-  echo $response;
 
 // Check for errors and log them if any
 // note that logging will fail unless

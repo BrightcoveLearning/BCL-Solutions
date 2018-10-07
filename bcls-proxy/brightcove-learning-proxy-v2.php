@@ -75,7 +75,6 @@ if ($response === FALSE) {
 // Decode the response
 $responseData = json_decode($response, TRUE);
 $access_token = $responseData["access_token"];
-echo $access_token;
 // get request type or default to GET
 if ($requestData->requestType) {
     $method = $requestData->requestType;

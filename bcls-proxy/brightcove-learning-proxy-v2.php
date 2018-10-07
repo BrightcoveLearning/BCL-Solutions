@@ -132,7 +132,7 @@ if ($requestData->requestBody) {
             curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
             break;
         default:
-            exit('{"Error":"Bad Request: Unknown Request type"}');
+            // GET request, nothing to do;
     }
   // curl_setopt_array($curl, array(
   //   CURLOPT_CUSTOMREQUEST  => $method,

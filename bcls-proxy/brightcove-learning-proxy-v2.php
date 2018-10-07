@@ -123,7 +123,6 @@ if ($requestData->requestBody) {
       "Authorization: Bearer {$access_token}"
     )
   ));
-  echo var_dump $ch;
   $response = curl_exec($ch);
   curl_close($ch);
 }

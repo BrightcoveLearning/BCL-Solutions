@@ -93,7 +93,7 @@ if ($requestData->requestType) {
 //     exit('[{"error_cocde":'.$m.'}]');
 // } else if ($nextChar !== '/' && $nextChar !== '?') {
 //     exit('{"ERROR": "There was a problem with your API request - please check the URL"}');
-}
+// }
 // get the URL and authorization info from the form data
 $request = $requestData->url;
 //send the http request

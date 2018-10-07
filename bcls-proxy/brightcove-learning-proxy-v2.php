@@ -54,8 +54,8 @@ if ($requestData->client_secret) {
 
 $auth_string = "{$client_id}:{$client_secret}";
 $request     = "https://oauth.brightcove.com/v4/access_token?grant_type=client_credentials";
-$ch          = curl_init($request);
-curl_setopt_array($ch, array(
+$curl          = curl_init($request);
+curl_setopt_array($curl, array(
         CURLOPT_POST           => TRUE,
         CURLOPT_RETURNTRANSFER => TRUE,
         CURLOPT_SSL_VERIFYPEER => FALSE,
@@ -64,12 +64,12 @@ curl_setopt_array($ch, array(
             'Content-type: application/x-www-form-urlencoded',
         ),
     ));
-$response = curl_exec($ch);
-curl_close($ch);
+$response = curl_exec($curl);
+curl_close($curl);
 
 // Check for errors
 if ($response === FALSE) {
-    die(curl_error($ch));
+    die(curl_error($curl));
 }
 
 // Decode the response
@@ -100,22 +100,52 @@ if (strpos($requestData->url, 'api.brightcove.com') == false && strpos($requestD
 $request = $requestData->url;
 //send the http request
 if ($requestData->requestBody) {
-  $ch = curl_init($request);
-  curl_setopt_array($ch, array(
+  $data = $requestData->requestBody;
+}
+  $curl = curl_init($request);
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+  curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, TRUE);
+  curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+    'Content-type: application/json',
+    "Authorization: Bearer {$access_token}"
+  ));
+  curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, TRUE);
+  switch ($method)
+    {
+        case "POST":
+            curl_setopt($curl, CURLOPT_POST, 1);
+            if ($requestData->requestBody)
+                curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            break;
+        case "PUT":
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 1);
+            if ($requestData->requestBody)
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            break;
+        case "DELETE":
+            curl_setopt($curl, CURLOPT_PUT, 1);
+            if ($requestData->requestBody)
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            break;
+        default:
+            if ($data)
+                $url = sprintf("%s?%s", $url, http_build_query($data));
+    }
+  curl_setopt_array($curl, array(
     CURLOPT_CUSTOMREQUEST  => $method,
     CURLOPT_RETURNTRANSFER => TRUE,
     CURLOPT_SSL_VERIFYPEER => TRUE,
     CURLOPT_HTTPHEADER     => array(
       'Content-type: application/json',
-      "Authorization: Bearer {$access_token}",
+      "Authorization: Bearer {$access_token}"
     ),
     CURLOPT_POSTFIELDS => $requestData->requestBody
   ));
-  $response = curl_exec($ch);
-  curl_close($ch);
+  $response = curl_exec($curl);
+  curl_close($curl);
 } else {
-  $ch = curl_init($request);
-  curl_setopt_array($ch, array(
+  $curl = curl_init($request);
+  curl_setopt_array($curl, array(
     CURLOPT_CUSTOMREQUEST  => $method,
     CURLOPT_RETURNTRANSFER => TRUE,
     CURLOPT_SSL_VERIFYPEER => TRUE,
@@ -123,8 +153,8 @@ if ($requestData->requestBody) {
       "Authorization: Bearer {$access_token}"
     )
   ));
-  $response = curl_exec($ch);
-  curl_close($ch);
+  $response = curl_exec($curl);
+  curl_close($curl);
 }
 
 // Check for errors and log them if any
@@ -141,7 +171,7 @@ if ($response === FALSE) {
     fwrite($fileHandle, $logEntry);
     fclose($fileHandle);
     echo "Error: there was a problem with your API call"+
-    die(curl_error($ch));
+    die(curl_error($curl));
 }
 
 // return the response to the AJAX caller

@@ -121,7 +121,6 @@ if ($requestData->requestBody) {
     CURLOPT_RETURNTRANSFER => TRUE,
     CURLOPT_SSL_VERIFYPEER => FALSE,
     CURLOPT_HTTPHEADER     => array(
-      'Content-type: application/json',
       "Authorization: Bearer {$access_token}"
     )
   ));

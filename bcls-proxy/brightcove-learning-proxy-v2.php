@@ -116,7 +116,6 @@ if ($requestData->requestBody) {
 } else {
   $ch = curl_init($request);
   curl_setopt_array($ch, array(
-    CURLOPT_CUSTOMREQUEST  => $method,
     CURLOPT_RETURNTRANSFER => TRUE,
     CURLOPT_SSL_VERIFYPEER => FALSE,
     CURLOPT_HTTPHEADER     => array(

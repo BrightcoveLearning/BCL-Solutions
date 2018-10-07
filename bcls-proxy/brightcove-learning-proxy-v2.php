@@ -109,7 +109,6 @@ if ($requestData->requestBody) {
     'Content-type: application/json',
     "Authorization: Bearer {$access_token}"
   ));
-  curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, TRUE);
   switch ($method)
     {
         case "POST":
@@ -118,18 +117,22 @@ if ($requestData->requestBody) {
                 curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
             break;
         case "PUT":
-            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 1);
-            if ($requestData->requestBody)
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-            break;
-        case "DELETE":
             curl_setopt($curl, CURLOPT_PUT, 1);
             if ($requestData->requestBody)
             curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
             break;
+        case "PATCH":
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+            if ($requestData->requestBody)
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            break;
+        case "DELETE":
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+            if ($requestData->requestBody)
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            break;
         default:
-            if ($data)
-                $url = sprintf("%s?%s", $url, http_build_query($data));
+            exit('{"Error":"Bad Request: Unknown Request type"}');
     }
   curl_setopt_array($curl, array(
     CURLOPT_CUSTOMREQUEST  => $method,

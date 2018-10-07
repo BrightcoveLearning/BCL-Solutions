@@ -134,31 +134,8 @@ if ($requestData->requestBody) {
         default:
             // GET request, nothing to do;
     }
-  // curl_setopt_array($curl, array(
-  //   CURLOPT_CUSTOMREQUEST  => $method,
-  //   CURLOPT_RETURNTRANSFER => TRUE,
-  //   CURLOPT_SSL_VERIFYPEER => TRUE,
-  //   CURLOPT_HTTPHEADER     => array(
-  //     'Content-type: application/json',
-  //     "Authorization: Bearer {$access_token}"
-  //   ),
-  //   CURLOPT_POSTFIELDS => $requestData->requestBody
-  // ));
   $response = curl_exec($curl);
   curl_close($curl);
-  // } else {
-  //   $curl = curl_init($request);
-  //   curl_setopt_array($curl, array(
-  //     CURLOPT_CUSTOMREQUEST  => $method,
-  //     CURLOPT_RETURNTRANSFER => TRUE,
-  //     CURLOPT_SSL_VERIFYPEER => TRUE,
-  //     CURLOPT_HTTPHEADER     => array(
-  //       "Authorization: Bearer {$access_token}"
-  //     )
-  //   ));
-  //   $response = curl_exec($curl);
-  //   curl_close($curl);
-  // }
 
 // Check for errors and log them if any
 // note that logging will fail unless

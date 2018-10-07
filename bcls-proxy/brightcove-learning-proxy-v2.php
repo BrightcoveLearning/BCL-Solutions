@@ -118,7 +118,7 @@ if ($requestData->requestBody) {
   curl_setopt_array($ch, array(
     CURLOPT_CUSTOMREQUEST  => $method,
     CURLOPT_RETURNTRANSFER => TRUE,
-    CURLOPT_SSL_VERIFYPEER => FALSE,
+    CURLOPT_SSL_VERIFYPEER => TRUE,
     CURLOPT_HTTPHEADER     => array(
       "Authorization: Bearer {$access_token}"
     )

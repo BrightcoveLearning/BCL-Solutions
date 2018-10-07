@@ -55,15 +55,14 @@ if ($requestData->client_secret) {
 $auth_string = "{$client_id}:{$client_secret}";
 $request     = "https://oauth.brightcove.com/v4/access_token?grant_type=client_credentials";
 $curl          = curl_init($request);
-curl_setopt_array($curl, array(
-        CURLOPT_POST           => TRUE,
-        CURLOPT_RETURNTRANSFER => TRUE,
-        CURLOPT_SSL_VERIFYPEER => FALSE,
-        CURLOPT_USERPWD        => $auth_string,
-        CURLOPT_HTTPHEADER     => array(
-            'Content-type: application/x-www-form-urlencoded',
-        ),
-    ));
+curl_setopt($curl, CURLOPT_USERPWD, $auth_string);
+curl_setopt($curl, CURLOPT_POST, TRUE);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, TRUE);
+curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+  'Content-type: application/x-www-form-urlencoded',
+));
+
 $response = curl_exec($curl);
 curl_close($curl);
 
@@ -112,12 +111,12 @@ if ($requestData->requestBody) {
   switch ($method)
     {
         case "POST":
-            curl_setopt($curl, CURLOPT_POST, 1);
+            curl_setopt($curl, CURLOPT_POST, TRUE);
             if ($requestData->requestBody)
                 curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
             break;
         case "PUT":
-            curl_setopt($curl, CURLOPT_PUT, 1);
+            curl_setopt($curl, CURLOPT_PUT, TRUE);
             if ($requestData->requestBody)
             curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
             break;

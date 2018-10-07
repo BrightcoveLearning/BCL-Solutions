@@ -98,33 +98,42 @@ if ($requestData->requestType) {
 $request = $requestData->url;
 //send the http request
 if ($requestData->requestBody) {
-  $ch = curl_init($request);
-  curl_setopt_array($ch, array(
-    CURLOPT_CUSTOMREQUEST  => $method,
-    CURLOPT_RETURNTRANSFER => TRUE,
-    CURLOPT_SSL_VERIFYPEER => FALSE,
-    CURLOPT_HTTPHEADER     => array(
-      'Content-type: application/json',
-      "Authorization: Bearer {$access_token}",
-    ),
-    CURLOPT_POSTFIELDS => $requestData->requestBody
-  ));
-  $response = curl_exec($ch);
-  curl_close($ch);
-} else {
-  $ch = curl_init($request);
-  curl_setopt_array($ch, array(
-    CURLOPT_CUSTOMREQUEST  => $method,
-    CURLOPT_RETURNTRANSFER => TRUE,
-    CURLOPT_SSL_VERIFYPEER => FALSE,
-    CURLOPT_HTTPHEADER     => array(
-      'Content-type: application/json',
-      "Authorization: Bearer {$access_token}",
-    )
-  ));
-  $response = curl_exec($ch);
-  curl_close($ch);
+  $data = $requestData->requestBody;
 }
+  $curl = curl_init($request);
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+  curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, TRUE);
+  curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+    'Content-type: application/json',
+    "Authorization: Bearer {$access_token}"
+  ));
+  switch ($method)
+    {
+        case "POST":
+            curl_setopt($curl, CURLOPT_POST, 1);
+            if ($requestData->requestBody)
+                curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            break;
+        case "PUT":
+            curl_setopt($curl, CURLOPT_PUT, 1);
+            if ($requestData->requestBody)
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            break;
+        case "PATCH":
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+            if ($requestData->requestBody)
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            break;
+        case "DELETE":
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+            if ($requestData->requestBody)
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            break;
+        default:
+            // GET request, nothing to do;
+    }
+  $response = curl_exec($curl);
+  curl_close($curl);
 
 // Check for errors and log them if any
 // note that logging will fail unless
@@ -140,15 +149,9 @@ if ($response === FALSE) {
     fwrite($fileHandle, $logEntry);
     fclose($fileHandle);
     echo "Error: there was a problem with your API call"+
-    die(curl_error($ch));
+    die(curl_error($curl));
 }
 
-// Decode the response
-// $responseData = json_decode($response, TRUE);
 // return the response to the AJAX caller
-$responseDecoded = json_decode($response);
-if (!isset($responseDecoded)) {
-    $response = '{null}';
-}
 echo $response;
 ?>

@@ -134,6 +134,7 @@ if ($requestData->requestBody) {
             // GET request, nothing to do;
     }
   $response = curl_exec($curl);
+  $curl_error = curl_error($curl);
   curl_close($curl);
 
 // Check for errors and log them if any
@@ -144,7 +145,7 @@ if ($requestData->requestBody) {
 if ($response === FALSE) {
     $logEntry = "\nError:\n".
     "\n".date("Y-m-d H:i:s")." UTC \n"
-    .$response;
+    .$curl_error;
     $logFileLocation = "log.txt";
     $fileHandle      = fopen($logFileLocation, 'a') or die("-1");
     fwrite($fileHandle, $logEntry);

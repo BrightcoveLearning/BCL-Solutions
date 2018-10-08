@@ -64,13 +64,13 @@ curl_setopt($curl, CURLOPT_HTTPHEADER, array(
 ));
 
 $response = curl_exec($curl);
-$curl_error = curl_getinfo($curl, CURLINFO_OS_ERRNO);
+$curl_error = curl_getinfo($curl);
 
 curl_close($curl);
 
 // Check for errors
 if ($response === FALSE) {
-    die(curl_error($curl));
+  log_error();
 }
 
 // Decode the response
@@ -145,15 +145,19 @@ if ($requestData->requestBody) {
 // directory as the proxy and is writable
 
 if ($response === FALSE) {
-    $logEntry = "\nError:\n".
-    "\n".date("Y-m-d H:i:s")." UTC \n"
-    .json_encode($curl_error, JSON_PRETTY_PRINT);
-    $logFileLocation = "log.txt";
-    $fileHandle      = fopen($logFileLocation, 'a') or die("-1");
-    fwrite($fileHandle, $logEntry);
-    fclose($fileHandle);
-    echo "Error: there was a problem with your API call"+
-    die(curl_error($curl));
+  log_error();
+}
+
+function log_error() {
+  $logEntry = "\nError:\n".
+  "\n".date("Y-m-d H:i:s")." UTC \n"
+  .json_encode($curl_error, JSON_PRETTY_PRINT);
+  $logFileLocation = "log.txt";
+  $fileHandle      = fopen($logFileLocation, 'a') or die("-1");
+  fwrite($fileHandle, $logEntry);
+  fclose($fileHandle);
+  echo "Error: there was a problem with your API call"+
+  die(curl_error($curl));
 }
 
 // return the response to the AJAX caller

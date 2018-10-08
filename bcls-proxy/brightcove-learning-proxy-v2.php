@@ -64,6 +64,8 @@ curl_setopt($curl, CURLOPT_HTTPHEADER, array(
 ));
 
 $response = curl_exec($curl);
+$curl_error = curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
+
 curl_close($curl);
 
 // Check for errors

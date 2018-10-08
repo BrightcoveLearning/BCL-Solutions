@@ -58,7 +58,7 @@ $curl          = curl_init($request);
 curl_setopt($curl, CURLOPT_USERPWD, $auth_string);
 curl_setopt($curl, CURLOPT_POST, TRUE);
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
-curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, TRUE);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
 curl_setopt($curl, CURLOPT_HTTPHEADER, array(
   'Content-type: application/x-www-form-urlencoded',
 ));
@@ -109,7 +109,7 @@ if (isset($requestData->requestBody)) {
 }
   $curl = curl_init($request);
   curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
-  curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, TRUE);
+  curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
   curl_setopt($curl, CURLOPT_HTTPHEADER, array(
     'Content-type: application/json',
     "Authorization: Bearer {$access_token}"

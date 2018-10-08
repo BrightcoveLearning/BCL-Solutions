@@ -64,7 +64,7 @@ curl_setopt($curl, CURLOPT_HTTPHEADER, array(
 ));
 
 $response = curl_exec($curl);
-$curl_error = curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
+$curl_error = curl_getinfo($curl, CURLINFO_OS_ERRNO);
 
 curl_close($curl);
 
@@ -136,7 +136,7 @@ if ($requestData->requestBody) {
             // GET request, nothing to do;
     }
   $response = curl_exec($curl);
-  $curl_error = curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
+  $curl_error = curl_getinfo($curl, CURLINFO_OS_ERRNO);
   curl_close($curl);
 
 // Check for errors and log them if any

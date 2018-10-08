@@ -147,15 +147,6 @@ if (isset($requestData->requestBody)) {
   $curl_error = curl_error($curl);
   curl_close($curl);
 
-  $logEntry = "\nError:\n". "\n".date("Y-m-d H:i:s"). " UTC \n" .$curl_error. "\n".json_encode($php_log, JSON_PRETTY_PRINT);
-  $logFileLocation = "log.txt";
-  $fileHandle      = fopen($logFileLocation, 'a') or die("-1");
-  fwrite($fileHandle, $logEntry);
-  fclose($fileHandle);
-  echo "Error: there was a problem with your API call"+
-  die(json_encode($php_log, JSON_PRETTY_PRINT));
-
-
 // Check for errors and log them if any
 // note that logging will fail unless
 // the file log.txt exists in the same

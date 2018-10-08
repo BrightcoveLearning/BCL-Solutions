@@ -157,7 +157,7 @@ function log_error() {
   fwrite($fileHandle, $logEntry);
   fclose($fileHandle);
   echo "Error: there was a problem with your API call"+
-  die(curl_error($curl));
+  die(json_encode($curl_error, JSON_PRETTY_PRINT));
 }
 
 // return the response to the AJAX caller

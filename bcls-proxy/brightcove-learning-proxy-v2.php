@@ -39,13 +39,13 @@ $default_client_secret = '--z1b1PMzBfrK3cvPx6lbLayczxPBxSMdWaoKclejO7pJpYoqtU6-U
 $requestData = json_decode(file_get_contents('php://input'));
 
 // set up access token request
-if ($requestData->client_id) {
+if (isset($requestData->client_id)) {
     $client_id = $requestData->client_id;
 } else {
     // default to the id for all permissions for most BCLS accounts
     $client_id = $default_client_id;
 }
-if ($requestData->client_secret) {
+if (isset($requestData->client_secret)) {
     $client_secret = $requestData->client_secret;
 } else {
     // default to the secret for all permissions for most BCLS accounts
@@ -64,11 +64,17 @@ curl_setopt($curl, CURLOPT_HTTPHEADER, array(
 ));
 
 $response = curl_exec($curl);
+$curl_info = curl_getinfo($curl);
+$php_log = array(
+  "php_error_info" => $curl_info
+);
+$curl_error = curl_error($curl);
+
 curl_close($curl);
 
 // Check for errors
 if ($response === FALSE) {
-    die(curl_error($curl));
+  log_error($php_log, $curl_error);
 }
 
 // Decode the response
@@ -98,7 +104,7 @@ if (strpos($requestData->url, 'api.brightcove.com') == false && strpos($requestD
 // get the URL and authorization info from the form data
 $request = $requestData->url;
 //send the http request
-if ($requestData->requestBody) {
+if (isset($requestData->requestBody)) {
   $data = $requestData->requestBody;
 }
   $curl = curl_init($request);
@@ -134,7 +140,11 @@ if ($requestData->requestBody) {
             // GET request, nothing to do;
     }
   $response = curl_exec($curl);
-  $curl_error = curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
+  $curl_info = curl_getinfo($curl);
+  $php_log = array(
+    "php_error_info" => $curl_info
+  );
+  $curl_error = curl_error($curl);
   curl_close($curl);
 
 // Check for errors and log them if any
@@ -143,15 +153,17 @@ if ($requestData->requestBody) {
 // directory as the proxy and is writable
 
 if ($response === FALSE) {
-    $logEntry = "\nError:\n".
-    "\n".date("Y-m-d H:i:s")." UTC \n"
-    .$curl_error;
-    $logFileLocation = "log.txt";
-    $fileHandle      = fopen($logFileLocation, 'a') or die("-1");
-    fwrite($fileHandle, $logEntry);
-    fclose($fileHandle);
-    echo "Error: there was a problem with your API call"+
-    die(curl_error($curl));
+  log_error($php_log, $curl_error);
+}
+
+function log_error($php_log, $curl_error) {
+  $logEntry = "\nError:\n". "\n".date("Y-m-d H:i:s"). " UTC \n" .$curl_error. "\n".json_encode($php_log, JSON_PRETTY_PRINT);
+  $logFileLocation = "log.txt";
+  $fileHandle      = fopen($logFileLocation, 'a') or die("-1");
+  fwrite($fileHandle, $logEntry);
+  fclose($fileHandle);
+  echo "Error: there was a problem with your API call"+
+  die(json_encode($php_log, JSON_PRETTY_PRINT));
 }
 
 // return the response to the AJAX caller

@@ -65,13 +65,16 @@ curl_setopt($curl, CURLOPT_HTTPHEADER, array(
 
 $response = curl_exec($curl);
 $curl_info = curl_getinfo($curl);
+$php_log = array(
+  "php_error_info" => $curl_info
+);
 $curl_error = curl_error($curl);
 
 curl_close($curl);
 
 // Check for errors
 if ($response === FALSE) {
-  log_error($curl_info);
+  log_error($php_log);
 }
 
 // Decode the response
@@ -138,6 +141,9 @@ if (isset($requestData->requestBody)) {
     }
   $response = curl_exec($curl);
   $curl_info = curl_getinfo($curl);
+  $php_log = array(
+    "php_error_info" => $curl_info
+  );
   $curl_error = curl_error($curl);
   curl_close($curl);
 
@@ -147,14 +153,14 @@ if (isset($requestData->requestBody)) {
 // directory as the proxy and is writable
 
 if ($response === FALSE) {
-  log_error($curl_info);
+  log_error($php_log);
 }
 
 function log_error($curl_info) {
   $logEntry = "\nError:\n".
   "\n".date("Y-m-d H:i:s")." UTC \n"
   .$curl_error.'\n'
-  .json_encode($curl_info, JSON_PRETTY_PRINT);
+  .json_encode($php_log, JSON_PRETTY_PRINT);
   $logFileLocation = "log.txt";
   $fileHandle      = fopen($logFileLocation, 'a') or die("-1");
   fwrite($fileHandle, $logEntry);

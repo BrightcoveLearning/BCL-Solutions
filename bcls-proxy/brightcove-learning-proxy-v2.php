@@ -147,7 +147,7 @@ if ($requestData->requestBody) {
 if ($response === FALSE) {
     $logEntry = "\nError:\n".
     "\n".date("Y-m-d H:i:s")." UTC \n"
-    .json_encode($curl_error);
+    .json_encode($curl_error, JSON_PRETTY_PRINT);
     $logFileLocation = "log.txt";
     $fileHandle      = fopen($logFileLocation, 'a') or die("-1");
     fwrite($fileHandle, $logEntry);

@@ -39,13 +39,13 @@ $default_client_secret = '--z1b1PMzBfrK3cvPx6lbLayczxPBxSMdWaoKclejO7pJpYoqtU6-U
 $requestData = json_decode(file_get_contents('php://input'));
 
 // set up access token request
-if ($requestData->client_id) {
+if (isset($requestData->client_id)) {
     $client_id = $requestData->client_id;
 } else {
     // default to the id for all permissions for most BCLS accounts
     $client_id = $default_client_id;
 }
-if ($requestData->client_secret) {
+if (isset($requestData->client_secret)) {
     $client_secret = $requestData->client_secret;
 } else {
     // default to the secret for all permissions for most BCLS accounts

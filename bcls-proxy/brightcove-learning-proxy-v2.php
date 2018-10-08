@@ -158,9 +158,7 @@ if ($response === FALSE) {
 
 function log_error($curl_info) {
   $logEntry = "\nError:\n".
-  "\n".date("Y-m-d H:i:s")." UTC \n"
-  .$curl_error.'\n'
-  .json_encode($php_log, JSON_PRETTY_PRINT);
+  "\n".date("Y-m-d H:i:s")." UTC \n".$curl_error. "\n".json_encode($php_log, JSON_PRETTY_PRINT);
   $logFileLocation = "log.txt";
   $fileHandle      = fopen($logFileLocation, 'a') or die("-1");
   fwrite($fileHandle, $logEntry);

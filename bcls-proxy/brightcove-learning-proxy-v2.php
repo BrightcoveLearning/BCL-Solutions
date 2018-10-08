@@ -136,7 +136,7 @@ if ($requestData->requestBody) {
             // GET request, nothing to do;
     }
   $response = curl_exec($curl);
-  $curl_error = curl_getinfo($curl, CURLINFO_OS_ERRNO);
+  $curl_error = curl_getinfo($curl, CURLINFO_HEADER_OUT);
   curl_close($curl);
 
 // Check for errors and log them if any

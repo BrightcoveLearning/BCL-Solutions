@@ -70,7 +70,7 @@ curl_close($curl);
 
 // Check for errors
 if ($response === FALSE) {
-  log_error();
+  log_error($curl_error);
 }
 
 // Decode the response
@@ -145,10 +145,10 @@ if ($requestData->requestBody) {
 // directory as the proxy and is writable
 
 if ($response === FALSE) {
-  log_error();
+  log_error($curl_error);
 }
 
-function log_error() {
+function log_error($curl_error) {
   $logEntry = "\nError:\n".
   "\n".date("Y-m-d H:i:s")." UTC \n"
   .json_encode($curl_error, JSON_PRETTY_PRINT);

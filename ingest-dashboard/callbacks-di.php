@@ -13,6 +13,8 @@ try {
 $notification = json_encode($decoded, JSON_PRETTY_PRINT);
 
 // Begin by extracting the useful parts of the notification
+// for Dynamic Delivery, look for $videoId
+// for the legacy ingest system, the video id is the entity
 
 if (isset($decoded["videoId"])) {
   $videoId = $decoded["videoId"];

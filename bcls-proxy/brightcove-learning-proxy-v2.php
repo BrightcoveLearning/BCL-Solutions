@@ -100,7 +100,7 @@ if (strpos($requestData->url, 'api.brightcove.com') == false && strpos($requestD
 // get the URL and authorization info from the form data
 $request = $requestData->url;
 //send the http request
-if ($requestData->requestBody) {
+if (isset($requestData->requestBody)) {
   $data = $requestData->requestBody;
 }
   $curl = curl_init($request);

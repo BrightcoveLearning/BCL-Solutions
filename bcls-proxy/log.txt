@@ -80,3 +80,39 @@ Protocol  https not supported or disabled in libcurl
         "local_port": 0
     }
 }
+Error:
+
+2018-10-08 17:10:29 UTC 
+
+{
+    "php_error_info": {
+        "url": "https:\/\/cms.api.brightcove.com\/v1\/accounts\/57838016001\/videos?limit=10",
+        "content_type": "application\/json; charset=UTF-8",
+        "http_code": 200,
+        "header_size": 656,
+        "request_size": 1299,
+        "filetime": -1,
+        "ssl_verify_result": 0,
+        "redirect_count": 0,
+        "total_time": 0.357908,
+        "namelookup_time": 0.125027,
+        "connect_time": 0.150989,
+        "pretransfer_time": 0.206615,
+        "size_upload": 0,
+        "size_download": 12737,
+        "speed_download": 35587,
+        "speed_upload": 0,
+        "download_content_length": -1,
+        "upload_content_length": 0,
+        "starttransfer_time": 0.35786,
+        "redirect_time": 0,
+        "redirect_url": "",
+        "primary_ip": "34.224.145.1",
+        "certinfo": [
+
+        ],
+        "primary_port": 443,
+        "local_ip": "192.237.167.147",
+        "local_port": 39918
+    }
+}

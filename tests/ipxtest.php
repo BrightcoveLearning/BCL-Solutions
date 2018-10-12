@@ -13,9 +13,6 @@ $client_secret = '_wTTGx710UrBhvU-xjgWaPg1c9_SBqfH66pcKT79xmEmNDqTqkyVvcQyXieArP
 $url = ' https://experiences.api.brightcove.com/v1/accounts/experiences';
 
 echo 'request url: '.$url.'\n\n';
-// get request body
-$requestData = json_decode(file_get_contents('php://input'));
-
 
 $auth_string = "{$client_id}:{$client_secret}";
 $request     = "https://oauth.brightcove.com/v4/access_token?grant_type=client_credentials";
@@ -47,12 +44,6 @@ $responseData = json_decode($response, TRUE);
 $access_token = $responseData["access_token"];
 
 echo 'access token: '.$access_token.'\n\n';
-// get request type or default to GET
-if ($requestData->requestType) {
-    $method = $requestData->requestType;
-} else {
-    $method = "GET";
-}
 
   $curl = curl_init($request);
   curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);

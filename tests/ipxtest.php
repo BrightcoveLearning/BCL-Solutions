@@ -40,11 +40,11 @@ if ($response === FALSE) {
 $responseData = json_decode($response, TRUE);
 $access_token = $responseData["access_token"];
 
-echo 'access token: '.$access_token.'\n\n';
+echo 'access token: '.$access_token."\n\n";
 
 $request = ' https://experiences.api.brightcove.com/v1/accounts/experiences';
 
-echo 'request url: '.$request.'\n\n';
+echo 'request url: '.$request."\n\n";
 
 
   $curl = curl_init($request);

@@ -8,8 +8,8 @@ header("X-XSS-Protection");
 
 // default account values
 // client id and secret values have all permissions for most BCLS accounts
-$client_id     = '5f781efe-3fc5-4f41-9cd5-d40b6c21ac18';
-$client_secret = '_wTTGx710UrBhvU-xjgWaPg1c9_SBqfH66pcKT79xmEmNDqTqkyVvcQyXieArPKHEf1kqjgWuX_d3rj1-TvUeQ';
+$client_id     = "5f781efe-3fc5-4f41-9cd5-d40b6c21ac18";
+$client_secret = "_wTTGx710UrBhvU-xjgWaPg1c9_SBqfH66pcKT79xmEmNDqTqkyVvcQyXieArPKHEf1kqjgWuX_d3rj1-TvUeQ";
 
 $auth_string = "{$client_id}:{$client_secret}";
 $request     = "https://oauth.brightcove.com/v4/access_token?grant_type=client_credentials";
@@ -19,7 +19,7 @@ curl_setopt($curl, CURLOPT_POST, TRUE);
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
 curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
 curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-  'Content-type: application/x-www-form-urlencoded',
+  "Content-type: application/x-www-form-urlencoded",
 ));
 
 $response = curl_exec($curl);
@@ -40,18 +40,18 @@ if ($response === FALSE) {
 $responseData = json_decode($response, TRUE);
 $access_token = $responseData["access_token"];
 
-echo 'access token: '.$access_token."\n\n";
+echo "access token: ".$access_token."\n\n";
 
-$request = ' https://experiences.api.brightcove.com/v1/accounts/experiences';
+$request = " https://experiences.api.brightcove.com/v1/accounts/experiences";
 
-echo 'request url: '.$request."\n\n";
+echo "request url: ".$request."\n\n";
 
 
   $curl = curl_init($request);
   curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
   curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
   curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-    'Content-type: application/json',
+    "Content-type: application/json",
     "Authorization: Bearer {$access_token}"
   ));
   $response = curl_exec($curl);

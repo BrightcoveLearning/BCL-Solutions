@@ -1,3 +1,5 @@
+<?php
+
 // CORS enablement and other headers
 header("Access-Control-Allow-Origin: *");
 header("Content-type: application/json");
@@ -6,25 +8,14 @@ header("X-XSS-Protection");
 
 // default account values
 // client id and secret values have all permissions for most BCLS accounts
-$default_client_id     = '5f781efe-3fc5-4f41-9cd5-d40b6c21ac18';
-$default_client_secret = '_wTTGx710UrBhvU-xjgWaPg1c9_SBqfH66pcKT79xmEmNDqTqkyVvcQyXieArPKHEf1kqjgWuX_d3rj1-TvUeQ';
+$client_id     = '5f781efe-3fc5-4f41-9cd5-d40b6c21ac18';
+$client_secret = '_wTTGx710UrBhvU-xjgWaPg1c9_SBqfH66pcKT79xmEmNDqTqkyVvcQyXieArPKHEf1kqjgWuX_d3rj1-TvUeQ';
+$url = ' https://experiences.api.brightcove.com/v1/accounts/experiences';
 
+echo 'request url: '.$url.'\n\n';
 // get request body
 $requestData = json_decode(file_get_contents('php://input'));
 
-// set up access token request
-if (isset($requestData->client_id)) {
-    $client_id = $requestData->client_id;
-} else {
-    // default to the id for all permissions for most BCLS accounts
-    $client_id = $default_client_id;
-}
-if (isset($requestData->client_secret)) {
-    $client_secret = $requestData->client_secret;
-} else {
-    // default to the secret for all permissions for most BCLS accounts
-    $client_secret = $default_client_secret;
-}
 
 $auth_string = "{$client_id}:{$client_secret}";
 $request     = "https://oauth.brightcove.com/v4/access_token?grant_type=client_credentials";
@@ -54,6 +45,8 @@ if ($response === FALSE) {
 // Decode the response
 $responseData = json_decode($response, TRUE);
 $access_token = $responseData["access_token"];
+
+echo 'access token: '.$access_token.'\n\n';
 // get request type or default to GET
 if ($requestData->requestType) {
     $method = $requestData->requestType;
@@ -61,26 +54,6 @@ if ($requestData->requestType) {
     $method = "GET";
 }
 
-// more security checks
-$needle = '.com';
-$endapi = strpos($requestData->url, $needle) + 4;
-
-if (strpos($requestData->url, 'data.brightcove.co.jp')) {
-    $endapi = strpos($requestData->url, $needle) + 6;
-}
-$nextChar = substr($requestData->url, $endapi, 1);
-
-if (strpos($requestData->url, 'api.brightcove.com') == false && strpos($requestData->url, 'data.brightcove.co.jp') == false && strpos($requestData->url, 'data.brightcove.com') == false) {
-    exit('{"ERROR":"Only requests to Brightcove APIs are accepted by this proxy"}');
-} else if ($nextChar !== '/' && $nextChar !== '?') {
-    exit('{"ERROR": "There was a problem with your API request - please check the URL"}');
-}
-// get the URL and authorization info from the form data
-$request = $requestData->url;
-//send the http request
-if (isset($requestData->requestBody)) {
-  $data = $requestData->requestBody;
-}
   $curl = curl_init($request);
   curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
   curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
@@ -88,31 +61,6 @@ if (isset($requestData->requestBody)) {
     'Content-type: application/json',
     "Authorization: Bearer {$access_token}"
   ));
-  switch ($method)
-    {
-        case "POST":
-            curl_setopt($curl, CURLOPT_POST, TRUE);
-            if ($requestData->requestBody)
-                curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-            break;
-        case "PUT":
-            curl_setopt($curl, CURLOPT_PUT, TRUE);
-            if ($requestData->requestBody)
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-            break;
-        case "PATCH":
-            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
-            if ($requestData->requestBody)
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-            break;
-        case "DELETE":
-            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
-            if ($requestData->requestBody)
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-            break;
-        default:
-            // GET request, nothing to do;
-    }
   $response = curl_exec($curl);
   $curl_info = curl_getinfo($curl);
   $php_log = array(
@@ -131,13 +79,7 @@ if ($response === FALSE) {
 }
 
 function log_error($php_log, $curl_error) {
-  $logEntry = "\nError:\n". "\n".date("Y-m-d H:i:s"). " UTC \n" .$curl_error. "\n".json_encode($php_log, JSON_PRETTY_PRINT);
-  $logFileLocation = "log.txt";
-  $fileHandle      = fopen($logFileLocation, 'a') or die("-1");
-  fwrite($fileHandle, $logEntry);
-  fclose($fileHandle);
-  echo "Error: there was a problem with your API call"+
-  die(json_encode($php_log, JSON_PRETTY_PRINT));
+  echo $logEntry = "\nError:\n". "\n".date("Y-m-d H:i:s"). " UTC \n" .$curl_error. "\n".json_encode($php_log, JSON_PRETTY_PRINT);
 }
 
 // return the response to the AJAX caller

@@ -10,9 +10,6 @@ header("X-XSS-Protection");
 // client id and secret values have all permissions for most BCLS accounts
 $client_id     = '5f781efe-3fc5-4f41-9cd5-d40b6c21ac18';
 $client_secret = '_wTTGx710UrBhvU-xjgWaPg1c9_SBqfH66pcKT79xmEmNDqTqkyVvcQyXieArPKHEf1kqjgWuX_d3rj1-TvUeQ';
-$url = ' https://experiences.api.brightcove.com/v1/accounts/experiences';
-
-echo 'request url: '.$url.'\n\n';
 
 $auth_string = "{$client_id}:{$client_secret}";
 $request     = "https://oauth.brightcove.com/v4/access_token?grant_type=client_credentials";
@@ -44,6 +41,11 @@ $responseData = json_decode($response, TRUE);
 $access_token = $responseData["access_token"];
 
 echo 'access token: '.$access_token.'\n\n';
+
+$request = ' https://experiences.api.brightcove.com/v1/accounts/experiences';
+
+echo 'request url: '.$request.'\n\n';
+
 
   $curl = curl_init($request);
   curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);

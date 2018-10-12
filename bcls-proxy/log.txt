@@ -512,3 +512,327 @@ Protocol  https not supported or disabled in libcurl
         "local_port": 0
     }
 }
+Error:
+
+2018-10-11 17:11:50 UTC 
+Protocol  https not supported or disabled in libcurl
+{
+    "php_error_info": {
+        "url": " https:\/\/experiences.api.brightcove.com\/v1\/accounts\/57838016001\/templates",
+        "content_type": null,
+        "http_code": 0,
+        "header_size": 0,
+        "request_size": 0,
+        "filetime": -1,
+        "ssl_verify_result": 0,
+        "redirect_count": 0,
+        "total_time": 0,
+        "namelookup_time": 0,
+        "connect_time": 0,
+        "pretransfer_time": 0,
+        "size_upload": 0,
+        "size_download": 0,
+        "speed_download": 0,
+        "speed_upload": 0,
+        "download_content_length": -1,
+        "upload_content_length": -1,
+        "starttransfer_time": 0,
+        "redirect_time": 0,
+        "redirect_url": "",
+        "primary_ip": "",
+        "certinfo": [
+
+        ],
+        "primary_port": 0,
+        "local_ip": "",
+        "local_port": 0
+    }
+}
+Error:
+
+2018-10-11 18:58:22 UTC 
+Illegal characters found in URL
+{
+    "php_error_info": {
+        "url": "\nhttps:\/\/cms.api.brightcove.com\/v1\/accounts\/1061127426001\/videos\/123456789\/assets\/renditions\n",
+        "content_type": null,
+        "http_code": 0,
+        "header_size": 0,
+        "request_size": 0,
+        "filetime": -1,
+        "ssl_verify_result": 0,
+        "redirect_count": 0,
+        "total_time": 0,
+        "namelookup_time": 0,
+        "connect_time": 0,
+        "pretransfer_time": 0,
+        "size_upload": 0,
+        "size_download": 0,
+        "speed_download": 0,
+        "speed_upload": 0,
+        "download_content_length": -1,
+        "upload_content_length": -1,
+        "starttransfer_time": 0,
+        "redirect_time": 0,
+        "redirect_url": "",
+        "primary_ip": "",
+        "certinfo": [
+
+        ],
+        "primary_port": 0,
+        "local_ip": "",
+        "local_port": 0
+    }
+}
+Error:
+
+2018-10-11 19:00:35 UTC 
+Illegal characters found in URL
+{
+    "php_error_info": {
+        "url": "\nhttps:\/\/cms.api.brightcove.com\/v1\/accounts\/1061127426001\/videos\n",
+        "content_type": null,
+        "http_code": 0,
+        "header_size": 0,
+        "request_size": 0,
+        "filetime": -1,
+        "ssl_verify_result": 0,
+        "redirect_count": 0,
+        "total_time": 0,
+        "namelookup_time": 0,
+        "connect_time": 0,
+        "pretransfer_time": 0,
+        "size_upload": 0,
+        "size_download": 0,
+        "speed_download": 0,
+        "speed_upload": 0,
+        "download_content_length": -1,
+        "upload_content_length": -1,
+        "starttransfer_time": 0,
+        "redirect_time": 0,
+        "redirect_url": "",
+        "primary_ip": "",
+        "certinfo": [
+
+        ],
+        "primary_port": 0,
+        "local_ip": "",
+        "local_port": 0
+    }
+}
+Error:
+
+2018-10-11 19:00:43 UTC 
+Illegal characters found in URL
+{
+    "php_error_info": {
+        "url": "\nhttps:\/\/cms.api.brightcove.com\/v1\/accounts\/1061127426001\/videos\n",
+        "content_type": null,
+        "http_code": 0,
+        "header_size": 0,
+        "request_size": 0,
+        "filetime": -1,
+        "ssl_verify_result": 0,
+        "redirect_count": 0,
+        "total_time": 0,
+        "namelookup_time": 0,
+        "connect_time": 0,
+        "pretransfer_time": 0,
+        "size_upload": 0,
+        "size_download": 0,
+        "speed_download": 0,
+        "speed_upload": 0,
+        "download_content_length": -1,
+        "upload_content_length": -1,
+        "starttransfer_time": 0,
+        "redirect_time": 0,
+        "redirect_url": "",
+        "primary_ip": "",
+        "certinfo": [
+
+        ],
+        "primary_port": 0,
+        "local_ip": "",
+        "local_port": 0
+    }
+}
+Error:
+
+2018-10-11 19:02:24 UTC 
+Illegal characters found in URL
+{
+    "php_error_info": {
+        "url": "\nhttps:\/\/cms.api.brightcove.com\/v1\/accounts\/1061127426001\/videos\n\n",
+        "content_type": null,
+        "http_code": 0,
+        "header_size": 0,
+        "request_size": 0,
+        "filetime": -1,
+        "ssl_verify_result": 0,
+        "redirect_count": 0,
+        "total_time": 0,
+        "namelookup_time": 0,
+        "connect_time": 0,
+        "pretransfer_time": 0,
+        "size_upload": 0,
+        "size_download": 0,
+        "speed_download": 0,
+        "speed_upload": 0,
+        "download_content_length": -1,
+        "upload_content_length": -1,
+        "starttransfer_time": 0,
+        "redirect_time": 0,
+        "redirect_url": "",
+        "primary_ip": "",
+        "certinfo": [
+
+        ],
+        "primary_port": 0,
+        "local_ip": "",
+        "local_port": 0
+    }
+}
+Error:
+
+2018-10-11 19:05:46 UTC 
+Illegal characters found in URL
+{
+    "php_error_info": {
+        "url": "https:\/\/cms.api.brightcove.com\/v1\/accounts\/1061127426001\/videos\n",
+        "content_type": null,
+        "http_code": 0,
+        "header_size": 0,
+        "request_size": 0,
+        "filetime": -1,
+        "ssl_verify_result": 0,
+        "redirect_count": 0,
+        "total_time": 0,
+        "namelookup_time": 0,
+        "connect_time": 0,
+        "pretransfer_time": 0,
+        "size_upload": 0,
+        "size_download": 0,
+        "speed_download": 0,
+        "speed_upload": 0,
+        "download_content_length": -1,
+        "upload_content_length": -1,
+        "starttransfer_time": 0,
+        "redirect_time": 0,
+        "redirect_url": "",
+        "primary_ip": "",
+        "certinfo": [
+
+        ],
+        "primary_port": 0,
+        "local_ip": "",
+        "local_port": 0
+    }
+}
+Error:
+
+2018-10-11 19:11:54 UTC 
+Illegal characters found in URL
+{
+    "php_error_info": {
+        "url": "\nhttps:\/\/cms.api.brightcove.com\/v1\/accounts\/1061127426001\/videos?q=%2Bplayable:true",
+        "content_type": null,
+        "http_code": 0,
+        "header_size": 0,
+        "request_size": 0,
+        "filetime": -1,
+        "ssl_verify_result": 0,
+        "redirect_count": 0,
+        "total_time": 0,
+        "namelookup_time": 0,
+        "connect_time": 0,
+        "pretransfer_time": 0,
+        "size_upload": 0,
+        "size_download": 0,
+        "speed_download": 0,
+        "speed_upload": 0,
+        "download_content_length": -1,
+        "upload_content_length": -1,
+        "starttransfer_time": 0,
+        "redirect_time": 0,
+        "redirect_url": "",
+        "primary_ip": "",
+        "certinfo": [
+
+        ],
+        "primary_port": 0,
+        "local_ip": "",
+        "local_port": 0
+    }
+}
+Error:
+
+2018-10-11 21:24:25 UTC 
+Illegal characters found in URL
+{
+    "php_error_info": {
+        "url": "https:\/\/cms.api.brightcove.com\/v1\/accounts\/1061127426001\/videos\/myUniqueReferenceID\/assets\/renditions\n",
+        "content_type": null,
+        "http_code": 0,
+        "header_size": 0,
+        "request_size": 0,
+        "filetime": -1,
+        "ssl_verify_result": 0,
+        "redirect_count": 0,
+        "total_time": 0,
+        "namelookup_time": 0,
+        "connect_time": 0,
+        "pretransfer_time": 0,
+        "size_upload": 0,
+        "size_download": 0,
+        "speed_download": 0,
+        "speed_upload": 0,
+        "download_content_length": -1,
+        "upload_content_length": -1,
+        "starttransfer_time": 0,
+        "redirect_time": 0,
+        "redirect_url": "",
+        "primary_ip": "",
+        "certinfo": [
+
+        ],
+        "primary_port": 0,
+        "local_ip": "",
+        "local_port": 0
+    }
+}
+Error:
+
+2018-10-12 16:48:36 UTC 
+Protocol  https not supported or disabled in libcurl
+{
+    "php_error_info": {
+        "url": " https:\/\/experiences.api.brightcove.com\/v1\/accounts\/57838016001\/templates",
+        "content_type": null,
+        "http_code": 0,
+        "header_size": 0,
+        "request_size": 0,
+        "filetime": -1,
+        "ssl_verify_result": 0,
+        "redirect_count": 0,
+        "total_time": 0,
+        "namelookup_time": 0,
+        "connect_time": 0,
+        "pretransfer_time": 0,
+        "size_upload": 0,
+        "size_download": 0,
+        "speed_download": 0,
+        "speed_upload": 0,
+        "download_content_length": -1,
+        "upload_content_length": -1,
+        "starttransfer_time": 0,
+        "redirect_time": 0,
+        "redirect_url": "",
+        "primary_ip": "",
+        "certinfo": [
+
+        ],
+        "primary_port": 0,
+        "local_ip": "",
+        "local_port": 0
+    }
+}

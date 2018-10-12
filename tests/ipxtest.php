@@ -42,7 +42,7 @@ $access_token = $responseData["access_token"];
 
 echo "access token: ".$access_token."\n\n";
 
-$request = " https://experiences.api.brightcove.com/v1/accounts/experiences";
+$request = "https://experiences.api.brightcove.com/v1/accounts/experiences";
 
 echo "request url: ".$request."\n\n";
 

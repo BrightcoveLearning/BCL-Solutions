@@ -123,8 +123,8 @@ if (isset($requestData->requestBody)) {
         case "PUT":
             curl_setopt($curl, CURLOPT_PUT, TRUE);
             if ($requestData->requestBody) {
-              echo $data;
-              // curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+              // echo $data;
+              curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
             }
             break;
         case "PATCH":

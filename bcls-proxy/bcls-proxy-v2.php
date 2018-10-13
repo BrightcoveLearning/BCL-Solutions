@@ -116,23 +116,28 @@ if (isset($requestData->requestBody)) {
     {
         case "POST":
             curl_setopt($curl, CURLOPT_POST, TRUE);
-            if ($requestData->requestBody)
-                curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            if ($requestData->requestBody) {
+              curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            }
             break;
         case "PUT":
             curl_setopt($curl, CURLOPT_PUT, TRUE);
-            if ($requestData->requestBody)
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            if ($requestData->requestBody) {
+              echo $data;
+              // curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            }
             break;
         case "PATCH":
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
-            if ($requestData->requestBody)
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            if ($requestData->requestBody) {
+              curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            }
             break;
         case "DELETE":
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
-            if ($requestData->requestBody)
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            if ($requestData->requestBody) {
+              curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            }
             break;
         default:
             // GET request, nothing to do;

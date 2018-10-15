@@ -121,7 +121,7 @@ if (isset($requestData->requestBody)) {
             }
             break;
         case "PUT":
-            curl_setopt($curl, CURLOPT_PUT, TRUE);
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, TRUE);
             if ($requestData->requestBody) {
               // echo $data;
               curl_setopt($curl, CURLOPT_POSTFIELDS, $data);

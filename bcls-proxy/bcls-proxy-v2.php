@@ -70,14 +70,13 @@ if ($response === FALSE) {
   log_error($php_log, $curl_error);
 }
 
-// Decode the response
+// Decode the response and get access token
 $responseData = json_decode($response, TRUE);
 $access_token = $responseData["access_token"];
 // get request type or default to GET
+$method = "GET";
 if ($requestData->requestType) {
     $method = $requestData->requestType;
-} else {
-    $method = "GET";
 }
 
 // more security checks
@@ -94,6 +93,7 @@ if (strpos($requestData->url, 'api.brightcove.com') == false && strpos($requestD
 } else if ($nextChar !== '/' && $nextChar !== '?') {
     exit('{"ERROR": "There was a problem with your API request - please check the URL"}');
 }
+
 // get the URL and authorization info from the form data
 $request = $requestData->url;
 //send the http request

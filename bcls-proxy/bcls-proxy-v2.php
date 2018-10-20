@@ -116,7 +116,7 @@ if (isset($requestData->requestBody)) {
             }
             break;
         case "PUT":
-            // don't use CURLOPT_PUT because it doesn't work
+            // don't use CURLOPT_PUT; it doesn't work
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
             if ($requestData->requestBody) {
               // echo $data;

@@ -30,8 +30,8 @@ header("X-XSS-Protection");
 
 // default account values
 // client id and secret values have all permissions for most BCLS accounts
-$default_client_id     = '5f781efe-3fc5-4f41-9cd5-d40b6c21ac18';
-$default_client_secret = '_wTTGx710UrBhvU-xjgWaPg1c9_SBqfH66pcKT79xmEmNDqTqkyVvcQyXieArPKHEf1kqjgWuX_d3rj1-TvUeQ';
+$client_id     = '5f781efe-3fc5-4f41-9cd5-d40b6c21ac18';
+$client_secret = '_wTTGx710UrBhvU-xjgWaPg1c9_SBqfH66pcKT79xmEmNDqTqkyVvcQyXieArPKHEf1kqjgWuX_d3rj1-TvUeQ';
 
 // get request body
 $requestData = json_decode(file_get_contents('php://input'));
@@ -39,19 +39,14 @@ $requestData = json_decode(file_get_contents('php://input'));
 // set up access token request
 if (isset($requestData->client_id)) {
     $client_id = $requestData->client_id;
-} else {
-    // default to the id for all permissions for most BCLS accounts
-    $client_id = $default_client_id;
 }
+
 if (isset($requestData->client_secret)) {
     $client_secret = $requestData->client_secret;
-} else {
-    // default to the secret for all permissions for most BCLS accounts
-    $client_secret = $default_client_secret;
 }
 
 $auth_string = "{$client_id}:{$client_secret}";
-$request     = "https://oauth.brightcove.com/v4/access_token?grant_type=client_credentials";
+$request = "https://oauth.brightcove.com/v4/access_token?grant_type=client_credentials";
 $curl          = curl_init($request);
 curl_setopt($curl, CURLOPT_USERPWD, $auth_string);
 curl_setopt($curl, CURLOPT_POST, TRUE);
@@ -75,14 +70,13 @@ if ($response === FALSE) {
   log_error($php_log, $curl_error);
 }
 
-// Decode the response
+// Decode the response and get access token
 $responseData = json_decode($response, TRUE);
 $access_token = $responseData["access_token"];
 // get request type or default to GET
+$method = "GET";
 if ($requestData->requestType) {
     $method = $requestData->requestType;
-} else {
-    $method = "GET";
 }
 
 // more security checks
@@ -99,6 +93,7 @@ if (strpos($requestData->url, 'api.brightcove.com') == false && strpos($requestD
 } else if ($nextChar !== '/' && $nextChar !== '?') {
     exit('{"ERROR": "There was a problem with your API request - please check the URL"}');
 }
+
 // get the URL and authorization info from the form data
 $request = $requestData->url;
 //send the http request
@@ -121,6 +116,7 @@ if (isset($requestData->requestBody)) {
             }
             break;
         case "PUT":
+            // don't use CURLOPT_PUT; it doesn't work
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
             if ($requestData->requestBody) {
               // echo $data;

@@ -30,8 +30,8 @@ header("X-XSS-Protection");
 
 // default account values
 // client id and secret values have all permissions for most BCLS accounts
-$client_id     = '5f781efe-3fc5-4f41-9cd5-d40b6c21ac18';
-$client_secret = '_wTTGx710UrBhvU-xjgWaPg1c9_SBqfH66pcKT79xmEmNDqTqkyVvcQyXieArPKHEf1kqjgWuX_d3rj1-TvUeQ';
+$client_id     = '0072bebf-0616-442c-84de-7215bb176061';
+$client_secret = '7M0vMete8vP_Dmb9oIRdUN1S5lrqTvgtVv4a16iws4RQR74PO-JNDKkCOyXFkSIe_iRKdHiiNO6vuBWadn5xFw';
 
 // get request body
 $requestData = json_decode(file_get_contents('php://input'));

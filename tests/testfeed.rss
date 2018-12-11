@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss
+    xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
+    <channel>
+        <title>title</title>
+        <link>https://test.com/feed.rss</link>
+        <language>en-us</language>
+        <copyright>&copy 2018 me</copyright>
+        <itunes:subtitle>undefined</itunes:subtitle>
+        <itunes:author>me</itunes:author>
+        <itunes:summary>
+            <![CDATA[description]]>
+        </itunes:summary>
+        <description>description</description>
+        <itunes:owner>
+            <itunes:name>me</itunes:name>
+            <itunes:email>me@me.com</itunes:email>
+        </itunes:owner>
+        <itunes:image href="undefined" />
+        <itunes:category text="Education">
+            <itunes:category text="Educational Technology"/></itunes:category>
+        <itunes:explicit>no</itunes:explicit>
+        <itunes:complete>no</itunes:complete>
+        <item>
+            <title>Sea Nettles</title>
+            <itunes:author>me</itunes:author>
+            <itunes:image href="https://cf-images.eu-west-1.prod.boltdns.net/v1/static/1752604059001/a03290b9-5be0-49cd-abc8-33882c26772e/204fa0b3-4b1e-41eb-bc4e-e049ded4e022/1280x720/match/image.jpg" />
+            <enclosure length="5315622" type="video/mp4" url="http://bcboltbde696aa-a.akamaihd.net/media/v1/pmp4/static/clear/1752604059001/a03290b9-5be0-49cd-abc8-33882c26772e/847e148d-2c7d-4afe-80e0-ead47a6c4e39/main.mp4?akamai_token=exp=1546979356~acl=/media/v1/pmp4/static/clear/1752604059001/a03290b9-5be0-49cd-abc8-33882c26772e/847e148d-2c7d-4afe-80e0-ead47a6c4e39/main.mp4*~hmac=a21e79095269082cb14519d47d06862baf5b723cd075dee9a192d0cd739f625a" />
+            <guid>http://bcboltbde696aa-a.akamaihd.net/media/v1/pmp4/static/clear/1752604059001/a03290b9-5be0-49cd-abc8-33882c26772e/847e148d-2c7d-4afe-80e0-ead47a6c4e39/main.mp4?akamai_token=exp=1546979356~acl=/media/v1/pmp4/static/clear/1752604059001/a03290b9-5be0-49cd-abc8-33882c26772e/847e148d-2c7d-4afe-80e0-ead47a6c4e39/main.mp4*~hmac=a21e79095269082cb14519d47d06862baf5b723cd075dee9a192d0cd739f625a</guid>
+            <pubDate>2018-12-10T20:14:30.246Z</pubDate>
+            <itunes:duration>21</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:isClosedCaptioned>no</itunes:isClosedCaptioned>
+        </item>
+    </channel>
+</rss>

@@ -1,34 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss
+<rss version="2.0"
     xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
     <channel>
-        <title>title</title>
-        <link>https://test.com/feed.rss</link>
+        <title>My podcast</title>
+        <link>http://solutions.brightcove.com/bcls/tests/testfeed.rss</link>
         <language>en-us</language>
-        <copyright>&copy 2018 me</copyright>
+        <copyright>Copyright 2018 Robert</copyright>
         <itunes:subtitle>undefined</itunes:subtitle>
-        <itunes:author>me</itunes:author>
+        <itunes:author>Robert</itunes:author>
         <itunes:summary>
-            <![CDATA[description]]>
+            <![CDATA[Description]]>
         </itunes:summary>
-        <description>description</description>
+        <description>Description</description>
         <itunes:owner>
-            <itunes:name>me</itunes:name>
-            <itunes:email>me@me.com</itunes:email>
+            <itunes:name>Robert</itunes:name>
+            <itunes:email>rcrooks@brightcove.com</itunes:email>
         </itunes:owner>
         <itunes:image href="undefined" />
-        <itunes:category text="Education">
-            <itunes:category text="Educational Technology"/></itunes:category>
+        <itunes:category text="Arts"/>
         <itunes:explicit>no</itunes:explicit>
-        <itunes:complete>no</itunes:complete>
+        <itunes:complete>yes</itunes:complete>
         <item>
-            <title>Sea Nettles</title>
-            <itunes:author>me</itunes:author>
-            <itunes:image href="https://cf-images.eu-west-1.prod.boltdns.net/v1/static/1752604059001/a03290b9-5be0-49cd-abc8-33882c26772e/204fa0b3-4b1e-41eb-bc4e-e049ded4e022/1280x720/match/image.jpg" />
-            <enclosure length="5315622" type="video/mp4" url="http://bcboltbde696aa-a.akamaihd.net/media/v1/pmp4/static/clear/1752604059001/a03290b9-5be0-49cd-abc8-33882c26772e/847e148d-2c7d-4afe-80e0-ead47a6c4e39/main.mp4?akamai_token=exp=1546979356~acl=/media/v1/pmp4/static/clear/1752604059001/a03290b9-5be0-49cd-abc8-33882c26772e/847e148d-2c7d-4afe-80e0-ead47a6c4e39/main.mp4*~hmac=a21e79095269082cb14519d47d06862baf5b723cd075dee9a192d0cd739f625a" />
-            <guid>http://bcboltbde696aa-a.akamaihd.net/media/v1/pmp4/static/clear/1752604059001/a03290b9-5be0-49cd-abc8-33882c26772e/847e148d-2c7d-4afe-80e0-ead47a6c4e39/main.mp4?akamai_token=exp=1546979356~acl=/media/v1/pmp4/static/clear/1752604059001/a03290b9-5be0-49cd-abc8-33882c26772e/847e148d-2c7d-4afe-80e0-ead47a6c4e39/main.mp4*~hmac=a21e79095269082cb14519d47d06862baf5b723cd075dee9a192d0cd739f625a</guid>
-            <pubDate>2018-12-10T20:14:30.246Z</pubDate>
-            <itunes:duration>21</itunes:duration>
+            <title>Fog Down the Valley - Oregon Coast</title>
+            <itunes:author>Robert</itunes:author>
+            <itunes:image href="https://cf-images.eu-west-1.prod.boltdns.net/v1/jit/1752604059001/a7b85ce6-11e4-4b5c-818b-a88d8e67820a/main/1280x720/13s665ms/match/image.jpg" />
+            <enclosure length="7128255" type="video/mp4" url="http://bcboltbde696aa-a.akamaihd.net/media/v1/pmp4/static/clear/1752604059001/a7b85ce6-11e4-4b5c-818b-a88d8e67820a/c749e4c6-ddea-405b-8b46-2f24fda60f89/main.mp4?akamai_token=exp=1546980573~acl=/media/v1/pmp4/static/clear/1752604059001/a7b85ce6-11e4-4b5c-818b-a88d8e67820a/c749e4c6-ddea-405b-8b46-2f24fda60f89/main.mp4*~hmac=80352d638a87ed208ed14ba942ff6bd989b467839e2ffdc42cc91b6209fa0221" />
+            <guid>http://bcboltbde696aa-a.akamaihd.net/media/v1/pmp4/static/clear/1752604059001/a7b85ce6-11e4-4b5c-818b-a88d8e67820a/c749e4c6-ddea-405b-8b46-2f24fda60f89/main.mp4?akamai_token=exp=1546980573~acl=/media/v1/pmp4/static/clear/1752604059001/a7b85ce6-11e4-4b5c-818b-a88d8e67820a/c749e4c6-ddea-405b-8b46-2f24fda60f89/main.mp4*~hmac=80352d638a87ed208ed14ba942ff6bd989b467839e2ffdc42cc91b6209fa0221</guid>
+            <pubDate>2018-10-01T12:44:56.854Z</pubDate>
+            <itunes:duration>28</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:isClosedCaptioned>no</itunes:isClosedCaptioned>
+        </item>
+        <item>
+            <title>dolphin-up-for-air</title>
+            <itunes:author>Robert</itunes:author>
+            <itunes:image href="https://httpsak-a.akamaihd.net/1752604059001/1752604059001_5831706359001_5831706803001-vs.jpg?pubId=1752604059001&videoId=5831706803001" />
+            <enclosure length="1789708" type="video/mp4" url="http://f1.media.brightcove.com/12/1752604059001/1752604059001_5831707370001_5831706803001.mp4?pubId=1752604059001&videoId=5831706803001" />
+            <guid>http://f1.media.brightcove.com/12/1752604059001/1752604059001_5831707370001_5831706803001.mp4?pubId=1752604059001&videoId=5831706803001</guid>
+            <pubDate>2018-09-06T18:31:27.252Z</pubDate>
+            <itunes:duration></itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:isClosedCaptioned>no</itunes:isClosedCaptioned>
+        </item>
+        <item>
+            <title>Living Desert Cheetah</title>
+            <itunes:author>Robert</itunes:author>
+            <itunes:subtitle>Cheetahs exploring at the Living Desert in Palm Springs, CA</itunes:subtitle>
+            <itunes:image href="https://httpsak-a.akamaihd.net/1752604059001/1752604059001_5701202757001_5701193190001-vs.jpg?pubId=1752604059001&videoId=5701193190001" />
+            <enclosure length="1573800" type="video/mp4" url="http://f1.media.brightcove.com/12/1752604059001/1752604059001_5701197364001_5701193190001.mp4?pubId=1752604059001&videoId=5701193190001" />
+            <guid>http://f1.media.brightcove.com/12/1752604059001/1752604059001_5701197364001_5701193190001.mp4?pubId=1752604059001&videoId=5701193190001</guid>
+            <pubDate>2018-01-03T14:55:11.586Z</pubDate>
+            <itunes:duration></itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:isClosedCaptioned>no</itunes:isClosedCaptioned>
+        </item>
+        <item>
+            <title>foggy-ocean</title>
+            <itunes:author>Robert</itunes:author>
+            <itunes:image href="https://httpsak-a.akamaihd.net/1752604059001/1752604059001_5686638023001_5686632036001-vs.jpg?pubId=1752604059001&videoId=5686632036001" />
+            <enclosure length="15660103" type="video/mp4" url="http://f1.media.brightcove.com/12/1752604059001/1752604059001_5686638098001_5686632036001.mp4?pubId=1752604059001&videoId=5686632036001" />
+            <guid>http://f1.media.brightcove.com/12/1752604059001/1752604059001_5686638098001_5686632036001.mp4?pubId=1752604059001&videoId=5686632036001</guid>
+            <pubDate>2017-12-18T21:29:17.617Z</pubDate>
+            <itunes:duration>14</itunes:duration>
             <itunes:explicit>no</itunes:explicit>
             <itunes:isClosedCaptioned>no</itunes:isClosedCaptioned>
         </item>

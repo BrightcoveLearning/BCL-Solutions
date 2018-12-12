@@ -9,27 +9,16 @@
         <itunes:subtitle>undefined</itunes:subtitle>
         <itunes:author>Robert</itunes:author>
         <itunes:summary>
-            <![CDATA[Descxription]]>
+            <![CDATA[test description]]>
         </itunes:summary>
-        <description>Descxription</description>
+        <description>test description</description>
         <itunes:owner>
             <itunes:name>Robert</itunes:name>
             <itunes:email>rcrooks@brightcove.com</itunes:email>
         </itunes:owner>
-        <itunes:image href="undefined" />
+        <itunes:image href="https://solutions.brightcove.com/bcls/tests/2.png" />
         <itunes:category text="Arts"/>
         <itunes:explicit>no</itunes:explicit>
         <itunes:complete>no</itunes:complete>
-        <item>
-            <title>Sea Nettles</title>
-            <itunes:author>Robert</itunes:author>
-            <itunes:image href="https://cf-images.eu-west-1.prod.boltdns.net/v1/static/1752604059001/a03290b9-5be0-49cd-abc8-33882c26772e/204fa0b3-4b1e-41eb-bc4e-e049ded4e022/1280x720/match/image.jpg" />
-            <enclosure length="5315622" type="video/mp4" url="http://bcboltbde696aa-a.akamaihd.net/media/v1/pmp4/static/clear/1752604059001/a03290b9-5be0-49cd-abc8-33882c26772e/847e148d-2c7d-4afe-80e0-ead47a6c4e39/main.mp4?akamai_token=exp=1547038148~acl=/media/v1/pmp4/static/clear/1752604059001/a03290b9-5be0-49cd-abc8-33882c26772e/847e148d-2c7d-4afe-80e0-ead47a6c4e39/main.mp4*~hmac=04461cb5470f2edd6d63351bc4dbdb17859d07081a0dd98708864328d372d86c" />
-            <guid>http://bcboltbde696aa-a.akamaihd.net/media/v1/pmp4/static/clear/1752604059001/a03290b9-5be0-49cd-abc8-33882c26772e/847e148d-2c7d-4afe-80e0-ead47a6c4e39/main.mp4?akamai_token=exp=1547038148~acl=/media/v1/pmp4/static/clear/1752604059001/a03290b9-5be0-49cd-abc8-33882c26772e/847e148d-2c7d-4afe-80e0-ead47a6c4e39/main.mp4*~hmac=04461cb5470f2edd6d63351bc4dbdb17859d07081a0dd98708864328d372d86c</guid>
-            <pubDate>Mon, 10 Dec 2018 20:14:30 GMT</pubDate>
-            <itunes:duration>21</itunes:duration>
-            <itunes:explicit>no</itunes:explicit>
-            <itunes:isClosedCaptioned>no</itunes:isClosedCaptioned>
-        </item>
     </channel>
 </rss>

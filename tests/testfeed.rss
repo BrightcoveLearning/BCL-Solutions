@@ -2,23 +2,48 @@
 <rss version="2.0"
     xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
     <channel>
-        <title>test</title>
+        <title>Test podcast feed</title>
         <link>https://solutions.brightcove.com/bcls/tests/testfeed.rss</link>
         <language>en-us</language>
-        <copyright>Copyright 2018 Robert</copyright>
+        <copyright>Copyright 2018 Robert Crooks</copyright>
         <itunes:subtitle>undefined</itunes:subtitle>
-        <itunes:author>Robert</itunes:author>
+        <itunes:author>Robert Crooks</itunes:author>
         <itunes:summary>
-            <![CDATA[test description]]>
+            <![CDATA[Test summary]]>
         </itunes:summary>
-        <description>test description</description>
+        <description>Test description</description>
         <itunes:owner>
-            <itunes:name>Robert</itunes:name>
+            <itunes:name>Robert Crooks</itunes:name>
             <itunes:email>rcrooks@brightcove.com</itunes:email>
         </itunes:owner>
-        <itunes:image href="https://solutions.brightcove.com/bcls/tests/2.png" />
-        <itunes:category text="Arts"/>
+        <itunes:image href="https://solutions.brightcove.com/bcls/tests/itunesfeedimage.png" />
+        <itunes:category text="Technology">
+            <itunes:category text="Software How-To"/></itunes:category>
         <itunes:explicit>no</itunes:explicit>
-        <itunes:complete>no</itunes:complete>
+        <itunes:complete>yes</itunes:complete>
+        <item>
+            <title>Great Run Horned Blue Run</title>
+            <itunes:author>Robert Crooks</itunes:author>
+            <itunes:subtitle>Mother and child owls...</itunes:subtitle>
+            <itunes:image href="http://brightcove.vo.llnwd.net/v1/unsecured/media/57838016001/201812/1119/57838016001_5981008927001_5981003650001-vs.jpg?pubId=57838016001&videoId=5981003650001" />
+            <enclosure length="9400267" type="video/mp4" url="http://brightcove.vo.llnwd.net/v1/uds/pd/57838016001/201812/1119/57838016001_5981009147001_5981003650001.mp4?pubId=57838016001&videoId=5981003650001" />
+            <guid>http://brightcove.vo.llnwd.net/v1/uds/pd/57838016001/201812/1119/57838016001_5981009147001_5981003650001.mp4?pubId=57838016001&videoId=5981003650001</guid>
+            <pubDate>Tue, 18 Dec 2018 15:00:10 GMT</pubDate>
+            <itunes:duration>42</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:isClosedCaptioned>no</itunes:isClosedCaptioned>
+        </item>
+        <item>
+            <title>GREATEST Green Heron</title>
+            <itunes:author>Robert Crooks</itunes:author>
+            <itunes:subtitle>Updated at: 2018-08-03T08:42:40.880Z</itunes:subtitle>
+            <itunes:image href="http://brightcove.vo.llnwd.net/v1/unsecured/media/57838016001/201812/2679/57838016001_5981580690001_4890752157001-vs.jpg?pubId=57838016001&videoId=4890752157001" />
+            <enclosure length="7127630" type="video/mp4" url="http://brightcove.vo.llnwd.net/v1/uds/pd/57838016001/201812/2679/57838016001_5981580882001_4890752157001.mp4?pubId=57838016001&videoId=4890752157001" />
+            <guid>http://brightcove.vo.llnwd.net/v1/uds/pd/57838016001/201812/2679/57838016001_5981580882001_4890752157001.mp4?pubId=57838016001&videoId=4890752157001</guid>
+            <pubDate>Thu, 12 May 2016 18:26:02 GMT</pubDate>
+            <itunes:duration>32</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:isClosedCaptioned>no</itunes:isClosedCaptioned>
+        </item>
     </channel>
 </rss>

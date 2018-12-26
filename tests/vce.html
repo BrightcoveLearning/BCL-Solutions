@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+        <style>
+      body {
+        font-family: sans-serif;
+      }
+      table {
+        border-collapse: collapse;
+        border: 1px #999 solid;
+      }
+      td, th {
+        border: 1px $999 solid;
+        padding: .5em;
+      }
+        </style>
+    </head>
+    <body>
+    <table>
+      <thead>
+        <tr>
+        <th></th>
+        <th>Title</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody id="tbody">
+
+      </tbody>
+    </table>
+        <script>
+      var tbody = document.getElementById('tbody'),
+      videos = [
+          {
+            "id": "4642156522001",
+            "account_id": "20318290001",
+            "ad_keys": null,
+            "clip_source_video_id": null,
+            "complete": true,
+            "created_at": "2015-12-02T16:24:30.077Z",
+            "created_by": {
+              "type": "unknown"
+            },
+            "cue_points": [
+            ],
+            "custom_fields": {
+            },
+            "delivery_type": "dynamic_origin",
+            "description": "Introduction to the Video Cloud Essentials On Demand Training course.",
+            "digital_master_id": null,
+            "duration": 83151,
+            "economics": "AD_SUPPORTED",
+            "folder_id": "55282713e4b00462e0e4908c",
+            "geo": null,
+            "has_digital_master": true,
+            "images": {
+              "poster": {
+                "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/2bb5d432-3e2d-41e5-8643-323271d9e2b8/ea8d8101-b73a-4853-a367-f70ef3186bcf/1920x1080/match/image.jpg",
+                "sources": [
+                  {
+                    "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/2bb5d432-3e2d-41e5-8643-323271d9e2b8/ea8d8101-b73a-4853-a367-f70ef3186bcf/1920x1080/match/image.jpg",
+                    "height": 1080,
+                    "width": 1920
+                  }
+                ]
+              },
+              "thumbnail": {
+                "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/2bb5d432-3e2d-41e5-8643-323271d9e2b8/23482ee6-f5f5-4d3d-be92-09bda5677909/160x90/match/image.jpg",
+                "sources": [
+                  {
+                    "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/2bb5d432-3e2d-41e5-8643-323271d9e2b8/23482ee6-f5f5-4d3d-be92-09bda5677909/160x90/match/image.jpg",
+                    "height": 90,
+                    "width": 160
+                  }
+                ]
+              }
+            },
+            "link": {
+              "text": "Quick Start to Video Cloud",
+              "url": "https://support.brightcove.com/quick-start-video-cloud"
+            },
+            "long_description": null,
+            "name": "Introducing the Course",
+            "original_filename": "VCE - Introduction.mp4",
+            "projection": null,
+            "published_at": "2015-12-03T19:32:34.728Z",
+            "reference_id": "VCE 1",
+            "schedule": null,
+            "sharing": {
+              "by_external_acct": false,
+              "by_id": null,
+              "source_id": null,
+              "to_external_acct": true,
+              "by_reference": false
+            },
+            "state": "ACTIVE",
+            "tags": [
+              "hapyak_sentiment",
+              "on demand training",
+              "video cloud essentials"
+            ],
+            "text_tracks": [
+              {
+                "id": "7078da59-4d65-47c9-a826-c2d9cf991b2f",
+                "account_id": "20318290001",
+                "src": "https://static.3playmedia.com/p/files/3008323/threeplay_transcripts/8841340.vtt?project_id=10127&format_id=51&refresh=1540018380",
+                "srclang": "en",
+                "label": "English",
+                "kind": "captions",
+                "mime_type": null,
+                "asset_id": null,
+                "sources": [
+                  {
+                    "src": "https://static.3playmedia.com/p/files/3008323/threeplay_transcripts/8841340.vtt?project_id=10127&format_id=51&refresh=1540018380"
+                  }
+                ],
+                "default": true
+              }
+            ],
+            "updated_at": "2018-10-20T06:53:00.994Z",
+            "updated_by": {
+              "type": "unknown"
+            },
+            "offline_enabled": false
+          },
+          {
+            "id": "4630120497001",
+            "account_id": "20318290001",
+            "ad_keys": null,
+            "clip_source_video_id": null,
+            "complete": true,
+            "created_at": "2015-11-24T19:54:08.167Z",
+            "created_by": {
+              "type": "unknown"
+            },
+            "cue_points": [
+            ],
+            "custom_fields": {
+            },
+            "delivery_type": "dynamic_origin",
+            "description": "Learn about signing up for a Video Cloud trial account and the Quick Start to Video Cloud document.",
+            "digital_master_id": null,
+            "duration": 112129,
+            "economics": "AD_SUPPORTED",
+            "folder_id": "55282713e4b00462e0e4908c",
+            "geo": null,
+            "has_digital_master": true,
+            "images": {
+              "poster": {
+                "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/78c76450-4225-48ef-8c11-00eff43cee8c/fd6658ed-4f1e-483f-86c0-b6ee487e392c/1920x1080/match/image.jpg",
+                "sources": [
+                  {
+                    "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/78c76450-4225-48ef-8c11-00eff43cee8c/fd6658ed-4f1e-483f-86c0-b6ee487e392c/1920x1080/match/image.jpg",
+                    "height": 1080,
+                    "width": 1920
+                  }
+                ]
+              },
+              "thumbnail": {
+                "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/78c76450-4225-48ef-8c11-00eff43cee8c/7dc29826-5eb5-41fc-be49-b76d9908d185/160x90/match/image.jpg",
+                "sources": [
+                  {
+                    "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/78c76450-4225-48ef-8c11-00eff43cee8c/7dc29826-5eb5-41fc-be49-b76d9908d185/160x90/match/image.jpg",
+                    "height": 90,
+                    "width": 160
+                  }
+                ]
+              }
+            },
+            "link": {
+              "text": "Quick Start to Video Cloud",
+              "url": "https://support.brightcove.com/quick-start-video-cloud"
+            },
+            "long_description": null,
+            "name": "Before We Get Started",
+            "original_filename": "VCE - Before We Get Started.mp4",
+            "projection": null,
+            "published_at": "2015-11-24T19:57:21.161Z",
+            "reference_id": "VCE 2",
+            "schedule": null,
+            "sharing": {
+              "by_external_acct": false,
+              "by_id": null,
+              "source_id": null,
+              "to_external_acct": true,
+              "by_reference": false
+            },
+            "state": "ACTIVE",
+            "tags": [
+              "hapyak_sentiment",
+              "on demand training",
+              "video cloud essentials"
+            ],
+            "text_tracks": [
+              {
+                "id": "29bdf14c-215e-491f-a2b2-8f63b12a9490",
+                "account_id": "20318290001",
+                "src": "https://static.3playmedia.com/p/files/3010012/threeplay_transcripts/8846902.vtt?project_id=10127&format_id=51&refresh=1539888729",
+                "srclang": "en",
+                "label": "English",
+                "kind": "captions",
+                "mime_type": null,
+                "asset_id": null,
+                "sources": [
+                  {
+                    "src": "https://static.3playmedia.com/p/files/3010012/threeplay_transcripts/8846902.vtt?project_id=10127&format_id=51&refresh=1539888729"
+                  }
+                ],
+                "default": true
+              }
+            ],
+            "updated_at": "2018-10-18T18:52:10.104Z",
+            "updated_by": {
+              "type": "unknown"
+            },
+            "offline_enabled": false
+          },
+          {
+            "id": "4629985070001",
+            "account_id": "20318290001",
+            "ad_keys": null,
+            "clip_source_video_id": null,
+            "complete": true,
+            "created_at": "2015-11-24T18:32:27.408Z",
+            "created_by": {
+              "type": "unknown"
+            },
+            "cue_points": [
+            ],
+            "custom_fields": {
+            },
+            "delivery_type": "dynamic_origin",
+            "description": "Learn about the Video Cloud architecture.",
+            "digital_master_id": null,
+            "duration": 256000,
+            "economics": "AD_SUPPORTED",
+            "folder_id": "55282713e4b00462e0e4908c",
+            "geo": null,
+            "has_digital_master": true,
+            "images": {
+              "poster": {
+                "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/db51c16a-7856-41c7-bbfe-94adf7863a05/36b102e7-0d35-4943-b3b9-5215f3866310/1920x1080/match/image.jpg",
+                "sources": [
+                  {
+                    "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/db51c16a-7856-41c7-bbfe-94adf7863a05/36b102e7-0d35-4943-b3b9-5215f3866310/1920x1080/match/image.jpg",
+                    "height": 1080,
+                    "width": 1920
+                  }
+                ]
+              },
+              "thumbnail": {
+                "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/db51c16a-7856-41c7-bbfe-94adf7863a05/2a28cb17-342c-4111-91b1-c1fe73ace5a5/160x90/match/image.jpg",
+                "sources": [
+                  {
+                    "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/db51c16a-7856-41c7-bbfe-94adf7863a05/2a28cb17-342c-4111-91b1-c1fe73ace5a5/160x90/match/image.jpg",
+                    "height": 90,
+                    "width": 160
+                  }
+                ]
+              }
+            },
+            "link": {
+              "text": "Quick Start: Understanding Video Cloud",
+              "url": "https://support.brightcove.com/quick-start-understanding-video-cloud"
+            },
+            "long_description": null,
+            "name": "Video Cloud Architecture Overview",
+            "original_filename": "VCE - Video Cloud Architecture Overview.mp4",
+            "projection": null,
+            "published_at": "2015-11-24T19:52:49.067Z",
+            "reference_id": "VCE 3",
+            "schedule": null,
+            "sharing": {
+              "by_external_acct": false,
+              "by_id": null,
+              "source_id": null,
+              "to_external_acct": true,
+              "by_reference": false
+            },
+            "state": "ACTIVE",
+            "tags": [
+              "hapyak_sentiment",
+              "on demand training",
+              "video cloud essentials"
+            ],
+            "text_tracks": [
+              {
+                "id": "3fe7d362-7a7f-4a2e-8cb2-8bdf254de1b3",
+                "account_id": "20318290001",
+                "src": "https://static.3playmedia.com/p/files/3010641/threeplay_transcripts/8848107.vtt?project_id=10127&format_id=51&refresh=1539903157",
+                "srclang": "en",
+                "label": "English",
+                "kind": "captions",
+                "mime_type": null,
+                "asset_id": null,
+                "sources": [
+                  {
+                    "src": "https://static.3playmedia.com/p/files/3010641/threeplay_transcripts/8848107.vtt?project_id=10127&format_id=51&refresh=1539903157"
+                  }
+                ],
+                "default": true
+              }
+            ],
+            "updated_at": "2018-10-18T22:52:37.834Z",
+            "updated_by": {
+              "type": "unknown"
+            },
+            "offline_enabled": false
+          },
+          {
+            "id": "4631516399001",
+            "account_id": "20318290001",
+            "ad_keys": null,
+            "clip_source_video_id": null,
+            "complete": true,
+            "created_at": "2015-11-25T15:15:42.216Z",
+            "created_by": {
+              "type": "unknown"
+            },
+            "cue_points": [
+            ],
+            "custom_fields": {
+            },
+            "delivery_type": "dynamic_origin",
+            "description": "Learn about Video Cloud Studio and how to navigate inside it.",
+            "digital_master_id": null,
+            "duration": 250683,
+            "economics": "AD_SUPPORTED",
+            "folder_id": "55282713e4b00462e0e4908c",
+            "geo": null,
+            "has_digital_master": true,
+            "images": {
+              "poster": {
+                "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/c7dcc72c-e87b-4ee9-9d4c-caa277b2f6fc/09fbdf2a-0eaa-4c42-a93d-aa58d703d080/1920x1080/match/image.jpg",
+                "sources": [
+                  {
+                    "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/c7dcc72c-e87b-4ee9-9d4c-caa277b2f6fc/09fbdf2a-0eaa-4c42-a93d-aa58d703d080/1920x1080/match/image.jpg",
+                    "height": 1080,
+                    "width": 1920
+                  }
+                ]
+              },
+              "thumbnail": {
+                "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/c7dcc72c-e87b-4ee9-9d4c-caa277b2f6fc/279ce900-b03f-4b46-a5bf-3d44876d5d4c/160x90/match/image.jpg",
+                "sources": [
+                  {
+                    "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/c7dcc72c-e87b-4ee9-9d4c-caa277b2f6fc/279ce900-b03f-4b46-a5bf-3d44876d5d4c/160x90/match/image.jpg",
+                    "height": 90,
+                    "width": 160
+                  }
+                ]
+              }
+            },
+            "link": {
+              "text": "Quick Start: Understanding Video Cloud",
+              "url": "https://support.brightcove.com/quick-start-understanding-video-cloud"
+            },
+            "long_description": null,
+            "name": "Navigating Video Cloud Studio",
+            "original_filename": "VCE - Navigating Video Cloud Studio.mp4",
+            "projection": null,
+            "published_at": "2015-11-25T15:19:26.363Z",
+            "reference_id": "VCE 4",
+            "schedule": null,
+            "sharing": {
+              "by_external_acct": false,
+              "by_id": null,
+              "source_id": null,
+              "to_external_acct": true,
+              "by_reference": false
+            },
+            "state": "ACTIVE",
+            "tags": [
+              "hapyak_sentiment",
+              "on demand training",
+              "video cloud essentials"
+            ],
+            "text_tracks": [
+              {
+                "id": "377222cd-b39a-4487-8e01-b8e52c92a0df",
+                "account_id": "20318290001",
+                "src": "https://static.3playmedia.com/p/files/3011425/threeplay_transcripts/8851276.vtt?project_id=10127&format_id=51&refresh=1539988694",
+                "srclang": "en",
+                "label": "English",
+                "kind": "captions",
+                "mime_type": null,
+                "asset_id": null,
+                "sources": [
+                  {
+                    "src": "https://static.3playmedia.com/p/files/3011425/threeplay_transcripts/8851276.vtt?project_id=10127&format_id=51&refresh=1539988694"
+                  }
+                ],
+                "default": true
+              }
+            ],
+            "updated_at": "2018-10-19T22:38:14.940Z",
+            "updated_by": {
+              "type": "unknown"
+            },
+            "offline_enabled": false
+          },
+          {
+            "id": "4638057529001",
+            "account_id": "20318290001",
+            "ad_keys": null,
+            "clip_source_video_id": null,
+            "complete": true,
+            "created_at": "2015-11-30T19:06:38.624Z",
+            "created_by": {
+              "type": "unknown"
+            },
+            "cue_points": [
+            ],
+            "custom_fields": {
+            },
+            "delivery_type": "dynamic_origin",
+            "description": "Learn the basics about the Brightcove Player.",
+            "digital_master_id": null,
+            "duration": 182253,
+            "economics": "AD_SUPPORTED",
+            "folder_id": "55282713e4b00462e0e4908c",
+            "geo": null,
+            "has_digital_master": true,
+            "images": {
+              "poster": {
+                "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/a018b7e2-a2e6-4949-854a-891800f2b449/07409f19-75d1-4bf9-87b0-de6340a8e1ee/1920x1080/match/image.jpg",
+                "sources": [
+                  {
+                    "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/a018b7e2-a2e6-4949-854a-891800f2b449/07409f19-75d1-4bf9-87b0-de6340a8e1ee/1920x1080/match/image.jpg",
+                    "height": 1080,
+                    "width": 1920
+                  }
+                ]
+              },
+              "thumbnail": {
+                "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/a018b7e2-a2e6-4949-854a-891800f2b449/e4517166-a31e-41c7-b398-58e26fc04b6a/160x90/match/image.jpg",
+                "sources": [
+                  {
+                    "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/a018b7e2-a2e6-4949-854a-891800f2b449/e4517166-a31e-41c7-b398-58e26fc04b6a/160x90/match/image.jpg",
+                    "height": 90,
+                    "width": 160
+                  }
+                ]
+              }
+            },
+            "link": {
+              "text": "What is the Brightcove Player?",
+              "url": "https://support.brightcove.com/what-brightcove-player"
+            },
+            "long_description": null,
+            "name": "Introducing Brightcove Players",
+            "original_filename": "VCE - Introducing the Brightcove Player.mp4",
+            "projection": null,
+            "published_at": "2015-11-30T19:10:33.332Z",
+            "reference_id": "VCE 5",
+            "schedule": null,
+            "sharing": {
+              "by_external_acct": false,
+              "by_id": null,
+              "source_id": null,
+              "to_external_acct": true,
+              "by_reference": false
+            },
+            "state": "ACTIVE",
+            "tags": [
+              "hapyak_sentiment",
+              "on demand training",
+              "video cloud essentials"
+            ],
+            "text_tracks": [
+              {
+                "id": "edc93ac5-55ff-4834-8007-dc7cf4ea182a",
+                "account_id": "20318290001",
+                "src": "https://static.3playmedia.com/p/files/3019878/threeplay_transcripts/8878848.vtt?project_id=10127&format_id=51&refresh=1540390034",
+                "srclang": "en",
+                "label": "English",
+                "kind": "captions",
+                "mime_type": null,
+                "asset_id": null,
+                "sources": [
+                  {
+                    "src": "https://static.3playmedia.com/p/files/3019878/threeplay_transcripts/8878848.vtt?project_id=10127&format_id=51&refresh=1540390034"
+                  }
+                ],
+                "default": true
+              }
+            ],
+            "updated_at": "2018-10-24T14:07:14.487Z",
+            "updated_by": {
+              "type": "unknown"
+            },
+            "offline_enabled": false
+          },
+          {
+            "id": "4638254570001",
+            "account_id": "20318290001",
+            "ad_keys": null,
+            "clip_source_video_id": null,
+            "complete": true,
+            "created_at": "2015-11-30T21:37:56.954Z",
+            "created_by": {
+              "type": "unknown"
+            },
+            "cue_points": [
+            ],
+            "custom_fields": {
+            },
+            "delivery_type": "dynamic_origin",
+            "description": "Learn how to upload videos using the Upload module.",
+            "digital_master_id": null,
+            "duration": 277432,
+            "economics": "AD_SUPPORTED",
+            "folder_id": "55282713e4b00462e0e4908c",
+            "geo": null,
+            "has_digital_master": true,
+            "images": {
+              "poster": {
+                "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/bff01a06-1f4e-44b9-a738-0e868cdfcba7/7a4005a0-4224-442c-ba0b-2d7490ac91ce/1920x1080/match/image.jpg",
+                "sources": [
+                  {
+                    "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/bff01a06-1f4e-44b9-a738-0e868cdfcba7/7a4005a0-4224-442c-ba0b-2d7490ac91ce/1920x1080/match/image.jpg",
+                    "height": 1080,
+                    "width": 1920
+                  }
+                ]
+              },
+              "thumbnail": {
+                "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/bff01a06-1f4e-44b9-a738-0e868cdfcba7/a730b9e3-8330-4eec-8d4e-8431e4d5c51c/160x90/match/image.jpg",
+                "sources": [
+                  {
+                    "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/bff01a06-1f4e-44b9-a738-0e868cdfcba7/a730b9e3-8330-4eec-8d4e-8431e4d5c51c/160x90/match/image.jpg",
+                    "height": 90,
+                    "width": 160
+                  }
+                ]
+              }
+            },
+            "link": {
+              "text": "Quick Start: Uploading Videos",
+              "url": "https://support.brightcove.com/quick-start-uploading-videos"
+            },
+            "long_description": null,
+            "name": "Uploading Videos",
+            "original_filename": "VCE - Uploading Videos.mp4",
+            "projection": null,
+            "published_at": "2015-11-30T21:40:11.580Z",
+            "reference_id": "VCE 6",
+            "schedule": null,
+            "sharing": {
+              "by_external_acct": false,
+              "by_id": null,
+              "source_id": null,
+              "to_external_acct": true,
+              "by_reference": false
+            },
+            "state": "ACTIVE",
+            "tags": [
+              "hapyak_sentiment",
+              "on demand training",
+              "video cloud essentials"
+            ],
+            "text_tracks": [
+              {
+                "id": "a27f94ec-8f36-4d8e-a428-145b5998b0ae",
+                "account_id": "20318290001",
+                "src": "https://static.3playmedia.com/p/files/3020316/threeplay_transcripts/8879795.vtt?project_id=10127&format_id=51&refresh=1540467343",
+                "srclang": "en",
+                "label": "English",
+                "kind": "captions",
+                "mime_type": null,
+                "asset_id": null,
+                "sources": [
+                  {
+                    "src": "https://static.3playmedia.com/p/files/3020316/threeplay_transcripts/8879795.vtt?project_id=10127&format_id=51&refresh=1540467343"
+                  }
+                ],
+                "default": true
+              }
+            ],
+            "updated_at": "2018-10-25T11:35:43.665Z",
+            "updated_by": {
+              "type": "unknown"
+            },
+            "offline_enabled": false
+          },
+          {
+            "id": "4639810909001",
+            "account_id": "20318290001",
+            "ad_keys": null,
+            "clip_source_video_id": null,
+            "complete": true,
+            "created_at": "2015-12-01T15:44:41.391Z",
+            "created_by": {
+              "type": "unknown"
+            },
+            "cue_points": [
+            ],
+            "custom_fields": {
+            },
+            "delivery_type": "dynamic_origin",
+            "description": "Learn how to set video properties and manage videos.",
+            "digital_master_id": null,
+            "duration": 238214,
+            "economics": "AD_SUPPORTED",
+            "folder_id": "55282713e4b00462e0e4908c",
+            "geo": null,
+            "has_digital_master": true,
+            "images": {
+              "poster": {
+                "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/d346aca5-5eda-4440-b188-04571f96792a/241621de-88ff-4af3-b28b-8eba7ebe3af4/1920x1080/match/image.jpg",
+                "sources": [
+                  {
+                    "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/d346aca5-5eda-4440-b188-04571f96792a/241621de-88ff-4af3-b28b-8eba7ebe3af4/1920x1080/match/image.jpg",
+                    "height": 1080,
+                    "width": 1920
+                  }
+                ]
+              },
+              "thumbnail": {
+                "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/d346aca5-5eda-4440-b188-04571f96792a/c5d8685e-04d9-4eb3-8f72-3e33f99762d9/160x90/match/image.jpg",
+                "sources": [
+                  {
+                    "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/d346aca5-5eda-4440-b188-04571f96792a/c5d8685e-04d9-4eb3-8f72-3e33f99762d9/160x90/match/image.jpg",
+                    "height": 90,
+                    "width": 160
+                  }
+                ]
+              }
+            },
+            "link": {
+              "text": "Quick Start: Setting Video Properties",
+              "url": "https://support.brightcove.com/quick-start-setting-video-properties"
+            },
+            "long_description": null,
+            "name": "Managing Videos",
+            "original_filename": "VCE - Managing Videos.mp4",
+            "projection": null,
+            "published_at": "2015-12-01T16:00:43.969Z",
+            "reference_id": "VCE 7",
+            "schedule": null,
+            "sharing": {
+              "by_external_acct": false,
+              "by_id": null,
+              "source_id": null,
+              "to_external_acct": true,
+              "by_reference": false
+            },
+            "state": "ACTIVE",
+            "tags": [
+              "hapyak_sentiment",
+              "on demand training",
+              "video cloud essentials"
+            ],
+            "text_tracks": [
+              {
+                "id": "3e640f3e-609c-4b45-a671-ec4dba7de14a",
+                "account_id": "20318290001",
+                "src": "https://static.3playmedia.com/p/files/3023451/threeplay_transcripts/8889176.vtt?project_id=10127&format_id=51&refresh=1540492875",
+                "srclang": "en",
+                "label": "English",
+                "kind": "captions",
+                "mime_type": null,
+                "asset_id": null,
+                "sources": [
+                  {
+                    "src": "https://static.3playmedia.com/p/files/3023451/threeplay_transcripts/8889176.vtt?project_id=10127&format_id=51&refresh=1540492875"
+                  }
+                ],
+                "default": true
+              }
+            ],
+            "updated_at": "2018-10-25T18:41:15.628Z",
+            "updated_by": {
+              "type": "unknown"
+            },
+            "offline_enabled": false
+          },
+          {
+            "id": "4640329137001",
+            "account_id": "20318290001",
+            "ad_keys": null,
+            "clip_source_video_id": null,
+            "complete": true,
+            "created_at": "2015-12-01T21:29:41.731Z",
+            "created_by": {
+              "type": "unknown"
+            },
+            "cue_points": [
+            ],
+            "custom_fields": {
+            },
+            "delivery_type": "dynamic_origin",
+            "description": "Learn how to publish videos using the Media module.",
+            "digital_master_id": null,
+            "duration": 230899,
+            "economics": "AD_SUPPORTED",
+            "folder_id": "55282713e4b00462e0e4908c",
+            "geo": null,
+            "has_digital_master": true,
+            "images": {
+              "poster": {
+                "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/8fe0937b-3712-4903-981d-6d62ab67fa7c/25b03f2d-4695-4f3e-8a60-9aa038000785/1920x1080/match/image.jpg",
+                "sources": [
+                  {
+                    "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/8fe0937b-3712-4903-981d-6d62ab67fa7c/25b03f2d-4695-4f3e-8a60-9aa038000785/1920x1080/match/image.jpg",
+                    "height": 1080,
+                    "width": 1920
+                  }
+                ]
+              },
+              "thumbnail": {
+                "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/8fe0937b-3712-4903-981d-6d62ab67fa7c/c28c5f9f-3a53-4198-bd68-95521909a974/160x90/match/image.jpg",
+                "sources": [
+                  {
+                    "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/8fe0937b-3712-4903-981d-6d62ab67fa7c/c28c5f9f-3a53-4198-bd68-95521909a974/160x90/match/image.jpg",
+                    "height": 90,
+                    "width": 160
+                  }
+                ]
+              }
+            },
+            "link": {
+              "text": "Publishing Videos with the Media Module",
+              "url": "https://support.brightcove.com/publishing-videos-media-module"
+            },
+            "long_description": null,
+            "name": "Publishing Videos",
+            "original_filename": "VCE - Publishing Videos.mp4",
+            "projection": null,
+            "published_at": "2015-12-01T21:31:51.532Z",
+            "reference_id": "VCE 8",
+            "schedule": null,
+            "sharing": {
+              "by_external_acct": false,
+              "by_id": null,
+              "source_id": null,
+              "to_external_acct": true,
+              "by_reference": false
+            },
+            "state": "ACTIVE",
+            "tags": [
+              "hapyak_sentiment",
+              "on demand training",
+              "video cloud essentials"
+            ],
+            "text_tracks": [
+              {
+                "id": "d9898e5e-06b3-40c8-9994-91feb115a112",
+                "account_id": "20318290001",
+                "src": "https://static.3playmedia.com/p/files/2267977/threeplay_transcripts/6506727.vtt?project_id=10127&format_id=51&refresh=1516259172",
+                "srclang": "en",
+                "label": "English",
+                "kind": "captions",
+                "mime_type": null,
+                "asset_id": null,
+                "sources": [
+                  {
+                    "src": "https://static.3playmedia.com/p/files/2267977/threeplay_transcripts/6506727.vtt?project_id=10127&format_id=51&refresh=1516259172"
+                  }
+                ],
+                "default": false
+              }
+            ],
+            "updated_at": "2018-10-23T15:47:33.214Z",
+            "updated_by": {
+              "type": "unknown"
+            },
+            "offline_enabled": false
+          },
+          {
+            "id": "4642638760001",
+            "account_id": "20318290001",
+            "ad_keys": null,
+            "clip_source_video_id": null,
+            "complete": true,
+            "created_at": "2015-12-02T20:29:28.258Z",
+            "created_by": {
+              "type": "unknown"
+            },
+            "cue_points": [
+            ],
+            "custom_fields": {
+            },
+            "delivery_type": "dynamic_origin",
+            "description": "Learn how to create, style and publish a Brightcove Player.",
+            "digital_master_id": null,
+            "duration": 366597,
+            "economics": "AD_SUPPORTED",
+            "folder_id": "55282713e4b00462e0e4908c",
+            "geo": null,
+            "has_digital_master": true,
+            "images": {
+              "poster": {
+                "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/404c707f-e847-4389-b440-e50d9c162991/f07cbd72-23fd-4b2f-b9fa-0798e5b584cf/1920x1080/match/image.jpg",
+                "sources": [
+                  {
+                    "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/404c707f-e847-4389-b440-e50d9c162991/f07cbd72-23fd-4b2f-b9fa-0798e5b584cf/1920x1080/match/image.jpg",
+                    "height": 1080,
+                    "width": 1920
+                  }
+                ]
+              },
+              "thumbnail": {
+                "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/404c707f-e847-4389-b440-e50d9c162991/5f853e5c-4738-4d55-8c09-5b14352d64c3/160x90/match/image.jpg",
+                "sources": [
+                  {
+                    "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/404c707f-e847-4389-b440-e50d9c162991/5f853e5c-4738-4d55-8c09-5b14352d64c3/160x90/match/image.jpg",
+                    "height": 90,
+                    "width": 160
+                  }
+                ]
+              }
+            },
+            "link": {
+              "text": "Quick Start: Publishing a Video to the Web",
+              "url": "https://support.brightcove.com/quick-start-publishing-video"
+            },
+            "long_description": null,
+            "name": "Creating and Styling Players",
+            "original_filename": "VCE - Creating and Styling Players.mp4",
+            "projection": null,
+            "published_at": "2015-12-02T20:45:29.048Z",
+            "reference_id": "VCE 9",
+            "schedule": null,
+            "sharing": {
+              "by_external_acct": false,
+              "by_id": null,
+              "source_id": null,
+              "to_external_acct": true,
+              "by_reference": false
+            },
+            "state": "ACTIVE",
+            "tags": [
+              "hapyak_sentiment",
+              "on demand training",
+              "video cloud essentials"
+            ],
+            "text_tracks": [
+              {
+                "id": "9e71db84-3c1e-49dc-8537-face8e117bd6",
+                "account_id": "20318290001",
+                "src": "https://static.3playmedia.com/p/files/3147521/threeplay_transcripts/9285259.vtt?project_id=10127&format_id=51&refresh=1544202737",
+                "srclang": "en",
+                "label": "English",
+                "kind": "captions",
+                "mime_type": null,
+                "asset_id": null,
+                "sources": [
+                  {
+                    "src": "https://static.3playmedia.com/p/files/3147521/threeplay_transcripts/9285259.vtt?project_id=10127&format_id=51&refresh=1544202737"
+                  }
+                ],
+                "default": true
+              }
+            ],
+            "updated_at": "2018-12-07T17:12:17.558Z",
+            "updated_by": {
+              "type": "api_key",
+              "email": "bbailey@brightcove.com"
+            },
+            "offline_enabled": false
+          },
+          {
+            "id": "4644276554001",
+            "account_id": "20318290001",
+            "ad_keys": null,
+            "clip_source_video_id": null,
+            "complete": true,
+            "created_at": "2015-12-03T16:19:32.622Z",
+            "created_by": {
+              "type": "unknown"
+            },
+            "cue_points": [
+            ],
+            "custom_fields": {
+            },
+            "delivery_type": "dynamic_origin",
+            "description": "Learn how to create manual and smart playlists.",
+            "digital_master_id": null,
+            "duration": 246898,
+            "economics": "AD_SUPPORTED",
+            "folder_id": "55282713e4b00462e0e4908c",
+            "geo": null,
+            "has_digital_master": true,
+            "images": {
+              "poster": {
+                "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/db41ffcb-bf43-40d7-a87b-1711c5521484/a0bc7ef0-9bcc-417e-b27d-cc34b49ef032/1920x1080/match/image.jpg",
+                "sources": [
+                  {
+                    "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/db41ffcb-bf43-40d7-a87b-1711c5521484/a0bc7ef0-9bcc-417e-b27d-cc34b49ef032/1920x1080/match/image.jpg",
+                    "height": 1080,
+                    "width": 1920
+                  }
+                ]
+              },
+              "thumbnail": {
+                "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/db41ffcb-bf43-40d7-a87b-1711c5521484/1ce6fb8f-0337-4bc8-b2c0-5eaf7c3a5a81/160x90/match/image.jpg",
+                "sources": [
+                  {
+                    "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/db41ffcb-bf43-40d7-a87b-1711c5521484/1ce6fb8f-0337-4bc8-b2c0-5eaf7c3a5a81/160x90/match/image.jpg",
+                    "height": 90,
+                    "width": 160
+                  }
+                ]
+              }
+            },
+            "link": {
+              "text": "Quick Start: Creating a Playlist",
+              "url": "https://support.brightcove.com/quick-start-creating-playlist"
+            },
+            "long_description": null,
+            "name": "Creating a Playlist",
+            "original_filename": "VCE - Creating a Playlist.mp4",
+            "projection": null,
+            "published_at": "2015-12-03T16:22:14.558Z",
+            "reference_id": "VCE 10",
+            "schedule": null,
+            "sharing": {
+              "by_external_acct": false,
+              "by_id": null,
+              "source_id": null,
+              "to_external_acct": true,
+              "by_reference": false
+            },
+            "state": "ACTIVE",
+            "tags": [
+              "hapyak_sentiment",
+              "on demand training",
+              "video cloud essentials"
+            ],
+            "text_tracks": [
+              {
+                "id": "1c0778d3-699e-4588-8572-389b47148cc7",
+                "account_id": "20318290001",
+                "src": "https://static.3playmedia.com/p/files/3024847/threeplay_transcripts/8892999.vtt?project_id=10127&format_id=51&refresh=1540402830",
+                "srclang": "en",
+                "label": "English",
+                "kind": "captions",
+                "mime_type": null,
+                "asset_id": null,
+                "sources": [
+                  {
+                    "src": "https://static.3playmedia.com/p/files/3024847/threeplay_transcripts/8892999.vtt?project_id=10127&format_id=51&refresh=1540402830"
+                  }
+                ],
+                "default": true
+              }
+            ],
+            "updated_at": "2018-12-17T21:08:53.197Z",
+            "updated_by": {
+              "type": "internal"
+            },
+            "offline_enabled": false
+          },
+          {
+            "id": "4644604404001",
+            "account_id": "20318290001",
+            "ad_keys": null,
+            "clip_source_video_id": null,
+            "complete": true,
+            "created_at": "2015-12-03T19:27:11.307Z",
+            "created_by": {
+              "type": "unknown"
+            },
+            "cue_points": [
+            ],
+            "custom_fields": {
+            },
+            "delivery_type": "dynamic_origin",
+            "description": "Learn how to publish a playlist.",
+            "digital_master_id": null,
+            "duration": 192122,
+            "economics": "AD_SUPPORTED",
+            "folder_id": "55282713e4b00462e0e4908c",
+            "geo": null,
+            "has_digital_master": true,
+            "images": {
+              "poster": {
+                "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/47d20de8-156c-4d01-a024-840acebe2095/4d26ce99-2296-4333-8cd5-999ebcc2abb4/1920x1080/match/image.jpg",
+                "sources": [
+                  {
+                    "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/47d20de8-156c-4d01-a024-840acebe2095/4d26ce99-2296-4333-8cd5-999ebcc2abb4/1920x1080/match/image.jpg",
+                    "height": 1080,
+                    "width": 1920
+                  }
+                ]
+              },
+              "thumbnail": {
+                "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/47d20de8-156c-4d01-a024-840acebe2095/8b799fb6-c823-461b-a170-a394bfdbf6bb/160x90/match/image.jpg",
+                "sources": [
+                  {
+                    "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/47d20de8-156c-4d01-a024-840acebe2095/8b799fb6-c823-461b-a170-a394bfdbf6bb/160x90/match/image.jpg",
+                    "height": 90,
+                    "width": 160
+                  }
+                ]
+              }
+            },
+            "link": {
+              "text": "Quick Start: Publishing a Playlist",
+              "url": "https://support.brightcove.com/quick-start-publishing-playlist"
+            },
+            "long_description": null,
+            "name": "Publishing a Playlist",
+            "original_filename": "VCE - Publishing a Playlist.mp4",
+            "projection": null,
+            "published_at": "2015-12-03T19:29:08.017Z",
+            "reference_id": "VCE 11",
+            "schedule": null,
+            "sharing": {
+              "by_external_acct": false,
+              "by_id": null,
+              "source_id": null,
+              "to_external_acct": true,
+              "by_reference": false
+            },
+            "state": "ACTIVE",
+            "tags": [
+              "hapyak_sentiment",
+              "on demand training",
+              "video cloud essentials"
+            ],
+            "text_tracks": [
+              {
+                "id": "fbe0649c-f833-4308-a3b0-f19b4f89396a",
+                "account_id": "20318290001",
+                "src": "https://static.3playmedia.com/p/files/3147761/threeplay_transcripts/9285881.vtt?project_id=10127&format_id=51&refresh=1544020038",
+                "srclang": "en",
+                "label": "English",
+                "kind": "captions",
+                "mime_type": null,
+                "asset_id": null,
+                "sources": [
+                  {
+                    "src": "https://static.3playmedia.com/p/files/3147761/threeplay_transcripts/9285881.vtt?project_id=10127&format_id=51&refresh=1544020038"
+                  }
+                ],
+                "default": true
+              }
+            ],
+            "updated_at": "2018-12-05T14:27:18.315Z",
+            "updated_by": {
+              "type": "unknown"
+            },
+            "offline_enabled": false
+          },
+          {
+            "id": "4644724382001",
+            "account_id": "20318290001",
+            "ad_keys": null,
+            "clip_source_video_id": null,
+            "complete": true,
+            "created_at": "2015-12-03T20:42:25.874Z",
+            "created_by": {
+              "type": "unknown"
+            },
+            "cue_points": [
+            ],
+            "custom_fields": {
+            },
+            "delivery_type": "dynamic_origin",
+            "description": "Learn about the Video Cloud Analytics module.",
+            "digital_master_id": null,
+            "duration": 138182,
+            "economics": "AD_SUPPORTED",
+            "folder_id": "55282713e4b00462e0e4908c",
+            "geo": null,
+            "has_digital_master": true,
+            "images": {
+              "poster": {
+                "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/8fd6041b-e2a3-49a3-a700-9ca56f92820f/dd63bbf5-dc36-4883-ac43-ef14e954c4e9/1920x1080/match/image.jpg",
+                "sources": [
+                  {
+                    "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/8fd6041b-e2a3-49a3-a700-9ca56f92820f/dd63bbf5-dc36-4883-ac43-ef14e954c4e9/1920x1080/match/image.jpg",
+                    "height": 1080,
+                    "width": 1920
+                  }
+                ]
+              },
+              "thumbnail": {
+                "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/8fd6041b-e2a3-49a3-a700-9ca56f92820f/29b969a1-fc5e-4d91-a0cc-eadcdcddb624/160x90/match/image.jpg",
+                "sources": [
+                  {
+                    "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/8fd6041b-e2a3-49a3-a700-9ca56f92820f/29b969a1-fc5e-4d91-a0cc-eadcdcddb624/160x90/match/image.jpg",
+                    "height": 90,
+                    "width": 160
+                  }
+                ]
+              }
+            },
+            "link": {
+              "text": "Quick Start: Reviewing Video Analytics",
+              "url": "https://support.brightcove.com/quick-start-reviewing-video-analytics"
+            },
+            "long_description": null,
+            "name": "Reviewing Video Analytics",
+            "original_filename": "VCE - Reviewing Video Analytics.mp4",
+            "projection": null,
+            "published_at": "2015-12-03T20:46:08.072Z",
+            "reference_id": "VCE 12",
+            "schedule": null,
+            "sharing": {
+              "by_external_acct": false,
+              "by_id": null,
+              "source_id": null,
+              "to_external_acct": true,
+              "by_reference": false
+            },
+            "state": "ACTIVE",
+            "tags": [
+              "hapyak_sentiment",
+              "on demand training",
+              "video cloud essentials"
+            ],
+            "text_tracks": [
+              {
+                "id": "30410aa4-06d0-407b-a708-5aae394e6f04",
+                "account_id": "20318290001",
+                "src": "https://static.3playmedia.com/p/files/3027336/threeplay_transcripts/8901035.vtt?project_id=10127&format_id=51&refresh=1540565682",
+                "srclang": "en",
+                "label": "English",
+                "kind": "captions",
+                "mime_type": null,
+                "asset_id": null,
+                "sources": [
+                  {
+                    "src": "https://static.3playmedia.com/p/files/3027336/threeplay_transcripts/8901035.vtt?project_id=10127&format_id=51&refresh=1540565682"
+                  }
+                ],
+                "default": true
+              }
+            ],
+            "updated_at": "2018-10-26T14:54:42.863Z",
+            "updated_by": {
+              "type": "unknown"
+            },
+            "offline_enabled": false
+          },
+          {
+            "id": "4644764460001",
+            "account_id": "20318290001",
+            "ad_keys": null,
+            "clip_source_video_id": null,
+            "complete": true,
+            "created_at": "2015-12-03T21:24:19.559Z",
+            "created_by": {
+              "type": "unknown"
+            },
+            "cue_points": [
+            ],
+            "custom_fields": {
+            },
+            "delivery_type": "dynamic_origin",
+            "description": "Learn about some additional Video Cloud resources.",
+            "digital_master_id": null,
+            "duration": 123786,
+            "economics": "AD_SUPPORTED",
+            "folder_id": "55282713e4b00462e0e4908c",
+            "geo": null,
+            "has_digital_master": true,
+            "images": {
+              "poster": {
+                "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/d3413fc5-27cf-49b4-a005-3b12c1f9e591/00491535-1f37-4d18-acf9-bbfa3ff55b08/1920x1080/match/image.jpg",
+                "sources": [
+                  {
+                    "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/d3413fc5-27cf-49b4-a005-3b12c1f9e591/00491535-1f37-4d18-acf9-bbfa3ff55b08/1920x1080/match/image.jpg",
+                    "height": 1080,
+                    "width": 1920
+                  }
+                ]
+              },
+              "thumbnail": {
+                "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/d3413fc5-27cf-49b4-a005-3b12c1f9e591/55dc5b23-8cb0-4470-a2a5-25e5169a583b/160x90/match/image.jpg",
+                "sources": [
+                  {
+                    "src": "https://cf-images.us-east-1.prod.boltdns.net/v1/static/20318290001/d3413fc5-27cf-49b4-a005-3b12c1f9e591/55dc5b23-8cb0-4470-a2a5-25e5169a583b/160x90/match/image.jpg",
+                    "height": 90,
+                    "width": 160
+                  }
+                ]
+              }
+            },
+            "link": {
+              "text": "Video Cloud Support",
+              "url": "https://support.brightcove.com"
+            },
+            "long_description": null,
+            "name": "Additional Resources",
+            "original_filename": "VCE - Additional Resources.mp4",
+            "projection": null,
+            "published_at": "2015-12-03T21:27:03.447Z",
+            "reference_id": "VCE 13",
+            "schedule": null,
+            "sharing": {
+              "by_external_acct": false,
+              "by_id": null,
+              "source_id": null,
+              "to_external_acct": true,
+              "by_reference": false
+            },
+            "state": "ACTIVE",
+            "tags": [
+              "hapyak_sentiment",
+              "on demand training",
+              "video cloud essentials"
+            ],
+            "text_tracks": [
+              {
+                "id": "d49d669c-c717-4ff1-ba2e-a10b4873cbb2",
+                "account_id": "20318290001",
+                "src": "https://static.3playmedia.com/p/files/3027536/threeplay_transcripts/8901627.vtt?project_id=10127&format_id=51&refresh=1540628476",
+                "srclang": "en",
+                "label": "English",
+                "kind": "captions",
+                "mime_type": null,
+                "asset_id": null,
+                "sources": [
+                  {
+                    "src": "https://static.3playmedia.com/p/files/3027536/threeplay_transcripts/8901627.vtt?project_id=10127&format_id=51&refresh=1540628476"
+                  }
+                ],
+                "default": true
+              }
+            ],
+            "updated_at": "2018-10-27T08:21:16.843Z",
+            "updated_by": {
+              "type": "unknown"
+            },
+            "offline_enabled": false
+          },
+        ],
+        tr,
+        td,
+        i,
+        iMax = videos.length,
+        f = document.createDocumentFragment();
+
+        for (i = 0; i < iMax; i++) {
+          var video = videos[i];
+          tr = document.createElement('tr');
+          td = document.createElement('td');
+          td.textContent = (i + 1);
+          tr.appendChild(td);
+          td = document.createElement('td');
+          td.textContent = video.name;
+          tr.appendChild(td);
+          td = document.createElement('td');
+          td.textContent = video.description;
+          tr.appendChild(td);
+          tbody.appendChild(tr);
+        }
+        </script>
+    </body>
+</html>

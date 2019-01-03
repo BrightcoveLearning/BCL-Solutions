@@ -1,17 +1,26 @@
-<?xml version="1.0" encoding="utf-8">
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="https://feeds.podcastmirror.com/assets/rssfeedstyle.xsl"?>
 <rss version="2.0"
-    xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+    xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+    xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+    xmlns:rawvoice="http://www.rawvoice.com/rawvoiceRssModule/"
+    xmlns:googleplay="http://www.google.com/schemas/play-podcasts/1.0" >
     <channel>
         <title>Bird Cast</title>
         <link>https://solutions.brightcove.com/bcls/tests/testfeed.rss</link>
         <language>en-us</language>
         <copyright>
-            <![CDATA[Robert year ]>
+            <![CDATA[rcrooks year ]>
         </copyright>
         <itunes:subtitle>
             <![CDATA[subtitle]>
         </itunes:subtitle>
-        <itunes:author>Robert Crooks</itunes:author>
+        <itunes:author>rcrooks</itunes:author>
         <itunes:summary>
             <![CDATA[Summary]>
         </itunes:summary>
@@ -19,39 +28,39 @@
             <![CDATA[Description]>
         </description>
         <itunes:owner>
-            <itunes:name>Robert</itunes:name>
+            <itunes:name>rcrooks</itunes:name>
             <itunes:email>rcrooks@brightcove.com</itunes:email>
         </itunes:owner>
         <itunes:image href="https://solutions.brightcove.com/bcls/tests/itunesfeedimage.png" />
-        <pubDate>Thu, 03 Jan 2019 14:47:46 GMT</pubDate>
-        <lastBuildDate>Thu, 03 Jan 2019 14:47:46 GMT</lastBuildDate>
+        <pubDate>Thu, 03 Jan 2019 19:39:45 GMT</pubDate>
+        <lastBuildDate>Thu, 03 Jan 2019 19:39:45 GMT</lastBuildDate>
         <itunes:category text="Education">
-            <itunes:category text="Training" /></itunes:category>
-        <itunes:keywords>birds,nature</itunes:keywords>
+            <itunes:category text="K-12" /></itunes:category>
+        <itunes:keywords>birds,nature,test</itunes:keywords>
         <itunes:explicit>no</itunes:explicit>
         <itunes:complete>yes</itunes:complete>
         <itunes:type>episodic</itunes:type>
         <item>
             <title>Oregon Coast</title>
-            <itunes:author>Robert Crooks</itunes:author>
+            <itunes:author>rcrooks</itunes:author>
             <itunes:subtitle>Updated at: 2018-10-03T18:11:26.415Z</itunes:subtitle>
             <itunes:image href="https://cf-images.us-east-1.prod.boltdns.net/v1/jit/57838016001/07dbe25b-3ab3-4799-b5d2-b9bdd59a37c9/main/1280x720/13s665ms/match/image.jpg" />
-            <enclosure length="7128915" type="video/mp4" url="https://bcbolt446c5271-a.akamaihd.net/media/v1/pmp4/static/clear/57838016001/07dbe25b-3ab3-4799-b5d2-b9bdd59a37c9/df76fda8-fa56-4b54-93fe-7ebec9faa948/main.mp4?akamai_token=exp=1548947166~acl=/media/v1/pmp4/static/clear/57838016001/07dbe25b-3ab3-4799-b5d2-b9bdd59a37c9/df76fda8-fa56-4b54-93fe-7ebec9faa948/main.mp4*~hmac=18ac314b8b3802b44c51fb0a81f06c6be48114570ad2fc29eb4f0294eebbe831" />
-            <guid isPermaLink="false">2cfa8f68-5aa9-433e-9b9f-ff2d1afe4b4d</guid>
+            <enclosure length="7128915" type="video/mp4" url="https://bcbolt446c5271-a.akamaihd.net/media/v1/pmp4/static/clear/57838016001/07dbe25b-3ab3-4799-b5d2-b9bdd59a37c9/df76fda8-fa56-4b54-93fe-7ebec9faa948/main.mp4?akamai_token=exp=1548964793~acl=/media/v1/pmp4/static/clear/57838016001/07dbe25b-3ab3-4799-b5d2-b9bdd59a37c9/df76fda8-fa56-4b54-93fe-7ebec9faa948/main.mp4*~hmac=fb58f7e2d2c43f712c2f9333f670aa56882d8b26155574af5f1a04bece6d4135" />
+            <guid isPermaLink="false">41db00f8-4b47-46bf-8e41-28f3d2617004</guid>
             <pubDate>Wed, 03 Oct 2018 09:15:48 GMT</pubDate>
             <itunes:duration>28</itunes:duration>
             <itunes:explicit>no</itunes:explicit>
             <itunes:isClosedCaptioned>no</itunes:isClosedCaptioned>
             <itunes:season>NaN
                 <itunes:episode>1</itunes:episode>
-                <itunes:episodeType>full</itunes:episodeType>
+                <itunes:episodeType>trailer</itunes:episodeType>
             </item>
             <item>
                 <title>Brown Pelican</title>
-                <itunes:author>Robert Crooks</itunes:author>
+                <itunes:author>rcrooks</itunes:author>
                 <itunes:image href="https://cf-images.us-east-1.prod.boltdns.net/v1/jit/57838016001/ca830218-6280-4f21-bb61-45bc4b02e847/main/1280x720/7s221ms/match/image.jpg" />
-                <enclosure length="3751555" type="video/mp4" url="https://bcbolt446c5271-a.akamaihd.net/media/v1/pmp4/static/clear/57838016001/ca830218-6280-4f21-bb61-45bc4b02e847/1d61973b-ddad-47c2-bab1-ab68608576f2/main.mp4?akamai_token=exp=1548947151~acl=/media/v1/pmp4/static/clear/57838016001/ca830218-6280-4f21-bb61-45bc4b02e847/1d61973b-ddad-47c2-bab1-ab68608576f2/main.mp4*~hmac=1e954cc2ca03f8afa13f5ea85a518541cda2b2690c5826a2bf644330d49c5333" />
-                <guid isPermaLink="false">680a9637-7b22-4223-b008-0572ca56ed06</guid>
+                <enclosure length="3751555" type="video/mp4" url="https://bcbolt446c5271-a.akamaihd.net/media/v1/pmp4/static/clear/57838016001/ca830218-6280-4f21-bb61-45bc4b02e847/1d61973b-ddad-47c2-bab1-ab68608576f2/main.mp4?akamai_token=exp=1548964778~acl=/media/v1/pmp4/static/clear/57838016001/ca830218-6280-4f21-bb61-45bc4b02e847/1d61973b-ddad-47c2-bab1-ab68608576f2/main.mp4*~hmac=d9bf2e03498690039d8f4061e11764aff07deb30b68b6384fda2b7e754bdd07b" />
+                <guid isPermaLink="false">5de44ce4-6952-44c3-92f0-d339c64d76ec</guid>
                 <pubDate>Sat, 29 Sep 2018 16:34:49 GMT</pubDate>
                 <itunes:duration>15</itunes:duration>
                 <itunes:explicit>no</itunes:explicit>
@@ -62,10 +71,10 @@
                 </item>
                 <item>
                     <title>Great Blue Heron</title>
-                    <itunes:author>Robert Crooks</itunes:author>
+                    <itunes:author>rcrooks</itunes:author>
                     <itunes:image href="https://cf-images.us-east-1.prod.boltdns.net/v1/jit/57838016001/77c62af8-ff2c-4536-a126-fadf44459af3/main/1280x720/15s754ms/match/image.jpg" />
-                    <enclosure length="8378166" type="video/mp4" url="https://bcbolt446c5271-a.akamaihd.net/media/v1/pmp4/static/clear/57838016001/77c62af8-ff2c-4536-a126-fadf44459af3/5f7ed63b-4b12-491d-ad1d-c719ac4631a9/main.mp4?akamai_token=exp=1548947172~acl=/media/v1/pmp4/static/clear/57838016001/77c62af8-ff2c-4536-a126-fadf44459af3/5f7ed63b-4b12-491d-ad1d-c719ac4631a9/main.mp4*~hmac=8e1189ad2812437bba84029e8613b807fa14b56bc3da0f1e3b7d79dd44f94fce" />
-                    <guid isPermaLink="false">6f3c11c4-41bf-4377-b3f8-360194214fb3</guid>
+                    <enclosure length="8378166" type="video/mp4" url="https://bcbolt446c5271-a.akamaihd.net/media/v1/pmp4/static/clear/57838016001/77c62af8-ff2c-4536-a126-fadf44459af3/5f7ed63b-4b12-491d-ad1d-c719ac4631a9/main.mp4?akamai_token=exp=1548964798~acl=/media/v1/pmp4/static/clear/57838016001/77c62af8-ff2c-4536-a126-fadf44459af3/5f7ed63b-4b12-491d-ad1d-c719ac4631a9/main.mp4*~hmac=9b972bc3973d342fb64e30265a17c292cef4dcf39ce3b23c3b065c9f64dac976" />
+                    <guid isPermaLink="false">b970cd42-d05f-428d-8ef8-7fc80b465073</guid>
                     <pubDate>Sat, 29 Sep 2018 16:35:02 GMT</pubDate>
                     <itunes:duration>32</itunes:duration>
                     <itunes:explicit>no</itunes:explicit>
@@ -76,11 +85,11 @@
                     </item>
                     <item>
                         <title>Great White Egret</title>
-                        <itunes:author>Robert Crooks</itunes:author>
+                        <itunes:author>rcrooks</itunes:author>
                         <itunes:subtitle>Updated at: 2018-09-26T09:32:47.903Z</itunes:subtitle>
                         <itunes:image href="https://cf-images.us-east-1.prod.boltdns.net/v1/jit/57838016001/1f926cbb-f959-49cf-a21b-e7543da83538/main/1280x720/8s74ms/match/image.jpg" />
-                        <enclosure length="7380901" type="video/mp4" url="https://bcbolt446c5271-a.akamaihd.net/media/v1/pmp4/static/clear/57838016001/1f926cbb-f959-49cf-a21b-e7543da83538/high.mp4?akamai_token=exp=1548947155~acl=/media/v1/pmp4/static/clear/57838016001/1f926cbb-f959-49cf-a21b-e7543da83538/high.mp4*~hmac=e8706816ae3e7c632cf362e4378f545a1c374c93eeb14808457890f22ffe8f05" />
-                        <guid isPermaLink="false">ab23a315-e5f2-406e-a7ef-1d589c87d5fa</guid>
+                        <enclosure length="7380901" type="video/mp4" url="https://bcbolt446c5271-a.akamaihd.net/media/v1/pmp4/static/clear/57838016001/1f926cbb-f959-49cf-a21b-e7543da83538/high.mp4?akamai_token=exp=1548964781~acl=/media/v1/pmp4/static/clear/57838016001/1f926cbb-f959-49cf-a21b-e7543da83538/high.mp4*~hmac=58b8d2b63fa352a9fbffb07c0db75412086f13309172b7226174e94605894f67" />
+                        <guid isPermaLink="false">9d332ff5-ed0a-4ac9-8f48-31c22412c85b</guid>
                         <pubDate>Mon, 24 Sep 2018 21:08:15 GMT</pubDate>
                         <itunes:duration>17</itunes:duration>
                         <itunes:explicit>no</itunes:explicit>

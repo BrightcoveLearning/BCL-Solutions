@@ -15,88 +15,89 @@
         <link>https://solutions.brightcove.com/bcls/tests/testfeed.rss</link>
         <language>en-us</language>
         <copyright>
-            <![CDATA[rcrooks year ]>
+            <![CDATA[rcrooks year ]]>
         </copyright>
         <itunes:subtitle>
-            <![CDATA[subtitle]>
+            <![CDATA[subtitle]]>
         </itunes:subtitle>
         <itunes:author>rcrooks</itunes:author>
         <itunes:summary>
-            <![CDATA[Summary]>
+            <![CDATA[Summary]]>
         </itunes:summary>
         <description>
-            <![CDATA[Description]>
+            <![CDATA[Description]]>
         </description>
         <itunes:owner>
             <itunes:name>rcrooks</itunes:name>
             <itunes:email>rcrooks@brightcove.com</itunes:email>
         </itunes:owner>
         <itunes:image href="https://solutions.brightcove.com/bcls/tests/itunesfeedimage.png" />
-        <pubDate>Thu, 03 Jan 2019 19:39:45 GMT</pubDate>
-        <lastBuildDate>Thu, 03 Jan 2019 19:39:45 GMT</lastBuildDate>
-        <itunes:category text="Education">
-            <itunes:category text="K-12" /></itunes:category>
+        <pubDate>Thu, 03 Jan 2019 19:48:49 GMT</pubDate>
+        <lastBuildDate>Thu, 03 Jan 2019 19:48:49 GMT</lastBuildDate>
+        <itunes:category text="Business">
+            <itunes:category text="Business News" /></itunes:category>
         <itunes:keywords>birds,nature,test</itunes:keywords>
         <itunes:explicit>no</itunes:explicit>
         <itunes:complete>yes</itunes:complete>
         <itunes:type>episodic</itunes:type>
-        <item>
-            <title>Oregon Coast</title>
+        <channel>
+            <title>Bird Cast</title>
+            <link>https://solutions.brightcove.com/bcls/tests/testfeed.rss</link>
+            <language>en-us</language>
+            <copyright>
+                <![CDATA[rcrooks year ]]>
+            </copyright>
+            <itunes:subtitle>
+                <![CDATA[subtitle]]>
+            </itunes:subtitle>
             <itunes:author>rcrooks</itunes:author>
-            <itunes:subtitle>Updated at: 2018-10-03T18:11:26.415Z</itunes:subtitle>
-            <itunes:image href="https://cf-images.us-east-1.prod.boltdns.net/v1/jit/57838016001/07dbe25b-3ab3-4799-b5d2-b9bdd59a37c9/main/1280x720/13s665ms/match/image.jpg" />
-            <enclosure length="7128915" type="video/mp4" url="https://bcbolt446c5271-a.akamaihd.net/media/v1/pmp4/static/clear/57838016001/07dbe25b-3ab3-4799-b5d2-b9bdd59a37c9/df76fda8-fa56-4b54-93fe-7ebec9faa948/main.mp4?akamai_token=exp=1548964793~acl=/media/v1/pmp4/static/clear/57838016001/07dbe25b-3ab3-4799-b5d2-b9bdd59a37c9/df76fda8-fa56-4b54-93fe-7ebec9faa948/main.mp4*~hmac=fb58f7e2d2c43f712c2f9333f670aa56882d8b26155574af5f1a04bece6d4135" />
-            <guid isPermaLink="false">41db00f8-4b47-46bf-8e41-28f3d2617004</guid>
-            <pubDate>Wed, 03 Oct 2018 09:15:48 GMT</pubDate>
-            <itunes:duration>28</itunes:duration>
+            <itunes:summary>
+                <![CDATA[Summary]]>
+            </itunes:summary>
+            <description>
+                <![CDATA[Description]]>
+            </description>
+            <itunes:owner>
+                <itunes:name>rcrooks</itunes:name>
+                <itunes:email>rcrooks@brightcove.com</itunes:email>
+            </itunes:owner>
+            <itunes:image href="https://solutions.brightcove.com/bcls/tests/itunesfeedimage.png" />
+            <pubDate>Thu, 03 Jan 2019 19:48:49 GMT</pubDate>
+            <lastBuildDate>Thu, 03 Jan 2019 19:48:49 GMT</lastBuildDate>
+            <itunes:category text="Business">
+                <itunes:category text="Business News" /></itunes:category>
+            <itunes:keywords>birds,nature,test</itunes:keywords>
             <itunes:explicit>no</itunes:explicit>
-            <itunes:isClosedCaptioned>no</itunes:isClosedCaptioned>
-            <itunes:season>NaN
-                <itunes:episode>1</itunes:episode>
-                <itunes:episodeType>trailer</itunes:episodeType>
-            </item>
+            <itunes:complete>yes</itunes:complete>
+            <itunes:type>episodic</itunes:type>
             <item>
-                <title>Brown Pelican</title>
+                <title>Great Blue Heron</title>
                 <itunes:author>rcrooks</itunes:author>
-                <itunes:image href="https://cf-images.us-east-1.prod.boltdns.net/v1/jit/57838016001/ca830218-6280-4f21-bb61-45bc4b02e847/main/1280x720/7s221ms/match/image.jpg" />
-                <enclosure length="3751555" type="video/mp4" url="https://bcbolt446c5271-a.akamaihd.net/media/v1/pmp4/static/clear/57838016001/ca830218-6280-4f21-bb61-45bc4b02e847/1d61973b-ddad-47c2-bab1-ab68608576f2/main.mp4?akamai_token=exp=1548964778~acl=/media/v1/pmp4/static/clear/57838016001/ca830218-6280-4f21-bb61-45bc4b02e847/1d61973b-ddad-47c2-bab1-ab68608576f2/main.mp4*~hmac=d9bf2e03498690039d8f4061e11764aff07deb30b68b6384fda2b7e754bdd07b" />
-                <guid isPermaLink="false">5de44ce4-6952-44c3-92f0-d339c64d76ec</guid>
-                <pubDate>Sat, 29 Sep 2018 16:34:49 GMT</pubDate>
-                <itunes:duration>15</itunes:duration>
+                <itunes:image href="https://cf-images.us-east-1.prod.boltdns.net/v1/jit/57838016001/77c62af8-ff2c-4536-a126-fadf44459af3/main/1280x720/15s754ms/match/image.jpg" />
+                <enclosure length="8378166" type="video/mp4" url="https://bcbolt446c5271-a.akamaihd.net/media/v1/pmp4/static/clear/57838016001/77c62af8-ff2c-4536-a126-fadf44459af3/5f7ed63b-4b12-491d-ad1d-c719ac4631a9/main.mp4?akamai_token=exp=1548965569~acl=/media/v1/pmp4/static/clear/57838016001/77c62af8-ff2c-4536-a126-fadf44459af3/5f7ed63b-4b12-491d-ad1d-c719ac4631a9/main.mp4*~hmac=d200991a51414b98371c3fa6ad0085542f98cb2a462d8575d9c61c2807d7b4c0" />
+                <guid isPermaLink="false">41db00f8-4b47-46bf-8e41-28f3d2617004</guid>
+                <pubDate>Sat, 29 Sep 2018 16:35:02 GMT</pubDate>
+                <itunes:duration>32</itunes:duration>
                 <itunes:explicit>no</itunes:explicit>
                 <itunes:isClosedCaptioned>no</itunes:isClosedCaptioned>
                 <itunes:season>NaN
-                    <itunes:episode>2</itunes:episode>
+                    <itunes:episode>1</itunes:episode>
                     <itunes:episodeType>full</itunes:episodeType>
                 </item>
                 <item>
-                    <title>Great Blue Heron</title>
+                    <title>Great White Egret</title>
                     <itunes:author>rcrooks</itunes:author>
-                    <itunes:image href="https://cf-images.us-east-1.prod.boltdns.net/v1/jit/57838016001/77c62af8-ff2c-4536-a126-fadf44459af3/main/1280x720/15s754ms/match/image.jpg" />
-                    <enclosure length="8378166" type="video/mp4" url="https://bcbolt446c5271-a.akamaihd.net/media/v1/pmp4/static/clear/57838016001/77c62af8-ff2c-4536-a126-fadf44459af3/5f7ed63b-4b12-491d-ad1d-c719ac4631a9/main.mp4?akamai_token=exp=1548964798~acl=/media/v1/pmp4/static/clear/57838016001/77c62af8-ff2c-4536-a126-fadf44459af3/5f7ed63b-4b12-491d-ad1d-c719ac4631a9/main.mp4*~hmac=9b972bc3973d342fb64e30265a17c292cef4dcf39ce3b23c3b065c9f64dac976" />
-                    <guid isPermaLink="false">b970cd42-d05f-428d-8ef8-7fc80b465073</guid>
-                    <pubDate>Sat, 29 Sep 2018 16:35:02 GMT</pubDate>
-                    <itunes:duration>32</itunes:duration>
+                    <itunes:subtitle>Updated at: 2018-09-26T09:32:47.903Z</itunes:subtitle>
+                    <itunes:image href="https://cf-images.us-east-1.prod.boltdns.net/v1/jit/57838016001/1f926cbb-f959-49cf-a21b-e7543da83538/main/1280x720/8s74ms/match/image.jpg" />
+                    <enclosure length="7380901" type="video/mp4" url="https://bcbolt446c5271-a.akamaihd.net/media/v1/pmp4/static/clear/57838016001/1f926cbb-f959-49cf-a21b-e7543da83538/high.mp4?akamai_token=exp=1548965552~acl=/media/v1/pmp4/static/clear/57838016001/1f926cbb-f959-49cf-a21b-e7543da83538/high.mp4*~hmac=6f979606f414c7b99d2b82905d78db651da0195cfd923a4767272bd62a40e5fa" />
+                    <guid isPermaLink="false">5de44ce4-6952-44c3-92f0-d339c64d76ec</guid>
+                    <pubDate>Mon, 24 Sep 2018 21:08:15 GMT</pubDate>
+                    <itunes:duration>17</itunes:duration>
                     <itunes:explicit>no</itunes:explicit>
                     <itunes:isClosedCaptioned>no</itunes:isClosedCaptioned>
                     <itunes:season>NaN
-                        <itunes:episode>3</itunes:episode>
-                        <itunes:episodeType>full</itunes:episodeType>
+                        <itunes:episode>2</itunes:episode>
+                        <itunes:episodeType>trailer</itunes:episodeType>
                     </item>
-                    <item>
-                        <title>Great White Egret</title>
-                        <itunes:author>rcrooks</itunes:author>
-                        <itunes:subtitle>Updated at: 2018-09-26T09:32:47.903Z</itunes:subtitle>
-                        <itunes:image href="https://cf-images.us-east-1.prod.boltdns.net/v1/jit/57838016001/1f926cbb-f959-49cf-a21b-e7543da83538/main/1280x720/8s74ms/match/image.jpg" />
-                        <enclosure length="7380901" type="video/mp4" url="https://bcbolt446c5271-a.akamaihd.net/media/v1/pmp4/static/clear/57838016001/1f926cbb-f959-49cf-a21b-e7543da83538/high.mp4?akamai_token=exp=1548964781~acl=/media/v1/pmp4/static/clear/57838016001/1f926cbb-f959-49cf-a21b-e7543da83538/high.mp4*~hmac=58b8d2b63fa352a9fbffb07c0db75412086f13309172b7226174e94605894f67" />
-                        <guid isPermaLink="false">9d332ff5-ed0a-4ac9-8f48-31c22412c85b</guid>
-                        <pubDate>Mon, 24 Sep 2018 21:08:15 GMT</pubDate>
-                        <itunes:duration>17</itunes:duration>
-                        <itunes:explicit>no</itunes:explicit>
-                        <itunes:isClosedCaptioned>no</itunes:isClosedCaptioned>
-                        <itunes:season>NaN
-                            <itunes:episode>1</itunes:episode>
-                            <itunes:episodeType>trailer</itunes:episodeType>
-                        </item>
-                    </channel>
-                </rss>
+                </channel>
+            </rss>

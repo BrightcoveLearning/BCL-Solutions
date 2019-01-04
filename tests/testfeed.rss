@@ -32,8 +32,8 @@
             <itunes:email>rcrooks@brightcove.com</itunes:email>
         </itunes:owner>
         <itunes:image href="https://solutions.brightcove.com/bcls/tests/itunesfeedimage.png" />
-        <pubDate>Thu, 03 Jan 2019 20:20:24 GMT</pubDate>
-        <lastBuildDate>Thu, 03 Jan 2019 20:20:24 GMT</lastBuildDate>
+        <pubDate>Fri, 04 Jan 2019 19:54:14 GMT</pubDate>
+        <lastBuildDate>Fri, 04 Jan 2019 19:54:14 GMT</lastBuildDate>
         <itunes:category text="Education">
             <itunes:category text="K-12" /></itunes:category>
         <itunes:keywords>birds,nature,test</itunes:keywords>
@@ -44,30 +44,30 @@
             <title>Great Blue Heron</title>
             <itunes:author>rcrooks</itunes:author>
             <itunes:image href="https://cf-images.us-east-1.prod.boltdns.net/v1/jit/57838016001/77c62af8-ff2c-4536-a126-fadf44459af3/main/1280x720/15s754ms/match/image.jpg" />
-            <enclosure length="8378166" type="video/mp4" url="https://bcbolt446c5271-a.akamaihd.net/media/v1/pmp4/static/clear/57838016001/77c62af8-ff2c-4536-a126-fadf44459af3/5f7ed63b-4b12-491d-ad1d-c719ac4631a9/main.mp4?akamai_token=exp=1548967058~acl=/media/v1/pmp4/static/clear/57838016001/77c62af8-ff2c-4536-a126-fadf44459af3/5f7ed63b-4b12-491d-ad1d-c719ac4631a9/main.mp4*~hmac=e08d5b291b8d765e79a7acce9055d8ff7be0173bc522ebebc9e2a7d0fef46d8b" />
+            <enclosure length="8378166" type="video/mp4" url="https://bcbolt446c5271-a.akamaihd.net/media/v1/pmp4/static/clear/57838016001/77c62af8-ff2c-4536-a126-fadf44459af3/5f7ed63b-4b12-491d-ad1d-c719ac4631a9/main.mp4?akamai_token=exp=1549051883~acl=/media/v1/pmp4/static/clear/57838016001/77c62af8-ff2c-4536-a126-fadf44459af3/5f7ed63b-4b12-491d-ad1d-c719ac4631a9/main.mp4*~hmac=f276a5395d5b830f3188ebb5f07ff5a58e5ae331e0ea44d257ed5b07e397e50a" />
             <guid isPermaLink="false">41db00f8-4b47-46bf-8e41-28f3d2617004</guid>
             <pubDate>Sat, 29 Sep 2018 16:35:02 GMT</pubDate>
             <itunes:duration>32</itunes:duration>
             <itunes:explicit>no</itunes:explicit>
             <itunes:isClosedCaptioned>no</itunes:isClosedCaptioned>
-            <itunes:season>NaN
-                <itunes:episode>1</itunes:episode>
-                <itunes:episodeType>full</itunes:episodeType>
-            </item>
-            <item>
-                <title>Great White Egret</title>
-                <itunes:author>rcrooks</itunes:author>
-                <itunes:subtitle>Updated at: 2018-09-26T09:32:47.903Z</itunes:subtitle>
-                <itunes:image href="https://cf-images.us-east-1.prod.boltdns.net/v1/jit/57838016001/1f926cbb-f959-49cf-a21b-e7543da83538/main/1280x720/8s74ms/match/image.jpg" />
-                <enclosure length="7380901" type="video/mp4" url="https://bcbolt446c5271-a.akamaihd.net/media/v1/pmp4/static/clear/57838016001/1f926cbb-f959-49cf-a21b-e7543da83538/high.mp4?akamai_token=exp=1548967040~acl=/media/v1/pmp4/static/clear/57838016001/1f926cbb-f959-49cf-a21b-e7543da83538/high.mp4*~hmac=e314a5a38da62fcd2f7988ddc63168017486289d60089423f8432d7af936f65e" />
-                <guid isPermaLink="false">5de44ce4-6952-44c3-92f0-d339c64d76ec</guid>
-                <pubDate>Mon, 24 Sep 2018 21:08:15 GMT</pubDate>
-                <itunes:duration>17</itunes:duration>
-                <itunes:explicit>no</itunes:explicit>
-                <itunes:isClosedCaptioned>no</itunes:isClosedCaptioned>
-                <itunes:season>NaN
-                    <itunes:episode>2</itunes:episode>
-                    <itunes:episodeType>trailer</itunes:episodeType>
-                </item>
-            </channel>
-        </rss>
+            <itunes:season>1</itunes:season>
+            <itunes:episode>1</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+        </item>
+        <item>
+            <title>Great White Egret</title>
+            <itunes:author>rcrooks</itunes:author>
+            <itunes:subtitle>Updated at: 2018-09-26T09:32:47.903Z</itunes:subtitle>
+            <itunes:image href="https://cf-images.us-east-1.prod.boltdns.net/v1/jit/57838016001/1f926cbb-f959-49cf-a21b-e7543da83538/main/1280x720/8s74ms/match/image.jpg" />
+            <enclosure length="7380901" type="video/mp4" url="https://bcbolt446c5271-a.akamaihd.net/media/v1/pmp4/static/clear/57838016001/1f926cbb-f959-49cf-a21b-e7543da83538/high.mp4?akamai_token=exp=1549051865~acl=/media/v1/pmp4/static/clear/57838016001/1f926cbb-f959-49cf-a21b-e7543da83538/high.mp4*~hmac=0a8a83ee0cbbaa5bfcb717abc9abe033a9f5e7aa6244c591ff2527139f3889d0" />
+            <guid isPermaLink="false">5de44ce4-6952-44c3-92f0-d339c64d76ec</guid>
+            <pubDate>Mon, 24 Sep 2018 21:08:15 GMT</pubDate>
+            <itunes:duration>17</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:isClosedCaptioned>no</itunes:isClosedCaptioned>
+            <itunes:season>2</itunes:season>
+            <itunes:episode>1</itunes:episode>
+            <itunes:episodeType>trailer</itunes:episodeType>
+        </item>
+    </channel>
+</rss>

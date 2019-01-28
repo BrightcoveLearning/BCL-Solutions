@@ -262,6 +262,7 @@ function isDefined(x) {
         default:
         console.log('should not be here - unknown filter_type: ', filter_type);
       }
+      console.log('all_current_profiles', all_current_profiles);
       displayFilteredProfiles();
     return;
   }

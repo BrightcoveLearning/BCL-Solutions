@@ -284,7 +284,11 @@ function isDefined(x) {
       profile = all_current_profiles[i],
       option = document.createElement('option');
       option.setAttribute('value', profile.name);
-      option.textContent = profile.display_name;
+      if (isDefined(profile.display_name)) {
+        option.textContent = profile.display_name;
+      } else {
+        option.textContent = profile.name;
+      }
       frag.appendChild(option);
     }
     profiles.appendChild(frag);

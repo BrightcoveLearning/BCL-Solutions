@@ -459,7 +459,7 @@ function isDefined(x) {
             for (i = 0; i < iMax; i++) {
               all_profiles.push(all_current_profiles[i]);
             }
-
+            console.log('all_profiles', all_profiles);
             filterProfiles();
             logMessage(status, 'Account ingests profiles retrieved');
           }

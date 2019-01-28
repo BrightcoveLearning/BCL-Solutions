@@ -256,6 +256,9 @@ function isDefined(x) {
             }
           }
           break;
+        case 'show_all':
+          // do nothing; don't need to remove any profiles
+          break;
         default:
         console.log('should not be here - unknown filter_type: ', filter_type);
       }

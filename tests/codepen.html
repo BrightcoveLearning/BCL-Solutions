@@ -1,0 +1,93 @@
+<section class="bcls-section">
+<h2 id="MRSSgenerator">Video Sitemap Generator</h2>
+
+<p>You can use the form below to generate a sample MRSS feed either for your own account or for a sample Brightcove account.</p>
+
+<fieldset class="bcls-fieldset"><legend>Input</legend>
+
+<p>If you do not enter account information, a Brightcove sample account will be used.</p>
+
+<p>Account id: <input id="account_id_input" type="text" value="" placeholder="1752604059001" /></p>
+
+<p>Client id: <input id="client_id_input" type="text" size="60" value="" placeholder="c5d0a622-5479-46d8-8d8a-5f034b943fab" /></p>
+
+<p>Client secret: <input id="client_secret_input" type="text" size="60" value="" placeholder="w7NQYu0vUloM4GYYy2SXAxrvyFpt8fwI35qAFZcS13-VIgs0itwKNsAwHOS80sOWKJ1BUwHIvSFG2I" /></p>
+
+<div>
+  <input type="radio" id="metadata" class="hosting" value="customField"
+         checked>
+  <label for="metadata">Video page URLs are stored in a custom field</label>
+</div>
+
+<div>
+  <input type="radio" id="onePage" class="hosting" value="singlePage">
+  <label for="onePage">Videos are hosted on a single page</label>
+</div>
+
+<div class="option" id="customField">
+  <p><strong><em>Internal</em></strong> name of the custom field: <input type="text" id="customFieldName" value="" placeholder="page_url"></p>
+</div>
+
+<div class="option" id="singlePage">
+  <p>Page URL: <input type="text" id="pageURL" value="" placeholder="https:my.site.net/videos.html" size="60"></p>
+  <p>URL parameter for id: <input type="text" id="urlParam" value="" placeholder="videoId"></p>
+  <p>URL parameter value is the:</p>
+  <div>
+    <input type="radio" class="idType" id="vidId" name="idType" value="id"
+           checked>
+    <label for="vidId">Video ID</label>
+  </div>
+
+  <div>
+    <input type="radio" class="idType" id="refId" name="idType" value="reference_id">
+    <label for="refId">Reference ID</label>
+  </div>
+</div>
+
+<p>How often are videos updated? <select id="freqSelect" name="freqSelect">
+  <option value="0">Don't include the update frequency</option>
+  <option value="always">always</option>
+  <option value="hourly">hourly</option>
+  <option value="daily">daily</option>
+  <option value="weekly">weekly</option>
+  <option value="monthly">monthly</option>
+  <option value="yearly">yearly</option>
+  <option value="never">never</option>
+</select></p>
+
+<p><input type="checkbox" id="familyFriendly" value="true" checked> <label for="familyFriendly">Videos are family-friendly</label></p>
+
+<p>Number of videos to include: <select name="numberSelect" id="numberSelect" style="width:100px;">
+  <option value="25" selected="selected">25</option><option value="50">50</option>
+  <option value="100">100</option>
+  <option value="1000">1000</option>
+  <option value="10000">10,000</option>
+  <option value="50000">50,000</option>
+</select>
+<br>
+<span style="color:#660000;">Note: if you have less than 50,000 videos and want to include all, just select a number higher than your total count.</span>
+</p>
+
+<p>Search string to select videos (optional - see <a href="https://support.brightcove.com/cmsplayback-api-videos-search">Search for Videos</a>) <input id="searchStr" type="text" placeholder="tags:foo" /></p>
+
+<p>Sort by: <select name="sortSelect" id="sortSelect" style="width:150px;"><option value="updated_at" selected="selected">Date last updated</option><option value="created_at">Date added</option></select><select name="directionSelect" id="directionSelect" style="width:120px;"><option value="-" selected="selected">descending</option><option value="">ascending</option></select></p>
+
+<p><button class="bcls-button" id="makeFeed">Generate the Sitemap</button></p>
+</fieldset>
+
+<fieldset class="bcls-fieldset"><legend>Output</legend>
+
+<p id="logger" style="color:rgb(237, 104, 38)">Waiting for input...</p>
+
+<p>Current API request</p>
+
+<pre>
+<code id="apiRequest">API request will appear here...</code></pre>
+
+<p>Generated MRSS feed</p>
+<textarea id="feedDisplay" style="width:95%;height:30em;"></textarea></fieldset>
+</section>
+
+<script>
+  console.log(document.querySelectorAll('input[name="hosting"]'));
+</script>

@@ -7,6 +7,6 @@ $host = $_SERVER[HTTP_HOST];
   $newUrl = 'https://'.$host.$newUri;
 // }
 // header("Location: $newUrl"); 
-var_dump($newUri);
+var_dump($newUrl);
 ?>
 

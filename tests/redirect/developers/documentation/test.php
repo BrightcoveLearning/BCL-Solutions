@@ -6,7 +6,7 @@ if (strpos($uri), 'developers/documentation' == true) {
   $newUri = str_replace('developers/documentation', 'video-platform', $uri);
   $newUrl = $host.$newUri;
 }
-header("Location: $newUrl"); 
+// header("Location: $newUrl"); 
 echo "Location: $newUrl";
 ?>
 

@@ -1,7 +1,12 @@
 <?php 
 
-// echo $_SERVER[REQUEST_URI];
-var_dump($_ENV);
-// header("Location: http://www.New-Website.com"); 
+$uri = $_SERVER[REQUEST_URI];
+$host = $_SERVER[REQUEST_URI];
+if (strpos($uri), 'developers/documentation') == true) {
+  $newUri = str_replace('developers/documentation', 'video-platform', $uri);
+  $newUrl = $host.$newUri;
+}
+header("Location: $newUrl"); 
+echo "Location: $newUrl";
 ?>
 

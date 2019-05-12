@@ -28,3 +28,4 @@ $logEntry = $notification."\n \n";
 
 // line below is displayed when you browse the app directly
 echo "Live callback app is running";
+?>

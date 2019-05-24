@@ -12,18 +12,18 @@
     </head>
     <body>
       <h1>Just a test for CSS selectors</h1>
-      <p data-step5="true">Step 5</p>
-      <p data-step5="true">Step 5 also</p>
-      <p data-step2="true">Step 2</p>
+      <p data-step="5">Step 5</p>
+      <p data-step="5">Step 5 also</p>
+      <p data-step="2">Step 2</p>
       <p>Selectors:</p>
-<pre><code>var step5 = document.querySelectorAll('p[data-step5]');
-var step2 = document.querySelectorAll('p[data-step2]');</code></pre>
+<pre><code>var step5 = document.querySelectorAll('p[data-step="5"]');
+var step2 = document.querySelectorAll('p[data-step="2"]');</code></pre>
 
         <script>
-        var step5 = document.querySelectorAll('p[data-step5]');
-        var step2 = document.querySelectorAll('p[data-step2]');
+        var step5 = document.querySelectorAll('p[data-step="5"]');
+        var step2 = document.querySelectorAll('p[data-step="2"]');
         console.log('step5', step5);
         console.log('step2', step2);
-\        </script>
+        </script>
     </body>
 </html>

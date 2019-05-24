@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>selector test</title>
+        <style>
+          body {
+            font-family: sans-serif;
+            margin: 4em;
+          }
+        </style>
+    </head>
+    <body>
+      <h1>Just a test for CSS selectors</h1>
+      <p data-step5="true">Step 5</p>
+      <p data-step5="true">Step 5 also</p>
+      <p data-step2="true">Step 2</p>
+      <p>Selectors:</p>
+<pre><code>var step5 = document.querySelectorAll('p[data-step5]');
+var step2 = document.querySelectorAll('p[data-step2]');</code></pre>
+
+        <script>
+        var step5 = document.querySelectorAll('p[data-step5]');
+        var step2 = document.querySelectorAll('p[data-step2]');
+        console.log('step5', step5);
+        console.log('step2', step2);
+\        </script>
+    </body>
+</html>

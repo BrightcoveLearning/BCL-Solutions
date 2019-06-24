@@ -1,0 +1,3 @@
+;
+/* module-key = 'com.atlassian.jira.plugins.jira-editor-plugin:wrm', location = 'js/editor-wrm.js' */
+define("jira/editor/wrm",["exports","wrm/data"],function(a,b){var c=b.claim("com.atlassian.jira.plugins.jira-editor-plugin:wrm.editor-data")||{};a.isAttachmentsAllowed=function(){return c.allowedAttachments};a.getResources=function(){return c.resources};a.getConverters=function(){return c.converters}});;

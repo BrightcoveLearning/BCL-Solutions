@@ -1,0 +1,2 @@
+/* module-key = 'jira.filter.deletion.warning:styles', location = '/includes/jira/issue/filter/filter-deletion-warning.less' */
+#filter-deletion-warning .title-warning{font-weight:bold}#filter-deletion-warning .warning-message{margin:4px 0;list-style-type:disc}

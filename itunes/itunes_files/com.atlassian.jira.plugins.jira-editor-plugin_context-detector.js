@@ -1,0 +1,3 @@
+;
+/* module-key = 'com.atlassian.jira.plugins.jira-editor-plugin:context-detector', location = 'js/context-detector.js' */
+define("jira/editor/context-detector",["jira/editor/converter/util/rte-strings","underscore","jquery"],function(a,h,e){var d="pre,.code.panel,.preformatted.panel,.panelHeader,panel-title";var i="table";var f="a";var g={};g.detectPre=function(j){return c(j,d)};g.detectTable=function(j){return c(j,i)};g.detectA=function(j){return c(j,f)};g.detectPreWithinSelection=function(j){return b(j,d)};return g;function c(k,j){return e(k||{}).closest(j).length>0}function b(k,j){try{return e((h.isString(k)?a.parseHtml(k):k)||{}).find(j).length>0}catch(l){return false}}});;

@@ -1,0 +1,3 @@
+;
+/* module-key = 'jira.webresources:calendar-localisation-moment', location = '/includes/lib/calendar/Calendar-localisation-moment.js' */
+define("jira/calendar/localisation-moment",["require"],function(a){"use strict";var e=a("jira/moment"),t=a("jira/libs/calendar"),n=e.langData("jira");null!==n&&"object"==typeof n&&"function"==typeof t&&(t._DN=n._weekdays.concat(n._weekdays[0]),t._SDN=n._weekdaysShort.concat(n._weekdaysShort[0]),t._MN=[].concat(n._months),t._SMN=[].concat(n._monthsShort))}),require("jira/calendar/localisation-moment");;

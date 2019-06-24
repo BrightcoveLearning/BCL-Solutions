@@ -1,0 +1,2 @@
+/* module-key = 'com.atlassian.jira.jira-issue-nav-components:pager-less-adgs', location = 'pager/styles/pager.less' */
+.pager{display:flex;align-items:center}.pager .aui-icon{vertical-align:middle}.pager .showing{margin-right:10px}

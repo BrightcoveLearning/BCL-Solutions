@@ -2,20 +2,20 @@
 // Welcome to Carl's UPDATED sample Video Cloud iTunes feed
 
 // Please use this at your own risk.
-// This is just a sample to get you started. You can customize further as your requirements
-// grow.
+// This is just a sample to get you started. 
+// You can customize further as your requirements grow.
 
-// The following is a list of requirements and conditions in order for this podcast feed
-// to function properly;
+// The following is a list of requirements and conditions 
+// in order for this podcast feed to function properly;
 
-//1) You must have a Pro or Enterprise level Video Cloud Account.
-//2) You need to create the following custom fields. They are in your Account Settings: 
+// 1) You must have a Pro or Enterprise level Video Cloud Account.
+// 2) You need to create the following custom fields. They are in your Account Settings: 
 // Video Fields page on the Video Cloud Studio Home page:
 //			1) itunesartist(text)
 //			2) explicit(text) values = yes|no, true|false, explicit|clean
 //
-//3) You will have to manually or programmatically set the custom metadata values when you
-// upload content.
+// 3) You will have to manually or programmatically 
+// set the custom metadata values when you upload content.
 
 
 

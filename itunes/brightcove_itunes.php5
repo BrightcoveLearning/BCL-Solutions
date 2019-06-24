@@ -19,7 +19,7 @@
 
 
 
-// Please customize the variables below:
+// ****Please customize the variables below:****
 
 // This is the title of the podcast itself.
 $title = "Brightcove Test Podcast";

@@ -67,43 +67,43 @@ $baseURL = "https://edge.api.brightcove.com/playback/v1/accounts/";
 
 
 // Please DO NOT alter the code below;
-print'<?xml version="1.0" encoding="UTF-8"?>';
+print '<?xml version="1.0" encoding="UTF-8"?>';
 echo"\n";
-print'<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom">';
+print '<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom">';
 echo"\n";
-print'<channel>';
+print '<channel>';
 echo"\n";
-print'	<title>'. $title .'</title>';
+print '	<title>'. $title .'</title>';
 echo"\n";
-print'	<link>'. $link .'</link>';
+print '	<link>'. $link .'</link>';
 echo"\n";
-print'	<language>'. $lang .'</language>';
+print '	<language>'. $lang .'</language>';
 echo"\n";
-print'	<copyright>'. $copyright .'</copyright>';
+print '	<copyright>'. $copyright .'</copyright>';
 echo"\n";
-print'	<itunes:subtitle>'. $subtitle .'</itunes:subtitle>';
+print '	<itunes:subtitle>'. $subtitle .'</itunes:subtitle>';
 echo"\n";
-print'	<itunes:author>'. $author .'</itunes:author>';
+print '	<itunes:author>'. $author .'</itunes:author>';
 echo"\n";
-print'	<pubDate>'. $pubDate .'</pubDate>';
+print '	<pubDate>'. $pubDate .'</pubDate>';
 echo"\n";
-print'	<itunes:summary><![CDATA['. $summary .']]></itunes:summary>';
+print '	<itunes:summary><![CDATA['. $summary .']]></itunes:summary>';
 echo"\n";
-print'	<description><![CDATA['. $description .']]></description>';
+print '	<description><![CDATA['. $description .']]></description>';
 echo"\n";
-print'	<itunes:owner>';
+print '	<itunes:owner>';
 echo"\n";
-print'		<itunes:name>'. $ownername .'</itunes:name>';
+print '		<itunes:name>'. $ownername .'</itunes:name>';
 echo"\n";
-print'		<itunes:email>'. $owneremail .'</itunes:email>';
+print '		<itunes:email>'. $owneremail .'</itunes:email>';
 echo"\n";
-print'	</itunes:owner>';
+print '	</itunes:owner>';
 echo"\n";
-print'	<itunes:image href="'. $imageurl .'" />';
+print '	<itunes:image href="'. $imageurl .'" />';
 echo"\n";
-print'	<itunes:category text="'. $category .'"></itunes:category>';
+print '	<itunes:category text="'. $category .'"></itunes:category>';
 echo"\n";
-print'	<itunes:explicit>'. $explicit .'</itunes:explicit>');
+print '	<itunes:explicit>'. $explicit .'</itunes:explicit>');
 echo"\n";
 echo"\n";
 
@@ -141,70 +141,70 @@ $returndata = json_decode($file_contents);
 
 foreach($returndata->videos as $items)
 {
-print'	<item>';
+print '	<item>';
 echo"\n";
-print'		<title>';
+print '		<title>';
 print_r($items->{"name"});
-print'</title>';
+print '</title>';
 echo"\n";
  
-print'		<itunes:author>';
+print '		<itunes:author>';
 print_r($items->custom_fields->{"itunesartist"});
-print'</itunes:author>';
+print '</itunes:author>';
 echo"\n";
  
-print'		<itunes:subtitle>';
+print '		<itunes:subtitle>';
 print_r($items->{"description"});
-print'</itunes:subtitle>';
+print '</itunes:subtitle>';
 echo"\n";
 
-print'		<itunes:summary>';
+print '		<itunes:summary>';
 print_r($items->{"description"});
-print'</itunes:summary>';
+print '</itunes:summary>';
 echo"\n";
  
-print'		<itunes:image>';
+print '		<itunes:image>';
 print_r($items->{"poster"});
-print'</itunes:image>';
+print '</itunes:image>';
 echo"\n";
  
-print'		<enclosure url="');
+print '		<enclosure url="');
 $newurl = $items->sources[4]->{"src"};
 print_r($newurl);
-print'" length="';
+print '" length="';
 print_r($items->{"duration"});
-print'" type="video/mp4" />';
+print '" type="video/mp4" />';
 echo"\n";
  
-print'		<guid>';
+print '		<guid>';
 print_r($items->{"id"});
-print'</guid>';
+print '</guid>';
 echo"\n";
  
-print'		<pubDate>';
+print '		<pubDate>';
 print_r(date(DATE_RFC2822,($items->{"published_at"})));
-print'</pubDate>';
+print '</pubDate>';
 echo"\n";
  
-print'		<itunes:duration>';
+print '		<itunes:duration>';
 print$duration = formatSeconds($items->{"duration"});
-print'</itunes:duration>';
+print '</itunes:duration>';
 echo"\n";
 
-print'		<itunes:explicit>';
+print '		<itunes:explicit>';
 print_r($items->custom_fields->{"explicit"});
-print'</itunes:explicit>';
+print '</itunes:explicit>';
 echo"\n";
 
  
-print'	</item>';
+print '	</item>';
 echo"\n";
 }
 
 echo"\n";
 
-print'</channel>';
+print '</channel>';
 echo"\n";
-print'</rss>';
+print '</rss>';
 
 ?> 

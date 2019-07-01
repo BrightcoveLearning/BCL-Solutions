@@ -18,8 +18,6 @@
 // set the custom metadata values when you upload content.
 
 // CORS enablement and other headers
-header("Access-Control-Allow-Origin: *");
-header("Content-type: application/json");
 header("X-Content-Type-Options: nosniff");
 header("X-XSS-Protection");
 

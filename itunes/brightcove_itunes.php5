@@ -1,4 +1,4 @@
-<?php
+<?
 // Welcome to Carl's UPDATED sample Video Cloud iTunes feed
 
 // Please use this at your own risk.

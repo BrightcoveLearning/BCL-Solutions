@@ -17,7 +17,7 @@
 //3) You will have to manually or programmatically set the custom metadata values when you
 // upload content.
 
-
+echo 'App is running';
 
 // Please customize the variables below:
 

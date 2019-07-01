@@ -18,8 +18,8 @@
 // set the custom metadata values when you upload content.
 
 // CORS enablement and other headers
-header("X-Content-Type-Options: nosniff");
-header("X-XSS-Protection");
+// header("X-Content-Type-Options: nosniff");
+// header("X-XSS-Protection");
 
 
 // ****Please customize the variables below:****

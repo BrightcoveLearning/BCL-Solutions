@@ -24,7 +24,7 @@
 // This is the title of the podcast itself.
 $title = "Brightcove Test Podcast";
 // This is a link to where the podcast can be found.
-$link = "http://www.carlrutman.com/php/brightcove_itunes.php";
+$link = "http://solutions.brightcove.com/bcls/itunes/brightcove_itunes.php";
 // This is the language you display for this podcast.
 $lang = "en-us";
 // This is the copyright information.
@@ -32,7 +32,7 @@ $copyright = "&#x2117; &amp; &#xA9; 2019 Updated iTunes Feed";
 // This is the subtitle of the podcast.
 $subtitle = "iTunes Test XML FEED via the Video Cloud Playback APIs";
 // This is the author's name.
-$author = "Carl Rutman";
+$author = "Brightcove Learning Services";
 // The publication date of this iTunes Feed
 $pubDate = date("m-d-Y"); // OPTIONALLY USE THE "updated_at" VARIABLE FROM THE RETURNED JSON
 // This is the summary for the podcast.
@@ -40,22 +40,22 @@ $summary = "This is a sample iTunes XML generated from Video Cloud.";
 // This is a description of this iTunes Feed.
 $description= "Description of the Video Cloud iTunes Test Feed";
 // This is the owner's name.
-$ownername = "Carl Rutman";
+$ownername = "Brightcove Learning Services";
 // This is the owner's email address.
-$owneremail = "crutman@brightcove.com";
+$owneremail = "training@brightcove.com";
 // This is the podcast thumbnail image url.
-$imageurl = "http://www.carlrutman.com/php/logo.jpg";
+$imageurl = "http://solutions.brightcove.com/bcls/itunes/logo.png";
 // This is the podcast category.
 $category = "TV &amp; Film";
 // This is a yes or no boolean if the podcast is explicit.
 $explicit = "no";
 
 //Brightcove Account ID
-$accountId = "948002569001";
+$accountId = "1485884786001";
 // This is your Policy Key associated with your account. 
-$policyKey = "BCpkADawqM0WjAJnQCXelwCL_sudfR4HycluOT5LOImBPAfUCLn46vxR6hG7mMm1VoineewK4tkFbfDakfEwYInEMSa_fAJ7HxVMIN1ItBJHXEDYGMnPbJrkK0U";
+$policyKey = "BCpkADawqM1yb0iCVJhf0dpB_UdUGevqVx0X49TIQ_g8Hu_-kR9qLtWeaeuVs8BdiQd9K-fndVMVWVBnn38UkwUFgzWWxDBWt66m5ME4rkowAQjMozc6kcSAF10uVJDyTEceCIlkCBDdXsan";
 // The ID of the playlist you wish to publish.
-$playlistid = "6026675134001";
+$playlistid = "6053729108001";
 
 // This is the baseURL of the API endpoint you would like to use
 $baseURL = "https://edge.api.brightcove.com/playback/v1/accounts/";

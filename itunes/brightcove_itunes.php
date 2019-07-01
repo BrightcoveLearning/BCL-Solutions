@@ -68,44 +68,44 @@ $baseURL = "https://edge.api.brightcove.com/playback/v1/accounts/";
 
 // Please DO NOT alter the code below;
 print '<?xml version="1.0" encoding="UTF-8"?>';
-echo"\n";
+echo "\n";
 print '<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom">';
-echo"\n";
+echo "\n";
 print '<channel>';
-echo"\n";
+echo "\n";
 print '	<title>'. $title .'</title>';
-echo"\n";
+echo "\n";
 print '	<link>'. $link .'</link>';
-echo"\n";
+echo "\n";
 print '	<language>'. $lang .'</language>';
-echo"\n";
+echo "\n";
 print '	<copyright>'. $copyright .'</copyright>';
-echo"\n";
+echo "\n";
 print '	<itunes:subtitle>'. $subtitle .'</itunes:subtitle>';
-echo"\n";
+echo "\n";
 print '	<itunes:author>'. $author .'</itunes:author>';
-echo"\n";
+echo "\n";
 print '	<pubDate>'. $pubDate .'</pubDate>';
-echo"\n";
+echo "\n";
 print '	<itunes:summary><![CDATA['. $summary .']]></itunes:summary>';
-echo"\n";
+echo "\n";
 print '	<description><![CDATA['. $description .']]></description>';
-echo"\n";
+echo "\n";
 print '	<itunes:owner>';
-echo"\n";
+echo "\n";
 print '		<itunes:name>'. $ownername .'</itunes:name>';
-echo"\n";
+echo "\n";
 print '		<itunes:email>'. $owneremail .'</itunes:email>';
-echo"\n";
+echo "\n";
 print '	</itunes:owner>';
-echo"\n";
+echo "\n";
 print '	<itunes:image href="'. $imageurl .'" />';
-echo"\n";
+echo "\n";
 print '	<itunes:category text="'. $category .'"></itunes:category>';
-echo"\n";
+echo "\n";
 print '	<itunes:explicit>'. $explicit .'</itunes:explicit>');
-echo"\n";
-echo"\n";
+echo "\n";
+echo "\n";
 
 
 function formatSeconds( $seconds )
@@ -142,31 +142,31 @@ $returndata = json_decode($file_contents);
 foreach($returndata->videos as $items)
 {
 print '	<item>';
-echo"\n";
+echo "\n";
 print '		<title>';
 print_r($items->{"name"});
 print '</title>';
-echo"\n";
+echo "\n";
  
 print '		<itunes:author>';
 print_r($items->custom_fields->{"itunesartist"});
 print '</itunes:author>';
-echo"\n";
+echo "\n";
  
 print '		<itunes:subtitle>';
 print_r($items->{"description"});
 print '</itunes:subtitle>';
-echo"\n";
+echo "\n";
 
 print '		<itunes:summary>';
 print_r($items->{"description"});
 print '</itunes:summary>';
-echo"\n";
+echo "\n";
  
 print '		<itunes:image>';
 print_r($items->{"poster"});
 print '</itunes:image>';
-echo"\n";
+echo "\n";
  
 print '		<enclosure url="');
 $newurl = $items->sources[4]->{"src"};
@@ -174,37 +174,37 @@ print_r($newurl);
 print '" length="';
 print_r($items->{"duration"});
 print '" type="video/mp4" />';
-echo"\n";
+echo "\n";
  
 print '		<guid>';
 print_r($items->{"id"});
 print '</guid>';
-echo"\n";
+echo "\n";
  
 print '		<pubDate>';
 print_r(date(DATE_RFC2822,($items->{"published_at"})));
 print '</pubDate>';
-echo"\n";
+echo "\n";
  
 print '		<itunes:duration>';
 print$duration = formatSeconds($items->{"duration"});
 print '</itunes:duration>';
-echo"\n";
+echo "\n";
 
 print '		<itunes:explicit>';
 print_r($items->custom_fields->{"explicit"});
 print '</itunes:explicit>';
-echo"\n";
+echo "\n";
 
  
 print '	</item>';
-echo"\n";
+echo "\n";
 }
 
-echo"\n";
+echo "\n";
 
 print '</channel>';
-echo"\n";
+echo "\n";
 print '</rss>';
 
 ?> 

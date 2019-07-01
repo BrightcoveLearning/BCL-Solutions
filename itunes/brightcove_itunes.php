@@ -103,7 +103,7 @@ print '	<itunes:image href="'. $imageurl .'" />';
 echo "\n";
 print '	<itunes:category text="'. $category .'"></itunes:category>';
 echo "\n";
-print '	<itunes:explicit>'. $explicit .'</itunes:explicit>');
+print '	<itunes:explicit>'. $explicit .'</itunes:explicit>';
 echo "\n";
 echo "\n";
 
@@ -168,7 +168,7 @@ print_r($items->{"poster"});
 print '</itunes:image>';
 echo "\n";
  
-print '		<enclosure url="');
+print '		<enclosure url="';
 $newurl = $items->sources[4]->{"src"};
 print_r($newurl);
 print '" length="';
